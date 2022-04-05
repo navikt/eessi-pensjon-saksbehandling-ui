@@ -1,26 +1,17 @@
-import { mount, ReactWrapper } from 'enzyme'
-import SEDPanelHeader, { ActionsDiv, SedDiv, SEDPanelHeaderDiv } from './SEDPanelHeader'
+import { render, screen } from '@testing-library/react'
+import SEDPanelHeader from './SEDPanelHeader'
 
 describe('applications/BUC/components/SEDPanelHeader/SEDPanelHeader', () => {
-  let wrapper: ReactWrapper
-
-  beforeEach(() => {
-    wrapper = mount(<SEDPanelHeader />)
-  })
-
-  afterEach(() => {
-    wrapper.unmount()
-  })
-
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<SEDPanelHeader />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.exists(SEDPanelHeaderDiv)).toBeTruthy()
-    expect(wrapper.exists(ActionsDiv)).toBeTruthy()
-    expect(wrapper.exists(SedDiv)).toBeTruthy()
-    expect(wrapper.exists(SEDPanelHeaderDiv)).toBeTruthy()
+    render(<SEDPanelHeader />)
+    expect(screen.getByTestId('a_buc_c_SEDPanelHeader--sed')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_SEDPanelHeader--sender')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_SEDPanelHeader--receiver')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_SEDPanelHeader--actions')).toBeInTheDocument()
   })
 })

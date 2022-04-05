@@ -172,8 +172,11 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
   }
 
   return (
-    <BUCWebsocketDiv style={{ cursor: 'pointer' }} title={'websocket: ' + _status}>
-
+    <BUCWebsocketDiv
+      data-testid='a_buc_websocket'
+      style={{ cursor: 'pointer' }}
+      title={'websocket: ' + _status}
+    >
       <Modal
         open={_modal}
         modal={{

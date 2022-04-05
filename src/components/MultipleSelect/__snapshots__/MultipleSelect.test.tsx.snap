@@ -1386,7 +1386,7 @@ ui-fss.g4[id="c0"] {
                                               "value": "mockValue02",
                                             }
                                           }
-                                          data-test-id="c-multipleselect-multivaluelabel"
+                                          data-testid="c-multipleselect-multivaluelabel"
                                           id="mockMultipleSelectId"
                                           innerProps={
                                             Object {
@@ -1698,7 +1698,7 @@ ui-fss.g4[id="c0"] {
                                         <styled.div
                                           aria-label="Remove mockLabel02"
                                           className="css-xscnok multipleSelect__multi-value__remove"
-                                          data-test-id="c-multipleselect-multiplevalueremove"
+                                          data-testid="c-multipleselect-multiplevalueremove"
                                           onClick={[Function]}
                                           onMouseDown={[Function]}
                                           onTouchEnd={[Function]}
@@ -1707,7 +1707,7 @@ ui-fss.g4[id="c0"] {
                                           <div
                                             aria-label="Remove mockLabel02"
                                             className="c4 c5 css-xscnok multipleSelect__multi-value__remove"
-                                            data-test-id="c-multipleselect-multiplevalueremove"
+                                            data-testid="c-multipleselect-multiplevalueremove"
                                             onClick={[Function]}
                                             onMouseDown={[Function]}
                                             onTouchEnd={[Function]}

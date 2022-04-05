@@ -65,7 +65,7 @@ const PageNotification = () => {
       <RadioGroup
         value={'' + _show}
         error={validation['w-pagenotification-show']?.feilmelding}
-        data-test-id='w-pagenotification-show'
+        data-testid='w-pagenotification-show'
         id='w-pagenotification-show'
         data-no-border
         legend={t('ui:show-message') + ' *'}

@@ -188,7 +188,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
       <VerticalSeparatorDiv size='2' />
       {!_.isEmpty(_items) && (
         <JoarkBrowser
-          data-test-id='a-buc-c-sedbody__attachments-id'
+          data-testid='a_buc_c_sedbody--attachments-id'
           existingItems={_items}
           mode='view'
           onRowViewDelete={onRowViewDelete}
@@ -200,7 +200,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
         {!_attachmentsSent && _.find(_items, (item) => item.type === 'joark') !== undefined && (
           <Button
             variant='primary'
-            data-test-id='a-buc-c-sedbody__upload-button-id'
+            data-testid='a_buc_c_sedbody--upload-button-id'
             disabled={_sendingAttachments}
             onClick={onAttachmentsSubmitted}
           >
@@ -235,7 +235,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
             <>
               <Button
                 variant='secondary'
-                data-test-id='a-buc-c-sedbody__show-table-button-id'
+                data-testid='a_buc_c_sedbody--show-table-button-id'
                 onClick={() => !_attachmentsTableVisible ? onAttachmentsPanelOpen() : onAttachmentsPanelClose()}
               >
                 {t(_attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}

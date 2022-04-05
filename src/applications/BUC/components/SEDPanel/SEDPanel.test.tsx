@@ -1,20 +1,21 @@
 import SEDBody from 'applications/BUC/components/SEDBody/SEDBody'
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import { Buc, Sed } from 'declarations/buc'
-import { mount, ReactWrapper } from 'enzyme'
+import { render } from '@testing-library/react'
 import mockBucs from 'mocks/buc/bucs'
 import SEDPanel, { SEDPanelDiv, SEDPanelContainer, SEDPanelProps } from './SEDPanel'
 import { Accordion } from '@navikt/ds-react'
 
 jest.mock('applications/BUC/components/SEDHeader/SEDHeader', () => ({ children }: any) => (
-  <div data-test-id='mock-SEDHeader'>{children}</div>
+  <div data-testid='mock-SEDHeader'>{children}</div>
 ))
 
 jest.mock('applications/BUC/components/SEDBody/SEDBody', () => ({ children }: any) => (
-  <div data-test-id='mock-SEDBody'>{children}</div>
+  <div data-testid='mock-SEDBody'>{children}</div>
 ))
 
 describe('applications/BUC/components/SEDPanel/SEDPanel', () => {
+  let wrapper: any
   const buc: Buc = mockBucs()[0]
   const sed: Sed = buc.seds![0]
   sed.status = 'received'
@@ -27,19 +28,14 @@ describe('applications/BUC/components/SEDPanel/SEDPanel', () => {
     sed,
     style: {}
   }
-  let wrapper: ReactWrapper
 
   beforeEach(() => {
-    wrapper = mount(<SEDPanel {...initialMockProps} />)
-  })
-
-  afterEach(() => {
-    wrapper.unmount()
+    render(<SEDPanel {...initialMockProps} />)
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<SEDPanel {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {
@@ -62,7 +58,7 @@ describe('applications/BUC/components/SEDPanel/SEDPanel', () => {
         status: 'active'
       }
     }
-    wrapper = mount(<SEDPanel {...mockProps} />)
+    wrapper = render(<SEDPanel {...mockProps} />)
     expect(wrapper.exists(SEDPanelDiv)).toBeFalsy()
     expect(wrapper.exists(Accordion)).toBeTruthy()
   })
@@ -76,10 +72,10 @@ describe('applications/BUC/components/SEDPanel/SEDPanel', () => {
         status: 'active'
       }
     }
-    wrapper = mount(<SEDPanel {...mockProps} />)
+    wrapper = render(<SEDPanel {...mockProps} />)
     expect(wrapper.exists(SEDBody)).toBeFalsy()
 
-    wrapper.find(Accordion).find('.ekspanderbartPanel__hode').simulate('click')
+    wrapper.find(Accordion).find('.ekspanderbartPanel--hode').simulate('click')
     expect(wrapper.exists(SEDBody)).toBeTruthy()
   })
 })

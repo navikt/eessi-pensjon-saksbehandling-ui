@@ -115,11 +115,11 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
 
   return (
     <SEDAttachmentSenderDiv
-      data-test-id='a-buc-c-sedAttachmentSender__div-id'
+      data-testid='a_buc_c_sedAttachmentSender--div-id'
       className={className}
     >
       <ProgressBar
-        data-test-id='a-buc-c-sedAttachmentSender__progress-bar-id'
+        data-testid='a_buc_c_sedAttachmentSender--progress-bar-id'
         now={percentage}
         status={_status}
       >
@@ -138,7 +138,7 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
           <Button
             size='small'
             variant='secondary'
-            data-test-id='a-buc-c-sedAttachmentSender__cancel-button-id'
+            data-testid='a_buc_c_sedAttachmentSender--cancel-button-id'
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               e.preventDefault()
               e.stopPropagation()

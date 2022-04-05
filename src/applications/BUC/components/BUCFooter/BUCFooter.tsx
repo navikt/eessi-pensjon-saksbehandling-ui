@@ -33,18 +33,22 @@ const mapState = (state: State): BUCFooterSelector => ({
 })
 
 const BUCFooter: React.FC<BUCFooterProps> = ({
-  className
+  className, ...props
 }: BUCFooterProps): JSX.Element => {
   const { t } = useTranslation()
   const { rinaUrl }: BUCFooterSelector = useSelector<State, BUCFooterSelector>(mapState)
 
   return (
-    <BUCFooterDiv className={className}>
+    <BUCFooterDiv
+      data-testid='a_buc_c_BUCFooter'
+      className={className}
+      {...props}
+    >
       {rinaUrl
         ? (
           <Link
             data-amplitude='buc.list.rinaurl'
-            data-test-id='a-buc-c-bucfooter__gotorina-link'
+            data-testid='a_buc_c_BUCFooter--gotorina_link'
             href={rinaUrl}
             onClick={linkLogger}
             target='rinaWindow'
@@ -55,7 +59,10 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
           </Link>
           )
         : (
-          <WaitingPanel size='xsmall' />
+          <WaitingPanel
+            data-testid='a_buc_c_BUCFooter--waiting-panel'
+            size='xsmall'
+          />
           )}
     </BUCFooterDiv>
   )

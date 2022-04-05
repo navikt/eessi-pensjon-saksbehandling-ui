@@ -138,17 +138,17 @@ ui-fss.g54[id="c2"] {
           className="c0 c1"
         >
           <Styled(EESSIPensjonVeileder)
-            data-test-id="p-error__veileder-id"
+            data-testid="p-error__veileder-id"
             mood="trist"
           >
             <EESSIPensjonVeileder
               className="c2 c3"
-              data-test-id="p-error__veileder-id"
+              data-testid="p-error__veileder-id"
               mood="trist"
             >
               <div
                 className="c2 c3"
-                data-test-id="c-eessipensjonveileder"
+                data-testid="c-eessipensjonveileder"
               >
                 <img
                   alt="nav-trist-veileder"
@@ -168,20 +168,20 @@ ui-fss.g54[id="c2"] {
             />
           </styled.div>
           <Styled(Undertittel)
-            data-test-id="p-error__title-id"
+            data-testid="p-error__title-id"
           >
             <Undertittel
               className=""
-              data-test-id="p-error__title-id"
+              data-testid="p-error__title-id"
             >
               <TypografiBase
                 className=""
-                data-test-id="p-error__title-id"
+                data-testid="p-error__title-id"
                 type="undertittel"
               >
                 <h2
                   className="typo-undertittel "
-                  data-test-id="p-error__title-id"
+                  data-testid="p-error__title-id"
                 >
                   ui:error-404-title
                 </h2>
@@ -194,7 +194,7 @@ ui-fss.g54[id="c2"] {
                 "__html": "ui:error-404-description",
               }
             }
-            data-test-id="p-error__description-id"
+            data-testid="p-error__description-id"
           >
             <div
               className="c6 c7"
@@ -203,7 +203,7 @@ ui-fss.g54[id="c2"] {
                   "__html": "ui:error-404-description",
                 }
               }
-              data-test-id="p-error__description-id"
+              data-testid="p-error__description-id"
             />
           </styled.div>
           <Styled(ExpandingPanel)
@@ -212,7 +212,7 @@ ui-fss.g54[id="c2"] {
                 "id": "p-error__content-error-id",
               }
             }
-            data-test-id="p-error__content-error-id"
+            data-testid="p-error__content-error-id"
             heading="ui:error-header"
             id="p-error__content-error-id"
             onOpen={[Function]}
@@ -224,7 +224,7 @@ ui-fss.g54[id="c2"] {
                   "id": "p-error__content-error-id",
                 }
               }
-              data-test-id="p-error__content-error-id"
+              data-testid="p-error__content-error-id"
               heading="ui:error-header"
               id="p-error__content-error-id"
               onOpen={[Function]}
@@ -242,7 +242,7 @@ ui-fss.g54[id="c2"] {
                   <div
                     aria-expanded={false}
                     className="ekspanderbartPanel__hode"
-                    data-test-id="c-expandingpanel__head-id"
+                    data-testid="c-expandingpanel__head-id"
                     onClick={[Function]}
                     onKeyDown={[Function]}
                     role="button"
@@ -250,14 +250,14 @@ ui-fss.g54[id="c2"] {
                   >
                     <div
                       className="ekspanderbartPanel__flex-wrapper"
-                      data-test-id="c-expandingpanel__body-id"
+                      data-testid="c-expandingpanel__body-id"
                     >
                       ui:error-header
                       <button
                         aria-expanded={false}
                         aria-label="ui:open"
                         className="ekspanderbartPanel__knapp"
-                        data-test-id="c-expandingpanel__button-id"
+                        data-testid="c-expandingpanel__button-id"
                         onClick={[Function]}
                         onKeyDown={[Function]}
                         type="button"
@@ -278,7 +278,7 @@ ui-fss.g54[id="c2"] {
             </ExpandingPanel>
           </Styled(ExpandingPanel)>
           <div
-            data-test-id="p-error__footer-id"
+            data-testid="p-error__footer-id"
           >
             <styled.div>
               <div

@@ -60,7 +60,7 @@ export const S3InventoryIndex: React.FC<S3InventoryIndexProps> = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <Accordion data-test-id='w-s3inventory-id'>
+      <Accordion data-testid='w-s3inventory-id'>
         <Accordion.Item open={!widget.options.collapsed}>
           <Accordion.Header onClick={onClick}>
             <Heading size='medium'>{t('ui:s3inventory-title')}</Heading>

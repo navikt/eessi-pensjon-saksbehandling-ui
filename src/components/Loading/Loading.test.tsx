@@ -1,12 +1,12 @@
 import LoadingImage, { ImageDiv } from 'components/Loading/LoadingImage'
-import { TextDiv } from 'components/Loading/LoadingText'
-import { mount, ReactWrapper } from 'enzyme'
+import LoadingText, { TextDiv } from 'components/Loading/LoadingText'
+import { render } from '@testing-library/react'
 
 describe('components/Loading/LoadingImage', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
 
   beforeEach(() => {
-    wrapper = mount(<LoadingImage />)
+    wrapper = render(<LoadingImage />)
   })
 
   afterEach(() => {
@@ -14,8 +14,8 @@ describe('components/Loading/LoadingImage', () => {
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<LoadingImage />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {
@@ -24,10 +24,10 @@ describe('components/Loading/LoadingImage', () => {
 })
 
 describe('components/Loading/LoadingText', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
 
   beforeEach(() => {
-    wrapper = mount(<LoadingImage />)
+    wrapper = render(<LoadingText />)
   })
 
   afterEach(() => {
@@ -35,8 +35,8 @@ describe('components/Loading/LoadingText', () => {
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<LoadingText />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {

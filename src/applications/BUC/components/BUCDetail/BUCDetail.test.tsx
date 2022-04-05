@@ -1,6 +1,6 @@
 import { Buc } from 'declarations/buc'
 import { PersonAvdods } from 'declarations/person.d'
-import { mount, ReactWrapper } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import personAvdod from 'mocks/person/personAvdod'
 import mockBucs from 'mocks/buc/bucs'
 import moment from 'moment'
@@ -16,7 +16,6 @@ const buc: Buc = mockBucs()[0] as Buc
 const mockPersonAvdods: PersonAvdods | undefined = personAvdod(1)
 
 describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
-  let wrapper: ReactWrapper
   const initialMockProps: BUCDetailProps = {
     buc,
     personAvdods: mockPersonAvdods
@@ -24,27 +23,24 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
-    wrapper = mount(<BUCDetail {...initialMockProps} />)
-  })
-
-  afterEach(() => {
-    wrapper.unmount()
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
+    const { container } = render(<BUCDetail {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__panel-id\']')).toBeTruthy()
-    expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__status-id\']').hostNodes().render().text()).toEqual('buc:status-' + buc.status)
-    expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__creator-id\']').hostNodes().render().text()).toEqual('NO:NAVAT07')
-    expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__startDate-id\']').hostNodes().render().text()).toEqual(moment(new Date(buc.startDate as number)).format('DD.MM.YYYY'))
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__caseId-id\']')).toBeTruthy()
-    expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__gotorina-link-id\']').hostNodes().render().text()).toEqual(buc.caseId)
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__avdod-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__institutions-id\']')).toBeTruthy()
-    expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__institutionlist-id\']').render().text()).toEqual(['NO:NAVAT07', 'FR:DEMOFR01', 'GB:DEMOGB01', 'UK:DEMOUK01'].join(''))
+    render(<BUCDetail {...initialMockProps} />)
+    expect(screen.getByTestId('a_buc_c_BUCDetail--panel_id')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_BUCDetail--status_id')).toHaveTextContent('buc:status-' + buc.status)
+    expect(screen.getByTestId('a_buc_c_BUCDetail--creator_id')).toHaveTextContent('NO:NAVAT07')
+    expect(screen.getByTestId('a_buc_c_BUCDetail--startDate_id')).toHaveTextContent(moment(new Date(buc.startDate as number)).format('DD.MM.YYYY'))
+    expect(screen.getByTestId('a_buc_c_BUCDetail--caseId_id')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_BUCDetail--gotorina_link_id')).toHaveTextContent('' + buc.caseId)
+    expect(screen.queryByTestId('a_buc_c_BUCDetail--avdod_id')).not.toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_BUCDetail--institutions_id')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_BUCDetail--institutions_id')).toHaveTextContent(['Norge', 'NO:NAVAT07', 'Frankrike', 'FR:DEMOFR01', 'Storbritannia', 'GB:DEMOGB01', 'Storbritannia', 'UK:DEMOUK01'].join(''))
   })
 
   it('Render: P_BUC_02 BUCs have an avdod', () => {
@@ -65,8 +61,8 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
         }
       }
     }
-    wrapper = mount(<BUCDetail {...mockProps} />)
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__avdod-id\']')).toBeTruthy()
+    render(<BUCDetail {...mockProps} />)
+    expect(screen.getByTestId('a_buc_c_BUCDetail--avdod_id')).toBeInTheDocument()
   })
 
   it('Render: Show warning when buc is read only', () => {
@@ -77,14 +73,14 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
         readOnly: true
       }
     }
-    wrapper = mount(<BUCDetail {...mockProps} />)
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__readonly\']')).toBeTruthy()
+    render(<BUCDetail {...mockProps} />)
+    expect(screen.getByTestId('a_buc_c_BUCDetail--readonly')).toBeInTheDocument()
   })
 
   it('Render: no rinaUrl', () => {
     stageSelector(defaultSelector, { rinaUrl: undefined })
-    wrapper = mount(<BUCDetail {...initialMockProps} />)
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucdetail__gotorina-waiting-id\']')).toBeTruthy()
+    render(<BUCDetail {...initialMockProps} />)
+    expect(screen.getByTestId('a_buc_c_BUCDetail--gotorina_waiting_id')).toBeInTheDocument()
   })
 
   it('Render: no avdods', () => {
@@ -96,7 +92,7 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
         type: 'P_BUC_02'
       }
     }
-    wrapper = mount(<BUCDetail {...mockProps} />)
-    expect(wrapper.find('[data-test-id=\'a-buc-c-bucdetail__avdod-id\']').hostNodes().render().text()).toEqual('buc:form-noAvdod')
+    render(<BUCDetail {...mockProps} />)
+    expect(screen.getByTestId('a_buc_c_BUCDetail--avdod_id')).toHaveTextContent('buc:form-noAvdod')
   })
 })

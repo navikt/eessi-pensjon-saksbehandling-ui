@@ -1,20 +1,20 @@
-import { mount, ReactWrapper } from 'enzyme'
+import { render } from '@testing-library/react'
 import SEDStatus, { MyTag, SEDStatusProps } from './SEDStatus'
 
 describe('applications/BUC/components/SEDStatus/SEDStatus', () => {
-  let wrapper : ReactWrapper
+  let wrapper: any
+
   const initialMockProps: SEDStatusProps = {
     status: 'new'
   }
 
   it('Render: match snapshot', () => {
-    wrapper = mount(<SEDStatus {...initialMockProps} status='new' />)
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<SEDStatus {...initialMockProps} status='new' />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure for sent status', () => {
-    wrapper = mount(<SEDStatus {...initialMockProps} status='sent' />)
+    render(<SEDStatus {...initialMockProps} status='sent' />)
     expect(wrapper.exists(MyTag)).toBeTruthy()
     expect(wrapper.find(MyTag).props().type).toEqual('suksess')
   })

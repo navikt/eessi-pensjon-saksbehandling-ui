@@ -46,7 +46,7 @@ export interface InstitutionListProps {
 }
 
 const InstitutionList: React.FC<InstitutionListProps> = ({
-  className, flag = true, flagType = 'circle', institutions = [], locale, type = 'joined', oneLine = false
+  className, flag = true, flagType = 'circle', institutions = [], locale, type = 'joined', oneLine = false, ...props
 }: InstitutionListProps): JSX.Element => {
   const institutionList: InstitutionListMap<string> = {}
   const institutionNames: InstitutionNames = useSelector<State, InstitutionNames>(state => state.buc.institutionNames)
@@ -81,6 +81,7 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
     ? (
       <InstitutionListDiv
         className={className}
+        {...props}
       >
         <BodyLong>
           {t('buc:form-noInstitutionYet')}
@@ -97,10 +98,11 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
               <InstitutionListDiv
                 className={className}
                 key={landkode}
+                {...props}
               >
                 {type === 'joined' && (
                   <InstitutionDiv
-                    data-test-id='a-buc-c-institutionlist__div-id'
+                    data-testid='a_buc_c_institutionlist--div-id'
                     className={className}
                   >
                     {flag && (
@@ -121,7 +123,7 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
                 {type === 'separated' && institutionList[landkode].map((institution : string) => (
                   <InstitutionDiv
                     key={institution}
-                    data-test-id='a-buc-c-institutionlist__div-id'
+                    data-testid='a_buc_c_institutionlist--div-id'
                     className={className}
                   >
                     {flag && (

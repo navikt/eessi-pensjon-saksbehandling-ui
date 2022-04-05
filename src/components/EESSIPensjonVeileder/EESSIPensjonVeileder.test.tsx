@@ -1,17 +1,17 @@
-import { mount, ReactWrapper } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import EESSIPensjonVeileder from './EESSIPensjonVeileder'
 
 describe('components/EESSIPensjonVeileder/EESSIPensjonVeileder', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
+
   it('Render: match snapshot', () => {
-    wrapper = mount(<EESSIPensjonVeileder />)
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<EESSIPensjonVeileder />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: chooses veileder correctly', () => {
-    wrapper = mount(<EESSIPensjonVeileder mood='smilende' />)
-    expect(wrapper.exists('[data-test-id=\'c-eessipensjonveileder\']')).toBeTruthy()
+    wrapper = render(<EESSIPensjonVeileder mood='smilende' />)
+    expect(screen.getByTestId('c-eessipensjonveileder\']')).toBeTruthy()
     expect(wrapper.find('img').props().alt).toEqual('nav-smilende-veileder')
     wrapper.setProps({ mood: 'trist' })
     expect(wrapper.find('img').props().alt).toEqual('nav-trist-veileder')

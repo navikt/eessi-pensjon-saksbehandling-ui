@@ -15,8 +15,8 @@ export const JournalføringValidate = (
 ): boolean => {
   let hasError: boolean = false
   if (_.isEmpty(sed)) {
-    v['w-journalføring__sed-select-id'] = {
-      skjemaelementId: 'w-journalføring__sed-select-id',
+    v['w-journalføring--sed-select-id'] = {
+      skjemaelementId: 'w-journalføring--sed-select-id',
       feilmelding: t('jou:validation-noSed')
     } as ErrorElement
     hasError = true

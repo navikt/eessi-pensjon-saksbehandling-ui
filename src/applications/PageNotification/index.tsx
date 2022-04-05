@@ -60,7 +60,7 @@ export const PageNotificationIndex: React.FC<PageNotificationIndexProps> = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <Accordion data-test-id='w-pagenotification-id'>
+      <Accordion data-testid='w-pagenotification-id'>
         <Accordion.Item open={!widget.options.collapsed}>
           <Accordion.Header onClick={onClick}>
             <Heading size='medium'>{t('ui:page-notification-title')}</Heading>

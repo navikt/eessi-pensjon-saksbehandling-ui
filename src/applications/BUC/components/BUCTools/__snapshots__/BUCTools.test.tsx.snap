@@ -1070,19 +1070,19 @@ ui-fss.g137[id="c6"] {
 >
   <Styled(Styled(f))
     border={true}
-    data-test-id="a-buc-c-buctools__panel-id"
+    data-testid="a-buc-c-buctools__panel-id"
   >
     <f
       border={true}
       className="c0 c1 c2 c3"
-      data-test-id="a-buc-c-buctools__panel-id"
+      data-testid="a-buc-c-buctools__panel-id"
     >
       <div
         className="panel c0 c1 c2 c3 panel--border"
-        data-test-id="a-buc-c-buctools__panel-id"
+        data-testid="a-buc-c-buctools__panel-id"
       >
         <Styled(d)
-          data-test-id="a-buc-c-buctools__tabs-id"
+          data-testid="a-buc-c-buctools__tabs-id"
           defaultAktiv={0}
           onChange={[Function]}
           tabs={
@@ -1104,7 +1104,7 @@ ui-fss.g137[id="c6"] {
         >
           <d
             className="c4 c5"
-            data-test-id="a-buc-c-buctools__tabs-id"
+            data-testid="a-buc-c-buctools__tabs-id"
             defaultAktiv={0}
             kompakt={false}
             onChange={[Function]}
@@ -1128,13 +1128,13 @@ ui-fss.g137[id="c6"] {
             <d
               arrowKeysAutoSwitchTabs={true}
               className="c4 c5"
-              data-test-id="a-buc-c-buctools__tabs-id"
+              data-testid="a-buc-c-buctools__tabs-id"
               kompakt={false}
               onChange={[Function]}
             >
               <div
                 className="nav-frontend-tabs c4 c5"
-                data-test-id="a-buc-c-buctools__tabs-id"
+                data-testid="a-buc-c-buctools__tabs-id"
                 onChange={[Function]}
               >
                 <ul
@@ -1263,14 +1263,14 @@ ui-fss.g137[id="c6"] {
                   >
                     <Styled(u)
                       data-amplitude="buc.edit.tools.P5000.view"
-                      data-test-id="a-buc-c-buctools__P5000-button-id"
+                      data-testid="a-buc-c-buctools__P5000-button-id"
                       disabled={false}
                       onClick={[Function]}
                     >
                       <u
                         className="c14 c15"
                         data-amplitude="buc.edit.tools.P5000.view"
-                        data-test-id="a-buc-c-buctools__P5000-button-id"
+                        data-testid="a-buc-c-buctools__P5000-button-id"
                         disabled={false}
                         onClick={[Function]}
                       >
@@ -1278,7 +1278,7 @@ ui-fss.g137[id="c6"] {
                           autoDisableVedSpinner={false}
                           className="c14 c15"
                           data-amplitude="buc.edit.tools.P5000.view"
-                          data-test-id="a-buc-c-buctools__P5000-button-id"
+                          data-testid="a-buc-c-buctools__P5000-button-id"
                           disabled={false}
                           htmlType="submit"
                           inaktivKlasseVedDisabled={false}
@@ -1291,7 +1291,7 @@ ui-fss.g137[id="c6"] {
                           <button
                             className="knapp c14 c15 knapp--standard"
                             data-amplitude="buc.edit.tools.P5000.view"
-                            data-test-id="a-buc-c-buctools__P5000-button-id"
+                            data-testid="a-buc-c-buctools__P5000-button-id"
                             disabled={false}
                             onClick={[Function]}
                             type="submit"

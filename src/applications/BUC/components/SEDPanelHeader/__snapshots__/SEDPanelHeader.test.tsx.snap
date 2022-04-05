@@ -32,7 +32,6 @@ ui-fss.g2[id="c2"] {
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  border-bottom: 3px solid;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
   padding-left: 1rem;
@@ -54,82 +53,49 @@ ui-fss.g4[id="c4"] {
   content: "c5,";
 }
 
-<SEDPanelHeader
-  highContrast={false}
+<div
+  class="c0 c1"
+  data-testid="a_buc_c_SEDPanelHeader"
 >
-  <styled.div>
-    <div
-      className="c0 c1"
+  <div
+    class="c2 c3"
+    data-testid="a_buc_c_SEDPanelHeader--sed"
+  >
+    <p
+      class="navds-label"
     >
-      <styled.div>
-        <div
-          className="c2 c3"
-        >
-          <Element>
-            <TypografiBase
-              type="element"
-            >
-              <p
-                className="typo-element"
-              >
-                buc:form-sed
-              </p>
-            </TypografiBase>
-          </Element>
-        </div>
-      </styled.div>
-      <styled.div>
-        <div
-          className="c4 c5"
-        >
-          <Element>
-            <TypografiBase
-              type="element"
-            >
-              <p
-                className="typo-element"
-              >
-                buc:form-sender
-              </p>
-            </TypografiBase>
-          </Element>
-        </div>
-      </styled.div>
-      <styled.div>
-        <div
-          className="c4 c5"
-        >
-          <Element>
-            <TypografiBase
-              type="element"
-            >
-              <p
-                className="typo-element"
-              >
-                buc:form-receiver
-              </p>
-            </TypografiBase>
-          </Element>
-        </div>
-      </styled.div>
-      <styled.div>
-        <div
-          className="c6 c7"
-        >
-          <Element>
-            <TypografiBase
-              type="element"
-            >
-              <p
-                className="typo-element"
-              >
-                buc:form-actions
-              </p>
-            </TypografiBase>
-          </Element>
-        </div>
-      </styled.div>
-    </div>
-  </styled.div>
-</SEDPanelHeader>
+      buc:form-sed
+    </p>
+  </div>
+  <div
+    class="c4 c5"
+    data-testid="a_buc_c_SEDPanelHeader--sender"
+  >
+    <p
+      class="navds-label"
+    >
+      buc:form-sender
+    </p>
+  </div>
+  <div
+    class="c4 c5"
+    data-testid="a_buc_c_SEDPanelHeader--receiver"
+  >
+    <p
+      class="navds-label"
+    >
+      buc:form-receiver
+    </p>
+  </div>
+  <div
+    class="c6 c7"
+    data-testid="a_buc_c_SEDPanelHeader--actions"
+  >
+    <p
+      class="navds-label"
+    >
+      buc:form-actions
+    </p>
+  </div>
+</div>
 `;

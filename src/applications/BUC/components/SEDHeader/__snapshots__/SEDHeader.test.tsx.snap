@@ -1243,15 +1243,15 @@ ui-fss.g138[id="c14"] {
                 className="c6 c7"
               >
                 <Element
-                  data-test-id="a-buc-c-sedheader__name-id"
+                  data-testid="a-buc-c-sedheader__name-id"
                 >
                   <TypografiBase
-                    data-test-id="a-buc-c-sedheader__name-id"
+                    data-testid="a-buc-c-sedheader__name-id"
                     type="element"
                   >
                     <p
                       className="typo-element"
-                      data-test-id="a-buc-c-sedheader__name-id"
+                      data-testid="a-buc-c-sedheader__name-id"
                     >
                       P2000
                        - buc:buc-P2000
@@ -1277,10 +1277,10 @@ ui-fss.g138[id="c14"] {
                       }
                     >
                       <div
-                        data-test-id="mock-tooltip"
+                        data-testid="mock-tooltip"
                       >
                         <SEDStatus
-                          data-test-id="a-buc-c-sedheader__status-id"
+                          data-testid="a-buc-c-sedheader__status-id"
                           status="received"
                         >
                           <Styled(EtikettBase)
@@ -1323,33 +1323,33 @@ ui-fss.g138[id="c14"] {
                         className="c14 c15"
                       >
                         <Normaltekst
-                          data-test-id="a-buc-c-sedheader__version-date-id"
+                          data-testid="a-buc-c-sedheader__version-date-id"
                         >
                           <TypografiBase
-                            data-test-id="a-buc-c-sedheader__version-date-id"
+                            data-testid="a-buc-c-sedheader__version-date-id"
                             type="normaltekst"
                           >
                             <p
                               className="typo-normal"
-                              data-test-id="a-buc-c-sedheader__version-date-id"
+                              data-testid="a-buc-c-sedheader__version-date-id"
                             >
                               29.05.2019
                             </p>
                           </TypografiBase>
                         </Normaltekst>
                         <Normaltekst
-                          data-test-id="a-buc-c-sedheader__version-id"
+                          data-testid="a-buc-c-sedheader__version-id"
                         >
                           <TypografiBase
-                            data-test-id="a-buc-c-sedheader__version-id"
+                            data-testid="a-buc-c-sedheader__version-id"
                             type="normaltekst"
                           >
                             <p
                               className="typo-normal"
-                              data-test-id="a-buc-c-sedheader__version-id"
+                              data-testid="a-buc-c-sedheader__version-id"
                             >
                               ui:version
-                              : 
+                              :
                               5
                             </p>
                           </TypografiBase>
@@ -1365,7 +1365,7 @@ ui-fss.g138[id="c14"] {
                 className="c16 c17"
               >
                 <InstitutionList
-                  data-test-id="a-buc-c-sedheader__institutions-id"
+                  data-testid="a-buc-c-sedheader__institutions-id"
                   institutions={
                     Array [
                       Object {
@@ -1386,12 +1386,12 @@ ui-fss.g138[id="c14"] {
                       className="c18 c19"
                     >
                       <styled.div
-                        data-test-id="a-buc-c-institutionlist__div-id"
+                        data-testid="a-buc-c-institutionlist__div-id"
                         key="NO:DEMONO02"
                       >
                         <div
                           className="c20 c21"
-                          data-test-id="a-buc-c-institutionlist__div-id"
+                          data-testid="a-buc-c-institutionlist__div-id"
                         >
                           <Yh
                             animate={true}
@@ -1566,7 +1566,7 @@ ui-fss.g138[id="c14"] {
                                   }
                                 >
                                   <div
-                                    data-test-id="mock-tooltip"
+                                    data-testid="mock-tooltip"
                                   >
                                     <styled.div
                                       className="size-S type-circle animate"
@@ -1624,7 +1624,7 @@ ui-fss.g138[id="c14"] {
                 className="c16 c17"
               >
                 <InstitutionList
-                  data-test-id="a-buc-c-sedheader__institutions-id"
+                  data-testid="a-buc-c-sedheader__institutions-id"
                   institutions={
                     Array [
                       Object {
@@ -1645,12 +1645,12 @@ ui-fss.g138[id="c14"] {
                       className="c18 c19"
                     >
                       <styled.div
-                        data-test-id="a-buc-c-institutionlist__div-id"
+                        data-testid="a-buc-c-institutionlist__div-id"
                         key="NO:DEMONO01"
                       >
                         <div
                           className="c20 c21"
-                          data-test-id="a-buc-c-institutionlist__div-id"
+                          data-testid="a-buc-c-institutionlist__div-id"
                         >
                           <Yh
                             animate={true}
@@ -1825,7 +1825,7 @@ ui-fss.g138[id="c14"] {
                                   }
                                 >
                                   <div
-                                    data-test-id="mock-tooltip"
+                                    data-testid="mock-tooltip"
                                   >
                                     <styled.div
                                       className="size-S type-circle animate"
@@ -1879,11 +1879,11 @@ ui-fss.g138[id="c14"] {
               </div>
             </styled.div>
             <styled.div
-              data-test-id="a-buc-c-sedheader__actions-id"
+              data-testid="a-buc-c-sedheader__actions-id"
             >
               <div
                 className="c28 c29"
-                data-test-id="a-buc-c-sedheader__actions-id"
+                data-testid="a-buc-c-sedheader__actions-id"
               >
                 <Component
                   overlay={
@@ -1899,14 +1899,14 @@ ui-fss.g138[id="c14"] {
                   }
                 >
                   <div
-                    data-test-id="mock-tooltip"
+                    data-testid="mock-tooltip"
                   >
                     <styled.div
-                      data-test-id="a-buc-c-sedheader__actions-attachments"
+                      data-testid="a-buc-c-sedheader__actions-attachments"
                     >
                       <div
                         className=""
-                        data-test-id="a-buc-c-sedheader__actions-attachments"
+                        data-testid="a-buc-c-sedheader__actions-attachments"
                       >
                         <FilledPaperClipIcon>
                           <svg
@@ -1944,7 +1944,7 @@ ui-fss.g138[id="c14"] {
                 </Component>
                 <Styled(u)
                   data-amplitude="buc.edit.besvarSed"
-                  data-test-id="a-buc-c-sedheader__answer-button-id"
+                  data-testid="a-buc-c-sedheader__answer-button-id"
                   disabled={false}
                   mini={true}
                   onClick={[Function]}
@@ -1952,7 +1952,7 @@ ui-fss.g138[id="c14"] {
                   <u
                     className="c30 c31"
                     data-amplitude="buc.edit.besvarSed"
-                    data-test-id="a-buc-c-sedheader__answer-button-id"
+                    data-testid="a-buc-c-sedheader__answer-button-id"
                     disabled={false}
                     mini={true}
                     onClick={[Function]}
@@ -1961,7 +1961,7 @@ ui-fss.g138[id="c14"] {
                       autoDisableVedSpinner={false}
                       className="c30 c31"
                       data-amplitude="buc.edit.besvarSed"
-                      data-test-id="a-buc-c-sedheader__answer-button-id"
+                      data-testid="a-buc-c-sedheader__answer-button-id"
                       disabled={false}
                       htmlType="submit"
                       inaktivKlasseVedDisabled={false}
@@ -1974,7 +1974,7 @@ ui-fss.g138[id="c14"] {
                       <button
                         className="knapp c30 c31 knapp--flat knapp--mini"
                         data-amplitude="buc.edit.besvarSed"
-                        data-test-id="a-buc-c-sedheader__answer-button-id"
+                        data-testid="a-buc-c-sedheader__answer-button-id"
                         disabled={false}
                         onClick={[Function]}
                         type="submit"

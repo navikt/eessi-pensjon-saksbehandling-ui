@@ -165,8 +165,8 @@ const Footer: React.FC<FooterProps> = ({
         {footerOpen && (
           <FormDiv>
             <FooterSelect
-              data-test-id='c-footer__select-id'
-              id='c-footer__select-id'
+              data-testid='c-footer--select-id'
+              id='c-footer--select-id'
               label=''
               onChange={onSetParamName}
             >
@@ -177,15 +177,15 @@ const Footer: React.FC<FooterProps> = ({
             </FooterSelect>
             <FooterInput
               label=''
-              data-test-id='c-footer__input-id'
-              id='c-footer__input-id'
+              data-testid='c-footer--input-id'
+              id='c-footer--input-id'
               value={_paramValue || ''}
               onChange={onSetParamValue}
             />
             <Button
               size='small'
               variant='tertiary'
-              data-test-id='c-footer__add-button-id'
+              data-testid='c-footer--add-button-id'
               onClick={onSetParam}
             >
               <AddCircle />
@@ -205,8 +205,8 @@ const Footer: React.FC<FooterProps> = ({
             return params[param] && (
               <ParamDiv key={param}>
                 <Tag
-                  className='c-footer__param-string'
-                  data-test-id='c-footer__param-string'
+                  className='c-footer--param-string'
+                  data-testid='c-footer--param-string'
                   variant='info'
                 >
                   <b>{param}</b> {params[param]}
@@ -214,7 +214,7 @@ const Footer: React.FC<FooterProps> = ({
                 <Button
                   size='small'
                   variant='tertiary'
-                  data-test-id='c-footer__remove-button'
+                  data-testid='c-footer--remove-button'
                   onClick={() => onUnsetParam(param)}
                 >
                   <ErrorFilled />

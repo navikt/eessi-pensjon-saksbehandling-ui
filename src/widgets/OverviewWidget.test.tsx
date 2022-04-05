@@ -1,11 +1,13 @@
 import { WidgetProps } from '@navikt/dashboard'
-import { mount, ReactWrapper } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+
 import OverviewWidget from './OverviewWidget'
 
 jest.mock('widgets/Overview/Overview', () => () => (<div className='mock-w-overview' />))
 
 describe('widgets/OverviewWidget', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
+
   const initialMockProps: WidgetProps = {
     highContrast: false,
     labels: {},
@@ -28,7 +30,7 @@ describe('widgets/OverviewWidget', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<OverviewWidget {...initialMockProps} />)
+    wrapper = render(<OverviewWidget {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -36,12 +38,12 @@ describe('widgets/OverviewWidget', () => {
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<OverviewWidget {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: Has proper HTML structure', () => {
-    expect(wrapper.exists('[data-test-id=\'w-OverviewWidget\']')).toBeTruthy()
+    expect(screen.getByTestId('w-OverviewWidget\']')).toBeInTheDocument()
     expect(wrapper.find('.mock-w-overview')).toBeTruthy()
   })
 

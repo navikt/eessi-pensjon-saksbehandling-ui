@@ -1,7 +1,7 @@
 import { getUserInfo, login, setStatusParam } from 'actions/app'
 import * as routes from 'constants/routes'
-import { mount, ReactWrapper } from 'enzyme'
-import { RouteProps, Routes } from 'react-router-dom'
+import { render } from '@testing-library/react'
+import { Routes } from 'react-router-dom'
 import { stageSelector } from 'setupTests'
 import RequireAuth, { RequireAuthSelector } from './RequireAuth'
 
@@ -19,19 +19,19 @@ const defaultSelector: RequireAuthSelector = {
 }
 
 describe('components/RequireAuth/RequireAuth', () => {
-  let wrapper: ReactWrapper
-  const initialMockProps: RouteProps = {}
+  const initialMockProps = {}
+  let wrapper: any
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
   })
 
   afterEach(() => {
-    wrapper.unmount()
+
   })
 
   it('UseEffect: read status params', () => {
-    wrapper = mount(
+    render(
       <Routes>
         <RequireAuth {...initialMockProps} />
       </Routes>)
@@ -41,7 +41,7 @@ describe('components/RequireAuth/RequireAuth', () => {
   })
 
   it('UseEffect: ask for userInfo', () => {
-    wrapper = mount(
+    wrapper = render(
       <Routes>
         <RequireAuth {...initialMockProps} />
       </Routes>)
@@ -50,14 +50,14 @@ describe('components/RequireAuth/RequireAuth', () => {
 
   it('UseEffect: redirect for login', () => {
     stageSelector(defaultSelector, { loggedIn: false })
-    wrapper = mount(<RequireAuth {...initialMockProps} />)
+    wrapper = render(<RequireAuth {...initialMockProps} />)
     expect(login).toBeCalled();
     (login as jest.Mock).mockRestore()
   })
 
   it('UseEffect: no need for login redirect', () => {
     stageSelector(defaultSelector, { loggedIn: true })
-    wrapper = mount(
+    wrapper = render(
       <Routes>
         <RequireAuth {...initialMockProps} />
       </Routes>)
@@ -69,7 +69,7 @@ describe('components/RequireAuth/RequireAuth', () => {
       loggedIn: true,
       userRole: 'UNKNOWN'
     })
-    wrapper = mount(
+    wrapper = render(
       <Routes>
         <RequireAuth {...initialMockProps} />
       </Routes>)
@@ -82,7 +82,7 @@ describe('components/RequireAuth/RequireAuth', () => {
       loggedIn: true,
       userRole: 'SAKSBEHANDLER'
     })
-    wrapper = mount(
+    wrapper = render(
       <Routes>
         <RequireAuth {...initialMockProps} />
       </Routes>)

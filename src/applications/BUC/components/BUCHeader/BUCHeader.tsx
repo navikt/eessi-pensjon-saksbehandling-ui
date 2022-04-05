@@ -158,8 +158,8 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
       <LinkPanel.Title>
         <Heading
           size='small'
-          className='lenkepanel__heading'
-          data-test-id='a-buc-c-bucheader__title-id'
+          className='lenkepanel--heading'
+          data-testid='a_buc_c_BUCHeader--title_id'
         >
           {buc.type + ' - ' + getBucTypeLabel({
             t,
@@ -171,24 +171,24 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
       <LinkPanel.Description>
         <FlexRow>
           <LabelsDiv
-            data-test-id='a-buc-c-bucheader__label-id'
+            data-testid='a_buc_c_BUCHeader--label_id'
           >
             <PropertyDiv
-              data-test-id='a-buc-c-bucheader__label-date-id'
+              data-testid='a_buc_c_BUCHeader--label_date_id'
             >
               <BodyLong>
                 {t('ui:created')}: {moment(buc.startDate!).format('DD.MM.YYYY')}
               </BodyLong>
             </PropertyDiv>
             <PropertyDiv
-              data-test-id='a-buc-c-bucheader__label-owner-id'
+              data-testid='a_buc_c_BUCHeader--label_owner_id'
             >
               <RowText>
                 {t('buc:form-caseOwner') + ': '}
               </RowText>
               <InstitutionList
                 className='noMargin'
-                data-test-id='a-buc-c-bucheader__label-owner-institution-id'
+                data-testid='a_buc_c_BUCHeader--label_owner_institution_id'
                 flagType='circle'
                 institutions={[buc.creator!]}
                 locale={locale}
@@ -198,7 +198,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
             </PropertyDiv>
             {buc.caseId && (
               <PropertyDiv
-                data-test-id='a-buc-c-bucheader__label-case-id'
+                data-testid='a_buc_c_BUCHeader--label_case_id'
               >
                 {rinaUrl
                   ? (
@@ -206,7 +206,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                       {t('buc:form-caseNumberInRina') + ': '}
                       <RinaLink
                         data-amplitude='buc.list.buc.rinaUrl'
-                        data-test-id='a-buc-c-bucheader__label-case-gotorina-link-id'
+                        data-testid='a_buc_c_BUCHeader--label_case_gotorina_link_id'
                         href={rinaUrl + buc.caseId}
                         onClick={onRinaLinkClick}
                         target='rinaWindow'
@@ -222,7 +222,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
             )}
           </LabelsDiv>
           <IconsDiv
-            data-test-id='a-buc-c-bucheader__icon-id'
+            data-testid='a_buc_c_BUCHeader--icon_id'
           >
             {!_.isEmpty(flagItems) && (
               <FlagList
@@ -243,7 +243,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 )}
               >
                 <NumberOfSedsDiv
-                  data-test-id='a-buc-c-bucheader__icon-numberofseds-id'
+                  data-testid='a_buc_c_BUCHeader--icon_numberofseds_id'
                   data-icon-size={_flagSize}
                 >
                   {numberOfSeds}

@@ -19,12 +19,12 @@ ui-fss.g1[id="c0"] {
 
 <MultipleValueRemove>
   <styled.div
-    data-test-id="c-multipleselect-multiplevalueremove"
+    data-testid="c-multipleselect-multiplevalueremove"
     style={Object {}}
   >
     <div
       className="c0 c1"
-      data-test-id="c-multipleselect-multiplevalueremove"
+      data-testid="c-multipleselect-multiplevalueremove"
       style={Object {}}
     >
       <ForwardRef(SvgErrorFilled)

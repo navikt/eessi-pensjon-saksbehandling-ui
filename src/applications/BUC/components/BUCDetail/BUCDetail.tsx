@@ -64,7 +64,7 @@ const mapState = (state: State): BUCDetailSelector => ({
 })
 
 const BUCDetail: React.FC<BUCDetailProps> = ({
-  buc, className, personAvdods
+  buc, className, personAvdods, ...props
 }: BUCDetailProps): JSX.Element => {
   const { locale, rinaUrl }: BUCDetailSelector = useSelector<State, BUCDetailSelector>(mapState)
   const { t } = useTranslation()
@@ -77,11 +77,16 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
   })
 
   return (
-    <Panel border style={{ padding: '0px' }}>
+    <Panel
+      border
+      data-testid='a_buc_c_BUCDetail'
+      style={{ padding: '0px' }}
+      {...props}
+    >
       <Accordion
         style={{ borderRadius: '4px' }}
         className={className}
-        data-test-id='a-buc-c-bucdetail__panel-id'
+        data-testid='a_buc_c_BUCDetail--panel_id'
       >
         <Accordion.Item open={_open}>
           <Accordion.Header onClick={() => setOpen(!_open)} style={{ borderBottom: 'none' }}>
@@ -96,7 +101,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
           <Accordion.Content>
             {buc.readOnly && (
               <Alert
-                data-test-id='a-buc-c-bucdetail__readonly'
+                data-testid='a_buc_c_BUCDetail--readonly'
                 variant='warning'
               >
                 {t('message:alert-readOnlyBuc')}
@@ -110,7 +115,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
               </Dt>
               <Dd
                 className='odd'
-                data-test-id='a-buc-c-bucdetail__status-id'
+                data-testid='a_buc_c_BUCDetail--status_id'
               >
                 <BodyLong>
                   {t('buc:status-' + buc.status)}
@@ -121,7 +126,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                   {t('buc:form-caseOwner')}:
                 </Label>
               </Dt>
-              <Dd data-test-id='a-buc-c-bucdetail__creator-id'>
+              <Dd data-testid='a_buc_c_BUCDetail--creator_id'>
                 <InstitutionList
                   institutions={[buc.creator!]}
                   locale={locale}
@@ -135,7 +140,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
               </Dt>
               <Dd
                 className='odd'
-                data-test-id='a-buc-c-bucdetail__startDate-id'
+                data-testid='a_buc_c_BUCDetail--startDate_id'
               >
                 <BodyLong>
                   {moment(buc.startDate!).format('DD.MM.YYYY')}
@@ -146,12 +151,12 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                   {t('buc:form-rinaCaseNumber')}:
                 </Label>
               </Dt>
-              <Dd data-test-id='a-buc-c-bucdetail__caseId-id'>
+              <Dd data-testid='a_buc_c_BUCDetail--caseId_id'>
                 {rinaUrl
                   ? (
                     <Link
                       data-amplitude='buc.edit.detail.rinaurl'
-                      data-test-id='a-buc-c-bucdetail__gotorina-link-id'
+                      data-testid='a_buc_c_BUCDetail--gotorina_link_id'
                       href={rinaUrl + buc.caseId}
                       target='rinaWindow'
                       onClick={linkLogger}
@@ -160,7 +165,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                     </Link>
                     )
                   : (
-                    <WaitingPanel data-test-id='a-buc-c-bucdetail__gotorina-waiting-id' size='xsmall' />
+                    <WaitingPanel data-testid='a_buc_c_BUCDetail--gotorina_waiting_id' size='xsmall' />
                     )}
               </Dd>
               {bucsThatSupportAvdod(buc.type) && (
@@ -170,7 +175,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                       {t('buc:form-avdod')}:
                     </Label>
                   </Dt>
-                  <Dd className='odd' data-test-id='a-buc-c-bucdetail__avdod-id'>
+                  <Dd className='odd' data-testid='a_buc_c_BUCDetail--avdod_id'>
                     {avdod
                       ? (
                         <BodyLong>
@@ -189,9 +194,9 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
             <Heading size='small'>
               {t('buc:form-involvedInstitutions')}:
             </Heading>
-            <InstitutionListDiv data-test-id='a-buc-c-bucdetail__institutions-id'>
+            <InstitutionListDiv data-testid='a_buc_c_BUCDetail--institutions_id'>
               <InstitutionList
-                data-test-id='a-buc-c-bucdetail__institutionlist-id'
+                data-testid='a_buc_c_BUCDetail--institutionlist_id'
                 institutions={(buc.institusjon as Institutions)}
                 locale={locale}
                 type='separated'

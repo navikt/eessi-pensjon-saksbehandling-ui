@@ -428,19 +428,19 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if ((!kravDato || kravDato?.length === 0) && pesysContext === VEDTAKSKONTEKST) {
       return {
         feilmelding: t('message:validation-chooseKravDato'),
-        skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id'
+        skjemaelementId: 'a_buc_c_sedstart--kravDato-input-id'
       } as ErrorElement
     }
     if (kravDato && !kravDato.match(/\d{2}-\d{2}-\d{4}/)) {
       return {
-        skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id',
+        skjemaelementId: 'a_buc_c_sedstart--kravDato-input-id',
         feilmelding: t('message:validation-badKravDato')
       } as ErrorElement
     }
     if (kravDato && !moment(kravDato, 'DD-MM-ÅÅÅÅ').isValid()) {
       return {
         feilmelding: t('message:validation-invalidKravDato'),
-        skjemaelementId: 'a-buc-c-sedstart__kravDato-input-id'
+        skjemaelementId: 'a_buc_c_sedstart--kravDato-input-id'
       } as ErrorElement
     }
     return undefined
@@ -450,7 +450,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (!sed) {
       return {
         feilmelding: t('message:validation-chooseSed'),
-        skjemaelementId: 'a-buc-c-sedstart__sed-select-id'
+        skjemaelementId: 'a_buc_c_sedstart--sed-select-id'
       } as ErrorElement
     }
     return undefined
@@ -460,7 +460,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (!bucHasSedsWithAtLeastOneInstitution() && _.isEmpty(institutions)) {
       return {
         feilmelding: t('message:validation-chooseInstitution'),
-        skjemaelementId: 'a-buc-c-sedstart__institution-select-id'
+        skjemaelementId: 'a_buc_c_sedstart--institution-select-id'
       } as ErrorElement
     }
     return undefined
@@ -470,7 +470,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (!bucHasSedsWithAtLeastOneInstitution() && _.isEmpty(country)) {
       return {
         feilmelding: t('message:validation-chooseCountry'),
-        skjemaelementId: 'a-buc-c-sedstart__country-select-id'
+        skjemaelementId: 'a_buc_c_sedstart--country-select-id'
       } as ErrorElement
     }
     return undefined
@@ -480,13 +480,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (!vedtakId) {
       return {
         feilmelding: t('message:validation-chooseVedtakId'),
-        skjemaelementId: 'a-buc-c-sedstart__vedtakid-input-id'
+        skjemaelementId: 'a_buc_c_sedstart--vedtakid-input-id'
       } as ErrorElement
     }
     if (!isNumber(vedtakId!)) {
       return {
         feilmelding: t('message:validation-invalidVedtakId'),
-        skjemaelementId: 'a-buc-c-sedstart__vedtakid-input-id'
+        skjemaelementId: 'a_buc_c_sedstart--vedtakid-input-id'
       } as ErrorElement
     }
     return undefined
@@ -496,7 +496,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (!kravOm) {
       return {
         feilmelding: t('message:validation-chooseKravOm'),
-        skjemaelementId: 'a-buc-c-sedstart__kravOm-radiogroup-id'
+        skjemaelementId: 'a_buc_c_sedstart--kravOm-radiogroup-id'
       } as ErrorElement
     }
     return undefined
@@ -521,7 +521,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     if (!_avdodOrSoker) {
       return {
         feilmelding: t('message:validation-chooseAvdodOrSoker'),
-        skjemaelementId: 'a-buc-c-sedstart__avdodorsoker-radiogroup-id'
+        skjemaelementId: 'a_buc_c_sedstart--avdodorsoker-radiogroup-id'
       } as ErrorElement
     }
     return undefined
@@ -988,13 +988,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         <Column>
           <VerticalSeparatorDiv size='2' />
           <>
-            <label className='navds-text-field__label navds-label'>
+            <label className='navds-text-field--label navds-label'>
               {t('buc:form-chooseSed')}
             </label>
             <Select
-              data-test-id='a-buc-c-sedstart__sed-select-id'
+              data-testid='a_buc_c_sedstart--sed-select-id'
               isDisabled={loading.gettingSedList}
-              id='a-buc-c-sedstart__sed-select-id'
+              id='a_buc_c_sedstart--sed-select-id'
               isSearchable
               error={_validation.sed ? t(_validation.sed.feilmelding) : undefined}
               menuPortalTarget={document.getElementById('main')}
@@ -1008,8 +1008,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <VerticalSeparatorDiv />
               <TextField
                 disabled
-                data-test-id='a-buc-c-sedstart__vedtakid-input-id'
-                id='a-buc-c-sedstart__vedtakid-input-id'
+                data-testid='a_buc_c_sedstart--vedtakid-input-id'
+                id='a_buc_c_sedstart--vedtakid-input-id'
                 label={t('buc:form-vedtakId') + (_.isEmpty(_vedtakId) ? ' - ' + t('buc:form-noVedtakId') : '')}
                 value={_vedtakId || ''}
                 onChange={onVedtakIdChange}
@@ -1021,11 +1021,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <>
               <VerticalSeparatorDiv />
               <FlexDiv
-                data-test-id='a-buc-c-sedstart__avdod-div-id'
+                data-testid='a_buc_c_sedstart--avdod-div-id'
               >
                 <People />
                 <HorizontalSeparatorDiv />
-                <label className='navds-text-field__label navds-label'>
+                <label className='navds-text-field--label navds-label'>
                   {t('buc:form-avdod')}:
                 </label>
                 <HorizontalSeparatorDiv />
@@ -1040,8 +1040,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <VerticalSeparatorDiv />
               <TextField
                 label={t('buc:form-chooseAvdodFnr')}
-                data-test-id='a-buc-c-sedstart__avdod-input-id'
-                id='a-buc-c-sedstart__avdod-input-id'
+                data-testid='a_buc_c_sedstart--avdod-input-id'
+                id='a_buc_c_sedstart--avdod-input-id'
                 onChange={onAvdodFnrChange}
                 value={_avdodFnr}
                 error={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : null}
@@ -1052,8 +1052,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <>
               <VerticalSeparatorDiv />
               <TextField
-                data-test-id='a-buc-c-sedstart__kravDato-input-id'
-                id='a-buc-c-sedstart__kravDato-input-id'
+                data-testid='a_buc_c_sedstart--kravDato-input-id'
+                id='a_buc_c_sedstart--kravDato-input-id'
                 label={t('buc:form-kravDato') + '(' + t('buc:form-kravDatoPlaceholder') + ')'}
                 value={_kravDato}
                 onChange={onKravDatoChange}
@@ -1066,7 +1066,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <VerticalSeparatorDiv />
               <RadioGroup
                 value={_kravOm as string}
-                data-test-id='a-buc-c-sedstart__kravOm-radiogroup-id'
+                data-testid='a_buc_c_sedstart--kravOm-radiogroup-id'
                 error={_validation.kravOm ? t(_validation.kravOm.feilmelding) : undefined}
                 legend={t('buc:form-kravOm')}
                 onChange={onKravOmChange}
@@ -1093,7 +1093,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <VerticalSeparatorDiv />
               <RadioGroup
                 value={_avdodOrSoker}
-                data-test-id='a-buc-c-sedstart__avdodorsoker-radiogroup-id'
+                data-testid='a_buc_c_sedstart--avdodorsoker-radiogroup-id'
                 error={_validation.avdodorsoker ? t(_validation.avdodorsoker.feilmelding) : null}
                 legend={t('buc:form-avdodorsøker')}
                 onChange={onAvdodOrSokerChange}
@@ -1110,12 +1110,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 ariaLabel={t('ui:country')}
                 aria-describedby='help-country'
                 closeMenuOnSelect={false}
-                data-test-id='a-buc-c-sedstart__country-select-id'
+                data-testid='a_buc_c_sedstart--country-select-id'
                 isDisabled={loading.gettingCountryList || isDisabled}
                 error={_validation.country ? t(_validation.country.feilmelding) : null}
                 flagType='circle'
                 hideSelectedOptions={false}
-                id='a-buc-c-sedstart__country-select-id'
+                id='a_buc_c_sedstart--country-select-id'
                 includeList={_countryIncludeList}
                 values={_countryValueList}
                 isLoading={loading.gettingCountryList}
@@ -1127,11 +1127,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <MultipleSelect<Option>
                 ariaLabel={t('ui:institution')}
                 aria-describedby='help-institution'
-                data-test-id='a-buc-c-sedstart__institution-select-id'
+                data-testid='a_buc_c_sedstart--institution-select-id'
                 isDisabled={loading.gettingInstitutionList || isDisabled}
                 error={_validation.institution ? t(_validation.institution.feilmelding) : undefined}
                 hideSelectedOptions={false}
-                id='a-buc-c-sedstart__institution-select-id'
+                id='a_buc_c_sedstart--institution-select-id'
                 isLoading={loading.gettingInstitutionList}
                 label={loading.gettingInstitutionList ? getSpinner('message:loading-institution') : t('buc:form-chooseInstitution')}
                 options={_institutionObjectList}
@@ -1161,7 +1161,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                   <VerticalSeparatorDiv size='2' />
                 </>
               )}
-              <label className='navds-text-field__label navds-label'>
+              <label className='navds-text-field--label navds-label'>
                 {t('buc:form-chosenInstitutions')}
               </label>
               <VerticalSeparatorDiv />
@@ -1187,7 +1187,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <Button
               variant={_sed === 'P7000' && _.isEmpty(_p6000s) ? 'secondary' : 'primary'}
               data-amplitude='sed.new.create'
-              data-test-id='a-buc-c-sedstart__forward-button-id'
+              data-testid='a_buc_c_sedstart--forward-button-id'
               disabled={loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)}
               onClick={onForwardButtonClick}
             >
@@ -1204,7 +1204,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <Button
               variant='tertiary'
               data-amplitude='sed.new.cancel'
-              data-test-id='a-buc-c-sedstart__cancel-button-id'
+              data-testid='a_buc_c_sedstart--cancel-button-id'
               onClick={onCancelButtonClick}
             >
               {t('ui:cancel')}
@@ -1217,7 +1217,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           {sedCanHaveAttachments() && (
             <>
               <VerticalSeparatorDiv size='2' />
-              <label className='navds-text-field__label navds-label'>
+              <label className='navds-text-field--label navds-label'>
                 {t('ui:attachments')}
               </label>
               <VerticalSeparatorDiv />

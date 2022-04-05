@@ -1,14 +1,13 @@
-import { mount, ReactWrapper } from 'enzyme'
+import { render, screen, fireEvent } from '@testing-library/react'
 import joarkBrowserItems from 'mocks/joark/items'
-import { Alert } from '@navikt/ds-react'
 import { stageSelector } from 'setupTests'
 import SEDAttachmentModal, { SEDAttachmentModalProps } from './SEDAttachmentModal'
 
 jest.mock('components/JoarkBrowser/JoarkBrowser', () => {
-  return () => <div data-test-id='mock-joarkbrowser' />
+  return () => <div data-testid='mock-joarkbrowser' />
 })
 
-jest.mock('components/Alert/Alert', () => () => <div data-test-id='mock-c-alert' />)
+jest.mock('components/Alert/Alert', () => () => <div data-testid='mock-c-alert' />)
 
 const defaultSelector = {
   alertType: undefined,
@@ -18,8 +17,6 @@ const defaultSelector = {
 }
 
 describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
-  let wrapper: ReactWrapper
-
   const initialMockProps: SEDAttachmentModalProps = {
     open: false,
     onFinishedSelection: jest.fn(),
@@ -30,20 +27,16 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
-    wrapper = mount(<SEDAttachmentModal {...initialMockProps} />)
-  })
-
-  afterEach(() => {
-    wrapper.unmount()
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<SEDAttachmentModal {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: Has proper HTML structure', () => {
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-sedattachmentmodal__joarkbrowser-id\']')).toBeTruthy()
+    render(<SEDAttachmentModal {...initialMockProps} />)
+    expect(screen.getByTestId('a_buc_c_sedattachmentmodal--joarkbrowser-id')).toBeTruthy()
   })
 
   it('Render: show alert inside modal if there is an error', () => {
@@ -51,13 +44,14 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
       clientErrorStatus: 'error',
       clientErrorMessage: 'something'
     })
-    wrapper = mount(<SEDAttachmentModal {...initialMockProps} />)
-    expect(wrapper.exists(Alert)).toBeTruthy()
+    render(<SEDAttachmentModal {...initialMockProps} />)
+    expect(screen.getByTestId('a_buc_c_sedattachmentmodal--alert_id')).toBeInTheDocument()
   })
 
   it('Handling: clicking ok', () => {
     (initialMockProps.onFinishedSelection as jest.Mock).mockReset()
-    wrapper.find('[data-test-id=\'c-modal__button-id-0\']').hostNodes().simulate('click')
+    render(<SEDAttachmentModal {...initialMockProps} />)
+    fireEvent.click(screen.getByTestId('c-modal--button-id-0'))
     expect(initialMockProps.onFinishedSelection).toHaveBeenCalled()
   })
 })

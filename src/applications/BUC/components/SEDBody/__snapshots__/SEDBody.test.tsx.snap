@@ -1068,7 +1068,7 @@ ui-fss.g32[id="c0"] {
         />
       </styled.div>
       <Component
-        data-test-id="a-buc-c-sedbody__attachments-id"
+        data-testid="a-buc-c-sedbody__attachments-id"
         existingItems={
           Array [
             Object {
@@ -1094,7 +1094,7 @@ ui-fss.g32[id="c0"] {
         tableId="viewsed-98492223b35240138503f58ec09454fa"
       >
         <div
-          data-test-id="mock-joarkbrowser"
+          data-testid="mock-joarkbrowser"
         />
       </Component>
       <styled.div>
@@ -1108,18 +1108,18 @@ ui-fss.g32[id="c0"] {
         />
       </styled.div>
       <Styled(u)
-        data-test-id="a-buc-c-sedbody__show-table-button-id"
+        data-testid="a-buc-c-sedbody__show-table-button-id"
         onClick={[Function]}
       >
         <u
           className="c3 c4"
-          data-test-id="a-buc-c-sedbody__show-table-button-id"
+          data-testid="a-buc-c-sedbody__show-table-button-id"
           onClick={[Function]}
         >
           <p
             autoDisableVedSpinner={false}
             className="c3 c4"
-            data-test-id="a-buc-c-sedbody__show-table-button-id"
+            data-testid="a-buc-c-sedbody__show-table-button-id"
             disabled={false}
             htmlType="submit"
             inaktivKlasseVedDisabled={false}
@@ -1131,7 +1131,7 @@ ui-fss.g32[id="c0"] {
           >
             <button
               className="knapp c3 c4 knapp--standard"
-              data-test-id="a-buc-c-sedbody__show-table-button-id"
+              data-testid="a-buc-c-sedbody__show-table-button-id"
               disabled={false}
               onClick={[Function]}
               type="submit"

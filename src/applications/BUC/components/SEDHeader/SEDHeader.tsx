@@ -163,7 +163,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
       <SEDHeaderContent>
         <SEDListStatusDiv>
           <Detail
-            data-test-id='a-buc-c-sedheader__name-id'
+            data-testid='a_buc_c_sedheader--name-id'
           >
             {sed.type}{sedLabel ? ' - ' + sedLabel : ''}
           </Detail>
@@ -177,14 +177,14 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 )}
             >
               <SEDStatus
-                data-test-id='a-buc-c-sedheader__status-id'
+                data-testid='a_buc_c_sedheader--status-id'
                 status={sed.type === 'P5000' && P5000Draft ? 'active' : sed.status}
               />
             </Tooltip>
             <HorizontalSeparatorDiv date-size='0.5' />
             <SEDVersion>
               <BodyLong
-                data-test-id='a-buc-c-sedheader__version-date-id'
+                data-testid='a_buc_c_sedheader--version-date-id'
               >
                 {sed.receiveDate
                   ? moment(sed.receiveDate).format('DD.MM.YYYY')
@@ -194,7 +194,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               </BodyLong>
               {sed.version && (
                 <BodyLong
-                  data-test-id='a-buc-c-sedheader__version-id'
+                  data-testid='a_buc_c_sedheader--version-id'
                 >
                   {t('ui:version')}{': '}{sed.version || '-'}
                 </BodyLong>
@@ -204,7 +204,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
         </SEDListStatusDiv>
         <SEDListInstitutionsDiv>
           <InstitutionList
-            data-test-id='a-buc-c-sedheader__institutions-id'
+            data-testid='a_buc_c_sedheader--institutions-id'
             locale={locale}
             type='separated'
             institutions={institutionSenderList}
@@ -212,14 +212,14 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
         </SEDListInstitutionsDiv>
         <SEDListInstitutionsDiv>
           <InstitutionList
-            data-test-id='a-buc-c-sedheader__institutions-id'
+            data-testid='a_buc_c_sedheader--institutions-id'
             locale={locale}
             type='separated'
             institutions={institutionReceiverList}
           />
         </SEDListInstitutionsDiv>
         <SEDListActionsDiv
-          data-test-id='a-buc-c-sedheader__actions-id'
+          data-testid='a_buc_c_sedheader--actions-id'
         >
           {!_.isEmpty(sed.attachments) && (
             <Tooltip
@@ -231,7 +231,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 )}
             >
               <SEDListAttachmentsDiv
-                data-test-id='a-buc-c-sedheader__actions-attachments'
+                data-testid='a_buc_c_sedheader--actions-attachments'
               >
                 <AttachmentFilled />
               </SEDListAttachmentsDiv>
@@ -242,7 +242,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               variant='secondary'
               disabled={buc.readOnly === true}
               data-amplitude='buc.edit.besvarSed'
-              data-test-id='a-buc-c-sedheader__answer-button-id'
+              data-testid='a_buc_c_sedheader--answer-button-id'
               onClick={onFollowUpSedClicked}
             >
               {t('buc:form-answerSED')}
@@ -257,7 +257,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               <Button
                 variant='secondary'
                 data-amplitude='buc.edit.p5000'
-                data-test-id='a-buc-c-sedheader__p5000-button-id'
+                data-testid='a_buc_c_sedheader--p5000-button-id'
                 onClick={() => {
                   setMode('p5000', 'forward', undefined, (
                     <P5000
@@ -289,7 +289,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 <Button
                   variant='secondary'
                   data-amplitude='buc.edit.p4000'
-                  data-test-id='a-buc-c-sedheader__p4000-button-id'
+                  data-testid='a_buc_c_sedheader--p4000-button-id'
                   onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
@@ -332,7 +332,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
       {sed.type === 'X100' &&
         _.find(sed.participants, p => p.role === 'Sender')?.organisation.countryCode === 'DE' && (
           <Alert
-            data-test-id='a-buc-c-sedheader__x100'
+            data-testid='a_buc_c_sedheader--x100'
             variant='warning'
           >
             {t('message:alert-X100')}

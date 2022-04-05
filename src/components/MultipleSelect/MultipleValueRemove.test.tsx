@@ -1,13 +1,13 @@
-import { mount, ReactWrapper } from 'enzyme'
+import { render } from '@testing-library/react'
 import MultipleValueRemove from './MultipleValueRemove'
 
 describe('components/MultipleSelect/MultipleValueRemove', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
   const initialMockProps = {}
 
   beforeEach(() => {
     // @ts-ignore
-    wrapper = mount(<MultipleValueRemove {...initialMockProps} />)
+    wrapper = render(<MultipleValueRemove {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -15,11 +15,11 @@ describe('components/MultipleSelect/MultipleValueRemove', () => {
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<MultipleValueRemove {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.find('[data-test-id=\'c-multipleselect-multiplevalueremove\']')).toBeTruthy()
+    expect(wrapper.find('[data-testid=\'c-multipleselect-multiplevalueremove\']')).toBeTruthy()
   })
 })

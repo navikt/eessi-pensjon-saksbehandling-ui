@@ -1,7 +1,8 @@
+import { within } from '@testing-library/dom'
 import { getTagList, saveBucsInfo } from 'actions/buc'
 import { Buc, BucInfo, BucsInfo, Comment, Comments, TagRawList } from 'declarations/buc.d'
 import { AllowedLocaleString } from 'declarations/app.d'
-import { mount, ReactWrapper } from 'enzyme'
+import { render, screen, fireEvent } from '@testing-library/react'
 import mockFeatureToggles from 'mocks/app/featureToggles'
 import mockBucs from 'mocks/buc/bucs'
 import mockTagList from 'mocks/buc/tagsList'
@@ -9,7 +10,7 @@ import mockBucsInfo from 'mocks/buc/bucsInfo'
 import mockP50001 from 'mocks/buc/sed_P5000_small1'
 import mockP50002 from 'mocks/buc/sed_P5000_small2'
 import { stageSelector } from 'setupTests'
-import BUCTools, { BUCToolsProps, TextArea } from './BUCTools'
+import BUCTools, { BUCToolsProps } from './BUCTools'
 import allTags from 'constants/tagsList'
 import { P5000sFromRinaMap } from 'declarations/p5000'
 
@@ -36,8 +37,6 @@ const buc: Buc = mockBucs()[0]
 const bucInfo: BucInfo = (mockBucsInfo as BucsInfo).bucs['' + buc.caseId]
 
 describe('applications/BUC/components/BUCTools/BUCTools', () => {
-  let wrapper: ReactWrapper
-
   const initialMockProps: BUCToolsProps = {
     aktoerId: '123',
     buc,
@@ -49,59 +48,56 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
-    wrapper = mount(<BUCTools {...initialMockProps} />)
-  })
-
-  afterEach(() => {
-    wrapper.unmount()
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<BUCTools {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML', () => {
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__panel-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__tabs-id\']')).toBeTruthy()
+    render(<BUCTools {...initialMockProps} />)
+    expect(screen.getByTestId('a_buc_c_buctools--panel-id')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_buctools--tabs-id')).toBeInTheDocument()
   })
 
   it('Render: has proper HTML: P5000 tab', () => {
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__P5000-button-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__tags-select-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__comment-textarea-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__comment-save-button-id\']')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_buctools--P5000-button-id')).toBeInTheDocument()
+    expect(screen.queryByTestId('a_buc_c_buctools--tags-select-id')).toBeFalsy()
+    expect(screen.queryByTestId('a_buc_c_buctools--comment-textarea-id')).toBeFalsy()
+    expect(screen.queryByTestId('a_buc_c_buctools--comment-save-button-id')).toBeFalsy()
   })
 
   it('Render: has proper HTML: tag tab', () => {
-    wrapper = mount(<BUCTools {...initialMockProps} initialTab={1} />)
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__P5000-button-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__tags-select-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__comment-textarea-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__comment-save-button-id\']')).toBeFalsy()
+    render(<BUCTools {...initialMockProps} initialTab={1} />)
+    expect(screen.queryByTestId('a_buc_c_buctools--P5000-button-id')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_buctools--tags-select-id')).toBeInTheDocument()
+    expect(screen.queryByTestId('a_buc_c_buctools--comment-textarea-id')).toBeFalsy()
+    expect(screen.queryByTestId('a_buc_c_buctools--comment-save-button-id')).toBeFalsy()
   })
 
   it('Render: has proper HTML: comment tab', () => {
-    wrapper = mount(<BUCTools {...initialMockProps} initialTab={2} />)
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__P5000-button-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__tags-select-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__comment-textarea-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__comment-save-button-id\']')).toBeTruthy()
+    render(<BUCTools {...initialMockProps} initialTab={2} />)
+    expect(screen.queryByTestId('a_buc_c_buctools--P5000-button-id')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_buctools--tags-select-id')).toBeFalsy()
+    expect(screen.getByTestId('a_buc_c_buctools--comment-textarea-id')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_buctools--comment-save-button-id')).toBeInTheDocument()
   })
 
   it('UseEffect: fetches tag list', () => {
     stageSelector(defaultSelector, { tagList: undefined })
-    mount(<BUCTools {...initialMockProps} />)
+    render(<BUCTools {...initialMockProps} />)
     expect(getTagList).toHaveBeenCalled()
   })
 
   it('Handling: Changing tags', () => {
     (initialMockProps.onTagChange as jest.Mock).mockReset()
-    wrapper = mount(<BUCTools {...initialMockProps} initialTab={1} />)
-    const tagSelect = wrapper.find('[data-test-id=\'a-buc-c-buctools__tags-select-id\']').find('input').hostNodes()
-    tagSelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
-    tagSelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
-    tagSelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })
+    render(<BUCTools {...initialMockProps} initialTab={1} />)
+    const select = within(screen.getByTestId('a_buc_c_BUCStart--tags-select-id')).getByRole('input')
+    fireEvent.keyDown(select, { key: 'ArrowDown' })
+    fireEvent.keyDown(select, { key: 'ArrowDown' })
+    fireEvent.keyDown(select, { key: 'Enter' })
+
     expect(initialMockProps.onTagChange).toHaveBeenCalledWith([{
       label: 'buc:tag-refusjonskrav',
       value: 'tag-refusjonskrav'
@@ -113,15 +109,15 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
 
   it('Handling: Changing comments', () => {
     (saveBucsInfo as jest.Mock).mockReset()
-    wrapper = mount(<BUCTools {...initialMockProps} initialTab={2} />)
+    render(<BUCTools {...initialMockProps} initialTab={2} />)
     const newComment = 'this is a new comment'
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-buctools__comment-textarea-id\']')).toBeTruthy()
-    expect(wrapper.find('[data-test-id=\'a-buc-c-buctools__comment-div-id\']').hostNodes().length).toEqual(bucInfo.comment!.length)
+    expect(screen.getByTestId('a_buc_c_buctools--comment-textarea-id')).toBeInTheDocument()
+    expect(screen.getAllByTestId('a_buc_c_buctools--comment-div-id').length).toEqual(bucInfo.comment!.length)
 
-    expect(wrapper.find(TextArea).props().value).toEqual('')
+    expect(screen.getByRole('textarea')).toHaveTextContext('')
 
-    wrapper.find('[data-test-id=\'a-buc-c-buctools__comment-textarea-id\']').hostNodes().simulate('change', { target: { value: newComment } })
-    wrapper.find('[data-test-id=\'a-buc-c-buctools__comment-save-button-id\']').hostNodes().simulate('click')
+    fireEvent.change(screen.getByTestId('a_buc_c_buctools--comment-textarea-id'), { target: { value: newComment } })
+    fireEvent.click(screen.getByTestId('a_buc_c_buctools--save-button-id'))
 
     expect(saveBucsInfo).toHaveBeenCalledWith(expect.objectContaining({
       comment: (bucInfo.comment as Comments)!.concat([{ value: newComment } as Comment])
@@ -131,12 +127,12 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   it('Handling: Deleting comments', () => {
     (saveBucsInfo as jest.Mock).mockReset()
     jest.spyOn(global, 'confirm' as any).mockReturnValueOnce(true)
-    wrapper = mount(<BUCTools {...initialMockProps} initialTab={2} />)
-    expect(wrapper.find('[data-test-id=\'a-buc-c-buctools__comment-div-id\']').hostNodes().length).toEqual(bucInfo.comment!.length)
+    render(<BUCTools {...initialMockProps} initialTab={2} />)
+    expect(screen.getAllByTestId('a_buc_c_buctools--comment-div-id').length).toEqual(bucInfo.comment!.length)
 
-    expect(wrapper.find(TextArea).props().value).toEqual('')
+    expect(screen.getByRole('textarea')).toHaveTextContext('')
 
-    wrapper.find('[data-test-id=\'a-buc-c-buctools__comment-delete-0-id\']').hostNodes().simulate('click')
+    fireEvent.click(screen.getByTestId('a_buc_c_buctools--comment-delete-0-id'))
 
     expect(saveBucsInfo).toHaveBeenCalledWith(expect.objectContaining({
       comment: (bucInfo.comment as Comments)!.splice(1, 1)
@@ -145,7 +141,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
 
   it('Handling: Loads SEDs for P5000', () => {
     (initialMockProps.setMode as jest.Mock).mockReset()
-    wrapper.find('[data-test-id=\'a-buc-c-buctools__P5000-button-id\']').hostNodes().simulate('click')
+    fireEvent.click(screen.getByTestId('a_buc_c_buctools--P5000-button-id'))
     expect(initialMockProps.setMode).toHaveBeenCalled()
   })
 })

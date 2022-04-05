@@ -136,7 +136,7 @@ ui-fss.g53[id="c0"] {
       <img
         alt="nav-man-icon"
         className=""
-        data-test-id="w-persontitle__img"
+        data-testid="w-persontitle__img"
         src="icon-mann.png"
         width={40}
       />
@@ -155,7 +155,7 @@ ui-fss.g53[id="c0"] {
             LEALAUS SAKS
              (
             41
-            ) - 
+            ) -
             personFnr
           </h2>
         </TypografiBase>

@@ -1,8 +1,9 @@
+
 import MultipleValueLabel from 'components/MultipleSelect/MultipleValueLabel'
-import { mount, ReactWrapper } from 'enzyme'
+import { render } from '@testing-library/react'
 
 describe('components/MultipleSelect/MultipleValueLabel', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
   const initialMockProps = {
     data: {
       label: 'mockLabel'
@@ -11,7 +12,7 @@ describe('components/MultipleSelect/MultipleValueLabel', () => {
 
   beforeEach(() => {
     // @ts-ignore
-    wrapper = mount(<MultipleValueLabel {...initialMockProps} />)
+    wrapper = render(<MultipleValueLabel {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -19,13 +20,13 @@ describe('components/MultipleSelect/MultipleValueLabel', () => {
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<MultipleValueLabel {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.find('[data-test-id=\'c-multipleselect-multivaluelabel\']')).toBeTruthy()
-    expect(wrapper.find('[data-test-id=\'c-multipleselect-multivaluelabel\']').render().text().trim()).toEqual(
+    expect(wrapper.find('[data-testid=\'c-multipleselect-multivaluelabel\']')).toBeTruthy()
+    expect(wrapper.find('[data-testid=\'c-multipleselect-multivaluelabel\']').render().text().trim()).toEqual(
       initialMockProps.data.label
     )
   })

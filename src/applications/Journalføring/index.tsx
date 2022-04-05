@@ -61,7 +61,7 @@ export const JournalføringIndex: React.FC<JournalføringIndexProps> = ({
     return (
       <Alert
         variant='warning'
-        data-test-id='w-overview__alert'
+        data-testid='w-overview--alert'
       >
         {t('message:validation-noAktoerId')}
       </Alert>

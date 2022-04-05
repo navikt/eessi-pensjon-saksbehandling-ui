@@ -53,7 +53,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
     }
     return (
       <Element
-        id={'w-overview-personPanel__element-' + label.replace('ui:', '')}
+        id={'w-overview-personPanel--element-' + label.replace('ui:', '')}
       >
         <Detail>
           <strong>
@@ -223,7 +223,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
                   ? personAvdods.map((avdod: PersonAvdod) => (
                     <Element
                       key={avdod.fnr}
-                      id='w-overview-personPanel__element-deceased'
+                      id='w-overview-personPanel--element-deceased'
                     >
                       <HorizontalSeparatorDiv />
                       <BodyLong>
@@ -237,7 +237,7 @@ const PersonPanel: React.FC<PersonPanelProps> = ({
                   : (
                     <Element
                       key='noAvdod'
-                      id='w-overview-personPanel__element-deceased'
+                      id='w-overview-personPanel--element-deceased'
                     >
                       <HorizontalSeparatorDiv />
                       <BodyLong>

@@ -239,11 +239,11 @@ const BUCTools: React.FC<BUCToolsProps> = ({
 
     <BUCToolsPanel
       border
-      data-test-id='a-buc-c-buctools__panel-id'
+      data-testid='a_buc_c_buctools--panel-id'
     >
       <>
         <HighContrastTabs
-          data-test-id='a-buc-c-buctools__tabs-id'
+          data-testid='a_buc_c_buctools--tabs-id'
           onChange={(e: any, i: number) => setActiveTab(i)}
           tabs={tabs}
           defaultAktiv={_activeTab}
@@ -259,7 +259,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 <Button
                   variant='secondary'
                   data-amplitude='buc.edit.tools.P5000.view'
-                  data-test-id='a-buc-c-buctools__P5000-button-id'
+                  data-testid='a_buc_c_buctools--P5000-button-id'
                   disabled={!hasP5000s()}
                   onClick={onGettingP5000Click}
                 >
@@ -296,7 +296,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
               <MultipleSelect<Tag>
                 ariaLabel={t('buc:form-tagsForBUC')}
                 aria-describedby='help-tags'
-                data-test-id='a-buc-c-buctools__tags-select-id'
+                data-testid='a_buc_c_buctools--tags-select-id'
                 hideSelectedOptions={false}
                 onSelect={onTagsChange}
                 options={_allTags}
@@ -314,7 +314,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
               {_originalComments
                 ? (_originalComments as Comments)?.map((comment: Comment, i: number) => (
                   <CommentDiv
-                    data-test-id='a-buc-c-buctools__comment-div-id'
+                    data-testid='a_buc_c_buctools--comment-div-id'
                     key={i}
                   >
                     <BodyLong>
@@ -322,7 +322,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                     </BodyLong>
                     <RemoveComment>
                       <Delete
-                        data-test-id={'a-buc-c-buctools__comment-delete-' + i + '-id'}
+                        data-testid={'a_buc_c_buctools--comment-delete-' + i + '-id'}
                         width={20}
                         onClick={() => onDeleteComment(i)}
                       />
@@ -336,15 +336,15 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                   )}
               <VerticalSeparatorDiv size='0.5' />
               <TextArea
-                data-test-id='a-buc-c-buctools__comment-textarea-id'
-                className='skjemaelement__input'
+                data-testid='a_buc_c_buctools--comment-textarea-id'
+                className='skjemaelement--input'
                 label=''
                 value={_comment || ''}
                 onChange={onCommentChange}
               />
               <Button
                 variant='secondary'
-                data-test-id='a-buc-c-buctools__comment-save-button-id'
+                data-testid='a_buc_c_buctools--comment-save-button-id'
                 disabled={loading.savingBucsInfo}
                 onClick={onSaveCommentClick}
               >

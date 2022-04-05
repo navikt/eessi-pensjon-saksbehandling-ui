@@ -1,6 +1,6 @@
-import { mount, ReactWrapper } from 'enzyme'
 import { stageSelector } from 'setupTests'
 import InstitutionList, { InstitutionListProps } from './InstitutionList'
+import { render, screen } from '@testing-library/react'
 
 // InstitutionNames
 const defaultSelector = {
@@ -9,7 +9,6 @@ const defaultSelector = {
 }
 
 describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
-  let wrapper: ReactWrapper
   const initialMockProps: InstitutionListProps = {
     institutions: [{
       country: 'NO',
@@ -26,27 +25,23 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
   })
 
   beforeEach(() => {
-    wrapper = mount(<InstitutionList {...initialMockProps} />)
-  })
-
-  afterEach(() => {
-    wrapper.unmount()
+    render(<InstitutionList {...initialMockProps} />)
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<InstitutionList {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: Has proper HTML structure with joined type', () => {
-    expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes()).toHaveLength(1)
-    expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes().render().text()).toEqual('Mock1, Mock2')
+    expect(screen.getAllByTestId('a_buc_c_institutionlist--div-id')).toHaveLength(1)
+    expect(screen.getByTestId('a_buc_c_institutionlist--div-id')).toHaveTextContent('Mock1, Mock2')
   })
 
   it('Render: Has proper HTML structure with separated type', () => {
-    wrapper = mount(<InstitutionList {...initialMockProps} type='separated' />)
-    expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes()).toHaveLength(2)
-    expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes().first().render().text()).toEqual('Mock1')
-    expect(wrapper.find('[data-test-id=\'a-buc-c-institutionlist__div-id\']').hostNodes().last().render().text()).toEqual('Mock2')
+    render(<InstitutionList {...initialMockProps} type='separated' />)
+    expect(screen.getAllByTestId('a_buc_c_institutionlist--div-id')).toHaveLength(2)
+    expect(screen.getAllByTestId('a_buc_c_institutionlist--div-id')[0]).toHaveTextContent('Mock1')
+    expect(screen.getAllByTestId('a_buc_c_institutionlist--div-id')[1]).toHaveTextContent('Mock2')
   })
 })

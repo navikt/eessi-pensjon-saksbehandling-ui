@@ -1,15 +1,16 @@
+import { render } from '@testing-library/react'
 import Select from 'components/Select/Select'
-import { mount, ReactWrapper } from 'enzyme'
+
 import ReactSelect from 'react-select'
 
 describe('components/Select/Select', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
   const initialMockProps = {
     error: undefined
   }
 
   beforeEach(() => {
-    wrapper = mount(<Select {...initialMockProps} />)
+    wrapper = render(<Select {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -17,8 +18,8 @@ describe('components/Select/Select', () => {
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<Select {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {

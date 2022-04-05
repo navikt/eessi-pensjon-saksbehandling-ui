@@ -10,12 +10,10 @@ import 'moment/locale/nb'
 import '@navikt/ds-css'
 import Pages from 'pages'
 import React, { Suspense } from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { applyMiddleware, combineReducers, compose, createStore, Store } from 'redux'
-import thunk from 'redux-thunk'
 import 'regenerator-runtime/runtime'
 import { unregister } from 'registerServiceWorker'
 import { createGlobalStyle } from 'styled-components/macro'
@@ -78,7 +76,9 @@ if (!IS_PRODUCTION) {
   Amplitude.init()
 }
 
-ReactDOM.render(
+const container = document.getElementById('root')
+const root = createRoot(container!)
+root.render(
   <React.StrictMode>
     <GlobalStyle />
     <I18nextProvider i18n={i18n}>
@@ -103,8 +103,7 @@ ReactDOM.render(
         </Suspense>
       </Provider>
     </I18nextProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 )
 
 unregister()

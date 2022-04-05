@@ -3,7 +3,7 @@ import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import { bucFilter, pbuc02filter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import { VEDTAKSKONTEKST } from 'constants/constants'
 import * as storage from 'constants/storage'
-import { mount, ReactWrapper } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import _ from 'lodash'
 import personAvdod from 'mocks/person/personAvdod'
 import mockBucs from 'mocks/buc/bucs'
@@ -64,14 +64,15 @@ const defaultSelector: BUCListSelector = {
 }
 
 describe('applications/BUC/pages/BUCList/BUCList', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
+
   const initialMockProps: BUCListProps = {
     setMode: jest.fn()
   }
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
-    wrapper = mount(<BUCList {...initialMockProps} />)
+    wrapper = render(<BUCList {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -79,24 +80,24 @@ describe('applications/BUC/pages/BUCList/BUCList', () => {
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    // expect(wrapper).toMatchSnapshot()
+    const { container } = render(<BUCList {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: loading BUCs', () => {
     stageSelector(defaultSelector, { loading: { gettingBucsList: true } })
-    wrapper = mount(<BUCList {...initialMockProps} />)
+    wrapper = render(<BUCList {...initialMockProps} />)
     expect(wrapper.exists(BUCLoadingDiv)).toBeTruthy()
   })
 
   it('UseEffect: fetch bucs info', () => {
     stageSelector(defaultSelector, {
       bucsInfoList: [
-        defaultSelector.aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO
+        defaultSelector.aktoerId + '--_' + storage.NAMESPACE_BUC + '--_' + storage.FILE_BUCINFO
       ],
       bucsInfo: undefined
     })
-    wrapper = mount(
+    wrapper = render(
       <BUCList {...initialMockProps} />
     )
     expect(fetchBucsInfo).toHaveBeenCalledWith(defaultSelector.aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO)
@@ -104,7 +105,7 @@ describe('applications/BUC/pages/BUCList/BUCList', () => {
 
   it('Render: has proper HTML structure', () => {
     expect(wrapper.exists(BUCListDiv)).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-p-buclist__newbuc-button-id\']')).toBeTruthy()
+    expect(screen.getByTestId('a-buc-p-buclist--newbuc-button-id')).toBeInTheDocument()
     expect(wrapper.find(BadBucDiv).length).toEqual(mockBucs().filter(buc => buc.error).length)
     expect(wrapper.find(BucLenkePanel).length).toEqual(mockBucs()
       .filter(bucFilter)
@@ -115,7 +116,7 @@ describe('applications/BUC/pages/BUCList/BUCList', () => {
 
   it('Handling: moves to open buc start when button pressed', () => {
     expect(wrapper.find(BUCStartDiv).props().className).toEqual('')
-    wrapper.find('[data-test-id=\'a-buc-p-buclist__newbuc-button-id\']').hostNodes().simulate('click')
+    wrapper.find('[data-testid=\'a-buc-p-buclist--newbuc-button-id').hostNodes().simulate('click')
     expect(wrapper.find(BUCStartDiv).props().className).toEqual('open')
   })
 

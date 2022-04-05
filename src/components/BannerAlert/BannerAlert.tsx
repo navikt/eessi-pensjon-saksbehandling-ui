@@ -17,7 +17,7 @@ export const BannerAlertDiv = styled(Alert)`
   width: 100%;
   border-radius: 0px !important;
   border: 0px !important;
-  .alertstripe__tekst {
+  .alertstripe--tekst {
     display: flex !important;
     justify-content: space-between;
     max-width: none !important;
@@ -85,7 +85,7 @@ export const BannerAlert: React.FC<BannerAlertProps> = ({
       {_message}
       {onClose && (
         <CloseIcon
-          data-test-id='c-alert__close-icon'
+          data-testid='c-alert--close-icon'
           onClick={onCloseIconClicked}
         />
       )}

@@ -170,7 +170,7 @@ ui-fss.g291[id="c4"] {
   waitForMount={false}
 >
   <div
-    data-test-id="a-buc-index"
+    data-testid="a-buc-index"
     key="bucIndexDiv"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}

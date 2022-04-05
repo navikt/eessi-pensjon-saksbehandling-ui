@@ -918,12 +918,12 @@ ui-fss.g50[id="c10"] {
                       >
                         <span>
                           ui:type
-                          : 
+                          :
                           p6000
                         </span>
                         <span>
                           ui:version
-                          : 
+                          :
                           1
                         </span>
                       </div>
@@ -935,14 +935,14 @@ ui-fss.g50[id="c10"] {
                     className="c2 c3 c5 c6"
                   >
                     <Styled(u)
-                      data-test-id="a-buc-c-sedstart__p6000-preview-123123123"
+                      data-testid="a-buc-c-sedstart__p6000-preview-123123123"
                       disabled={false}
                       onClick={[Function]}
                       spinner={false}
                     >
                       <u
                         className="c16 c17"
-                        data-test-id="a-buc-c-sedstart__p6000-preview-123123123"
+                        data-testid="a-buc-c-sedstart__p6000-preview-123123123"
                         disabled={false}
                         onClick={[Function]}
                         spinner={false}
@@ -950,7 +950,7 @@ ui-fss.g50[id="c10"] {
                         <p
                           autoDisableVedSpinner={false}
                           className="c16 c17"
-                          data-test-id="a-buc-c-sedstart__p6000-preview-123123123"
+                          data-testid="a-buc-c-sedstart__p6000-preview-123123123"
                           disabled={false}
                           htmlType="submit"
                           inaktivKlasseVedDisabled={false}
@@ -962,7 +962,7 @@ ui-fss.g50[id="c10"] {
                         >
                           <button
                             className="knapp c16 c17 knapp--flat"
-                            data-test-id="a-buc-c-sedstart__p6000-preview-123123123"
+                            data-testid="a-buc-c-sedstart__p6000-preview-123123123"
                             disabled={false}
                             onClick={[Function]}
                             type="submit"
@@ -979,7 +979,7 @@ ui-fss.g50[id="c10"] {
                     </styled.div>
                     <Styled(h)
                       checked={false}
-                      data-test-id="a-buc-c-sedstart__p6000-checkbox-123123123"
+                      data-testid="a-buc-c-sedstart__p6000-checkbox-123123123"
                       id="a-buc-c-sedstart__p6000-checkbox-123123123"
                       key="123123123"
                       label="ui:choose"
@@ -988,7 +988,7 @@ ui-fss.g50[id="c10"] {
                       <h
                         checked={false}
                         className="c18 c19"
-                        data-test-id="a-buc-c-sedstart__p6000-checkbox-123123123"
+                        data-testid="a-buc-c-sedstart__p6000-checkbox-123123123"
                         id="a-buc-c-sedstart__p6000-checkbox-123123123"
                         label="ui:choose"
                         onChange={[Function]}
@@ -1000,7 +1000,7 @@ ui-fss.g50[id="c10"] {
                             aria-invalid={false}
                             checked={false}
                             className="skjemaelement__input checkboks"
-                            data-test-id="a-buc-c-sedstart__p6000-checkbox-123123123"
+                            data-testid="a-buc-c-sedstart__p6000-checkbox-123123123"
                             id="a-buc-c-sedstart__p6000-checkbox-123123123"
                             onChange={[Function]}
                             type="checkbox"
@@ -1519,12 +1519,12 @@ ui-fss.g50[id="c10"] {
                       >
                         <span>
                           ui:type
-                          : 
+                          :
                           p6000
                         </span>
                         <span>
                           ui:version
-                          : 
+                          :
                           2
                         </span>
                       </div>
@@ -1536,14 +1536,14 @@ ui-fss.g50[id="c10"] {
                     className="c2 c3 c5 c6"
                   >
                     <Styled(u)
-                      data-test-id="a-buc-c-sedstart__p6000-preview-123123124"
+                      data-testid="a-buc-c-sedstart__p6000-preview-123123124"
                       disabled={false}
                       onClick={[Function]}
                       spinner={false}
                     >
                       <u
                         className="c16 c17"
-                        data-test-id="a-buc-c-sedstart__p6000-preview-123123124"
+                        data-testid="a-buc-c-sedstart__p6000-preview-123123124"
                         disabled={false}
                         onClick={[Function]}
                         spinner={false}
@@ -1551,7 +1551,7 @@ ui-fss.g50[id="c10"] {
                         <p
                           autoDisableVedSpinner={false}
                           className="c16 c17"
-                          data-test-id="a-buc-c-sedstart__p6000-preview-123123124"
+                          data-testid="a-buc-c-sedstart__p6000-preview-123123124"
                           disabled={false}
                           htmlType="submit"
                           inaktivKlasseVedDisabled={false}
@@ -1563,7 +1563,7 @@ ui-fss.g50[id="c10"] {
                         >
                           <button
                             className="knapp c16 c17 knapp--flat"
-                            data-test-id="a-buc-c-sedstart__p6000-preview-123123124"
+                            data-testid="a-buc-c-sedstart__p6000-preview-123123124"
                             disabled={false}
                             onClick={[Function]}
                             type="submit"
@@ -1580,7 +1580,7 @@ ui-fss.g50[id="c10"] {
                     </styled.div>
                     <Styled(h)
                       checked={false}
-                      data-test-id="a-buc-c-sedstart__p6000-checkbox-123123124"
+                      data-testid="a-buc-c-sedstart__p6000-checkbox-123123124"
                       id="a-buc-c-sedstart__p6000-checkbox-123123124"
                       key="123123124"
                       label="ui:choose"
@@ -1589,7 +1589,7 @@ ui-fss.g50[id="c10"] {
                       <h
                         checked={false}
                         className="c18 c19"
-                        data-test-id="a-buc-c-sedstart__p6000-checkbox-123123124"
+                        data-testid="a-buc-c-sedstart__p6000-checkbox-123123124"
                         id="a-buc-c-sedstart__p6000-checkbox-123123124"
                         label="ui:choose"
                         onChange={[Function]}
@@ -1601,7 +1601,7 @@ ui-fss.g50[id="c10"] {
                             aria-invalid={false}
                             checked={false}
                             className="skjemaelement__input checkboks"
-                            data-test-id="a-buc-c-sedstart__p6000-checkbox-123123124"
+                            data-testid="a-buc-c-sedstart__p6000-checkbox-123123124"
                             id="a-buc-c-sedstart__p6000-checkbox-123123124"
                             onChange={[Function]}
                             type="checkbox"
@@ -2120,12 +2120,12 @@ ui-fss.g50[id="c10"] {
                       >
                         <span>
                           ui:type
-                          : 
+                          :
                           p6000
                         </span>
                         <span>
                           ui:version
-                          : 
+                          :
                           3
                         </span>
                       </div>
@@ -2137,14 +2137,14 @@ ui-fss.g50[id="c10"] {
                     className="c2 c3 c5 c6"
                   >
                     <Styled(u)
-                      data-test-id="a-buc-c-sedstart__p6000-preview-123123125"
+                      data-testid="a-buc-c-sedstart__p6000-preview-123123125"
                       disabled={false}
                       onClick={[Function]}
                       spinner={false}
                     >
                       <u
                         className="c16 c17"
-                        data-test-id="a-buc-c-sedstart__p6000-preview-123123125"
+                        data-testid="a-buc-c-sedstart__p6000-preview-123123125"
                         disabled={false}
                         onClick={[Function]}
                         spinner={false}
@@ -2152,7 +2152,7 @@ ui-fss.g50[id="c10"] {
                         <p
                           autoDisableVedSpinner={false}
                           className="c16 c17"
-                          data-test-id="a-buc-c-sedstart__p6000-preview-123123125"
+                          data-testid="a-buc-c-sedstart__p6000-preview-123123125"
                           disabled={false}
                           htmlType="submit"
                           inaktivKlasseVedDisabled={false}
@@ -2164,7 +2164,7 @@ ui-fss.g50[id="c10"] {
                         >
                           <button
                             className="knapp c16 c17 knapp--flat"
-                            data-test-id="a-buc-c-sedstart__p6000-preview-123123125"
+                            data-testid="a-buc-c-sedstart__p6000-preview-123123125"
                             disabled={false}
                             onClick={[Function]}
                             type="submit"
@@ -2181,7 +2181,7 @@ ui-fss.g50[id="c10"] {
                     </styled.div>
                     <Styled(h)
                       checked={false}
-                      data-test-id="a-buc-c-sedstart__p6000-checkbox-123123125"
+                      data-testid="a-buc-c-sedstart__p6000-checkbox-123123125"
                       id="a-buc-c-sedstart__p6000-checkbox-123123125"
                       key="123123125"
                       label="ui:choose"
@@ -2190,7 +2190,7 @@ ui-fss.g50[id="c10"] {
                       <h
                         checked={false}
                         className="c18 c19"
-                        data-test-id="a-buc-c-sedstart__p6000-checkbox-123123125"
+                        data-testid="a-buc-c-sedstart__p6000-checkbox-123123125"
                         id="a-buc-c-sedstart__p6000-checkbox-123123125"
                         label="ui:choose"
                         onChange={[Function]}
@@ -2202,7 +2202,7 @@ ui-fss.g50[id="c10"] {
                             aria-invalid={false}
                             checked={false}
                             className="skjemaelement__input checkboks"
-                            data-test-id="a-buc-c-sedstart__p6000-checkbox-123123125"
+                            data-testid="a-buc-c-sedstart__p6000-checkbox-123123125"
                             id="a-buc-c-sedstart__p6000-checkbox-123123125"
                             onChange={[Function]}
                             type="checkbox"

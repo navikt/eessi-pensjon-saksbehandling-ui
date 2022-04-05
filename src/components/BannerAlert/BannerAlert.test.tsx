@@ -1,9 +1,9 @@
 import { AlertVariant } from 'declarations/components'
-import { mount, ReactWrapper } from 'enzyme'
+import { render } from '@testing-library/react'
 import BannerAlert, { BannerAlertDiv, BannerAlertProps } from './BannerAlert'
 
 describe('components/Alert/Alert', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
   const initialMockProps: BannerAlertProps = {
     variant: 'error',
     message: 'mockErrorMessage',
@@ -12,34 +12,33 @@ describe('components/Alert/Alert', () => {
   }
 
   it('Render: match snapshot', () => {
-    wrapper = mount(<BannerAlert {...initialMockProps} />)
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<BannerAlert {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {
-    wrapper = mount(<BannerAlert {...initialMockProps} />)
+    render(<BannerAlert {...initialMockProps} />)
     expect(wrapper.exists(BannerAlertDiv)).toBeTruthy()
-    expect(wrapper.find('.alertstripe__tekst').hostNodes().render().text()).toEqual('mockErrorMessage')
+    expect(wrapper.find('.alertstripe--tekst').hostNodes().render().text()).toEqual('mockErrorMessage')
   })
 
   it('Render: has proper HTML structure with error message', () => {
-    wrapper = mount(<BannerAlert {...initialMockProps} error='mockError' />)
-    expect(wrapper.find('.alertstripe__tekst').hostNodes().render().text()).toEqual('mockErrorMessage: mockError')
+    render(<BannerAlert {...initialMockProps} error='mockError' />)
+    expect(wrapper.find('.alertstripe--tekst').hostNodes().render().text()).toEqual('mockErrorMessage: mockError')
   })
 
   it('Render: has proper HTML structure as client in OK type', () => {
-    wrapper = mount(<BannerAlert {...initialMockProps} />)
+    render(<BannerAlert {...initialMockProps} />)
     expect(wrapper.render().hasClass('alertstripe--suksess')).toBeTruthy()
   })
 
   it('Render: has proper HTML structure as client in WARNING type', () => {
-    wrapper = mount(<BannerAlert {...initialMockProps} variant='warning' />)
+    render(<BannerAlert {...initialMockProps} variant='warning' />)
     expect(wrapper.render().hasClass('alertstripe--advarsel')).toBeTruthy()
   })
 
   it('Render: has proper HTML structure as client in ERROR type', () => {
-    wrapper = mount(<BannerAlert {...initialMockProps} variant='error' />)
+    render(<BannerAlert {...initialMockProps} variant='error' />)
     expect(wrapper.render().hasClass('alertstripe--feil')).toBeTruthy()
   })
 
@@ -50,20 +49,20 @@ describe('components/Alert/Alert', () => {
       error: 'error',
       uuid: 'uuid'
     }
-    wrapper = mount(<BannerAlert {...initialMockProps} error={error} />)
-    expect(wrapper.find('.alertstripe__tekst').hostNodes().render().text()).toEqual('mockErrorMessage: message - error - uuid')
+    render(<BannerAlert {...initialMockProps} error={error} />)
+    expect(wrapper.find('.alertstripe--tekst').hostNodes().render().text()).toEqual('mockErrorMessage: message - error - uuid')
   })
 
   it('Render: Pretty prints a string error', () => {
     const error = 'error'
-    wrapper = mount(<BannerAlert {...initialMockProps} error={error} />)
-    expect(wrapper.find('.alertstripe__tekst').hostNodes().render().text()).toEqual('mockErrorMessage: error')
+    render(<BannerAlert {...initialMockProps} error={error} />)
+    expect(wrapper.find('.alertstripe--tekst').hostNodes().render().text()).toEqual('mockErrorMessage: error')
   })
 
   it('Handling: close button clears alert', () => {
     (initialMockProps.onClose as jest.Mock).mockReset()
-    wrapper = mount(<BannerAlert {...initialMockProps} variant='error' />)
-    wrapper.find('[data-test-id=\'c-alert__close-icon\']').hostNodes().simulate('click')
+    render(<BannerAlert {...initialMockProps} variant='error' />)
+    wrapper.find('[data-test-id=\'c-alert--close-icon\']').hostNodes().simulate('click')
     expect(initialMockProps.onClose).toHaveBeenCalled()
   })
 })

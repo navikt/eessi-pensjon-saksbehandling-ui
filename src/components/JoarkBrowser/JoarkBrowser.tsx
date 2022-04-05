@@ -139,8 +139,8 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             size='small'
             data-tip={t('ui:preview')}
             disabled={previewing}
-            id={'c-tablesorter__preview-button-' + item.journalpostId + '-' + item.dokumentInfoId}
-            className='c-tablesorter__preview-button'
+            id={'c-tablesorter--preview-button-' + item.journalpostId + '-' + item.dokumentInfoId}
+            className='c-tablesorter--preview-button'
             onClick={() => onPreviewItem(item as JoarkBrowserItem)}
           >
             {spinner ? <Loader /> : <SightFilled />}
@@ -345,7 +345,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   }
 
   return (
-    <div data-test-id='c-joarkBrowser'>
+    <div data-testid='c-joarkBrowser'>
       <Modal
         open={!_.isNil(_modal)}
         modal={_modal}

@@ -1,6 +1,7 @@
+import { render, screen } from '@testing-library/react'
 import { getPersonAvdodInfo, getPersonInfo } from 'actions/person'
 import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
-import { mount, ReactWrapper } from 'enzyme'
+
 import mockFeatureToggles from 'mocks/app/featureToggles'
 import personAvdod from 'mocks/person/personAvdod'
 import { stageSelector } from 'setupTests'
@@ -12,7 +13,7 @@ jest.mock('actions/app', () => ({
 }))
 
 describe('widgets/Overview/Overview', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
 
   const defaultSelector: OverviewSelector = {
     aktoerId: '123',
@@ -44,7 +45,7 @@ describe('widgets/Overview/Overview', () => {
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
-    wrapper = mount(<Overview {...initialMockProps} />)
+    wrapper = render(<Overview {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -52,8 +53,8 @@ describe('widgets/Overview/Overview', () => {
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<Overview {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('UseEffect: fetches person info when mounting: VEDTAKSKONTEKST', () => {
@@ -64,13 +65,13 @@ describe('widgets/Overview/Overview', () => {
     (getPersonAvdodInfo as jest.Mock).mockReset();
     (getPersonInfo as jest.Mock).mockReset()
     stageSelector(defaultSelector, { pesysContext: BRUKERKONTEKST })
-    wrapper = mount(<Overview {...initialMockProps} />)
+    wrapper = render(<Overview {...initialMockProps} />)
     expect(getPersonAvdodInfo).not.toHaveBeenCalled()
     expect(getPersonInfo).toHaveBeenCalled()
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.exists('[data-test-id=\'w-overview-id\']')).toBeTruthy()
+    expect(screen.getByTestId('w-overview-id')).toBeTruthy()
     expect(wrapper.exists('ExpandingPanel')).toBeTruthy()
     expect(wrapper.exists('PersonTitle')).toBeTruthy()
     expect(wrapper.exists('PersonPanel')).toBeTruthy()
@@ -78,16 +79,16 @@ describe('widgets/Overview/Overview', () => {
 
   it('Render: no aktoerId', () => {
     stageSelector(defaultSelector, ({ aktoerId: undefined }))
-    wrapper = mount(<Overview {...initialMockProps} />)
-    expect(wrapper.exists('[data-test-id=\'w-overview__alert\']')).toBeTruthy()
-    expect(wrapper.find('[data-test-id=\'w-overview__alert\'] .alertstripe__tekst').hostNodes().render().text()).toEqual('message:validation-noAktoerId')
+    wrapper = render(<Overview {...initialMockProps} />)
+    expect(screen.getByTestId('w-overview--alert\']')).toBeTruthy()
+    expect(wrapper.find('[data-testid=\'w-overview--alert\'] .alertstripe--tekst').hostNodes().render().text()).toEqual('message:validation-noAktoerId')
   })
 
   it('Handling: Expandable', () => {
     (initialMockProps.onUpdate as jest.Mock).mockReset()
     stageSelector(defaultSelector, ({ aktoerId: '123' }))
-    wrapper = mount(<Overview {...initialMockProps} skipMount />)
-    wrapper.find('ExpandingPanel .ekspanderbartPanel__hode').simulate('click')
+    wrapper = render(<Overview {...initialMockProps} skipMount />)
+    wrapper.find('ExpandingPanel .ekspanderbartPanel--hode').simulate('click')
     expect(initialMockProps.onUpdate).toHaveBeenCalledWith(expect.objectContaining({
       options: {
         collapsed: false

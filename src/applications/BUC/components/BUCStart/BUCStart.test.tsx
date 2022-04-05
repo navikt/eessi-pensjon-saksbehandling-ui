@@ -2,7 +2,8 @@ import { createBuc, getBucOptions, getSubjectAreaList, getTagList, saveBucsInfo 
 import * as constants from 'constants/constants'
 import { AllowedLocaleString } from 'declarations/app.d'
 import { BucsInfo } from 'declarations/buc'
-import { mount, ReactWrapper } from 'enzyme'
+import { render, screen, fireEvent } from '@testing-library/react'
+import { within } from '@testing-library/dom'
 import _ from 'lodash'
 import mockFeatureToggles from 'mocks/app/featureToggles'
 import mockPerson from 'mocks/person/personPdl'
@@ -50,7 +51,7 @@ const defaultSelector = {
 }
 
 describe('applications/BUC/components/BUCStart/BUCStart', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
   const initialMockProps: BUCStartProps = {
     aktoerId: '456',
     onBucCreated: jest.fn(),
@@ -59,45 +60,41 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
-    wrapper = mount(<BUCStart {...initialMockProps} />)
-  })
-
-  afterEach(() => {
-    wrapper.unmount()
   })
 
   it('Render: match snapshot', () => {
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<BUCStart {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: Has proper HTML structure', () => {
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__subjectarea-select-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__buc-select-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeFalsy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__tags-select-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__buttons-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__forward-button-id\']')).toBeTruthy()
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__cancel-button-id\']')).toBeTruthy()
+    render(<BUCStart {...initialMockProps} />)
+    expect(screen.getByTestId('a_buc_c_BUCStart')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_BUCStart--subjectarea-select-id')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_BUCStart--buc-select-id')).toBeInTheDocument()
+    expect(screen.queryByTestId('a_buc_c_BUCStart--avdod-select-id')).not.toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_BUCStart--tags-select-id')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_BUCStart--buttons-id')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_BUCStart--forward-button-id')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_BUCStart--cancel-button-id')).toBeInTheDocument()
   })
 
   it('Render: render Avdod when BUC is P_BUC_02', () => {
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeFalsy()
-    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
-    select.simulate('keyDown', { key: 'ArrowDown' })
-    select.simulate('keyDown', { key: 'ArrowDown' })
-    select.simulate('keyDown', { key: 'Enter' })
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__avdod-select-id\']')).toBeTruthy()
+    render(<BUCStart {...initialMockProps} />)
+    expect(screen.getByTestId('a_buc_c_BUCStart--avdod-select-id')).not.toBeInTheDocument()
+    const select = within(screen.getByTestId('a_buc_c_BUCStart--buc-select-id')).getByRole('input')
+    fireEvent.keyDown(select, { key: 'ArrowDown' })
+    fireEvent.keyDown(select, { key: 'ArrowDown' })
+    fireEvent.keyDown(select, { key: 'Enter' })
+    expect(screen.getByTestId('a_buc_c_BUCStart--avdod-select-id')).toBeInTheDocument()
   })
 
   it('UseEffect: Fetch subject area list', () => {
-    wrapper.unmount();
     (getSubjectAreaList as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
       subjectAreaList: undefined
     })
-    wrapper = mount(<BUCStart {...initialMockProps} />)
+    render(<BUCStart {...initialMockProps} />)
     expect(getSubjectAreaList).toHaveBeenCalled()
   })
 
@@ -106,7 +103,7 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
     stageSelector(defaultSelector, {
       bucOptions: undefined
     })
-    wrapper = mount(<BUCStart {...initialMockProps} />)
+    render(<BUCStart {...initialMockProps} />)
     expect(getBucOptions).toHaveBeenCalled()
   })
 
@@ -115,7 +112,7 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
     stageSelector(defaultSelector, {
       tagList: undefined
     })
-    wrapper = mount(<BUCStart {...initialMockProps} />)
+    render(<BUCStart {...initialMockProps} />)
     expect(getTagList).toHaveBeenCalled()
   })
 
@@ -129,7 +126,7 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
       bucParam: 'P_BUC_02',
       personAvdods: mockPersonAvdods(1)
     })
-    wrapper = mount(<BUCStart {...initialMockProps} />)
+    render(<BUCStart {...initialMockProps} />)
     jest.runAllImmediates()
 
     // TODO
@@ -145,7 +142,7 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
       currentBuc,
       newlyCreatedBuc: bucs[currentBuc]
     })
-    wrapper = mount(<BUCStart {...initialMockProps} initialIsCreatingBuc />)
+    render(<BUCStart {...initialMockProps} initialIsCreatingBuc />)
     expect(saveBucsInfo).toHaveBeenCalledWith({
       bucsInfo: mockBucsInfo,
       aktoerId: '456',
@@ -159,14 +156,15 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
     stageSelector(defaultSelector, {
       newlyCreatedBuc: bucs[currentBuc]
     })
-    wrapper = mount(<BUCStart {...initialMockProps} initialCreatingBucInfo />)
+    render(<BUCStart {...initialMockProps} initialCreatingBucInfo />)
     expect(initialMockProps.onBucCreated).toHaveBeenCalled()
   })
 
   it('Handling: invalid onForwardButtonClick(): nothing selected', () => {
-    expect(wrapper.exists('div.feiloppsummering')).toBeFalsy()
-    wrapper.find('[data-test-id=\'a-buc-c-bucstart__forward-button-id\']').hostNodes().simulate('click')
-    expect(wrapper.exists('div.feiloppsummering')).toBeTruthy()
+    const { container } = render(<BUCStart {...initialMockProps} />)
+    expect(container.querySelector('div.feiloppsummering')).not.toBeInTheDocument()
+    fireEvent.click(screen.getByTestId('a_buc_c_BUCStart--forward-button-id'))
+    expect(wrapper.exists('div.feiloppsummering')).toBeInTheDocument()
     expect(wrapper.find('div.feiloppsummering').render().text()).toEqual('buc:form-feiloppsummering' + 'message:validation-chooseBuc')
   })
 
@@ -174,26 +172,26 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
     stageSelector(defaultSelector, {
       personAvdods: []
     })
-    wrapper = mount(<BUCStart {...initialMockProps} />)
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__warning-id\']')).toBeFalsy()
-    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
-    select.simulate('keyDown', { key: 'ArrowDown' })
-    select.simulate('keyDown', { key: 'ArrowDown' })
-    select.simulate('keyDown', { key: 'Enter' })
-    wrapper.find('[data-test-id=\'a-buc-c-bucstart__forward-button-id\']').hostNodes().simulate('click')
-    expect(wrapper.exists('[data-test-id=\'a-buc-c-bucstart__warning-id\']')).toBeTruthy()
-    expect(wrapper.find('[data-test-id=\'a-buc-c-bucstart__warning-id\']').hostNodes().render().text()).toEqual(
+    render(<BUCStart {...initialMockProps} />)
+    expect(screen.getByTestId('a_buc_c_BUCStart--warning-id')).not.toBeInTheDocument()
+    const select = within(screen.getByTestId('a_buc_c_BUCStart--buc-select-id')).getByRole('input')
+    fireEvent.keyDown(select, { key: 'ArrowDown' })
+    fireEvent.keyDown(select, { key: 'ArrowDown' })
+    fireEvent.keyDown(select, { key: 'Enter' })
+    fireEvent.click(screen.getByTestId('a_buc_c_BUCStart--forward-button-id'))
+    expect(screen.getByTestId('a_buc_c_BUCStart--warning-id')).toBeInTheDocument()
+    expect(screen.getByTestId('a_buc_c_BUCStart--warning-id')).toHaveTextContent(
       'advarsel' + 'message:alert-noDeceased'
     )
   })
 
   it('Handling: valid onForwardButtonClick()', () => {
     // select P_BUC_02
-    const select = wrapper.find('[data-test-id=\'a-buc-c-bucstart__buc-select-id\'] input').hostNodes()
+    const select = wrapper.find('[data-testid=\'a_buc_c_BUCStart--buc-select-id\'] input').hostNodes()
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'ArrowDown' })
     select.simulate('keyDown', { key: 'Enter' })
-    wrapper.find('[data-test-id=\'a-buc-c-bucstart__forward-button-id\']').hostNodes().simulate('click')
+    wrapper.find('[data-testid=\'a_buc_c_BUCStart--forward-button-id').hostNodes().simulate('click')
     expect(createBuc).toHaveBeenCalledWith({
       buc: 'P_BUC_02',
       person: mockPerson,
@@ -203,7 +201,7 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
 
   it('Handling: onCancelButtonClick()', () => {
     (initialMockProps.onBucCancelled as jest.Mock).mockReset()
-    wrapper.find('[data-test-id=\'a-buc-c-bucstart__cancel-button-id\']').hostNodes().simulate('click')
+    wrapper.find('[data-testid=\'a_buc_c_BUCStart--cancel-button-id').hostNodes().simulate('click')
     expect(initialMockProps.onBucCancelled).toHaveBeenCalled()
   })
 })

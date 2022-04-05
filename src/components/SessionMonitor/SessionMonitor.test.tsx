@@ -1,5 +1,6 @@
+import { render } from '@testing-library/react'
 import { openModal } from 'actions/ui'
-import { mount, ReactWrapper } from 'enzyme'
+
 import { stageSelector } from 'setupTests'
 import SessionMonitor, { SessionMonitorProps } from './SessionMonitor'
 
@@ -16,7 +17,6 @@ Object.defineProperty(window, 'location', {
 })
 
 describe('components/SessionMonitor', () => {
-  let wrapper: ReactWrapper
 
   beforeEach(() => {
     stageSelector({}, {})
@@ -28,7 +28,7 @@ describe('components/SessionMonitor', () => {
   it('Render: match snapshot', () => {
     const aDate = new Date('2020-12-17T03:24:00')
     const expirationTime = new Date('2020-12-17T03:24:10')
-    wrapper = mount(
+    const { container } = render(
       <SessionMonitor
         now={aDate}
         expirationTime={expirationTime}
@@ -37,15 +37,15 @@ describe('components/SessionMonitor', () => {
         sessionExpiredReload={1000}
         {...initialMockProps}
       />)
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Handling: trigger openModal when session is almost expiring', async () => {
     // expires in 5 seconds - will check every 0.5s - warnings start at 9.9s - reload only happens under 1s
     const aDate = new Date('2020-12-17T03:24:00')
     const expirationTime = new Date('2020-12-17T03:24:05')
-    wrapper = mount(
+    render(
       <SessionMonitor
         now={aDate}
         expirationTime={expirationTime}
@@ -68,7 +68,7 @@ describe('components/SessionMonitor', () => {
     (window.location.reload as jest.Mock).mockReset()
     const aDate = new Date('2020-12-17T03:24:00')
     const expirationTime = new Date('2020-12-17T03:23:59')
-    wrapper = mount(
+    render(
       <SessionMonitor
         now={aDate}
         expirationTime={expirationTime}

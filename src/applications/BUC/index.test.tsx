@@ -11,7 +11,7 @@ import { BUCIndex, BUCIndexProps, BUCIndexSelector, ContainerDiv, WindowDiv } fr
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
 import { Buc } from 'declarations/buc'
-import { mount, ReactWrapper } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import _ from 'lodash'
 import mockBucs from 'mocks/buc/bucs'
 import { stageSelector } from 'setupTests'
@@ -53,7 +53,7 @@ const defaultSelector: BUCIndexSelector = {
 }
 
 describe('applications/BUC/index', () => {
-  let wrapper: ReactWrapper
+  let wrapper: any
   const initialMockProps: BUCIndexProps = {
     allowFullScreen: true,
     onFullFocus: jest.fn(),
@@ -65,19 +65,14 @@ describe('applications/BUC/index', () => {
     stageSelector(defaultSelector, {})
   })
 
-  afterEach(() => {
-    wrapper.unmount()
-  })
-
   it('Render: match snapshot', () => {
-    wrapper = mount(<BUCIndex {...initialMockProps} />)
-    expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    const { container } = render(<BUCIndex {...initialMockProps} />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('UseEffect: getRinaUrl', () => {
     (getRinaUrl as jest.Mock).mockReset()
-    wrapper = mount(<BUCIndex {...initialMockProps} waitForMount />)
+    wrapper = render(<BUCIndex {...initialMockProps} waitForMount />)
     expect(getRinaUrl).toHaveBeenCalled()
   })
 
@@ -88,7 +83,7 @@ describe('applications/BUC/index', () => {
       bucs: undefined,
       pesysContext: BRUKERKONTEKST
     })
-    wrapper = mount(<BUCIndex {...initialMockProps} />)
+    wrapper = render(<BUCIndex {...initialMockProps} />)
     expect(fetchBucsList).toHaveBeenCalled()
     expect(fetchBucsInfoList).toHaveBeenCalled()
   })
@@ -100,7 +95,7 @@ describe('applications/BUC/index', () => {
       bucs: undefined,
       vedtakId: '789'
     })
-    wrapper = mount(<BUCIndex {...initialMockProps} />)
+    wrapper = render(<BUCIndex {...initialMockProps} />)
     expect(fetchBucsListWithVedtakId).toHaveBeenCalled()
     expect(fetchBucsInfoList).toHaveBeenCalled()
   })
@@ -108,21 +103,21 @@ describe('applications/BUC/index', () => {
   it('UseEffect: getting sakType', () => {
     (getSakType as jest.Mock).mockReset()
     stageSelector(defaultSelector, { sakType: undefined })
-    wrapper = mount(<BUCIndex {...initialMockProps} waitForMount />)
+    wrapper = render(<BUCIndex {...initialMockProps} waitForMount />)
     // -1 as there is one ErrorBuc in mockBucs
     expect(getSakType).toHaveBeenCalled()
   })
 
   it('UseEffect: when getting bucs list, get participants', () => {
     (fetchBucParticipants as jest.Mock).mockReset()
-    wrapper = mount(<BUCIndex {...initialMockProps} waitForMount />)
+    wrapper = render(<BUCIndex {...initialMockProps} waitForMount />)
     // -1 as there is one ErrorBuc in mockBucs
     expect(fetchBucParticipants).toBeCalledTimes(Object.keys(mockBucs()).length - 1)
   })
 
   it('Render: has proper HTML structure ', () => {
-    wrapper = mount(<BUCIndex {...initialMockProps} />)
-    expect(wrapper.exists('[data-test-id=\'a-buc-index\']')).toBeTruthy()
+    wrapper = render(<BUCIndex {...initialMockProps} />)
+    expect(screen.getByTestId('a-buc-index\']')).toBeInTheDocument()
     expect(wrapper.exists(ContainerDiv)).toBeTruthy()
     expect(wrapper.exists(WindowDiv)).toBeTruthy()
   })
@@ -133,7 +128,7 @@ describe('applications/BUC/index', () => {
       sakId: undefined,
       aktoerId: undefined
     })
-    wrapper = mount(<BUCIndex {...initialMockProps} />)
+    wrapper = render(<BUCIndex {...initialMockProps} />)
     expect(wrapper.exists(BUCEmpty)).toBeTruthy()
   })
 
@@ -144,7 +139,7 @@ describe('applications/BUC/index', () => {
       sakId: '456',
       aktoerId: '123'
     })
-    wrapper = mount(<BUCIndex {...initialMockProps} allowFullScreen />)
+    wrapper = render(<BUCIndex {...initialMockProps} allowFullScreen />)
     wrapper.find('.mock-buccrumbs').simulate('change', { target: { value: 'bucnew' } })
     wrapper.update()
     expect(initialMockProps.onFullFocus).toHaveBeenCalled()

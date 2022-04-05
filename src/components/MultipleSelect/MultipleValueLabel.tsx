@@ -7,7 +7,7 @@ const FlexDiv = styled.div`
   align-items: center;
 `
 const MultipleValueLabel = (props: any) => (
-  <components.MultiValueLabel data-test-id='c-multipleselect-multivaluelabel' {...props}>
+  <components.MultiValueLabel data-testid='c-multipleselect-multivaluelabel' {...props}>
     <FlexDiv>
       <BodyLong>{props.data.label}</BodyLong>
     </FlexDiv>

@@ -135,9 +135,9 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
         {!aktoerId && (
           <BUCEmptyForm>
             <TextField
-              data-test-id='a-buc-p-bucempty__aktoerid-input-id'
+              data-testid='a-buc-p-bucempty--aktoerid-input-id'
               error={validation || false}
-              id='a-buc-p-bucempty__aktoerid-input-id'
+              id='a-buc-p-bucempty--aktoerid-input-id'
               label={t('ui:aktoerId')}
               onChange={onAktoerIdChange}
               value={_aktoerId || ''}
@@ -145,7 +145,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
             <HorizontalSeparatorDiv />
             <Button
               variant='primary'
-              data-test-id='a-buc-p-bucempty__aktoerid-button-id'
+              data-testid='a-buc-p-bucempty--aktoerid-button-id'
               onClick={onSubmitAktoerId}
             >
               {t('ui:add')}
@@ -155,9 +155,9 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
         {!sakId && (
           <BUCEmptyForm>
             <TextField
-              data-test-id='a-buc-p-bucempty__sakid-input-id'
+              data-testid='a-buc-p-bucempty--sakid-input-id'
               error={validation || false}
-              id='a-buc-p-bucempty__sakid-input-id'
+              id='a-buc-p-bucempty--sakid-input-id'
               label={t('buc:form-caseId')}
               onChange={onSakIdChange}
               value={_sakId || ''}
@@ -165,7 +165,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
             <HorizontalSeparatorDiv />
             <Button
               variant='primary'
-              data-test-id='a-buc-p-bucempty__sakid-button-id'
+              data-testid='a-buc-p-bucempty--sakid-button-id'
               onClick={onSubmitSakId}
             >
               {t('ui:add')}

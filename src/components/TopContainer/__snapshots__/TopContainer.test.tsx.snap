@@ -489,7 +489,7 @@ ui-fss.g84[id="c0"] {
                         className="c4 c5"
                       >
                         <a
-                          data-test-id="c-header__logo-link"
+                          data-testid="c-header__logo-link"
                           href="#index"
                           onClick={[Function]}
                         >
@@ -590,19 +590,19 @@ ui-fss.g84[id="c0"] {
                       </div>
                     </styled.div>
                     <Styled(Lenke)
-                      data-test-id="c-header__highcontrast-link-id"
+                      data-testid="c-header__highcontrast-link-id"
                       href="#highContrast"
                       onClick={[Function]}
                     >
                       <Lenke
                         className="c10 c11"
-                        data-test-id="c-header__highcontrast-link-id"
+                        data-testid="c-header__highcontrast-link-id"
                         href="#highContrast"
                         onClick={[Function]}
                       >
                         <a
                           className="lenke c10 c11"
-                          data-test-id="c-header__highcontrast-link-id"
+                          data-testid="c-header__highcontrast-link-id"
                           href="#highContrast"
                           onClick={[Function]}
                         >
@@ -781,19 +781,19 @@ ui-fss.g84[id="c0"] {
                           >
                             mockErrorMessage
                             <Styled(FilledVersionRemoveCircle)
-                              data-test-id="c-alert__close-icon"
+                              data-testid="c-alert__close-icon"
                               onClick={[Function]}
                             >
                               <FilledVersionRemoveCircle
                                 className="c24 c25"
-                                data-test-id="c-alert__close-icon"
+                                data-testid="c-alert__close-icon"
                                 onClick={[Function]}
                               >
                                 <svg
                                   className="c24 c25"
                                   contentScriptType="text/ecmascript"
                                   contentStyleType="text/css"
-                                  data-test-id="c-alert__close-icon"
+                                  data-testid="c-alert__close-icon"
                                   enableBackground="new 0 0 24 24"
                                   height={24}
                                   id="Filled_Version"
@@ -829,7 +829,7 @@ ui-fss.g84[id="c0"] {
                 }
               >
                 <div
-                  data-test-id="c-sessionMonitor"
+                  data-testid="c-sessionMonitor"
                   role="application"
                 />
               </SessionMonitor>
