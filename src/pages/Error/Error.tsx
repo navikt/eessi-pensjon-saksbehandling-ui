@@ -39,17 +39,13 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
   let title, description, footer
   const { t } = useTranslation()
   const [loggedTime] = useState<Date>(new Date())
-  const [mounted, setMounted] = useState<boolean>(false)
 
   useEffect(() => {
-    if (!mounted) {
-      standardLogger('errorPage.entrance', { type })
-      setMounted(true)
-    }
+    standardLogger('errorPage.entrance', { type })
     return () => {
       timeLogger('errorPage.view', loggedTime)
     }
-  }, [loggedTime, mounted, type])
+  }, [])
 
   switch (type) {
     case 'forbidden':

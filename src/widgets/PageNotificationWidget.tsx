@@ -1,20 +1,16 @@
 import PageNotification from 'applications/PageNotification'
 import { WidgetFC, WidgetProps } from '@navikt/dashboard'
 import PT from 'prop-types'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 
 const PageNotificationWidget: WidgetFC<WidgetProps> = ({
   onUpdate, onResize, widget
 }: WidgetProps): JSX.Element => {
-  const [mounted, setMounted] = useState<boolean>(false)
 
   useEffect(() => {
-    if (!mounted && onResize) {
-      onResize()
-      setMounted(true)
-    }
-  }, [mounted, onResize])
+    onResize()
+  }, [])
 
   return (
     <div className='w-PageNotificationWidget'>

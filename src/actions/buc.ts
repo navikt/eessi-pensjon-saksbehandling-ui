@@ -1,4 +1,4 @@
-import { ActionWithPayload, call, ThunkResult } from '@navikt/fetch'
+import { ActionWithPayload, call } from '@navikt/fetch'
 import { CountryFilter } from '@navikt/land-verktoy'
 import * as types from 'constants/actionTypes'
 import * as storage from 'constants/storage'
@@ -52,7 +52,7 @@ export const cleanNewlyCreatedBuc: ActionCreator<Action> = (): Action => ({
 
 export const createBuc = (
   params: NewBucPayload
-): Promise<Action> => {
+): Action => {
   return call({
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: params.buc }),
     method: 'POST',
@@ -74,9 +74,9 @@ export const createBuc = (
   })
 }
 
-export const createReplySed: ActionCreator<ThunkResult<ActionWithPayload<Sed>>> = (
+export const createReplySed = (
   buc: Buc, payload: NewSedPayload, parentId: string
-): ThunkResult<ActionWithPayload<Sed>> => {
+): ActionWithPayload<Sed> => {
   return call({
     url: sprintf(urls.BUC_CREATE_REPLY_SED_URL, { parentId }),
     payload,
@@ -95,9 +95,9 @@ export const createReplySed: ActionCreator<ThunkResult<ActionWithPayload<Sed>>> 
   })
 }
 
-export const createSed: ActionCreator<ThunkResult<ActionWithPayload<Sed>>> = (
+export const createSed = (
   buc: Buc, payload: NewSedPayload
-): ThunkResult<ActionWithPayload<Sed>> => {
+): ActionWithPayload<Sed> => {
   return call({
     url: urls.BUC_CREATE_SED_URL,
     payload,
@@ -123,9 +123,9 @@ export const createSavingAttachmentJob: ActionCreator<ActionWithPayload<JoarkBro
   payload: joarkBrowserItems
 })
 
-export const fetchBucParticipants: ActionCreator<ThunkResult<ActionWithPayload<Participants>>> = (
+export const fetchBucParticipants = (
   rinaCaseId: string
-): ThunkResult<ActionWithPayload<Participants>> => {
+): ActionWithPayload<Participants> => {
   return call({
     url: sprintf(urls.BUC_GET_PARTICIPANTS_URL, { rinaCaseId }),
     expectedPayload: /* istanbul ignore next */ mockParticipants(rinaCaseId),
@@ -148,9 +148,9 @@ export const endBucsFetch = () => ({
   type: types.BUC_GET_BUCS_END
 })
 
-export const fetchBucsList: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> = (
+export const fetchBucsList = (
   aktoerId: string, sakId: string
-): ThunkResult<ActionWithPayload<Bucs>> => {
+): ActionWithPayload<Bucs> => {
   return call({
     url: sprintf(urls.BUC_GET_BUCSLIST_URL, { aktoerId, sakId }),
     cascadeFailureError: true,
@@ -163,9 +163,9 @@ export const fetchBucsList: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> 
   })
 }
 
-export const fetchBucsInfo: ActionCreator<ThunkResult<ActionWithPayload<BucsInfoRawList>>> = (
+export const fetchBucsInfo = (
   userId: string, namespace: string, file: string
-): ThunkResult<ActionWithPayload<BucsInfoRawList>> => {
+): ActionWithPayload<BucsInfoRawList> => {
   return call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId, namespace, file }),
     expectedPayload: mockBucsInfo,
@@ -177,9 +177,9 @@ export const fetchBucsInfo: ActionCreator<ThunkResult<ActionWithPayload<BucsInfo
   })
 }
 
-export const fetchBucsInfoList: ActionCreator<ThunkResult<ActionWithPayload<BucsInfoRawList>>> = (
+export const fetchBucsInfoList = (
   aktoerId: string
-): ThunkResult<ActionWithPayload<BucsInfoRawList>> => {
+): ActionWithPayload<BucsInfoRawList> => {
   return call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_BUC }),
     expectedPayload: mockBucsInfoList(aktoerId),
@@ -191,9 +191,9 @@ export const fetchBucsInfoList: ActionCreator<ThunkResult<ActionWithPayload<Bucs
   })
 }
 
-export const fetchBucsListWithAvdodFnr: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> = (
+export const fetchBucsListWithAvdodFnr = (
   aktoerId: string, sakId: string, avdodFnr: string
-): ThunkResult<ActionWithPayload<Bucs>> => {
+): ActionWithPayload<Bucs> => {
   return call({
     url: sprintf(urls.BUC_GET_BUCSLIST_WITH_AVDODFNR_URL, { aktoerId, sakId, avdodFnr }),
     cascadeFailureError: true,
@@ -206,9 +206,9 @@ export const fetchBucsListWithAvdodFnr: ActionCreator<ThunkResult<ActionWithPayl
   })
 }
 
-export const fetchBucsListWithVedtakId: ActionCreator<ThunkResult<ActionWithPayload<Bucs>>> = (
+export const fetchBucsListWithVedtakId = (
   aktoerId: string, sakId: string, vedtakId: string
-): ThunkResult<ActionWithPayload<Bucs>> => {
+): ActionWithPayload<Bucs> => {
   return call({
     url: sprintf(urls.BUC_GET_BUCSLIST_WITH_VEDTAKID_URL, { aktoerId, sakId, vedtakId }),
     cascadeFailureError: true,
@@ -221,11 +221,11 @@ export const fetchBucsListWithVedtakId: ActionCreator<ThunkResult<ActionWithPayl
   })
 }
 
-export const fetchKravDato: ActionCreator<ThunkResult<ActionWithPayload<any>>> = ({
+export const fetchKravDato = ({
   sakId,
   aktoerId,
   kravId
-}): ThunkResult<ActionWithPayload<any>> => {
+}: any): ActionWithPayload<any> => {
   return call({
     url: sprintf(urls.BUC_GET_KRAVDATO_URL, { sakId, kravId, aktoerId }),
     expectedPayload: mockKravDato,
@@ -237,9 +237,9 @@ export const fetchKravDato: ActionCreator<ThunkResult<ActionWithPayload<any>>> =
   })
 }
 
-export const fetchBuc: ActionCreator<ThunkResult<ActionWithPayload<ValidBuc>>> = (
-  rinaCaseId: string, aktoerId: string, sakId: string, avdodFnr: string | undefined, kilde: string
-): ThunkResult<ActionWithPayload<ValidBuc>> => {
+export const fetchBuc = (
+  rinaCaseId: string, aktoerId: string, sakId: string, avdodFnr: string | null | undefined, kilde: string
+): ActionWithPayload<ValidBuc> => {
   const url = !_.isEmpty(avdodFnr)
     ? sprintf(urls.BUC_GET_BUC_WITH_AVDOD_URL, { rinaCaseId, aktoerId, sakId, avdodFnr, kilde })
     : sprintf(urls.BUC_GET_BUC_URL, { rinaCaseId, aktoerId, sakId, kilde })
@@ -261,9 +261,9 @@ export const fetchBuc: ActionCreator<ThunkResult<ActionWithPayload<ValidBuc>>> =
   })
 }
 
-export const getBucOptions: ActionCreator<ThunkResult<ActionWithPayload<BUCOptions>>> = (
+export const getBucOptions = (
   sakId: string, featureToggles: FeatureToggles, pesysContext: PesysContext, sakType: SakTypeValue
-): ThunkResult<ActionWithPayload<BUCOptions>> => {
+): ActionWithPayload<BUCOptions> => {
   return call({
     url: sprintf(urls.BUC_GET_BUC_OPTIONS_URL, { sakId }),
     expectedPayload: mockBucOptions,
@@ -280,9 +280,9 @@ export const getBucOptions: ActionCreator<ThunkResult<ActionWithPayload<BUCOptio
   })
 }
 
-export const getCountryList: ActionCreator<ThunkResult<ActionWithPayload<CountryRawList>>> = (
+export const getCountryList = (
   bucType: string
-): ThunkResult<ActionWithPayload<CountryRawList>> => {
+): ActionWithPayload<CountryRawList> => {
   return call({
     url: sprintf(urls.EUX_COUNTRIES_FOR_BUC_URL, { bucType }),
     context: {
@@ -297,9 +297,9 @@ export const getCountryList: ActionCreator<ThunkResult<ActionWithPayload<Country
   })
 }
 
-export const getInstitutionsListForBucAndCountry: ActionCreator<ThunkResult<ActionWithPayload<Institutions>>> = (
+export const getInstitutionsListForBucAndCountry = (
   bucType: string, country: string
-): ThunkResult<ActionWithPayload<Institutions>> => {
+): ActionWithPayload<Institutions> => {
   // RINA uses UK, not GB
   let _country: string = country
   if (_country.toUpperCase() === 'GB') {
@@ -320,9 +320,9 @@ export const getInstitutionsListForBucAndCountry: ActionCreator<ThunkResult<Acti
   })
 }
 
-export const getSedP6000: ActionCreator<ThunkResult<Action>> = (
+export const getSedP6000 = (
   rinaCaseId: string
-): ThunkResult<Action> => {
+): Action => {
   return call({
     url: sprintf(urls.BUC_GET_P6000_URL, { rinaCaseId }),
     cascadeFailureError: true,
@@ -335,9 +335,9 @@ export const getSedP6000: ActionCreator<ThunkResult<Action>> = (
   })
 }
 
-export const getSedP6000PDF: ActionCreator<ThunkResult<Action>> = (
+export const getSedP6000PDF = (
   rinaCaseId: string, documentId: string
-): ThunkResult<Action> => {
+): Action => {
   return call({
     url: sprintf(urls.BUC_GET_P6000PDF_URL, { rinaCaseId, documentId }),
     cascadeFailureError: true,
@@ -354,9 +354,9 @@ export const resetSedP6000PDF: ActionCreator<Action> = (): Action => ({
   type: types.BUC_P6000PDF_RESET
 })
 
-export const getRinaUrl: ActionCreator<ThunkResult<ActionWithPayload<RinaUrlPayload>>> = (
+export const getRinaUrl = (
 
-): ThunkResult<ActionWithPayload<RinaUrlPayload>> => {
+): ActionWithPayload<RinaUrlPayload> => {
   return call({
     url: urls.EUX_RINA_URL,
     expectedPayload: mockRinaUrl,
@@ -368,9 +368,9 @@ export const getRinaUrl: ActionCreator<ThunkResult<ActionWithPayload<RinaUrlPayl
   })
 }
 
-export const getSakType: ActionCreator<ThunkResult<ActionWithPayload>> = (
+export const getSakType = (
   sakId: string, aktoerId: string
-): ThunkResult<ActionWithPayload> => {
+): ActionWithPayload<any> => {
   return call({
     url: sprintf(urls.BUC_GET_SAKTYPE_URL, { sakId, aktoerId }),
     expectedPayload: mockSakType,
@@ -383,9 +383,9 @@ export const getSakType: ActionCreator<ThunkResult<ActionWithPayload>> = (
   })
 }
 
-export const getSedList: ActionCreator<ThunkResult<ActionWithPayload<SEDRawList>>> = (
+export const getSedList = (
   buc: {type: string, caseId: string}
-): ThunkResult<ActionWithPayload<SEDRawList>> => {
+): ActionWithPayload<SEDRawList> => {
   const url: string = sprintf(urls.BUC_GET_SED_LIST_URL, { buc: buc.type, rinaId: buc.caseId })
   return call({
     url,
@@ -398,8 +398,8 @@ export const getSedList: ActionCreator<ThunkResult<ActionWithPayload<SEDRawList>
   })
 }
 
-export const getSubjectAreaList: ActionCreator<ThunkResult<ActionWithPayload<SubjectAreaRawList>>> = (
-): ThunkResult<ActionWithPayload<SubjectAreaRawList>> => {
+export const getSubjectAreaList = (
+): ActionWithPayload<SubjectAreaRawList> => {
   return call({
     url: urls.EUX_SUBJECT_AREA_URL,
     expectedPayload: mockSubjectAreaList,
@@ -437,9 +437,9 @@ export const resetSedAttachments: ActionCreator<Action> = (): Action => ({
   type: types.BUC_SED_ATTACHMENTS_RESET
 })
 
-export const saveBucsInfo: ActionCreator<ThunkResult<Action>> = ({
+export const saveBucsInfo = ({
   aktoerId, avdod, buc, bucsInfo = { bucs: {} }, comment, tags
-}: SaveBucsInfoProps): ThunkResult<Action> => {
+}: SaveBucsInfoProps): Action => {
   const newBucsInfo = _.cloneDeep(bucsInfo)
   const newTags = tags || [] // ? tags.map(tag => tag.value) : []
   const bucId = parseInt(buc.caseId, 10)
@@ -484,9 +484,9 @@ export const setFollowUpSeds: ActionCreator<ActionWithPayload<{[k in string] : S
   }
 })
 
-export const sendAttachmentToSed: ActionCreator<ThunkResult<Action>> = (
+export const sendAttachmentToSed = (
   params: SEDAttachmentPayloadWithFile, joarkBrowserItem: JoarkBrowserItem
-): ThunkResult<Action> => {
+): Action => {
   return call({
     url: sprintf(urls.API_JOARK_ATTACHMENT_URL, params),
     method: 'PUT',

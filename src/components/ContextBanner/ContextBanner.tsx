@@ -9,7 +9,7 @@ import { State } from 'declarations/reducers'
 import { linkLogger, standardLogger } from 'metrics/loggers'
 import { NextFilled, ExternalLink } from '@navikt/ds-icons'
 import { Link, Detail } from '@navikt/ds-react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
@@ -66,17 +66,13 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
 }: ContextBannerProps): JSX.Element => {
   const { t } = useTranslation()
   const { gettingSakType, personPdl, pesysContext, sakType }: ContextBannerSelector = useSelector<State, ContextBannerSelector>(mapState)
-  const [_mounted, setMounted] = useState<boolean>(false)
 
   useEffect(() => {
-    if (!_mounted) {
-      standardLogger('context', {
-        pesys: pesysContext,
-        sakType
-      })
-      setMounted(true)
-    }
-  }, [_mounted, pesysContext, sakType])
+    standardLogger('context', {
+      pesys: pesysContext,
+      sakType
+    })
+  }, [])
 
   return (
     <Content>

@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import { JoarkBrowserItemWithContent, JoarkPoster } from 'declarations/joark'
-import { ActionWithPayload } from '@navikt/fetch'
+import { AnyAction } from 'redux'
 
 export interface JoarkState {
   list: Array<JoarkPoster> | undefined
@@ -12,7 +12,7 @@ export const initialJoarkState: JoarkState = {
   previewFile: undefined
 }
 
-const joarkReducer = (state: JoarkState = initialJoarkState, action: ActionWithPayload = { type: '', payload: '' }) => {
+const joarkReducer = (state: JoarkState = initialJoarkState, action: AnyAction) => {
   switch (action.type) {
     case types.JOARK_LIST_SUCCESS:
       return {

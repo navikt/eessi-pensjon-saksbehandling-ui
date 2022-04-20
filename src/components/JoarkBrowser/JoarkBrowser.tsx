@@ -79,7 +79,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 
   const [_clickedPreviewItem, setClickedPreviewItem] = useState<JoarkBrowserItem | undefined>(undefined)
   const [_items, setItems] = useState<JoarkBrowserItems | undefined>(undefined)
-  const [_mounted, setMounted] = useState<boolean>(false)
   const [_modal, setModal] = useState<ModalContent | undefined>(undefined)
   const [_previewFile, setPreviewFile] = useState<JoarkBrowserItemWithContent | undefined>(undefined)
   const [_tableKey, setTableKey] = useState<string>('')
@@ -300,16 +299,15 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     if (mode === 'view') {
       items = getItemsForViewMode(list, existingItems)
     }
-    setTableKey(md5(JSON.stringify(list) + JSON.stringify(existingItems)))
+    setTableKey(md5(JSON.stringify(list) + JSON.stringify(existingItems)) as string)
     setItems(items)
   }, [existingItems, list, mode, setTableKey])
 
   useEffect(() => {
-    if (!_mounted && list === undefined && !loadingJoarkList) {
+    if (list === undefined && !loadingJoarkList && !!aktoerId) {
       dispatch(listJoarkItems(aktoerId))
     }
-    setMounted(true)
-  }, [aktoerId, dispatch, list, loadingJoarkList, _mounted])
+  }, [])
 
   useEffect(() => {
     if (!equalFiles(previewFile, _previewFile)) {
@@ -339,10 +337,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       }
     }
   }, [handleModalClose, onPreviewFile, previewFile, _previewFile])
-
-  if (!_mounted) {
-    return <div />
-  }
 
   return (
     <div data-testid='c-joarkBrowser'>

@@ -66,7 +66,7 @@ export const BucLenkePanel = styled(LinkPanel)`
   animation: ${slideInFromLeft} 0.2s forwards;
   background: var(--navds-semantic-color-component-background-light);
   margin-bottom: 1rem;
-  .navds-link-panel--content {
+  .navds-link-panel__content {
     width: 100%;
   }
   &.new {
@@ -201,7 +201,7 @@ const BUCList: React.FC<BUCListProps> = ({
 
   const onAvdodFnrButtonClick = (): void => {
     const valid = performValidation()
-    if (valid) {
+    if (valid && aktoerId && sakId) {
       setNewBucPanelOpen(false)
       dispatch(fetchBucsListWithAvdodFnr(aktoerId, sakId, _avdodFnr))
     } else {
@@ -237,7 +237,7 @@ const BUCList: React.FC<BUCListProps> = ({
   }, [bucs])
 
   useEffect(() => {
-    if (!_.isEmpty(bucsInfoList) && bucsInfo === undefined && !gettingBucsInfo &&
+    if (!_.isEmpty(bucsInfoList) && aktoerId && bucsInfo === undefined && !gettingBucsInfo &&
       bucsInfoList!.indexOf(aktoerId + '--_' + storage.NAMESPACE_BUC + '--_' + storage.FILE_BUCINFO) >= 0) {
       dispatch(fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO))
     }

@@ -2,7 +2,7 @@ import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import { Sed } from 'declarations/buc'
 import { P5000SED } from 'declarations/p5000'
-import { ActionWithPayload, call, ThunkResult } from '@navikt/fetch'
+import { ActionWithPayload, call } from '@navikt/fetch'
 import mockSed from 'mocks/buc/sed'
 import { Action, ActionCreator } from 'redux'
 
@@ -13,9 +13,9 @@ export const setGjpBpWarning = (payload: any) => ({
   payload
 })
 
-export const getSed: ActionCreator<ThunkResult<ActionWithPayload<P5000SED>>> = (
+export const getSed = (
   caseId: string, sed: Sed
-): ThunkResult<ActionWithPayload<P5000SED>> => {
+): ActionWithPayload<P5000SED> => {
   return call({
     url: sprintf(urls.P5000_GET_URL, { caseId, sedId: sed.id }),
     cascadeFailureError: true,
@@ -33,9 +33,9 @@ export const resetSentP5000info : ActionCreator<Action> = (): Action => ({
   type: types.P5000_SEND_RESET
 })
 
-export const sendP5000toRina: ActionCreator<ThunkResult<Action>> = (
+export const sendP5000toRina = (
   caseId: string, sedId: string, payload: P5000SED
-): ThunkResult<Action> => {
+): Action => {
   return call({
     url: sprintf(urls.P5000_PUT_URL, { caseId, sedId }),
     method: 'PUT',

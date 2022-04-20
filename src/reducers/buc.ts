@@ -23,12 +23,12 @@ import {
   P6000,
   BucListItem
 } from 'declarations/buc'
-import { JoarkBrowserItem, JoarkPreview } from 'declarations/joark'
+import { JoarkBrowserItem, JoarkBrowserItems, JoarkPreview } from 'declarations/joark'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
 import md5 from 'md5'
 import { standardLogger } from 'metrics/loggers'
-import { Action } from 'redux'
+import { AnyAction } from 'redux'
 import { P5000sFromRinaMap } from 'declarations/p5000'
 
 export interface BucState {
@@ -93,7 +93,7 @@ export const initialBucState: BucState = {
   tagList: undefined
 }
 
-const bucReducer = (state: BucState = initialBucState, action: Action | ActionWithPayload = { type: '' }) => {
+const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
   switch (action.type) {
     case types.APP_DATA_CLEAR: {
       return initialBucState
@@ -637,7 +637,10 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
           item.variant === newlySavedJoarkBrowserItem.variant
       })
       newlySavedJoarkBrowserItem.type = 'sednew'
-      const newSaved = state.savingAttachmentsJob?.saved.concat(newlySavedJoarkBrowserItem)
+      const newSaved: JoarkBrowserItems = _.cloneDeep(state.savingAttachmentsJob?.saved!)
+      if (_.isArray(newSaved)) {
+        newSaved.push(newlySavedJoarkBrowserItem)
+      }
 
       newSeds!.forEach(sed => {
         if (sed.id === (action as ActionWithPayload).context.params.rinaDokumentId) {
@@ -652,7 +655,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
             documentId: md5('documentId' + date),
             lastUpdate: (action as ActionWithPayload).context.joarkBrowserItem.date.getTime(),
             medical: false
-          }
+          } as SEDAttachment
           sed.attachments.push(newSedAttachment)
         }
       })
@@ -662,11 +665,11 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
         ...state,
         bucs: newBucs,
         savingAttachmentsJob: {
-          ...state.savingAttachmentsJob,
+          total: state.savingAttachmentsJob!.total,
           saving: undefined,
           saved: newSaved,
           remaining: newRemaining
-        }
+        } as SavingAttachmentsJob
       }
     }
 
@@ -679,7 +682,7 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
           saving: {
             foo: 'bar'
           }
-        }
+        } as SavingAttachmentsJob
       }
 
     case types.BUC_SEND_ATTACHMENT_FAILURE:
@@ -700,11 +703,11 @@ const bucReducer = (state: BucState = initialBucState, action: Action | ActionWi
       return {
         ...state,
         savingAttachmentsJob: {
-          total: (action as ActionWithPayload).payload,
-          remaining: (action as ActionWithPayload).payload,
+          total: (action as ActionWithPayload).payload!,
+          remaining: (action as ActionWithPayload).payload!,
           saving: undefined,
           saved: []
-        }
+        } as SavingAttachmentsJob
       }
 
     case types.BUC_SAVINGATTACHMENTJOB_RESET:

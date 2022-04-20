@@ -3,6 +3,7 @@ import { PersonAvdods, PersonPDL } from 'declarations/person'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
 import moment from 'moment'
+import { AnyAction } from 'redux'
 
 export interface PersonState {
   personPdl: PersonPDL | undefined
@@ -18,7 +19,7 @@ export const initialPersonState: PersonState = {
   uft: undefined
 }
 
-const personReducer = (state: PersonState = initialPersonState, action: ActionWithPayload) => {
+const personReducer = (state: PersonState = initialPersonState, action: AnyAction) => {
   switch (action.type) {
     case types.APP_DATA_CLEAR:
       return initialPersonState

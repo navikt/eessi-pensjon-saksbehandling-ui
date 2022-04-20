@@ -186,7 +186,6 @@ export enum Slide {
 
 export const BUCIndex: React.FC<BUCIndexProps> = ({
 //  allowFullScreen, onFullFocus, onRestoreFocus,
-  waitForMount = true
 }: BUCIndexProps): JSX.Element => {
   const { aktoerId, bucs, bucsList, gettingBucs, gettingBucsList, gettingSakType, pesysContext, rinaUrl, sakId, sakType, vedtakId }: BUCIndexSelector =
     useSelector<State, BUCIndexSelector>(mapState)
@@ -194,7 +193,6 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 
   const [_askSakType, _setAskSakType] = useState<boolean>(false)
   const [_noParams, setNoParams] = useState<boolean | undefined>(undefined)
-  const [_mounted, setMounted] = useState<boolean>(!waitForMount)
   const [_bucs, setBucs] = useState<Bucs | undefined>(undefined)
 
   const [positionA, setPositionA] = useState<Slide>(Slide.LEFT)
@@ -338,29 +336,27 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   }, [animating, dispatch])
 
   useEffect(() => {
-    if (!_mounted) {
-      dispatch(loadAllEntries())
-      if (!rinaUrl) {
-        dispatch(getRinaUrl())
-      }
-      setContentA(WaitingDiv)
-      setMounted(true)
-      if (!aktoerId || !sakId) {
-        setContentA(EmptyBuc)
-        setNoParams(true)
-      } else {
-        setNoParams(false)
-        changeMode('buclist', 'none')
-      }
+    dispatch(loadAllEntries())
+    if (!rinaUrl) {
+      dispatch(getRinaUrl())
     }
-  }, [dispatch, aktoerId, EmptyBuc, _mounted, rinaUrl, sakId, changeMode, WaitingDiv])
+    setContentA(WaitingDiv)
+
+    if (!aktoerId || !sakId) {
+      setContentA(EmptyBuc)
+      setNoParams(true)
+    } else {
+      setNoParams(false)
+      changeMode('buclist', 'none')
+    }
+  }, [])
 
   useEffect(() => {
-    if (_mounted && _noParams && sakId && aktoerId) {
+    if (_noParams && sakId && aktoerId) {
       setNoParams(false)
       setContentA(<BUCList setMode={changeMode} />)
     }
-  }, [aktoerId, sakId, _mounted, _noParams, changeMode])
+  }, [])
 
   useEffect(() => {
     return () => {
@@ -371,7 +367,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   useEffect(() => {
     if (aktoerId && sakId && bucsList === undefined && !gettingBucsList) {
       dispatch(pesysContext === constants.VEDTAKSKONTEKST
-        ? fetchBucsListWithVedtakId(aktoerId, sakId, vedtakId)
+        ? fetchBucsListWithVedtakId(aktoerId, sakId, vedtakId!)
         : fetchBucsList(aktoerId, sakId))
       dispatch(fetchBucsInfoList(aktoerId))
     }
@@ -413,10 +409,6 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       setBucs(bucs)
     }
   }, [bucs, _bucs, dispatch])
-
-  if (!_mounted) {
-    return WaitingDiv
-  }
 
   if (!sakId || !aktoerId) {
     return EmptyBuc

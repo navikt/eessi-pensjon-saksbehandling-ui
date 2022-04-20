@@ -1,6 +1,6 @@
 import { closeModal, openModal } from 'actions/ui'
 import PT from 'prop-types'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 
@@ -23,9 +23,10 @@ const SessionMonitor: React.FC<SessionMonitorProps> = ({
   sessionExpiredReload = 1000,
   now
 }: SessionMonitorProps): JSX.Element => {
-  const [mounted, setMounted] = useState<boolean>(false)
+
   const { t } = useTranslation()
   const dispatch = useDispatch()
+
   useEffect(() => {
     const checkTimeout = () => {
       if (!expirationTime) {
@@ -44,19 +45,15 @@ const SessionMonitor: React.FC<SessionMonitorProps> = ({
             modalButtons: [{
               main: true,
               text: t('ui:ok-got-it'),
-              onClick: dispatch(closeModal)
+              onClick: () => dispatch(closeModal())
             }]
           }))
         }
         checkTimeout()
       }, checkInterval)
     }
-
-    if (!mounted) {
-      checkTimeout()
-      setMounted(true)
-    }
-  }, [checkInterval, dispatch, expirationTime, millisecondsForWarning, mounted, now, sessionExpiredReload, t])
+    checkTimeout()
+  }, [])
 
   return <div role='application' data-testid='c-sessionMonitor' />
 }

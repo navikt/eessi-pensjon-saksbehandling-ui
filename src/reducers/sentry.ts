@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import * as Sentry from '@sentry/browser'
-import { Action } from 'redux'
+import { AnyAction } from 'redux'
 
 export interface SentryState {
   error: any
@@ -10,15 +10,13 @@ export const initialSentryState: SentryState = {
   error: undefined
 }
 
-export interface ApiRejectedAction extends Action {
+export interface ApiRejectedAction extends AnyAction {
   error: any
   originalPayload: any
   context: any
 }
 
-const sentryReducer = (state: SentryState = initialSentryState, action: ApiRejectedAction = {
-  type: '', error: undefined, originalPayload: undefined, context: undefined
-}) => {
+const sentryReducer = (state: SentryState = initialSentryState, action: AnyAction) => {
   switch (action.type) {
     case types.API_CALL_REJECTED:
 

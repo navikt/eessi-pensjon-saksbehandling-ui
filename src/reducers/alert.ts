@@ -3,7 +3,7 @@ import { Sed } from 'declarations/buc'
 import i18n from 'i18n'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
-import { Action } from 'redux'
+import { AnyAction } from 'redux'
 
 export interface AlertState {
   stripeStatus: string | undefined
@@ -25,7 +25,7 @@ export const initialAlertState: AlertState = {
   type: undefined
 }
 
-const alertReducer = (state: AlertState = initialAlertState, action: Action | ActionWithPayload = { type: '' }) => {
+const alertReducer = (state: AlertState = initialAlertState, action: AnyAction) => {
   let stripeMessage: JSX.Element | string | undefined
   let bannerMessage: string | undefined
   let stripeStatus: string
@@ -87,6 +87,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: Action | Ac
     }
 
     return {
+      ...state,
       type: action.type,
       bannerMessage,
       bannerStatus,

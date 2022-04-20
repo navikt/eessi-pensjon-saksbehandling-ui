@@ -1,11 +1,11 @@
 import * as bucActions from 'actions/buc'
-import { BUCMode } from 'declarations/app.d'
+import { BUCMode, FeatureToggles } from 'declarations/app.d'
 import * as types from 'constants/actionTypes'
 import { VEDTAKSKONTEKST } from 'constants/constants'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as urls from 'constants/urls'
-import { Buc, NewBucPayload, NewSedPayload, Sed, SEDAttachmentPayloadWithFile } from 'declarations/buc.d'
+import { Buc, NewBucPayload, NewSedPayload, SakTypeValue, Sed, SEDAttachmentPayloadWithFile } from 'declarations/buc.d'
 import { JoarkBrowserItem } from 'declarations/joark'
 import { call as originalCall } from '@navikt/fetch'
 import _ from 'lodash'
@@ -140,7 +140,8 @@ describe('actions/buc', () => {
 
   it('fetchBucsList()', () => {
     const mockAktoerId = '123'
-    bucActions.fetchBucsList(mockAktoerId)
+    const mockSakId = '456'
+    bucActions.fetchBucsList(mockAktoerId, mockSakId)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUCSLIST_REQUEST,
@@ -148,7 +149,7 @@ describe('actions/buc', () => {
         failure: types.BUC_GET_BUCSLIST_FAILURE
       },
       cascadeFailureError: true,
-      url: sprintf(urls.BUC_GET_BUCSLIST_URL, { aktoerId: mockAktoerId })
+      url: sprintf(urls.BUC_GET_BUCSLIST_URL, { aktoerId: mockAktoerId, sakId: mockSakId })
     }))
   })
 
@@ -182,8 +183,9 @@ describe('actions/buc', () => {
 
   it('fetchBucsListWithAvdodFnr()', () => {
     const mockAktoerId = '123'
-    const mockAvdodFnr = '456'
-    bucActions.fetchBucsListWithAvdodFnr(mockAktoerId, mockAvdodFnr)
+    const mockSakId = '456'
+    const mockAvdodFnr = '789'
+    bucActions.fetchBucsListWithAvdodFnr(mockAktoerId, mockSakId, mockAvdodFnr)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUCSLIST_REQUEST,
@@ -191,14 +193,15 @@ describe('actions/buc', () => {
         failure: types.BUC_GET_BUCSLIST_FAILURE
       },
       cascadeFailureError: true,
-      url: sprintf(urls.BUC_GET_BUCSLIST_WITH_AVDODFNR_URL, { aktoerId: mockAktoerId, avdodFnr: mockAvdodFnr })
+      url: sprintf(urls.BUC_GET_BUCSLIST_WITH_AVDODFNR_URL, { aktoerId: mockAktoerId, sakId: mockSakId, avdodFnr: mockAvdodFnr })
     }))
   })
 
   it('fetchBucsListWithVedtakId()', () => {
     const mockAktoerId = '123'
-    const mockVedtakId = '456'
-    bucActions.fetchBucsListWithVedtakId(mockAktoerId, mockVedtakId)
+    const mockSakId = '456'
+    const mockVedtakId = '789'
+    bucActions.fetchBucsListWithVedtakId(mockAktoerId, mockSakId, mockVedtakId)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUCSLIST_REQUEST,
@@ -206,7 +209,7 @@ describe('actions/buc', () => {
         failure: types.BUC_GET_BUCSLIST_FAILURE
       },
       cascadeFailureError: true,
-      url: sprintf(urls.BUC_GET_BUCSLIST_WITH_VEDTAKID_URL, { aktoerId: mockAktoerId, vedtakId: mockVedtakId })
+      url: sprintf(urls.BUC_GET_BUCSLIST_WITH_VEDTAKID_URL, { aktoerId: mockAktoerId, sakId: mockSakId, vedtakId: mockVedtakId })
     }))
   })
 
@@ -230,7 +233,7 @@ describe('actions/buc', () => {
     const aktoerId = '456'
     const sakId = '780'
     const kilde = 'pdl'
-    bucActions.fetchBuc(rinaCaseId, aktoerId, sakId, kilde)
+    bucActions.fetchBuc(rinaCaseId, aktoerId, sakId, undefined, kilde)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUC_REQUEST,
@@ -261,8 +264,8 @@ describe('actions/buc', () => {
   it('getBucOptions()', () => {
     const sakId = '123'
     const pesysContext = VEDTAKSKONTEKST
-    const sakType = undefined
-    bucActions.getBucOptions(sakId, pesysContext, sakType)
+    const sakType = 'AFP' as SakTypeValue
+    bucActions.getBucOptions(sakId, {} as FeatureToggles, pesysContext, sakType)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUC_OPTIONS_REQUEST,
@@ -442,6 +445,7 @@ describe('actions/buc', () => {
         }
       }
     }
+
     bucActions.saveBucsInfo(mockParams)
     expect(call).toBeCalledWith({
       type: {

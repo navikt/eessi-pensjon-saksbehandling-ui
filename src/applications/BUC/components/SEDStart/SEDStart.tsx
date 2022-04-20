@@ -269,7 +269,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   )
   const [_kravDato, setKravDato] = useState<string>(kravDato || '')
   const [_kravOm, setKravOm] = useState<KravOmValue | undefined>(undefined)
-  const [_mounted, setMounted] = useState<boolean>(false)
   const _notHostInstitution = (institution: Institution) : boolean => institution.institution !== 'NO:DEMO001'
   const [_sed, setSed] = useState<string | undefined>(initialSed)
   const [_sedAttachments, setSedAttachments] = useState<JoarkBrowserItems>(initialAttachments)
@@ -826,21 +825,18 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }, [countryList, dispatch, loading.gettingCountryList, _type])
 
   useEffect(() => {
-    if (!_mounted) {
-      dispatch(_.isEmpty(followUpSeds) ? getSedList(_buc as ValidBuc) : setSedList(followUpSeds!.map(s => s.type)))
-      if (!_.isEmpty(followUpSeds) && followUpSeds!.length === 1) {
-        handleSedChange(followUpSeds![0].type)
-      }
-      if (_buc && _buc.type !== null && !_.isEmpty(_countries)) {
-        _countries.forEach(country => {
-          if (!institutionList || !Object.keys(institutionList).includes(country)) {
-            dispatch(getInstitutionsListForBucAndCountry(_buc.type!, country))
-          }
-        })
-      }
-      setMounted(true)
+    dispatch(_.isEmpty(followUpSeds) ? getSedList(_buc as ValidBuc) : setSedList(followUpSeds!.map(s => s.type)))
+    if (!_.isEmpty(followUpSeds) && followUpSeds!.length === 1) {
+      handleSedChange(followUpSeds![0].type)
     }
-  }, [_buc, bucs, _countries, dispatch, institutionList, _mounted, followUpSeds])
+    if (_buc && _buc.type !== null && !_.isEmpty(_countries)) {
+      _countries.forEach(country => {
+        if (!institutionList || !Object.keys(institutionList).includes(country)) {
+          dispatch(getInstitutionsListForBucAndCountry(_buc.type!, country))
+        }
+      })
+    }
+  }, [])
 
   useEffect(() => {
     dispatch(_.isEmpty(followUpSeds) ? getSedList(_buc as ValidBuc) : setSedList(followUpSeds!.map(s => s.type)))
@@ -930,7 +926,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       ..._validation,
       p6000: undefined
     })
-    dispatch(getSedP6000(_buc.caseId))
+    dispatch(getSedP6000(_buc.caseId!))
   }
 
   useEffect(() => {

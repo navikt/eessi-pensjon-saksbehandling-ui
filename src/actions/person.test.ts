@@ -21,7 +21,7 @@ describe('actions/app', () => {
   it('getPersonAvdodInfo()', () => {
     const mockAktoerId: string = '123'
     const mockVedtakId: string = '456'
-    personActions.getPersonAvdodInfo(mockAktoerId, mockVedtakId)
+    personActions.getPersonAvdodInfo(mockAktoerId, mockVedtakId, undefined)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.PERSON_AVDOD_REQUEST,
