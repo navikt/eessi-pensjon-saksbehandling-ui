@@ -1,4 +1,4 @@
-import { getUserInfo, login, setStatusParam } from 'actions/app'
+import { getUserInfo, setStatusParam } from 'actions/app'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import * as routes from 'constants/routes'
@@ -48,7 +48,6 @@ const RequireAuth: React.FC<any> = (props) => {
   const location = useLocation()
 
   const [_params, _setParams] = useState<Params>({})
-  const [_mounted, _setMounted] = useState<boolean>(false)
 
   useEffect(() => {
     const parseSearchParams = () => {
@@ -76,21 +75,12 @@ const RequireAuth: React.FC<any> = (props) => {
   }, [location, _params])
 
   useEffect(() => {
-    if (!_mounted) {
-      if (loggedIn === undefined && !gettingUserInfo) {
-        dispatch(getUserInfo())
-      }
-
-      if (loggedIn === false && !isLoggingIn) {
-        dispatch(login())
-      }
-      if (loggedIn === true) {
-        _setMounted(true)
-      }
+    if (loggedIn === undefined && !gettingUserInfo) {
+      dispatch(getUserInfo())
     }
-  }, [loggedIn, gettingUserInfo, isLoggingIn, _mounted])
+  }, [])
 
-  if (!_mounted) {
+  if (isLoggingIn || loggedIn === undefined) {
     return (
       <RouteDiv role='alert'>
         <WaitingPanel />
