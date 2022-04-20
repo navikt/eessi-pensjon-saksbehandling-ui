@@ -12,6 +12,6 @@ import s3inventory from './s3inventory'
 import sentry from './sentry'
 import ui from './ui'
 
-export {
+export default {
   alert, app, buc, joark, journalføring, loading, localStorage, pagenotification, p5000, person, s3inventory, sentry, ui
 }

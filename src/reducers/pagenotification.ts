@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import { ActionWithPayload } from '@navikt/fetch'
-import { Action } from 'redux'
+import { AnyAction } from 'redux'
 
 export interface PageNotificationState {
   byline: string | null | undefined
@@ -16,7 +16,7 @@ export const initialPageNotificationState: PageNotificationState = {
   byline: undefined
 }
 
-const pageNotificationReducer = (state: PageNotificationState = initialPageNotificationState, action: Action | ActionWithPayload = { type: '' }) => {
+const pageNotificationReducer = (state: PageNotificationState = initialPageNotificationState, action: AnyAction) => {
   switch (action.type) {
     case types.PAGE_NOTIFICATION_READ_REQUEST:
       return {

@@ -3,7 +3,7 @@ import { BucInfo, Comment } from 'declarations/buc'
 import { GetS3FilesJob } from 'declarations/components'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
-import { Action } from 'redux'
+import { AnyAction } from 'redux'
 
 export interface S3InventoryState {
   s3list: Array<any> | null | undefined
@@ -21,7 +21,7 @@ export const initialS3InventoryState: S3InventoryState = {
   s3stats: {}
 }
 
-const s3inventoryReducer = (state: S3InventoryState = initialS3InventoryState, action: Action | ActionWithPayload = { type: '' }) => {
+const s3inventoryReducer = (state: S3InventoryState = initialS3InventoryState, action: AnyAction) => {
   switch (action.type) {
     case types.S3INVENTORY_LIST_REQUEST:
       return {
@@ -69,7 +69,7 @@ const s3inventoryReducer = (state: S3InventoryState = initialS3InventoryState, a
         getS3FilesJob: {
           ...state.getS3FilesJob,
           loading: filename
-        }
+        } as GetS3FilesJob
       }
     }
 
@@ -81,7 +81,11 @@ const s3inventoryReducer = (state: S3InventoryState = initialS3InventoryState, a
       const payload = (action as ActionWithPayload).payload
 
       const newRemaining = _.reject(state.getS3FilesJob!.remaining, (item: string) => item === filename)
-      const newLoaded = state.getS3FilesJob?.loaded.concat(filename)
+      const newLoaded = _.cloneDeep(state.getS3FilesJob?.loaded)
+
+      if (!_.isUndefined(newLoaded)) {
+        newLoaded.push(filename)
+      }
 
       const newS3stats = _.cloneDeep(state.s3stats)
       const match = filename.match(/^([^_]+)--_([^_]+)(.+)?$/)
@@ -134,7 +138,7 @@ const s3inventoryReducer = (state: S3InventoryState = initialS3InventoryState, a
           loading: undefined,
           loaded: newLoaded,
           remaining: newRemaining
-        }
+        } as GetS3FilesJob
       }
     }
 
@@ -154,7 +158,7 @@ const s3inventoryReducer = (state: S3InventoryState = initialS3InventoryState, a
           loaded: [],
           notloaded: [],
           loading: undefined
-        }
+        } as GetS3FilesJob
       }
     }
 

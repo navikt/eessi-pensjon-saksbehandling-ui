@@ -1,7 +1,7 @@
 import * as types from 'constants/actionTypes'
 import { Sed } from 'declarations/buc'
 import { ActionWithPayload } from '@navikt/fetch'
-import { Action } from 'redux'
+import { AnyAction } from 'redux'
 
 export interface JournalføringState {
   seds: Array<Sed> | null | undefined
@@ -13,7 +13,7 @@ export const initialJournalføringState: JournalføringState = {
   sedSend: undefined
 }
 
-const jurnalføringReducer = (state: JournalføringState = initialJournalføringState, action: Action | ActionWithPayload = { type: '' }) => {
+const jurnalføringReducer = (state: JournalføringState = initialJournalføringState, action: AnyAction) => {
   switch (action.type) {
     case types.JOURNALFØRING_SED_GET_REQUEST:
       return {

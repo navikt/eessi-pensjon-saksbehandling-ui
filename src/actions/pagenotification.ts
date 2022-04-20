@@ -1,12 +1,11 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import { ActionWithPayload, call, ThunkResult } from '@navikt/fetch'
+import { ActionWithPayload, call } from '@navikt/fetch'
 import mockPageNotificationRead from 'mocks/pagenotification/read'
 import mockPageNotificationSet from 'mocks/pagenotification/set'
-import { ActionCreator } from 'redux'
 
-export const readNotification: ActionCreator<ThunkResult<ActionWithPayload<any>>> = (
-): ThunkResult<ActionWithPayload<any>> => {
+export const readNotification = (
+): ActionWithPayload<any> => {
   return call({
     url: urls.API_PAGENOTIFICATION_GET_URL,
     expectedPayload: mockPageNotificationRead,
@@ -18,7 +17,7 @@ export const readNotification: ActionCreator<ThunkResult<ActionWithPayload<any>>
   })
 }
 
-export const setNotification: ActionCreator<ActionWithPayload<undefined>> = (
+export const setNotification = (
   message: string, show: boolean, byline: string
 ): ActionWithPayload<undefined> => {
   return call({

@@ -2,8 +2,8 @@ import * as constants from 'constants/constants'
 import * as types from 'constants/actionTypes'
 import { Feature, FeatureToggles, Params, PesysContext } from 'declarations/app.d'
 import { SakTypeKey, SakTypeMap } from 'declarations/buc.d'
-import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
+import { AnyAction } from 'redux'
 
 export interface AppState {
   expirationTime: Date | undefined
@@ -38,7 +38,7 @@ export const initialAppState: AppState = {
   userRole: undefined
 }
 
-const appReducer = (state: AppState = initialAppState, action: ActionWithPayload = { type: '', payload: undefined }) => {
+const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
   let newParams: Params, newFeatureToggles: FeatureToggles, newContext: PesysContext
   switch (action.type) {
     case types.APP_LOGOUT_SUCCESS: {

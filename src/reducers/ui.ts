@@ -3,15 +3,15 @@ import { WidthSize } from 'declarations/app'
 import { AllowedLocaleString } from 'declarations/app.d'
 import { ModalContent } from 'declarations/components'
 import { ActionWithPayload } from '@navikt/fetch'
-import { Action } from 'redux'
+import { AnyAction } from 'redux'
 import i18n from '../i18n'
 
 export interface UiState {
   language: AllowedLocaleString
   locale: AllowedLocaleString
   modal: ModalContent | undefined
-  footerOpen: false
-  highContrast: false
+  footerOpen: boolean
+  highContrast: boolean
   size: WidthSize | undefined
 }
 
@@ -24,7 +24,7 @@ export const initialUiState: UiState = {
   size: undefined
 }
 
-const uiReducer = (state: UiState = initialUiState, action: Action | ActionWithPayload = { type: '' }) => {
+const uiReducer = (state: UiState = initialUiState, action: AnyAction) => {
   switch (action.type) {
     case types.UI_MODAL_SET:
       return {
@@ -37,7 +37,7 @@ const uiReducer = (state: UiState = initialUiState, action: Action | ActionWithP
       return {
         ...state,
         language: (action as ActionWithPayload).payload,
-        locale: (action as ActionWithPayload).payload === 'nb' ? 'nb' : 'en'
+        locale: ((action as ActionWithPayload).payload === 'nb' ? 'nb' : 'en') as AllowedLocaleString
       }
 
     case types.UI_FOOTER_TOGGLE_OPEN :

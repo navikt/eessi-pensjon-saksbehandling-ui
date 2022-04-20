@@ -436,8 +436,8 @@ const BUCStart: React.FC<BUCStartProps> = ({
   }, [dispatch, loading.gettingSubjectAreaList, subjectAreaList])
 
   useEffect(() => {
-    if (bucOptions === undefined && !loading.gettingBucOptions) {
-      dispatch(getBucOptions(sakId, featureToggles, pesysContext, sakType))
+    if (!!sakId && bucOptions === undefined && !loading.gettingBucOptions) {
+      dispatch(getBucOptions(sakId, featureToggles, pesysContext as PesysContext, sakType as SakTypeValue))
     }
   }, [bucOptions, dispatch, loading.gettingBucOptions, pesysContext, sakId, sakType])
 

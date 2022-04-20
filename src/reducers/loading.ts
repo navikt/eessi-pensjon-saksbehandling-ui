@@ -1,5 +1,5 @@
 import * as types from 'constants/actionTypes'
-import { Action } from 'redux'
+import { AnyAction } from 'redux'
 
 export interface LoadingState {
   [k: string]: boolean
@@ -41,7 +41,7 @@ export const initialLoadingState: LoadingState = {
   sendingP5000info: false
 }
 
-const loadingReducer = (state: LoadingState = initialLoadingState, action: Action = { type: '' }) => {
+const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAction) => {
   switch (action.type) {
   // APP
 
