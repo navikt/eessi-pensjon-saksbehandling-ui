@@ -31,7 +31,6 @@ describe('widgets/Overview/Overview', () => {
 
   const initialMockProps: OverviewProps = {
     onUpdate: jest.fn(),
-    skipMount: false,
     widget: {
       i: 'i',
       type: 'foo',
@@ -87,7 +86,7 @@ describe('widgets/Overview/Overview', () => {
   it('Handling: Expandable', () => {
     (initialMockProps.onUpdate as jest.Mock).mockReset()
     stageSelector(defaultSelector, ({ aktoerId: '123' }))
-    wrapper = render(<Overview {...initialMockProps} skipMount />)
+    wrapper = render(<Overview {...initialMockProps} />)
     wrapper.find('ExpandingPanel .ekspanderbartPanel--hode').simulate('click')
     expect(initialMockProps.onUpdate).toHaveBeenCalledWith(expect.objectContaining({
       options: {

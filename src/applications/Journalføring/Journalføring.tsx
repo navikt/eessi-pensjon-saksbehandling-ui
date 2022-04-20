@@ -50,7 +50,7 @@ const Journalføring = () => {
     const valid = _performValidation({
       sed: _sed
     })
-    if (valid) {
+    if (valid && sakId && aktoerId && _sed) {
       dispatch(jornalføreSed(sakId, aktoerId, _sed))
     }
   }
@@ -61,7 +61,7 @@ const Journalføring = () => {
   }
 
   useEffect(() => {
-    if (seds === undefined && !gettingJournalføringSed) {
+    if (seds === undefined && sakId && aktoerId && !gettingJournalføringSed) {
       dispatch(getSed(sakId, aktoerId))
     }
   }, [])
@@ -70,7 +70,7 @@ const Journalføring = () => {
     return (<WaitingPanel size='xsmall' oneLine message={t('message:loading-gettingSEDs')} />)
   }
 
-  if (gettingJournalføringSed === null) {
+  if (gettingJournalføringSed === null && sakId && aktoerId) {
     return (
       <Button
         variant='primary'

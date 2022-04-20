@@ -2,20 +2,16 @@ import Buc from 'applications/BUC/'
 import { WidgetFC, WidgetProps } from '@navikt/dashboard'
 import _ from 'lodash'
 import PT from 'prop-types'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 
 const BUCWidget: WidgetFC<WidgetProps> = ({
   onResize, onFullFocus, onRestoreFocus, widget
 }: WidgetProps): JSX.Element => {
-  const [mounted, setMounted] = useState<boolean>(false)
 
   useEffect(() => {
-    if (!mounted && onResize) {
-      onResize()
-      setMounted(true)
-    }
-  }, [mounted, onResize])
+    onResize()
+  }, [])
 
   return (
     <div className='w-BucWidget'>

@@ -9,7 +9,7 @@ export const clearData = (): Action => ({
   type: types.APP_DATA_CLEAR
 })
 
-export const getUserInfo = (): Promise<Action> => {
+export const getUserInfo = (): Action => {
   return call({
     url: urls.API_USERINFO_URL,
     cascadeFailureError: true,

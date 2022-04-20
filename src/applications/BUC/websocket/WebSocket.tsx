@@ -83,12 +83,12 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
     console.log('Receiving websocket message')
     try {
       const data = JSON.parse(e.data)
-      if (data.bucUpdated && data.bucUpdated.caseId) {
+      if (data.bucUpdated && data.bucUpdated.caseId && aktoerId && sakId) {
         pushToLog('info', 'Updating buc ' + data.bucUpdated.caseId)
         dispatch(alertSuccess(t('ui:websocket-updating-buc', { buc: data.bucUpdated.caseId })))
         const buc: BucListItem | undefined = _.find(bucsList, b => b.euxCaseId === data.bucUpdated.caseId)
-        if (buc) {
-          dispatch(fetchBuc(data.bucUpdated.caseId, aktoerId, sakId, buc.kilde))
+        if (buc && buc.kilde) {
+          dispatch(fetchBuc(data.bucUpdated.caseId!, aktoerId, sakId, undefined, buc.kilde))
         }
       }
       if (data.subscriptions) {
@@ -101,7 +101,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
     }
   }, [dispatch])
 
-  const websocketSubscribe = useCallback((connection) => {
+  const websocketSubscribe = useCallback((connection: any) => {
     const ids:Array<string> = []
     if (fnr) {
       ids.push(fnr)

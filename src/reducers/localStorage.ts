@@ -2,7 +2,7 @@ import * as types from 'constants/actionTypes'
 import { LocalStorageEntriesMap, LocalStorageEntry, PSED } from 'declarations/app.d'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
-import { Action } from 'redux'
+import { AnyAction } from 'redux'
 
 // these are used for: 1) reducer namespace, and 2) local storage key
 
@@ -18,7 +18,7 @@ export const initialLocalStorageState: LocalStorageState = {
 
 const localStorageReducer = (
   state: LocalStorageState = initialLocalStorageState,
-  action: Action = { type: '' }
+  action: AnyAction
 ): LocalStorageState => {
   const caseId: string | undefined = (action as ActionWithPayload).payload?.caseId
 

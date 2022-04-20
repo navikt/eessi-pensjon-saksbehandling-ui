@@ -3,7 +3,7 @@ import * as types from 'constants/actionTypes'
 import { P5000sFromRinaMap, P5000Period } from 'declarations/p5000'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
-import { Action } from 'redux'
+import { AnyAction } from 'redux'
 
 export interface P5000State {
   p5000sFromRinaMap: P5000sFromRinaMap
@@ -47,7 +47,7 @@ const fillWithKeys = (payload: any, sedId: string) => {
   })
 }
 
-const p5000Reducer = (state: P5000State = initialP5000State, action: Action | ActionWithPayload = { type: '' }): P5000State => {
+const p5000Reducer = (state: P5000State = initialP5000State, action: AnyAction): P5000State => {
   switch (action.type) {
     case types.APP_DATA_CLEAR: {
       return initialP5000State

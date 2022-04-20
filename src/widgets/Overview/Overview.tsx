@@ -46,16 +46,14 @@ const mapState = (state: State): OverviewSelector => ({
 
 export interface OverviewProps {
   onUpdate?: (w: Widget) => void
-  skipMount?: boolean
   widget: Widget
 }
 
 export const Overview: React.FC<OverviewProps> = ({
   onUpdate,
-  skipMount = false,
   widget
 }: OverviewProps): JSX.Element => {
-  const [mounted, setMounted] = useState<boolean>(skipMount)
+
   const { aktoerId, featureToggles, gettingPersonInfo, locale, personPdl, personAvdods, pesysContext, vedtakId }: OverviewSelector =
     useSelector<State, OverviewSelector>(mapState)
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
@@ -88,16 +86,13 @@ export const Overview: React.FC<OverviewProps> = ({
   }
 
   useEffect(() => {
-    if (!mounted && aktoerId && pesysContext) {
-      if (!personPdl) {
-        dispatch(getPersonInfo(aktoerId))
-        if (pesysContext === constants.VEDTAKSKONTEKST) {
-          dispatch(getPersonAvdodInfo(aktoerId, vedtakId, featureToggles.NR_AVDOD))
-        }
+    if (aktoerId && pesysContext && !personPdl) {
+      dispatch(getPersonInfo(aktoerId))
+      if (pesysContext === constants.VEDTAKSKONTEKST && !!vedtakId) {
+        dispatch(getPersonAvdodInfo(aktoerId, vedtakId, featureToggles.NR_AVDOD as number | undefined))
       }
-      setMounted(true)
     }
-  }, [featureToggles, mounted, dispatch, aktoerId, personPdl, pesysContext, vedtakId])
+  }, [])
 
   if (!aktoerId) {
     return (
@@ -140,7 +135,6 @@ export const Overview: React.FC<OverviewProps> = ({
 
 Overview.propTypes = {
   onUpdate: PT.func,
-  skipMount: PT.bool,
   widget: WidgetPropType.isRequired
 }
 

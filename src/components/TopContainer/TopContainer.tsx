@@ -11,10 +11,11 @@ import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import Error from 'pages/Error/Error'
 import PT from 'prop-types'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactResizeDetector from 'react-resize-detector'
 import NavHighContrast from '@navikt/hoykontrast'
-import styled from 'styled-components/macro'
+import styled, { createGlobalStyle } from 'styled-components/macro'
 import { ErrorBoundary } from 'react-error-boundary'
 import { IS_PRODUCTION } from 'constants/environment'
 
@@ -31,6 +32,46 @@ const TopContainerDiv = styled.div`
   flex-direction: column;
   height: 100%;
 `
+
+const GlobalStyle = createGlobalStyle`
+  html {
+    height: 100%;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: 100vh;
+  }
+  pre {
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+  }
+  code.block {
+    display: block;
+    white-space: pre-wrap;
+  }
+  dd {
+    margin-bottom: .5rem;
+    margin-left: 0;
+  }
+  ol {
+    list-style-type: decimal;
+  }
+
+  .print-version {
+    width: 100%;
+    margin-top: 0.5rem;
+    @media print {
+      @page {
+        size: A4 landscape;
+      }
+      td {
+        padding: 0.5rem;
+      }
+    }
+  }
+`
+
 export interface TopContainerProps {
   className?: string
   children?: JSX.Element | Array<JSX.Element | null>
@@ -114,7 +155,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
 
   return (
     <NavHighContrast highContrast={highContrast}>
-
+      <GlobalStyle />
       <TopContainerDiv role='application'>
         <ErrorBoundary
           FallbackComponent={ErrorFallback}

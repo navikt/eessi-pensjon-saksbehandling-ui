@@ -1,16 +1,16 @@
 import { JoarkBrowserItem, JoarkBrowserItemWithContent, JoarkList, JoarkPreview } from 'declarations/joark.d'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import { call, ActionWithPayload, ThunkResult } from '@navikt/fetch'
+import { call, ActionWithPayload } from '@navikt/fetch'
 import mockJoark from 'mocks/joark/joark'
 import mockPreview from 'mocks/joark/preview'
 import { ActionCreator } from 'redux'
 
 const sprintf = require('sprintf-js').sprintf
 
-export const listJoarkItems: ActionCreator<ThunkResult<ActionWithPayload<JoarkList>>> = (
+export const listJoarkItems = (
   userId: string
-): ThunkResult<ActionWithPayload<JoarkList>> => {
+): ActionWithPayload<JoarkList> => {
   return call({
     url: sprintf(urls.API_JOARK_LIST_URL, { userId }),
     expectedPayload: mockJoark,
@@ -22,9 +22,9 @@ export const listJoarkItems: ActionCreator<ThunkResult<ActionWithPayload<JoarkLi
   })
 }
 
-export const getJoarkItemPreview: ActionCreator<ThunkResult<ActionWithPayload<JoarkPreview>>> = (
+export const getJoarkItemPreview = (
   item: JoarkBrowserItem
-): ThunkResult<ActionWithPayload<JoarkPreview>> => {
+): ActionWithPayload<JoarkPreview> => {
   return call({
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,

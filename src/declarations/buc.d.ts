@@ -1,6 +1,6 @@
 import { Option } from 'declarations/app.d'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark.d'
-import { Person, PersonAvdod } from 'declarations/person.d'
+import { PersonAvdod } from 'declarations/person.d'
 
 export interface Address {
   country: string
@@ -88,7 +88,7 @@ export interface InstitutionNames {
 
 export interface NewBucPayload {
   buc: string
-  person: Person
+  person: any //Person
   avdod?: PersonAvdod
   avdodfnr?: string
   kravDato?: string
@@ -171,7 +171,7 @@ export interface SaveBucsInfoProps {
     caseId: string
   };
   bucsInfo: BucsInfo
-  comment?: string
+  comment?: string | Array<Comment>
   kravDato?: string
   tags?: RawList
 }
@@ -179,7 +179,7 @@ export interface SaveBucsInfoProps {
 export interface SavingAttachmentsJob {
   total: JoarkBrowserItems
   saved: JoarkBrowserItems
-  saving: JoarkBrowserItem | undefined
+  saving: JoarkBrowserItem | {[k in string]: string} | undefined
   remaining: JoarkBrowserItems
 }
 

@@ -48,7 +48,7 @@ const RequireAuth: React.FC<any> = (props) => {
   const location = useLocation()
 
   const [_params, _setParams] = useState<Params>({})
-  const [_mounted, setMounted] = useState<boolean>(false)
+  const [_mounted, _setMounted] = useState<boolean>(false)
 
   useEffect(() => {
     const parseSearchParams = () => {
@@ -85,12 +85,12 @@ const RequireAuth: React.FC<any> = (props) => {
         dispatch(login())
       }
       if (loggedIn === true) {
-        setMounted(true)
+        _setMounted(true)
       }
     }
-  }, [dispatch, loggedIn, gettingUserInfo, isLoggingIn, _mounted])
+  }, [])
 
-  if (!_mounted) {
+  if (isLoggingIn || loggedIn === undefined) {
     return (
       <RouteDiv role='alert'>
         <WaitingPanel />
