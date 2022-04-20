@@ -21,7 +21,6 @@ const defaultSelector: RequireAuthSelector = {
 describe('components/RequireAuth/RequireAuth', () => {
   const initialMockProps = {}
   let wrapper: any
-
   beforeEach(() => {
     stageSelector(defaultSelector, {})
   })
@@ -31,7 +30,7 @@ describe('components/RequireAuth/RequireAuth', () => {
   })
 
   it('UseEffect: read status params', () => {
-    render(
+    wrapper = render(
       <Routes>
         <RequireAuth {...initialMockProps} />
       </Routes>)
