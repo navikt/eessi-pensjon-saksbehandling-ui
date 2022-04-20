@@ -48,7 +48,6 @@ const RequireAuth: React.FC<any> = (props) => {
   const location = useLocation()
 
   const [_params, _setParams] = useState<Params>({})
-  const [_mounted, _setMounted] = useState<boolean>(false)
 
   useEffect(() => {
     const parseSearchParams = () => {
@@ -73,21 +72,13 @@ const RequireAuth: React.FC<any> = (props) => {
     }
 
     parseSearchParams()
-  }, [dispatch, location, _params])
+  }, [location, _params])
 
   useEffect(() => {
-    if (!_mounted) {
       if (loggedIn === undefined && !gettingUserInfo) {
         dispatch(getUserInfo())
       }
 
-      if (loggedIn === false && !isLoggingIn) {
-        dispatch(login())
-      }
-      if (loggedIn === true) {
-        _setMounted(true)
-      }
-    }
   }, [])
 
   if (isLoggingIn || loggedIn === undefined) {
