@@ -13,7 +13,7 @@ import { Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'react-redux'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import 'regenerator-runtime/runtime'
 import { unregister } from 'registerServiceWorker'
 import i18n from './i18n'
@@ -38,18 +38,16 @@ root.render(
         <Suspense fallback={<span>...</span>}>
           <BrowserRouter>
             <Routes>
-              <Route path='/' element={<Navigate to={{ pathname: '/_/', search: window.location.search }} />} />
-              <Route
-                path='/_/' element={
+              <Route path='/' element={
                   <RequireAuth>
                     <Pages.IndexPage />
                   </RequireAuth>
               }
               />
-              <Route path='/_/notlogged' element={<Pages.Error type='notLogged' />} />
-              <Route path='/_/notinvited' element={<Pages.Error type='notInvited' />} />
-              <Route path='/_/forbidden' element={<Pages.Error type='forbidden' />} />
-              <Route path='/_/*' element={<Pages.Error type='error' />} />
+              <Route path='/notlogged' element={<Pages.Error type='notLogged' />} />
+              <Route path='/notinvited' element={<Pages.Error type='notInvited' />} />
+              <Route path='/forbidden' element={<Pages.Error type='forbidden' />} />
+              <Route path='/*' element={<Pages.Error type='error' />} />
             </Routes>
           </BrowserRouter>
         </Suspense>
