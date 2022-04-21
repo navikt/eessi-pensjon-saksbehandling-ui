@@ -1,0 +1,4 @@
+eessi_pensjon_frontend_api_url: https://eessi-pensjon-frontend-api-q2.dev.intern.nav.no
+eessi_pensjon_fagmodul_url: https://eessi-pensjon-fagmodul-q2.dev.intern.nav.no
+eessi_pensjon_frontend_api_token_scope: api://dev-gcp.eessipensjon.eessi-pensjon-saksbehandling-api-q2/.default
+eessi_pensjon_fagmodul_token_scope: api://dev-gcp.eessipensjon.eessi-pensjon-fagmodul-q2/.default

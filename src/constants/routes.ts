@@ -1,4 +1,4 @@
-const BASE = '/_'
+const BASE = ''
 export const ROOT = BASE + '/'
 export const NOT_INVITED = BASE + '/notinvited'
 export const NOT_LOGGED = BASE + '/notlogged'
