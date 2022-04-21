@@ -3,9 +3,7 @@ name: Build, push, and deploy
 on:
   push:
     branches:
-      - '*'
-      - '*/*'
-      - '!master'
+      - 'dev'
 
 jobs:
   tag_build_and_deploy:
