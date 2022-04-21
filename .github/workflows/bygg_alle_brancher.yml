@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'dev'
+      - 'dev-gcp'
 
 jobs:
   tag_build_and_deploy:
