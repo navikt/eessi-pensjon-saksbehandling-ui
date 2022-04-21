@@ -1,4 +1,4 @@
-import { getUserInfo, login, setStatusParam } from 'actions/app'
+import { getUserInfo, setStatusParam } from 'actions/app'
 import * as routes from 'constants/routes'
 import { render } from '@testing-library/react'
 import { Routes } from 'react-router-dom'
@@ -7,7 +7,6 @@ import RequireAuth, { RequireAuthSelector } from './RequireAuth'
 
 jest.mock('actions/app', () => ({
   getUserInfo: jest.fn(),
-  login: jest.fn(),
   setStatusParam: jest.fn()
 }))
 
@@ -21,7 +20,6 @@ const defaultSelector: RequireAuthSelector = {
 describe('components/RequireAuth/RequireAuth', () => {
   const initialMockProps = {}
   let wrapper: any
-
   beforeEach(() => {
     stageSelector(defaultSelector, {})
   })
@@ -31,7 +29,7 @@ describe('components/RequireAuth/RequireAuth', () => {
   })
 
   it('UseEffect: read status params', () => {
-    render(
+    wrapper = render(
       <Routes>
         <RequireAuth {...initialMockProps} />
       </Routes>)
@@ -46,22 +44,6 @@ describe('components/RequireAuth/RequireAuth', () => {
         <RequireAuth {...initialMockProps} />
       </Routes>)
     expect(getUserInfo).toBeCalled()
-  })
-
-  it('UseEffect: redirect for login', () => {
-    stageSelector(defaultSelector, { loggedIn: false })
-    wrapper = render(<RequireAuth {...initialMockProps} />)
-    expect(login).toBeCalled();
-    (login as jest.Mock).mockRestore()
-  })
-
-  it('UseEffect: no need for login redirect', () => {
-    stageSelector(defaultSelector, { loggedIn: true })
-    wrapper = render(
-      <Routes>
-        <RequireAuth {...initialMockProps} />
-      </Routes>)
-    expect(login).not.toBeCalled()
   })
 
   it('Render: Has proper HTML structure: forbidden', () => {
