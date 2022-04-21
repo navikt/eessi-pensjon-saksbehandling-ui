@@ -1,7 +1,7 @@
 kind: Application
 apiVersion: nais.io/v1alpha1
 metadata:
-  name: eessi-pensjon-frontend-ui-fss
+  name: eessi-pensjon-frontend-ui
   namespace: eessipensjon
   labels:
     team: eessipensjon
@@ -14,15 +14,15 @@ spec:
     - name: ZONE
       value: fss
     - name: PUBLIC_WEBSOCKETURL
-      value: https://eessi-pensjon-frontend-api-fss.nais.adeo.no/
-    - name: EESSI_PENSJON_FRONTEND_API_FSS_URL
-      value: {{eessi_pensjon_frontend_api_fss_url}}
+      value: https://eessi-pensjon-frontend-api.intern.nav.no/
+    - name: EESSI_PENSJON_FRONTEND_API_URL
+      value: {{eessi_pensjon_frontend_api_url}}
     - name: EESSI_PENSJON_FAGMODUL_URL
       value: {{eessi_pensjon_fagmodul_url}}
   image: {{ image }}
   ingresses:
-    - https://eessi-pensjon-frontend-ui-fss.nais.adeo.no
-    - https://pensjon-utland.nais.adeo.no
+    - https://eessi-pensjon-frontend-ui.intern.nav.no
+    - https://pensjon-utland.intern.nav.no
   liveness:
     path: internal/isAlive
     port: 8080

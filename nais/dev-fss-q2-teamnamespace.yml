@@ -6,6 +6,16 @@ metadata:
   labels:
     team: eessipensjon
 spec:
+  azure:
+    sidecar:
+      enabled: true
+      autoLogin: true
+      errorPath: "/errorlogon"
+    application:
+      enabled: true
+      claims:
+        extra:
+          - NAVident
   env:
     - name: NAV_TRUSTSTORE_KEYSTOREALIAS
       value: na
@@ -19,10 +29,9 @@ spec:
       value: {{eessi_pensjon_frontend_api_fss_url}}
     - name: EESSI_PENSJON_FAGMODUL_URL
       value: {{eessi_pensjon_fagmodul_url}}
-    - name: EESSI_PENSJON_PREFILL_URL
-      value: {{eessi_pensjon_prefill_url}}
   image: {{ image }}
   ingresses:
+    - https://pensjon-utland-q2.dev.intern.nav.no
     - https://eessi-pensjon-frontend-ui-fss.nais.preprod.local
     - https://pensjon-utland-q2.nais.preprod.local
   liveness:
