@@ -93,7 +93,7 @@ describe('applications/BUC/pages/BUCList/BUCList', () => {
   it('UseEffect: fetch bucs info', () => {
     stageSelector(defaultSelector, {
       bucsInfoList: [
-        defaultSelector.aktoerId + '--_' + storage.NAMESPACE_BUC + '--_' + storage.FILE_BUCINFO
+        defaultSelector.aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO
       ],
       bucsInfo: undefined
     })

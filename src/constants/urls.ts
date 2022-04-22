@@ -25,11 +25,11 @@ export const EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL = EUX_URL + '/institutions
 export const API_USERINFO_URL = API_URL + '/userinfo'
 
 // StorageController
-export const API_STORAGE_LIST_URL = STG_URL + '/list/%(userId)s--_%(namespace)s'
-export const API_STORAGE_GET_URL = STG_URL + '/get/%(userId)s--_%(namespace)s--_%(file)s'
-export const API_STORAGE_POST_URL = STG_URL + '/%(userId)s--_%(namespace)s--_%(file)s'
-export const API_STORAGE_DELETE_URL = STG_URL + '/%(userId)s--_%(namespace)s--_%(file)s'
-export const API_STORAGE_MULTIPLE_DELETE_URL = STG_URL + '/multiple/%(userId)s--_%(namespace)s'
+export const API_STORAGE_LIST_URL = STG_URL + '/list/%(userId)s___%(namespace)s'
+export const API_STORAGE_GET_URL = STG_URL + '/get/%(userId)s___%(namespace)s___%(file)s'
+export const API_STORAGE_POST_URL = STG_URL + '/%(userId)s___%(namespace)s___%(file)s'
+export const API_STORAGE_DELETE_URL = STG_URL + '/%(userId)s___%(namespace)s___%(file)s'
+export const API_STORAGE_MULTIPLE_DELETE_URL = STG_URL + '/multiple/%(userId)s___%(namespace)s'
 
 // SafController
 export const API_JOARK_LIST_URL = SAF_URL + '/metadata/%(userId)s'
@@ -75,8 +75,8 @@ export const LOGIN_URL = FRONTEND_API_URL + '/login'
 export const LOGOUT_URL = 'https://loginservice-q.nav.no/slo'
 
 // Page Notification
-export const API_PAGENOTIFICATION_GET_URL = API_URL + '/storage/get/EP--_PAGE--_NOTIFICATION'
-export const API_PAGENOTIFICATION_POST_URL = API_URL + '/storage/EP--_PAGE--_NOTIFICATION'
+export const API_PAGENOTIFICATION_GET_URL = API_URL + '/storage/get/EP___PAGE___NOTIFICATION'
+export const API_PAGENOTIFICATION_POST_URL = API_URL + '/storage/EP___PAGE___NOTIFICATION'
 
 // s3 inventory
 export const S3INVENTORY_LIST_URL = STG_URL + '/list'
