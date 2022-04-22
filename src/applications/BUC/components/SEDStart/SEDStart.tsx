@@ -802,7 +802,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setSedAttachments(newAttachments)
   }
 
-  const _onFinished = useCallback((): void => {
+  const _onFinished = () => {
     resetSedForm()
     dispatch(resetSed())
     dispatch(resetSedAttachments())
@@ -816,13 +816,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setInstitutions([])
     setCountries([])
     onSedCreated()
-  }, [_attachmentsSent, dispatch, onSedCreated, resetJoarkAttachments, resetSedForm])
+  }
 
   useEffect(() => {
     if (countryList === undefined && !_.isNil(_type) && !loading.gettingCountryList) {
       dispatch(getCountryList(_type))
     }
-  }, [countryList, dispatch, loading.gettingCountryList, _type])
+  }, [countryList, loading.gettingCountryList, _type])
 
   useEffect(() => {
     dispatch(_.isEmpty(followUpSeds) ? getSedList(_buc as ValidBuc) : setSedList(followUpSeds!.map(s => s.type)))
@@ -877,7 +877,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       })
       dispatch(createSavingAttachmentJob(joarksToUpload))
     }
-  }, [_attachmentsSent, dispatch, _onFinished, _sendingAttachments, _sedAttachments, sedCanHaveAttachments, sed, _sedSent])
+  }, [_attachmentsSent, _sendingAttachments, _sedAttachments, sedCanHaveAttachments, sed, _sedSent])
 
   useEffect(() => {
     if (_.isArray(sedList) && sedList.length === 1 && !_sed) {
