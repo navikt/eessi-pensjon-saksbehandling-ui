@@ -55,6 +55,10 @@ jobs:
           docker build --tag ${{ env.IMAGE }} .
           docker push ${{ env.IMAGE }}
 
+      # OPPRETTER GIT TAG
+      - name: 'Opprett git tag'
+        run: |
+          curl -v -s -X POST https://api.github.com/repos/navikt/eessi-pensjon-saksbehandling-ui/git/refs -H "Authorization: token  ${{ secrets.GITHUB_TOKEN }}" -d '{ "ref": "refs/tags/${{ env.DATE }}---${{ env.COMMIT_HASH }}",  "sha": "${{ env.COMMIT_HASH }}" }'
 
       # DEPLOYER TIL NAIS
       - name: 'Deploy to NAIS Q2'
@@ -65,11 +69,6 @@ jobs:
           RESOURCE: nais/dev-fss-q2-teamnamespace.yml
           IMAGE: ${{ env.IMAGE }}
           VARS: nais/dev-fss-q2-nais-vars.yml
-
-      # OPPRETTER GIT TAG
-      - name: 'Opprett git tag'
-        run: |
-          curl -v -s -X POST https://api.github.com/repos/navikt/eessi-pensjon-saksbehandling-ui/git/refs -H "Authorization: token  ${{ secrets.GITHUB_TOKEN }}" -d '{ "ref": "refs/tags/${{ env.DATE }}---${{ env.COMMIT_HASH }}",  "sha": "${{ env.COMMIT_HASH }}" }'
 
       - name: 'Dispatch Deploy Q1'
         uses: peter-evans/repository-dispatch@v1
