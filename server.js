@@ -121,7 +121,7 @@ const apiProxy = function (target, pathRewrite) {
 }
 
 app.use('/frontend',
-  apiAuth(process.env.EESSI_PENSJON_FRONTEND_API_FSS_TOKEN_SCOPE),
+  apiAuth(process.env.EESSI_PENSJON_FRONTEND_API_TOKEN_SCOPE),
   apiProxy(process.env.EESSI_PENSJON_FRONTEND_API_URL,{ '^/frontend/' : '/' })
 )
 
