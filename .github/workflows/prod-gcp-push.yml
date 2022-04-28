@@ -1,0 +1,60 @@
+name: prod-gcp push - build, deploy to Q1/Q2
+
+on:
+  push:
+    branches:
+      - 'prod-gcp'
+
+jobs:
+  tag_build_and_deploy:
+    name: 'Build'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+
+      - name: 'Pull repo'
+        uses: actions/checkout@v1
+
+      - name: 'Setter dato og commit variabel'
+        run: |
+          export TZ=CET
+          echo "DATE=$(date "+%Y-%m-%d--%H-%M-%S")" >> $GITHUB_ENV
+          echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+      - name: 'Setter Image'
+        run: echo "IMAGE=docker.pkg.github.com/${{ github.repository }}/eessi-pensjon-frontend-ui-fss:${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_ENV
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: 'Setup Node'
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: 16.x
+          registry-url: https://npm.pkg.github.com/
+          scope: "@navikt"
+
+      - name: 'Install'
+        run: npm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+      - name: 'Bygg'
+        run: npm run build
+
+      - name: 'Build and publish Docker image'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${{ secrets.GITHUB_TOKEN }}
+          docker build --tag ${{ env.IMAGE }} .
+          docker push ${{ env.IMAGE }}
+
+      # OPPRETTER GIT TAG
+      - name: 'Opprett git tag'
+        run: |
+          curl -v -s -X POST https://api.github.com/repos/navikt/eessi-pensjon-saksbehandling-ui/git/refs -H "Authorization: token  ${{ secrets.GITHUB_TOKEN }}" -d '{ "ref": "refs/tags/${{ env.DATE }}---${{ env.COMMIT_HASH }}",  "sha": "${{ env.COMMIT_HASH }}" }'
