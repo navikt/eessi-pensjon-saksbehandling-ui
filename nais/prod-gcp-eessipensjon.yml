@@ -9,12 +9,8 @@ spec:
   env:
     - name: NAV_TRUSTSTORE_KEYSTOREALIAS
       value: na
-    - name: NAV_DEKORATOREN_URL
-      value: https://www.nav.no
-    - name: ZONE
-      value: fss
     - name: PUBLIC_WEBSOCKETURL
-      value: https://eessi-pensjon-frontend-api.intern.nav.no/
+      value: {{eessi_pensjon_frontend_api_url}}
     - name: EESSI_PENSJON_FRONTEND_API_URL
       value: {{eessi_pensjon_frontend_api_url}}
     - name: EESSI_PENSJON_FAGMODUL_URL
