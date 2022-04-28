@@ -6,19 +6,29 @@ metadata:
   labels:
     team: eessipensjon
 spec:
+  azure:
+    sidecar:
+      enabled: true
+      autoLogin: true
+      errorPath: "/errorlogon"
+    application:
+      enabled: true
+      claims:
+        extra:
+          - NAVident
   env:
     - name: NAV_TRUSTSTORE_KEYSTOREALIAS
       value: na
-    - name: NAV_DEKORATOREN_URL
-      value: https://www.nav.no
-    - name: ZONE
-      value: fss
     - name: PUBLIC_WEBSOCKETURL
-      value: https://eessi-pensjon-frontend-api.intern.nav.no/
+      value: {{eessi_pensjon_frontend_api_url}}
     - name: EESSI_PENSJON_FRONTEND_API_URL
       value: {{eessi_pensjon_frontend_api_url}}
     - name: EESSI_PENSJON_FAGMODUL_URL
       value: {{eessi_pensjon_fagmodul_url}}
+    - name: EESSI_PENSJON_FRONTEND_API_TOKEN_SCOPE
+      value: {{eessi_pensjon_frontend_api_token_scope}}
+    - name: EESSI_PENSJON_FAGMODUL_TOKEN_SCOPE
+      value: {{eessi_pensjon_fagmodul_token_scope}}
   image: {{ image }}
   ingresses:
     - https://eessi-pensjon-frontend-ui.intern.nav.no

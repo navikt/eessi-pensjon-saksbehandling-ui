@@ -22,6 +22,6 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          RESOURCE: nais/dev-gcp-q1-teamnamespace.yml
+          RESOURCE: nais/dev-gcp-q1.yml
           IMAGE: ${{ github.event.client_payload.image }}
           VARS: nais/dev-gcp-q1-nais-vars.yml
