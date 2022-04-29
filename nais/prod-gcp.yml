@@ -33,6 +33,7 @@ spec:
   ingresses:
     - https://eessi-pensjon-frontend-ui.intern.nav.no
     - https://pensjon-utland.intern.nav.no
+
   liveness:
     path: internal/isAlive
     port: 8080
