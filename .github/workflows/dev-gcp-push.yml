@@ -24,7 +24,7 @@ jobs:
           echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
       - name: 'Setter Image'
-        run: echo "IMAGE=docker.pkg.github.com/${{ github.repository }}/eessi-pensjon-frontend-ui-fss:${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_ENV
+        run: echo "IMAGE=docker.pkg.github.com/${{ github.repository }}/eessi-pensjon-frontend-ui:${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_ENV
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
