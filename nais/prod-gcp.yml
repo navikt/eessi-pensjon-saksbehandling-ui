@@ -1,0 +1,58 @@
+kind: Application
+apiVersion: nais.io/v1alpha1
+metadata:
+  name: eessi-pensjon-frontend-ui
+  namespace: eessipensjon
+  labels:
+    team: eessipensjon
+spec:
+  azure:
+    sidecar:
+      enabled: true
+      autoLogin: true
+      errorPath: "/errorlogon"
+    application:
+      enabled: true
+      claims:
+        extra:
+          - NAVident
+  env:
+    - name: NAV_TRUSTSTORE_KEYSTOREALIAS
+      value: na
+    - name: PUBLIC_WEBSOCKETURL
+      value: {{eessi_pensjon_frontend_api_url}}
+    - name: EESSI_PENSJON_FRONTEND_API_URL
+      value: {{eessi_pensjon_frontend_api_url}}
+    - name: EESSI_PENSJON_FAGMODUL_URL
+      value: {{eessi_pensjon_fagmodul_url}}
+    - name: EESSI_PENSJON_FRONTEND_API_TOKEN_SCOPE
+      value: {{eessi_pensjon_frontend_api_token_scope}}
+    - name: EESSI_PENSJON_FAGMODUL_TOKEN_SCOPE
+      value: {{eessi_pensjon_fagmodul_token_scope}}
+  image: {{ image }}
+  ingresses:
+    - https://eessi-pensjon-frontend-ui.intern.nav.no
+    - https://pensjon-utland.intern.nav.no
+  liveness:
+    path: internal/isAlive
+    port: 8080
+    initialDelay: 45
+  port: 8080
+  prometheus:
+    enabled: true
+    path: internal/metrics
+  readiness:
+    path: internal/isReady
+    port: 8080
+    initialDelay: 45
+  replicas:
+    min: 2
+    max: 4
+    cpuThresholdPercentage: 50
+  resources:
+    limits:
+      cpu: "3"
+      memory: 1024Mi
+    requests:
+      cpu: 200m
+      memory: 512Mi
