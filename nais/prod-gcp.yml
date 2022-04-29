@@ -32,6 +32,7 @@ spec:
   image: {{ image }}
   ingresses:
     - https://pensjon-utland.intern.nav.no
+    - https://eessi-pensjon-frontend-ui.intern.nav.no
 
   liveness:
     path: internal/isAlive
