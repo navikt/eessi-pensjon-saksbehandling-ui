@@ -31,8 +31,8 @@ spec:
       value: {{eessi_pensjon_fagmodul_token_scope}}
   image: {{ image }}
   ingresses:
-    - https://eessi-pensjon-frontend-ui.intern.nav.no
     - https://pensjon-utland.intern.nav.no
+    - https://eessi-pensjon-frontend-ui.intern.nav.no
 
   liveness:
     path: internal/isAlive
