@@ -83,9 +83,9 @@ const validateAuthorization = async (authorization) => {
 }
 
 const mainPageAuth = async function(req, res, next) {
-  const {sakId, aktoerId, vedtakId, kravId} = req.query
-  logger.info('mainPageAuth: sakId=' + sakId + ' aktoerId=' + aktoerId + ' vedtakId=' + vedtakId + ' kravId=' + kravId)
-  const newPath = (aktoerId ?? '-') + '/' + (sakId ?? '-') + '/' + (kravId ?? '-') + '/' + (vedtakId ?? '-') + '/'
+  const {sakId, aktoerId, vedtakId, kravId, saksNr, sakType} = req.query
+  logger.info('mainPageAuth: sakId=' + sakId + ' aktoerId=' + aktoerId + ' vedtakId=' + vedtakId + ' kravId=' + kravId + ' sakType=' + sakType + ' saksNr=' + saksNr )
+  const newPath = (aktoerId ?? '-') + '/' + (!!sakId ? sakId : ( !!saksNr ? saksNr : '-')) + '/' + (kravId ?? '-') + '/' + (vedtakId ?? '-') + '/'  + (sakType ?? '-') + '/'
   const loginPath = '/oauth2/login?redirect=/callback/' + newPath
   const {authorization} = req.headers
 
@@ -107,12 +107,13 @@ const mainPageAuth = async function(req, res, next) {
 
 const handleCallback = (req, res) => {
   let paths = req.originalUrl.split('/')
-  // /callback/123/456/789/012 => ['', 'callback', '123', '456', '789', '012']
+  // /callback/123/456/789/012/Uføretrygd/ => ['', 'callback', '123', '456', '789', '012', 'Uføretrygd']
   let aktoerId = (paths[2] === '-' ? '' : paths[2])
   let sakId = (paths[3] === '-' ? '' : paths[3])
   let kravId = (paths[4] === '-' ? '' : paths[4])
   let vedtakId = (paths[5] === '-' ? '' : paths[5])
-  const redirectPath = '/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&kravId=' + kravId + '&vedtakId=' + vedtakId
+  let sakType = (paths[6] === '-' ? '' : paths[6])
+  const redirectPath = '/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&kravId=' + kravId + '&vedtakId=' + vedtakId + '&sakType=' + sakType
   logger.info('handleCallback: redirecting to =' + redirectPath)
   res.redirect(redirectPath)
 }
