@@ -4,23 +4,20 @@ const { createProxyMiddleware } = require('http-proxy-middleware')
 const winston = require("winston");
 const fetch = require("cross-fetch");
 const { URLSearchParams } = require("url");
+const { Issuer } = require("openid-client");
+const jose = require("jose");
 
 const app = express();
 app.disable("x-powered-by");
-
-const options = {
-  console: {
-    level: "debug",
-    handleExceptions: true,
-    colorize: false,
-  },
-};
 
 const azureAdConfig = {
   clientId: process.env.AZURE_APP_CLIENT_ID,
   clientSecret: process.env.AZURE_APP_CLIENT_SECRET,
   tokenEndpoint: process.env.AZURE_OPENID_CONFIG_TOKEN_ENDPOINT
 };
+
+let _issuer
+let _remoteJWKSet
 
 const onBehalfOf = function(scope, assertion) {
   const params = new URLSearchParams();
@@ -30,12 +27,12 @@ const onBehalfOf = function(scope, assertion) {
   params.append("scope", scope);
   params.append("assertion", assertion);
   params.append("requested_token_use", "on_behalf_of");
-  logger.info('fetching : ' + azureAdConfig.tokenEndpoint)
-  logger.info('client_id : ' + azureAdConfig.clientId)
-  logger.info('client_secret : ' + azureAdConfig.clientSecret)
-  logger.info('scope : ' + scope)
-  logger.info('assertion : ' + assertion)
-  logger.info('requested_token_use : on_behalf_of')
+  logger.debug('onBehalfOf: fetching ' + azureAdConfig.tokenEndpoint)
+  logger.debug('onBehalfOf: client_id ' + azureAdConfig.clientId)
+  logger.debug('onBehalfOf: client_secret ' + azureAdConfig.clientSecret)
+  logger.debug('onBehalfOf: scope ' + scope)
+  logger.debug('onBehalfOf: assertion ' + assertion)
+  logger.debug('onBehalfOf: requested_token_use  on_behalf_of')
   return fetch(azureAdConfig.tokenEndpoint, {
     body: params,
     method: "POST"
@@ -43,23 +40,82 @@ const onBehalfOf = function(scope, assertion) {
 }
 
 const logger = winston.createLogger({
-  transports: new winston.transports.Console(options.console),
+  transports: new winston.transports.Console({
+    level: "debug",
+    handleExceptions: true,
+    colorize: false,
+  }),
   exitOnError: false,
 });
 
-app.get('/test', (req, res) => res.send('hello world'));
-app.get('/internal/isAlive|isReady|metrics', (req, res) => res.sendStatus(200));
-
-app.use('/static', express.static(path.join(__dirname, "build", "static")));
-app.use('/locales', express.static(path.join(__dirname, "build", "locales")));
-app.use('/favicon', express.static(path.join(__dirname, "build", "favicon")));
-
-app.get(["/oauth2/login"], async (req, res) => {
-  logger.error("Wonderwall must handle /oauth2/login")
-  res.status(502).send({
-    message: "Wonderwall must handle /oauth2/login",
+async function validerToken(token) {
+  return jose.jwtVerify(token, await jwks(), {
+    issuer: (await issuer()).metadata.issuer,
   });
-});
+}
+
+async function jwks() {
+  if (typeof _remoteJWKSet === "undefined") {
+    _remoteJWKSet = jose.createRemoteJWKSet(new URL(process.env.AZURE_OPENID_CONFIG_JWKS_URI));
+  }
+
+  return _remoteJWKSet;
+}
+
+async function issuer() {
+  if (typeof _issuer === "undefined") {
+    if (!process.env.AZURE_APP_WELL_KNOWN_URL)
+      throw new Error(`Miljøvariabelen "AZURE_APP_WELL_KNOWN_URL" må være satt`);
+    _issuer = await Issuer.discover(process.env.AZURE_APP_WELL_KNOWN_URL);
+  }
+  return _issuer;
+}
+
+const validateAuthorization = async (authorization) => {
+  try {
+    const token = authorization.split(" ")[1];
+    const JWTVerifyResult = await validerToken(token);
+    return !!JWTVerifyResult?.payload;
+  } catch (e) {
+    logger.error('azure ad error', e);
+    return false;
+  }
+}
+
+const mainPageAuth = async function(req, res, next) {
+  const {sakId, aktoerId, vedtakId, kravId} = req.query
+  logger.info('mainPageAuth: sakId=' + sakId + ' aktoerId=' + aktoerId + ' vedtakId=' + vedtakId + ' kravId=' + kravId)
+  const newPath = (aktoerId ?? '-') + '/' + (sakId ?? '-') + '/' + (kravId ?? '-') + '/' + (vedtakId ?? '-') + '/'
+  const loginPath = '/oauth2/login?redirect=/callback/' + newPath
+  const {authorization} = req.headers
+
+  // Not logged in - log in with wonderwall
+  if (!authorization) {
+    logger.debug('mainPageAuth: no auth, redirect to login')
+    res.redirect(loginPath)
+  } else {
+    // Validate token and continue to app
+    if(await validateAuthorization(authorization)) {
+      logger.debug('mainPageAuth:  auth valid, proceed')
+      next();
+    } else {
+      logger.debug('mainPageAuth: auth INvalid, 302 to login')
+      res.redirect(loginPath)
+    }
+  }
+}
+
+const handleCallback = (req, res) => {
+  let paths = req.originalUrl.split('/')
+  // /callback/123/456/789/012 => ['', 'callback', '123', '456', '789', '012']
+  let aktoerId = (paths[2] === '-' ? '' : paths[2])
+  let sakId = (paths[3] === '-' ? '' : paths[3])
+  let kravId = (paths[4] === '-' ? '' : paths[4])
+  let vedtakId = (paths[5] === '-' ? '' : paths[5])
+  const redirectPath = '/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&kravId=' + kravId + '&vedtakId=' + vedtakId
+  logger.info('handleCallback: redirecting to =' + redirectPath)
+  res.redirect(redirectPath)
+}
 
 // require token
 const apiAuth = function (scope) {
@@ -120,6 +176,26 @@ const apiProxy = function (target, pathRewrite) {
   })
 }
 
+
+app.get('/test', (req, res) => res.send('hello world'));
+
+app.get('/callback/*', handleCallback);
+
+app.get('/internal/isAlive|isReady|metrics', (req, res) => res.sendStatus(200));
+
+app.use('/static', express.static(path.join(__dirname, "build", "static")));
+
+app.use('/locales', express.static(path.join(__dirname, "build", "locales")));
+
+app.use('/favicon', express.static(path.join(__dirname, "build", "favicon")));
+
+app.get(["/oauth2/login"], async (req, res) => {
+  logger.error("Wonderwall must handle /oauth2/login")
+  res.status(502).send({
+    message: "Wonderwall must handle /oauth2/login",
+  });
+});
+
 app.use('/frontend',
   apiAuth(process.env.EESSI_PENSJON_FRONTEND_API_TOKEN_SCOPE),
   apiProxy(process.env.EESSI_PENSJON_FRONTEND_API_URL,{ '^/frontend/' : '/' })
@@ -130,7 +206,7 @@ app.use('/fagmodul',
   apiProxy(process.env.EESSI_PENSJON_FAGMODUL_URL,{ '^/fagmodul/' : '/' })
 )
 
-app.use('*', express.static(path.join(__dirname, "build")));
+app.use('*', mainPageAuth, express.static(path.join(__dirname, "build")));
 
 // start express server on port 8080
 app.listen(8080, () => {
