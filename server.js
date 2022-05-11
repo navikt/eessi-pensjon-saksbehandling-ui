@@ -210,6 +210,8 @@ app.use('/fagmodul',
   apiProxy(process.env.EESSI_PENSJON_FAGMODUL_URL,{ '^/fagmodul/' : '/' })
 )
 
+app.use('/environment.js/', (req, res) => res.send('production'))
+
 app.use('*', mainPageAuth, express.static(path.join(__dirname, "build")));
 
 // start express server on port 8080
