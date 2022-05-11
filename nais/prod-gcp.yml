@@ -9,7 +9,7 @@ spec:
   azure:
     sidecar:
       enabled: true
-      autoLogin: true
+      autoLogin: false
       errorPath: "/errorlogon"
     application:
       enabled: true
@@ -46,7 +46,7 @@ spec:
     port: 8080
     initialDelay: 45
   replicas:
-    min: 2
+    min: 1
     max: 4
     cpuThresholdPercentage: 50
   resources:

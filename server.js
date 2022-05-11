@@ -83,6 +83,9 @@ const validateAuthorization = async (authorization) => {
 }
 
 const mainPageAuth = async function(req, res, next) {
+  logger.info('mainPageAuth: ' + JSON.stringify(req.query))
+  logger.info('mainPageAuth: ' + req.path)
+  logger.info('mainPageAuth: ' + req.originalUrl)
   const {sakId, aktoerId, vedtakId, kravId, saksNr, sakType} = req.query
   logger.info('mainPageAuth: sakId=' + sakId + ' aktoerId=' + aktoerId + ' vedtakId=' + vedtakId + ' kravId=' + kravId + ' sakType=' + sakType + ' saksNr=' + saksNr )
   const newPath = (aktoerId ?? '-') + '/' + (!!sakId ? sakId : ( !!saksNr ? saksNr : '-')) + '/' + (kravId ?? '-') + '/' + (vedtakId ?? '-') + '/'  + (sakType ?? '-') + '/'
