@@ -6,8 +6,10 @@ const fetch = require("cross-fetch");
 const { URLSearchParams } = require("url");
 const { Issuer } = require("openid-client");
 const jose = require("jose");
+const timeout = require('connect-timeout');
 
 const app = express();
+app.use(timeout('60s'));
 app.disable("x-powered-by");
 
 const azureAdConfig = {
@@ -83,13 +85,15 @@ const validateAuthorization = async (authorization) => {
 }
 
 const mainPageAuth = async function(req, res, next) {
-  logger.info('mainPageAuth: ' + JSON.stringify(req.query))
-  logger.info('mainPageAuth: ' + req.path)
-  logger.info('mainPageAuth: ' + req.originalUrl)
   const {sakId, aktoerId, vedtakId, kravId, saksNr, sakType} = req.query
-  logger.info('mainPageAuth: sakId=' + sakId + ' aktoerId=' + aktoerId + ' vedtakId=' + vedtakId + ' kravId=' + kravId + ' sakType=' + sakType + ' saksNr=' + saksNr )
-  const newPath = (aktoerId ?? '-') + '/' + (!!sakId ? sakId : ( !!saksNr ? saksNr : '-')) + '/' + (kravId ?? '-') + '/' + (vedtakId ?? '-') + '/'  + (sakType ?? '-') + '/'
+  logger.debug('mainPageAuth: sakId=' + sakId + ' aktoerId=' + aktoerId + ' vedtakId=' + vedtakId + ' kravId=' + kravId + ' sakType=' + sakType + ' saksNr=' + saksNr )
+  const newPath = (aktoerId !== undefined ? aktoerId : '-') + '/' +
+    (sakId !== undefined ? sakId : ( saksNr !== undefined ? saksNr : '-')) + '/' +
+    (kravId !== undefined ? kravId : '-') + '/' +
+    (vedtakId !== undefined ? vedtakId :  '-') + '/' +
+    (sakType !== undefined ? sakType :  '-') + '/'
   const loginPath = '/oauth2/login?redirect=/callback/' + newPath
+  logger.debug('mainPageAuth: loginPath = ' + loginPath)
   const {authorization} = req.headers
 
   // Not logged in - log in with wonderwall
