@@ -43,7 +43,7 @@ const onBehalfOf = function(scope, assertion) {
 
 const logger = winston.createLogger({
   transports: new winston.transports.Console({
-    level: "debug",
+    level: "info",
     handleExceptions: true,
     colorize: false,
   }),
@@ -98,7 +98,7 @@ const mainPageAuth = async function(req, res, next) {
 
   // Not logged in - log in with wonderwall
   if (!authorization) {
-    logger.debug('mainPageAuth: no auth, redirect to login')
+    logger.info ('mainPageAuth: no auth, redirect to login ' + loginPath)
     res.redirect(loginPath)
   } else {
     // Validate token and continue to app
@@ -106,7 +106,7 @@ const mainPageAuth = async function(req, res, next) {
       logger.debug('mainPageAuth:  auth valid, proceed')
       next();
     } else {
-      logger.debug('mainPageAuth: auth INvalid, 302 to login')
+      logger.info('mainPageAuth: auth Invalid, 302 to login ' + loginPath)
       res.redirect(loginPath)
     }
   }
@@ -121,20 +121,20 @@ const handleCallback = (req, res) => {
   let vedtakId = (paths[5] === '-' ? '' : paths[5])
   let sakType = (paths[6] === '-' ? '' : paths[6])
   const redirectPath = '/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&kravId=' + kravId + '&vedtakId=' + vedtakId + '&sakType=' + sakType
-  logger.info('handleCallback: redirecting to =' + redirectPath)
+  logger.info('handleCallback: redirecting to ' + redirectPath)
   res.redirect(redirectPath)
 }
 
 // require token
 const apiAuth = function (scope) {
   return async function (req, res, next) {
-    logger.info('On apiAuth, with scope ' + scope)
+    logger.debug('On apiAuth, with scope ' + scope)
     if (!req.headers.authorization) {
-      logger.info('redirecting to login')
+      logger.info('redirecting to /oauth2/login')
       res.redirect("/oauth2/login");
     } else {
       try {
-        logger.info('apiAuth: trying onBehalfOf with ' + req.headers.authorization)
+        logger.debug('apiAuth: trying onBehalfOf with ' + req.headers.authorization)
         const response = await onBehalfOf(
           scope,
           req.headers.authorization.substring("Bearer ".length)
@@ -142,7 +142,7 @@ const apiAuth = function (scope) {
 
         const body = await response.json();
 
-        logger.info('apiAuth: got ' + body.access_token)
+        logger.debug('apiAuth: got ' + body.access_token)
 
         if (response.ok) {
           res.locals.on_behalf_of_authorization = "Bearer " + body.access_token;
@@ -164,7 +164,7 @@ const apiAuth = function (scope) {
 }
 
 const apiProxy = function (target, pathRewrite) {
-  logger.info('On apiProxy, with target ' + target)
+  logger.debug('On apiProxy, with target ' + target)
   return createProxyMiddleware( {
     target: target,
     logLevel: 'debug',
@@ -184,6 +184,14 @@ const apiProxy = function (target, pathRewrite) {
   })
 }
 
+const timedOut = function (req, res, next) {
+  if (!req.timedout) {
+    logger.info('request for ' + req.originalUrl + ' was OK')
+    next()
+  } else {
+    logger.warning('request for ' + req.originalUrl + ' timed out!')
+  }
+}
 
 app.get('/test', (req, res) => res.send('hello world'));
 
@@ -205,11 +213,13 @@ app.get(["/oauth2/login"], async (req, res) => {
 });
 
 app.use('/frontend',
+  timedOut,
   apiAuth(process.env.EESSI_PENSJON_FRONTEND_API_TOKEN_SCOPE),
   apiProxy(process.env.EESSI_PENSJON_FRONTEND_API_URL,{ '^/frontend/' : '/' })
 )
 
 app.use('/fagmodul',
+  timedOut,
   apiAuth(process.env.EESSI_PENSJON_FAGMODUL_TOKEN_SCOPE),
   apiProxy(process.env.EESSI_PENSJON_FAGMODUL_URL,{ '^/fagmodul/' : '/' })
 )
