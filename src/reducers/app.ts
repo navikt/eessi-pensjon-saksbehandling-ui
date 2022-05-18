@@ -6,10 +6,9 @@ import _ from 'lodash'
 import { AnyAction } from 'redux'
 
 export interface AppState {
-  expirationTime: Date | undefined
+  expirationTime: string | undefined
   featureToggles: FeatureToggles
   loggedIn: boolean | undefined
-  loggedTime: Date | undefined
   params: Params
   pesysContext: PesysContext | undefined
   username: string | undefined
@@ -31,7 +30,6 @@ export const initialAppState: AppState = {
   expirationTime: undefined,
   featureToggles: initialFeatureToggles,
   loggedIn: undefined,
-  loggedTime: undefined,
   params: {},
   pesysContext: undefined,
   username: undefined,
@@ -123,8 +121,7 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
         username: action.payload.subject,
         userRole: action.payload.subject === '12345678910' ? 'SAKSBEHANDLER' : action.payload.role,
         loggedIn: true,
-        loggedTime: now,
-        expirationTime
+        expirationTime: expirationTime.toLocaleDateString()
       }
     }
 

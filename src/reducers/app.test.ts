@@ -96,7 +96,6 @@ describe('reducers/app', () => {
       username: 'mockSubject',
       userRole: 'mockRole',
       loggedIn: true,
-      loggedTime: new Date(mockNowDate),
       expirationTime: new Date(mockExpirationDate)
     })
   })
@@ -115,7 +114,6 @@ describe('reducers/app', () => {
       username: 'mockSubject',
       userRole: 'mockRole',
       loggedIn: true,
-      loggedTime: expect.any(Date),
       expirationTime: expect.any(Date)
     })
   })
@@ -145,8 +143,7 @@ describe('reducers/app', () => {
       username: 'mockSubject',
       userRole: 'mockRole',
       loggedIn: true,
-      loggedTime: expect.any(Date),
-      expirationTime: expect.any(Date),
+      expirationTime: expect.any(String),
       featureToggles: expect.objectContaining({
         P4000_VISIBLE: true,
         P5000_UPDATES_VISIBLE: true,

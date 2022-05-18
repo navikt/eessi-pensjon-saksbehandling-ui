@@ -9,6 +9,7 @@ import { Params, WidthSize } from 'declarations/app.d'
 import { AlertVariant, ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
+import moment from 'moment'
 import Error from 'pages/Error/Error'
 import PT from 'prop-types'
 import React from 'react'
@@ -83,7 +84,7 @@ export interface TopContainerSelector {
   bannerStatus: string | undefined
   bannerMessage: string | JSX.Element | undefined
   error: any | undefined
-  expirationTime: Date | undefined
+  expirationTime: string | undefined
   footerOpen: boolean
   gettingUserInfo: boolean
   highContrast: boolean
@@ -188,7 +189,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
               />
             )}
             <SessionMonitor
-              expirationTime={expirationTime!}
+              expirationTime={moment(expirationTime!).toDate()}
             />
             <Main
               id='main'

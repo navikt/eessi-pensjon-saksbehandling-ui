@@ -5,11 +5,11 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 
 export interface SessionMonitorProps {
-  checkInterval?: number;
-  expirationTime?: Date;
-  millisecondsForWarning?: number;
-  sessionExpiredReload?: number;
-  now?: Date;
+  checkInterval?: number
+  expirationTime?: Date
+  millisecondsForWarning?: number
+  sessionExpiredReload?: number
+  now?: Date
 }
 
 const SessionMonitor: React.FC<SessionMonitorProps> = ({
