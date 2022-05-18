@@ -4,12 +4,10 @@ import BannerAlert from 'components/BannerAlert/BannerAlert'
 import Footer from 'components/Footer/Footer'
 import Header from 'components/Header/Header'
 import Modal from 'components/Modal/Modal'
-import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
 import { Params, WidthSize } from 'declarations/app.d'
 import { AlertVariant, ModalContent } from 'declarations/components'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
-import moment from 'moment'
 import Error from 'pages/Error/Error'
 import PT from 'prop-types'
 import React from 'react'
@@ -84,7 +82,6 @@ export interface TopContainerSelector {
   bannerStatus: string | undefined
   bannerMessage: string | JSX.Element | undefined
   error: any | undefined
-  expirationTime: string | undefined
   footerOpen: boolean
   gettingUserInfo: boolean
   highContrast: boolean
@@ -100,7 +97,6 @@ const mapState = (state: State): TopContainerSelector => ({
   bannerMessage: state.alert.bannerMessage,
   error: state.alert.error,
 
-  expirationTime: state.app.expirationTime,
   params: state.app.params,
   username: state.app.username,
 
@@ -117,7 +113,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
   className, children
 }: TopContainerProps): JSX.Element => {
   const {
-    bannerStatus, bannerMessage, error, expirationTime, footerOpen,
+    bannerStatus, bannerMessage, error, footerOpen,
     gettingUserInfo, highContrast, isLoggingOut, modal, params, size, username
   } = useSelector(mapState)
   const dispatch = useDispatch()
@@ -188,9 +184,6 @@ export const TopContainer: React.FC<TopContainerProps> = ({
                 onModalClose={handleModalClose}
               />
             )}
-            <SessionMonitor
-              expirationTime={moment(expirationTime!).toDate()}
-            />
             <Main
               id='main'
               role='main'

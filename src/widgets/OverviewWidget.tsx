@@ -7,7 +7,6 @@ import Overview from './Overview/Overview'
 const OverviewWidget: WidgetFC<WidgetProps> = ({
   onResize, onUpdate, widget
 }: WidgetProps): JSX.Element => {
-
   useEffect(() => {
     onResize()
   }, [])

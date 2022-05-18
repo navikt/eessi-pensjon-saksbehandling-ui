@@ -150,7 +150,7 @@ describe('actions/buc', () => {
         failure: types.BUC_GET_BUCSLIST_FAILURE
       },
       context: {
-        numberOfLists: numberOfLists
+        numberOfLists
       },
       cascadeFailureError: true,
       url: sprintf(urls.BUC_GET_BUCSLIST_URL, { aktoerId: mockAktoerId, sakId: mockSakId })

@@ -7,7 +7,6 @@ import ReactResizeDetector from 'react-resize-detector'
 const S3InventoryWidget: WidgetFC<WidgetProps> = ({
   onUpdate, onResize, widget
 }: WidgetProps): JSX.Element => {
-
   useEffect(() => {
     onResize()
   }, [])

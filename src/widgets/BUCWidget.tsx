@@ -8,7 +8,6 @@ import ReactResizeDetector from 'react-resize-detector'
 const BUCWidget: WidgetFC<WidgetProps> = ({
   onResize, onFullFocus, onRestoreFocus, widget
 }: WidgetProps): JSX.Element => {
-
   useEffect(() => {
     onResize()
   }, [])

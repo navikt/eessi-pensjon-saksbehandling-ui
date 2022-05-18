@@ -72,7 +72,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
   const dispatch = useDispatch()
   const { t } = useTranslation()
 
-  const { aktoerId, sakId, bucsList}: WebSocketSelector = useSelector<State, WebSocketSelector>(mapState)
+  const { aktoerId, sakId, bucsList }: WebSocketSelector = useSelector<State, WebSocketSelector>(mapState)
   const [_log, setLog] = useState<Array<JSX.Element>>([])
   const [_simpleLog, setSimpleLog] = useState<Array<string>>([])
   const [_modal, _setModal] = useState<boolean>(false)

@@ -6,7 +6,6 @@ import _ from 'lodash'
 import { AnyAction } from 'redux'
 
 export interface AppState {
-  expirationTime: string | undefined
   featureToggles: FeatureToggles
   loggedIn: boolean | undefined
   params: Params
@@ -27,7 +26,6 @@ const initialFeatureToggles: FeatureToggles = {
 }
 
 export const initialAppState: AppState = {
-  expirationTime: undefined,
   featureToggles: initialFeatureToggles,
   loggedIn: undefined,
   params: {},
@@ -103,11 +101,6 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
       }
 
     case types.APP_USERINFO_SUCCESS: {
-      const now = action.payload.now ? new Date(action.payload.now) : new Date()
-      const expirationTime = action.payload.expirationTime
-        ? new Date(action.payload.expirationTime)
-        : new Date(new Date().setMinutes(now.getMinutes() + 60))
-
       const newFeatureToggles = _.cloneDeep(state.featureToggles)
       if (!_.isEmpty(action.payload?.features)) {
         Object.keys(action.payload?.features).forEach((k: string) => {
@@ -120,8 +113,7 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
         featureToggles: newFeatureToggles,
         username: action.payload.subject,
         userRole: action.payload.subject === '12345678910' ? 'SAKSBEHANDLER' : action.payload.role,
-        loggedIn: true,
-        expirationTime: expirationTime.toLocaleDateString()
+        loggedIn: true
       }
     }
 

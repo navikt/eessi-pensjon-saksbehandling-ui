@@ -27,7 +27,6 @@ const defaultSelector: TopContainerSelector = {
   bannerStatus: 'error',
   bannerMessage: 'mockErrorMessage',
   error: undefined,
-  expirationTime: undefined,
   footerOpen: false,
   gettingUserInfo: false,
   highContrast: false,

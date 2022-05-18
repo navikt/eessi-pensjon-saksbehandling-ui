@@ -53,7 +53,6 @@ export const Overview: React.FC<OverviewProps> = ({
   onUpdate,
   widget
 }: OverviewProps): JSX.Element => {
-
   const { aktoerId, featureToggles, gettingPersonInfo, locale, personPdl, personAvdods, pesysContext, vedtakId }: OverviewSelector =
     useSelector<State, OverviewSelector>(mapState)
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)

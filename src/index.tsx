@@ -33,26 +33,27 @@ if (!IS_PRODUCTION) {
 const container = document.getElementById('root')
 const root = createRoot(container!)
 root.render(
-    <I18nextProvider i18n={i18n}>
-      <Provider store={store}>
-        <Suspense fallback={<span>...</span>}>
-          <BrowserRouter>
-            <Routes>
-              <Route path='/' element={
-                  <RequireAuth>
-                    <Pages.IndexPage />
-                  </RequireAuth>
+  <I18nextProvider i18n={i18n}>
+    <Provider store={store}>
+      <Suspense fallback={<span>...</span>}>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path='/' element={
+                <RequireAuth>
+                  <Pages.IndexPage />
+                </RequireAuth>
               }
-              />
-              <Route path='/notlogged' element={<Pages.Error type='notLogged' />} />
-              <Route path='/notinvited' element={<Pages.Error type='notInvited' />} />
-              <Route path='/forbidden' element={<Pages.Error type='forbidden' />} />
-              <Route path='/*' element={<Pages.Error type='error' />} />
-            </Routes>
-          </BrowserRouter>
-        </Suspense>
-      </Provider>
-    </I18nextProvider>
+            />
+            <Route path='/notlogged' element={<Pages.Error type='notLogged' />} />
+            <Route path='/notinvited' element={<Pages.Error type='notInvited' />} />
+            <Route path='/forbidden' element={<Pages.Error type='forbidden' />} />
+            <Route path='/*' element={<Pages.Error type='error' />} />
+          </Routes>
+        </BrowserRouter>
+      </Suspense>
+    </Provider>
+  </I18nextProvider>
 )
 
 unregister()
