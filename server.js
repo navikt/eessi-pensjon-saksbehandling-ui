@@ -86,14 +86,14 @@ const validateAuthorization = async (authorization) => {
 
 const mainPageAuth = async function(req, res, next) {
   const {sakId, aktoerId, vedtakId, kravId, saksNr, sakType} = req.query
-  logger.debug('mainPageAuth: sakId=' + sakId + ' aktoerId=' + aktoerId + ' vedtakId=' + vedtakId + ' kravId=' + kravId + ' sakType=' + sakType + ' saksNr=' + saksNr )
+  logger.info('mainPageAuth: sakId=' + sakId + ' aktoerId=' + aktoerId + ' vedtakId=' + vedtakId + ' kravId=' + kravId + ' sakType=' + sakType + ' saksNr=' + saksNr )
   const newPath = (aktoerId !== undefined ? aktoerId : '-') + '/' +
     (sakId !== undefined ? sakId : ( saksNr !== undefined ? saksNr : '-')) + '/' +
     (kravId !== undefined ? kravId : '-') + '/' +
     (vedtakId !== undefined ? vedtakId :  '-') + '/' +
     (sakType !== undefined ? sakType :  '-') + '/'
   const loginPath = '/oauth2/login?redirect=/callback/' + newPath
-  logger.debug('mainPageAuth: loginPath = ' + loginPath)
+  logger.info('mainPageAuth: loginPath = ' + loginPath)
   const {authorization} = req.headers
 
   // Not logged in - log in with wonderwall
@@ -103,7 +103,7 @@ const mainPageAuth = async function(req, res, next) {
   } else {
     // Validate token and continue to app
     if(await validateAuthorization(authorization)) {
-      logger.debug('mainPageAuth:  auth valid, proceed')
+      logger.info('mainPageAuth:  auth valid, proceed')
       next();
     } else {
       logger.info('mainPageAuth: auth Invalid, 302 to login ' + loginPath)
