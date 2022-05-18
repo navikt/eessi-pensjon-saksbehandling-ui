@@ -32,6 +32,7 @@ import mockBucOptions from 'mocks/buc/bucOptions'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import mockBucsInfoList from 'mocks/buc/bucsInfoList'
 import mockBucs from 'mocks/buc/bucsList'
+import mockBucsWithVedtak from 'mocks/buc/bucsListWithVedtak'
 import mockCreateBuc from 'mocks/buc/createBuc'
 import mockCreateSed from 'mocks/buc/createSed'
 import mockInstitutions from 'mocks/buc/institutions'
@@ -149,12 +150,15 @@ export const endBucsFetch = () => ({
 })
 
 export const fetchBucsList = (
-  aktoerId: string, sakId: string
+  aktoerId: string, sakId: string, howManyBucLists: number
 ): ActionWithPayload<Bucs> => {
   return call({
     url: sprintf(urls.BUC_GET_BUCSLIST_URL, { aktoerId, sakId }),
     cascadeFailureError: true,
     expectedPayload: mockBucs(aktoerId, sakId),
+    context: {
+      howManyBucLists
+    },
     type: {
       request: types.BUC_GET_BUCSLIST_REQUEST,
       success: types.BUC_GET_BUCSLIST_SUCCESS,
@@ -212,11 +216,11 @@ export const fetchBucsListWithVedtakId = (
   return call({
     url: sprintf(urls.BUC_GET_BUCSLIST_WITH_VEDTAKID_URL, { aktoerId, sakId, vedtakId }),
     cascadeFailureError: true,
-    expectedPayload: mockBucs(aktoerId, sakId),
+    expectedPayload: mockBucsWithVedtak(aktoerId, sakId),
     type: {
-      request: types.BUC_GET_BUCSLIST_REQUEST,
-      success: types.BUC_GET_BUCSLIST_SUCCESS,
-      failure: types.BUC_GET_BUCSLIST_FAILURE
+      request: types.BUC_GET_BUCSLIST_VEDTAK_REQUEST,
+      success: types.BUC_GET_BUCSLIST_VEDTAK_SUCCESS,
+      failure: types.BUC_GET_BUCSLIST_VEDTAK_FAILURE
     }
   })
 }

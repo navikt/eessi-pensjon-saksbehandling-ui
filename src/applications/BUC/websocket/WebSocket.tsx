@@ -57,11 +57,13 @@ export const BUCWebsocketDiv = styled.div`
 interface WebSocketSelector {
   aktoerId: string | null | undefined
   sakId: string | null | undefined
+  bucsList: Array<BucListItem> | null | undefined
 }
 
 const mapState = (state: State): WebSocketSelector => ({
   aktoerId: state.app.params.aktoerId,
-  sakId: state.app.params.sakId
+  sakId: state.app.params.sakId,
+  bucsList: state.buc.bucsList
 })
 
 const BucWebSocket: React.FC<BucWebSocketProps> = ({
@@ -69,9 +71,8 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
 }: BucWebSocketProps): JSX.Element => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const bucsList: Array<BucListItem> | undefined = useSelector<State, Array<BucListItem> | undefined>((state) => state.buc.bucsList)
 
-  const { aktoerId, sakId }: WebSocketSelector = useSelector<State, WebSocketSelector>(mapState)
+  const { aktoerId, sakId, bucsList}: WebSocketSelector = useSelector<State, WebSocketSelector>(mapState)
   const [_log, setLog] = useState<Array<JSX.Element>>([])
   const [_simpleLog, setSimpleLog] = useState<Array<string>>([])
   const [_modal, _setModal] = useState<boolean>(false)

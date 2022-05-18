@@ -141,12 +141,16 @@ describe('actions/buc', () => {
   it('fetchBucsList()', () => {
     const mockAktoerId = '123'
     const mockSakId = '456'
-    bucActions.fetchBucsList(mockAktoerId, mockSakId)
+    const numberOfLists = 1
+    bucActions.fetchBucsList(mockAktoerId, mockSakId, numberOfLists)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUCSLIST_REQUEST,
         success: types.BUC_GET_BUCSLIST_SUCCESS,
         failure: types.BUC_GET_BUCSLIST_FAILURE
+      },
+      context: {
+        numberOfLists: numberOfLists
       },
       cascadeFailureError: true,
       url: sprintf(urls.BUC_GET_BUCSLIST_URL, { aktoerId: mockAktoerId, sakId: mockSakId })

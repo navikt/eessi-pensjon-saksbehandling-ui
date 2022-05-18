@@ -142,6 +142,7 @@ export interface BUCIndexSelector {
   gettingBucs: boolean
   gettingBucsList: boolean
   gettingSakType: boolean
+  howManyBucLists: number
   pesysContext: PesysContext | undefined
   rinaUrl: RinaUrl | undefined
   sakId: string | null | undefined
@@ -156,6 +157,7 @@ const mapState = (state: State): BUCIndexSelector => ({
   gettingBucs: state.loading.gettingBucs,
   gettingBucsList: state.loading.gettingBucsList,
   gettingSakType: state.loading.gettingSakType,
+  howManyBucLists: state.buc.howManyBucLists,
   pesysContext: state.app.pesysContext,
   rinaUrl: state.buc.rinaUrl,
   sakId: state.app.params.sakId,
@@ -187,7 +189,7 @@ export enum Slide {
 export const BUCIndex: React.FC<BUCIndexProps> = ({
 //  allowFullScreen, onFullFocus, onRestoreFocus,
 }: BUCIndexProps): JSX.Element => {
-  const { aktoerId, bucs, bucsList, gettingBucs, gettingBucsList, gettingSakType, pesysContext, rinaUrl, sakId, sakType, vedtakId }: BUCIndexSelector =
+  const { aktoerId, bucs, bucsList, gettingBucs, gettingBucsList, gettingSakType, howManyBucLists, pesysContext, rinaUrl, sakId, sakType, vedtakId }: BUCIndexSelector =
     useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
 
@@ -366,9 +368,14 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
 
   useEffect(() => {
     if (aktoerId && sakId && bucsList === undefined && !gettingBucsList) {
-      dispatch(pesysContext === constants.VEDTAKSKONTEKST
-        ? fetchBucsListWithVedtakId(aktoerId, sakId, vedtakId!)
-        : fetchBucsList(aktoerId, sakId))
+      let howManyBucLists = 1
+      if (!!vedtakId && pesysContext === constants.VEDTAKSKONTEKST) {
+        howManyBucLists = 2
+      }
+      dispatch(fetchBucsList(aktoerId, sakId, howManyBucLists))
+      if (howManyBucLists === 2) {
+        dispatch(fetchBucsListWithVedtakId(aktoerId, sakId, vedtakId!))
+      }
       dispatch(fetchBucsInfoList(aktoerId))
     }
   }, [aktoerId, bucs, dispatch, gettingBucsList, pesysContext, sakId, vedtakId])
@@ -381,7 +388,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
   }, [aktoerId, dispatch, gettingSakType, sakId, sakType])
 
   useEffect(() => {
-    if (aktoerId && sakId && _.isEmpty(bucs) && !_.isEmpty(bucsList) && !gettingBucs) {
+    if (aktoerId && sakId && _.isEmpty(bucs) && !_.isEmpty(bucsList) && howManyBucLists === 0 && !gettingBucs) {
       dispatch(startBucsFetch())
       bucsList?.forEach((bucListItem) => {
         dispatch(fetchBuc(
@@ -389,7 +396,7 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
         ))
       })
     }
-  }, [bucs, bucsList, gettingBucs])
+  }, [bucs, bucsList, howManyBucLists, gettingBucs])
 
   useEffect(() => {
     if (aktoerId && sakId && !_.isEmpty(bucs) && !_.isNil(bucsList) && gettingBucs) {

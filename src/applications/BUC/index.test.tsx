@@ -45,6 +45,7 @@ const defaultSelector: BUCIndexSelector = {
   gettingBucs: false,
   gettingBucsList: false,
   gettingSakType: false,
+  howManyBucLists: 0,
   pesysContext: VEDTAKSKONTEKST,
   rinaUrl: undefined,
   sakId: '456',

@@ -34,7 +34,7 @@ import { P5000sFromRinaMap } from 'declarations/p5000'
 export interface BucState {
   attachmentsError: boolean
   bucs: Bucs | undefined
-  bucsList: Array<BucListItem> | undefined
+  bucsList: Array<BucListItem> | null | undefined
   bucsInfoList: Array<string> | undefined
   bucsInfo: BucsInfo | undefined
   bucOptions: Array<string> | undefined
@@ -42,6 +42,7 @@ export interface BucState {
   currentBuc: string | undefined
   currentSed: Sed | undefined
   followUpSeds: Array<Sed> | undefined
+  howManyBucLists: number
   kravDato: string | null | undefined
   institutionList: InstitutionListMap<Institution> | undefined
   institutionNames: InstitutionNames
@@ -75,6 +76,7 @@ export const initialBucState: BucState = {
   followUpSeds: undefined,
   institutionList: undefined,
   institutionNames: {},
+  howManyBucLists: 0,
   kravDato: undefined,
   mode: 'buclist' as BUCMode,
   newlyCreatedBuc: undefined,
@@ -256,24 +258,37 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
 
     case types.BUC_GET_BUCSLIST_REQUEST:
-
       return {
         ...state,
+        howManyBucLists: (action as ActionWithPayload).context.howManyBucLists,
         bucsList: undefined
       }
 
     case types.BUC_GET_BUCSLIST_SUCCESS:
+    case types.BUC_GET_BUCSLIST_VEDTAK_SUCCESS: {
 
+      // merge only the new ones, do not have duplicates
+      const newBucsList = _.isNil(state.bucsList) ? [] : state.bucsList;
+      (action as ActionWithPayload).payload?.forEach((buc: BucListItem) => {
+        const found = _.find(newBucsList, (b: BucListItem) => _.isEqual(b, buc))
+        if (!found) {
+          newBucsList.push(buc)
+        }
+      })
       return {
         ...state,
-        bucsList: (action as ActionWithPayload).payload
+        howManyBucLists: (state.howManyBucLists - 1),
+        bucsList: newBucsList
       }
+    }
 
     case types.BUC_GET_BUCSLIST_FAILURE:
+    case types.BUC_GET_BUCSLIST_VEDTAK_FAILURE:
 
       return {
         ...state,
-        bucsList: null
+        howManyBucLists: (state.howManyBucLists - 1),
+        bucsList: _.isNil(state.bucsList) ? null : state.bucsList
       }
 
     case types.BUC_GET_BUC_SUCCESS: {

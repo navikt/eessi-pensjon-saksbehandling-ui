@@ -23,7 +23,8 @@ import * as storage from 'constants/storage'
 import { AllowedLocaleString, BUCMode, PesysContext } from 'declarations/app.d'
 import {
   Buc,
-  BucInfo, BucListItem,
+  BucInfo,
+  BucListItem,
   Bucs,
   BucsInfo,
   Institution,
@@ -116,7 +117,7 @@ export interface BUCListProps {
 export interface BUCListSelector {
   aktoerId: string | null | undefined
   bucs: Bucs | undefined
-  bucsList: Array<BucListItem> | undefined
+  bucsList: Array<BucListItem> | null | undefined
   bucsInfo: BucsInfo | undefined
   bucsInfoList: Array<string> | undefined
   institutionList: InstitutionListMap<Institution> | undefined
