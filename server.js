@@ -87,11 +87,12 @@ const validateAuthorization = async (authorization) => {
 const mainPageAuth = async function(req, res, next) {
   const {sakId, aktoerId, vedtakId, kravId, saksNr, sakType} = req.query
   logger.info('mainPageAuth: sakId=' + sakId + ' aktoerId=' + aktoerId + ' vedtakId=' + vedtakId + ' kravId=' + kravId + ' sakType=' + sakType + ' saksNr=' + saksNr )
-  const newPath = (aktoerId !== undefined ? aktoerId : '-') + '/' +
-    (sakId !== undefined ? sakId : ( saksNr !== undefined ? saksNr : '-')) + '/' +
-    (kravId !== undefined ? kravId : '-') + '/' +
-    (vedtakId !== undefined ? vedtakId :  '-') + '/' +
-    (sakType !== undefined ? sakType :  '-') + '/'
+  const newPath =
+    (aktoerId !== undefined && aktoerId !== '' ? aktoerId : '-') + '/' +
+    (sakId !== undefined && sakId !== '' ? sakId : ( saksNr !== undefined &&  saksNr !== '' ? saksNr : '-')) + '/' +
+    (kravId !== undefined && kravId !== '' ? kravId : '-') + '/' +
+    (vedtakId !== undefined && vedtakId !== '' ? vedtakId :  '-') + '/' +
+    (sakType !== undefined && sakType !== '' ? sakType :  '-') + '/'
   const loginPath = '/oauth2/login?redirect=/callback/' + newPath
   logger.info('mainPageAuth: loginPath = ' + loginPath)
   const {authorization} = req.headers
