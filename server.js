@@ -29,12 +29,6 @@ const onBehalfOf = function(scope, assertion) {
   params.append("scope", scope);
   params.append("assertion", assertion);
   params.append("requested_token_use", "on_behalf_of");
-  logger.debug('onBehalfOf: fetching ' + azureAdConfig.tokenEndpoint)
-  logger.debug('onBehalfOf: client_id ' + azureAdConfig.clientId)
-  logger.debug('onBehalfOf: client_secret ' + azureAdConfig.clientSecret)
-  logger.debug('onBehalfOf: scope ' + scope)
-  logger.debug('onBehalfOf: assertion ' + assertion)
-  logger.debug('onBehalfOf: requested_token_use  on_behalf_of')
   return fetch(azureAdConfig.tokenEndpoint, {
     body: params,
     method: "POST"
@@ -86,7 +80,6 @@ const validateAuthorization = async (authorization) => {
 
 const mainPageAuth = async function(req, res, next) {
   const {sakId, aktoerId, vedtakId, kravId, saksNr, sakType} = req.query
-  logger.info('mainPageAuth: sakId=' + sakId + ' aktoerId=' + aktoerId + ' vedtakId=' + vedtakId + ' kravId=' + kravId + ' sakType=' + sakType + ' saksNr=' + saksNr )
   const newPath =
     (aktoerId !== undefined && aktoerId !== '' ? aktoerId : '-') + '/' +
     (sakId !== undefined && sakId !== '' ? sakId : ( saksNr !== undefined &&  saksNr !== '' ? saksNr : '-')) + '/' +
@@ -94,20 +87,19 @@ const mainPageAuth = async function(req, res, next) {
     (vedtakId !== undefined && vedtakId !== '' ? vedtakId :  '-') + '/' +
     (sakType !== undefined && sakType !== '' ? sakType :  '-') + '/'
   const loginPath = '/oauth2/login?redirect=/callback/' + newPath
-  logger.info('mainPageAuth: loginPath = ' + loginPath)
+  logger.debug('mainPageAuth: loginPath = ' + loginPath)
   const {authorization} = req.headers
 
   // Not logged in - log in with wonderwall
   if (!authorization) {
-    logger.info ('mainPageAuth: no auth, redirect to login ' + loginPath)
+    logger.debug ('mainPageAuth: no auth, redirect to login ' + loginPath)
     res.redirect(loginPath)
   } else {
     // Validate token and continue to app
     if(await validateAuthorization(authorization)) {
-      logger.info('mainPageAuth:  auth valid, proceed')
       next();
     } else {
-      logger.info('mainPageAuth: auth Invalid, 302 to login ' + loginPath)
+      logger.debug('mainPageAuth: auth Invalid, 302 to login ' + loginPath)
       res.redirect(loginPath)
     }
   }
@@ -122,29 +114,25 @@ const handleCallback = (req, res) => {
   let vedtakId = (paths[5] === '-' ? '' : paths[5])
   let sakType = (paths[6] === '-' ? '' : paths[6])
   const redirectPath = '/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&kravId=' + kravId + '&vedtakId=' + vedtakId + '&sakType=' + sakType
-  logger.info('handleCallback: redirecting to ' + redirectPath)
+  logger.debug('handleCallback: redirecting to ' + redirectPath)
   res.redirect(redirectPath)
 }
 
 // require token
 const apiAuth = function (scope) {
   return async function (req, res, next) {
-    logger.debug('On apiAuth, with scope ' + scope)
     if (!req.headers.authorization) {
-      logger.info('redirecting to /oauth2/login')
+      logger.debug('redirecting to /oauth2/login')
       res.redirect("/oauth2/login");
     } else {
       try {
-        logger.debug('apiAuth: trying onBehalfOf with ' + req.headers.authorization)
+        //logger.debug('apiAuth: trying onBehalfOf with ' + req.headers.authorization)
         const response = await onBehalfOf(
           scope,
           req.headers.authorization.substring("Bearer ".length)
         );
-
         const body = await response.json();
-
-        logger.debug('apiAuth: got ' + body.access_token)
-
+        //logger.debug('apiAuth: got ' + body.access_token)
         if (response.ok) {
           res.locals.on_behalf_of_authorization = "Bearer " + body.access_token;
           next();
@@ -165,7 +153,7 @@ const apiAuth = function (scope) {
 }
 
 const apiProxy = function (target, pathRewrite) {
-  logger.debug('On apiProxy, with target ' + target)
+  //logger.debug('On apiProxy, with target ' + target)
   return createProxyMiddleware( {
     target: target,
     logLevel: 'debug',
@@ -173,10 +161,7 @@ const apiProxy = function (target, pathRewrite) {
     xfwd: true,
     pathRewrite:  pathRewrite,
     onProxyReq: function onProxyReq(proxyReq, req, res) {
-      logger.debug('onProxyReq')
-      logger.debug(req.headers)
-      logger.debug(req.session)
-      logger.info('proxy frontend: adding header auth ' + res.locals.on_behalf_of_authorization)
+      //logger.debug('proxy frontend: adding header auth ' + res.locals.on_behalf_of_authorization)
       proxyReq.setHeader(
         "Authorization",
         res.locals.on_behalf_of_authorization
@@ -187,7 +172,6 @@ const apiProxy = function (target, pathRewrite) {
 
 const timedOut = function (req, res, next) {
   if (!req.timedout) {
-    logger.info('request for ' + req.originalUrl + ' was OK')
     next()
   } else {
     logger.warning('request for ' + req.originalUrl + ' timed out!')
