@@ -143,10 +143,6 @@ const alertReducer = (state: AlertState = initialAlertState, action: AnyAction) 
         stripeMessage = i18n.t('message:alert-noSedList')
         break
 
-      case types.BUC_GET_SUBJECT_AREA_LIST_FAILURE:
-        stripeMessage = i18n.t('message:alert-noSubjectAreaList')
-        break
-
       case types.BUC_GET_TAG_LIST_FAILURE:
         stripeMessage = i18n.t('message:alert-noTagList')
         break

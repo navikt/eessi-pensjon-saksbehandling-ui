@@ -21,7 +21,6 @@ import {
   Sed,
   SEDAttachmentPayloadWithFile,
   SEDRawList,
-  SubjectAreaRawList,
   TagRawList,
   ValidBuc
 } from 'declarations/buc'
@@ -42,7 +41,6 @@ import mockP6000pdf from 'mocks/buc/p6000pdf'
 import mockRinaUrl from 'mocks/buc/rinaUrl'
 import mockSakType from 'mocks/buc/sakType'
 import mockSedList from 'mocks/buc/sedList'
-import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
 import { Action, ActionCreator } from 'redux'
 
 const sprintf = require('sprintf-js').sprintf
@@ -398,19 +396,6 @@ export const getSedList = (
       request: types.BUC_GET_SED_LIST_REQUEST,
       success: types.BUC_GET_SED_LIST_SUCCESS,
       failure: types.BUC_GET_SED_LIST_FAILURE
-    }
-  })
-}
-
-export const getSubjectAreaList = (
-): ActionWithPayload<SubjectAreaRawList> => {
-  return call({
-    url: urls.EUX_SUBJECT_AREA_URL,
-    expectedPayload: mockSubjectAreaList,
-    type: {
-      request: types.BUC_GET_SUBJECT_AREA_LIST_REQUEST,
-      success: types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS,
-      failure: types.BUC_GET_SUBJECT_AREA_LIST_FAILURE
     }
   })
 }

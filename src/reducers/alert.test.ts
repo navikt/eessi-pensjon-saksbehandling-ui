@@ -166,18 +166,6 @@ describe('reducers/alert', () => {
     })
   })
 
-  it('BUC_GET_SUBJECT_AREA_LIST_FAILURE', () => {
-    expect(
-      alertReducer(initialAlertState, {
-        type: types.BUC_GET_SUBJECT_AREA_LIST_FAILURE
-      })
-    ).toEqual({
-      ...initialAlertState,
-      clientErrorStatus: 'error',
-      clientErrorMessage: 'message:alert-noSubjectAreaList'
-    })
-  })
-
   it('BUC_GET_TAG_LIST_FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {

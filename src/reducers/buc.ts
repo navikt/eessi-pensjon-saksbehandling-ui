@@ -59,7 +59,7 @@ export interface BucState {
   p6000PDF: JoarkPreview | null | undefined
   sedsWithAttachments: SedsWithAttachmentsMap
   sedList: Array<string> | undefined
-  subjectAreaList: Array<string> | undefined
+  subjectAreaList: Array<string>
   tagList: Array<string> | undefined
 }
 
@@ -91,7 +91,7 @@ export const initialBucState: BucState = {
   p6000PDF: undefined,
   sedList: undefined,
   sedsWithAttachments: {},
-  subjectAreaList: undefined,
+  subjectAreaList: ['Pensjon'],
   tagList: undefined
 }
 
@@ -529,21 +529,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       return {
         ...state,
         sedList: undefined
-      }
-
-    case types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS:
-
-      return {
-        ...state,
-        subjectAreaList: (action as ActionWithPayload).payload
-      }
-
-    case types.BUC_GET_SUBJECT_AREA_LIST_REQUEST:
-    case types.BUC_GET_SUBJECT_AREA_LIST_FAILURE:
-
-      return {
-        ...state,
-        subjectAreaList: []
       }
 
     case types.BUC_GET_TAG_LIST_SUCCESS:

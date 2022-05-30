@@ -1,4 +1,4 @@
-import { createBuc, getBucOptions, getSubjectAreaList, getTagList, saveBucsInfo } from 'actions/buc'
+import { createBuc, getBucOptions, getTagList, saveBucsInfo } from 'actions/buc'
 import * as constants from 'constants/constants'
 import { AllowedLocaleString } from 'declarations/app.d'
 import { BucsInfo } from 'declarations/buc'
@@ -11,7 +11,6 @@ import mockPersonAvdods from 'mocks/person/personAvdod'
 import mockBucOptions from 'mocks/buc/bucOptions'
 import mockBucs from 'mocks/buc/bucs'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
-import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
 import mockTagsList from 'mocks/buc/tagsList'
 import { stageSelector } from 'setupTests'
 import BUCStart, { BUCStartProps } from './BUCStart'
@@ -21,7 +20,6 @@ jest.mock('actions/buc', () => ({
   cleanNewlyCreatedBuc: jest.fn(),
   createBuc: jest.fn(),
   getBucOptions: jest.fn(),
-  getSubjectAreaList: jest.fn(),
   getTagList: jest.fn(),
   resetBuc: jest.fn(),
   saveBucsInfo: jest.fn()
@@ -46,7 +44,7 @@ const defaultSelector = {
   personAvdods: mockPersonAvdod,
   pesysContext: constants.VEDTAKSKONTEKST,
   sakId: '123',
-  subjectAreaList: mockSubjectAreaList,
+  subjectAreaList: ['Pensjon'],
   tagList: mockTagsList
 }
 
@@ -87,15 +85,6 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
     fireEvent.keyDown(select, { key: 'ArrowDown' })
     fireEvent.keyDown(select, { key: 'Enter' })
     expect(screen.getByTestId('a_buc_c_BUCStart--avdod-select-id')).toBeInTheDocument()
-  })
-
-  it('UseEffect: Fetch subject area list', () => {
-    (getSubjectAreaList as jest.Mock).mockReset()
-    stageSelector(defaultSelector, {
-      subjectAreaList: undefined
-    })
-    render(<BUCStart {...initialMockProps} />)
-    expect(getSubjectAreaList).toHaveBeenCalled()
   })
 
   it('UseEffect: Fetch buc list', () => {

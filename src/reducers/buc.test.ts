@@ -570,45 +570,7 @@ describe('reducers/buc', () => {
     ).toEqual(initialBucState)
   })
 
-  it('BUC_GET_SUBJECT_AREA_LIST_SUCCESS', () => {
-    expect(
-      bucReducer(initialBucState, {
-        type: types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS,
-        payload: 'mockPayload'
-      })
-    ).toEqual({
-      ...initialBucState,
-      subjectAreaList: 'mockPayload'
-    })
-  })
 
-  it('BUC_GET_SUBJECT_AREA_LIST_REQUEST', () => {
-    expect(
-      bucReducer({
-        ...initialBucState,
-        subjectAreaList: ['mockSubjectAreaList']
-      }, {
-        type: types.BUC_GET_SUBJECT_AREA_LIST_REQUEST
-      })
-    ).toEqual({
-      ...initialBucState,
-      subjectAreaList: []
-    })
-  })
-
-  it('BUC_GET_SUBJECT_AREA_LIST_FAILURE', () => {
-    expect(
-      bucReducer({
-        ...initialBucState,
-        subjectAreaList: ['mockSubjectAreaList']
-      }, {
-        type: types.BUC_GET_SUBJECT_AREA_LIST_FAILURE
-      })
-    ).toEqual({
-      ...initialBucState,
-      subjectAreaList: []
-    })
-  })
 
   it('BUC_GET_TAG_LIST_SUCCESS', () => {
     expect(

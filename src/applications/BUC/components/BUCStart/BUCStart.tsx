@@ -4,7 +4,6 @@ import {
   createBuc,
   fetchKravDato,
   getBucOptions,
-  getSubjectAreaList,
   getTagList,
   resetBuc,
   saveBucsInfo
@@ -430,12 +429,6 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const avdodOptions: Array<Option> = renderAvdodOptions(personAvdods)
 
   useEffect(() => {
-    if (subjectAreaList === undefined && !loading.gettingSubjectAreaList) {
-      dispatch(getSubjectAreaList())
-    }
-  }, [dispatch, loading.gettingSubjectAreaList, subjectAreaList])
-
-  useEffect(() => {
     if (!!sakId && bucOptions === undefined && !loading.gettingBucOptions) {
       dispatch(getBucOptions(sakId, featureToggles, pesysContext as PesysContext, sakType as SakTypeValue))
     }
@@ -502,14 +495,13 @@ const BUCStart: React.FC<BUCStartProps> = ({
           <VerticalSeparatorDiv size='2' />
           <>
             <label className='navds-text-field--label navds-label'>
-              {t(loading.gettingSubjectAreaList ? 'message:loading-subjectAreaList' : 'buc:form-chooseSubjectArea')}
+              {t('buc:form-chooseSubjectArea')}
             </label>
             <Select
               data-testid='a_buc_c_BUCStart--subjectarea-select-id'
               defaultValue={{ label: _subjectArea, value: _subjectArea } as Option}
               error={_validation?.subjectArea?.feilmelding}
               id='a_buc_c_BUCStart--subjectarea-select-id'
-              isLoading={loading.gettingSubjectAreaList}
               isSearchable
               menuPortalTarget={document.getElementById('main')}
               onChange={onSubjectAreaChange}

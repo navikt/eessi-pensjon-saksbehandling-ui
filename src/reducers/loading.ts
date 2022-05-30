@@ -25,7 +25,6 @@ export const initialLoadingState: LoadingState = {
   gettingP6000PDF: false,
   gettingSakType: false,
   gettingSedList: false,
-  gettingSubjectAreaList: false,
   gettingTagList: false,
   gettingUserInfo: false,
   gettingUft: false,
@@ -345,21 +344,6 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
       return {
         ...state,
         gettingSedList: false
-      }
-
-    case types.BUC_GET_SUBJECT_AREA_LIST_REQUEST:
-
-      return {
-        ...state,
-        gettingSubjectAreaList: true
-      }
-
-    case types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS:
-    case types.BUC_GET_SUBJECT_AREA_LIST_FAILURE:
-
-      return {
-        ...state,
-        gettingSubjectAreaList: false
       }
 
     case types.BUC_RINA_GET_URL_REQUEST:

@@ -220,18 +220,6 @@ describe('reducers/loading', () => {
     simulateFailure(types.BUC_GET_SED_LIST_FAILURE, 'gettingSedList')
   })
 
-  it('BUC_GET_SUBJECT_AREA_LIST_REQUEST', () => {
-    simulateRequest(types.BUC_GET_SUBJECT_AREA_LIST_REQUEST, 'gettingSubjectAreaList')
-  })
-
-  it('BUC_GET_SUBJECT_AREA_LIST_SUCCESS', () => {
-    simulateSuccess(types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS, 'gettingSubjectAreaList')
-  })
-
-  it('BUC_GET_SUBJECT_AREA_LIST_FAILURE', () => {
-    simulateFailure(types.BUC_GET_SUBJECT_AREA_LIST_FAILURE, 'gettingSubjectAreaList')
-  })
-
   it('BUC_RINA_GET_URL_REQUEST', () => {
     simulateRequest(types.BUC_RINA_GET_URL_REQUEST, 'rinaUrl')
   })
