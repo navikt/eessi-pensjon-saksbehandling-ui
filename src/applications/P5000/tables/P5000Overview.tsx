@@ -218,14 +218,18 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     return <div>{countryInstance.findByValue(value)?.label}</div>
   }
 
-  const renderAcronym = ({ value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
-    <BodyLong>{value}</BodyLong>
+  const renderAcronym = ({ item, value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
+    <FlexCenterDiv>
+      <BodyLong>{value}</BodyLong>
+      <HorizontalSeparatorDiv size='0.3' />
+      {item?.options?.acronymModified && (<Star color='red' />)}
+    </FlexCenterDiv>
   )
 
   let columns: Array<Column<P5000ListRow, P5000TableContext>> = [
     { id: 'status', label: t('ui:status'), type: 'string', render: renderStatus },
     { id: 'land', label: t('ui:country'), type: 'string', render: renderLand, edit: { render: renderLand } },
-    { id: 'acronym', label: t('ui:_institution'), type: 'string', render: renderAcronym, edit: { render: renderAcronym } },
+    { id: 'acronym', label: t('ui:_institution'), type: 'string', render: renderAcronym},
     { id: 'type', label: t('ui:type'), type: 'string', align: 'center' as ColumnAlign, render: renderType, edit: { render: renderType } },
     {
       id: 'startdato',
@@ -287,6 +291,9 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     }
     if (_.has(changedRowValues, 'sluttdato')) {
       _.set(item, 'options.sluttdatoModified', true)
+    }
+    if (_.has(changedRowValues, 'acronym')) {
+      _.set(item, 'options.acronymModified', true)
     }
     return undefined
   }

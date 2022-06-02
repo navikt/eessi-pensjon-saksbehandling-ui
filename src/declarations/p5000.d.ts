@@ -33,6 +33,7 @@ export interface P5000Period {
     sedId ?: string
     startdatoModified ?: boolean
     sluttdatoModified ?: boolean
+    acronymModified ?: boolean
   }
   relevans : string | null
   ordning? : string | null
