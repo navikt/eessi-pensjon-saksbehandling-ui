@@ -1,6 +1,6 @@
-import { BodyLong, Tag } from '@navikt/ds-react'
+import { BodyLong, Tabs, Tag } from '@navikt/ds-react'
 import { Star } from '@navikt/ds-icons'
-import { FlexCenterDiv, HiddenDiv, HighContrastTabs, HorizontalSeparatorDiv, PileCenterDiv, VerticalSeparatorDiv } from '@navikt/hoykontrast'
+import { FlexCenterDiv, HiddenDiv, HorizontalSeparatorDiv, PileCenterDiv, VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import CountryData from '@navikt/land-verktoy'
 import Table, {
   ChangedRowValues,
@@ -50,7 +50,7 @@ const mapState = (state: State): P5000OverviewSelector => ({
   featureToggles: state.app.featureToggles
 })
 
-export const P5000Tabs = styled(HighContrastTabs)`
+export const P5000Tabs = styled(Tabs)`
   width: 100%;
 `
 
@@ -67,7 +67,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [mergePeriodTypes, setMergePeriodTypes] = useState<Array<string> | undefined>(undefined)
   const [mergePeriodBeregnings, setMergePeriodBeregnings] = useState<Array<string> | undefined>(undefined)
   const [useGermanRules, setUseGermanRules] = useState<boolean>(true)
-  const [_activeTab, setActiveTab] = useState<number>(0)
+  const [_activeTab, setActiveTab] = useState<string>('oversikt')
   const [_tableSort, _setTableSort] = useState<Sort>(() => ({ column: '', order: 'none' }))
   const [items]: [P5000ListRows, P5000SourceStatus] = convertP5000SEDToP5000ListRows({
     seds,
@@ -117,14 +117,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     (items.length !== itemsForPesys.length ? t('p5000:warning-beregning-000', { x: (items.length - itemsForPesys.length) }) : undefined))
 
   const { featureToggles }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
-
-  const tabs = [{
-    key: 'oversikt',
-    label: 'Slå sammen'
-  }, {
-    key: 'pesys',
-    label: 'Eksporter til Pesys'
-  }]
 
   const renderStartdato = ({ item, value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
     <FlexCenterDiv>
@@ -262,11 +254,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', align: 'center' as ColumnAlign, render: renderBeregning, edit: { render: renderBeregning } }
   ]
 
-  if (tabs[_activeTab].key === 'pesys') {
+  if (_activeTab === 'pesys') {
     columns.splice(0, 1) // remove status column for 'see P5000' button press, or for Pesys export view
   }
 
-  if (tabs[_activeTab].key === 'pesys') {
+  if (_activeTab === 'pesys') {
     columns = columns.concat({
       id: 'buttons',
       label: '',
@@ -320,19 +312,20 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           items={items}
           itemsForPesys={itemsForPesys}
           pesysWarning={pesysWarning}
-          currentTabKey={tabs[_activeTab].key}
+          currentTabKey={_activeTab}
         />
         <HorizontalLineSeparator />
         <VerticalSeparatorDiv />
         {featureToggles.P5000_UPDATES_VISIBLE && (
           <P5000Tabs
-            tabs={tabs}
-            onChange={(e: any, i: number) => setActiveTab(i)}
-            defaultAktiv={_activeTab}
-          />
-        )}
-        {tabs[_activeTab].key === 'oversikt' && (
-          <>
+            onChange={setActiveTab}
+            defaultValue={_activeTab}
+          >
+            <Tabs.List>
+            <Tabs.Tab label='Slå sammen' value='oversikt'/>
+            <Tabs.Tab label='Eksporter til Pesys' value='pesys'/>
+            </Tabs.List>
+           <Tabs.Panel value='oversikt'>
             <VerticalSeparatorDiv />
             <Table<P5000ListRow, P5000TableContext>
               animatable={false}
@@ -358,10 +351,8 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               columns={columns}
             />
             <VerticalSeparatorDiv />
-          </>
-        )}
-        {tabs[_activeTab].key === 'pesys' && (
-          <>
+           </Tabs.Panel>
+            <Tabs.Panel value='pesys'>
             <VerticalSeparatorDiv />
             <Table<P5000ListRow, P5000TableContext>
               animatable={false}
@@ -393,7 +384,8 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               columns={columns}
             />
             <VerticalSeparatorDiv />
-          </>
+            </Tabs.Panel>
+          </P5000Tabs>
         )}
         {renderPrintTable && (
           <HiddenDiv>

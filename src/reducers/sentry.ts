@@ -1,7 +1,6 @@
 import * as types from 'constants/actionTypes'
 import * as Sentry from '@sentry/browser'
 import { AnyAction } from 'redux'
-
 export interface SentryState {
   error: any
 }
@@ -27,7 +26,7 @@ const sentryReducer = (state: SentryState = initialSentryState, action: AnyActio
           originalPayload: action.originalPayload,
           context: action.context
         },
-        level: Sentry.Severity.Error
+        level: 'error'
       })
 
       return {

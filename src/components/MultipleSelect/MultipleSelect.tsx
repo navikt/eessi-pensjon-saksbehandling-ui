@@ -2,7 +2,6 @@ import classNames from 'classnames'
 import MultipleValueLabel from 'components/MultipleSelect/MultipleValueLabel'
 import MultipleValueRemove from 'components/MultipleSelect/MultipleValueRemove'
 import _ from 'lodash'
-import { guid } from 'nav-frontend-js-utils'
 import PT from 'prop-types'
 import Select, { OptionsOrGroups, GroupBase, OnChangeValue, PropsValue } from 'react-select'
 import CreatableSelect from 'react-select/creatable'
@@ -24,7 +23,7 @@ export interface MultipleSelectProps<T>{
   creatable ?: boolean
   error ?: string
   hideSelectedOptions ?: boolean
-  id ?: string
+  id : string
   isDisabled ?: boolean
   isLoading?: boolean
   isSearchable ?: boolean
@@ -42,7 +41,7 @@ const MultipleSelect = <T extends Option> ({
   options = [], size = 'medium', values = []
 }: MultipleSelectProps<T>): JSX.Element => {
   const Component = creatable ? CreatableSelect : Select
-  const inputId = id || guid()
+  const inputId = id
 
   const customProps: any = {
     id

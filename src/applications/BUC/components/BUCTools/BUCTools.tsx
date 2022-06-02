@@ -19,12 +19,11 @@ import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
-import { Detail, BodyLong, Heading, Loader, Button, Panel, Textarea } from '@navikt/ds-react'
+import { Detail, BodyLong, Heading, Loader, Button, Panel, Textarea, Tabs } from '@navikt/ds-react'
 import {
   HorizontalSeparatorDiv,
   slideInFromRight,
-  VerticalSeparatorDiv,
-  HighContrastTabs
+  VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
 
 import PT from 'prop-types'
@@ -58,10 +57,6 @@ const P5000Div = styled.div`
   position: relative;
   margin-bottom: 1rem;
 `
-const PaddedTabContent = styled.div`
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-`
 const RemoveComment = styled.div`
   cursor: pointer;
 `
@@ -75,7 +70,7 @@ export interface BUCToolsProps {
   buc: Buc
   bucInfo: BucInfo
   className?: string
-  initialTab?: number
+  initialTab?: string
   onTagChange?: (tagList: Tags) => void
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
 }
@@ -102,7 +97,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   aktoerId,
   buc,
   bucInfo,
-  initialTab = 0,
+  initialTab = 'P5000',
   onTagChange,
   setMode
 }: BUCToolsProps): JSX.Element => {
@@ -112,7 +107,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   const dispatch = useDispatch()
   const { t } = useTranslation()
 
-  const [_activeTab, setActiveTab] = useState<number>(initialTab)
+  const [_activeTab, setActiveTab] = useState<string>(initialTab)
   const [_allTags, setAllTags] = useState<Tags | undefined>(undefined)
   const [_comment, setComment] = useState< string | null | undefined >('')
 
@@ -241,38 +236,39 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       border
       data-testid='a_buc_c_buctools--panel-id'
     >
-      <>
-        <HighContrastTabs
-          data-testid='a_buc_c_buctools--tabs-id'
-          onChange={(e: any, i: number) => setActiveTab(i)}
-          tabs={tabs}
-          defaultAktiv={_activeTab}
-        />
-        <PaddedTabContent>
-          {tabs[_activeTab].key === 'P5000' && (
-            <P5000Div>
-              <Heading size='small'>
-                {t('buc:form-titleP5000')}
-              </Heading>
-              <VerticalSeparatorDiv />
-              <FlexDiv>
-                <Button
-                  variant='secondary'
-                  data-amplitude='buc.edit.tools.P5000.view'
-                  data-testid='a_buc_c_buctools--P5000-button-id'
-                  disabled={!hasP5000s()}
-                  onClick={onGettingP5000Click}
-                >
-                  {featureToggles.P5000_SUMMER_VISIBLE ? t('buc:form-seeP5000s') : t('buc:form-viewP5000s')}
 
-                  <HorizontalSeparatorDiv size='0.3' />
-                  <NextFilled />
-                </Button>
-              </FlexDiv>
-            </P5000Div>
-          )}
-          {tabs[_activeTab].key === 'tags' && (
-            <>
+        <Tabs
+          data-testid='a_buc_c_buctools--tabs-id'
+          onChange={setActiveTab}
+          size='medium'
+          defaultValue={_activeTab}
+        >
+        <Tabs.List>
+          {tabs.map(tab => (<Tabs.Tab label={tab.label} value={tab.key}/>))}
+        </Tabs.List>
+        <Tabs.Panel value='P5000'>
+          <P5000Div>
+            <Heading size='small'>
+              {t('buc:form-titleP5000')}
+            </Heading>
+            <VerticalSeparatorDiv />
+            <FlexDiv>
+              <Button
+                variant='secondary'
+                data-amplitude='buc.edit.tools.P5000.view'
+                data-testid='a_buc_c_buctools--P5000-button-id'
+                disabled={!hasP5000s()}
+                onClick={onGettingP5000Click}
+              >
+                {featureToggles.P5000_SUMMER_VISIBLE ? t('buc:form-seeP5000s') : t('buc:form-viewP5000s')}
+
+                <HorizontalSeparatorDiv size='0.3' />
+                <NextFilled />
+              </Button>
+            </FlexDiv>
+          </P5000Div>
+        </Tabs.Panel>
+          <Tabs.Panel value='tags'>
               <VerticalSeparatorDiv size='0.5' />
               <BodyLong>
                 {t('buc:form-tagsForBUC-description')}
@@ -295,6 +291,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
               <VerticalSeparatorDiv size='0.5' />
               <MultipleSelect<Tag>
                 ariaLabel={t('buc:form-tagsForBUC')}
+                id='a_buc_c_buctools--tags-select-id'
                 aria-describedby='help-tags'
                 data-testid='a_buc_c_buctools--tags-select-id'
                 hideSelectedOptions={false}
@@ -303,10 +300,9 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 label={t('buc:form-tagsForBUC')}
                 values={_tags || []}
               />
-            </>
-          )}
-          {tabs[_activeTab].key === 'comments' && (
-            <>
+          </Tabs.Panel>
+          <Tabs.Panel value='comments'>
+
               <VerticalSeparatorDiv size='0.5' />
               <Detail>
                 {t('ui:comment')}
@@ -351,11 +347,8 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 {loading.savingBucsInfo && <Loader />}
                 {loading.savingBucsInfo ? t('ui:saving') : t('ui:add')}
               </Button>
-            </>
-          )}
-
-        </PaddedTabContent>
-      </>
+          </Tabs.Panel>
+      </Tabs>
     </BUCToolsPanel>
   )
 }
@@ -365,7 +358,7 @@ BUCTools.propTypes = {
   buc: BucPropType.isRequired,
   bucInfo: BucInfoPropType.isRequired,
   className: PT.string,
-  initialTab: PT.number,
+  initialTab: PT.string,
   onTagChange: PT.func
 }
 
