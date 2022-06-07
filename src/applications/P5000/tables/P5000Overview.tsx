@@ -80,10 +80,19 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     selectRowsContext: 'forAll'
   })
 
-  // initial items for pesys: all items minus the 000 beregning
+  /** initial items for pesys:
+   * 1) all items minus the 000 beregning
+   * 2) do show but do not edit Norwegian periods
+    */
+
   // this will be updated with changes made to the startdato/sluttdato
   const [itemsForPesys, _setItemsForPesys] = useState<P5000ListRows>(() =>
     _.reject(items, (it: P5000ListRow) => it.beregning === '000')
+      .map(item => ({
+        ...item,
+        selectDisabled: item.land === 'NO',
+        editDisabled: item.land === 'NO'
+      }))
   )
 
   // same, but for view - as the merging periods process "destroys" the original rows
