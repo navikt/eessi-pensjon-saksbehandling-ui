@@ -1,4 +1,4 @@
-name: prod-gcp push - build, deploy to Q1/Q2
+name: prod-gcp push - build, deploy to Q2
 
 on:
   push:
