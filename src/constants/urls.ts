@@ -24,7 +24,9 @@ export const EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL = EUX_URL + '/institutions
 export const API_USERINFO_URL = API_URL + '/userinfo'
 
 // StorageController
+export const API_STORAGE_LISTALL_URL = STG_URL + '/list'
 export const API_STORAGE_LIST_URL = STG_URL + '/list/%(userId)s___%(namespace)s'
+export const API_STORAGE_GETFILE_URL = STG_URL + '/get/%(filename)s'
 export const API_STORAGE_GET_URL = STG_URL + '/get/%(userId)s___%(namespace)s___%(file)s'
 export const API_STORAGE_POST_URL = STG_URL + '/%(userId)s___%(namespace)s___%(file)s'
 export const API_STORAGE_DELETE_URL = STG_URL + '/%(userId)s___%(namespace)s___%(file)s'
@@ -72,10 +74,6 @@ export const JOURNALFØRING_SED_SEND_URL = JOU_URL + '/send/%(sakId)s/%(aktoerId
 // Page Notification
 export const API_PAGENOTIFICATION_GET_URL = API_URL + '/storage/get/EP___PAGE___NOTIFICATION'
 export const API_PAGENOTIFICATION_POST_URL = API_URL + '/storage/EP___PAGE___NOTIFICATION'
-
-// s3 inventory
-export const S3INVENTORY_LIST_URL = STG_URL + '/list'
-export const S3INVENTORY_FILE_URL = STG_URL + '/get/%(filename)s'
 
 // Websocket
 export const WEBSOCKET_LOCALHOST_URL = 'ws://localhost:8080/bucUpdate'

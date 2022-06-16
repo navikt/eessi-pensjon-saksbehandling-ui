@@ -1,18 +1,20 @@
 import { generateKeyForListRow } from 'applications/P5000/utils/conversionUtils'
 import * as types from 'constants/actionTypes'
-import { P5000sFromRinaMap, P5000Period } from 'declarations/p5000'
+import { P5000sFromRinaMap, P5000Period, P5000ListRows } from 'declarations/p5000'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
 import { AnyAction } from 'redux'
 
 export interface P5000State {
   p5000sFromRinaMap: P5000sFromRinaMap
+  p5000sFromS3: Array<P5000ListRows> | null | undefined
   sentP5000info: any
   gjpbpwarning: any | undefined
 }
 
 export const initialP5000State: P5000State = {
   p5000sFromRinaMap: {},
+  p5000sFromS3: undefined,
   sentP5000info: undefined,
   gjpbpwarning: undefined
 }
@@ -94,6 +96,34 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: AnyAction):
         ...state,
         gjpbpwarning: (action as ActionWithPayload).payload
       }
+
+    case types.P5000_PESYS_GET_REQUEST: {
+      return {
+        ...state,
+        p5000sFromS3: undefined
+      }
+    }
+
+    case types.P5000_PESYS_GET_FAILURE: {
+      return {
+        ...state,
+        p5000sFromS3: null
+      }
+    }
+
+    case types.P5000_PESYS_GET_SUCCESS: {
+      return {
+        ...state,
+        p5000sFromS3: (action as ActionWithPayload).payload
+      }
+    }
+
+    case types.P5000_PESYS_SEND_SUCCESS: {
+      return {
+        ...state,
+        p5000sFromS3: (action as ActionWithPayload).payload
+      }
+    }
 
     case types.P5000_GET_SUCCESS: {
       const newp5000FromRina = _.cloneDeep(state.p5000sFromRinaMap)

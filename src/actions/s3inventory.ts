@@ -10,7 +10,7 @@ const sprintf = require('sprintf-js').sprintf
 export const getS3list: ActionCreator<ActionWithPayload<undefined>> = (
 ): ActionWithPayload<undefined> => {
   return call({
-    url: urls.S3INVENTORY_LIST_URL,
+    url: urls.API_STORAGE_LISTALL_URL,
     expectedPayload: mockS3list,
     method: 'GET',
     type: {
@@ -25,7 +25,7 @@ export const getS3file: ActionCreator<ActionWithPayload<undefined>> = (
   filename: string
 ): ActionWithPayload<undefined> => {
   return call({
-    url: sprintf(urls.S3INVENTORY_FILE_URL, { filename }),
+    url: sprintf(urls.API_STORAGE_GETFILE_URL, { filename }),
     expectedPayload: mockS3file(filename),
     method: 'GET',
     context: {

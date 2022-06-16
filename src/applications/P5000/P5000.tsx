@@ -1,7 +1,7 @@
 import { Accordion, Heading } from '@navikt/ds-react'
 import { FlexCenterDiv, HorizontalSeparatorDiv, VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import { saveEntries } from 'actions/localStorage'
-import { getSed, resetSentP5000info } from 'actions/p5000'
+import { getP5000FromS3, getSed, resetSentP5000info } from 'actions/p5000'
 import { getWorkingCopy, updateP5000WorkingCopies } from 'applications/P5000/utils/entriesUtils'
 import P5000Controls from 'applications/P5000/P5000Controls'
 import P5000DragAndDropContext from 'applications/P5000/components/P5000DragAndDropContext'
@@ -9,7 +9,7 @@ import { SpinnerDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { BUCMode, LocalStorageEntriesMap, FeatureToggles, LocalStorageEntry } from 'declarations/app'
 import { Buc, Sed, Seds } from 'declarations/buc'
-import { EmptyPeriodsReport, P5000sFromRinaMap, P5000SED } from 'declarations/p5000'
+import { EmptyPeriodsReport, P5000sFromRinaMap, P5000SED, P5000ListRows } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
@@ -29,14 +29,20 @@ export interface P5000Props {
 }
 
 export interface P5000Selector {
+  aktoerId: string | null | undefined
   featureToggles: FeatureToggles
   p5000sFromRinaMap: P5000sFromRinaMap
+  p5000FromS3: Array<P5000ListRows> | null | undefined
+  gettingP5000FromS3: boolean
   storageEntries: LocalStorageEntriesMap<P5000SED>
 }
 
 const mapState = (state: State): P5000Selector => ({
+  aktoerId: state.app.params.aktoerId,
   featureToggles: state.app.featureToggles,
   p5000sFromRinaMap: state.p5000.p5000sFromRinaMap,
+  p5000FromS3: state.p5000.p5000sFromS3,
+  gettingP5000FromS3: state.loading.gettingP5000FromS3,
   storageEntries: state.localStorage.entries as LocalStorageEntriesMap<P5000SED>
 })
 
@@ -53,7 +59,7 @@ const P5000: React.FC<P5000Props> = ({
 }: P5000Props): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { featureToggles, p5000sFromRinaMap, storageEntries }: P5000Selector = useSelector<State, P5000Selector>(mapState)
+  const { aktoerId, featureToggles, p5000sFromRinaMap, p5000FromS3, storageEntries }: P5000Selector = useSelector<State, P5000Selector>(mapState)
 
   /* for drag & drop placeholder */
   const [placeholderProps, setPlaceholderProps] = useState<any>({})
@@ -61,7 +67,11 @@ const P5000: React.FC<P5000Props> = ({
   const [_activeSeds, _setActiveSeds] = useState<Seds>([])
   /* are we fetching P5000s from RINA */
   const [_fetchingP5000, _setFetchingP5000] = useState<Seds | undefined>(undefined)
+  /* are we fetching P5000s from S3 */
+  const [_fetchingP5000FromS3, _setFetchingP5000FromS3] = useState<boolean>(false)
   /* are we ready to show the page */
+  const [_readyFromRINA, _setReadyFromRINA] = useState<boolean>(false)
+  const [_readyFromS3, _setReadyFromS3] = useState<boolean>(false)
   const [_ready, _setReady] = useState<boolean>(false)
   /* SEDs that will be used for the P5000 page */
   const [_seds, _setSeds] = useState<Seds | undefined>(undefined)
@@ -150,8 +160,11 @@ const P5000: React.FC<P5000Props> = ({
   const renderP5000OverviewContent = (activeSeds: Seds, p5000WorkingCopies: Array<LocalStorageEntry<P5000SED>>) => {
     return (
       <P5000Overview
+        aktoerId={aktoerId!}
+        caseId={buc.caseId!}
         p5000sFromRinaMap={p5000sFromRinaMap}
         p5000WorkingCopies={p5000WorkingCopies}
+        p5000FromS3={p5000FromS3}
         seds={activeSeds}
       />
     )
@@ -219,20 +232,19 @@ const P5000: React.FC<P5000Props> = ({
     const cachedSedIds: Array<string> = Object.keys(p5000sFromRinaMap)
     const notloadedSeds: Seds = _.filter(seds, sed => cachedSedIds.indexOf(sed.id) < 0)
     if (!_.isEmpty(notloadedSeds)) {
-      _setReady(false)
+      _setReadyFromRINA(false)
       _setFetchingP5000(notloadedSeds)
       notloadedSeds.forEach(sed => dispatch(getSed(buc.caseId!, sed)))
     } else {
       updateActiveSeds(seds)
-
       _setFetchingP5000(undefined)
-      _setReady(true)
+      _setReadyFromRINA(true)
     }
   }, [buc])
 
   /** check if we are ready, as in, we loaded all necessary SEDs from RINA */
   useEffect(() => {
-    if (!_ready && _.isArray(_fetchingP5000)) {
+    if (!_readyFromRINA && _.isArray(_fetchingP5000)) {
       if (!_.isEmpty(_fetchingP5000)) {
         // update _fetchingP5000 with new cached info from p5000sFromRinaMap
         const cachedSedIds = Object.keys(p5000sFromRinaMap)
@@ -244,17 +256,33 @@ const P5000: React.FC<P5000Props> = ({
             updateActiveSeds(_seds)
           }
           _setFetchingP5000(undefined)
-          _setReady(true)
+          _setReadyFromRINA(true)
         }
       } else {
         if (!_.isNil(_seds)) {
           updateActiveSeds(_seds)
         }
         _setFetchingP5000(undefined)
-        _setReady(true)
+        _setReadyFromRINA(true)
       }
     }
-  }, [_fetchingP5000, p5000sFromRinaMap])
+  }, [_readyFromRINA, _fetchingP5000, p5000sFromRinaMap])
+
+  useEffect(() => {
+    _setFetchingP5000FromS3(true)
+    dispatch(getP5000FromS3(aktoerId!, buc.caseId!))
+  }, [])
+
+  useEffect(() => {
+    if (_fetchingP5000FromS3 && !_.isUndefined(p5000FromS3)) {
+      _setReadyFromS3(true)
+    }
+  }, [_fetchingP5000FromS3, p5000FromS3])
+
+  useEffect(() => {
+    if (!_ready && _readyFromRINA && _readyFromS3)
+    _setReady(true)
+  }, [_ready, _readyFromRINA, _readyFromS3])
 
   if (!_ready) {
     const cachedSedIds = Object.keys(p5000sFromRinaMap)

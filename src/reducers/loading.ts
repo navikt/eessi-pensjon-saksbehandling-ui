@@ -37,7 +37,9 @@ export const initialLoadingState: LoadingState = {
   savingBucsInfo: false,
   sendingJournalføringSend: false,
   sendingPageNotification: false,
-  sendingP5000info: false
+  sendingP5000info: false,
+  gettingP5000FromS3: false,
+  sendingP5000ToS3: false
 }
 
 const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAction) => {
@@ -122,6 +124,36 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
       return {
         ...state,
         sendingP5000info: false
+      }
+
+    case types.P5000_PESYS_GET_REQUEST:
+
+      return {
+        ...state,
+        gettingP5000FromS3: true
+      }
+
+    case types.P5000_PESYS_GET_SUCCESS:
+    case types.P5000_PESYS_GET_FAILURE:
+
+      return {
+        ...state,
+        gettingP5000FromS3: false
+      }
+
+      case types.P5000_PESYS_SEND_REQUEST:
+
+      return {
+        ...state,
+        sendingP5000ToS3: true
+      }
+
+    case types.P5000_PESYS_SEND_SUCCESS:
+    case types.P5000_PESYS_SEND_FAILURE:
+
+      return {
+        ...state,
+        sendingP5000ToS3: false
       }
 
       // BUC

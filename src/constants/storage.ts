@@ -1,5 +1,6 @@
 export const NAMESPACE_BUC = 'BUC'
 export const FILE_BUCINFO = 'INFO'
+export const NAMESPACE_PESYS = 'PESYS'
 
 export const NAMESPACE_PINFO = 'PINFO'
 export const FILE_PINFO = 'PINFO.json'

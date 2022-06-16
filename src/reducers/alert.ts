@@ -206,8 +206,15 @@ const alertReducer = (state: AlertState = initialAlertState, action: AnyAction) 
         sed: (((action as ActionWithPayload).payload as Sed).type),
         message: message ? ' - ' + message : ''
       })
+      dealWithBanner = true
       break
     }
+
+    case types.P5000_PESYS_SEND_SUCCESS:
+      bannerMessage = i18n.t('message:alert-sentToPesys')
+      dealWithBanner = true
+      break
+
     default:
       break
   }

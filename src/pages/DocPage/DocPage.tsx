@@ -19,7 +19,8 @@ export interface DocPageProps {
 }
 
 const defaultLayouts: LayoutTabs = [{
-  label: 'default',
+  label: 'Default',
+  key: 'default',
   body: {
     lg: [
       { i: 'w-1-doc', x: 0, y: 0, w: 12, h: 6, minW: 6, maxW: 12, minH: 2, maxH: 999 }
@@ -47,8 +48,8 @@ const defaultConfig = {
   margin: [10, 10],
   containerPadding: [10, 10],
   rowHeight: 30,
-  defaultTabIndex: 0,
-  version: 1
+  defaultTab: 'default',
+  version: 2
 }
 
 const allowedWidgets = ['doc']

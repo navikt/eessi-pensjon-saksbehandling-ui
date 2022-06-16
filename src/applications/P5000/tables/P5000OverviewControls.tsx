@@ -8,7 +8,9 @@ import {
   Row,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
+import { sendP5000ToS3 } from 'actions/p5000'
 import { informasjonOmBeregningLabels, typePeriode } from 'applications/P5000/P5000.labels'
+import { convertFromP5000ListRowsIntoPesysPeriods } from 'applications/P5000/utils/pesysUtils'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { OneLineSpan } from 'components/StyledComponents'
 import { FeatureToggles, Option } from 'declarations/app'
@@ -20,9 +22,12 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
+import { useAppDispatch } from 'store'
 
 export interface P5000OverviewControlsProps {
-  componentRef: any,
+  aktoerId: string
+  caseId: string
+  componentRef: any
   featureToggles: FeatureToggles
   mergePeriods: boolean
   setMergePeriods: (b: boolean) => void
@@ -39,6 +44,7 @@ export interface P5000OverviewControlsProps {
   setItemsPerPage: (b: number) => void
   items: P5000ListRows
   itemsForPesys: P5000ListRows
+  p5000FromS3: Array<P5000ListRows> | null | undefined
 }
 
 export interface P5000OverviewControlsSelector {
@@ -50,6 +56,8 @@ const mapState = (state: State): P5000OverviewControlsSelector => ({
 })
 
 const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
+  aktoerId,
+  caseId,
   componentRef,
   featureToggles,
   mergePeriods,
@@ -66,9 +74,11 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
   items,
   itemsForPesys,
   pesysWarning,
+  p5000FromS3,
   currentTabKey
 }: P5000OverviewControlsProps) => {
   const { t } = useTranslation()
+  const dispatch = useAppDispatch()
   const { sendingToPesys } : P5000OverviewControlsSelector = useSelector<State, P5000OverviewControlsSelector>(mapState)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
 
@@ -108,9 +118,8 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
   }
 
   const handleOverforTilPesys = () => {
-    console.log(itemsForPesys)
-    if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
-
+    if (window.confirm(t('buc:form-areYouSureSendToPesys'))) {
+      dispatch(sendP5000ToS3(aktoerId, caseId, convertFromP5000ListRowsIntoPesysPeriods(itemsForPesys)))
     }
   }
 
@@ -131,6 +140,13 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
           </Row>
           <VerticalSeparatorDiv />
         </>
+      )}
+      {!_.isNil(p5000FromS3) && (
+        <AlignEndRow style={{ width: '100%' }}>
+          <Column>
+            <BodyLong>{t('message:alert-p5000sFromS3', {x: p5000FromS3.length})}</BodyLong>
+          </Column>
+        </AlignEndRow>
       )}
       <AlignEndRow style={{ width: '100%' }}>
         <Column flex='2'>

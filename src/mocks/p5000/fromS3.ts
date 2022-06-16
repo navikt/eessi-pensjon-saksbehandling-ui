@@ -1,0 +1,40 @@
+export default [{
+  "land":"DE",
+  "acronym":"DEDEMO01",
+  "type":"20",
+  "startdato":"1986-01-04",
+  "sluttdato":"1986-07-06",
+  "aar":"",
+  "mnd":"7",
+  "dag":"6",
+  "dagtype":"7",
+  "ytelse":"20",
+  "ordning":"20",
+  "beregning":"001"
+},{
+  "land":"DE",
+  "acronym":"DEDEMO01",
+  "type":"20",
+  "startdato":"1986-08-02",
+  "sluttdato":"1986-09-20",
+  "aar":"",
+  "mnd":"1",
+  "dag":"20",
+  "dagtype":"7",
+  "ytelse":"20",
+  "ordning":"20",
+  "beregning":"001"
+}, {
+  "land":"DE",
+  "acronym":"DEDEMO01",
+  "type":"20",
+  "startdato":"1986-09-21",
+  "sluttdato":"1986-12-20",
+  "aar":"",
+  "mnd":"1",
+  "dag":"20",
+  "dagtype":"7",
+  "ytelse":"20",
+  "ordning":"20",
+  "beregning":"001"
+}]

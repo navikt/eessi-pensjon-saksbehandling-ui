@@ -73,6 +73,7 @@
   "form-areYouSure"                   : "Er du sikker?",
   "form-areYouSureDeleteComment"      : "Er du sikker på at du vil slette kommentaren?",
   "form-areYouSureSendToRina"         : "Er du sikker på at du vil overføre til RINA?",
+  "form-areYouSureSendToPesys"         : "Er du sikker på at du vil overføre til Pesys?",
   "form-BUCtools"                     : "Verktøy",
   "form-P5000-warning"                : "Det finnes tilleggsperioder uten start- og sluttdato i denne P5000. Disse periodene finner du i P5000 som er lagret i dokumentoversikten.",
   "form-actions"                      : "Aksjoner",

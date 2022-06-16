@@ -13,6 +13,7 @@ import Table, {
 } from '@navikt/tabell'
 import Tooltip from '@navikt/tooltip'
 import { informasjonOmBeregning, ordning, relevantForYtelse, typePeriode } from 'applications/P5000/P5000.labels'
+import { P5000ForS3 } from 'applications/P5000/utils/pesysUtils'
 import { HorizontalLineSeparator } from 'components/StyledComponents'
 import { FeatureToggles, LocalStorageEntry } from 'declarations/app'
 import { Seds } from 'declarations/buc'
@@ -41,7 +42,10 @@ export interface P5000OverviewSelector {
 }
 
 export interface P5000OverviewProps {
+  aktoerId: string
+  caseId: string
   p5000sFromRinaMap: P5000sFromRinaMap
+  p5000FromS3: Array<P5000ListRows> | null | undefined
   p5000WorkingCopies: Array<LocalStorageEntry<P5000SED>> | undefined
   seds: Seds
 }
@@ -55,7 +59,7 @@ export const P5000Tabs = styled(Tabs)`
 `
 
 const P5000Overview: React.FC<P5000OverviewProps> = ({
-  p5000sFromRinaMap, p5000WorkingCopies, seds
+ aktoerId, caseId, p5000sFromRinaMap, p5000WorkingCopies, p5000FromS3, seds
 }: P5000OverviewProps) => {
   const { t } = useTranslation()
   const componentRef = useRef(null)
@@ -91,7 +95,17 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       .map(item => ({
         ...item,
         selectDisabled: item.land === 'NO',
-        editDisabled: item.land === 'NO'
+        editDisabled: item.land === 'NO',
+        selected: _.find(p5000FromS3, (it: P5000ForS3) => {
+          return it.land === item.land &&
+            it.acronym === item.acronym &&
+            it.type === item.type &&
+            it.startdato === moment(item.startdato).format('YYYY-MM-DD') &&
+            it.sluttdato === moment(item.sluttdato).format('YYYY-MM-DD') &&
+            it.ytelse === item.ytelse &&
+            it.ordning === item.ordning &&
+            it.beregning === item.beregning
+        }) !== undefined
       }))
   )
 
@@ -312,6 +326,9 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       <VerticalSeparatorDiv />
       <PileCenterDiv>
         <P5000OverviewControls
+          aktoerId={aktoerId}
+          caseId={caseId}
+          p5000FromS3={p5000FromS3}
           componentRef={componentRef}
           featureToggles={featureToggles}
           mergePeriods={mergePeriods}
