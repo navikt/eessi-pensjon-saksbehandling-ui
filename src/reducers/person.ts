@@ -9,14 +9,16 @@ export interface PersonState {
   personPdl: PersonPDL | undefined
   personAvdods: PersonAvdods | undefined
   gjpbp: Date | null | undefined
-  uft: Date | null | undefined
+  uforetidspunkt: Date | null | undefined
+  virkningstidspunkt: Date | null | undefined
 }
 
 export const initialPersonState: PersonState = {
   personPdl: undefined,
   personAvdods: undefined,
   gjpbp: undefined,
-  uft: undefined
+  uforetidspunkt: undefined,
+  virkningstidspunkt: undefined
 }
 
 const personReducer = (state: PersonState = initialPersonState, action: AnyAction) => {
@@ -100,26 +102,36 @@ const personReducer = (state: PersonState = initialPersonState, action: AnyActio
 
       return {
         ...state,
-        uft: undefined
+        uforetidspunkt: undefined,
+        virkningstidspunkt: undefined
       }
 
     case types.PERSON_UFT_SUCCESS: {
-      let uft
+      let uforetidspunkt, virkningstidspunkt
       try {
-        uft = moment((action as ActionWithPayload).payload.uforetidspunkt, 'YYYY-MM-DD').toDate()
+        uforetidspunkt = moment((action as ActionWithPayload).payload.uforetidspunkt, 'YYYY-MM-DD').toDate()
       } catch (e) {
+        uforetidspunkt = null
+      }
+
+      try {
+        virkningstidspunkt = moment((action as ActionWithPayload).payload.virkningstidspunkt, 'YYYY-MM-DD').toDate()
+      } catch (e) {
+        virkningstidspunkt = null
       }
 
       return {
         ...state,
-        uft
+        uforetidspunkt,
+        virkningstidspunkt
       }
     }
 
     case types.PERSON_UFT_FAILURE:
       return {
         ...state,
-        uft: null
+        uforetidspunkt: null,
+        virkningstidspunkt: null
       }
 
     default:

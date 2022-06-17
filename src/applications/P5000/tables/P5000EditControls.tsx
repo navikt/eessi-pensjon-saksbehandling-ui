@@ -1,5 +1,5 @@
 import { Alert, BodyLong, Button, HelpText, Link, Loader, Radio, RadioGroup } from '@navikt/ds-react'
-import { Select as NavSelect } from '@navikt/ds-react/esm/form'
+import { Select as NavSelect } from '@navikt/ds-react'
 import {
   AlignEndRow,
   Column, FlexBaseDiv, FlexCenterDiv,
@@ -42,7 +42,8 @@ export interface P5000EditControlsSelector {
   sakType: SakTypeValue
   sentP5000info: any
   sendingP5000info: boolean
-  uft: Date | null | undefined
+  uforetidspunkt: Date | null | undefined
+  virkningstidspunkt: Date | null | undefined
   vedtakId: string | null | undefined
 }
 
@@ -77,7 +78,8 @@ const mapState = (state: State): P5000EditControlsSelector => ({
   sakType: state.app.params.sakType as SakTypeValue,
   sentP5000info: state.p5000.sentP5000info,
   sendingP5000info: state.loading.sendingP5000info,
-  uft: state.person.uft,
+  uforetidspunkt: state.person.uforetidspunkt,
+  virkningstidspunkt: state.person.virkningstidspunkt,
   vedtakId: state.app.params.vedtakId
 })
 
@@ -104,8 +106,10 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
 }: P5000EditControlsProps): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { featureToggles, sentP5000info, sendingP5000info, gettingUft, uft, gjpbp, gjpbpwarning, pesysContext, vedtakId, sakType }:P5000EditControlsSelector =
-  useSelector<State, P5000EditControlsSelector>(mapState)
+  const {
+    featureToggles, sentP5000info, sendingP5000info, gettingUft, uforetidspunkt,
+    virkningstidspunkt, gjpbp, gjpbpwarning, pesysContext, vedtakId, sakType
+  }: P5000EditControlsSelector = useSelector<State, P5000EditControlsSelector>(mapState)
   const [_showModal, _setShowModal] = useState<boolean>(false)
   const [_showHelpModal, _setShowHelpModal] = useState<boolean>(false)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
@@ -276,56 +280,94 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
   }, [gjpbp, requestingGjpBp])
 
   useEffect(() => {
-    if (_.isDate(uft) && requestingUFT) {
+    if (_.isDate(uforetidspunkt) && _.isDate(virkningstidspunkt) && requestingUFT) {
       setRequestingUFT(false)
       let newItems: P5000ListRows = _.cloneDeep(items)
       newItems = newItems.map(item => {
         const newItem = _.cloneDeep(item)
-        newItem.selected = moment(item.startdato).isSameOrAfter(uft)
-        newItem.flag = moment(item.startdato).isSameOrAfter(uft)
+        newItem.selected = moment(item.startdato).isSameOrAfter(uforetidspunkt)
+        newItem.flag = moment(item.startdato).isSameOrAfter(uforetidspunkt)
         return newItem
       })
 
       // check if we do not have such period
-      const foundUFTPeriod = _.find(newItems, item => {
-        return moment(item.startdato).isSame(uft) &&
+      const foundUforetidpunktPeriod = _.find(newItems, item => {
+        return moment(item.startdato).isSame(uforetidspunkt, 'day') &&
+          moment(item.sluttdato).isSame(moment(virkningstidspunkt).subtract(1, 'day'), 'day') && // compare sluttdato with today, but just year/month/day
+          item.type === '41'
+      })
+      // check if we do not have such period
+      const foundVirkningstidspunktPeriod = _.find(newItems, item => {
+        return moment(item.startdato).isSame(virkningstidspunkt) &&
           moment(item.sluttdato).isSame(new Date(), 'day') && // compare sluttdato with today, but just year/month/day
-          item.type === '30'
+          item.type === '50'
       })
 
-      if (!foundUFTPeriod) {
-        const diff: FormattedDateDiff = dateDiff(uft, new Date())
+      if (!foundUforetidpunktPeriod && !foundVirkningstidspunktPeriod) {
+        const startdatoUforetidspunkt: Date = uforetidspunkt
+        const sluttdatoUforetidspunkt: Date = moment(virkningstidspunkt).subtract(1, 'day').toDate()
+        const diffUforetidspunkt: FormattedDateDiff = dateDiff(startdatoUforetidspunkt, sluttdatoUforetidspunkt)
+
+        const startdatoVirkningstidspunkt: Date = virkningstidspunkt
+        const sluttdatoVirkningstidspunkt: Date = new Date()
+        const diffVirkningstidspunkt: FormattedDateDiff = dateDiff(startdatoVirkningstidspunkt, sluttdatoVirkningstidspunkt)
         // I will use a random period as a template, to fill out stuff like land
         const newItemTemplate = _.sample(newItems) as P5000ListRow
-        const newItem: P5000ListRow = {
+
+        const newItem1: P5000ListRow = {
           land: newItemTemplate?.land ?? null,
           beregning: newItemTemplate?.beregning ?? null,
           ordning: newItemTemplate?.ordning ?? null,
           ytelse: newItemTemplate?.ytelse ?? null,
           acronym: newItemTemplate?.acronym ?? null,
-          type: '30',
-          startdato: uft,
-          sluttdato: new Date(),
+          type: '41',
+          startdato: startdatoUforetidspunkt,
+          sluttdato: sluttdatoUforetidspunkt,
           status: 'new',
-          aar: '' + diff.years,
-          mnd: '' + diff.months,
-          dag: '' + diff.days,
+          aar: '' + diffUforetidspunkt.years,
+          mnd: '' + diffUforetidspunkt.months,
+          dag: '' + diffUforetidspunkt.days,
           selected: true,
           flag: true,
           flagIkon: 'UFT',
           key: '' // will be generated later
         } as P5000ListRow
 
+        const newItem2: P5000ListRow = {
+          land: newItemTemplate?.land ?? null,
+          beregning: newItemTemplate?.beregning ?? null,
+          ordning: newItemTemplate?.ordning ?? null,
+          ytelse: newItemTemplate?.ytelse ?? null,
+          acronym: newItemTemplate?.acronym ?? null,
+          type: '50',
+          startdato: startdatoVirkningstidspunkt,
+          sluttdato: sluttdatoVirkningstidspunkt,
+          status: 'new',
+          aar: '' + diffVirkningstidspunkt.years,
+          mnd: '' + diffVirkningstidspunkt.months,
+          dag: '' + diffVirkningstidspunkt.days,
+          selected: true,
+          flag: true,
+          flagIkon: 'UFT',
+          key: '' // will be generated later
+        } as P5000ListRow
+
+
         // converting new item to period, so I can get the generated key
-        const p5000Period: P5000Period = listItemtoPeriod(newItem)
-        newItem.key = p5000Period.options?.key!
-        newItems = newItems.concat(newItem)
+        const p5000Period1: P5000Period = listItemtoPeriod(newItem1)
+        newItem1.key = p5000Period1.options?.key!
+        newItems = newItems.concat(newItem1)
+
+        const p5000Period2: P5000Period = listItemtoPeriod(newItem2)
+        newItem2.key = p5000Period2.options?.key!
+        newItems = newItems.concat(newItem2)
+
+        onSave({
+          items: newItems
+        })
       }
-      onSave({
-        items: newItems
-      })
     }
-  }, [uft, requestingUFT])
+  }, [uforetidspunkt, virkningstidspunkt, requestingUFT])
 
   useEffect(() => {
     if (!_.isUndefined(sentP5000info) && !_showModal) {
