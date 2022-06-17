@@ -269,9 +269,15 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       // merge only the new ones, do not have duplicates
       const newBucsList = _.isNil(state.bucsList) ? [] : state.bucsList;
       (action as ActionWithPayload).payload?.forEach((buc: BucListItem) => {
-        const found = _.find(newBucsList, (b: BucListItem) => _.isEqual(b, buc))
-        if (!found) {
+        const foundIndex = _.findIndex(newBucsList, (b: BucListItem) => b.euxCaseId === buc.euxCaseId)
+        if (foundIndex < 0) {
           newBucsList.push(buc)
+        } else {
+          // sometimes, list 1 and list 2 gets bucswith same euxCaseID, but list 2 comes with a avdodFnr filled out
+          // so, if that is the case, replace it
+          if (!_.isNil(buc.avdodFnr) && _.isNil(newBucsList[foundIndex].avdodFnr)) {
+            newBucsList[foundIndex] = buc
+          }
         }
       })
       return {

@@ -154,8 +154,8 @@ const BUCList: React.FC<BUCListProps> = ({
   setMode, initialBucNew = undefined
 }: BUCListProps): JSX.Element => {
   const {
-    aktoerId, bucs, bucsList, bucsInfo, bucsInfoList, institutionList, gettingBucsInfo, gettingBucs, gettingBucsList,
-    newlyCreatedBuc, personAvdods, pesysContext, sakId, sakType
+    aktoerId, bucs, bucsList, bucsInfo, bucsInfoList, institutionList, gettingBucsInfo,
+    gettingBucs, gettingBucsList, newlyCreatedBuc, personAvdods, pesysContext, sakId, sakType
   } = useSelector<State, BUCListSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()

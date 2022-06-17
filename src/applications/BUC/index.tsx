@@ -189,8 +189,10 @@ export enum Slide {
 export const BUCIndex: React.FC<BUCIndexProps> = ({
 //  allowFullScreen, onFullFocus, onRestoreFocus,
 }: BUCIndexProps): JSX.Element => {
-  const { aktoerId, bucs, bucsList, gettingBucs, gettingBucsList, gettingSakType, howManyBucLists, pesysContext, rinaUrl, sakId, sakType, vedtakId }: BUCIndexSelector =
-    useSelector<State, BUCIndexSelector>(mapState)
+  const {
+    aktoerId, bucs, bucsList, gettingBucs, gettingBucsList, gettingSakType, howManyBucLists,
+    pesysContext, rinaUrl, sakId, sakType, vedtakId
+  }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
 
   const [_askSakType, _setAskSakType] = useState<boolean>(false)
