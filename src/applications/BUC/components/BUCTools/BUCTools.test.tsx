@@ -69,7 +69,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   })
 
   it('Render: has proper HTML: tag tab', () => {
-    render(<BUCTools {...initialMockProps} initialTab={'tag'} />)
+    render(<BUCTools {...initialMockProps} initialTab='tag' />)
     expect(screen.queryByTestId('a_buc_c_buctools--P5000-button-id')).toBeFalsy()
     expect(screen.getByTestId('a_buc_c_buctools--tags-select-id')).toBeInTheDocument()
     expect(screen.queryByTestId('a_buc_c_buctools--comment-textarea-id')).toBeFalsy()
@@ -77,7 +77,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   })
 
   it('Render: has proper HTML: comment tab', () => {
-    render(<BUCTools {...initialMockProps} initialTab={'comment'} />)
+    render(<BUCTools {...initialMockProps} initialTab='comment' />)
     expect(screen.queryByTestId('a_buc_c_buctools--P5000-button-id')).toBeFalsy()
     expect(screen.getByTestId('a_buc_c_buctools--tags-select-id')).toBeFalsy()
     expect(screen.getByTestId('a_buc_c_buctools--comment-textarea-id')).toBeInTheDocument()
@@ -92,7 +92,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
 
   it('Handling: Changing tags', () => {
     (initialMockProps.onTagChange as jest.Mock).mockReset()
-    render(<BUCTools {...initialMockProps} initialTab={'tags'} />)
+    render(<BUCTools {...initialMockProps} initialTab='tags' />)
     const select = within(screen.getByTestId('a_buc_c_BUCStart--tags-select-id')).getByRole('input')
     fireEvent.keyDown(select, { key: 'ArrowDown' })
     fireEvent.keyDown(select, { key: 'ArrowDown' })
@@ -109,7 +109,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
 
   it('Handling: Changing comments', () => {
     (saveBucsInfo as jest.Mock).mockReset()
-    render(<BUCTools {...initialMockProps} initialTab={'comment'} />)
+    render(<BUCTools {...initialMockProps} initialTab='comment' />)
     const newComment = 'this is a new comment'
     expect(screen.getByTestId('a_buc_c_buctools--comment-textarea-id')).toBeInTheDocument()
     expect(screen.getAllByTestId('a_buc_c_buctools--comment-div-id').length).toEqual(bucInfo.comment!.length)
@@ -127,7 +127,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   it('Handling: Deleting comments', () => {
     (saveBucsInfo as jest.Mock).mockReset()
     jest.spyOn(global, 'confirm' as any).mockReturnValueOnce(true)
-    render(<BUCTools {...initialMockProps} initialTab={'comment'} />)
+    render(<BUCTools {...initialMockProps} initialTab='comment' />)
     expect(screen.getAllByTestId('a_buc_c_buctools--comment-div-id').length).toEqual(bucInfo.comment!.length)
 
     expect(screen.getByRole('textarea')).toHaveTextContext('')

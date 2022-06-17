@@ -141,7 +141,7 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
         gettingP5000FromS3: false
       }
 
-      case types.P5000_PESYS_SEND_REQUEST:
+    case types.P5000_PESYS_SEND_REQUEST:
 
       return {
         ...state,

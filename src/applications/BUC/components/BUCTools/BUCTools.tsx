@@ -237,14 +237,14 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       data-testid='a_buc_c_buctools--panel-id'
     >
 
-        <Tabs
-          data-testid='a_buc_c_buctools--tabs-id'
-          onChange={setActiveTab}
-          size='medium'
-          defaultValue={_activeTab}
-        >
+      <Tabs
+        data-testid='a_buc_c_buctools--tabs-id'
+        onChange={setActiveTab}
+        size='medium'
+        defaultValue={_activeTab}
+      >
         <Tabs.List>
-          {tabs.map(tab => (<Tabs.Tab label={tab.label} value={tab.key}/>))}
+          {tabs.map(tab => (<Tabs.Tab key={tab.key} label={tab.label} value={tab.key} />))}
         </Tabs.List>
         <Tabs.Panel value='P5000'>
           <P5000Div>
@@ -268,86 +268,86 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             </FlexDiv>
           </P5000Div>
         </Tabs.Panel>
-          <Tabs.Panel value='tags'>
-              <VerticalSeparatorDiv size='0.5' />
-              <BodyLong>
-                {t('buc:form-tagsForBUC-description')}
-              </BodyLong>
-              <VerticalSeparatorDiv size='0.5' />
-              {_tags && !_.isEmpty(_tags) && (
-                <>
-                  <dt>
-                    <Detail>
-                      {t('buc:form-tagsForBUC')}:
-                    </Detail>
-                  </dt>
-                  <dd>
-                    <BodyLong>
-                      {_tags.map((tag: Tag) => tag.label).join(', ')}
-                    </BodyLong>
-                  </dd>
-                </>
-              )}
-              <VerticalSeparatorDiv size='0.5' />
-              <MultipleSelect<Tag>
-                ariaLabel={t('buc:form-tagsForBUC')}
-                id='a_buc_c_buctools--tags-select-id'
-                aria-describedby='help-tags'
-                data-testid='a_buc_c_buctools--tags-select-id'
-                hideSelectedOptions={false}
-                onSelect={onTagsChange}
-                options={_allTags}
-                label={t('buc:form-tagsForBUC')}
-                values={_tags || []}
-              />
-          </Tabs.Panel>
-          <Tabs.Panel value='comments'>
+        <Tabs.Panel value='tags'>
+          <VerticalSeparatorDiv size='0.5' />
+          <BodyLong>
+            {t('buc:form-tagsForBUC-description')}
+          </BodyLong>
+          <VerticalSeparatorDiv size='0.5' />
+          {_tags && !_.isEmpty(_tags) && (
+            <>
+              <dt>
+                <Detail>
+                  {t('buc:form-tagsForBUC')}:
+                </Detail>
+              </dt>
+              <dd>
+                <BodyLong>
+                  {_tags.map((tag: Tag) => tag.label).join(', ')}
+                </BodyLong>
+              </dd>
+            </>
+          )}
+          <VerticalSeparatorDiv size='0.5' />
+          <MultipleSelect<Tag>
+            ariaLabel={t('buc:form-tagsForBUC')}
+            id='a_buc_c_buctools--tags-select-id'
+            aria-describedby='help-tags'
+            data-testid='a_buc_c_buctools--tags-select-id'
+            hideSelectedOptions={false}
+            onSelect={onTagsChange}
+            options={_allTags}
+            label={t('buc:form-tagsForBUC')}
+            values={_tags || []}
+          />
+        </Tabs.Panel>
+        <Tabs.Panel value='comments'>
 
-              <VerticalSeparatorDiv size='0.5' />
-              <Detail>
-                {t('ui:comment')}
-              </Detail>
-              {_originalComments
-                ? (_originalComments as Comments)?.map((comment: Comment, i: number) => (
-                  <CommentDiv
-                    data-testid='a_buc_c_buctools--comment-div-id'
-                    key={i}
-                  >
-                    <BodyLong>
-                      {comment.value}
-                    </BodyLong>
-                    <RemoveComment>
-                      <Delete
-                        data-testid={'a_buc_c_buctools--comment-delete-' + i + '-id'}
-                        width={20}
-                        onClick={() => onDeleteComment(i)}
-                      />
-                    </RemoveComment>
-                  </CommentDiv>
-                  ))
-                : (
-                  <BodyLong>
-                    {t('ui:noCommentsYet')}
-                  </BodyLong>
-                  )}
-              <VerticalSeparatorDiv size='0.5' />
-              <TextArea
-                data-testid='a_buc_c_buctools--comment-textarea-id'
-                className='skjemaelement--input'
-                label=''
-                value={_comment || ''}
-                onChange={onCommentChange}
-              />
-              <Button
-                variant='secondary'
-                data-testid='a_buc_c_buctools--comment-save-button-id'
-                disabled={loading.savingBucsInfo}
-                onClick={onSaveCommentClick}
+          <VerticalSeparatorDiv size='0.5' />
+          <Detail>
+            {t('ui:comment')}
+          </Detail>
+          {_originalComments
+            ? (_originalComments as Comments)?.map((comment: Comment, i: number) => (
+              <CommentDiv
+                data-testid='a_buc_c_buctools--comment-div-id'
+                key={i}
               >
-                {loading.savingBucsInfo && <Loader />}
-                {loading.savingBucsInfo ? t('ui:saving') : t('ui:add')}
-              </Button>
-          </Tabs.Panel>
+                <BodyLong>
+                  {comment.value}
+                </BodyLong>
+                <RemoveComment>
+                  <Delete
+                    data-testid={'a_buc_c_buctools--comment-delete-' + i + '-id'}
+                    width={20}
+                    onClick={() => onDeleteComment(i)}
+                  />
+                </RemoveComment>
+              </CommentDiv>
+              ))
+            : (
+              <BodyLong>
+                {t('ui:noCommentsYet')}
+              </BodyLong>
+              )}
+          <VerticalSeparatorDiv size='0.5' />
+          <TextArea
+            data-testid='a_buc_c_buctools--comment-textarea-id'
+            className='skjemaelement--input'
+            label=''
+            value={_comment || ''}
+            onChange={onCommentChange}
+          />
+          <Button
+            variant='secondary'
+            data-testid='a_buc_c_buctools--comment-save-button-id'
+            disabled={loading.savingBucsInfo}
+            onClick={onSaveCommentClick}
+          >
+            {loading.savingBucsInfo && <Loader />}
+            {loading.savingBucsInfo ? t('ui:saving') : t('ui:add')}
+          </Button>
+        </Tabs.Panel>
       </Tabs>
     </BUCToolsPanel>
   )

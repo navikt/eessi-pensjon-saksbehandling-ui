@@ -570,8 +570,6 @@ describe('reducers/buc', () => {
     ).toEqual(initialBucState)
   })
 
-
-
   it('BUC_GET_TAG_LIST_SUCCESS', () => {
     expect(
       bucReducer(initialBucState, {

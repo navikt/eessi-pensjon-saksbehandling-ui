@@ -17,7 +17,7 @@ export interface P5000ForS3 {
 }
 
 export const convertFromP5000ListRowsIntoPesysPeriods = (
- items: P5000ListRows
+  items: P5000ListRows
 ): Array<P5000ForS3> => {
   return items
     .filter(item => !!item.selected)
@@ -25,7 +25,7 @@ export const convertFromP5000ListRowsIntoPesysPeriods = (
       ...item,
       startdato: moment(item.startdato).format('YYYY-MM-DD'),
       sluttdato: moment(item.sluttdato).format('YYYY-MM-DD')
-      })
+    })
     )
     .map((it: any) => _.omit(it, [
       'key',

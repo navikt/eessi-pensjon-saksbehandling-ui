@@ -1,5 +1,4 @@
-import { Alert, BodyLong, Button, HelpText, Link, Loader, Radio, RadioGroup } from '@navikt/ds-react'
-import { Select as NavSelect } from '@navikt/ds-react'
+import { Alert, BodyLong, Button, HelpText, Link, Loader, Radio, RadioGroup, Select as NavSelect } from '@navikt/ds-react'
 import {
   AlignEndRow,
   Column, FlexBaseDiv, FlexCenterDiv,
@@ -351,7 +350,6 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
           flagIkon: 'UFT',
           key: '' // will be generated later
         } as P5000ListRow
-
 
         // converting new item to period, so I can get the generated key
         const p5000Period1: P5000Period = listItemtoPeriod(newItem1)

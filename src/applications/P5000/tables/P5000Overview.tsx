@@ -59,7 +59,7 @@ export const P5000Tabs = styled(Tabs)`
 `
 
 const P5000Overview: React.FC<P5000OverviewProps> = ({
- aktoerId, caseId, p5000sFromRinaMap, p5000WorkingCopies, p5000FromS3, seds
+  aktoerId, caseId, p5000sFromRinaMap, p5000WorkingCopies, p5000FromS3, seds
 }: P5000OverviewProps) => {
   const { t } = useTranslation()
   const componentRef = useRef(null)
@@ -252,7 +252,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   let columns: Array<Column<P5000ListRow, P5000TableContext>> = [
     { id: 'status', label: t('ui:status'), type: 'string', render: renderStatus },
     { id: 'land', label: t('ui:country'), type: 'string', render: renderLand, edit: { render: renderLand } },
-    { id: 'acronym', label: t('ui:_institution'), type: 'string', render: renderAcronym},
+    { id: 'acronym', label: t('ui:_institution'), type: 'string', render: renderAcronym },
     { id: 'type', label: t('ui:type'), type: 'string', align: 'center' as ColumnAlign, render: renderType, edit: { render: renderType } },
     {
       id: 'startdato',
@@ -355,68 +355,68 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
             defaultValue={_activeTab}
           >
             <Tabs.List>
-            <Tabs.Tab label='Slå sammen' value='oversikt'/>
-            <Tabs.Tab label='Eksporter til Pesys' value='pesys'/>
+              <Tabs.Tab label='Slå sammen' value='oversikt' />
+              <Tabs.Tab label='Eksporter til Pesys' value='pesys' />
             </Tabs.List>
-           <Tabs.Panel value='oversikt'>
-            <VerticalSeparatorDiv />
-            <Table<P5000ListRow, P5000TableContext>
-              animatable={false}
-              items={items}
-              id='P5000Overview'
-              labels={{
-                filter: t('p5000:filter-label'),
-                flagged: '',
-                flagAll: t('message:warning-periodsDoNotMatch'),
-                merged: t('p5000:merged-periods')
+            <Tabs.Panel value='oversikt'>
+              <VerticalSeparatorDiv />
+              <Table<P5000ListRow, P5000TableContext>
+                animatable={false}
+                items={items}
+                id='P5000Overview'
+                labels={{
+                  filter: t('p5000:filter-label'),
+                  flagged: '',
+                  flagAll: t('message:warning-periodsDoNotMatch'),
+                  merged: t('p5000:merged-periods')
 
-              }}
-              flaggable={_.find(items, 'flag') !== undefined}
-              searchable
-              selectable={false}
-              sortable
-              subrowsIcon='merge'
-              onColumnSort={(sort: any) => {
-                standardLogger('buc.edit.tools.P5000.overview.sort', { sort })
-                _setTableSort(sort)
-              }}
-              itemsPerPage={itemsPerPage}
-              columns={columns}
-            />
-            <VerticalSeparatorDiv />
-           </Tabs.Panel>
+                }}
+                flaggable={_.find(items, 'flag') !== undefined}
+                searchable
+                selectable={false}
+                sortable
+                subrowsIcon='merge'
+                onColumnSort={(sort: any) => {
+                  standardLogger('buc.edit.tools.P5000.overview.sort', { sort })
+                  _setTableSort(sort)
+                }}
+                itemsPerPage={itemsPerPage}
+                columns={columns}
+              />
+              <VerticalSeparatorDiv />
+            </Tabs.Panel>
             <Tabs.Panel value='pesys'>
-            <VerticalSeparatorDiv />
-            <Table<P5000ListRow, P5000TableContext>
-              animatable={false}
-              items={viewItemsForPesys}
-              onRowSelectChange={onRowSelectChange}
-              onRowsChanged={onRowsChanged}
-              beforeRowEdited={beforeRowEdited}
-              id='P5000Pesys'
-              labels={{
-                selectAllTitle: 'Til Pesys',
-                filter: t('p5000:filter-label'),
-                flagged: '',
-                flagAll: t('message:warning-periodsDoNotMatch'),
-                merged: t('p5000:merged-periods')
+              <VerticalSeparatorDiv />
+              <Table<P5000ListRow, P5000TableContext>
+                animatable={false}
+                items={viewItemsForPesys}
+                onRowSelectChange={onRowSelectChange}
+                onRowsChanged={onRowsChanged}
+                beforeRowEdited={beforeRowEdited}
+                id='P5000Pesys'
+                labels={{
+                  selectAllTitle: 'Til Pesys',
+                  filter: t('p5000:filter-label'),
+                  flagged: '',
+                  flagAll: t('message:warning-periodsDoNotMatch'),
+                  merged: t('p5000:merged-periods')
 
-              }}
-              flaggable={_.find(items, 'flag') !== undefined}
-              searchable
-              selectable
-              showSelectAll={false}
-              sortable
-              editable
-              subrowsIcon='merge'
-              onColumnSort={(sort: any) => {
-                standardLogger('buc.edit.tools.P5000.pesys.sort', { sort })
-                _setTableSort(sort)
-              }}
-              itemsPerPage={itemsPerPage}
-              columns={columns}
-            />
-            <VerticalSeparatorDiv />
+                }}
+                flaggable={_.find(items, 'flag') !== undefined}
+                searchable
+                selectable
+                showSelectAll={false}
+                sortable
+                editable
+                subrowsIcon='merge'
+                onColumnSort={(sort: any) => {
+                  standardLogger('buc.edit.tools.P5000.pesys.sort', { sort })
+                  _setTableSort(sort)
+                }}
+                itemsPerPage={itemsPerPage}
+                columns={columns}
+              />
+              <VerticalSeparatorDiv />
             </Tabs.Panel>
           </P5000Tabs>
         )}

@@ -280,8 +280,7 @@ const P5000: React.FC<P5000Props> = ({
   }, [_fetchingP5000FromS3, p5000FromS3])
 
   useEffect(() => {
-    if (!_ready && _readyFromRINA && _readyFromS3)
-    _setReady(true)
+    if (!_ready && _readyFromRINA && _readyFromS3) { _setReady(true) }
   }, [_ready, _readyFromRINA, _readyFromS3])
 
   if (!_ready) {
