@@ -53,6 +53,13 @@ const BUCListHeader = styled.div`
   align-items: center;
   min-height: 40px;
 `
+export const ProgressBarDiv = styled.div`
+ flex: 2;
+ margin-left: 1rem;
+ margin-right: 1rem;
+ height: 40px;
+ max-width: 50%;
+`
 export const BadBucDiv = styled.div`
   width: 100%;
   padding: 0rem;
@@ -298,22 +305,23 @@ const BUCList: React.FC<BUCListProps> = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <div style={{ width: '50%', margin: 'auto', height: '40px' }}>
-        {(gettingBucsList || gettingBucs) && (
-          <ProgressBar
-            status={status}
-            now={now}
-          >
-            <BodyLong>
-              {t(_.isEmpty(bucsList) ? 'message:loading-bucListX' : 'message:loading-bucsX', { x: now })}
-            </BodyLong>
-          </ProgressBar>
-        )}
-      </div>
+
       <BUCListHeader>
         <Heading size='small'>
           {t('buc:form-buclist')}
         </Heading>
+        <ProgressBarDiv>
+          {(gettingBucsList || gettingBucs) && (
+            <ProgressBar
+              status={status}
+              now={now}
+            >
+              <BodyLong>
+                {t(_.isEmpty(bucsList) ? 'message:loading-bucListX' : 'message:loading-bucsX', { x: now })}
+              </BodyLong>
+            </ProgressBar>
+          )}
+        </ProgressBarDiv>
         {!_newBucPanelOpen && (
           <Button
             variant='secondary'
