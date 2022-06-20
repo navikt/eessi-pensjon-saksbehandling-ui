@@ -6,7 +6,7 @@ import { SuccessFilled, LinkFilled, ErrorFilled } from '@navikt/ds-icons'
 import classNames from 'classnames'
 import Modal from 'components/Modal/Modal'
 import { IS_TEST } from 'constants/environment'
-import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
+import { WEBSOCKET_URL } from 'constants/urls'
 import _ from 'lodash'
 import { BodyLong } from '@navikt/ds-react'
 import { rotating, VerticalSeparatorDiv } from '@navikt/hoykontrast'
@@ -28,11 +28,6 @@ const CONNECTING = 'CONNECTING'
 const CONNECTED = 'CONNECTED'
 const RECEIVING = 'RECEIVING'
 const ERROR = 'ERROR'
-
-interface EESSIPen {
-  eessipen: any
-}
-interface WindowEESSIPen extends Window, EESSIPen {}
 
 export const BUCWebsocketDiv = styled.div`
   display: flex;
@@ -121,11 +116,9 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
 
   const connectToWebSocket: Function = useCallback(() => {
     setStatus(CONNECTING)
-    const webSocketURL = (window as unknown as WindowEESSIPen).eessipen
-      ? (window as unknown as WindowEESSIPen).eessipen.WEBSOCKETURL.replace('https', 'wss').concat('bucUpdate')
-      : WEBSOCKET_LOCALHOST_URL
-    pushToLog('info', 'Connecting to ' + webSocketURL + '...')
-    const connection: WebSocket = new WebSocket(webSocketURL, 'v0.Buc')
+
+    pushToLog('info', 'Connecting to ' + WEBSOCKET_URL + '...')
+    const connection: WebSocket = new WebSocket(WEBSOCKET_URL, 'v0.Buc')
     connection.onopen = () => {
       pushToLog('info', 'Connected')
       setStatus(CONNECTED)

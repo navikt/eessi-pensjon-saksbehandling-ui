@@ -159,7 +159,7 @@ const apiProxy = function (target, pathRewrite) {
     logLevel: 'debug',
     changeOrigin: true,
     xfwd: true,
-    pathRewrite:  pathRewrite,
+    pathRewrite: pathRewrite,
     onProxyReq: function onProxyReq(proxyReq, req, res) {
       //logger.debug('proxy frontend: adding header auth ' + res.locals.on_behalf_of_authorization)
       proxyReq.setHeader(
@@ -169,6 +169,11 @@ const apiProxy = function (target, pathRewrite) {
     }
   })
 }
+
+const socketProxy = createProxyMiddleware({
+  target: process.env.EESSI_PENSJON_FRONTEND_API_URL.replaceAll('https://', 'wss://') + '/bucUpdate',
+  ws: true
+})
 
 const timedOut = function (req, res, next) {
   if (!req.timedout) {
@@ -208,6 +213,8 @@ app.use('/fagmodul',
   apiAuth(process.env.EESSI_PENSJON_FAGMODUL_TOKEN_SCOPE),
   apiProxy(process.env.EESSI_PENSJON_FAGMODUL_URL,{ '^/fagmodul/' : '/' })
 )
+
+app.use('/websocket', socketProxy)
 
 app.use('*', mainPageAuth, express.static(path.join(__dirname, "build")));
 

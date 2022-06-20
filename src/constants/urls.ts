@@ -4,6 +4,7 @@ export const BASE_URL = FULL_HOST + (window.location.port ? ':' + window.locatio
 
 const FRONTEND_API_URL = BASE_URL + '/frontend'
 const FAGMODUL_API_URL = BASE_URL + '/fagmodul'
+export const WEBSOCKET_URL = BASE_URL + '/websocket'
 
 const API_URL = FRONTEND_API_URL + '/api'
 const SED_URL = FAGMODUL_API_URL + '/sed'
@@ -74,6 +75,3 @@ export const JOURNALFØRING_SED_SEND_URL = JOU_URL + '/send/%(sakId)s/%(aktoerId
 // Page Notification
 export const API_PAGENOTIFICATION_GET_URL = API_URL + '/storage/get/EP___PAGE___NOTIFICATION'
 export const API_PAGENOTIFICATION_POST_URL = API_URL + '/storage/EP___PAGE___NOTIFICATION'
-
-// Websocket
-export const WEBSOCKET_LOCALHOST_URL = 'ws://localhost:8080/bucUpdate'
