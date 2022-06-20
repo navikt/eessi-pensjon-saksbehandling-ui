@@ -32,15 +32,15 @@ const defaultLayouts: LayoutTabs = [{
   body: {
     lg: [
       { i: 'w-1-overview', x: 0, y: 0, w: 12, h: 2, minW: 6, maxW: 12, minH: 2, maxH: 999 },
-      { i: 'w-2-buc', x: 0, y: 1, w: 12, h: 6, minW: 6, maxW: 12, minH: 2, maxH: 999 }
+      { i: 'w-2-buc', x: 0, y: 2, w: 12, h: 6, minW: 6, maxW: 12, minH: 2, maxH: 999 }
     ],
     md: [
       { i: 'w-1-overview', x: 0, y: 0, w: 3, h: 2, minW: 2, maxW: 3, minH: 2, maxH: 999 },
-      { i: 'w-2-buc', x: 0, y: 1, w: 3, h: 6, minW: 2, maxW: 3, minH: 2, maxH: 999 }
+      { i: 'w-2-buc', x: 0, y: 2, w: 3, h: 6, minW: 2, maxW: 3, minH: 2, maxH: 999 }
     ],
     sm: [
       { i: 'w-1-overview', x: 0, y: 0, w: 1, h: 2, minW: 1, maxW: 1, minH: 2, maxH: 999 },
-      { i: 'w-2-buc', x: 0, y: 1, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 }
+      { i: 'w-2-buc', x: 0, y: 2, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 }
     ]
   }
 }]
@@ -51,24 +51,24 @@ const defaultLayoutsWithOthers: LayoutTabs = [{
   body: {
     lg: [
       { i: 'w-1-overview', x: 0, y: 0, w: 12, h: 2, minW: 6, maxW: 12, minH: 2, maxH: 999 },
-      { i: 'w-3-journalføring', x: 0, y: 1, w: 4, h: 1, minW: 2, maxW: 12, minH: 1, maxH: 999 },
-      { i: 'w-4-pagenotification', x: 4, y: 1, w: 4, h: 1, minW: 2, maxW: 12, minH: 1, maxH: 999 },
-      { i: 'w-5-s3inventory', x: 8, y: 1, w: 4, h: 1, minW: 2, maxW: 12, minH: 1, maxH: 999 },
-      { i: 'w-2-buc', x: 0, y: 2, w: 12, h: 6, minW: 6, maxW: 12, minH: 1, maxH: 999 }
+      { i: 'w-3-journalføring', x: 0, y: 2, w: 4, h: 2, minW: 2, maxW: 12, minH: 2, maxH: 999 },
+      { i: 'w-4-pagenotification', x: 4, y: 2, w: 4, h: 2, minW: 2, maxW: 12, minH: 2, maxH: 999 },
+      { i: 'w-5-s3inventory', x: 8, y: 2, w: 4, h: 2, minW: 2, maxW: 12, minH: 2, maxH: 999 },
+      { i: 'w-2-buc', x: 0, y: 4, w: 12, h: 6, minW: 6, maxW: 12, minH: 1, maxH: 999 }
     ],
     md: [
       { i: 'w-1-overview', x: 0, y: 0, w: 3, h: 2, minW: 2, maxW: 3, minH: 2, maxH: 999 },
-      { i: 'w-3-journalføring', x: 0, y: 1, w: 1, h: 1, minW: 1, maxW: 3, minH: 1, maxH: 999 },
-      { i: 'w-4-pagenotification', x: 1, y: 1, w: 1, h: 1, minW: 1, maxW: 3, minH: 1, maxH: 999 },
-      { i: 'w-5-s3inventory', x: 2, y: 1, w: 1, h: 1, minW: 1, maxW: 3, minH: 1, maxH: 999 },
-      { i: 'w-2-buc', x: 0, y: 2, w: 3, h: 6, minW: 2, maxW: 3, minH: 2, maxH: 999 }
+      { i: 'w-3-journalføring', x: 0, y: 2, w: 1, h: 2, minW: 1, maxW: 3, minH: 2, maxH: 999 },
+      { i: 'w-4-pagenotification', x: 1, y: 2, w: 1, h: 2, minW: 1, maxW: 3, minH: 2, maxH: 999 },
+      { i: 'w-5-s3inventory', x: 2, y: 2, w: 1, h: 2, minW: 1, maxW: 3, minH: 2, maxH: 999 },
+      { i: 'w-2-buc', x: 0, y: 4, w: 3, h: 6, minW: 2, maxW: 3, minH: 2, maxH: 999 }
     ],
     sm: [
       { i: 'w-1-overview', x: 0, y: 0, w: 1, h: 2, minW: 1, maxW: 1, minH: 2, maxH: 999 },
-      { i: 'w-3-journalføring', x: 0, y: 1, w: 1, h: 1, minW: 1, maxW: 1, minH: 1, maxH: 999 },
-      { i: 'w-4-pagenotification', x: 0, y: 2, w: 1, h: 1, minW: 1, maxW: 1, minH: 1, maxH: 999 },
-      { i: 'w-5-s3inventory', x: 0, y: 3, w: 1, h: 1, minW: 1, maxW: 1, minH: 1, maxH: 999 },
-      { i: 'w-2-buc', x: 0, y: 4, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 }
+      { i: 'w-3-journalføring', x: 0, y: 2, w: 1, h: 2, minW: 1, maxW: 1, minH: 2, maxH: 999 },
+      { i: 'w-4-pagenotification', x: 0, y: 4, w: 1, h: 2, minW: 1, maxW: 1, minH: 2, maxH: 999 },
+      { i: 'w-5-s3inventory', x: 0, y: 6, w: 1, h: 2, minW: 1, maxW: 1, minH: 2, maxH: 999 },
+      { i: 'w-2-buc', x: 0, y: 8, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 }
     ]
   }
 }]
