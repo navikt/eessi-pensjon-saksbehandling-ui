@@ -19,8 +19,8 @@ spec:
   env:
     - name: NAV_TRUSTSTORE_KEYSTOREALIAS
       value: na
-    - name: PUBLIC_WEBSOCKETURL
-      value: {{eessi_pensjon_frontend_api_url}}
+    - name: EESSI_PENSJON_WEBSOCKETURL
+      value: {{eessi_pensjon_websocket_url}}
     - name: EESSI_PENSJON_FRONTEND_API_URL
       value: {{eessi_pensjon_frontend_api_url}}
     - name: EESSI_PENSJON_FAGMODUL_URL

@@ -1,10 +1,12 @@
 export const HOST = window.location.hostname
 const FULL_HOST = window.location.protocol + '//' + HOST
+const WS_HOST = 'wss://' + HOST
 export const BASE_URL = FULL_HOST + (window.location.port ? ':' + window.location.port : '')
+export const WS_BASE_URL = WS_HOST + (window.location.port ? ':' + window.location.port : '')
 
 const FRONTEND_API_URL = BASE_URL + '/frontend'
 const FAGMODUL_API_URL = BASE_URL + '/fagmodul'
-export const WEBSOCKET_URL = BASE_URL + '/websocket'
+export const WEBSOCKET_URL = WS_BASE_URL + '/websocket'
 
 const API_URL = FRONTEND_API_URL + '/api'
 const SED_URL = FAGMODUL_API_URL + '/sed'

@@ -1,4 +1,5 @@
 eessi_pensjon_frontend_api_url: https://eessi-pensjon-saksbehandling-api.intern.nav.no
 eessi_pensjon_fagmodul_url: https://eessi-pensjon-fagmodul.intern.nav.no
+eessi_pensjon_websocket_url: wss://eessi-pensjon-saksbehandling-api.intern.nav.no
 eessi_pensjon_frontend_api_token_scope: api://prod-gcp.eessipensjon.eessi-pensjon-saksbehandling-api/.default
 eessi_pensjon_fagmodul_token_scope: api://prod-gcp.eessipensjon.eessi-pensjon-fagmodul/.default
