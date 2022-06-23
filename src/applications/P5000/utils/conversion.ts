@@ -461,6 +461,9 @@ export const convertFromP5000ListRowsIntoP5000SED = (
     if (item.type === '45' && item.selected) {
       answer = false
     }
+    if (item.type === '50') {
+      answer = false
+    }
     if (item.type === '52') {
       answer = false
     }
