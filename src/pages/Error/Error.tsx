@@ -7,6 +7,7 @@ import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/macro'
+import troubleshootJPG from 'assets/images/troubleshoot.jpg'
 
 const Description = styled.div`
   width: 80%;
@@ -79,7 +80,7 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
           dangerouslySetInnerHTML={{ __html: description }}
         />
         {error && (
-
+          <>
           <Accordion data-testid='p-error--content-error-id'>
             <Accordion.Item>
               <Accordion.Header onClick={() => standardLogger('errorPage.expandingPanel.open')}>
@@ -93,7 +94,29 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
               </Accordion.Content>
             </Accordion.Item>
           </Accordion>
+          <VerticalSeparatorDiv/>
+          <Accordion data-testid='p-error--content-error-id-2'>
+          <Accordion.Item>
+          <Accordion.Header>
+            {t('message:error-header-troubleshoot')}
+          </Accordion.Header>
+          <Accordion.Content>
+            <BodyLong>
+              {t('message:error-header-troubleshoot-1')}
+            </BodyLong>
+            <BodyLong>
+              {t('message:error-header-troubleshoot-2')}
+            </BodyLong>
+            <BodyLong>
+              {t('message:error-header-troubleshoot-3')}
+            </BodyLong>
+             <img alt='p5000help' src={troubleshootJPG} />
+          </Accordion.Content>
+          </Accordion.Item>
+          </Accordion>
+          </>
         )}
+
         {footer && (
           <div data-testid='p-error--footer-id'>
             <Line />
