@@ -44,7 +44,7 @@ export const sendP5000toRina = (
     method: 'PUT',
     body: payload,
     cascadeFailureError: true,
-    expectedErrorRate: { 200: 1 },
+    expectedErrorRate: { 404: 0.5 },
     expectedPayload: { success: true },
     context: {
       caseId,
