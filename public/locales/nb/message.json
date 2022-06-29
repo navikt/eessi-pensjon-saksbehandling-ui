@@ -48,6 +48,10 @@
   "error-internalError-description"           : "Vennligst rapporter feilen i Porten slik at vi kan rette den. Kopier innholdet i detaljert feilmelding under og lim det inn i saken i Porten.",
   "error-internalError-footer"                : "",
   "error-header"                              : "Detaljert feilmelding",
+  "error-header-troubleshoot"                 : "Hvis du fortsatt ser denne siden, prøv dette:",
+  "error-header-troubleshoot-1"               : "1) åpne nettlesers utviklerverktøy (Option + ⌘ + I i macOS) / (Shift + CTRL + i Windows/Linux)",
+  "error-header-troubleshoot-2"               : "2) Velg 'application' og 'Storage', trykk på 'Clear Site Data' knapp",
+  "error-header-troubleshoot-3"               : "3) Start på nytt nettleseren",
   "error-validationbox-sedstart"              : "Før du kan bestille SED må du:",
   "error-validationbox-bucstart"              : "Før du kan bestille BUC må du:",
 

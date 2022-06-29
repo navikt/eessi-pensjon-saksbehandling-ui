@@ -32,6 +32,10 @@ export interface ConvertP5000SEDToP5000ListRowsProps {
   selectRowsContext: 'forCertainTypesOnly' | 'forAll'
 }
 
+export const sortItems = (items: P5000ListRows): P5000ListRows =>
+   items.sort((a: P5000ListRow, b: P5000ListRow) =>
+     moment(a.startdato).isSameOrBefore(moment(b.startdato)) ? -1 : 1)
+
 export const mergeP5000ListRows = (
   { rows, mergePeriodTypes, mergePeriodBeregnings, useGermanRules }:
   { rows: P5000ListRows, mergePeriodTypes: Array<string> | undefined, mergePeriodBeregnings: Array<string> | undefined, useGermanRules: boolean}
@@ -269,7 +273,7 @@ export const convertP5000SEDToP5000ListRows = ({
   if (mergePeriods) {
     rows = mergeP5000ListRows({ rows, mergePeriodTypes, mergePeriodBeregnings, useGermanRules })
   }
-  return [rows, sourceStatus]
+  return [sortItems(rows), sourceStatus]
 }
 
 // Converts P5000 SED from Rina/storage, using the total fields, into table rows for sum
