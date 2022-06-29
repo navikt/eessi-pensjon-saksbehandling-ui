@@ -42,7 +42,7 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import Table, { NewRowValues, RenderEditableOptions, RenderOptions, ItemErrors, Sort } from '@navikt/tabell'
 import dateDiff, { DateDiff } from 'utils/dateDiff'
-import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows } from 'applications/P5000/utils/conversion'
+import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows, sortItems } from 'applications/P5000/utils/conversion'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
 
 const moment = extendMoment(Moment)
@@ -125,8 +125,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         options={typeOptions}
         menuPortalTarget={document.body}
         onChange={(e: unknown) => options.setValues({ type: (e as Option).value })}
-        defaultValue={_.find(typeOptions, o => o.value === options.value)}
-        value={_.find(typeOptions, o => o.value === options.value)}
+        defaultValue={_.find(typeOptions, o => o.value === options.value) ?? null}
+        value={_.find(typeOptions, o => o.value === options.value) ?? null}
       />
     )
   }
@@ -256,14 +256,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     />
   )
 
-  const renderDager = (options: RenderOptions<P5000ListRow, P5000TableContext, string>) => {
-    return (
-      <BodyLong>
-        {options.value}
-      </BodyLong>
-    )
-  }
-
   const checkForBosetningsperioder = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, any>, what: string, others: Array<string>) => {
     let _value: string | number
     /*
@@ -304,7 +296,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     const value = checkForBosetningsperioder(options, 'dag', ['mnd', 'aar'])
     return (
       <Input
-        style={{ marginTop: '0px' }}
         size='small'
         aria-invalid={!!options.error}
         aria-label='dag'
@@ -312,7 +303,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         error={options.error}
         namespace='c-table--edit'
         id='dag-input-id'
-        label=''
+        label='dag'
+        hideLabel
         onChanged={(e: string) => {
           options.setValues({
             dag: isNaN(parseFloat(e)) ? 0 : parseFloat(e)
@@ -331,7 +323,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     const value = checkForBosetningsperioder(options, 'mnd', ['dag', 'aar'])
     return (
       <Input
-        style={{ marginTop: '0px' }}
         size='small'
         aria-invalid={!!options.error}
         aria-label='mnd'
@@ -339,7 +330,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         data-testid='mnd-input-id'
         error={options.error}
         id='mnd-input-id'
-        label=''
+        label='mnd'
+        hideLabel
         onChanged={(e: string) => {
           options.setValues({
             mnd: isNaN(parseFloat(e)) ? 0 : parseFloat(e)
@@ -358,7 +350,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     const value = checkForBosetningsperioder(options, 'aar', ['mnd', 'dag'])
     return (
       <Input
-        style={{ marginTop: '0px' }}
         size='small'
         aria-invalid={!!options.error}
         aria-label='aar'
@@ -366,7 +357,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         error={options.error}
         id='aar-input-id'
         namespace='c-table--edit'
-        label=''
+        label='aar'
+        hideLabel
         onChanged={(e: string) => {
           options.setValues({
             aar: isNaN(parseFloat(e)) ? 0 : parseFloat(e)
@@ -547,7 +539,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const onRowsChanged = (items: P5000ListRows) => {
     _resetValidation('P5000Edit-tabell')
     onSave({
-      items
+      items: sortItems(items)
     })
   }
 
@@ -841,7 +833,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               label: t('ui:day'),
               align: 'center',
               type: 'string',
-              render: renderDager,
               add: {
                 defaultValue: 0,
                 render: renderDagerEdit,
@@ -946,7 +937,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   { id: 'type', label: t('p5000:type-43113'), type: 'string', render: renderType },
                   { id: 'startdato', label: t('ui:startDate'), type: 'string', render: renderDateCell },
                   { id: 'sluttdato', label: t('ui:endDate'), type: 'string', render: renderDateCell },
-                  { id: 'dag', label: t('ui:day'), type: 'number', align: 'center', render: renderDager },
+                  { id: 'dag', label: t('ui:day'), type: 'number', align: 'center' },
                   { id: 'mnd', label: t('ui:month'), type: 'number', align: 'center' },
                   { id: 'aar', label: t('ui:year'), type: 'number', align: 'center' },
                   { id: 'ytelse', label: t('p5000:ytelse'), type: 'string', align: 'center' },
