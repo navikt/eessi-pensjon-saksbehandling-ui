@@ -23,7 +23,6 @@ import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { timeDiffLogger } from 'metrics/loggers'
 import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
-import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
@@ -128,13 +127,6 @@ export const WindowDiv = styled.div`
   overflow: hidden;
 `
 
-export interface BUCIndexProps {
-  allowFullScreen: boolean
-  onFullFocus: () => void
-  onRestoreFocus: () => void
-  waitForMount?: boolean
-}
-
 export interface BUCIndexSelector {
   aktoerId: string | null | undefined
   bucs: Bucs | undefined
@@ -186,9 +178,7 @@ export enum Slide {
   C_GOING_TO_RIGHT
 }
 
-export const BUCIndex: React.FC<BUCIndexProps> = ({
-//  allowFullScreen, onFullFocus, onRestoreFocus,
-}: BUCIndexProps): JSX.Element => {
+export const BUCIndex = (): JSX.Element => {
   const {
     aktoerId, bucs, bucsList, gettingBucs, gettingBucsList, gettingSakType, howManyBucLists,
     pesysContext, rinaUrl, sakId, sakType, vedtakId
@@ -481,13 +471,6 @@ export const BUCIndex: React.FC<BUCIndexProps> = ({
       </ContainerDiv>
     </div>
   )
-}
-
-BUCIndex.propTypes = {
-  allowFullScreen: PT.bool.isRequired,
-  onFullFocus: PT.func.isRequired,
-  onRestoreFocus: PT.func.isRequired,
-  waitForMount: PT.bool
 }
 
 export default BUCIndex

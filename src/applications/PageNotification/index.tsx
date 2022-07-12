@@ -1,31 +1,10 @@
-import PageNotification from './PageNotification'
-import { WidgetPropType } from 'declarations/dashboard.pt'
-import _ from 'lodash'
-import { standardLogger, timeDiffLogger } from 'metrics/loggers'
-import { Widget } from '@navikt/dashboard'
-import { Alert, Accordion, Heading, Panel } from '@navikt/ds-react'
-import PT from 'prop-types'
+import { Accordion, Heading, Panel } from '@navikt/ds-react'
+import { timeDiffLogger } from 'metrics/loggers'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components/macro'
+import PageNotification from './PageNotification'
 
-export const MyAlertStripe = styled(Alert)`
-  width: 100%;
-`
-
-export interface PageNotificationIndexSelector {
-  aktoerId: string | null | undefined
-}
-
-export interface PageNotificationIndexProps {
-  onUpdate?: (w: Widget) => void
-  widget: Widget
-}
-
-export const PageNotificationIndex: React.FC<PageNotificationIndexProps> = ({
-  onUpdate,
-  widget
-}: PageNotificationIndexProps): JSX.Element => {
+export const PageNotificationIndex = (): JSX.Element => {
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
 
@@ -36,15 +15,6 @@ export const PageNotificationIndex: React.FC<PageNotificationIndexProps> = ({
   }, [])
 
   const { t } = useTranslation()
-
-  const onClick = (): void => {
-    const newWidget = _.cloneDeep(widget)
-    newWidget.options.collapsed = !newWidget.options.collapsed
-    standardLogger('pagenotification.ekspandpanel.clicked')
-    if (onUpdate) {
-      onUpdate(newWidget)
-    }
-  }
 
   const onMouseEnter = () => setMouseEnterDate(new Date())
 
@@ -61,8 +31,8 @@ export const PageNotificationIndex: React.FC<PageNotificationIndexProps> = ({
       onMouseLeave={onMouseLeave}
     >
       <Accordion data-testid='w-pagenotification-id'>
-        <Accordion.Item open={!widget.options.collapsed}>
-          <Accordion.Header onClick={onClick}>
+        <Accordion.Item>
+          <Accordion.Header>
             <Heading size='medium'>{t('ui:page-notification-title')}</Heading>
           </Accordion.Header>
           <Accordion.Content>
@@ -72,11 +42,6 @@ export const PageNotificationIndex: React.FC<PageNotificationIndexProps> = ({
       </Accordion>
     </Panel>
   )
-}
-
-PageNotificationIndex.propTypes = {
-  onUpdate: PT.func,
-  widget: WidgetPropType.isRequired
 }
 
 export default PageNotificationIndex

@@ -2,19 +2,19 @@
 import { render } from '@testing-library/react'
 import personAvdod from 'mocks/person/personAvdod'
 import mockPerson from 'mocks/person/personPdl'
-import PersonPanel, { PersonPanelDiv, PersonPanelProps } from './PersonPanel'
+import PersonBody, { PersonBodyDiv, PersonBodyProps } from './PersonBody'
 
-describe('widgets/Overview/PersonPanel', () => {
+describe('applications/PersonPanel/PersonBody', () => {
   let wrapper: any
 
-  const initialMockProps: PersonPanelProps = {
+  const initialMockProps: PersonBodyProps = {
     locale: 'nb',
     person: mockPerson,
     personAvdods: personAvdod(1)
   }
 
   beforeEach(() => {
-    wrapper = render(<PersonPanel {...initialMockProps} />)
+    wrapper = render(<PersonBody {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -22,17 +22,17 @@ describe('widgets/Overview/PersonPanel', () => {
   })
 
   it('Render: match snapshot', () => {
-    const { container } = render(<PersonPanel {...initialMockProps} />)
+    const { container } = render(<PersonBody {...initialMockProps} />)
     expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: returns empty with no person', () => {
-    const { container } = render(<PersonPanel {...initialMockProps} person={undefined} />)
+    const { container } = render(<PersonBody {...initialMockProps} person={undefined} />)
     expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.exists(PersonPanelDiv)).toBeTruthy()
+    expect(wrapper.exists(PersonBodyDiv)).toBeTruthy()
     expect(wrapper.find('svg[kind="nav-home"]')).toBeTruthy()
     expect(wrapper.find('#w-overview-personPanel--element-bostedsadresse').hostNodes().render().text()).toEqual(
       'ui:bostedsadresse:' + '01.01.2020 - 01.01.2021' + 'Adressenavn' + '00' + 'A' + '0768' + 'OSLO')
@@ -54,7 +54,7 @@ describe('widgets/Overview/PersonPanel', () => {
         foedsel: {}
       }
     })
-    expect(wrapper.exists(PersonPanelDiv)).toBeTruthy()
+    expect(wrapper.exists(PersonBodyDiv)).toBeTruthy()
     expect(wrapper.find('svg[kind="nav-home"]')).toBeTruthy()
     expect(wrapper.find('#w-overview-personPanel--element-bostedsadresse').hostNodes().render().text()).toEqual(
       'ui:bostedsadresse:' + 'ui:notRegistered')
