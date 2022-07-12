@@ -33,8 +33,8 @@ export interface ConvertP5000SEDToP5000ListRowsProps {
 }
 
 export const sortItems = (items: P5000ListRows): P5000ListRows =>
-   items.sort((a: P5000ListRow, b: P5000ListRow) =>
-     moment(a.startdato).isSameOrBefore(moment(b.startdato)) ? -1 : 1)
+  items.sort((a: P5000ListRow, b: P5000ListRow) =>
+    moment(a.startdato).isSameOrBefore(moment(b.startdato)) ? -1 : 1)
 
 export const mergeP5000ListRows = (
   { rows, mergePeriodTypes, mergePeriodBeregnings, useGermanRules }:

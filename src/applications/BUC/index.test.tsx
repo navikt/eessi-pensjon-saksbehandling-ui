@@ -7,7 +7,7 @@ import {
   getSakType,
   setMode
 } from 'actions/buc'
-import { BUCIndex, BUCIndexProps, BUCIndexSelector, ContainerDiv, WindowDiv } from 'applications/BUC/index'
+import { BUCIndex, BUCIndexSelector, ContainerDiv, WindowDiv } from 'applications/BUC/index'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
 import { Buc } from 'declarations/buc'
@@ -55,25 +55,19 @@ const defaultSelector: BUCIndexSelector = {
 
 describe('applications/BUC/index', () => {
   let wrapper: any
-  const initialMockProps: BUCIndexProps = {
-    allowFullScreen: true,
-    onFullFocus: jest.fn(),
-    onRestoreFocus: jest.fn(),
-    waitForMount: false
-  }
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
   })
 
   it('Render: match snapshot', () => {
-    const { container } = render(<BUCIndex {...initialMockProps} />)
+    const { container } = render(<BUCIndex />)
     expect(container.firstChild).toMatchSnapshot()
   })
 
   it('UseEffect: getRinaUrl', () => {
     (getRinaUrl as jest.Mock).mockReset()
-    wrapper = render(<BUCIndex {...initialMockProps} waitForMount />)
+    wrapper = render(<BUCIndex />)
     expect(getRinaUrl).toHaveBeenCalled()
   })
 
@@ -84,7 +78,7 @@ describe('applications/BUC/index', () => {
       bucs: undefined,
       pesysContext: BRUKERKONTEKST
     })
-    wrapper = render(<BUCIndex {...initialMockProps} />)
+    wrapper = render(<BUCIndex />)
     expect(fetchBucsList).toHaveBeenCalled()
     expect(fetchBucsInfoList).toHaveBeenCalled()
   })
@@ -96,7 +90,7 @@ describe('applications/BUC/index', () => {
       bucs: undefined,
       vedtakId: '789'
     })
-    wrapper = render(<BUCIndex {...initialMockProps} />)
+    wrapper = render(<BUCIndex />)
     expect(fetchBucsListWithVedtakId).toHaveBeenCalled()
     expect(fetchBucsInfoList).toHaveBeenCalled()
   })
@@ -104,20 +98,20 @@ describe('applications/BUC/index', () => {
   it('UseEffect: getting sakType', () => {
     (getSakType as jest.Mock).mockReset()
     stageSelector(defaultSelector, { sakType: undefined })
-    wrapper = render(<BUCIndex {...initialMockProps} waitForMount />)
+    wrapper = render(<BUCIndex />)
     // -1 as there is one ErrorBuc in mockBucs
     expect(getSakType).toHaveBeenCalled()
   })
 
   it('UseEffect: when getting bucs list, get participants', () => {
     (fetchBucParticipants as jest.Mock).mockReset()
-    wrapper = render(<BUCIndex {...initialMockProps} waitForMount />)
+    wrapper = render(<BUCIndex />)
     // -1 as there is one ErrorBuc in mockBucs
     expect(fetchBucParticipants).toBeCalledTimes(Object.keys(mockBucs()).length - 1)
   })
 
   it('Render: has proper HTML structure ', () => {
-    wrapper = render(<BUCIndex {...initialMockProps} />)
+    wrapper = render(<BUCIndex />)
     expect(screen.getByTestId('a-buc-index\']')).toBeInTheDocument()
     expect(wrapper.exists(ContainerDiv)).toBeTruthy()
     expect(wrapper.exists(WindowDiv)).toBeTruthy()
@@ -129,7 +123,7 @@ describe('applications/BUC/index', () => {
       sakId: undefined,
       aktoerId: undefined
     })
-    wrapper = render(<BUCIndex {...initialMockProps} />)
+    wrapper = render(<BUCIndex />)
     expect(wrapper.exists(BUCEmpty)).toBeTruthy()
   })
 

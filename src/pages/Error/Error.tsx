@@ -81,39 +81,39 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
         />
         {error && (
           <>
-          <Accordion data-testid='p-error--content-error-id'>
-            <Accordion.Item>
-              <Accordion.Header onClick={() => standardLogger('errorPage.expandingPanel.open')}>
-                {t('message:error-header')}
-              </Accordion.Header>
-              <Accordion.Content>
-                <div
-                  className='error'
-                  dangerouslySetInnerHTML={{ __html: '<pre>' + error.stack + '</pre>' }}
-                />
-              </Accordion.Content>
-            </Accordion.Item>
-          </Accordion>
-          <VerticalSeparatorDiv/>
-          <Accordion data-testid='p-error--content-error-id-2'>
-          <Accordion.Item>
-          <Accordion.Header>
-            {t('message:error-header-troubleshoot')}
-          </Accordion.Header>
-          <Accordion.Content>
-            <BodyLong>
-              {t('message:error-header-troubleshoot-1')}
-            </BodyLong>
-            <BodyLong>
-              {t('message:error-header-troubleshoot-2')}
-            </BodyLong>
-            <BodyLong>
-              {t('message:error-header-troubleshoot-3')}
-            </BodyLong>
-             <img alt='p5000help' src={troubleshootJPG} />
-          </Accordion.Content>
-          </Accordion.Item>
-          </Accordion>
+            <Accordion data-testid='p-error--content-error-id'>
+              <Accordion.Item>
+                <Accordion.Header onClick={() => standardLogger('errorPage.expandingPanel.open')}>
+                  {t('message:error-header')}
+                </Accordion.Header>
+                <Accordion.Content>
+                  <div
+                    className='error'
+                    dangerouslySetInnerHTML={{ __html: '<pre>' + error.stack + '</pre>' }}
+                  />
+                </Accordion.Content>
+              </Accordion.Item>
+            </Accordion>
+            <VerticalSeparatorDiv />
+            <Accordion data-testid='p-error--content-error-id-2'>
+              <Accordion.Item>
+                <Accordion.Header>
+                  {t('message:error-header-troubleshoot')}
+                </Accordion.Header>
+                <Accordion.Content>
+                  <BodyLong>
+                    {t('message:error-header-troubleshoot-1')}
+                  </BodyLong>
+                  <BodyLong>
+                    {t('message:error-header-troubleshoot-2')}
+                  </BodyLong>
+                  <BodyLong>
+                    {t('message:error-header-troubleshoot-3')}
+                  </BodyLong>
+                  <img alt='p5000help' src={troubleshootJPG} />
+                </Accordion.Content>
+              </Accordion.Item>
+            </Accordion>
           </>
         )}
 
