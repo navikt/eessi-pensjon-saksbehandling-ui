@@ -42,7 +42,7 @@ const defaultSelector = {
   featureToggles: {}
 }
 
-describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
+describe('applications/BUC/components/BUCEdit/BUCEdit', () => {
   let wrapper: any
 
   const initialMockProps: BUCEditProps = {
