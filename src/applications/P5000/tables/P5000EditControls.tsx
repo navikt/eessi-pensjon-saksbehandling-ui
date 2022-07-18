@@ -566,7 +566,9 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
       <VerticalSeparatorDiv />
       <AlignEndRow style={{ width: '100%' }}>
         <Column>
-          {featureToggles.P5000_UPDATES_VISIBLE && sakType === SakTypeMap.UFOREP && pesysContext === constants.VEDTAKSKONTEKST && (
+          {featureToggles.P5000_UPDATES_VISIBLE &&
+           featureToggles.UFT_BUTTON &&
+           sakType === SakTypeMap.UFOREP && pesysContext === constants.VEDTAKSKONTEKST && (
             <FlexBaseDiv>
               <Button
                 variant='secondary'
@@ -585,7 +587,8 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
             </FlexBaseDiv>
           )}
           {featureToggles.P5000_UPDATES_VISIBLE &&
-          (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) &&
+            featureToggles.UFT_BUTTON &&
+            (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) &&
           pesysContext === constants.VEDTAKSKONTEKST && (
             <>
               <FlexBaseDiv>

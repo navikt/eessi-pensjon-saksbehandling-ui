@@ -20,8 +20,8 @@ export type Feature =
   | 'SED_PREFILL_INSTITUTIONS' // Prefill with institutions in new SED
   | 'NR_AVDOD' // for mock purposes
   | 'X010_X009_VISIBLE' //
-  | 'JOURNALFØRING_WIDGET_VISIBLE'
   | 'ADMIN_NOTIFICATION_MESSAGE'
+  | 'UFT_BUTTON'
 
 export type FeatureToggles = {[key in Feature]: boolean | number}
 
