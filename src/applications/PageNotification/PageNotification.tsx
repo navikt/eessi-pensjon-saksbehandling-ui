@@ -55,8 +55,8 @@ const PageNotification = () => {
       message: _message,
       byline: _byline
     })
-    if (valid && !!_message && !!_show && !!_byline) {
-      dispatch(setNotification(_message, _show, _byline))
+    if (valid) {
+      dispatch(setNotification(_message ?? '', _show!, _byline ?? ''))
     }
   }
 
