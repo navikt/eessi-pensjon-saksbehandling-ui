@@ -1,4 +1,4 @@
-import { setNotification } from 'actions/pagenotification'
+import { deleteNotification, setNotification } from 'actions/pagenotification'
 import { pageNotificationValidate, PageNotificationValidationProps } from 'applications/PageNotification/validation'
 import Input from 'components/Forms/Input'
 import { State } from 'declarations/reducers'
@@ -14,6 +14,7 @@ export interface PageNotificationSelector {
   byline: string | null | undefined
   show: boolean | undefined
   sendingPageNotification: boolean
+  deletingPageNotification: boolean
   response: any
 }
 
@@ -22,13 +23,14 @@ const mapState = (state: State): PageNotificationSelector => ({
   show: state.pagenotification.show,
   byline: state.pagenotification.byline,
   sendingPageNotification: state.loading.sendingPageNotification,
+  deletingPageNotification: state.loading.deletingPageNotification,
   response: state.pagenotification.response
 })
 
 const PageNotification = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { message, show, byline, sendingPageNotification }: PageNotificationSelector = useSelector<State, PageNotificationSelector>(mapState)
+  const { message, show, byline, sendingPageNotification, deletingPageNotification }: PageNotificationSelector = useSelector<State, PageNotificationSelector>(mapState)
   const [_show, _setShow] = useState<boolean | undefined>(show)
   const [_message, _setMessage] = useState<string | null | undefined>(message)
   const [_byline, _setByline] = useState<string | null | undefined>(byline)
@@ -56,7 +58,11 @@ const PageNotification = () => {
       byline: _byline
     })
     if (valid) {
-      dispatch(setNotification(_message ?? '', _show!, _byline ?? ''))
+      if (_show === true) {
+        dispatch(setNotification(_message ?? '', _show!, _byline ?? ''))
+      } else {
+        dispatch(deleteNotification())
+      }
     }
   }
 
@@ -96,11 +102,12 @@ const PageNotification = () => {
       <VerticalSeparatorDiv />
       <Button
         variant='primary'
-        disabled={sendingPageNotification}
+        disabled={sendingPageNotification || deletingPageNotification}
         onClick={onSave}
       >
-        {sendingPageNotification && <Loader />}
+        {(sendingPageNotification || deletingPageNotification) && <Loader />}
         {sendingPageNotification ? t('ui:sending') : t('ui:update')}
+        {sendingPageNotification ? t('ui:deleting') : t('ui:update')}
       </Button>
     </Panel>
 

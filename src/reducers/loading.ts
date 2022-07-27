@@ -8,6 +8,7 @@ export interface LoadingState {
 export const initialLoadingState: LoadingState = {
   creatingBUC: false,
   creatingSed: false,
+  deletingPageNotification: false,
   generatingPDF: false,
   gettingBucsList: false,
   gettingBucs: false,
@@ -467,6 +468,21 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
       return {
         ...state,
         sendingPageNotification: false
+      }
+
+    case types.PAGE_NOTIFICATION_DELETE_REQUEST:
+
+      return {
+        ...state,
+        deletingPageNotification: true
+      }
+
+    case types.PAGE_NOTIFICATION_DELETE_SUCCESS:
+    case types.PAGE_NOTIFICATION_DELETE_FAILURE:
+
+      return {
+        ...state,
+        deletingPageNotification: false
       }
 
     case types.PERSON_UFT_REQUEST:
