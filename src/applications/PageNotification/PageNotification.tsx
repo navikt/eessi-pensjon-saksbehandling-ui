@@ -106,11 +106,13 @@ const PageNotification = () => {
         onClick={onSave}
       >
         {(sendingPageNotification || deletingPageNotification) && <Loader />}
-        {sendingPageNotification ? t('ui:sending') : t('ui:update')}
-        {sendingPageNotification ? t('ui:deleting') : t('ui:update')}
+        {sendingPageNotification
+          ? t('ui:sending')
+          : deletingPageNotification
+            ? t('ui:deleting')
+            : t('ui:update')}
       </Button>
     </Panel>
-
   )
 }
 
