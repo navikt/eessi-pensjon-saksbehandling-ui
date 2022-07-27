@@ -77,3 +77,4 @@ export const JOURNALFØRING_SED_SEND_URL = JOU_URL + '/send/%(sakId)s/%(aktoerId
 // Page Notification
 export const API_PAGENOTIFICATION_GET_URL = API_URL + '/storage/get/EP___PAGE___NOTIFICATION'
 export const API_PAGENOTIFICATION_POST_URL = API_URL + '/storage/EP___PAGE___NOTIFICATION'
+export const API_PAGENOTIFICATION_DELETE_URL = API_URL + '/storage/EP___PAGE___NOTIFICATION'

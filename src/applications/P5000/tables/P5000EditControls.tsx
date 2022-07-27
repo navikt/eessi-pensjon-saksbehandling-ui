@@ -569,22 +569,22 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
           {featureToggles.P5000_UPDATES_VISIBLE &&
            featureToggles.UFT_BUTTON &&
            sakType === SakTypeMap.UFOREP && pesysContext === constants.VEDTAKSKONTEKST && (
-            <FlexBaseDiv>
-              <Button
-                variant='secondary'
-                disabled={gettingUft}
-                onClick={hentUFT}
-              >
-                {gettingUft && <Loader />}
-                {gettingUft ? t('message:loading-uft') : t('p5000:hent-uft')}
-              </Button>
-              <HorizontalSeparatorDiv />
-              <HelpText placement='right'>
-                <div style={{ maxWidth: '600px' }}>
-                  {t('p5000:help-uft')}
-                </div>
-              </HelpText>
-            </FlexBaseDiv>
+             <FlexBaseDiv>
+               <Button
+                 variant='secondary'
+                 disabled={gettingUft}
+                 onClick={hentUFT}
+               >
+                 {gettingUft && <Loader />}
+                 {gettingUft ? t('message:loading-uft') : t('p5000:hent-uft')}
+               </Button>
+               <HorizontalSeparatorDiv />
+               <HelpText placement='right'>
+                 <div style={{ maxWidth: '600px' }}>
+                   {t('p5000:help-uft')}
+                 </div>
+               </HelpText>
+             </FlexBaseDiv>
           )}
           {featureToggles.P5000_UPDATES_VISIBLE &&
             featureToggles.UFT_BUTTON &&
