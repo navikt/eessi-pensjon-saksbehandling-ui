@@ -670,7 +670,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         ...state,
         bucs: newBucs,
         savingAttachmentsJob: {
-          total: state.savingAttachmentsJob!.total,
+          total: _.cloneDeep(state.savingAttachmentsJob!.total),
           saving: undefined,
           saved: newSaved,
           remaining: newRemaining
