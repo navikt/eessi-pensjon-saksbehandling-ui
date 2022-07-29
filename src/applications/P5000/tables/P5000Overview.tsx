@@ -369,7 +369,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                   flagged: '',
                   flagAll: t('message:warning-periodsDoNotMatch'),
                   merged: t('p5000:merged-periods')
-
                 }}
                 flaggable={_.find(items, 'flag') !== undefined}
                 searchable
