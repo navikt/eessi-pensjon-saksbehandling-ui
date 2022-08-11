@@ -22,7 +22,7 @@ const initialFeatureToggles: FeatureToggles = {
   NR_AVDOD: 0,
   X010_X009_VISIBLE: true,
   ADMIN_NOTIFICATION_MESSAGE: false,
-  UFT_BUTTON: false
+  UFT_BUTTON: true
 }
 
 export const initialAppState: AppState = {
