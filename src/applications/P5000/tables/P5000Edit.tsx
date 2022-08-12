@@ -511,7 +511,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return false
   }
 
-  const testFloat = (value: undefined | null | string): boolean => {
+  const   testFloat = (value: undefined | null | string): boolean => {
+    if(value === "") return true;
     if (_.isNil(value)) {
       return false
     }
