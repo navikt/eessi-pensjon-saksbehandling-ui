@@ -1,4 +1,4 @@
-import { Alert, BodyLong, Button, HelpText, Link, Loader, Radio, RadioGroup, Select as NavSelect } from '@navikt/ds-react'
+import { Alert, Button, HelpText, Link, Loader, Radio, RadioGroup, Select as NavSelect } from '@navikt/ds-react'
 import {
   AlignEndRow,
   Column, FlexBaseDiv, FlexCenterDiv,
@@ -441,9 +441,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
               {t('p5000:warning-P5000Edit-instructions-li1')}
               <HorizontalSeparatorDiv size='0.5' />
               <HelpText>
-                <div style={{ maxWidth: '600px' }}>
-                  <BodyLong>{t('p5000:warning-P5000Edit-instructions-li1-help')}</BodyLong>
-                </div>
+                  {t('p5000:warning-P5000Edit-instructions-li1-help')}
               </HelpText>
             </FlexCenterDiv>
           </Alert>
@@ -482,10 +480,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                   </OneLineSpan>
                   <HorizontalSeparatorDiv />
                   <HelpText>
-                    <div style={{ maxWidth: '600px' }}>
-                      <BodyLong>{t('p5000:help-1')}</BodyLong>
-                      <BodyLong>{t('p5000:help-2')}</BodyLong>
-                    </div>
+                      {t('p5000:help-1') + t('p5000:help-2')}
                   </HelpText>
                 </FlexCenterDiv>
               )}
@@ -580,9 +575,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                </Button>
                <HorizontalSeparatorDiv />
                <HelpText placement='right'>
-                 <div style={{ maxWidth: '600px' }}>
                    {t('p5000:help-uft')}
-                 </div>
                </HelpText>
              </FlexBaseDiv>
           )}
@@ -602,9 +595,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                 </Button>
                 <HorizontalSeparatorDiv />
                 <HelpText placement='right'>
-                  <div style={{ maxWidth: '600px' }}>
                     {t('p5000:help-gjpbp')}
-                  </div>
                 </HelpText>
               </FlexBaseDiv>
               {!_.isNil(gjpbpwarning) && (
