@@ -183,7 +183,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: AnyAction) 
         break
     }
 
-    const returnObj = {
+    return {
       ...state,
       type: action.type,
       bannerStatus: stripeStatus,
@@ -197,9 +197,6 @@ const alertReducer = (state: AlertState = initialAlertState, action: AnyAction) 
         : undefined,
       uuid: (action as ActionWithPayload).payload ? (action as ActionWithPayload).payload.uuid : undefined
     }
-
-    console.log(returnObj)
-    return returnObj;
   }
 
   /**
