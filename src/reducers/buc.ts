@@ -559,6 +559,24 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         rinaUrl: (action as ActionWithPayload).payload.rinaUrl
       }
 
+    case types.BUC_GET_P4000_REQUEST:
+      return {
+        ...state,
+        p4000: undefined
+      }
+
+    case types.BUC_GET_P4000_FAILURE:
+      return {
+        ...state,
+        p4000: null
+      }
+
+    case types.BUC_GET_P4000_SUCCESS:
+      return {
+        ...state,
+        p4000: (action as ActionWithPayload).payload
+      }
+
     case types.BUC_GET_P6000_REQUEST:
       return {
         ...state,
