@@ -322,6 +322,21 @@ export const getInstitutionsListForBucAndCountry = (
   })
 }
 
+export const getSedP4000 = (
+  caseId: string, sed: Sed
+): Action => {
+  return call({
+    url: sprintf(urls.P5000_GET_URL, { caseId, sedId: sed.id }),
+    cascadeFailureError: true,
+    expectedPayload: mockP6000,
+    type: {
+      request: types.BUC_GET_P4000_REQUEST,
+      success: types.BUC_GET_P4000_SUCCESS,
+      failure: types.BUC_GET_P4000_FAILURE
+    }
+  })
+}
+
 export const getSedP6000 = (
   rinaCaseId: string
 ): Action => {
