@@ -1,12 +1,13 @@
 import { BackFilled } from '@navikt/ds-icons'
 import { Button } from '@navikt/ds-react'
 import { BUCMode } from 'declarations/app'
-import {Buc, Sed, Seds} from 'declarations/buc'
+import {Buc, Sed} from 'declarations/buc'
 import { HorizontalSeparatorDiv, VerticalSeparatorDiv } from '@navikt/hoykontrast'
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import {getSedP4000} from "../../actions/buc";
+import {dateSorter} from "../BUC/components/BUCUtils/BUCUtils";
 
 export interface P4000Props {
   buc: Buc
@@ -20,8 +21,6 @@ const P4000: React.FC<P4000Props> = ({
 }: P4000Props): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-
-  const [_seds, _setSeds] = useState<Seds | undefined>(undefined)
 
   const onBackClick = () => {
     setMode('bucedit', 'back')
@@ -44,13 +43,15 @@ const P4000: React.FC<P4000Props> = ({
 
   /** check if we need to load SEDs from RINA, when buc changes; send the dispatches */
   useEffect(() => {
-    // select which P5000 SEDs we want to see
-    const seds = buc.seds?.filter((sed: Sed) => sed.type === 'P4000')
-    _setSeds(seds)
-    seds?.forEach(sed => dispatch(getSedP4000(buc.caseId!, sed)))
+    // select which P4000 SEDs we want to see
+    const seds = buc.seds?.filter((sed: Sed) => sed.type === 'P4000' && sed.status === 'received')
+    const sortedSeds = seds?.sort(dateSorter)
+    if(sortedSeds && sortedSeds.length > 0){
+      dispatch(getSedP4000(buc.caseId!, sortedSeds[0]))
+    }
+
   }, [buc])
 
-  console.log(_seds)
   return (
     <div>
       <VerticalSeparatorDiv size='3' />

@@ -338,10 +338,69 @@ const mockBuc = [
         id: 'dc4670bbd59d4c8ab3b41974a72bf11d',
         parentDocumentId: null,
         type: 'P4000',
-        status: 'new',
+        status: 'received',
         direction: 'IN' as Direction,
         creationDate: 1571818181793,
         lastUpdate: 1571818181793,
+        displayName: 'Report on insurance history',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 07',
+              id: 'NO:NAVAT07'
+            },
+            selected: false
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'NAVAT08',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 08',
+              id: 'NO:NAVAT08'
+            },
+            selected: false
+          }
+        ],
+        attachments: [{
+          id: '58828e7ff57943779ab7b24c522b1a3f',
+          name: 'balrog.png',
+          fileName: 'balrog.png',
+          mimeType: 'image/png',
+          documentId: 'cac9db2726d54f2c9b51d1562b7b0a79',
+          lastUpdate: 1571818175000,
+          medical: false
+        }, {
+          id: '58828e7ff57943779ab7b24c522b1a3d',
+          name: '491399765_ARKIV.pdf',
+          fileName: '491399765_ARKIV.pdf',
+          mimeType: 'application/pdf',
+          documentId: 'cac9db2726d54f2c9b51d1562b7b0a7a',
+          lastUpdate: 1571818175000,
+          medical: false
+        }],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818181793
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818181793
+        },
+        allowsAttachments: true
+      },
+      {
+        id: 'dc4670bbd59d4c8ab3b41974a72bf11d',
+        parentDocumentId: null,
+        type: 'P4000',
+        status: 'received',
+        direction: 'IN' as Direction,
+        creationDate: 1671918181793,
+        lastUpdate: 1671918181793,
         displayName: 'Report on insurance history',
         participants: [
           {
