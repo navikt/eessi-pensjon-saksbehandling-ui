@@ -37,6 +37,7 @@ import mockCreateSed from 'mocks/buc/createSed'
 import mockInstitutions from 'mocks/buc/institutions'
 import mockKravDato from 'mocks/buc/kravDato'
 import mockP6000 from 'mocks/buc/p6000'
+import mockP4000 from 'mocks/buc/p4000'
 import mockP6000pdf from 'mocks/buc/p6000pdf'
 import mockRinaUrl from 'mocks/buc/rinaUrl'
 import mockSakType from 'mocks/buc/sakType'
@@ -328,7 +329,7 @@ export const getSedP4000 = (
   return call({
     url: sprintf(urls.P5000_GET_URL, { caseId, sedId: sed.id }),
     cascadeFailureError: true,
-    expectedPayload: mockP6000,
+    expectedPayload: mockP4000,
     type: {
       request: types.BUC_GET_P4000_REQUEST,
       success: types.BUC_GET_P4000_SUCCESS,
