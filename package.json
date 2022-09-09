@@ -47,7 +47,7 @@
     "i18next": "^21.8.10",
     "i18next-browser-languagedetector": "^6.1.4",
     "i18next-xhr-backend": "^3.2.2",
-    "jose": "^4.8.1",
+    "jose": "^4.9.2",
     "lodash": "^4.17.21",
     "lodash.throttle": "^4.1.1",
     "md5": "^2.3.0",
