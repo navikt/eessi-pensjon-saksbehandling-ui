@@ -196,9 +196,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
                   {t('p5000:warning-P5000Sum-instructions-title')}
                   <HorizontalSeparatorDiv size='0.5' />
                   <HelpText>
-                    <div style={{ maxWidth: '600px' }}>
-                      <BodyLong>{t('p5000:warning-P5000Sum-instructions-title-help')}</BodyLong>
-                    </div>
+                      {t('p5000:warning-P5000Sum-instructions-title-help')}
                   </HelpText>
                 </FlexDiv>
                 <BodyLong>

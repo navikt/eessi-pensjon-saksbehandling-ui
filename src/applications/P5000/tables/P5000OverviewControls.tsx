@@ -163,10 +163,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                 </OneLineSpan>
                 <HorizontalSeparatorDiv size='0.5' />
                 <HelpText>
-                  <div style={{ maxWidth: '300px' }}>
-                    <BodyLong>{t('p5000:help-merge-1')}</BodyLong>
-                    <BodyLong>{t('p5000:help-merge-2')}</BodyLong>
-                  </div>
+                    {t('p5000:help-merge-1') + t('p5000:help-merge-2')}
                 </HelpText>
               </FlexCenterDiv>
             </Switch>
@@ -282,9 +279,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                 </Switch>
                 <HorizontalSeparatorDiv size='0.5' />
                 <HelpText>
-                  <div style={{ maxWidth: '500px' }}>
                     {t('p5000:help-german-alert')}
-                  </div>
                 </HelpText>
               </FlexCenterDiv>
             </Column>

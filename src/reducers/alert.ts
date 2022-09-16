@@ -108,75 +108,92 @@ const alertReducer = (state: AlertState = initialAlertState, action: AnyAction) 
     switch (action.type) {
       case types.BUC_CREATE_BUC_FAILURE:
         stripeMessage = i18n.t('message:alert-createBucFailure')
+        bannerMessage = i18n.t('message:alert-createBucFailure')
         break
 
       case types.BUC_CREATE_SED_FAILURE:
       case types.BUC_CREATE_REPLY_SED_FAILURE:
         stripeMessage = i18n.t('message:alert-createSedFailure')
+        bannerMessage = i18n.t('message:alert-createSedFailure')
         break
 
       case types.BUC_GET_BUC_OPTIONS_FAILURE:
         stripeMessage = i18n.t('message:alert-noBucOptions')
+        bannerMessage = i18n.t('message:alert-noBucOptions')
         break
 
       case types.BUC_GET_BUCSLIST_FAILURE:
         stripeMessage = i18n.t('message:alert-noBucs')
+        bannerMessage = i18n.t('message:alert-noBucs')
         break
 
       case types.BUC_GET_BUCSINFO_FAILURE:
         stripeMessage = i18n.t('message:alert-noBucsInfo')
+        bannerMessage = i18n.t('message:alert-noBucsInfo')
         break
 
       case types.BUC_GET_BUCSINFO_LIST_FAILURE:
         stripeMessage = i18n.t('message:alert-noBucsListInfo')
+        bannerMessage = i18n.t('message:alert-noBucsListInfo')
         break
 
       case types.BUC_GET_COUNTRY_LIST_FAILURE:
         stripeMessage = i18n.t('message:alert-noCountryList')
+        bannerMessage = i18n.t('message:alert-noCountryList')
         break
 
       case types.BUC_GET_INSTITUTION_LIST_FAILURE:
         stripeMessage = i18n.t('message:alert-noInstitutionList')
+        bannerMessage = i18n.t('message:alert-noInstitutionList')
         break
 
       case types.BUC_GET_SED_LIST_FAILURE:
         stripeMessage = i18n.t('message:alert-noSedList')
+        bannerMessage = i18n.t('message:alert-noSedList')
         break
 
       case types.BUC_GET_TAG_LIST_FAILURE:
         stripeMessage = i18n.t('message:alert-noTagList')
+        bannerMessage = i18n.t('message:alert-noTagList')
         break
 
       case types.BUC_SAVE_BUCSINFO_FAILURE:
         stripeMessage = i18n.t('message:alert-saveBucsInfoFailure')
+        bannerMessage = i18n.t('message:alert-saveBucsInfoFailure')
         break
 
       case types.BUC_SEND_ATTACHMENT_FAILURE:
         stripeMessage = i18n.t('message:alert-createAttachmentFailure')
+        bannerMessage = i18n.t('message:alert-createAttachmentFailure')
         break
 
       case types.JOARK_LIST_FAILURE:
         stripeMessage = i18n.t('message:alert-joarkListFailure')
+        bannerMessage = i18n.t('message:alert-joarkListFailure')
         break
 
       case types.JOARK_PREVIEW_FAILURE:
         stripeMessage = i18n.t('message:alert-joarkPreviewFailure')
+        bannerMessage = i18n.t('message:alert-joarkPreviewFailure')
         break
 
       default:
         stripeMessage = i18n.t((action as ActionWithPayload).payload?.message ?? 'ui:error')
+        bannerMessage = i18n.t((action as ActionWithPayload).payload?.message ?? 'ui:error')
         break
     }
 
     return {
       ...state,
       type: action.type,
+      bannerStatus: stripeStatus,
+      bannerMessage: bannerMessage,
       stripeStatus,
       stripeMessage,
       error: (action as ActionWithPayload).payload
         ? _.isString((action as ActionWithPayload).payload.error)
-            ? (action as ActionWithPayload).payload.error
-            : (action as ActionWithPayload).payload.error?.message
+          ? (action as ActionWithPayload).payload.error
+          : (action as ActionWithPayload).payload.error?.message
         : undefined,
       uuid: (action as ActionWithPayload).payload ? (action as ActionWithPayload).payload.uuid : undefined
     }

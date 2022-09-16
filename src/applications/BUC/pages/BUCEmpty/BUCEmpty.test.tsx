@@ -11,7 +11,7 @@ jest.mock('actions/app', () => ({
   setStatusParam: jest.fn()
 }))
 
-describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
+describe('applications/BUC/components/BUCEmpty/BUCEmpty', () => {
   let wrapper: any
 
   const initialMockProps: BUCEmptyProps = {

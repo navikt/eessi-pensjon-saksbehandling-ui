@@ -32,6 +32,39 @@ export interface ConvertP5000SEDToP5000ListRowsProps {
   selectRowsContext: 'forCertainTypesOnly' | 'forAll'
 }
 
+export const sortItems = (items: P5000ListRows): P5000ListRows => {
+  // sorting should bew only between parents or children, not among parent/children
+  // so, remove children, sort them aside, then inject them
+
+  const children: any = {}
+  let parents: any = []
+  let newItems: any = []
+
+  items.forEach(item => {
+    if (_.isNil(item.parentKey)) {
+      parents.push(item)
+    } else {
+      if (_.isNil(children[item.parentKey])) {
+        children[item.parentKey] = [item]
+      } else {
+        children[item.parentKey].push(item)
+      }
+    }
+  })
+  newItems = parents.sort((a: P5000ListRow, b: P5000ListRow) => moment(a.startdato).isSameOrBefore(moment(b.startdato)) ? -1 : 1)
+  Object.keys(children).forEach(key => {
+    children[key] = children[key].sort((a: P5000ListRow, b: P5000ListRow) => moment(a.startdato).isSameOrBefore(moment(b.startdato)) ? -1 : 1)
+  })
+  // inject the children arrays on the right spot, then flatten
+  Object.keys(children).forEach(parentKey => {
+    let index = _.findIndex(newItems, ((it: P5000ListRow) => it.key === parentKey))
+    if (index >= 0) {
+      newItems.splice(index + 1, 0, children[parentKey])
+    }
+  })
+  return _.flatten(newItems)
+}
+
 export const mergeP5000ListRows = (
   { rows, mergePeriodTypes, mergePeriodBeregnings, useGermanRules }:
   { rows: P5000ListRows, mergePeriodTypes: Array<string> | undefined, mergePeriodBeregnings: Array<string> | undefined, useGermanRules: boolean}
@@ -269,7 +302,7 @@ export const convertP5000SEDToP5000ListRows = ({
   if (mergePeriods) {
     rows = mergeP5000ListRows({ rows, mergePeriodTypes, mergePeriodBeregnings, useGermanRules })
   }
-  return [rows, sourceStatus]
+  return [sortItems(rows), sourceStatus]
 }
 
 // Converts P5000 SED from Rina/storage, using the total fields, into table rows for sum
@@ -459,6 +492,12 @@ export const convertFromP5000ListRowsIntoP5000SED = (
       answer = false
     }
     if (item.type === '45' && item.selected) {
+      answer = false
+    }
+    if (item.type === '49') {
+      answer = false
+    }
+    if (item.type === '50') {
       answer = false
     }
     if (item.type === '52') {
