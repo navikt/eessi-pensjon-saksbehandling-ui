@@ -30,6 +30,7 @@ import md5 from 'md5'
 import { standardLogger } from 'metrics/loggers'
 import { AnyAction } from 'redux'
 import { P5000sFromRinaMap } from 'declarations/p5000'
+import {P4000SED} from "../declarations/p4000";
 
 export interface BucState {
   attachmentsError: boolean
@@ -54,6 +55,7 @@ export interface BucState {
   rinaUrl: RinaUrl | undefined
   savingAttachmentsJob: SavingAttachmentsJob | undefined
   sed: Sed | undefined
+  p4000: P4000SED | undefined
   p5000sFromRinaMap: P5000sFromRinaMap
   p6000s: Array<P6000> | null | undefined
   p6000PDF: JoarkPreview | null | undefined
@@ -86,6 +88,7 @@ export const initialBucState: BucState = {
   rinaUrl: undefined,
   savingAttachmentsJob: undefined,
   sed: undefined,
+  p4000: undefined,
   p5000sFromRinaMap: {},
   p6000s: undefined,
   p6000PDF: undefined,
