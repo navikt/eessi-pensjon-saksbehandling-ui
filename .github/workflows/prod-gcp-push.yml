@@ -15,7 +15,7 @@ jobs:
     steps:
 
       - name: 'Pull repo'
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: 'Setter dato og commit variabel'
         run: |
