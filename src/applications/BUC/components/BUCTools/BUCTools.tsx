@@ -271,7 +271,13 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         defaultValue={_activeTab}
       >
         <Tabs.List>
-          {tabs.map(tab => (<Tabs.Tab key={tab.key} label={tab.label} value={tab.key} />))}
+          {tabs.map(tab => {
+            if(tab.key === "P4000" && !featureToggles.P5000_UPDATES_VISIBLE){
+              return
+            } else {
+              return (<Tabs.Tab key={tab.key} label={tab.label} value={tab.key} />)
+            }
+          })}
         </Tabs.List>
         <Tabs.Panel value='P5000'>
           <P5000Div>
