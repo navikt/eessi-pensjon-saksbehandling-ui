@@ -327,7 +327,7 @@ export const getSedP4000 = (
   caseId: string, sed: Sed
 ): Action => {
   return call({
-    url: sprintf(urls.P5000_GET_URL, { caseId, sedId: sed.id }),
+    url: sprintf(urls.BUC_GET_SED_URL, { caseId, sedId: sed.id }),
     cascadeFailureError: true,
     expectedPayload: mockP4000,
     type: {
