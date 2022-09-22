@@ -21,8 +21,8 @@ const initialFeatureToggles: FeatureToggles = {
   SED_PREFILL_INSTITUTIONS: false,
   NR_AVDOD: 0,
   X010_X009_VISIBLE: true,
-  ADMIN_NOTIFICATION_MESSAGE: false,
-  UFT_BUTTON: true
+  JOURNALFØRING_WIDGET_VISIBLE: false,
+  ADMIN_NOTIFICATION_MESSAGE: false
 }
 
 export const initialAppState: AppState = {

@@ -110,7 +110,3 @@ export const sedSorter = (a: Sed, b: Sed): number => {
 }
 
 export const valueSorter = (a: Option, b: Option) => a.value.localeCompare(b.value)
-
-export const dateSorter = (a: Sed, b: Sed): number => {
-  return moment(a.lastUpdate).isSameOrAfter(moment(b.lastUpdate)) ? -1 : 1
-}

@@ -1,18 +1,27 @@
-import { Accordion, Alert, Panel } from '@navikt/ds-react'
 import { getPersonAvdodInfo, getPersonInfo } from 'actions/person'
 import * as constants from 'constants/constants'
 import { AllowedLocaleString, FeatureToggles, PesysContext } from 'declarations/app.d'
+import { WidgetPropType } from 'declarations/dashboard.pt'
 import { PersonPDL } from 'declarations/person'
 import { PersonAvdods } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
-import { timeDiffLogger } from 'metrics/loggers'
+import _ from 'lodash'
+import { standardLogger, timeDiffLogger } from 'metrics/loggers'
+import { Widget } from '@navikt/dashboard'
+import { Accordion, Alert, Panel } from '@navikt/ds-react'
+import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import PersonBody from './PersonBody'
+import styled from 'styled-components/macro'
+import PersonPanel from './PersonPanel'
 import PersonTitle from './PersonTitle'
 
-export interface PersonPanelSelector {
+export const MyAlertStripe = styled(Alert)`
+  width: 100%
+`
+
+export interface OverviewSelector {
   aktoerId: string | null | undefined
   featureToggles: FeatureToggles
   gettingPersonInfo: boolean
@@ -23,7 +32,7 @@ export interface PersonPanelSelector {
   vedtakId: string | null | undefined
 }
 
-const mapState = (state: State): PersonPanelSelector => ({
+const mapState = (state: State): OverviewSelector => ({
   /* istanbul ignore next */
   aktoerId: state.app.params.aktoerId,
   featureToggles: state.app.featureToggles,
@@ -35,20 +44,37 @@ const mapState = (state: State): PersonPanelSelector => ({
   vedtakId: state.app.params.vedtakId
 })
 
-export const PersonPanel = (): JSX.Element => {
-  const { aktoerId, featureToggles, gettingPersonInfo, locale, personPdl, personAvdods, pesysContext, vedtakId }: PersonPanelSelector =
-    useSelector<State, PersonPanelSelector>(mapState)
+export interface OverviewProps {
+  onUpdate?: (w: Widget) => void
+  widget: Widget
+}
+
+export const Overview: React.FC<OverviewProps> = ({
+  onUpdate,
+  widget
+}: OverviewProps): JSX.Element => {
+  const { aktoerId, featureToggles, gettingPersonInfo, locale, personPdl, personAvdods, pesysContext, vedtakId }: OverviewSelector =
+    useSelector<State, OverviewSelector>(mapState)
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
 
   useEffect(() => {
     return () => {
-      timeDiffLogger('PersonPanel.mouseover', totalTimeWithMouseOver)
+      timeDiffLogger('overview.mouseover', totalTimeWithMouseOver)
     }
   }, [])
 
   const dispatch = useDispatch()
   const { t } = useTranslation()
+
+  const onClick = () => {
+    const newWidget = _.cloneDeep(widget)
+    newWidget.options.collapsed = !newWidget.options.collapsed
+    standardLogger('overview.ekspandpanel.click')
+    if (onUpdate) {
+      onUpdate(newWidget)
+    }
+  }
 
   const onMouseEnter = () => setMouseEnterDate(new Date())
 
@@ -71,7 +97,7 @@ export const PersonPanel = (): JSX.Element => {
     return (
       <Alert
         variant='warning'
-        data-testid='w-PersonPanel--alert'
+        data-testid='w-overview--alert'
       >
         {t('message:validation-noAktoerId')}
       </Alert>
@@ -79,21 +105,22 @@ export const PersonPanel = (): JSX.Element => {
   }
 
   return (
+
     <Panel
       border style={{ padding: '0px' }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <Accordion style={{ borderRadius: '4px' }} data-testid='w-PersonPanel-id'>
-        <Accordion.Item>
-          <Accordion.Header>
+      <Accordion style={{ borderRadius: '4px' }} data-testid='w-overview-id'>
+        <Accordion.Item open={!widget.options.collapsed}>
+          <Accordion.Header onClick={onClick}>
             <PersonTitle
               gettingPersonInfo={gettingPersonInfo}
               person={personPdl}
             />
           </Accordion.Header>
           <Accordion.Content>
-            <PersonBody
+            <PersonPanel
               locale={locale}
               person={personPdl}
               personAvdods={personAvdods}
@@ -105,4 +132,9 @@ export const PersonPanel = (): JSX.Element => {
   )
 }
 
-export default PersonPanel
+Overview.propTypes = {
+  onUpdate: PT.func,
+  widget: WidgetPropType.isRequired
+}
+
+export default Overview

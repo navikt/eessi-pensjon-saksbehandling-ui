@@ -30,7 +30,6 @@ import md5 from 'md5'
 import { standardLogger } from 'metrics/loggers'
 import { AnyAction } from 'redux'
 import { P5000sFromRinaMap } from 'declarations/p5000'
-import {P4000SED} from "../declarations/p4000";
 
 export interface BucState {
   attachmentsError: boolean
@@ -55,7 +54,6 @@ export interface BucState {
   rinaUrl: RinaUrl | undefined
   savingAttachmentsJob: SavingAttachmentsJob | undefined
   sed: Sed | undefined
-  p4000: P4000SED | undefined
   p5000sFromRinaMap: P5000sFromRinaMap
   p6000s: Array<P6000> | null | undefined
   p6000PDF: JoarkPreview | null | undefined
@@ -88,7 +86,6 @@ export const initialBucState: BucState = {
   rinaUrl: undefined,
   savingAttachmentsJob: undefined,
   sed: undefined,
-  p4000: undefined,
   p5000sFromRinaMap: {},
   p6000s: undefined,
   p6000PDF: undefined,
@@ -562,24 +559,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         rinaUrl: (action as ActionWithPayload).payload.rinaUrl
       }
 
-    case types.BUC_GET_P4000_REQUEST:
-      return {
-        ...state,
-        p4000: undefined
-      }
-
-    case types.BUC_GET_P4000_FAILURE:
-      return {
-        ...state,
-        p4000: null
-      }
-
-    case types.BUC_GET_P4000_SUCCESS:
-      return {
-        ...state,
-        p4000: (action as ActionWithPayload).payload
-      }
-
     case types.BUC_GET_P6000_REQUEST:
       return {
         ...state,
@@ -691,7 +670,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         ...state,
         bucs: newBucs,
         savingAttachmentsJob: {
-          total: _.cloneDeep(state.savingAttachmentsJob!.total),
+          total: state.savingAttachmentsJob!.total,
           saving: undefined,
           saved: newSaved,
           remaining: newRemaining

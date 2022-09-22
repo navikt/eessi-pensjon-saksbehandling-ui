@@ -171,7 +171,7 @@ const apiProxy = function (target, pathRewrite) {
 }
 
 const socketProxy = createProxyMiddleware({
-  target: process.env.EESSI_PENSJON_WEBSOCKETURL + ':8080-*****/bucUpdate',
+  target: process.env.EESSI_PENSJON_WEBSOCKETURL + '/bucUpdate',
   ws: true
 })
 

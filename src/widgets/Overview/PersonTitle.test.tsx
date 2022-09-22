@@ -3,7 +3,7 @@ import PersonTitle, { PersonTitleProps, Title } from './PersonTitle'
 
 import mockPerson from 'mocks/person/personPdl'
 
-describe('applications/PersonPanel/PersonTitle', () => {
+describe('widgets/Overview/PersonTitle', () => {
   let wrapper: any
 
   const initialMockProps: PersonTitleProps = {

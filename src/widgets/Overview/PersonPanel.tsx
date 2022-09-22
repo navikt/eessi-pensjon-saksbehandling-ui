@@ -26,19 +26,19 @@ const MarginColumn = styled(Column)`
   align-items: flex-start;
   margin-bottom: 0.5rem;
 `
-export const PersonBodyDiv = styled.div``
+export const PersonPanelDiv = styled.div``
 
-export interface PersonBodyProps {
+export interface PersonPanelProps {
   locale: string
   person: any
   personAvdods: PersonAvdods | undefined
 }
 
-const PersonBody: React.FC<PersonBodyProps> = ({
+const PersonPanel: React.FC<PersonPanelProps> = ({
   locale,
   person,
   personAvdods
-}: PersonBodyProps): JSX.Element | null => {
+}: PersonPanelProps): JSX.Element | null => {
   const { t } = useTranslation()
 
   const renderEntity = (label: string, value: any): JSX.Element => {
@@ -53,7 +53,7 @@ const PersonBody: React.FC<PersonBodyProps> = ({
     }
     return (
       <Element
-        id={'w-overview-PersonBody--element-' + label.replace('ui:', '')}
+        id={'w-overview-personPanel--element-' + label.replace('ui:', '')}
       >
         <Detail>
           <strong>
@@ -175,7 +175,7 @@ const PersonBody: React.FC<PersonBodyProps> = ({
   }
 
   return (
-    <PersonBodyDiv>
+    <PersonPanelDiv>
       <MarginRow>
         <MarginColumn>
           <Home />
@@ -223,7 +223,7 @@ const PersonBody: React.FC<PersonBodyProps> = ({
                   ? personAvdods.map((avdod: PersonAvdod) => (
                     <Element
                       key={avdod.fnr}
-                      id='w-overview-PersonBody--element-deceased'
+                      id='w-overview-personPanel--element-deceased'
                     >
                       <HorizontalSeparatorDiv />
                       <BodyLong>
@@ -237,7 +237,7 @@ const PersonBody: React.FC<PersonBodyProps> = ({
                   : (
                     <Element
                       key='noAvdod'
-                      id='w-overview-PersonBody--element-deceased'
+                      id='w-overview-personPanel--element-deceased'
                     >
                       <HorizontalSeparatorDiv />
                       <BodyLong>
@@ -261,13 +261,13 @@ const PersonBody: React.FC<PersonBodyProps> = ({
           </MarginRow>
         </>
       )}
-    </PersonBodyDiv>
+    </PersonPanelDiv>
   )
 }
 
-PersonBody.propTypes = {
+PersonPanel.propTypes = {
   locale: AllowedLocaleStringPropType.isRequired,
   person: PT.object
 }
 
-export default PersonBody
+export default PersonPanel

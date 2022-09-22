@@ -26,22 +26,20 @@ export const pageNotificationValidate = (
     hasError = true
   }
 
-  if (show === true) {
-    if (_.isEmpty(message)) {
-      v['w-pagenotification-message'] = {
-        skjemaelementId: 'w-pagenotification-message',
-        feilmelding: t('feil')
-      } as ErrorElement
-      hasError = true
-    }
+  if (_.isEmpty(message)) {
+    v['w-pagenotification-message'] = {
+      skjemaelementId: 'w-pagenotification-message',
+      feilmelding: t('feil')
+    } as ErrorElement
+    hasError = true
+  }
 
-    if (_.isEmpty(byline)) {
-      v['w-pagenotification-byline'] = {
-        skjemaelementId: 'w-pagenotification-byline',
-        feilmelding: t('feil')
-      } as ErrorElement
-      hasError = true
-    }
+  if (_.isEmpty(byline)) {
+    v['w-pagenotification-byline'] = {
+      skjemaelementId: 'w-pagenotification-byline',
+      feilmelding: t('feil')
+    } as ErrorElement
+    hasError = true
   }
 
   return hasError

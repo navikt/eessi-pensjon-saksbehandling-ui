@@ -208,8 +208,8 @@ export default {
           beregning: '000',
           informasjonskalkulering: null,
           periode: {
-            fom: '1916-01-01',
-            tom: '1916-12-31'
+            fom: '1906-01-01',
+            tom: '1906-12-31'
           },
           enkeltkrav: null
         },
@@ -233,8 +233,8 @@ export default {
           beregning: '001',
           informasjonskalkulering: null,
           periode: {
-            fom: '1915-01-01',
-            tom: '1915-12-31'
+            fom: '1907-01-01',
+            tom: '1907-12-31'
           },
           enkeltkrav: null
         },
@@ -258,8 +258,8 @@ export default {
           beregning: '010',
           informasjonskalkulering: null,
           periode: {
-            fom: '1913-01-01',
-            tom: '1913-12-31'
+            fom: '1908-01-01',
+            tom: '1908-12-31'
           },
           enkeltkrav: null
         },
@@ -283,8 +283,8 @@ export default {
           beregning: '011',
           informasjonskalkulering: null,
           periode: {
-            fom: '1914-01-01',
-            tom: '1914-12-31'
+            fom: '1909-01-01',
+            tom: '1909-12-31'
           },
           enkeltkrav: null
         },

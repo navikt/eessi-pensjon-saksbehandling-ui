@@ -65,7 +65,6 @@ export const PERSON_UFT_URL = PEN_URL + '/vedtak/%(vedtakId)s/uforetidspunkt'
 export const BUC_CREATE_SED_URL = SED_URL + '/add'
 export const BUC_CREATE_REPLY_SED_URL = SED_URL + '/replysed/%(parentId)s'
 export const BUC_GET_SED_LIST_URL = SED_URL + '/seds/%(buc)s/%(rinaId)s'
-export const BUC_GET_SED_URL = SED_URL + '/get/%(caseId)s/%(sedId)s'
 export const P5000_GET_URL = SED_URL + '/get/%(caseId)s/%(sedId)s'
 export const P5000_PUT_URL = SED_URL + '/put/%(caseId)s/%(sedId)s'
 export const BUC_GET_P6000_URL = SED_URL + '/getP6000/%(rinaCaseId)s'
@@ -78,4 +77,3 @@ export const JOURNALFØRING_SED_SEND_URL = JOU_URL + '/send/%(sakId)s/%(aktoerId
 // Page Notification
 export const API_PAGENOTIFICATION_GET_URL = API_URL + '/storage/get/EP___PAGE___NOTIFICATION'
 export const API_PAGENOTIFICATION_POST_URL = API_URL + '/storage/EP___PAGE___NOTIFICATION'
-export const API_PAGENOTIFICATION_DELETE_URL = API_URL + '/storage/EP___PAGE___NOTIFICATION'

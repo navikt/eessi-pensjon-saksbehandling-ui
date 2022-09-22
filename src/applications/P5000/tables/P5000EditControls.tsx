@@ -1,4 +1,4 @@
-import { Alert, Button, HelpText, Link, Loader, Radio, RadioGroup, Select as NavSelect } from '@navikt/ds-react'
+import { Alert, BodyLong, Button, HelpText, Link, Loader, Radio, RadioGroup, Select as NavSelect } from '@navikt/ds-react'
 import {
   AlignEndRow,
   Column, FlexBaseDiv, FlexCenterDiv,
@@ -441,7 +441,9 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
               {t('p5000:warning-P5000Edit-instructions-li1')}
               <HorizontalSeparatorDiv size='0.5' />
               <HelpText>
-                  {t('p5000:warning-P5000Edit-instructions-li1-help')}
+                <div style={{ maxWidth: '600px' }}>
+                  <BodyLong>{t('p5000:warning-P5000Edit-instructions-li1-help')}</BodyLong>
+                </div>
               </HelpText>
             </FlexCenterDiv>
           </Alert>
@@ -480,7 +482,10 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                   </OneLineSpan>
                   <HorizontalSeparatorDiv />
                   <HelpText>
-                      {t('p5000:help-1') + t('p5000:help-2')}
+                    <div style={{ maxWidth: '600px' }}>
+                      <BodyLong>{t('p5000:help-1')}</BodyLong>
+                      <BodyLong>{t('p5000:help-2')}</BodyLong>
+                    </div>
                   </HelpText>
                 </FlexCenterDiv>
               )}
@@ -561,27 +566,26 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
       <VerticalSeparatorDiv />
       <AlignEndRow style={{ width: '100%' }}>
         <Column>
-          {featureToggles.P5000_UPDATES_VISIBLE &&
-           featureToggles.UFT_BUTTON &&
-           sakType === SakTypeMap.UFOREP && pesysContext === constants.VEDTAKSKONTEKST && (
-             <FlexBaseDiv>
-               <Button
-                 variant='secondary'
-                 disabled={gettingUft}
-                 onClick={hentUFT}
-               >
-                 {gettingUft && <Loader />}
-                 {gettingUft ? t('message:loading-uft') : t('p5000:hent-uft')}
-               </Button>
-               <HorizontalSeparatorDiv />
-               <HelpText placement='right'>
-                   {t('p5000:help-uft')}
-               </HelpText>
-             </FlexBaseDiv>
+          {featureToggles.P5000_UPDATES_VISIBLE && sakType === SakTypeMap.UFOREP && pesysContext === constants.VEDTAKSKONTEKST && (
+            <FlexBaseDiv>
+              <Button
+                variant='secondary'
+                disabled={gettingUft}
+                onClick={hentUFT}
+              >
+                {gettingUft && <Loader />}
+                {gettingUft ? t('message:loading-uft') : t('p5000:hent-uft')}
+              </Button>
+              <HorizontalSeparatorDiv />
+              <HelpText placement='right'>
+                <div style={{ maxWidth: '600px' }}>
+                  {t('p5000:help-uft')}
+                </div>
+              </HelpText>
+            </FlexBaseDiv>
           )}
           {featureToggles.P5000_UPDATES_VISIBLE &&
-            featureToggles.UFT_BUTTON &&
-            (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) &&
+          (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) &&
           pesysContext === constants.VEDTAKSKONTEKST && (
             <>
               <FlexBaseDiv>
@@ -595,7 +599,9 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                 </Button>
                 <HorizontalSeparatorDiv />
                 <HelpText placement='right'>
+                  <div style={{ maxWidth: '600px' }}>
                     {t('p5000:help-gjpbp')}
+                  </div>
                 </HelpText>
               </FlexBaseDiv>
               {!_.isNil(gjpbpwarning) && (

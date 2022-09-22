@@ -10,7 +10,7 @@ import moment from 'moment'
 import { Heading } from '@navikt/ds-react'
 import PT from 'prop-types'
 import styled from 'styled-components/macro'
-import PersonLoading from './PersonLoading'
+import PersonLoading from 'widgets/Overview/PersonLoading'
 import { getFnr } from 'applications/BUC/components/BUCUtils/BUCUtils'
 
 export const Title = styled.div`

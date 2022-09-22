@@ -1,7 +1,6 @@
 import { getTagList, saveBucsInfo } from 'actions/buc'
 import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import P5000 from 'applications/P5000/P5000'
-import P4000 from "applications/P4000/P4000";
 import { Delete, NextFilled } from '@navikt/ds-icons'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { AllowedLocaleString, BUCMode, FeatureToggles, Loading } from 'declarations/app.d'
@@ -58,13 +57,6 @@ const P5000Div = styled.div`
   position: relative;
   margin-bottom: 1rem;
 `
-
-const P4000Div = styled.div`
-  position: relative;
-  margin-bottom: 1rem;
-`
-
-
 const RemoveComment = styled.div`
   cursor: pointer;
 `
@@ -201,27 +193,9 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     })
   }
 
-  const onGettingP4000Click = (e: React.MouseEvent): void => {
-    buttonLogger(e)
-    setMode('p4000', 'forward', undefined, (
-      <P4000
-        buc={buc}
-        setMode={setMode}
-      />
-    ))
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
-    })
-  }
-
   const tabs = [{
     label: t('buc:form-labelP5000'),
     key: 'P5000'
-  }, {
-    label: t('buc:form-labelP4000'),
-    key: 'P4000'
   }, {
     label: t('ui:tags'),
     key: 'tags'
@@ -231,7 +205,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }]
 
   const hasP5000s = (): boolean => (!_.isEmpty(buc?.seds?.filter(sedFilter).filter(sed => sed.type === 'P5000' && sed.status !== 'cancelled')))
-  const hasP4000s = (): boolean => (!_.isEmpty(buc?.seds?.filter(sedFilter).filter(sed => sed.type === 'P4000' && sed.status === 'received')))
 
   useEffect(() => {
     if (tagList === undefined && !loading.gettingTagList) {
@@ -271,13 +244,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         defaultValue={_activeTab}
       >
         <Tabs.List>
-          {tabs.map(tab => {
-            if(tab.key === "P4000" && !featureToggles.P5000_UPDATES_VISIBLE){
-              return
-            } else {
-              return (<Tabs.Tab key={tab.key} label={tab.label} value={tab.key} />)
-            }
-          })}
+          {tabs.map(tab => (<Tabs.Tab key={tab.key} label={tab.label} value={tab.key} />))}
         </Tabs.List>
         <Tabs.Panel value='P5000'>
           <P5000Div>
@@ -300,28 +267,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
               </Button>
             </FlexDiv>
           </P5000Div>
-        </Tabs.Panel>
-        <Tabs.Panel value='P4000'>
-          <P4000Div>
-            <Heading size='small'>
-              {t('buc:form-titleP4000')}
-            </Heading>
-            <VerticalSeparatorDiv />
-            <FlexDiv>
-              <Button
-                variant='secondary'
-                data-amplitude='buc.edit.tools.P4000.view'
-                data-testid='a_buc_c_buctools--P4000-button-id'
-                disabled={!hasP4000s()}
-                onClick={onGettingP4000Click}
-              >
-                {t('buc:form-seeP4000s')}
-
-                <HorizontalSeparatorDiv size='0.3' />
-                <NextFilled />
-              </Button>
-            </FlexDiv>
-          </P4000Div>
         </Tabs.Panel>
         <Tabs.Panel value='tags'>
           <VerticalSeparatorDiv size='0.5' />

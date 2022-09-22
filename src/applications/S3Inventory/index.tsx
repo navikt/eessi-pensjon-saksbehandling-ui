@@ -1,10 +1,31 @@
-import { Accordion, Heading, Panel } from '@navikt/ds-react'
-import { timeDiffLogger } from 'metrics/loggers'
+import S3Inventory from './S3Inventory'
+import { WidgetPropType } from 'declarations/dashboard.pt'
+import _ from 'lodash'
+import { standardLogger, timeDiffLogger } from 'metrics/loggers'
+import { Widget } from '@navikt/dashboard'
+import { Alert, Accordion, Heading, Panel } from '@navikt/ds-react'
+import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import S3Inventory from './S3Inventory'
+import styled from 'styled-components/macro'
 
-export const S3InventoryIndex = (): JSX.Element => {
+export const MyAlertStripe = styled(Alert)`
+  width: 100%;
+`
+
+export interface S3InventoryIndexSelector {
+  aktoerId: string | null | undefined
+}
+
+export interface S3InventoryIndexProps {
+  onUpdate?: (w: Widget) => void
+  widget: Widget
+}
+
+export const S3InventoryIndex: React.FC<S3InventoryIndexProps> = ({
+  onUpdate,
+  widget
+}: S3InventoryIndexProps): JSX.Element => {
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
 
@@ -15,6 +36,15 @@ export const S3InventoryIndex = (): JSX.Element => {
   }, [])
 
   const { t } = useTranslation()
+
+  const onClick = (): void => {
+    const newWidget = _.cloneDeep(widget)
+    newWidget.options.collapsed = !newWidget.options.collapsed
+    standardLogger('s3inventory.ekspandpanel.clicked')
+    if (onUpdate) {
+      onUpdate(newWidget)
+    }
+  }
 
   const onMouseEnter = () => setMouseEnterDate(new Date())
 
@@ -31,8 +61,8 @@ export const S3InventoryIndex = (): JSX.Element => {
       onMouseLeave={onMouseLeave}
     >
       <Accordion data-testid='w-s3inventory-id'>
-        <Accordion.Item>
-          <Accordion.Header>
+        <Accordion.Item open={!widget.options.collapsed}>
+          <Accordion.Header onClick={onClick}>
             <Heading size='medium'>{t('ui:s3inventory-title')}</Heading>
           </Accordion.Header>
           <Accordion.Content>
@@ -42,6 +72,11 @@ export const S3InventoryIndex = (): JSX.Element => {
       </Accordion>
     </Panel>
   )
+}
+
+S3InventoryIndex.propTypes = {
+  onUpdate: PT.func,
+  widget: WidgetPropType.isRequired
 }
 
 export default S3InventoryIndex

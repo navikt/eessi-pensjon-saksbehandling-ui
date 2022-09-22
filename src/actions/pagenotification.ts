@@ -17,19 +17,6 @@ export const readNotification = (
   })
 }
 
-export const deleteNotification = () => {
-  return call({
-    url: urls.API_PAGENOTIFICATION_DELETE_URL,
-    expectedPayload: { success: true },
-    method: 'DELETE',
-    type: {
-      request: types.PAGE_NOTIFICATION_DELETE_REQUEST,
-      success: types.PAGE_NOTIFICATION_DELETE_SUCCESS,
-      failure: types.PAGE_NOTIFICATION_DELETE_FAILURE
-    }
-  })
-}
-
 export const setNotification = (
   message: string, show: boolean, byline: string
 ): ActionWithPayload<undefined> => {
