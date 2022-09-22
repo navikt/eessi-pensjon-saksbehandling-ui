@@ -1,9 +1,9 @@
-name: dev-gcp push - build, deploy to Q2
+name: development push - build, deploy to Q2
 
 on:
   push:
     branches:
-      - 'dev-gcp'
+      - 'development'
 
 jobs:
   tag_build_and_deploy:
