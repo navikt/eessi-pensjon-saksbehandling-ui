@@ -1,4 +1,4 @@
-import {Alert, BodyLong, Button, HelpText, Loader, Select, Switch} from '@navikt/ds-react'
+import { Alert, BodyLong, Button, HelpText, Loader, Select, Switch } from '@navikt/ds-react'
 import {
   AlignEndRow,
   Column,
@@ -8,21 +8,21 @@ import {
   Row,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
-import {sendP5000ToS3} from 'actions/p5000'
-import {informasjonOmBeregningLabels, typePeriode} from 'applications/P5000/P5000.labels'
-import {convertFromP5000ListRowsIntoPesysPeriods} from 'applications/P5000/utils/pesysUtils'
+import { sendP5000ToS3 } from 'actions/p5000'
+import { informasjonOmBeregningLabels, typePeriode } from 'applications/P5000/P5000.labels'
+import { convertFromP5000ListRowsIntoPesysPeriods } from 'applications/P5000/utils/pesysUtils'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import {OneLineSpan} from 'components/StyledComponents'
-import {FeatureToggles, Option} from 'declarations/app'
-import {P5000ListRow, P5000ListRows} from 'declarations/p5000'
-import {State} from 'declarations/reducers'
+import { OneLineSpan } from 'components/StyledComponents'
+import { FeatureToggles, Option } from 'declarations/app'
+import { P5000ListRow, P5000ListRows } from 'declarations/p5000'
+import { State } from 'declarations/reducers'
 import _ from 'lodash'
-import {standardLogger} from 'metrics/loggers'
-import React, {useState} from 'react'
-import {useTranslation} from 'react-i18next'
-import {useSelector} from 'react-redux'
+import { standardLogger } from 'metrics/loggers'
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
-import {useAppDispatch} from 'store'
+import { useAppDispatch } from 'store'
 
 export interface P5000OverviewControlsProps {
   aktoerId: string
@@ -140,6 +140,13 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
           </Row>
           <VerticalSeparatorDiv />
         </>
+      )}
+      {!_.isNil(p5000FromS3) && (
+        <AlignEndRow style={{ width: '100%' }}>
+          <Column>
+            <BodyLong>{t('message:alert-p5000sFromS3', { x: p5000FromS3.length })}</BodyLong>
+          </Column>
+        </AlignEndRow>
       )}
       <AlignEndRow style={{ width: '100%' }}>
         <Column flex='2'>
