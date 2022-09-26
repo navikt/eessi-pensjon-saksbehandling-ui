@@ -44,7 +44,6 @@ export interface P5000OverviewControlsProps {
   setItemsPerPage: (b: number) => void
   items: P5000ListRows
   itemsForPesys: P5000ListRows
-  p5000FromS3: Array<P5000ListRows> | null | undefined
 }
 
 export interface P5000OverviewControlsSelector {
@@ -74,7 +73,6 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
   items,
   itemsForPesys,
   pesysWarning,
-  p5000FromS3,
   currentTabKey
 }: P5000OverviewControlsProps) => {
   const { t } = useTranslation()
