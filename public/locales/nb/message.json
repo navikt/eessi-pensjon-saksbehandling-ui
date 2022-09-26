@@ -23,6 +23,7 @@
   "alert-sentToPesys"             : "Sendt til PESYS",
   "alert-updatedPageNotification" : "EP side melding oppdatert",
   "alert-X100"                    : "Saken er videresendt korrekt institusjon. Det er ikke nødvendig å opprette X005 for å videresende saken til den nye tyske institusjonen",
+  "alert-p5000sFromS3"            : "Fant {{x}} P5000-perioder eksportert til Pesys",
 
   "error-noBuc"                               : "Feil å hente BUC",
   "error-noBucs"                              : "Feil å hente BUC-er",
