@@ -1,9 +1,9 @@
-name: master push - build and tag
+name: feature branch push - build, deploy to Q2
 
 on:
   push:
     branches:
-      - 'master'
+      - 'feature/*'
 
 jobs:
   tag_build_and_deploy:
@@ -13,7 +13,6 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-
       - name: 'Pull repo'
         uses: actions/checkout@v2
 
@@ -54,7 +53,12 @@ jobs:
           docker build --tag ${{ env.IMAGE }} .
           docker push ${{ env.IMAGE }}
 
-      # OPPRETTER GIT TAG
-      - name: 'Opprett git tag'
-        run: |
-          curl -v -s -X POST https://api.github.com/repos/navikt/eessi-pensjon-saksbehandling-ui/git/refs -H "Authorization: token  ${{ secrets.GITHUB_TOKEN }}" -d '{ "ref": "refs/tags/${{ env.DATE }}---${{ env.COMMIT_HASH }}",  "sha": "${{ env.COMMIT_HASH }}" }'
+      # DEPLOYER TIL NAIS
+      - name: 'Deploy to NAIS Q2'
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: nais/dev-gcp-q2.yml
+          IMAGE: ${{ env.IMAGE }}
+          VARS: nais/dev-gcp-q2-nais-vars.yml

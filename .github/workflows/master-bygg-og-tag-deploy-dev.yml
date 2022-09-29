@@ -1,9 +1,9 @@
-name: development push - build, deploy to Q2
+name: master push - build and tag
 
 on:
   push:
     branches:
-      - 'development'
+      - 'master'
 
 jobs:
   tag_build_and_deploy:
@@ -53,6 +53,11 @@ jobs:
           docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${{ secrets.GITHUB_TOKEN }}
           docker build --tag ${{ env.IMAGE }} .
           docker push ${{ env.IMAGE }}
+
+      # OPPRETTER GIT TAG
+      - name: 'Opprett git tag'
+        run: |
+          curl -v -s -X POST https://api.github.com/repos/navikt/eessi-pensjon-saksbehandling-ui/git/refs -H "Authorization: token  ${{ secrets.GITHUB_TOKEN }}" -d '{ "ref": "refs/tags/${{ env.DATE }}---${{ env.COMMIT_HASH }}",  "sha": "${{ env.COMMIT_HASH }}" }'
 
       # DEPLOYER TIL NAIS
       - name: 'Deploy to NAIS Q2'
