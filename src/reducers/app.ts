@@ -19,7 +19,6 @@ const initialFeatureToggles: FeatureToggles = {
   P5000_UPDATES_VISIBLE: true,
   SED_PREFILL_INSTITUTIONS: false,
   NR_AVDOD: 0,
-  X010_X009_VISIBLE: true,
   ADMIN_NOTIFICATION_MESSAGE: false
 }
 
