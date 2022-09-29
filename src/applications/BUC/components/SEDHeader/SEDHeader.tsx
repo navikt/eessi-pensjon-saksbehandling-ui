@@ -1,7 +1,6 @@
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
-import P4000 from 'applications/P4000/P4000'
 import P5000 from 'applications/P5000/P5000'
 import SEDLoadSave from 'applications/P5000/components/SEDLoadSave/SEDLoadSave'
 import { AllowedLocaleString, LocalStorageEntriesMap, BUCMode, FeatureToggles, LocalStorageEntry } from 'declarations/app.d'
@@ -284,40 +283,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               <VerticalSeparatorDiv />
             </>
           )}
-            {sed.type === 'P4000' && featureToggles.P4000_VISIBLE && (
-              <>
-                <Button
-                  variant='secondary'
-                  data-amplitude='buc.edit.p4000'
-                  data-testid='a_buc_c_sedheader--p4000-button-id'
-                  onClick={(e) => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    setMode('p4000', 'forward', undefined, (
-                      <P4000
-                        buc={buc}
-                        setMode={setMode}
-                        mainSed={sed}
-                      />
-                    ))
-                    window.scrollTo({
-                      top: 0,
-                      left: 0,
-                      behavior: 'smooth'
-                    })
-                  }}
-                >
-                  {P5000Draft
-                    ? t('buc:p4000-rediger')
-                    : sed.status === 'sent'
-                      ? t('buc:p4000-updating')
-                      : t('buc:p4000-registrert')}
-                  <HorizontalSeparatorDiv size='0.3' />
-                  <NextFilled />
-                </Button>
-                <VerticalSeparatorDiv />
-              </>
-            )}
           </PileDiv>
         </SEDListActionsDiv>
       </SEDHeaderContent>

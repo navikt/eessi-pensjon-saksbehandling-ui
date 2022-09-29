@@ -124,7 +124,6 @@ describe('reducers/app', () => {
         ...initialAppState,
         featureToggles: {
           ...initialAppState.featureToggles,
-          P4000_VISIBLE: false,
           P5000_SUMMER_VISIBLE: false
         }
       }, {
@@ -133,7 +132,6 @@ describe('reducers/app', () => {
           subject: 'mockSubject',
           role: 'mockRole',
           features: {
-            P4000_VISIBLE: true,
             P5000_UPDATES_VISIBLE: true
           }
         }
@@ -145,7 +143,6 @@ describe('reducers/app', () => {
       loggedIn: true,
       expirationTime: expect.any(String),
       featureToggles: expect.objectContaining({
-        P4000_VISIBLE: true,
         P5000_UPDATES_VISIBLE: true,
         P5000_SUMMER_VISIBLE: false
       })

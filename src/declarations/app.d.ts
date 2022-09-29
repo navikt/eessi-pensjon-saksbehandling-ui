@@ -14,8 +14,7 @@ export type PSED = P4000SED | P5000SED
 export type LocalStorageEntriesMap<T extends PSED = PSED> = { [caseId in string]: Array<LocalStorageEntry<T>> } | null | undefined
 
 export type Feature =
-  'P4000_VISIBLE'
-  | 'P5000_SUMMER_VISIBLE'
+  'P5000_SUMMER_VISIBLE'
   | 'P5000_UPDATES_VISIBLE' // for new P5000 developments
   | 'SED_PREFILL_INSTITUTIONS' // Prefill with institutions in new SED
   | 'NR_AVDOD' // for mock purposes
