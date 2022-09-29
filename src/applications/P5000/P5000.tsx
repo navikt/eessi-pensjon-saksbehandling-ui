@@ -59,7 +59,7 @@ const P5000: React.FC<P5000Props> = ({
 }: P5000Props): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { aktoerId, featureToggles, p5000sFromRinaMap, p5000FromS3, storageEntries }: P5000Selector = useSelector<State, P5000Selector>(mapState)
+  const { aktoerId, p5000sFromRinaMap, p5000FromS3, storageEntries }: P5000Selector = useSelector<State, P5000Selector>(mapState)
 
   /* for drag & drop placeholder */
   const [placeholderProps, setPlaceholderProps] = useState<any>({})
@@ -310,8 +310,8 @@ const P5000: React.FC<P5000Props> = ({
       >
         <P5000Droppable placeholderProps={placeholderProps}>
           {_tables.map((table: any, index: number): JSX.Element => {
-            if ((table.id === 'P5000Edit' && !_.isNil(mainSed) && featureToggles.P5000_SUMMER_VISIBLE) ||
-              (table.id === 'P5000Sum' && featureToggles.P5000_SUMMER_VISIBLE) ||
+            if ((table.id === 'P5000Edit' && !_.isNil(mainSed)) ||
+              (table.id === 'P5000Sum') ||
               (table.id === 'P5000Overview')
             ) {
               return (

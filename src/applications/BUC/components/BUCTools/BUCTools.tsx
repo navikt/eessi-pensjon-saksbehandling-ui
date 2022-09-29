@@ -293,8 +293,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 disabled={!hasP5000s()}
                 onClick={onGettingP5000Click}
               >
-                {featureToggles.P5000_SUMMER_VISIBLE ? t('buc:form-seeP5000s') : t('buc:form-viewP5000s')}
-
+                {t('buc:form-seeP5000s')}
                 <HorizontalSeparatorDiv size='0.3' />
                 <NextFilled />
               </Button>

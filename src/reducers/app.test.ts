@@ -124,7 +124,6 @@ describe('reducers/app', () => {
         ...initialAppState,
         featureToggles: {
           ...initialAppState.featureToggles,
-          P5000_SUMMER_VISIBLE: false
         }
       }, {
         type: types.APP_USERINFO_SUCCESS,
@@ -144,7 +143,6 @@ describe('reducers/app', () => {
       expirationTime: expect.any(String),
       featureToggles: expect.objectContaining({
         P5000_UPDATES_VISIBLE: true,
-        P5000_SUMMER_VISIBLE: false
       })
     })
   })

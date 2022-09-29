@@ -108,7 +108,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   sed,
   style
 }: SEDHeaderProps): JSX.Element => {
-  const { featureToggles, locale, storageEntries }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
+  const { locale, storageEntries }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
   const followUpSeds: Array<Sed> = buc.seds!.filter(_sed => _sed.parentDocumentId === sed.id && _sed.status !== 'sent')
 
@@ -246,10 +246,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             </Button>
           )}
           <PileDiv>
-            {sed.type === 'P5000' &&
-          featureToggles.P5000_SUMMER_VISIBLE &&
-          (sed.status !== 'received') &&
-          (
+            {sed.type === 'P5000' && (sed.status !== 'received') && (
             <>
               <Button
                 variant='secondary'
@@ -284,7 +281,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           </PileDiv>
         </SEDListActionsDiv>
       </SEDHeaderContent>
-      {(featureToggles.P5000_SUMMER_VISIBLE && P5000Draft !== undefined)
+      {P5000Draft !== undefined
         ? (
           <SEDLoadSave
             buc={buc}
