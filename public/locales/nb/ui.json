@@ -5,6 +5,8 @@
     "adresse" : "Adresse",
     "aktoerId" : "Aktoer ID",
     "are-you-sure" : "Er du sikker?",
+    "arbeidsgiver": "Arbeidsgiver",
+    "arbeidstakerSelvstendig": "Arb.taker/Selvstendig",
     "all" : "Alle",
     "attachments" : "Vedlegg",
     "back" : "Tilbake",
@@ -101,11 +103,13 @@
     "showAttachments" : "Legg til vedlegg",
     "startDate" : "Startdato",
     "status" : "Status",
+    "sted": "Sted",
     "street" : "Gate",
     "tags" : "Merknader",
     "tema" : "Tema",
     "tilleggsadresse" : "Tilleggsadresse",
     "tilleggsadressetype" : "Tilleggsadressetype",
+    "tilleggsInfo": "Tillegsinfo, se P4000",
     "title": "Tittel",
     "tryChrome": "Hei, prøv PESYS i Chrome!",
     "type" : "Type",
@@ -114,6 +118,7 @@
     "unknownLand" : "kjent land",
     "unit": "enhet",
     "uploading": "Opplasting...",
+    "usikreDatoer": "Usikre datoer",
     "variant" : "Variant",
     "version": "Versjon",
     "week": "Uke",
@@ -127,5 +132,6 @@
     "widget-overview-sendNotification-noMessages" : "Det er ingen utsendte varsler til denne brukeren",
     "year" : "År",
     "yes" : "Ja",
-    "youComeFrom": "Du kommer fra "
+    "youComeFrom": "Du kommer fra ",
+    "yrke": "Yrke"
 }

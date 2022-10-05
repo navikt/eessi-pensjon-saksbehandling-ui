@@ -216,19 +216,21 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     })
   }
 
-  const tabs = [{
-    label: t('buc:form-labelP5000'),
-    key: 'P5000'
-  }, {
-    label: t('buc:form-labelP4000'),
-    key: 'P4000'
-  }, {
-    label: t('ui:tags'),
-    key: 'tags'
-  }, {
-    label: t('buc:form-commentForBUC'),
-    key: 'comments'
-  }]
+  const tabs = [
+    {
+      label: t('buc:form-labelP5000'),
+      key: 'P5000'
+    }, {
+      label: t('buc:form-labelP4000'),
+      key: 'P4000'
+    }, {
+      label: t('ui:tags'),
+      key: 'tags'
+    }, {
+      label: t('buc:form-commentForBUC'),
+      key: 'comments'
+    }
+  ]
 
   const hasP5000s = (): boolean => (!_.isEmpty(buc?.seds?.filter(sedFilter).filter(sed => sed.type === 'P5000' && sed.status !== 'cancelled')))
   const hasP4000s = (): boolean => (!_.isEmpty(buc?.seds?.filter(sedFilter).filter(sed => sed.type === 'P4000' && sed.status === 'received')))
@@ -272,8 +274,10 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       >
         <Tabs.List>
           {tabs.map(tab => {
-            if(tab.key === "P4000" && !featureToggles.P5000_UPDATES_VISIBLE){
+            if(tab.key === "P4000" && !featureToggles.P5000_UPDATES_VISIBLE) {
               return
+            } else if(tab.key === "comments" && featureToggles.P5000_UPDATES_VISIBLE){
+                return
             } else {
               return (<Tabs.Tab key={tab.key} label={tab.label} value={tab.key} />)
             }
@@ -302,9 +306,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         </Tabs.Panel>
         <Tabs.Panel value='P4000'>
           <P4000Div>
-            <Heading size='small'>
-              {t('buc:form-titleP4000')}
-            </Heading>
+            <p>{t('buc:form-descriptionP4000')}</p>
             <VerticalSeparatorDiv />
             <FlexDiv>
               <Button

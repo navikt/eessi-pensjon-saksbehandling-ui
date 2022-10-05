@@ -577,7 +577,10 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.BUC_GET_P4000_SUCCESS:
       return {
         ...state,
-        p4000: (action as ActionWithPayload).payload
+        p4000: {
+          ...(action as ActionWithPayload).payload,
+          sedId: (action as ActionWithPayload).context.sedId
+        }
       }
 
     case types.BUC_GET_P6000_REQUEST:

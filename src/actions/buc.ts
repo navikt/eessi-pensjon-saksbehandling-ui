@@ -330,6 +330,9 @@ export const getSedP4000 = (
     url: sprintf(urls.BUC_GET_SED_URL, { caseId, sedId: sed.id }),
     cascadeFailureError: true,
     expectedPayload: mockP4000,
+    context: {
+      sedId: sed.id
+    },
     type: {
       request: types.BUC_GET_P4000_REQUEST,
       success: types.BUC_GET_P4000_SUCCESS,

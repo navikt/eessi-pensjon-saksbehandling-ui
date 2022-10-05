@@ -47,20 +47,21 @@ export interface P4000AnsattSelvstendigPeriod extends P4000Period{
     "type": string | null,
     "annen": string | null
   }
+  "forsikkringEllerRegistreringNr": string | null,
+  "navnFirma": string | null,
 }
 
 export interface P4000ListRow extends Item {
-  key: string
-  land: string
-  type: string
-  startdato: Date
-  sluttdato: Date
-  usikreDatoer: string,
-  tillegsInfo: string
-  arbeidsgiver: string
-  sted: string
-  yrke: string
-  ansattSelvstendig: string
+  land: string | null,
+  type: string | null,
+  startdato: Date | null,
+  sluttdato: Date | null,
+  usikreDatoer: string | null,
+  tillegsInfo: string | null,
+  arbeidsgiver: string | null,
+  sted: string | null,
+  yrke: string | null,
+  ansattSelvstendig: string | null
 }
 
 export type P4000ListRows = Array<P4000ListRow>
@@ -71,6 +72,7 @@ export interface P4000TableContext {
 
 export interface P4000SED {
   sed: string
+  sedId: string
   sedGVer: string
   sedVer: string
   nav: {
