@@ -1,9 +1,16 @@
 import {BackFilled} from '@navikt/ds-icons'
-import {BodyLong, Button} from '@navikt/ds-react'
+import {BodyLong, Button, Loader, Select} from '@navikt/ds-react'
 import {BUCMode} from 'declarations/app'
 import {Buc, Sed} from 'declarations/buc'
-import {HorizontalSeparatorDiv, VerticalSeparatorDiv} from '@navikt/hoykontrast'
-import React, {useEffect, useState} from 'react'
+import {
+  AlignEndRow,
+  Column as ColumnDiv,
+  FlexEndDiv,
+  HiddenDiv,
+  HorizontalSeparatorDiv,
+  VerticalSeparatorDiv
+} from '@navikt/hoykontrast'
+import React, {useEffect, useRef, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import {useDispatch, useSelector} from 'react-redux'
 import {getSedP4000} from "../../actions/buc";
@@ -27,6 +34,7 @@ import {
   P4000_OPPLAERING,
   P4000_SYKEPENGER
 } from "../../constants/types";
+import ReactToPrint from "react-to-print";
 
 export interface P4000Props {
   buc: Buc
@@ -49,8 +57,11 @@ const P4000: React.FC<P4000Props> = ({
 }: P4000Props): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  const componentRef = useRef(null)
   const countryInstance = CountryData.getCountryInstance('nb')
-  const [, _setTableSort] = useState<Sort>(() => ({ column: '', order: 'none' }))
+  const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
+  const [_tableSort, _setTableSort] = useState<Sort>(() => ({ column: '', order: 'none' }))
+  const [itemsPerPage, setItemsPerPage] = useState<number>(30)
   const {p4000}: P4000Selector = useSelector<State, P4000Selector>(mapState)
 
   const generateKeyForListRow = (periode: any, type: string, idx: number): string => {
@@ -167,11 +178,60 @@ const P4000: React.FC<P4000Props> = ({
     {id: 'arbeidstakerSelvstendig', label: t('ui:arbeidstakerSelvstendig'), type: 'string'},
   ]
 
+  const itemsPerPageChanged = (e: any): void => {
+    setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
+  }
+
+  const beforePrintOut = (): void => {
+    _setPrintDialogOpen(true)
+  }
+
+  const afterPrintOut = (): void => {
+    _setPrintDialogOpen(false)
+  }
+
+
   return (
     <div>
       <VerticalSeparatorDiv size='3' />
       {renderBackLink()}
       <VerticalSeparatorDiv size='2' />
+
+      <AlignEndRow style={{ width: '100%' }}>
+        <ColumnDiv>
+          <FlexEndDiv style={{ flexDirection: 'row-reverse' }}>
+            <ReactToPrint
+              documentTitle='P4000'
+              onAfterPrint={afterPrintOut}
+              onBeforePrint={beforePrintOut}
+              trigger={() =>
+                <Button
+                  variant='secondary'
+                  disabled={_printDialogOpen}
+                >
+                  {_printDialogOpen && <Loader />}
+                  {t('ui:print')}
+                </Button>}
+              content={() => componentRef.current }
+            />
+            <HorizontalSeparatorDiv />
+            <Select
+              id='itemsPerPage'
+              label={t('ui:itemsPerPage')}
+              onChange={itemsPerPageChanged}
+              value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
+            >
+              <option value='10'>10</option>
+              <option value='15'>15</option>
+              <option value='20'>20</option>
+              <option value='30'>30</option>
+              <option value='50'>50</option>
+              <option value='all'>{t('ui:all')}</option>
+            </Select>
+
+          </FlexEndDiv>
+        </ColumnDiv>
+      </AlignEndRow>
       <Table<P4000ListRow, P4000TableContext>
         animatable={false}
         id='P4000Overview'
@@ -182,10 +242,29 @@ const P4000: React.FC<P4000Props> = ({
           standardLogger('buc.edit.tools.P4000.overview.sort', { sort })
           _setTableSort(sort)
         }}
-        itemsPerPage={30}
+        itemsPerPage={itemsPerPage}
         items={items}
         columns={columns}
       />
+      <HiddenDiv>
+        <div ref={componentRef} id='printJS-form'>
+          <Table<P4000ListRow, P4000TableContext>
+            // important so it re-renders when sorting changes
+            key={JSON.stringify(_tableSort)}
+            className='print-version'
+            items={items}
+            id='P4000-print'
+            animatable={false}
+            searchable={false}
+            selectable={false}
+            sortable
+            sort={_tableSort}
+            itemsPerPage={9999}
+            columns={columns}
+          />
+        </div>
+      </HiddenDiv>
+
     </div>
   )
 }
