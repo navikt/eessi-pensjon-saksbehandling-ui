@@ -1,5 +1,5 @@
 import { getTagList, saveBucsInfo } from 'actions/buc'
-import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import {dateSorter, sedFilter} from 'applications/BUC/components/BUCUtils/BUCUtils'
 import P5000 from 'applications/P5000/P5000'
 import P4000 from "applications/P4000/P4000";
 import { Delete, NextFilled } from '@navikt/ds-icons'
@@ -10,7 +10,7 @@ import {
   BucInfo,
   BucsInfo,
   Comment,
-  Comments,
+  Comments, Sed,
   Tag,
   TagRawList,
   Tags,
@@ -206,6 +206,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     setMode('p4000', 'forward', undefined, (
       <P4000
         buc={buc}
+        P4000={sortedP4000s && sortedP4000s.length > 0 ? sortedP4000s[0] : undefined}
         setMode={setMode}
       />
     ))
@@ -232,8 +233,10 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     }
   ]
 
+  const P4000s = buc?.seds?.filter((sed: Sed) => sed.type === 'P4000' && sed.status === 'received')
+  const sortedP4000s = P4000s?.sort(dateSorter)
   const hasP5000s = (): boolean => (!_.isEmpty(buc?.seds?.filter(sedFilter).filter(sed => sed.type === 'P5000' && sed.status !== 'cancelled')))
-  const hasP4000s = (): boolean => (!_.isEmpty(buc?.seds?.filter(sedFilter).filter(sed => sed.type === 'P4000' && sed.status === 'received')))
+  const hasP4000s = (): boolean => (!_.isEmpty(sortedP4000s))
 
   useEffect(() => {
     if (tagList === undefined && !loading.gettingTagList) {

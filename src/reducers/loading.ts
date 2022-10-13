@@ -22,6 +22,7 @@ export const initialLoadingState: LoadingState = {
   gettingInstitutionList: false,
   gettingPersonInfo: false,
   gettingPersonAvdodInfo: false,
+  gettingP4000: false,
   gettingP6000: false,
   gettingP6000PDF: false,
   gettingSakType: false,
@@ -290,6 +291,20 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
         ...state,
         gettingInstitutionList: false
       }
+
+    case types.BUC_GET_P4000_REQUEST:
+      return {
+        ...state,
+        gettingP4000: true
+      }
+
+    case types.BUC_GET_P4000_SUCCESS:
+    case types.BUC_GET_P4000_FAILURE:
+      return {
+        ...state,
+        gettingP4000: false
+      }
+
 
     case types.BUC_GET_P6000_REQUEST:
 

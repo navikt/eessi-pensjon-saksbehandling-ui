@@ -8,5 +8,6 @@
     "opplæring-label": "Opplæring",
     "dagpenger-label": "Dagpenger",
     "sykepenger-label": "Sykepenger",
-    "andre-label": "Andre"
+    "andre-label": "Andre",
+    "title": "Perioder oppgitt av bruker på P4000 fra {{ORGANISATION_NAME}} i {{ORGANISATION_COUNTRY}}"
 }

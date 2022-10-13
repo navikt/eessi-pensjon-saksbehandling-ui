@@ -15,7 +15,7 @@ const mapState = (state: State): JournalføringIndexSelector => ({
   aktoerId: state.app.params.aktoerId
 })
 
-export const JournalføringIndex = (): JSX.Element => {
+const JournalføringIndex = (): JSX.Element => {
   const { aktoerId }: JournalføringIndexSelector = useSelector<State, JournalføringIndexSelector>(mapState)
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)

@@ -1,11 +1,12 @@
 import {BackFilled} from '@navikt/ds-icons'
-import {BodyLong, Button, Loader, Select} from '@navikt/ds-react'
+import {BodyLong, Button, Heading, Loader, Panel, Select} from '@navikt/ds-react'
 import {BUCMode} from 'declarations/app'
 import {Buc, Sed} from 'declarations/buc'
 import {
   AlignEndRow,
   Column as ColumnDiv,
   FlexEndDiv,
+  FlexCenterDiv,
   HiddenDiv,
   HorizontalSeparatorDiv,
   VerticalSeparatorDiv
@@ -14,12 +15,11 @@ import React, {useEffect, useRef, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import {useDispatch, useSelector} from 'react-redux'
 import {getSedP4000} from "../../actions/buc";
-import {dateSorter} from "../BUC/components/BUCUtils/BUCUtils";
 import {P4000SED, P4000ListRow, P4000TableContext, P4000ListRows} from "../../declarations/p4000";
 import {State} from "../../declarations/reducers";
 import Table, {Column, RenderOptions, Sort} from "@navikt/tabell";
 import _ from "lodash";
-import CountryData from "@navikt/land-verktoy";
+import CountryData, {AllowedLocaleString} from "@navikt/land-verktoy";
 import moment from "moment";
 import {standardLogger} from "../../metrics/loggers";
 import md5 from "md5";
@@ -35,24 +35,31 @@ import {
   P4000_SYKEPENGER
 } from "../../constants/types";
 import ReactToPrint from "react-to-print";
+import WaitingPanel from "../../components/WaitingPanel/WaitingPanel";
 
 export interface P4000Props {
   buc: Buc
+  P4000?: Sed,
   mainSed?: Sed,
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
 }
 
 export interface P4000Selector {
   p4000: P4000SED | undefined
+  locale: AllowedLocaleString
+  gettingP4000: boolean
 }
 
 const mapState = (state: State): P4000Selector => ({
   p4000: state.buc.p4000,
+  locale: state.ui.locale,
+  gettingP4000: state.loading.gettingP4000
 })
 
 
 const P4000: React.FC<P4000Props> = ({
   buc,
+  P4000,
   setMode
 }: P4000Props): JSX.Element => {
   const { t } = useTranslation()
@@ -62,7 +69,13 @@ const P4000: React.FC<P4000Props> = ({
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [_tableSort, _setTableSort] = useState<Sort>(() => ({ column: '', order: 'none' }))
   const [itemsPerPage, setItemsPerPage] = useState<number>(30)
-  const {p4000}: P4000Selector = useSelector<State, P4000Selector>(mapState)
+  const {p4000, locale, gettingP4000}: P4000Selector = useSelector<State, P4000Selector>(mapState)
+
+  const sender = P4000?.participants.filter((p) => p.role === 'Sender')
+  const organisation = sender && sender.length > 0 ? {
+    name: sender[0].organisation.name,
+    country: CountryData.getCountryInstance(locale).findByValue(sender[0].organisation.countryCode.toUpperCase()).label
+  } : undefined
 
   const generateKeyForListRow = (periode: any, type: string, idx: number): string => {
     const key = idx + '_sedId' + p4000?.sedId +
@@ -144,13 +157,11 @@ const P4000: React.FC<P4000Props> = ({
 
   useEffect(() => {
     // select which P4000 SEDs we want to see
-    const seds = buc.seds?.filter((sed: Sed) => sed.type === 'P4000' && sed.status === 'received')
-    const sortedSeds = seds?.sort(dateSorter)
-    if(sortedSeds && sortedSeds.length > 0){
-      dispatch(getSedP4000(buc.caseId!, sortedSeds[0]))
+    if(P4000){
+      dispatch(getSedP4000(buc.caseId!, P4000))
     }
 
-  }, [buc])
+  }, [P4000])
 
   const renderLand = ({ value }: RenderOptions<P4000ListRow, P4000TableContext, string>) => {
     if (_.isEmpty(value)) {
@@ -196,56 +207,67 @@ const P4000: React.FC<P4000Props> = ({
       <VerticalSeparatorDiv size='3' />
       {renderBackLink()}
       <VerticalSeparatorDiv size='2' />
+      <Panel>
+        <Heading size='small'>
+          {t('p4000:title', {ORGANISATION_NAME: organisation?.name, ORGANISATION_COUNTRY: organisation?.country})}
+        </Heading>
+        <AlignEndRow style={{ width: '100%' }}>
+          <ColumnDiv>
+            <FlexEndDiv style={{ flexDirection: 'row-reverse' }}>
+              <ReactToPrint
+                documentTitle='P4000'
+                onAfterPrint={afterPrintOut}
+                onBeforePrint={beforePrintOut}
+                trigger={() =>
+                  <Button
+                    variant='secondary'
+                    disabled={_printDialogOpen}
+                  >
+                    {_printDialogOpen && <Loader />}
+                    {t('ui:print')}
+                  </Button>}
+                content={() => componentRef.current }
+              />
+              <HorizontalSeparatorDiv />
+              <Select
+                id='itemsPerPage'
+                label={t('ui:itemsPerPage')}
+                onChange={itemsPerPageChanged}
+                value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
+              >
+                <option value='10'>10</option>
+                <option value='15'>15</option>
+                <option value='20'>20</option>
+                <option value='30'>30</option>
+                <option value='50'>50</option>
+                <option value='all'>{t('ui:all')}</option>
+              </Select>
 
-      <AlignEndRow style={{ width: '100%' }}>
-        <ColumnDiv>
-          <FlexEndDiv style={{ flexDirection: 'row-reverse' }}>
-            <ReactToPrint
-              documentTitle='P4000'
-              onAfterPrint={afterPrintOut}
-              onBeforePrint={beforePrintOut}
-              trigger={() =>
-                <Button
-                  variant='secondary'
-                  disabled={_printDialogOpen}
-                >
-                  {_printDialogOpen && <Loader />}
-                  {t('ui:print')}
-                </Button>}
-              content={() => componentRef.current }
-            />
-            <HorizontalSeparatorDiv />
-            <Select
-              id='itemsPerPage'
-              label={t('ui:itemsPerPage')}
-              onChange={itemsPerPageChanged}
-              value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
-            >
-              <option value='10'>10</option>
-              <option value='15'>15</option>
-              <option value='20'>20</option>
-              <option value='30'>30</option>
-              <option value='50'>50</option>
-              <option value='all'>{t('ui:all')}</option>
-            </Select>
-
-          </FlexEndDiv>
-        </ColumnDiv>
-      </AlignEndRow>
-      <Table<P4000ListRow, P4000TableContext>
-        animatable={false}
-        id='P4000Overview'
-        searchable
-        selectable={false}
-        sortable
-        onColumnSort={(sort: any) => {
-          standardLogger('buc.edit.tools.P4000.overview.sort', { sort })
-          _setTableSort(sort)
-        }}
-        itemsPerPage={itemsPerPage}
-        items={items}
-        columns={columns}
-      />
+            </FlexEndDiv>
+          </ColumnDiv>
+        </AlignEndRow>
+        {gettingP4000 &&
+          <FlexCenterDiv style={{ width: '10%', marginLeft:"auto", marginRight:"auto" }}>
+            <WaitingPanel/>
+          </FlexCenterDiv>
+        }
+        {!gettingP4000 &&
+          <Table<P4000ListRow, P4000TableContext>
+            animatable={false}
+            id='P4000Overview'
+            searchable
+            selectable={false}
+            sortable
+            onColumnSort={(sort: any) => {
+              standardLogger('buc.edit.tools.P4000.overview.sort', { sort })
+              _setTableSort(sort)
+            }}
+            itemsPerPage={itemsPerPage}
+            items={items}
+            columns={columns}
+          />
+        }
+      </Panel>
       <HiddenDiv>
         <div ref={componentRef} id='printJS-form'>
           <Table<P4000ListRow, P4000TableContext>
