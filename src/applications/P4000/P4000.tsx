@@ -15,7 +15,13 @@ import React, {useEffect, useRef, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import {useDispatch, useSelector} from 'react-redux'
 import {getSedP4000} from "../../actions/buc";
-import {P4000SED, P4000ListRow, P4000TableContext, P4000ListRows} from "../../declarations/p4000";
+import {
+  P4000SED,
+  P4000ListRow,
+  P4000TableContext,
+  P4000ListRows,
+  P4000PeriodObject
+} from "../../declarations/p4000";
 import {State} from "../../declarations/reducers";
 import Table, {Column, RenderOptions, Sort} from "@navikt/tabell";
 import _ from "lodash";
@@ -86,16 +92,31 @@ const P4000: React.FC<P4000Props> = ({
     return md5(key)
   }
 
+  const getPeriodeDates = (periode: P4000PeriodObject) => {
+    let fom, tom
+    if(periode.lukketPeriode) {
+      fom = periode.lukketPeriode.fom ? new Date(periode.lukketPeriode.fom) : null
+      tom = periode.lukketPeriode.tom ? new Date(periode.lukketPeriode.tom) : null
+    } else if (periode.openPeriode){
+      fom = periode.openPeriode.fom ? new Date(periode.openPeriode.fom) : null
+    }
+
+    return {
+      fom: fom,
+      tom: tom
+    }
+  }
 
   const createP4000ListRows = (type: string, perioder: any) => {
     if(!perioder) return []
     return perioder.map((periode: any, idx: number) => {
+      const {fom, tom} = getPeriodeDates(periode.periode)
       return {
         key: generateKeyForListRow(periode, type, idx),
         land: type === P4000_ARBEID ? periode.adresseFirma.land : periode.land,
         type: t('p4000:' + type + '-label'),
-        startdato: periode.periode.lukketPeriode.fom ? new Date(periode.periode.lukketPeriode.fom) : null,
-        sluttdato: periode.periode.lukketPeriode.tom ? new Date(periode.periode.lukketPeriode.tom) : null,
+        startdato: fom,
+        sluttdato: tom,
         usikreDatoer: periode.usikkerDatoIndikator ? periode.usikkerDatoIndikator === "0" ? "Nei" : "Ja" : null,
         tilleggsInfo: periode.annenInformasjon ? "Ja" : "Nei",
         arbeidsgiver: type === P4000_ARBEID ? periode.navnFirma : null,

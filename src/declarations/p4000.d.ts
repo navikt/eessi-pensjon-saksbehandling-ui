@@ -7,14 +7,18 @@ export interface P4000PeriodInterval {
   extra: string | null
 }
 
+export interface P4000PeriodObject {
+  "lukketPeriode": P4000PeriodInterval
+  "openPeriode": P4000PeriodInterval
+  "periodebeskrivelse": string | null
+}
+
+
+
 export interface P4000Period {
   "land": string,
   "annenInformasjon": string | null,
-  "periode": {
-    "lukketPeriode": P4000PeriodInterval
-    "openPeriode": string | null,
-    "periodebeskrivelse": string | null
-  },
+  "periode": P4000PeriodObject,
   "usikkerDatoIndikator": string | null,
   "navnPaaInstitusjon": string | null,
   "typePeriode": string | null
