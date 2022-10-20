@@ -39,7 +39,8 @@ export const countrySorter = (locale: string) => {
     const labelB = countryInstance.findByValue(b)
     if (CountryFilter.SCANDINAVIA.indexOf(b.toUpperCase()) - CountryFilter.SCANDINAVIA.indexOf(a.toUpperCase()) > 0) return 1
     if (CountryFilter.SCANDINAVIA.indexOf(b.toUpperCase()) - CountryFilter.SCANDINAVIA.indexOf(a.toUpperCase()) < 0) return -1
-    return labelA.label.localeCompare(labelB.label)
+
+    return labelA && labelB ? labelA.label.localeCompare(labelB.label) : a.localeCompare(b)
   }
 }
 
