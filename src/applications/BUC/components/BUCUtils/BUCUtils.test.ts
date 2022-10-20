@@ -97,6 +97,7 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
     expect(sort('no', 'se')).toEqual(CORRECT_ORDER)
     expect(sort('no', 'dk')).toEqual(CORRECT_ORDER)
     expect(sort('no', 'ag')).toEqual(CORRECT_ORDER)
+    expect(sort('lt', 'el')).toEqual(WRONG_ORDER_WILL_SWAP)
   })
 
   it('getBucTypeLabel()', () => {
