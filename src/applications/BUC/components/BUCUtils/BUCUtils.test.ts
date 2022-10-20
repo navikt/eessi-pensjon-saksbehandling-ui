@@ -97,7 +97,11 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
     expect(sort('no', 'se')).toEqual(CORRECT_ORDER)
     expect(sort('no', 'dk')).toEqual(CORRECT_ORDER)
     expect(sort('no', 'ag')).toEqual(CORRECT_ORDER)
-    expect(sort('lt', 'el')).toEqual(WRONG_ORDER_WILL_SWAP)
+  })
+
+  it('countrySorter() should not fail when country code does not exist', () => {
+    const sort = countrySorter('nb')
+    expect(sort('lt', 'xx')).toEqual(CORRECT_ORDER)
   })
 
   it('getBucTypeLabel()', () => {
