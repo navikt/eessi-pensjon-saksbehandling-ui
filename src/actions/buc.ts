@@ -304,9 +304,13 @@ export const getInstitutionsListForBucAndCountry = (
   bucType: string, country: string
 ): ActionWithPayload<Institutions> => {
   // RINA uses UK, not GB
+  // RINA uses EL, not GR
   let _country: string = country
   if (_country.toUpperCase() === 'GB') {
     _country = 'UK'
+  }
+  if (_country.toUpperCase() === 'GR') {
+    _country = 'EL'
   }
   return call({
     url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: bucType, country: _country }),

@@ -61,9 +61,9 @@ const PersonBody: React.FC<PersonBodyProps> = ({
           </strong>:
         </Detail>
         <HorizontalSeparatorDiv />
-        <BodyLong>
+        <div className='navds-body-long'>
           {_value.map((val: any) => val)}
-        </BodyLong>
+        </div>
       </Element>
     )
   }

@@ -4,7 +4,7 @@ import P5000 from 'applications/P5000/P5000'
 import P4000 from "applications/P4000/P4000";
 import { Delete, NextFilled } from '@navikt/ds-icons'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import { AllowedLocaleString, BUCMode, FeatureToggles, Loading } from 'declarations/app.d'
+import { AllowedLocaleString, BUCMode, Loading } from 'declarations/app.d'
 import {
   Buc,
   BucInfo,
@@ -85,7 +85,6 @@ export interface BUCToolsProps {
 
 export interface BUCToolsSelector {
   bucsInfo?: BucsInfo | undefined
-  featureToggles: FeatureToggles
   loading: Loading
   locale: AllowedLocaleString
   p5000sFromRinaMap: P5000sFromRinaMap
@@ -94,7 +93,6 @@ export interface BUCToolsSelector {
 
 const mapState = (state: State): BUCToolsSelector => ({
   bucsInfo: state.buc.bucsInfo,
-  featureToggles: state.app.featureToggles,
   loading: state.loading,
   locale: state.ui.locale,
   p5000sFromRinaMap: state.buc.p5000sFromRinaMap,
@@ -110,7 +108,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   setMode
 }: BUCToolsProps): JSX.Element => {
   const {
-    bucsInfo, featureToggles, loading, tagList
+    bucsInfo, loading, tagList
   }: BUCToolsSelector = useSelector<State, BUCToolsSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -227,9 +225,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     }, {
       label: t('ui:tags'),
       key: 'tags'
-    }, {
-      label: t('buc:form-commentForBUC'),
-      key: 'comments'
     }
   ]
 
@@ -277,13 +272,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       >
         <Tabs.List>
           {tabs.map(tab => {
-            if(tab.key === "P4000" && !featureToggles.P5000_UPDATES_VISIBLE) {
-              return
-            } else if(tab.key === "comments" && featureToggles.P5000_UPDATES_VISIBLE){
-                return
-            } else {
-              return (<Tabs.Tab key={tab.key} label={tab.label} value={tab.key} />)
-            }
+            return (<Tabs.Tab key={tab.key} label={tab.label} value={tab.key} />)
           })}
         </Tabs.List>
         <Tabs.Panel value='P5000'>
@@ -361,7 +350,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           />
         </Tabs.Panel>
         <Tabs.Panel value='comments'>
-
+          {/*TODO: Remove this tab - and all references to comments*/}
           <VerticalSeparatorDiv size='0.5' />
           <Detail>
             {t('ui:comment')}

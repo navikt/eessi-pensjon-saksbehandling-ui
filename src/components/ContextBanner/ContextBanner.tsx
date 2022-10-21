@@ -8,7 +8,7 @@ import { PersonPDL } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import { linkLogger, standardLogger } from 'metrics/loggers'
 import { NextFilled, ExternalLink } from '@navikt/ds-icons'
-import { Link, Detail } from '@navikt/ds-react'
+import { Link } from '@navikt/ds-react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -35,12 +35,13 @@ export const Context = styled.div`
  display: flex;
  align-items: center;
 `
-export const Tag = styled(Detail)`
+export const Tag = styled.div`
  padding: 0rem 0.5rem;
  margin-left: 0.25rem;
  margin-right: 0.25rem;
  display: flex;
  align-items: center;
+ font-size: var(--navds-font-size-small)
 `
 
 export interface ContextBannerProps {
@@ -78,7 +79,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
     <Content>
       <Context>
         <BUCWebSocket
-          fnr={getFnr(personPdl)}
+          fnr={getFnr(personPdl) ? getFnr(personPdl) : ''}
           avdodFnr=''
         />
         <NextFilled />
