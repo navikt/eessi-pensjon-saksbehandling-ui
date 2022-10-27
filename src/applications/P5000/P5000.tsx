@@ -310,7 +310,7 @@ const P5000: React.FC<P5000Props> = ({
         <P5000Droppable placeholderProps={placeholderProps}>
           {_tables.map((table: any, index: number): JSX.Element => {
             if ((table.id === 'P5000Edit' && !_.isNil(mainSed)) ||
-              (table.id === 'P5000Sum') ||
+              ((table.id === 'P5000Sum') && !_.isNil(mainSed)) ||
               (table.id === 'P5000Overview')
             ) {
               return (
