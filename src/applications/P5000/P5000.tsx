@@ -135,7 +135,7 @@ const P5000: React.FC<P5000Props> = ({
   )
 
   const renderP5000SumContent = (activeSeds: Seds, p5000WorkingCopies: Array<LocalStorageEntry<P5000SED>>) => {
-    const onlyNorwegianActiveSeds: Seds = _.filter(activeSeds, (sed: Sed) => sed.status !== 'received') ?? []
+    if (!mainSed) return null
     let p5000WorkingCopyEntry: LocalStorageEntry<P5000SED> | undefined
     if (mainSed) {
       p5000WorkingCopyEntry = getWorkingCopy(p5000WorkingCopies, mainSed?.id)
@@ -145,7 +145,6 @@ const P5000: React.FC<P5000Props> = ({
         p5000sFromRinaMap={p5000sFromRinaMap}
         p5000WorkingCopy={p5000WorkingCopyEntry}
         updateWorkingCopy={updateWorkingCopy}
-        seds={onlyNorwegianActiveSeds}
         mainSed={mainSed}
       />
     )

@@ -3,7 +3,7 @@ import { typePeriode } from 'applications/P5000/P5000.labels'
 import Select from 'components/Select/Select'
 import { HorizontalLineSeparator } from 'components/StyledComponents'
 import { Labels, LocalStorageEntry, Option } from 'declarations/app'
-import { SakTypeMap, SakTypeValue, Sed, Seds } from 'declarations/buc.d'
+import { SakTypeMap, SakTypeValue, Sed } from 'declarations/buc.d'
 import { P5000sFromRinaMap, P5000SED, P5000SumRow, P5000SumRows } from 'declarations/p5000'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
@@ -31,7 +31,6 @@ export interface P5000SumProps {
   p5000sFromRinaMap: P5000sFromRinaMap
   p5000WorkingCopy: LocalStorageEntry<P5000SED> | undefined
   updateWorkingCopy: (newSed: P5000SED, sedId: string) => void
-  seds: Seds
   mainSed: Sed | undefined
 }
 
@@ -40,7 +39,7 @@ const mapState = (state: State): any => ({
 })
 
 const P5000Sum: React.FC<P5000SumProps> = ({
-  p5000sFromRinaMap, p5000WorkingCopy, updateWorkingCopy, seds, mainSed
+  p5000sFromRinaMap, p5000WorkingCopy, updateWorkingCopy, mainSed
 }: P5000SumProps) => {
   const { t } = useTranslation()
   const { sakType } = useSelector<State, any>(mapState)
@@ -55,7 +54,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
     .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
     .map((e: string | number) => ({ label: '[' + e + '] ' + _.get(typePeriode, e), value: '' + e })))
 
-  const items = convertP5000SEDToP5000SumRows(seds, p5000sFromRinaMap, p5000WorkingCopy)
+  const items = convertP5000SEDToP5000SumRows(mainSed ? [mainSed] : [], p5000sFromRinaMap, p5000WorkingCopy)
 
   const beforePrintOut = (): void => {
     _setPrintDialogOpen(true)
