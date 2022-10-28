@@ -103,7 +103,7 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
           newFeatureToggles[k as Feature] = state.params[k] ? state.params[k] === "true" : action.payload?.features[k]
         })
       }
-      console.log('feature toggles', newFeatureToggles)
+
       return {
         ...state,
         featureToggles: newFeatureToggles,
