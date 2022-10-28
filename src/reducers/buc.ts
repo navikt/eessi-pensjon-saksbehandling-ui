@@ -270,7 +270,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.BUC_GET_BUCSLIST_SUCCESS:
     case types.BUC_GET_BUCSLIST_VEDTAK_SUCCESS: {
       // merge only the new ones, do not have duplicates
-      const newBucsList = _.isNil(state.bucsList) ? [] : state.bucsList;
+      const newBucsList = _.isNil(state.bucsList) ? [] : _.cloneDeep(state.bucsList);
       (action as ActionWithPayload).payload?.forEach((buc: BucListItem) => {
         const foundIndex = _.findIndex(newBucsList, (b: BucListItem) => b.euxCaseId === buc.euxCaseId)
         if (foundIndex < 0) {
