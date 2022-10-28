@@ -658,7 +658,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const getSpinner = (text: string): JSX.Element => (
-    <WaitingPanel size='xsmall' message={t(text)} oneLine />
+    <WaitingPanel size='xsmall' message={t(text)} oneLine key={"sedstart-spinner-" + text}/>
   )
 
   const onJoarkAttachmentsChanged = (jbi: JoarkBrowserItems): void => {
