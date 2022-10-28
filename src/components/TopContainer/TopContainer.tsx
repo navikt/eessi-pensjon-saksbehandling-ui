@@ -169,12 +169,14 @@ export const TopContainer: React.FC<TopContainerProps> = ({
               username={username}
               gettingUserInfo={gettingUserInfo}
               isLoggingOut={isLoggingOut}
+              key="topContainer-header"
             />
             <BannerAlert
               message={bannerMessage}
               variant={bannerStatus as AlertVariant}
               error={error}
               onClose={onClear}
+              key="topContainer-bannerAlert"
             />
             {modal !== undefined && (
               <Modal
@@ -182,12 +184,14 @@ export const TopContainer: React.FC<TopContainerProps> = ({
                 modal={modal}
                 open={!_.isNil(modal)}
                 onModalClose={handleModalClose}
+                key="topContainer-modal"
               />
             )}
             <Main
               id='main'
               role='main'
               className={className}
+              key="topContainer-main"
             >
               {children}
             </Main>
@@ -195,6 +199,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
               <Footer
                 params={params}
                 footerOpen={footerOpen}
+                key="topContainer-footer"
               />
             )}
           </ReactResizeDetector>
