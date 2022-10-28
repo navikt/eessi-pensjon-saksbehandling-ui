@@ -76,7 +76,7 @@ const PersonBody: React.FC<PersonBodyProps> = ({
   ): Array<JSX.Element | string> => {
     if (value) {
       address.push((
-        <Tooltip label={<span>{label}</span>}>
+        <Tooltip label={<span>{label}</span>} key={"tooltip-" + + label + value}>
           <span key={value}>{value}</span>
         </Tooltip>
       ))
@@ -176,43 +176,43 @@ const PersonBody: React.FC<PersonBodyProps> = ({
 
   return (
     <PersonBodyDiv>
-      <MarginRow>
-        <MarginColumn>
+      <MarginRow key="personBody-marginrow-1">
+        <MarginColumn key="personBody-marginrow-1-margincolumn-1">
           <Home />
           <HorizontalSeparatorDiv />
           {bostedsadresse ? renderEntity('ui:bostedsadresse', bostedsadresse) : null}
         </MarginColumn>
-        <MarginColumn>
+        <MarginColumn key="personBody-marginrow-1-margincolumn-2">
           <Calender />
           <HorizontalSeparatorDiv />
           {renderEntity('ui:birthdate', birthDateString)}
         </MarginColumn>
-        <MarginColumn>
+        <MarginColumn key="personBody-marginrow-1-margincolumn-3">
           <Profile />
           <HorizontalSeparatorDiv />
           {renderEntity('ui:nationality', nationality)}
         </MarginColumn>
       </MarginRow>
       <HorizontalLineSeparator />
-      <MarginRow>
-        <MarginColumn>
+      <MarginRow key="personBody-marginrow-2">
+        <MarginColumn key="personBody-marginrow-2-margincolumn-1">
           <Globe />
           <HorizontalSeparatorDiv />
           {renderEntity('ui:oppholdsadresse', oppholdsadresse)}
         </MarginColumn>
-        <MarginColumn>
+        <MarginColumn key="personBody-marginrow-2-margincolumn-2">
           <Heart />
           <HorizontalSeparatorDiv />
           {renderEntity('ui:marital-status', maritalStatus)}
         </MarginColumn>
-        <MarginColumn />
+        <MarginColumn key="personBody-marginrow-2-margincolumn-3"/>
       </MarginRow>
       {((personAvdods && personAvdods.length > 0) || deathDateString) && (
         <>
           <HorizontalLineSeparator />
-          <MarginRow>
+          <MarginRow key="personBody-marginrow-3">
 
-            <MarginColumn>
+            <MarginColumn key="personBody-marginrow-3-margincolumn-1">
               <People />
               <HorizontalSeparatorDiv />
               <Detail size='small'>
@@ -249,14 +249,14 @@ const PersonBody: React.FC<PersonBodyProps> = ({
             </MarginColumn>
             {deathDateString
               ? (
-                <MarginColumn>
+                <MarginColumn key="personBody-marginrow-3-margincolumn-2">
                   <Calender />
                   <HorizontalSeparatorDiv />
                   {renderEntity('ui:deathdate', deathDateString)}
                 </MarginColumn>
                 )
               : (
-                <MarginColumn />
+                <MarginColumn key="personBody-marginrow-3-margincolumn-2"/>
                 )}
           </MarginRow>
         </>
