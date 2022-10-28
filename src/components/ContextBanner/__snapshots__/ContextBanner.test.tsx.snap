@@ -1,55 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`components/ContextBanner/ContextBanner Render: match snapshot 1`] = `
-.c11 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-size: inherit;
-  line-height: inherit;
-  color: !important;
-}
-
-.c11:focus {
-  background-color: !important;
-  color: !important;
-}
-
-.c11 svg {
-  fill: !important;
-  stroke: !important;
-}
-
-.c11 svg path {
-  stroke: !important;
-}
-
-.c11 svg:focus {
-  fill: !important;
-  stroke: !important;
-}
-
-ui-fss.g10[id="c10"] {
-  content: "c11,";
-}
-
 .c7 {
   display: inline-block;
   margin-left: 0.25rem;
 }
 
-.c12 {
+.c10 {
   display: inline-block;
   margin-left: 0.5rem;
 }
 
-ui-fss.g31[id="c6"] {
-  content: "c7,c12,";
+ui-fss.g18[id="c6"] {
+  content: "c7,c10,";
 }
 
 .c9 {
@@ -63,16 +26,16 @@ ui-fss.g31[id="c6"] {
   flex-direction: row-reverse;
 }
 
-ui-fss.g50[id="c8"] {
+ui-fss.g41[id="c8"] {
   content: "c9,";
 }
 
-.c14 {
+.c12 {
   padding: 0rem 0.5rem;
 }
 
-ui-fss.g51[id="c13"] {
-  content: "c14,";
+ui-fss.g42[id="c11"] {
+  content: "c12,";
 }
 
 .c1 {
@@ -91,10 +54,11 @@ ui-fss.g51[id="c13"] {
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  background-color: white;
+  background-color: var(--navds-semantic-color-component-background-alternate);
+  border-bottom: 1px solid var(--navds-semantic-color-border);
 }
 
-ui-fss.g52[id="c0"] {
+ui-fss.g43[id="c0"] {
   content: "c1,";
 }
 
@@ -110,12 +74,7 @@ ui-fss.g52[id="c0"] {
   align-items: center;
 }
 
-.c3 * {
-  font-size: inherit;
-  line-height: inherit;
-}
-
-ui-fss.g53[id="c2"] {
+ui-fss.g44[id="c2"] {
   content: "c3,";
 }
 
@@ -131,246 +90,130 @@ ui-fss.g53[id="c2"] {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  font-size: var(--navds-font-size-small);
 }
 
-ui-fss.g54[id="c4"] {
+ui-fss.g45[id="c4"] {
   content: "c5,";
 }
 
-<ContextBanner
-  highContrast={false}
-  mode="buclist"
+<div
+  class="c0 c1"
 >
-  <styled.div>
-    <div
-      className="c0 c1"
+  <div
+    class="c2 c3"
+    data-testid="contextbanner-context"
+  >
+    <svg
+      fill="none"
+      focusable="false"
+      height="1em"
+      role="img"
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <styled.div>
-        <div
-          className="c2 c3"
-        >
-          <Component
-            avdodFnr=""
-          >
-            <div
-              className="websocket"
-            />
-          </Component>
-          <HoyreChevron>
-            <NavFrontendChevron
-              className=""
-              stor={false}
-              type="høyre"
-            >
-              <span
-                className="nav-frontend-chevron chevronboks chevron--hoyre"
-              />
-            </NavFrontendChevron>
-          </HoyreChevron>
-          <Styled(Element)>
-            <Element
-              className="c4 c5"
-            >
-              <TypografiBase
-                className="c4 c5"
-                type="element"
-              >
-                <p
-                  className="typo-element c4 c5"
-                >
-                  <span>
-                    ui:youComeFrom
-                  </span>
-                  <styled.div
-                    size="0.25"
-                  >
-                    <div
-                      className="c6 c7"
-                      size="0.25"
-                    />
-                  </styled.div>
-                  <strong>
-                    vedtakskontekst
-                  </strong>
-                  .
-                </p>
-              </TypografiBase>
-            </Element>
-          </Styled(Element)>
-          <Styled(Element)>
-            <Element
-              className="c4 c5"
-            >
-              <TypografiBase
-                className="c4 c5"
-                type="element"
-              >
-                <p
-                  className="typo-element c4 c5"
-                >
-                  <span>
-                    buc:form-caseType
-                    : 
-                  </span>
-                  <styled.div
-                    size="0.25"
-                  >
-                    <div
-                      className="c6 c7"
-                      size="0.25"
-                    />
-                  </styled.div>
-                  <strong>
-                    Generell
-                  </strong>
-                </p>
-              </TypografiBase>
-            </Element>
-          </Styled(Element)>
-        </div>
-      </styled.div>
-      <styled.div>
-        <div
-          className="c8 c9"
-        >
-          <Styled(f)
-            data-amplitude="links.rettskilder"
-            href="https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03"
-            onClick={[Function]}
-            target="_blank"
-          >
-            <f
-              className="c10 c11"
-              data-amplitude="links.rettskilder"
-              href="https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03"
-              onClick={[Function]}
-              target="_blank"
-            >
-              <a
-                className="lenke c10 c11"
-                data-amplitude="links.rettskilder"
-                href="https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03"
-                onClick={[Function]}
-                rel="noopener"
-                target="_blank"
-              >
-                ui:lawsource
-                <styled.div
-                  size="0.5"
-                >
-                  <div
-                    className="c6 c12"
-                    size="0.5"
-                  />
-                </styled.div>
-                <LogoutIcon
-                  color="#0067c5"
-                >
-                  <svg
-                    color="#0067c5"
-                    contentScriptType="text/ecmascript"
-                    contentStyleType="text/css"
-                    enableBackground="new 0 0 24 24"
-                    height="24px"
-                    id="Outline_Version"
-                    preserveAspectRatio="xMidYMid meet"
-                    version="1.1"
-                    viewBox="0 0 24 24"
-                    width="24px"
-                    x="0px"
-                    xmlns="http://www.w3.org/2000/svg"
-                    y="0px"
-                    zoomAndPan="magnify"
-                  >
-                    <g
-                      fill="#0067c5"
-                    >
-                      <path
-                        d="M13.5,18c-0.276,0-0.5,0.224-0.5,0.5V22H1V2h12v3.5C13,5.776,13.224,6,13.5,6S14,5.776,14,5.5v-4C14,1.224,13.776,1,13.5,1   h-13C0.224,1,0,1.224,0,1.5v21C0,22.776,0.224,23,0.5,23h13c0.276,0,0.5-0.224,0.5-0.5v-4C14,18.224,13.776,18,13.5,18z"
-                      />
-                      <path
-                        d="M23.961,12.691c0.051-0.122,0.051-0.26,0-0.382c-0.025-0.062-0.062-0.117-0.108-0.163l-5-5 c-0.195-0.195-0.512-0.195-0.707,0s-0.195,0.512,0,0.707L22.293,12H5.5C5.224,12,5,12.224,5,12.5S5.224,13,5.5,13h16.793   l-4.146,4.146c-0.195,0.195-0.195,0.512,0,0.707C18.244,17.951,18.372,18,18.5,18s0.256-0.049,0.354-0.146l5-5   C23.899,12.808,23.936,12.752,23.961,12.691z"
-                      />
-                    </g>
-                  </svg>
-                </LogoutIcon>
-              </a>
-            </f>
-          </Styled(f)>
-          <styled.span>
-            <span
-              className="c13 c14"
-            >
-              •
-            </span>
-          </styled.span>
-          <Styled(f)
-            data-amplitude="links.hjelpe"
-            href="https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx"
-            onClick={[Function]}
-            target="_blank"
-          >
-            <f
-              className="c10 c11"
-              data-amplitude="links.hjelpe"
-              href="https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx"
-              onClick={[Function]}
-              target="_blank"
-            >
-              <a
-                className="lenke c10 c11"
-                data-amplitude="links.hjelpe"
-                href="https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx"
-                onClick={[Function]}
-                rel="noopener"
-                target="_blank"
-              >
-                ui:help
-                <styled.div
-                  size="0.5"
-                >
-                  <div
-                    className="c6 c12"
-                    size="0.5"
-                  />
-                </styled.div>
-                <LogoutIcon
-                  color="#0067c5"
-                >
-                  <svg
-                    color="#0067c5"
-                    contentScriptType="text/ecmascript"
-                    contentStyleType="text/css"
-                    enableBackground="new 0 0 24 24"
-                    height="24px"
-                    id="Outline_Version"
-                    preserveAspectRatio="xMidYMid meet"
-                    version="1.1"
-                    viewBox="0 0 24 24"
-                    width="24px"
-                    x="0px"
-                    xmlns="http://www.w3.org/2000/svg"
-                    y="0px"
-                    zoomAndPan="magnify"
-                  >
-                    <g
-                      fill="#0067c5"
-                    >
-                      <path
-                        d="M13.5,18c-0.276,0-0.5,0.224-0.5,0.5V22H1V2h12v3.5C13,5.776,13.224,6,13.5,6S14,5.776,14,5.5v-4C14,1.224,13.776,1,13.5,1   h-13C0.224,1,0,1.224,0,1.5v21C0,22.776,0.224,23,0.5,23h13c0.276,0,0.5-0.224,0.5-0.5v-4C14,18.224,13.776,18,13.5,18z"
-                      />
-                      <path
-                        d="M23.961,12.691c0.051-0.122,0.051-0.26,0-0.382c-0.025-0.062-0.062-0.117-0.108-0.163l-5-5 c-0.195-0.195-0.512-0.195-0.707,0s-0.195,0.512,0,0.707L22.293,12H5.5C5.224,12,5,12.224,5,12.5S5.224,13,5.5,13h16.793   l-4.146,4.146c-0.195,0.195-0.195,0.512,0,0.707C18.244,17.951,18.372,18,18.5,18s0.256-0.049,0.354-0.146l5-5   C23.899,12.808,23.936,12.752,23.961,12.691z"
-                      />
-                    </g>
-                  </svg>
-                </LogoutIcon>
-              </a>
-            </f>
-          </Styled(f)>
-        </div>
-      </styled.div>
+      <path
+        clip-rule="evenodd"
+        d="m18.121 12-8.06 8.06-2.122-2.12L13.88 12l-5.94-5.94 2.122-2.12L18.12 12Z"
+        fill="currentColor"
+        fill-rule="evenodd"
+      />
+    </svg>
+    <div
+      class="c4 c5"
+      data-testid="tag-pesyscontext"
+    >
+      <span>
+        ui:youComeFrom
+      </span>
+      <div
+        class="c6 c7"
+      />
+      <strong>
+        vedtakskontekst
+      </strong>
+      .
     </div>
-  </styled.div>
-</ContextBanner>
+    <div
+      class="c4 c5"
+      data-testid="tag-buc-case-type"
+    >
+      <span>
+        buc:form-caseType
+        : 
+      </span>
+      <div
+        class="c6 c7"
+      />
+      <strong>
+        Generell
+      </strong>
+    </div>
+  </div>
+  <div
+    class="c8 c9"
+    data-testid="div-with-links"
+  >
+    <a
+      class="navds-link"
+      data-amplitude="links.rettskilder"
+      href="https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03"
+      target="_blank"
+    >
+      ui:lawsource
+      <div
+        class="c6 c10"
+      />
+      <svg
+        fill="none"
+        focusable="false"
+        height="1em"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M20.586 2H14V0h10v10h-2V3.414L10.707 14.707l-1.414-1.414L20.586 2ZM0 5a2 2 0 0 1 2-2h8.5v2H2v17h17v-8.5h2V22a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </a>
+    <span
+      class="c11 c12"
+    >
+      •
+    </span>
+    <a
+      class="navds-link"
+      data-amplitude="links.hjelpe"
+      href="https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx"
+      target="_blank"
+    >
+      ui:help
+      <div
+        class="c6 c10"
+      />
+      <svg
+        fill="none"
+        focusable="false"
+        height="1em"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M20.586 2H14V0h10v10h-2V3.414L10.707 14.707l-1.414-1.414L20.586 2ZM0 5a2 2 0 0 1 2-2h8.5v2H2v17h17v-8.5h2V22a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </a>
+  </div>
+</div>
 `;

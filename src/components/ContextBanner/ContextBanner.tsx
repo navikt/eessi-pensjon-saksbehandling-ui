@@ -1,5 +1,3 @@
-import { getFnr } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
 import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { BUCMode, PesysContext } from 'declarations/app.d'
@@ -66,7 +64,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
   mode
 }: ContextBannerProps): JSX.Element => {
   const { t } = useTranslation()
-  const { gettingSakType, personPdl, pesysContext, sakType }: ContextBannerSelector = useSelector<State, ContextBannerSelector>(mapState)
+  const { gettingSakType, pesysContext, sakType }: ContextBannerSelector = useSelector<State, ContextBannerSelector>(mapState)
 
   useEffect(() => {
     standardLogger('context', {
@@ -77,20 +75,20 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
 
   return (
     <Content>
-      <Context>
-        <BUCWebSocket
-          fnr={getFnr(personPdl) ? getFnr(personPdl) : ''}
-          avdodFnr=''
-        />
+      <Context data-testid="contextbanner-context">
+        {/*<BUCWebSocket*/}
+        {/*  fnr={getFnr(personPdl) ? getFnr(personPdl) : ''}*/}
+        {/*  avdodFnr=''*/}
+        {/*/>*/}
         <NextFilled />
         {pesysContext && (
-          <Tag>
+          <Tag data-testid="tag-pesyscontext">
             <span>{t('ui:youComeFrom')}</span>
             <HorizontalSeparatorDiv size='0.25' />
             <strong>{pesysContext}</strong>.
           </Tag>
         )}
-        <Tag>
+        <Tag data-testid="tag-buc-case-type">
           {sakType && (
             <>
               <span>{t('buc:form-caseType')}: </span>
@@ -106,7 +104,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
         </Tag>
 
       </Context>
-      <DivWithLinks>
+      <DivWithLinks data-testid="div-with-links">
         <Link
           target='_blank'
           data-amplitude='links.rettskilder'

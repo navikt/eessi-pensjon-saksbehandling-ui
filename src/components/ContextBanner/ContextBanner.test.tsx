@@ -1,9 +1,8 @@
-import BucWebSocket from 'applications/BUC/websocket/WebSocket'
 import { VEDTAKSKONTEKST } from 'constants/constants'
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { stageSelector } from 'setupTests'
 import mockPerson from 'mocks/person/personPdl'
-import ContextBanner, { Context, ContextBannerProps, ContextBannerSelector, DivWithLinks, Tag } from './ContextBanner'
+import ContextBanner, { ContextBannerProps, ContextBannerSelector } from './ContextBanner'
 
 jest.mock('applications/BUC/websocket/WebSocket', () => ({ title, children }: any) => (
   <div title={title} className='websocket'>{children}</div>
@@ -20,15 +19,12 @@ const defaultSelector: ContextBannerSelector = {
 }
 
 describe('components/ContextBanner/ContextBanner', () => {
-  let wrapper: any
-
   const initialMockProps: ContextBannerProps = {
     mode: 'buclist'
   }
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
-    wrapper = render(<ContextBanner {...initialMockProps} />)
   })
 
   it('Render: match snapshot', () => {
@@ -37,12 +33,13 @@ describe('components/ContextBanner/ContextBanner', () => {
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.exists(Context)).toBeTruthy()
-    expect(wrapper.exists(BucWebSocket)).toBeTruthy()
-    expect(wrapper.exists(Tag)).toBeTruthy()
-    expect(wrapper.find(Tag).first().render().text()).toEqual('ui:youComeFrom' + mockPesysContext + '.')
-    expect(wrapper.find(Tag).last().render().text()).toEqual('buc:form-caseType' + ': ' + mockSakType)
-    expect(wrapper.exists(DivWithLinks)).toBeTruthy()
-    expect(wrapper.find(DivWithLinks).render().text()).toEqual('ui:lawsource' + '•' + 'ui:help')
+    render(<ContextBanner {...initialMockProps} />)
+    expect(screen.getByTestId("contextbanner-context")).toBeInTheDocument()
+    expect(screen.getByTestId("tag-pesyscontext")).toBeInTheDocument()
+    expect(screen.getByTestId("tag-buc-case-type")).toBeInTheDocument()
+    expect(screen.getByTestId("div-with-links")).toBeInTheDocument()
+    expect(screen.getByTestId("tag-pesyscontext").textContent).toEqual('ui:youComeFrom' + mockPesysContext + '.')
+    expect(screen.getByTestId("tag-buc-case-type").textContent).toEqual('buc:form-caseType' + ': ' + mockSakType)
+    expect(screen.getByTestId("div-with-links").textContent).toEqual('ui:lawsource' + '•' + 'ui:help')
   })
 })
