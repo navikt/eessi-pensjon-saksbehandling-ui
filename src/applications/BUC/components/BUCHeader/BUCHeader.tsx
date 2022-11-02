@@ -204,15 +204,20 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                   ? (
                     <RowText>
                       {t('buc:form-caseNumberInRina') + ': '}
-                      <RinaLink
-                        data-amplitude='buc.list.buc.rinaUrl'
-                        data-testid='a_buc_c_BUCHeader--label_case_gotorina_link_id'
-                        href={rinaUrl + buc.caseId}
-                        onClick={onRinaLinkClick}
-                        target='rinaWindow'
-                      >
-                        {buc.caseId}
-                      </RinaLink>
+
+                      {/*OBJECT hack - wrap inner link in <object> to get rid of nested links error*/}
+                      {/*https://kizu.dev/nested-links/*/}
+                      <object type="owo/uwu">
+                        <RinaLink
+                          data-amplitude='buc.list.buc.rinaUrl'
+                          data-testid='a_buc_c_BUCHeader--label_case_gotorina_link_id'
+                          href={rinaUrl + buc.caseId}
+                          onClick={onRinaLinkClick}
+                          target='rinaWindow'
+                        >
+                          {buc.caseId}
+                        </RinaLink>
+                      </object>
                     </RowText>
                     )
                   : (
