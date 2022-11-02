@@ -1,0 +1,219 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/ContextBanner/ContextBanner Render: match snapshot 1`] = `
+.c7 {
+  display: inline-block;
+  margin-left: 0.25rem;
+}
+
+.c10 {
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+ui-fss.g18[id="c6"] {
+  content: "c7,c10,";
+}
+
+.c9 {
+  padding: 0.5rem 2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+}
+
+ui-fss.g41[id="c8"] {
+  content: "c9,";
+}
+
+.c12 {
+  padding: 0rem 0.5rem;
+}
+
+ui-fss.g42[id="c11"] {
+  content: "c12,";
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  background-color: var(--navds-semantic-color-component-background-alternate);
+  border-bottom: 1px solid var(--navds-semantic-color-border);
+}
+
+ui-fss.g43[id="c0"] {
+  content: "c1,";
+}
+
+.c3 {
+  padding: 0.5rem 2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+ui-fss.g44[id="c2"] {
+  content: "c3,";
+}
+
+.c5 {
+  padding: 0rem 0.5rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: var(--navds-font-size-small);
+}
+
+ui-fss.g45[id="c4"] {
+  content: "c5,";
+}
+
+<div
+  class="c0 c1"
+>
+  <div
+    class="c2 c3"
+    data-testid="contextbanner-context"
+  >
+    <svg
+      fill="none"
+      focusable="false"
+      height="1em"
+      role="img"
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clip-rule="evenodd"
+        d="m18.121 12-8.06 8.06-2.122-2.12L13.88 12l-5.94-5.94 2.122-2.12L18.12 12Z"
+        fill="currentColor"
+        fill-rule="evenodd"
+      />
+    </svg>
+    <div
+      class="c4 c5"
+      data-testid="tag-pesyscontext"
+    >
+      <span>
+        ui:youComeFrom
+      </span>
+      <div
+        class="c6 c7"
+      />
+      <strong>
+        vedtakskontekst
+      </strong>
+      .
+    </div>
+    <div
+      class="c4 c5"
+      data-testid="tag-buc-case-type"
+    >
+      <span>
+        buc:form-caseType
+        : 
+      </span>
+      <div
+        class="c6 c7"
+      />
+      <strong>
+        Generell
+      </strong>
+    </div>
+  </div>
+  <div
+    class="c8 c9"
+    data-testid="div-with-links"
+  >
+    <a
+      class="navds-link"
+      data-amplitude="links.rettskilder"
+      href="https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03"
+      target="_blank"
+    >
+      ui:lawsource
+      <div
+        class="c6 c10"
+      />
+      <svg
+        fill="none"
+        focusable="false"
+        height="1em"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M20.586 2H14V0h10v10h-2V3.414L10.707 14.707l-1.414-1.414L20.586 2ZM0 5a2 2 0 0 1 2-2h8.5v2H2v17h17v-8.5h2V22a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </a>
+    <span
+      class="c11 c12"
+    >
+      •
+    </span>
+    <a
+      class="navds-link"
+      data-amplitude="links.hjelpe"
+      href="https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx"
+      target="_blank"
+    >
+      ui:help
+      <div
+        class="c6 c10"
+      />
+      <svg
+        fill="none"
+        focusable="false"
+        height="1em"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M20.586 2H14V0h10v10h-2V3.414L10.707 14.707l-1.414-1.414L20.586 2ZM0 5a2 2 0 0 1 2-2h8.5v2H2v17h17v-8.5h2V22a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </a>
+  </div>
+</div>
+`;
