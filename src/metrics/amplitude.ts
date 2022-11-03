@@ -2,7 +2,7 @@ import amplitude from 'amplitude-js'
 
 const isProduction = () => {
   const host = window?.location?.hostname || ''
-  return host === 'pensjon-utland.nais.adeo.no'
+  return host === 'pensjon-utland.intern.nav.no'
 }
 
 const isLocalhost = () => {
