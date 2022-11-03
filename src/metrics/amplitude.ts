@@ -12,8 +12,8 @@ const isLocalhost = () => {
 
 const getApiKey = () => {
   return isProduction()
-    ? 'a9a60eb3e832909758c46016e1714d3e'
-    : 'feb0ead20059b4be531bfa6e076906ab'
+    ? '08a7c81e3634edacf0d3d71843ac80bd'
+    : 'cb945dabe63616def3992c0a572e5342'
 }
 
 const debug = false
