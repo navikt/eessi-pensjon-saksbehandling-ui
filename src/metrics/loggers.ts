@@ -12,7 +12,7 @@ export const linkLogger = (event: any, values?: object) => {
 }
 
 export const buttonLogger = (event: any, values?: object) => {
-  const name = `${event.target.dataset.amplitude}.button`
+  const name = `${event.target.closest("[data-amplitude]").dataset.amplitude}.button`
   const data = values || {}
   amplitudeLogger(name, data)
 }
