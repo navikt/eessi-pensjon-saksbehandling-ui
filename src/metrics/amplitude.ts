@@ -21,7 +21,7 @@ const debug = false
 const config = {
   apiEndpoint: 'amplitude.nav.no/collect',
   saveEvents: true,
-  includeUtm: true,
+  includeUtm: false,
   includeReferrer: true,
   trackingOptions: {
     city: false,
