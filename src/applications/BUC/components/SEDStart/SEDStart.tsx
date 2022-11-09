@@ -756,6 +756,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         aktoerId: aktoerId!,
         euxCaseId: _buc.caseId!
       }
+
+      const loggerPayload: any = {
+        buc: _type!,
+        sed: _sed!,
+        institutions
+      }
+
       if (_vedtakId) {
         payload.vedtakId = _vedtakId
       }
@@ -785,7 +792,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       } else {
         dispatch(createSed(_buc, payload))
       }
-      buttonLogger(e, payload)
+      buttonLogger(e, loggerPayload)
     }
   }
 
