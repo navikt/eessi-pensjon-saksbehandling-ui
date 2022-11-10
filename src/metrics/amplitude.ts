@@ -16,7 +16,7 @@ const getApiKey = () => {
     : 'cb945dabe63616def3992c0a572e5342'
 }
 
-const debug = false
+const debug = true
 
 const config = {
   apiEndpoint: 'amplitude.nav.no/collect',
