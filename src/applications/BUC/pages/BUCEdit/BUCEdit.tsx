@@ -16,7 +16,7 @@ import { PersonAvdods } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import CountryData from '@navikt/land-verktoy'
 import _ from 'lodash'
-import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
+import { buttonLogger, standardLogger } from 'metrics/loggers'
 import moment from 'moment'
 import {
   animationClose,
@@ -117,7 +117,6 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   const componentRef = useRef(null)
   const buc: Buc | undefined = bucs ? bucs[currentBuc!] : undefined
   const bucInfo: BucInfo = buc && bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.caseId!] : {} as BucInfo
-  const [loggedTime] = useState<Date>(new Date())
   const [_mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
   const [_search, setSearch] = useState<string | undefined>(initialSearch)
   const [_startSed, setStartSed] = useState<string>(initialSedNew)
@@ -125,14 +124,12 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   const [_totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
 
   useEffect(() => {
-    standardLogger('buc.view.entrance')
-    standardLogger('buc.view.seds.data', {
-      numberOfSeds: buc && buc.seds ? buc.seds.length : 0,
-      bucType: buc?.type
-    })
-    return () => {
-      timeLogger('buc.view', loggedTime)
-      timeDiffLogger('buc.view.mouseover', _totalTimeWithMouseOver)
+    if(buc){
+      standardLogger('buc.view.entrance')
+      standardLogger('buc.view.seds.data', {
+        numberOfSeds: buc && buc.seds ? buc.seds.length : 0,
+        bucType: buc?.type
+      })
     }
   }, [buc])
 

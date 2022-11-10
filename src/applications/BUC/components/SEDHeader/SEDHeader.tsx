@@ -8,7 +8,7 @@ import { Buc, Institutions, Participant, Sed } from 'declarations/buc'
 import { BucPropType, SedPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
-import { buttonLogger } from 'metrics/loggers'
+import {buttonLogger, standardLogger} from 'metrics/loggers'
 import moment from 'moment'
 import { Alert, Detail, BodyLong, Button, Panel } from '@navikt/ds-react'
 import { NextFilled, AttachmentFilled } from '@navikt/ds-icons'
@@ -250,9 +250,10 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             <>
               <Button
                 variant='secondary'
-                data-amplitude='buc.view.p5000'
+                data-amplitude='buc.view.p5000.edit'
                 data-testid='a_buc_c_sedheader--p5000-button-id'
-                onClick={() => {
+                onClick={(e) => {
+                  buttonLogger(e)
                   setMode('p5000', 'forward', undefined, (
                     <P5000
                       buc={buc}
