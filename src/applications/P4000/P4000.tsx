@@ -280,7 +280,7 @@ const P4000: React.FC<P4000Props> = ({
             selectable={false}
             sortable
             onColumnSort={(sort: any) => {
-              standardLogger('buc.edit.tools.P4000.overview.sort', { sort })
+              standardLogger('buc.view.tools.P4000.overview.sort', { sort })
               _setTableSort(sort)
             }}
             itemsPerPage={itemsPerPage}

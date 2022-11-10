@@ -374,7 +374,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               sortable
               subrowsIcon='merge'
               onColumnSort={(sort: any) => {
-                standardLogger('buc.edit.tools.P5000.overview.sort', { sort })
+                standardLogger('buc.view.tools.P5000.overview.sort', { sort })
                 _setTableSort(sort)
               }}
               itemsPerPage={itemsPerPage}
@@ -407,7 +407,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               editable
               subrowsIcon='merge'
               onColumnSort={(sort: any) => {
-                standardLogger('buc.edit.tools.P5000.pesys.sort', { sort })
+                standardLogger('buc.view.tools.P5000.pesys.sort', { sort })
                 _setTableSort(sort)
               }}
               itemsPerPage={itemsPerPage}

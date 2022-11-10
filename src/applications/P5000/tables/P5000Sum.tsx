@@ -62,7 +62,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
 
   const prepareContent = (): void => {
     _setRenderPrintTable(true)
-    standardLogger('buc.edit.tools.P5000.sum.print.button')
+    standardLogger('buc.view.tools.P5000.sum.print.button')
   }
 
   const afterPrintOut = (): void => {
@@ -274,7 +274,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
           allowNewRows={false}
           sortable={false}
           onColumnSort={(sort: any) => {
-            standardLogger('buc.edit.tools.P5000.summary.sort', { sort })
+            standardLogger('buc.view.tools.P5000.summary.sort', { sort })
             _setTableSort(sort)
           }}
           onRowsChanged={onRowsChanged}

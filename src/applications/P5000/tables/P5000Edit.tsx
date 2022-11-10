@@ -421,7 +421,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const onColumnSort = (sort: Sort) => {
-    standardLogger('buc.edit.tools.P5000.edit.sort', { sort })
+    standardLogger('buc.view.tools.P5000.edit.sort', { sort })
     _setTableSort(sort)
   }
 

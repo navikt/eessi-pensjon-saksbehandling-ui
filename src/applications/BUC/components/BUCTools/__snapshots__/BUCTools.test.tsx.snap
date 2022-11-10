@@ -1262,14 +1262,14 @@ ui-fss.g137[id="c6"] {
                     className="c12 c13"
                   >
                     <Styled(u)
-                      data-amplitude="buc.edit.tools.P5000.view"
+                      data-amplitude="buc.view.tools.P5000.view"
                       data-testid="a-buc-c-buctools__P5000-button-id"
                       disabled={false}
                       onClick={[Function]}
                     >
                       <u
                         className="c14 c15"
-                        data-amplitude="buc.edit.tools.P5000.view"
+                        data-amplitude="buc.view.tools.P5000.view"
                         data-testid="a-buc-c-buctools__P5000-button-id"
                         disabled={false}
                         onClick={[Function]}
@@ -1277,7 +1277,7 @@ ui-fss.g137[id="c6"] {
                         <p
                           autoDisableVedSpinner={false}
                           className="c14 c15"
-                          data-amplitude="buc.edit.tools.P5000.view"
+                          data-amplitude="buc.view.tools.P5000.view"
                           data-testid="a-buc-c-buctools__P5000-button-id"
                           disabled={false}
                           htmlType="submit"
@@ -1290,7 +1290,7 @@ ui-fss.g137[id="c6"] {
                         >
                           <button
                             className="knapp c14 c15 knapp--standard"
-                            data-amplitude="buc.edit.tools.P5000.view"
+                            data-amplitude="buc.view.tools.P5000.view"
                             data-testid="a-buc-c-buctools__P5000-button-id"
                             disabled={false}
                             onClick={[Function]}

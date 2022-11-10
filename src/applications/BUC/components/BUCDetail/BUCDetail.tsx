@@ -155,7 +155,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                 {rinaUrl
                   ? (
                     <Link
-                      data-amplitude='buc.edit.detail.rinaurl'
+                      data-amplitude='buc.view.detail.rinaurl'
                       data-testid='a_buc_c_BUCDetail--gotorina_link_id'
                       href={rinaUrl + buc.caseId}
                       target='rinaWindow'

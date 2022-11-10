@@ -238,7 +238,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             <Button
               variant='secondary'
               disabled={buc.readOnly === true}
-              data-amplitude='buc.edit.besvarSed'
+              data-amplitude='buc.view.besvarSed'
               data-testid='a_buc_c_sedheader--answer-button-id'
               onClick={onFollowUpSedClicked}
             >
@@ -250,7 +250,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             <>
               <Button
                 variant='secondary'
-                data-amplitude='buc.edit.p5000'
+                data-amplitude='buc.view.p5000'
                 data-testid='a_buc_c_sedheader--p5000-button-id'
                 onClick={() => {
                   setMode('p5000', 'forward', undefined, (

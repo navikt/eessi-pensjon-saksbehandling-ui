@@ -125,15 +125,16 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   const [_totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
 
   useEffect(() => {
-    standardLogger('buc.edit.entrance')
-    standardLogger('buc.edit.seds.data', {
-      numberOfSeds: buc && buc.seds ? buc.seds.length : 0
+    standardLogger('buc.view.entrance')
+    standardLogger('buc.view.seds.data', {
+      numberOfSeds: buc && buc.seds ? buc.seds.length : 0,
+      bucType: buc?.type
     })
     return () => {
-      timeLogger('buc.edit.view', loggedTime)
-      timeDiffLogger('buc.edit.mouseover', _totalTimeWithMouseOver)
+      timeLogger('buc.view', loggedTime)
+      timeDiffLogger('buc.view.mouseover', _totalTimeWithMouseOver)
     }
-  }, [loggedTime])
+  }, [buc])
 
   useEffect(() => {
     setStartSed(initialSedNew)
@@ -245,7 +246,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           <Button
             variant='secondary'
             disabled={buc!.readOnly === true}
-            data-amplitude='buc.edit.newsed'
+            data-amplitude='buc.view.newsed'
             data-testid='a-buc-p-bucedit--new-sed-button-id'
             onClick={onNewSedButtonClick}
           >{t('buc:form-orderNewSED')}

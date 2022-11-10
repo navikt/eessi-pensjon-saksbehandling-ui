@@ -117,7 +117,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
     setSendingAttachments(true)
     setAttachmentsTableVisible(false)
     const joarkItemsToUpload: JoarkBrowserItems = _.filter(_items, f => f.type === 'joark')
-    standardLogger('buc.edit.attachments.data', {
+    standardLogger('buc.view.attachments.data', {
       numberOfJoarkAttachments: joarkItemsToUpload.length
     })
     dispatch(createSavingAttachmentJob(joarkItemsToUpload))

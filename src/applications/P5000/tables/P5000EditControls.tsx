@@ -136,7 +136,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
 
   const prepareContent = (): void => {
     setRenderPrintTable(true)
-    standardLogger('buc.edit.tools.P5000.edit.print.button')
+    standardLogger('buc.view.tools.P5000.edit.print.button')
   }
 
   const afterPrintOut = (): void => {

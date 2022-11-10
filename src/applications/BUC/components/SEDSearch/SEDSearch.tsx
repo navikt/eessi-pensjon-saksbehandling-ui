@@ -49,7 +49,7 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
     onSearch(e.target.value)
 
     const timer = setTimeout(() => {
-      standardLogger('buc.edit.filter.text.input')
+      standardLogger('buc.view.filter.text.input')
       if (_timer) {
         clearTimeout(_timer)
       }
@@ -62,7 +62,7 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
     if (statusList) {
       onStatusSearch(statusList as Array<Option>)
       setStatus(statusList as Array<Option>)
-      standardLogger('buc.edit.filter.status.select')
+      standardLogger('buc.view.filter.status.select')
     }
   }
 

@@ -132,7 +132,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       if (_.isFunction(onTagChange)) {
         onTagChange(tagsList as Tags)
       }
-      standardLogger('buc.edit.tools.tags.select', { tags: (tagsList as Tags)?.map(t => t.label) || [] })
+      standardLogger('buc.view.tools.tags.select', { tags: (tagsList as Tags)?.map(t => t.label) || [] })
       setTags(tagsList as Tags)
       dispatch(saveBucsInfo({
         bucsInfo: bucsInfo!,
@@ -149,7 +149,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }
 
   const onSaveCommentClick = (): void => {
-    standardLogger('buc.edit.tools.comment.textarea', { comment: _comment })
+    standardLogger('buc.view.tools.comment.textarea', { comment: _comment })
     const newOriginalComments: Comments = _.cloneDeep(_originalComments)
 
     const newComment: Comment = {
@@ -284,7 +284,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             <FlexDiv>
               <Button
                 variant='secondary'
-                data-amplitude='buc.edit.tools.P5000.view'
+                data-amplitude='buc.view.tools.P5000.view'
                 data-testid='a_buc_c_buctools--P5000-button-id'
                 disabled={!hasP5000s()}
                 onClick={onGettingP5000Click}
@@ -303,7 +303,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             <FlexDiv>
               <Button
                 variant='secondary'
-                data-amplitude='buc.edit.tools.P4000.view'
+                data-amplitude='buc.view.tools.P4000.view'
                 data-testid='a_buc_c_buctools--P4000-button-id'
                 disabled={!hasP4000s()}
                 onClick={onGettingP4000Click}

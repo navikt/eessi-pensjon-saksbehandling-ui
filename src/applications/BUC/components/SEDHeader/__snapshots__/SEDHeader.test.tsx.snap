@@ -1943,7 +1943,7 @@ ui-fss.g138[id="c14"] {
                   </div>
                 </Component>
                 <Styled(u)
-                  data-amplitude="buc.edit.besvarSed"
+                  data-amplitude="buc.view.besvarSed"
                   data-testid="a-buc-c-sedheader__answer-button-id"
                   disabled={false}
                   mini={true}
@@ -1951,7 +1951,7 @@ ui-fss.g138[id="c14"] {
                 >
                   <u
                     className="c30 c31"
-                    data-amplitude="buc.edit.besvarSed"
+                    data-amplitude="buc.view.besvarSed"
                     data-testid="a-buc-c-sedheader__answer-button-id"
                     disabled={false}
                     mini={true}
@@ -1960,7 +1960,7 @@ ui-fss.g138[id="c14"] {
                     <p
                       autoDisableVedSpinner={false}
                       className="c30 c31"
-                      data-amplitude="buc.edit.besvarSed"
+                      data-amplitude="buc.view.besvarSed"
                       data-testid="a-buc-c-sedheader__answer-button-id"
                       disabled={false}
                       htmlType="submit"
@@ -1973,7 +1973,7 @@ ui-fss.g138[id="c14"] {
                     >
                       <button
                         className="knapp c30 c31 knapp--flat knapp--mini"
-                        data-amplitude="buc.edit.besvarSed"
+                        data-amplitude="buc.view.besvarSed"
                         data-testid="a-buc-c-sedheader__answer-button-id"
                         disabled={false}
                         onClick={[Function]}

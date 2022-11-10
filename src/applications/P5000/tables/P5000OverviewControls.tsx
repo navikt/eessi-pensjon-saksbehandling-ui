@@ -99,7 +99,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
   }
 
   const itemsPerPageChanged = (e: any): void => {
-    standardLogger('buc.edit.tools.P5000.overview.itemsPerPage.select', { value: e.target.value })
+    standardLogger('buc.view.tools.P5000.overview.itemsPerPage.select', { value: e.target.value })
     setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
   }
 
@@ -109,7 +109,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
 
   const prepareContent = (): void => {
     setRenderPrintTable(true)
-    standardLogger('buc.edit.tools.P5000.overview.print.button')
+    standardLogger('buc.view.tools.P5000.overview.print.button')
   }
 
   const afterPrintOut = (): void => {
