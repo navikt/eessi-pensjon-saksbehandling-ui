@@ -265,7 +265,7 @@ const P5000: React.FC<P5000Props> = ({
         _setReadyFromRINA(true)
       }
     }
-  }, [_readyFromRINA, _fetchingP5000, p5000sFromRinaMap])
+  }, [_readyFromRINA, p5000sFromRinaMap])
 
   useEffect(() => {
     _setFetchingP5000FromS3(true)
