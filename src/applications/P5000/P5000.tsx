@@ -329,7 +329,7 @@ const P5000: React.FC<P5000Props> = ({
                 </div>
               )
             } else {
-              return <div />
+              return <div key={"table-empty-" + index}/>
             }
           })}
         </P5000Droppable>
