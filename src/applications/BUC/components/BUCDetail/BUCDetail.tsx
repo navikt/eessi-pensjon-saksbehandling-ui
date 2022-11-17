@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next'
 import {useDispatch, useSelector} from 'react-redux'
 import styled from 'styled-components/macro'
 import { useState } from 'react'
-import {Copy} from "@navikt/ds-icons";
+import {Copy, CopyFilled} from "@navikt/ds-icons";
 import {copyToClipboard} from "../../../../actions/app";
 
 const Dd = styled.dd`
@@ -56,6 +56,14 @@ const CopyWithMargin = styled(Copy)`
   position: relative;
   top: 2px;
   left: 5px;
+  cursor: pointer;
+`
+
+const CopyFilledWithMargin = styled(CopyFilled)`
+  position: relative;
+  top: 2px;
+  left: 5px;
+  cursor: pointer;
 `
 
 
@@ -94,6 +102,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const [_open, setOpen] = useState<boolean>(true)
+  const [hover, isHover] = useState<boolean>(false);
 
   const avdod: PersonAvdod | undefined = _.find(personAvdods, p => {
     const avdodFnr = p.fnr
@@ -203,13 +212,15 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                   <DdTwoColumn className='odd' data-testid='a_buc_c_BUCDetail--internationalId_id'>
                     {buc.internationalId}
                     <Link
-                      title={t('buc:form-kopiere')} onClick={(e: any) => {
+                      onMouseEnter={() => isHover(true)}
+                      onMouseLeave={() => isHover(false)}
+                      title={t('buc:form-kopier-internasjonal-id')} onClick={(e: any) => {
                         e.preventDefault()
                         e.stopPropagation()
                         dispatch(copyToClipboard(buc.internationalId ? buc.internationalId : ""))
                       }}
                     >
-                      <CopyWithMargin />
+                      {hover ? <CopyFilledWithMargin/> : <CopyWithMargin/>}
                     </Link>
                   </DdTwoColumn>
                 </>
