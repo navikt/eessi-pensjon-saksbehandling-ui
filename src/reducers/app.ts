@@ -113,6 +113,10 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
       }
     }
 
+    case types.APP_CLIPBOARD_COPY:
+      navigator.clipboard.writeText(action.payload)
+      return state
+
     case types.BUC_GET_SAKTYPE_REQUEST:
 
       newParams = _.cloneDeep(state.params)

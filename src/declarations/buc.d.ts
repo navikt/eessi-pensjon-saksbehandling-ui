@@ -55,6 +55,7 @@ export interface Date {
 
 export interface ErrorBuc {
   caseId: string | null
+  internationalId?: string | null
   readOnly ?: any
   creator: null
   error: string
@@ -258,6 +259,7 @@ export interface ValidBuc {
   aktoerId?: string | null
   readOnly?: boolean
   caseId: string
+  internationalId?: string
   creator: Institution
   description?: string | null | undefined
   error?: null | undefined

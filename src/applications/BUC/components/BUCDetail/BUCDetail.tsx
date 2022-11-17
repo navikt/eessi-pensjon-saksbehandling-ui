@@ -16,9 +16,11 @@ import moment from 'moment'
 import { Alert, Panel, Accordion, Link, Label, BodyLong, Heading } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import styled from 'styled-components/macro'
 import { useState } from 'react'
+import {Copy} from "@navikt/ds-icons";
+import {copyToClipboard} from "../../../../actions/app";
 
 const Dd = styled.dd`
   width: 50%;
@@ -34,6 +36,28 @@ const Dt = styled.dt`
     margin-left: 0.5rem;
   }
 `
+
+const DdTwoColumn = styled.dd`
+  width: 100%;
+  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
+  margin-bottom: 0;
+`
+const DtTwoColumn = styled.dt`
+  width: 100%;
+  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
+  .typo-element {
+    margin-left: 0.5rem;
+  }
+`
+
+const CopyWithMargin = styled(Copy)`
+  position: relative;
+  top: 2px;
+  left: 5px;
+`
+
 
 const InstitutionListDiv = styled.div`
   padding: 0.5rem;
@@ -68,6 +92,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
 }: BUCDetailProps): JSX.Element => {
   const { locale, rinaUrl }: BUCDetailSelector = useSelector<State, BUCDetailSelector>(mapState)
   const { t } = useTranslation()
+  const dispatch = useDispatch()
   const [_open, setOpen] = useState<boolean>(true)
 
   const avdod: PersonAvdod | undefined = _.find(personAvdods, p => {
@@ -168,14 +193,35 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                     <WaitingPanel data-testid='a_buc_c_BUCDetail--gotorina_waiting_id' size='xsmall' />
                     )}
               </Dd>
+              {!!buc.internationalId && (
+                <>
+                  <DtTwoColumn className='odd'>
+                    <Label>
+                      {t('buc:form-internationalId')}:
+                    </Label>
+                  </DtTwoColumn>
+                  <DdTwoColumn className='odd' data-testid='a_buc_c_BUCDetail--internationalId_id'>
+                    {buc.internationalId}
+                    <Link
+                      title={t('buc:form-kopiere')} onClick={(e: any) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        dispatch(copyToClipboard(buc.internationalId ? buc.internationalId : ""))
+                      }}
+                    >
+                      <CopyWithMargin />
+                    </Link>
+                  </DdTwoColumn>
+                </>
+              )}
               {bucsThatSupportAvdod(buc.type) && (
                 <>
-                  <Dt className='odd'>
+                  <Dt>
                     <Label>
                       {t('buc:form-avdod')}:
                     </Label>
                   </Dt>
-                  <Dd className='odd' data-testid='a_buc_c_BUCDetail--avdod_id'>
+                  <Dd data-testid='a_buc_c_BUCDetail--avdod_id'>
                     {avdod
                       ? (
                         <BodyLong>

@@ -42,3 +42,9 @@ export const unsetStatusParam = (
     key
   } as ParamPayload
 })
+
+export const copyToClipboard = (text: string) => ({
+  type: types.APP_CLIPBOARD_COPY,
+  payload: text
+})
+

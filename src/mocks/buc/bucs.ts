@@ -8,6 +8,7 @@ const mockBuc = [
     type: 'P_BUC_01',
     readOnly: false,
     caseId: '600891',
+    internationalId: '18e6db00c11e455b99971e7668549485',
     creator: {
       country: 'NO',
       institution: 'NO:NAVAT07',
@@ -1003,6 +1004,7 @@ const mockBuc = [
       acronym: 'NAVAT07'
     },
     caseId: '195440',
+    internationalId: '18e6db00c11e455b99971e7668549485',
     sakType: 'Generell' as SakTypeValue,
     aktoerId: '1000070418092',
     status: 'open',

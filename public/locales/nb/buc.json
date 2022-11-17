@@ -128,6 +128,7 @@
   "form-orderSED"                     : "Bestill SED",
   "form-receiver"                     : "Mottakere",
   "form-rinaCaseNumber"               : "RINA-saksnummer",
+  "form-internationalId"              : "Internasjonal ID",
   "form-searchForStatus"              : "Filtrer SED på status",
   "form-searchOtherBUCs"              : "Søk etter P_BUC_05 med utkast av P8000",
   "form-searchOtherBUCs-description"  : "Her kan du skrive inn avdødes f.nr./d.nr. for å hente frem tidligere opprettet P_BUC_05 med tilhørende utkast av P8000.",
@@ -156,6 +157,7 @@
   "form-vedtakId"                     : "Vedtaks-ID",
   "form-youHaveXAttachmentsInSed"     : "SED-en har {{attachments}} vedlegg",
   "form-youhaveXseds"                 : "Du har {{seds}} SED-er på BUC",
+  "form-kopiere"                      : "Kopiere",
 
   "p4000-rediger"                 : "P4000 rediger",
   "p4000-updating"                : "Oppdater P4000",
