@@ -36,6 +36,8 @@ export interface BucState {
   attachmentsError: boolean
   bucs: Bucs | undefined
   bucsList: Array<BucListItem> | null | undefined
+  bucsListJoark: Array<BucListItem> | null | undefined
+  bucsListRina: Array<BucListItem> | null | undefined
   bucsInfoList: Array<string> | undefined
   bucsInfo: BucsInfo | undefined
   bucOptions: Array<string> | undefined
@@ -71,6 +73,8 @@ export const initialBucState: BucState = {
   bucsInfoList: undefined,
   bucsInfo: undefined,
   bucsList: undefined,
+  bucsListJoark: undefined,
+  bucsListRina: undefined,
   bucOptions: undefined,
   countryList: undefined,
   currentBuc: undefined,
@@ -263,7 +267,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.BUC_GET_BUCSLIST_REQUEST:
       return {
         ...state,
-        howManyBucLists: (action as ActionWithPayload).context.howManyBucLists,
+        howManyBucLists: (action as ActionWithPayload).context && (action as ActionWithPayload).context.howManyBucLists ? (action as ActionWithPayload).context.howManyBucLists : 1,
         bucsList: undefined
       }
 
@@ -297,6 +301,84 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         ...state,
         howManyBucLists: (state.howManyBucLists - 1),
         bucsList: _.isNil(state.bucsList) ? null : state.bucsList
+      }
+
+    case types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST:
+      return {
+        ...state,
+        bucsListJoark: undefined
+      }
+
+    case types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS:
+      return {
+        ...state,
+        bucsListJoark: (action as ActionWithPayload).payload
+      }
+
+    case types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE:
+      return {
+        ...state,
+        bucsListJoark: _.isNil(state.bucsListJoark) ? null : state.bucsListJoark
+      }
+
+    case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST:
+      return {
+        ...state,
+        bucsListRina: undefined
+      }
+
+    case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS:
+      const newBucsList: BucListItem[] = [];
+      (action as ActionWithPayload).payload?.forEach((buc: BucListItem) => {
+        const foundIndex = _.findIndex(state.bucsListJoark, (b: BucListItem) => b.euxCaseId === buc.euxCaseId)
+        if (foundIndex < 0) {
+          newBucsList.push(buc)
+        }
+      })
+
+      return {
+        ...state,
+        bucsListRina: newBucsList
+      }
+
+    case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE:
+      return {
+        ...state,
+        bucsListRina: _.isNil(state.bucsListRina) ? null : state.bucsListRina
+      }
+
+    case types.BUC_GET_BUCSLIST_WITH_AVDOD_FNR_REQUEST: {
+      return {
+        ...state,
+        bucsListRina: _.isNil(state.bucsListRina) ? undefined : state.bucsListRina
+      }
+    }
+
+    case types.BUC_GET_BUCSLIST_WITH_AVDOD_FNR_SUCCESS: {
+      // merge only the new ones, do not have duplicates
+      const newBucsList = _.isNil(state.bucsListRina) ? [] : _.cloneDeep(state.bucsListRina);
+      (action as ActionWithPayload).payload?.forEach((buc: BucListItem) => {
+        const foundIndex = _.findIndex(newBucsList, (b: BucListItem) => b.euxCaseId === buc.euxCaseId)
+        if (foundIndex < 0) {
+          newBucsList.push(buc)
+        } else {
+          // sometimes, list 1 and list 2 gets bucswith same euxCaseID, but list 2 comes with a avdodFnr filled out
+          // so, if that is the case, replace it
+          if (!_.isNil(buc.avdodFnr) && _.isNil(newBucsList[foundIndex].avdodFnr)) {
+            newBucsList[foundIndex] = buc
+          }
+        }
+      })
+      return {
+        ...state,
+        bucsListRina: newBucsList
+      }
+    }
+
+    case types.BUC_GET_BUCSLIST_WITH_AVDOD_FNR_FAILURE:
+      return {
+        ...state,
+        bucsListRina: _.isNil(state.bucsListRina) ? null : state.bucsListRina
       }
 
     case types.BUC_GET_BUC_SUCCESS: {

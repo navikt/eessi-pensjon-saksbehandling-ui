@@ -166,6 +166,37 @@ export const fetchBucsList = (
   })
 }
 
+//NEW ENDPOINTS FOR BUCSLIST from JOARK/EUXRINA FOR BRUKERKONTEKST
+export const fetchJoarkBucsListForBrukerKontekst = (
+  aktoerId: string, sakId: string
+): ActionWithPayload<Bucs> => {
+  return call({
+    url: sprintf(urls.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_URL, { aktoerId, sakId }),
+    cascadeFailureError: true,
+    expectedPayload: mockBucs(aktoerId, sakId),
+    type: {
+      request: types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST,
+      success: types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS,
+      failure: types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE
+    }
+  })
+}
+
+export const fetchRinaBucsListForBrukerKontekst = (
+  aktoerId: string, sakId: string
+): ActionWithPayload<Bucs> => {
+  return call({
+    url: sprintf(urls.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_URL, { aktoerId, sakId }),
+    cascadeFailureError: true,
+    expectedPayload: mockBucs(aktoerId, sakId),
+    type: {
+      request: types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST,
+      success: types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS,
+      failure: types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE
+    }
+  })
+}
+
 export const fetchBucsInfo = (
   userId: string, namespace: string, file: string
 ): ActionWithPayload<BucsInfoRawList> => {
@@ -194,7 +225,7 @@ export const fetchBucsInfoList = (
   })
 }
 
-export const fetchBucsListWithAvdodFnr = (
+export const  fetchBucsListWithAvdodFnr = (
   aktoerId: string, sakId: string, avdodFnr: string
 ): ActionWithPayload<Bucs> => {
   return call({
@@ -202,9 +233,9 @@ export const fetchBucsListWithAvdodFnr = (
     cascadeFailureError: true,
     expectedPayload: mockBucs(aktoerId, sakId),
     type: {
-      request: types.BUC_GET_BUCSLIST_REQUEST,
-      success: types.BUC_GET_BUCSLIST_SUCCESS,
-      failure: types.BUC_GET_BUCSLIST_FAILURE
+      request: types.BUC_GET_BUCSLIST_WITH_AVDOD_FNR_REQUEST,
+      success: types.BUC_GET_BUCSLIST_WITH_AVDOD_FNR_SUCCESS,
+      failure: types.BUC_GET_BUCSLIST_WITH_AVDOD_FNR_FAILURE
     }
   })
 }
