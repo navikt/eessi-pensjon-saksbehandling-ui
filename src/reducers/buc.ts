@@ -304,18 +304,21 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
 
     case types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST:
+      standardLogger('buc.get.joark.buclist.request')
       return {
         ...state,
         bucsListJoark: undefined
       }
 
     case types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS:
+      standardLogger('buc.get.joark.buclist.success')
       return {
         ...state,
         bucsListJoark: (action as ActionWithPayload).payload
       }
 
     case types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE:
+      standardLogger('buc.get.joark.buclist.failure')
       return {
         ...state,
         bucsListJoark: _.isNil(state.bucsListJoark) ? null : state.bucsListJoark
