@@ -52,7 +52,7 @@ export const BUC_GET_BUCSLIST_WITH_AVDODFNR_URL = BUC_URL + '/rinasaker/%(aktoer
 export const BUC_GET_BUC_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/aktoerid/%(aktoerId)s/saknr/%(sakId)s/kilde/%(kilde)s'
 export const BUC_GET_BUC_WITH_AVDOD_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/aktoerid/%(aktoerId)s/saknr/%(sakId)s/avdodfnr/%(avdodFnr)s/kilde/%(kilde)s'
 
-export const BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_URL = BUC_URL + '/rinasaker/joark/%(aktoerId)s/pesyssak/%(sakId)s'
+export const BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_URL = BUC_URL + '/joark/aktoer/%(aktoerId)s/pesyssak/%(sakId)s'
 export const BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_URL = BUC_URL + '/rinasaker/euxrina/%(aktoerId)s/pesyssak/%(sakId)s'
 
 export const BUC_GET_PARTICIPANTS_URL = BUC_URL + '/%(rinaCaseId)s/bucdeltakere'
