@@ -1,13 +1,6 @@
 import {
-  endBucsFetch,
-  fetchBuc,
-  fetchBucParticipants,
-  fetchBucsInfoList,
-  fetchJoarkBucsListForBrukerKontekst,
   getRinaUrl,
-  getSakType,
   setMode,
-  startBucsFetch
 } from 'actions/buc'
 import { loadAllEntries } from 'actions/localStorage'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
@@ -17,7 +10,6 @@ import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { BUCMode, PesysContext, RinaUrl } from 'declarations/app.d'
 import { BucListItem, Bucs, SakTypeValue } from 'declarations/buc'
 import { State } from 'declarations/reducers'
-import _ from 'lodash'
 import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -177,13 +169,11 @@ export enum Slide {
 
 export const BUCIndexBrukerKontekst = (): JSX.Element => {
   const {
-    aktoerId, bucs, bucsListJoark, gettingBucs, gettingBucsListJoark, gettingSakType, pesysContext, rinaUrl, sakId, sakType
+    aktoerId, rinaUrl, sakId
   }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
 
-  const [_askSakType, _setAskSakType] = useState<boolean>(false)
   const [_noParams, setNoParams] = useState<boolean | undefined>(undefined)
-  const [_bucs, setBucs] = useState<Bucs | undefined>(undefined)
 
   const [positionA, setPositionA] = useState<Slide>(Slide.LEFT)
   const [positionB, setPositionB] = useState<Slide>(Slide.MIDDLE)
@@ -336,13 +326,14 @@ export const BUCIndexBrukerKontekst = (): JSX.Element => {
     }
   }, [])
 
-  useEffect(() => {
+/*  useEffect(() => {
     if (aktoerId && sakId && bucsListJoark === undefined && !gettingBucsListJoark) {
       dispatch(fetchJoarkBucsListForBrukerKontekst(aktoerId, sakId))
       dispatch(fetchBucsInfoList(aktoerId))
     }
-  }, [aktoerId, bucs, dispatch, gettingBucsListJoark, pesysContext, sakId])
+  }, [aktoerId, bucs, dispatch, gettingBucsListJoark, pesysContext, sakId])*/
 
+/*
   useEffect(() => {
     if (aktoerId && sakId && sakType === undefined && !gettingSakType && !_askSakType) {
       dispatch(getSakType(sakId, aktoerId))
@@ -379,6 +370,7 @@ export const BUCIndexBrukerKontekst = (): JSX.Element => {
       setBucs(bucs)
     }
   }, [bucs, _bucs, dispatch])
+*/
 
   if (!sakId || !aktoerId) {
     return EmptyBuc

@@ -31,6 +31,7 @@ import mockBucOptions from 'mocks/buc/bucOptions'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import mockBucsInfoList from 'mocks/buc/bucsInfoList'
 import mockBucs from 'mocks/buc/bucsList'
+import mockBucsFromJoark from 'mocks/buc/bucsFromJoark'
 import mockBucsWithVedtak from 'mocks/buc/bucsListWithVedtak'
 import mockCreateBuc from 'mocks/buc/createBuc'
 import mockCreateSed from 'mocks/buc/createSed'
@@ -173,7 +174,7 @@ export const fetchJoarkBucsListForBrukerKontekst = (
   return call({
     url: sprintf(urls.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_URL, { aktoerId, sakId }),
     cascadeFailureError: true,
-    expectedPayload: mockBucs(aktoerId, sakId),
+    expectedPayload: mockBucsFromJoark(),
     type: {
       request: types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST,
       success: types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS,
