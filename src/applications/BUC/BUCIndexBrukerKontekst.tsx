@@ -7,8 +7,7 @@ import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import classNames from 'classnames'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { BUCMode, PesysContext, RinaUrl } from 'declarations/app.d'
-import { BucListItem, Bucs, SakTypeValue } from 'declarations/buc'
+import { BUCMode, RinaUrl } from 'declarations/app.d'
 import { State } from 'declarations/reducers'
 import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import { useCallback, useEffect, useState } from 'react'
@@ -118,32 +117,14 @@ export const WindowDiv = styled.div`
 
 export interface BUCIndexSelector {
   aktoerId: string | null | undefined
-  bucs: Bucs | undefined
-  bucsListJoark: Array<BucListItem> | null | undefined
-  bucsListRina: Array<BucListItem> | null | undefined
-  gettingBucsListJoark: boolean
-  gettingBucsListRina: boolean
-  gettingBucs: boolean
-  gettingSakType: boolean
-  pesysContext: PesysContext | undefined
   rinaUrl: RinaUrl | undefined
   sakId: string | null | undefined
-  sakType: SakTypeValue | null | undefined
 }
 
 const mapState = (state: State): BUCIndexSelector => ({
   aktoerId: state.app.params.aktoerId,
-  bucs: state.buc.bucs,
-  bucsListJoark: state.buc.bucsListJoark,
-  bucsListRina:  state.buc.bucsListRina,
-  gettingBucsListJoark: state.loading.gettingBucsListJoark,
-  gettingBucsListRina: state.loading.gettingBucsListRina,
-  gettingBucs: state.loading.gettingBucs,
-  gettingSakType: state.loading.gettingSakType,
-  pesysContext: state.app.pesysContext,
   rinaUrl: state.buc.rinaUrl,
   sakId: state.app.params.sakId,
-  sakType: state.app.params.sakType as SakTypeValue,
 })
 
 export enum Slide {
@@ -331,9 +312,8 @@ export const BUCIndexBrukerKontekst = (): JSX.Element => {
       dispatch(fetchJoarkBucsListForBrukerKontekst(aktoerId, sakId))
       dispatch(fetchBucsInfoList(aktoerId))
     }
-  }, [aktoerId, bucs, dispatch, gettingBucsListJoark, pesysContext, sakId])*/
+  }, [aktoerId, bucs, dispatch, gettingBucsListJoark, pesysContext, sakId])
 
-/*
   useEffect(() => {
     if (aktoerId && sakId && sakType === undefined && !gettingSakType && !_askSakType) {
       dispatch(getSakType(sakId, aktoerId))

@@ -277,6 +277,16 @@ export interface ValidBuc {
   type: string
 }
 
+export interface JoarkBuc {
+  caseId: string
+  type: string
+  startDate: number
+  creator: Institution
+  deltakere?: Institutions
+  numberOfSeds: number,
+  error?: null | undefined
+}
+
 export type Buc = ValidBuc | ErrorBuc
 
 export type Bucs = {[caseId: string]: Buc }

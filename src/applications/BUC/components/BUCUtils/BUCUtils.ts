@@ -4,7 +4,7 @@ import { AllowedLocaleString, Option, PesysContext, T } from 'declarations/app.d
 import { PersonAvdod, PersonAvdods, PersonPDL } from 'declarations/person.d'
 import CountryData, { Country, CountryFilter } from '@navikt/land-verktoy'
 import _ from 'lodash'
-import { Buc, Sed, ValidBuc } from 'declarations/buc'
+import {Buc, JoarkBuc, Sed} from 'declarations/buc'
 import moment from 'moment'
 
 interface getBucTypeLabelProps {
@@ -16,11 +16,11 @@ interface getBucTypeLabelProps {
 // the higher the indexOf, the higher it goes in the sorted list
 const sedTypes: Array<string> = ['X', 'H', 'P']
 
-export const bucSorter = (a: Buc, b: Buc): number => {
-  return moment((a as ValidBuc).startDate).isSameOrAfter(moment((b as ValidBuc).startDate)) ? -1 : 1
+export const bucSorter = (a: Buc | JoarkBuc, b: Buc | JoarkBuc): number => {
+  return moment(a.startDate).isSameOrAfter(moment(b.startDate)) ? -1 : 1
 }
 
-export const bucFilter = (buc: Buc): boolean => {
+export const bucFilter = (buc: Buc | JoarkBuc): boolean => {
   return !_.isEmpty(buc.error) || (
     buc.type
       ? (
@@ -63,7 +63,7 @@ export const getRelasjonTilPerson = (p: PersonPDL | null | undefined, needle: st
 export const labelSorter = (a: Option, b: Option) => a.label.localeCompare(b.label)
 
 export const pbuc02filter = (pesysContext: PesysContext, personAvdods: PersonAvdods | undefined) =>
-  (buc: Buc) => {
+  (buc: Buc | JoarkBuc) => {
     if (buc.type === 'P_BUC_02' && pesysContext !== constants.VEDTAKSKONTEKST && (
       // 'NO:NAVAT08' in test environment should be read as a foreign institution
       buc?.creator?.country === 'NO' && (buc?.creator?.institution !== 'NO:NAVAT06' && buc?.creator?.institution !== 'NO:NAVAT08')

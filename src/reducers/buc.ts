@@ -1,4 +1,4 @@
-import { bucsThatSupportAvdod, getFnr } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import {bucsThatSupportAvdod, getFnr, sedFilter} from 'applications/BUC/components/BUCUtils/BUCUtils'
 import * as types from 'constants/actionTypes'
 import { VEDTAKSKONTEKST } from 'constants/constants'
 import { BUCMode, RinaUrl } from 'declarations/app.d'
@@ -21,7 +21,8 @@ import {
   SedsWithAttachmentsMap,
   ValidBuc,
   P6000,
-  BucListItem
+  BucListItem,
+  JoarkBuc
 } from 'declarations/buc'
 import { JoarkBrowserItem, JoarkBrowserItems, JoarkPreview } from 'declarations/joark'
 import { ActionWithPayload } from '@navikt/fetch'
@@ -36,7 +37,7 @@ export interface BucState {
   attachmentsError: boolean
   bucs: Bucs | undefined
   bucsList: Array<BucListItem> | null | undefined
-  bucsListJoark: Array<BucListItem> | null | undefined
+  bucsListJoark: Array<JoarkBuc> | null | undefined
   bucsListRina: Array<BucListItem> | null | undefined
   bucsInfoList: Array<string> | undefined
   bucsInfo: BucsInfo | undefined
@@ -312,9 +313,44 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
 
     case types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS:
       standardLogger('buc.get.joark.buclist.success')
+      const bucList = (action as ActionWithPayload).payload
+      const institutionNames = _.cloneDeep(state.institutionNames)
+
+      bucList.forEach((buc: any) => {
+        if (buc.participants) {
+          buc.participants.forEach((i: any) => {
+            if (i.organisation.id && !institutionNames[i.organisation.id]) {
+              institutionNames[i.organisation.id] = i.organisation
+            }
+          })
+        }
+      })
+
       return {
         ...state,
-        bucsListJoark: (action as ActionWithPayload).payload
+        institutionNames,
+        bucsListJoark: bucList.map((buc: any) => {
+          return {
+            caseId: buc.id,
+            type: buc.processDefinitionName,
+            startDate: buc.startDate,
+            creator: {
+              country: buc.creator.organisation.countryCode,
+              institution: buc.creator.organisation.id,
+              name: buc.creator.organisation.name,
+              acronym: buc.creator.organisation.acronym
+            },
+            deltakere: buc.participants.map((i:any) => {
+              return {
+                country: i.organisation.countryCode,
+                institution: i.organisation.id,
+                name: i.organisation.name,
+                acronym: i.organisation.acronym
+              }
+            }),
+            numberOfSeds: buc.documents.filter(sedFilter).length
+          }
+        })
       }
 
     case types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE:
@@ -330,6 +366,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         bucsListRina: undefined
       }
 
+/*
     case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS:
       const newBucsList: BucListItem[] = [];
       (action as ActionWithPayload).payload?.forEach((buc: BucListItem) => {
@@ -356,6 +393,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         bucsListRina: _.isNil(state.bucsListRina) ? undefined : state.bucsListRina
       }
     }
+*/
 
     case types.BUC_GET_BUCSLIST_WITH_AVDOD_FNR_SUCCESS: {
       // merge only the new ones, do not have duplicates

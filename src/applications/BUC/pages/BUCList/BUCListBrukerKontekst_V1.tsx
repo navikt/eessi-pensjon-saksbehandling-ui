@@ -27,7 +27,7 @@ import {
   Bucs,
   BucsInfo,
   Institution,
-  InstitutionListMap,
+  InstitutionListMap, JoarkBuc,
   Participant,
   SakTypeMap,
   SakTypeValue,
@@ -123,7 +123,7 @@ export interface BUCListProps {
 export interface BUCListSelector {
   aktoerId: string | null | undefined
   bucs: Bucs | undefined
-  bucsListJoark: Array<BucListItem> | null | undefined
+  bucsListJoark: Array<JoarkBuc> | null | undefined
   bucsListRina: Array<BucListItem> | null | undefined
   bucsInfo: BucsInfo | undefined
   bucsInfoList: Array<string> | undefined
