@@ -1,5 +1,5 @@
 import { BackFilled } from '@navikt/ds-icons'
-import { BodyLong, Button, Label, Panel } from '@navikt/ds-react'
+import {BodyLong, Button, Label, Loader, Panel} from '@navikt/ds-react'
 import { alertFailure } from 'actions/alert'
 import { resetNewSed, setCurrentBuc, setFollowUpSeds } from 'actions/buc'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
@@ -123,6 +123,8 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   const [_statusSearch, setStatusSearch] = useState<Tags | undefined>(initialStatusSearch)
   const [_totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
 
+
+
   useEffect(() => {
     if(buc){
       standardLogger('buc.view.entrance')
@@ -213,8 +215,8 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     setMode('buclist', 'back', () => dispatch(setCurrentBuc(undefined)))
   }
 
-  if (_.isEmpty(bucs) || !currentBuc) {
-    return <div />
+  if (_.isEmpty(bucs) || !currentBuc || !bucs[currentBuc]) {
+    return <Loader/>
   }
 
   const renderSeds: Array<Sed> = buc!.seds?.filter(sedFilter)
@@ -239,6 +241,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             {t('ui:back')}
           </span>
         </Button>
+
         {_startSed !== 'open' && (
           <Button
             variant='secondary'
@@ -249,6 +252,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           >{t('buc:form-orderNewSED')}
           </Button>
         )}
+
       </BUCEditHeader>
       <VerticalSeparatorDiv />
       <SEDStartDiv

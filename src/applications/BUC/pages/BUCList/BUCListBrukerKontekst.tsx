@@ -4,10 +4,16 @@ import {useTranslation} from "react-i18next";
 import styled from "styled-components/macro";
 import {BUCMode, PesysContext} from "../../../../declarations/app";
 import {useEffect, useState} from "react";
-import {fetchBucsInfo, fetchBucsInfoList, fetchJoarkBucsListForBrukerKontekst} from "../../../../actions/buc";
+import {
+  fetchBuc,
+  fetchBucsInfo,
+  fetchBucsInfoList,
+  fetchJoarkBucsListForBrukerKontekst,
+  setCurrentBuc
+} from "../../../../actions/buc";
 import {State} from "../../../../declarations/reducers";
 import {BadBucDiv, BucLenkePanel} from "./BUCListBrukerKontekst_V1";
-import {BucInfo, BucsInfo, JoarkBuc} from "../../../../declarations/buc";
+import {BucInfo, Bucs, BucsInfo, JoarkBuc} from "../../../../declarations/buc";
 import BUCHeader from "../../components/BUCHeader/BUCHeader";
 import _ from "lodash";
 import {bucFilter, bucSorter, pbuc02filter} from "../../components/BUCUtils/BUCUtils";
@@ -38,7 +44,9 @@ export interface BUCListBrukerKontekstSelector {
   bucsInfo: BucsInfo | undefined
   bucsInfoList: Array<string> | undefined
   gettingBucsInfo: boolean
-  personAvdods: PersonAvdods | undefined
+  gettingBuc: boolean
+  personAvdods: PersonAvdods | undefined,
+  bucs: Bucs | undefined
 }
 
 const mapState = (state: State): BUCListBrukerKontekstSelector => ({
@@ -50,14 +58,17 @@ const mapState = (state: State): BUCListBrukerKontekstSelector => ({
   bucsInfo: state.buc.bucsInfo,
   bucsInfoList: state.buc.bucsInfoList,
   gettingBucsInfo: state.loading.gettingBucsInfo,
-  personAvdods: state.person.personAvdods
+  gettingBuc: state.loading.gettingBuc,
+  personAvdods: state.person.personAvdods,
+  bucs: state.buc.bucs
 })
 const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
-  //setMode, initialBucNew = undefined
+  setMode
 }: BUCListProps): JSX.Element => {
 
   const {
-    aktoerId, sakId, pesysContext, bucsListJoark, gettingBucsListJoark, bucsInfo, bucsInfoList, gettingBucsInfo, personAvdods,
+    aktoerId, sakId, pesysContext, bucsListJoark, gettingBucsListJoark, bucsInfo, bucsInfoList, gettingBucsInfo,
+    personAvdods, bucs
   }: BUCListBrukerKontekstSelector = useSelector<State, BUCListBrukerKontekstSelector>(mapState)
 
   const dispatch = useDispatch()
@@ -93,6 +104,19 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
     }
   }, [aktoerId, bucsInfo, bucsInfoList, dispatch, gettingBucsInfo])
 
+  const onBUCEdit = (buc: JoarkBuc): void => {
+    dispatch(setCurrentBuc(buc.caseId!))
+    if (bucs && !bucs[buc.caseId!]) {
+      dispatch(fetchBuc(buc.caseId))
+    }
+    setMode('bucedit' as BUCMode, 'forward')
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
+  }
+
   return (
     <BUCListDiv>
       <BUCListHeader>
@@ -121,6 +145,11 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
             data-testid={'a-buc-p-buclist--buc-' + buc.caseId}
             key={index}
             style={{ animationDelay: (0.1 * index) + 's' }}
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+              e.preventDefault()
+              e.stopPropagation()
+              onBUCEdit(buc)
+            }}
           >
             <BUCHeader
               buc={buc}

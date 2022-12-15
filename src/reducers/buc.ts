@@ -360,32 +360,33 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         bucsListJoark: _.isNil(state.bucsListJoark) ? null : state.bucsListJoark
       }
 
-    case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST:
-      return {
-        ...state,
-        bucsListRina: undefined
-      }
+      /*
+        case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST:
+          return {
+            ...state,
+            bucsListRina: undined
+          }
 
-/*
-    case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS:
-      const newBucsList: BucListItem[] = [];
-      (action as ActionWithPayload).payload?.forEach((buc: BucListItem) => {
-        const foundIndex = _.findIndex(state.bucsListJoark, (b: BucListItem) => b.euxCaseId === buc.euxCaseId)
-        if (foundIndex < 0) {
-          newBucsList.push(buc)
-        }
-      })
+        case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS:
+          const newBucsList: BucListItem[] = [];
+          (action as ActionWithPayload).payload?.forEach((buc: BucListItem) => {
+            const foundIndex = _.findIndex(state.bucsListJoark, (b: BucListItem) => b.euxCaseId === buc.euxCaseId)
+            if (foundIndex < 0) {
+              newBucsList.push(buc)
+            }
+          })
 
-      return {
-        ...state,
-        bucsListRina: newBucsList
-      }
+          return {
+            ...state,
+            bucsListRina: newBucsList
+          }
 
-    case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE:
-      return {
-        ...state,
-        bucsListRina: _.isNil(state.bucsListRina) ? null : state.bucsListRina
-      }
+        case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE:
+          return {
+            ...state,
+            bucsListRina: _.isNil(state.bucsListRina) ? null : state.bucsListRina
+          }
+    */
 
     case types.BUC_GET_BUCSLIST_WITH_AVDOD_FNR_REQUEST: {
       return {
@@ -393,7 +394,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         bucsListRina: _.isNil(state.bucsListRina) ? undefined : state.bucsListRina
       }
     }
-*/
 
     case types.BUC_GET_BUCSLIST_WITH_AVDOD_FNR_SUCCESS: {
       // merge only the new ones, do not have duplicates
