@@ -2673,6 +2673,779 @@ const mockBuc = [
     institusjon: null,
     seds: null,
     error: 'Rina serverfeil, kan også skyldes ugyldig input, {"status":"INTERNAL_SERVER_ERROR","timestamp":"23-10-2019 15:48:30","messages":["500 null","{\\"stack\\":\\"\\",\\"error_description\\":\\"The user with userName:[Z990638] is not authorised\\",\\"error\\":\\"Cannot get case\\"}"]}'
+  },
+  {
+    type: "P_BUC_06",
+    readOnly: false,
+    caseId: "1442485",
+    internationalId: "113ad73552c84cf1a07110b4974bebfe",
+    creator: {
+      country: "NO",
+      institution: "NO:NAVAT05",
+      name: "NAV ACC 05",
+      acronym: "NAVAT05"
+    },
+    sakType: null,
+    status: "open",
+    startDate: 1659963503928,
+    lastUpdate: 1659963504162,
+    institusjon: [
+      {
+        country: "NO",
+        institution: "NO:NAVAT05",
+        name: "NAV ACC 05",
+        acronym: "NAVAT05"
+      },
+      {
+        country: "NO",
+        institution: "NO:NAVAT07",
+        name: "NAV ACC 07",
+        acronym: "NAVAT07"
+      }
+    ],
+    seds: [
+      {
+        id: 'f2123ebf16dc4ddaaaf2420d0adb39c8',
+        parentDocumentId: null,
+        type: 'P10000',
+        status: 'sent',
+        direction: 'IN' as Direction,
+        creationDate: 1557393035000,
+        lastUpdate: 1557393035000,
+        displayName: 'Claim for - Reimbursement - Administrative Check /Medical information',
+        participants: [{
+          role: 'Sender',
+          organisation: {
+            acronym: 'DEMO002',
+            countryCode: 'NO',
+            name: 'DEMO002',
+            id: 'NO:DEMO002'
+          },
+          selected: false
+        }, {
+          role: 'Receiver',
+          organisation: {
+            acronym: 'DEMO001',
+            countryCode: 'NO',
+            name: 'DEMO001',
+            id: 'NO:DEMO001'
+          },
+          selected: false
+        }],
+        attachments: [],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1557393035000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1557393035000
+        },
+        allowsAttachments: true
+      },
+    ],
+    error: null
+  },
+  {
+    "type": "P_BUC_06",
+    "caseId": "1443112",
+    "internationalId": "4cda88884fc2446295b6f2fce0ed14e8",
+    "creator": {
+      "country": "NO",
+      "institution": "NO:NAVAT05",
+      "name": "NAV ACC 05",
+      "acronym": "NAVAT05"
+    },
+    "sakType": null,
+    "status": "open",
+    "startDate": 1666682731992,
+    "lastUpdate": 1666682732210,
+    "institusjon": [
+      {
+        "country": "NO",
+        "institution": "NO:NAVAT05",
+        "name": "NAV ACC 05",
+        "acronym": "NAVAT05"
+      },
+      {
+        "country": "NO",
+        "institution": "NO:NAVAT07",
+        "name": "NAV ACC 07",
+        "acronym": "NAVAT07"
+      }
+    ],
+    "seds": [
+      {
+        id: 'f2123ebf16dc4ddaaaf2420d0adb39c8',
+        parentDocumentId: null,
+        type: 'P10000',
+        status: 'sent',
+        direction: 'IN' as Direction,
+        creationDate: 1557393035000,
+        lastUpdate: 1557393035000,
+        displayName: 'Claim for - Reimbursement - Administrative Check /Medical information',
+        participants: [{
+          role: 'Sender',
+          organisation: {
+            acronym: 'DEMO002',
+            countryCode: 'NO',
+            name: 'DEMO002',
+            id: 'NO:DEMO002'
+          },
+          selected: false
+        }, {
+          role: 'Receiver',
+          organisation: {
+            acronym: 'DEMO001',
+            countryCode: 'NO',
+            name: 'DEMO001',
+            id: 'NO:DEMO001'
+          },
+          selected: false
+        }],
+        attachments: [],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1557393035000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1557393035000
+        },
+        allowsAttachments: true
+      }
+    ],
+    "error": null,
+    "readOnly": false,
+  },
+  {
+    "type": "P_BUC_01",
+    "caseId": "1441957",
+    "internationalId": "f1406de50b7a4084a4149d41c0ea00da",
+    "creator": {
+      "country": "NO",
+      "institution": "NO:NAVAT07",
+      "name": "NAV ACC 07",
+      "acronym": "NAVAT07"
+    },
+    "sakType": null,
+    "status": "open",
+    "startDate": 1654168571352,
+    "lastUpdate": 1654168938132,
+    "institusjon": [
+      {
+        "country": "NO",
+        "institution": "NO:NAVAT07",
+        "name": "NAV ACC 07",
+        "acronym": "NAVAT07"
+      },
+      {
+        "country": "NO",
+        "institution": "NO:NAVAT05",
+        "name": "NAV ACC 05",
+        "acronym": "NAVAT05"
+      }
+    ],
+    "seds": [
+      {
+        id: '98492223b35240138503f58ec09454fa',
+        parentDocumentId: '5d549c96e0ce40788a2eea2992c1f65f',
+        type: 'X008',
+        status: 'empty',
+        creationDate: 1571818175000,
+        lastUpdate: 1571818175000,
+        direction: 'IN' as Direction,
+        displayName: 'Invalidate Sed',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 07',
+              id: 'NO:NAVAT07'
+            },
+            selected: true
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'NAVAT08',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 08',
+              id: 'NO:NAVAT08'
+            },
+            selected: false
+          }
+        ],
+        attachments: [{
+          id: '58828e7ff57943779ab7b24c522b1a3f',
+          name: 'balrog.png',
+          fileName: 'balrog.png',
+          mimeType: 'image/png',
+          documentId: 'cac9db2726d54f2c9b51d1562b7b0a79',
+          lastUpdate: 1571818175000,
+          medical: false
+        }],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818175000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818175000
+        },
+        allowsAttachments: true
+      },
+      {
+        id: '10678159cd4142f890d56264bfdefd13',
+        parentDocumentId: null,
+        type: 'P6000',
+        status: 'active',
+        direction: 'IN' as Direction,
+        creationDate: 1571818194896,
+        lastUpdate: 1571818294896,
+        receiveDate: later,
+        displayName: 'Pension decision',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 07',
+              id: 'NO:NAVAT07'
+            },
+            selected: false
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'NAVAT08',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 08',
+              id: 'NO:NAVAT08'
+            },
+            selected: false
+          }, {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'DEMOIT01',
+              countryCode: 'IT',
+              name: 'Italian institution 001',
+              id: 'IT:DEMOIT01'
+            },
+            selected: false
+          }, {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'DEMOES01',
+              countryCode: 'ES',
+              name: 'Spanish institution 01',
+              id: 'ES:DEMOES01'
+            },
+            selected: false
+          }, {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'DEMOFR01',
+              countryCode: 'FR',
+              name: 'French insstitution 01',
+              id: 'FR:DEMOFR01'
+            },
+            selected: false
+          }
+        ],
+        attachments: [],
+        version: '3',
+        firstVersion: {
+          id: '1',
+          date: 1571818194896
+        },
+        lastVersion: {
+          id: '3',
+          date: 1571818294896
+        },
+        allowsAttachments: true
+      },
+      {
+        id: '4bff8e2fdbeb4f8fa5ba76e0d9f66f6d',
+        parentDocumentId: '5d549c96e0ce40788a2eea2992c1f65f',
+        type: 'X007',
+        status: 'empty',
+        direction: 'IN' as Direction,
+        creationDate: 1571818175000,
+        lastUpdate: 1571818175000,
+        displayName: 'Forward Case',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 07',
+              id: 'NO:NAVAT07'
+            },
+            selected: false
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'NAVAT08',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 08',
+              id: 'NO:NAVAT08'
+            },
+            selected: false
+          }
+        ],
+        attachments: [],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818175000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818175000
+        },
+        allowsAttachments: true
+      },
+      {
+        id: 'ef2905700e6f410b9edd04023856d49b',
+        parentDocumentId: null,
+        type: 'P10000',
+        status: 'cancelled',
+        direction: 'IN' as Direction,
+        creationDate: 1571818201591,
+        lastUpdate: 1571818201591,
+        displayName: 'Transfer of additional information',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 07',
+              id: 'NO:NAVAT07'
+            },
+            selected: false
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'NAVAT08',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 08',
+              id: 'NO:NAVAT08'
+            },
+            selected: false
+          }
+        ],
+        attachments: [],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818201591
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818201591
+        },
+        allowsAttachments: true
+      },
+      {
+        id: '8c582ae21c8744aa8e697c8a5c84d84f',
+        parentDocumentId: null,
+        type: 'P3000_NO',
+        status: 'new',
+        direction: 'IN' as Direction,
+        creationDate: 1571818175000,
+        lastUpdate: 1571818175000,
+        displayName: 'Country specific information',
+        participants: [
+          {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'NAVAT08',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 08',
+              id: 'NO:NAVAT08'
+            },
+            selected: false
+          },
+          {
+            role: 'Sender',
+            organisation: {
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 07',
+              id: 'NO:NAVAT07'
+            },
+            selected: false
+          }
+        ],
+        attachments: [],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818175000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818175000
+        },
+        allowsAttachments: true
+      },
+      {
+        id: 'dc4670bbd59d4c8ab3b41974a72bf11d',
+        parentDocumentId: null,
+        type: 'P4000',
+        status: 'received',
+        direction: 'IN' as Direction,
+        creationDate: 1571818181793,
+        lastUpdate: 1571818181793,
+        displayName: 'Report on insurance history',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 07',
+              id: 'NO:NAVAT07'
+            },
+            selected: false
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'NAVAT08',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 08',
+              id: 'NO:NAVAT08'
+            },
+            selected: false
+          }
+        ],
+        attachments: [{
+          id: '58828e7ff57943779ab7b24c522b1a3f',
+          name: 'balrog.png',
+          fileName: 'balrog.png',
+          mimeType: 'image/png',
+          documentId: 'cac9db2726d54f2c9b51d1562b7b0a79',
+          lastUpdate: 1571818175000,
+          medical: false
+        }, {
+          id: '58828e7ff57943779ab7b24c522b1a3d',
+          name: '491399765_ARKIV.pdf',
+          fileName: '491399765_ARKIV.pdf',
+          mimeType: 'application/pdf',
+          documentId: 'cac9db2726d54f2c9b51d1562b7b0a7a',
+          lastUpdate: 1571818175000,
+          medical: false
+        }],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818181793
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818181793
+        },
+        allowsAttachments: true
+      },
+    ],
+    "error": null,
+    "readOnly": false,
+  },
+  {
+    "type": "P_BUC_01",
+    "caseId": "1443133",
+    "internationalId": "26ce9f052206448a986adbe7955409f0",
+    "creator": {
+      "country": "NO",
+      "institution": "NO:NAVAT05",
+      "name": "NAV ACC 05",
+      "acronym": "NAVAT05"
+    },
+    "sakType": null,
+    "status": "open",
+    "startDate": 1666852009130,
+    "lastUpdate": 1666852009505,
+    "institusjon": [
+      {
+        "country": "NO",
+        "institution": "NO:NAVAT05",
+        "name": "NAV ACC 05",
+        "acronym": "NAVAT05"
+      },
+      {
+        "country": "NO",
+        "institution": "NO:NAVAT07",
+        "name": "NAV ACC 07",
+        "acronym": "NAVAT07"
+      }
+    ],
+    "seds": [
+      {
+        id: '98492223b35240138503f58ec09454fa',
+        parentDocumentId: '5d549c96e0ce40788a2eea2992c1f65f',
+        type: 'X008',
+        status: 'empty',
+        creationDate: 1571818175000,
+        lastUpdate: 1571818175000,
+        direction: 'IN' as Direction,
+        displayName: 'Invalidate Sed',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 07',
+              id: 'NO:NAVAT07'
+            },
+            selected: true
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'NAVAT08',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 08',
+              id: 'NO:NAVAT08'
+            },
+            selected: false
+          }
+        ],
+        attachments: [{
+          id: '58828e7ff57943779ab7b24c522b1a3f',
+          name: 'balrog.png',
+          fileName: 'balrog.png',
+          mimeType: 'image/png',
+          documentId: 'cac9db2726d54f2c9b51d1562b7b0a79',
+          lastUpdate: 1571818175000,
+          medical: false
+        }],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818175000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818175000
+        },
+        allowsAttachments: true
+      },
+      {
+        id: '10678159cd4142f890d56264bfdefd13',
+        parentDocumentId: null,
+        type: 'P6000',
+        status: 'active',
+        direction: 'IN' as Direction,
+        creationDate: 1571818194896,
+        lastUpdate: 1571818294896,
+        receiveDate: later,
+        displayName: 'Pension decision',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 07',
+              id: 'NO:NAVAT07'
+            },
+            selected: false
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'NAVAT08',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 08',
+              id: 'NO:NAVAT08'
+            },
+            selected: false
+          }, {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'DEMOIT01',
+              countryCode: 'IT',
+              name: 'Italian institution 001',
+              id: 'IT:DEMOIT01'
+            },
+            selected: false
+          }, {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'DEMOES01',
+              countryCode: 'ES',
+              name: 'Spanish institution 01',
+              id: 'ES:DEMOES01'
+            },
+            selected: false
+          }, {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'DEMOFR01',
+              countryCode: 'FR',
+              name: 'French insstitution 01',
+              id: 'FR:DEMOFR01'
+            },
+            selected: false
+          }
+        ],
+        attachments: [],
+        version: '3',
+        firstVersion: {
+          id: '1',
+          date: 1571818194896
+        },
+        lastVersion: {
+          id: '3',
+          date: 1571818294896
+        },
+        allowsAttachments: true
+      },
+      {
+        id: '4bff8e2fdbeb4f8fa5ba76e0d9f66f6d',
+        parentDocumentId: '5d549c96e0ce40788a2eea2992c1f65f',
+        type: 'X007',
+        status: 'empty',
+        direction: 'IN' as Direction,
+        creationDate: 1571818175000,
+        lastUpdate: 1571818175000,
+        displayName: 'Forward Case',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 07',
+              id: 'NO:NAVAT07'
+            },
+            selected: false
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'NAVAT08',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 08',
+              id: 'NO:NAVAT08'
+            },
+            selected: false
+          }
+        ],
+        attachments: [],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818175000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818175000
+        },
+        allowsAttachments: true
+      },
+      {
+        id: 'ef2905700e6f410b9edd04023856d49b',
+        parentDocumentId: null,
+        type: 'P10000',
+        status: 'cancelled',
+        direction: 'IN' as Direction,
+        creationDate: 1571818201591,
+        lastUpdate: 1571818201591,
+        displayName: 'Transfer of additional information',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 07',
+              id: 'NO:NAVAT07'
+            },
+            selected: false
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'NAVAT08',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 08',
+              id: 'NO:NAVAT08'
+            },
+            selected: false
+          }
+        ],
+        attachments: [],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818201591
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818201591
+        },
+        allowsAttachments: true
+      },
+      {
+        id: '8c582ae21c8744aa8e697c8a5c84d84f',
+        parentDocumentId: null,
+        type: 'P3000_NO',
+        status: 'new',
+        direction: 'IN' as Direction,
+        creationDate: 1571818175000,
+        lastUpdate: 1571818175000,
+        displayName: 'Country specific information',
+        participants: [
+          {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'NAVAT08',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 08',
+              id: 'NO:NAVAT08'
+            },
+            selected: false
+          },
+          {
+            role: 'Sender',
+            organisation: {
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 07',
+              id: 'NO:NAVAT07'
+            },
+            selected: false
+          }
+        ],
+        attachments: [],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818175000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1571818175000
+        },
+        allowsAttachments: true
+      }
+    ],
+    "error": null,
+    "readOnly": false,
   }
 ]
 
