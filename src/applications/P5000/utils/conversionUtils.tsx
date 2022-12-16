@@ -35,18 +35,23 @@ export const senderIsNorway = (sender: SedSender): boolean => sender?.country ==
   (sender?.institution !== 'NO:NAVAT06' && sender?.institution !== 'NO:NAVAT08')
 
 export const generateKeyForListRow = (id: string, m: P5000Period): string => {
-  const key = 'sedid' + id +
-    '_type' + (!_.isEmpty(m.type) ? m.type : '-') +
-    '_fom' + (!_.isEmpty(m.periode?.fom) ? m.periode?.fom : '-') +
-    '_tom' + (!_.isEmpty(m.periode?.tom) ? m.periode?.tom : '-') +
-    '_aar' + (!_.isEmpty(m.sum?.aar) ? writeFloat(m.sum.aar!) : '-') +
-    '_mnd' + (!_.isEmpty(m.sum?.maaneder) ? writeFloat(m.sum.maaneder!) : '-') +
-    '_dag' + (!_.isEmpty(m.sum?.dager?.nr) ? writeFloat(m.sum.dager.nr!) : '-') +
-    '_yt' + (!_.isEmpty(m.relevans) ? m.relevans : '-') +
-    '_ord' + (!_.isEmpty(m.ordning) ? m.ordning : '-') +
-    '_ber' + (!_.isEmpty(m.beregning) ? m.beregning : '-')
-  // console.log(key)
-  return md5(key)
+  if(m){
+    const key = 'sedid' + id +
+      '_type' + (!_.isEmpty(m.type) ? m.type : '-') +
+      '_fom' + (!_.isEmpty(m.periode?.fom) ? m.periode?.fom : '-') +
+      '_tom' + (!_.isEmpty(m.periode?.tom) ? m.periode?.tom : '-') +
+      '_aar' + (!_.isEmpty(m.sum?.aar) ? writeFloat(m.sum.aar!) : '-') +
+      '_mnd' + (!_.isEmpty(m.sum?.maaneder) ? writeFloat(m.sum.maaneder!) : '-') +
+      '_dag' + (!_.isEmpty(m.sum?.dager?.nr) ? writeFloat(m.sum.dager.nr!) : '-') +
+      '_yt' + (!_.isEmpty(m.relevans) ? m.relevans : '-') +
+      '_ord' + (!_.isEmpty(m.ordning) ? m.ordning : '-') +
+      '_ber' + (!_.isEmpty(m.beregning) ? m.beregning : '-')
+    // console.log(key)
+    return md5(key)
+  } else {
+    return md5('sedid' + id)
+  }
+
 }
 
 export const convertDate = (date: string | Date | null | undefined): string | null => {
