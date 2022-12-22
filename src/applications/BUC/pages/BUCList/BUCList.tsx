@@ -1,5 +1,4 @@
 import {
-  fetchBucsInfo,
   fetchBucsListWithAvdodFnr,
   getInstitutionsListForBucAndCountry,
   setCurrentBuc
@@ -18,7 +17,6 @@ import {
 } from '@navikt/hoykontrast'
 
 import { BRUKERKONTEKST } from 'constants/constants'
-import * as storage from 'constants/storage'
 import { AllowedLocaleString, BUCMode, PesysContext } from 'declarations/app.d'
 import {
   Buc,
@@ -64,11 +62,9 @@ export interface BUCListSelector {
   bucs: Bucs | undefined
   bucsList: Array<BucListItem> | null | undefined
   bucsInfo: BucsInfo | undefined
-  bucsInfoList: Array<string> | undefined
   institutionList: InstitutionListMap<Institution> | undefined
   gettingBucsList: boolean
   gettingBucs: boolean
-  gettingBucsInfo: boolean
   locale: AllowedLocaleString
   newlyCreatedBuc: Buc | undefined
   personAvdods: PersonAvdods | undefined
@@ -82,9 +78,7 @@ const mapState = (state: State): BUCListSelector => ({
   bucs: state.buc.bucs,
   bucsList: state.buc.bucsList,
   bucsInfo: state.buc.bucsInfo,
-  bucsInfoList: state.buc.bucsInfoList,
   institutionList: state.buc.institutionList,
-  gettingBucsInfo: state.loading.gettingBucsInfo,
   gettingBucs: state.loading.gettingBucs,
   gettingBucsList: state.loading.gettingBucsList,
   locale: state.ui.locale,
@@ -99,7 +93,7 @@ const BUCList: React.FC<BUCListProps> = ({
   setMode, initialBucNew = undefined
 }: BUCListProps): JSX.Element => {
   const {
-    aktoerId, bucs, bucsList, bucsInfo, bucsInfoList, institutionList, gettingBucsInfo,
+    aktoerId, bucs, bucsList, bucsInfo, institutionList,
     gettingBucs, gettingBucsList, newlyCreatedBuc, personAvdods, pesysContext, sakId, sakType
   } = useSelector<State, BUCListSelector>(mapState)
   const dispatch = useDispatch()
@@ -181,13 +175,6 @@ const BUCList: React.FC<BUCListProps> = ({
       _setSortedBucs(sortedBucs)
     }
   }, [bucs])
-
-  useEffect(() => {
-    if (!_.isEmpty(bucsInfoList) && aktoerId && bucsInfo === undefined && !gettingBucsInfo &&
-      bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
-      dispatch(fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO))
-    }
-  }, [aktoerId, bucsInfo, bucsInfoList, dispatch, gettingBucsInfo])
 
   useEffect(() => {
     if (!_.isEmpty(bucs) && !gettingBucs && !_parsedCountries) {

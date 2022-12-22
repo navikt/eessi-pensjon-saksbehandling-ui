@@ -5,9 +5,11 @@ import {useDispatch, useSelector} from 'react-redux'
 import BUCIndexVedtaksKontekst from "./BUCIndexVedtaksKontekst";
 import BUCIndexBrukerKontekst from "./BUCIndexBrukerKontekst";
 import {useEffect, useState} from "react";
-import {getRinaUrl, getSakType} from "../../actions/buc";
-import {SakTypeValue} from "../../declarations/buc";
+import {fetchBucsInfo, getRinaUrl, getSakType} from "../../actions/buc";
+import {BucsInfo, SakTypeValue} from "../../declarations/buc";
 import {loadAllEntries} from "../../actions/localStorage";
+import _ from "lodash";
+import * as storage from "../../constants/storage";
 
 export interface BUCIndexSelector {
   pesysContext: PesysContext | undefined
@@ -17,6 +19,9 @@ export interface BUCIndexSelector {
   sakType: SakTypeValue | null | undefined
   gettingSakType: boolean,
   rinaUrl: RinaUrl | undefined
+  bucsInfo: BucsInfo | undefined
+  bucsInfoList: Array<string> | undefined
+  gettingBucsInfo: boolean
 }
 
 const mapState = (state: State): BUCIndexSelector => ({
@@ -27,11 +32,14 @@ const mapState = (state: State): BUCIndexSelector => ({
   aktoerId: state.app.params.aktoerId,
   gettingSakType: state.loading.gettingSakType,
   rinaUrl: state.buc.rinaUrl,
+  bucsInfo: state.buc.bucsInfo,
+  bucsInfoList: state.buc.bucsInfoList,
+  gettingBucsInfo: state.loading.gettingBucsInfo
 })
 
 export const BUCIndex = (): JSX.Element => {
   const {
-    pesysContext, vedtakId, aktoerId, sakId, sakType, gettingSakType, rinaUrl
+    pesysContext, vedtakId, aktoerId, sakId, sakType, gettingSakType, rinaUrl, bucsInfo, bucsInfoList, gettingBucsInfo
   }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
 
@@ -45,12 +53,19 @@ export const BUCIndex = (): JSX.Element => {
     }
   },[])
 
-    useEffect(() => {
+  useEffect(() => {
     if (aktoerId && sakId && sakType === undefined && !gettingSakType && !_askSakType) {
       dispatch(getSakType(sakId, aktoerId))
       _setAskSakType(true)
     }
   }, [aktoerId, dispatch, gettingSakType, sakId, sakType])
+
+  useEffect(() => {
+    if (!_.isEmpty(bucsInfoList) && aktoerId && bucsInfo === undefined && !gettingBucsInfo &&
+      bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
+      dispatch(fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO))
+    }
+  }, [aktoerId, bucsInfo, bucsInfoList, dispatch, gettingBucsInfo])
 
   return (
     isVedtaksKontekst ? <BUCIndexVedtaksKontekst/> : <BUCIndexBrukerKontekst/>

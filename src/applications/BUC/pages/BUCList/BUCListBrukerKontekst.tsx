@@ -5,7 +5,6 @@ import {BUCMode, PesysContext} from "../../../../declarations/app";
 import React, {useEffect, useState} from "react";
 import {
   fetchBuc,
-  fetchBucsInfo,
   fetchBucsInfoList,
   fetchJoarkBucsListForBrukerKontekst,
   setCurrentBuc
@@ -17,7 +16,6 @@ import _ from "lodash";
 import {bucFilter, bucSorter, pbuc02filter} from "../../components/BUCUtils/BUCUtils";
 import {VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import {PersonAvdods} from "../../../../declarations/person";
-import * as storage from "../../../../constants/storage";
 import {buttonLogger} from "../../../../metrics/loggers";
 import classNames from "classnames";
 import {HorizontalLineSeparator} from "../../../../components/StyledComponents";
@@ -37,8 +35,6 @@ export interface BUCListBrukerKontekstSelector {
   bucsListJoark: Array<JoarkBuc> | null | undefined
   gettingBucsListJoark: boolean
   bucsInfo: BucsInfo | undefined
-  bucsInfoList: Array<string> | undefined
-  gettingBucsInfo: boolean
   gettingBuc: boolean
   personAvdods: PersonAvdods | undefined,
   bucs: Bucs | undefined
@@ -52,8 +48,6 @@ const mapState = (state: State): BUCListBrukerKontekstSelector => ({
   bucsListJoark: state.buc.bucsListJoark,
   gettingBucsListJoark: state.loading.gettingBucsListJoark,
   bucsInfo: state.buc.bucsInfo,
-  bucsInfoList: state.buc.bucsInfoList,
-  gettingBucsInfo: state.loading.gettingBucsInfo,
   gettingBuc: state.loading.gettingBuc,
   personAvdods: state.person.personAvdods,
   bucs: state.buc.bucs,
@@ -64,7 +58,7 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
 }: BUCListProps): JSX.Element => {
 
   const {
-    aktoerId, sakId, pesysContext, bucsListJoark, gettingBucsListJoark, bucsInfo, bucsInfoList, gettingBucsInfo,
+    aktoerId, sakId, pesysContext, bucsListJoark, gettingBucsListJoark, bucsInfo,
     personAvdods, bucs, newlyCreatedBuc
   }: BUCListBrukerKontekstSelector = useSelector<State, BUCListBrukerKontekstSelector>(mapState)
 
@@ -115,13 +109,6 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
       _setSortedBucsExJoark(myBucs)
     }
   }, [bucs])
-
-  useEffect(() => {
-    if (!_.isEmpty(bucsInfoList) && aktoerId && bucsInfo === undefined && !gettingBucsInfo &&
-      bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
-      dispatch(fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO))
-    }
-  }, [aktoerId, bucsInfo, bucsInfoList, dispatch, gettingBucsInfo])
 
   const onBUCEdit = (buc: JoarkBuc | Buc): void => {
     dispatch(setCurrentBuc(buc.caseId!))
