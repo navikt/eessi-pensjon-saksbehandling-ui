@@ -13,7 +13,6 @@ import classNames from 'classnames'
 import { HorizontalLineSeparator } from 'components/StyledComponents'
 import ProgressBar from '@navikt/fremdriftslinje'
 import {
-  animationClose, animationOpen, slideInFromLeft,
   HorizontalSeparatorDiv,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
@@ -38,83 +37,22 @@ import { PersonAvdods } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
-import { LinkPanel, Accordion, Alert, BodyLong, Heading, Panel, Button, TextField } from '@navikt/ds-react'
+import { Accordion, Alert, BodyLong, Heading, Button, TextField } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components/macro'
-
-export const BUCListDiv = styled.div``
-const BUCListHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 40px;
-`
-export const ProgressBarDiv = styled.div`
- flex: 2;
- margin-left: 1rem;
- margin-right: 1rem;
- height: 40px;
- max-width: 50%;
-`
-export const BadBucDiv = styled.div`
-  width: 100%;
-  padding: 0rem;
-  margin-bottom: 1rem;
-  .alertstripe--tekst {
-    max-width: 100% !important;
-  }
-`
-export const BucLenkePanel = styled(LinkPanel)`
-  transform: translateX(-20px);
-  opacity: 0;
-  animation: ${slideInFromLeft} 0.2s forwards;
-  background: var(--navds-semantic-color-component-background-light);
-  margin-bottom: 1rem;
-  .navds-link-panel__content {
-    width: 100%;
-  }
-  &.new {
-    background: var(--navds-global-color-limegreen-100) !important;
-  }
-  &:hover {
-    background: var(--navds-semantic-color-interaction-primary-hover-subtle);
-  }
-`
-const BUCNewDiv = styled(Panel)`
-  padding: 2rem !important;
-`
-export const BUCStartDiv = styled.div`
-  max-height: 0;
-  height: 0%;
-  overflow: hidden;
-  &.close {
-    will-change: max-height, height;
-    max-height: 0;
-    animation: ${animationClose(150)} 400ms ease;
-  }
-  &.open {
-    will-change: max-height, height;
-    max-height: 50em;
-    animation: ${animationOpen(150)} 400ms ease;
-  }
-`
-export const BUCLoadingDiv = styled.div``
-const FlexDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  &.error {
-    align-items: center !important;
-  }
-`
-const HiddenDiv = styled.div`
-  position: absolute;
-  left: -99999px;
-`
+import {
+  BadBucDiv,
+  BucLenkePanel,
+  BUCListDiv,
+  BUCListHeader,
+  BUCNewDiv,
+  BUCStartDiv,
+  FlexDiv,
+  HiddenDiv,
+  ProgressBarDiv
+} from "../../CommonBucComponents";
 
 export interface BUCListProps {
   initialBucNew?: boolean
