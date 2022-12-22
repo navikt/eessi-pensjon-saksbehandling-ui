@@ -1,13 +1,11 @@
 import {
-  getRinaUrl,
   setMode,
 } from 'actions/buc'
-import { loadAllEntries } from 'actions/localStorage'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import classNames from 'classnames'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { BUCMode, RinaUrl } from 'declarations/app.d'
+import { BUCMode } from 'declarations/app.d'
 import { State } from 'declarations/reducers'
 import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import { useCallback, useEffect, useState } from 'react'
@@ -117,13 +115,11 @@ export const WindowDiv = styled.div`
 
 export interface BUCIndexSelector {
   aktoerId: string | null | undefined
-  rinaUrl: RinaUrl | undefined
   sakId: string | null | undefined
 }
 
 const mapState = (state: State): BUCIndexSelector => ({
   aktoerId: state.app.params.aktoerId,
-  rinaUrl: state.buc.rinaUrl,
   sakId: state.app.params.sakId,
 })
 
@@ -150,7 +146,7 @@ export enum Slide {
 
 export const BUCIndexBrukerKontekst = (): JSX.Element => {
   const {
-    aktoerId, rinaUrl, sakId
+    aktoerId, sakId
   }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
 
@@ -285,10 +281,6 @@ export const BUCIndexBrukerKontekst = (): JSX.Element => {
   }, [animating, dispatch])
 
   useEffect(() => {
-    dispatch(loadAllEntries())
-    if (!rinaUrl) {
-      dispatch(getRinaUrl())
-    }
     setContentA(WaitingDiv)
 
     if (!aktoerId || !sakId) {
@@ -307,38 +299,7 @@ export const BUCIndexBrukerKontekst = (): JSX.Element => {
     }
   }, [])
 
-/*  useEffect(() => {
-    if (aktoerId && sakId && bucsListJoark === undefined && !gettingBucsListJoark) {
-      dispatch(fetchJoarkBucsListForBrukerKontekst(aktoerId, sakId))
-      dispatch(fetchBucsInfoList(aktoerId))
-    }
-  }, [aktoerId, bucs, dispatch, gettingBucsListJoark, pesysContext, sakId])
-
-  useEffect(() => {
-    if (aktoerId && sakId && sakType === undefined && !gettingSakType && !_askSakType) {
-      dispatch(getSakType(sakId, aktoerId))
-      _setAskSakType(true)
-    }
-  }, [aktoerId, dispatch, gettingSakType, sakId, sakType])
-
-  useEffect(() => {
-    if (aktoerId && sakId && _.isEmpty(bucs) && !_.isEmpty(bucsListJoark) && !gettingBucsListJoark) {
-      dispatch(startBucsFetch())
-      bucsListJoark?.forEach((bucListItem) => {
-        dispatch(fetchBuc(
-          bucListItem.euxCaseId, bucListItem.aktoerId, bucListItem.saknr, bucListItem.avdodFnr, bucListItem.kilde
-        ))
-      })
-    }
-  }, [bucs, bucsListJoark, gettingBucs])
-
-  useEffect(() => {
-    if (aktoerId && sakId && !_.isEmpty(bucs) && !_.isNil(bucsListJoark) && gettingBucs) {
-      if (Object.keys(bucs!).length === bucsListJoark!.length) {
-        dispatch(endBucsFetch())
-      }
-    }
-  }, [bucs, bucsListJoark, gettingBucs])
+  /*
 
   useEffect(() => {
     if (bucs && !_bucs) {

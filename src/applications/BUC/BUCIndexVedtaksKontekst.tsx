@@ -5,19 +5,16 @@ import {
   fetchBucsInfoList,
   fetchBucsList,
   fetchBucsListWithVedtakId,
-  getRinaUrl,
-  getSakType,
   setMode,
   startBucsFetch
 } from 'actions/buc'
-import { loadAllEntries } from 'actions/localStorage'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import BUCList from 'applications/BUC/pages/BUCList/BUCList'
 import classNames from 'classnames'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { BUCMode, PesysContext, RinaUrl } from 'declarations/app.d'
-import { BucListItem, Bucs, SakTypeValue } from 'declarations/buc'
+import { BUCMode, PesysContext } from 'declarations/app.d'
+import { BucListItem, Bucs } from 'declarations/buc'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { timeDiffLogger } from 'metrics/loggers'
@@ -132,12 +129,9 @@ export interface BUCIndexSelector {
   bucsList: Array<BucListItem> | null | undefined
   gettingBucs: boolean
   gettingBucsList: boolean
-  gettingSakType: boolean
   howManyBucLists: number
   pesysContext: PesysContext | undefined
-  rinaUrl: RinaUrl | undefined
   sakId: string | null | undefined
-  sakType: SakTypeValue | null | undefined
   vedtakId: string | null | undefined
 }
 
@@ -147,12 +141,9 @@ const mapState = (state: State): BUCIndexSelector => ({
   bucsList: state.buc.bucsList,
   gettingBucs: state.loading.gettingBucs,
   gettingBucsList: state.loading.gettingBucsList,
-  gettingSakType: state.loading.gettingSakType,
   howManyBucLists: state.buc.howManyBucLists,
   pesysContext: state.app.pesysContext,
-  rinaUrl: state.buc.rinaUrl,
   sakId: state.app.params.sakId,
-  sakType: state.app.params.sakType as SakTypeValue,
   vedtakId: state.app.params.vedtakId
 })
 
@@ -179,12 +170,11 @@ export enum Slide {
 
 export const BUCIndexVedtaksKontekst = (): JSX.Element => {
   const {
-    aktoerId, bucs, bucsList, gettingBucs, gettingBucsList, gettingSakType, howManyBucLists,
-    pesysContext, rinaUrl, sakId, sakType, vedtakId
+    aktoerId, bucs, bucsList, gettingBucs, gettingBucsList, howManyBucLists,
+    pesysContext, sakId, vedtakId
   }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
 
-  const [_askSakType, _setAskSakType] = useState<boolean>(false)
   const [_noParams, setNoParams] = useState<boolean | undefined>(undefined)
   const [_bucs, setBucs] = useState<Bucs | undefined>(undefined)
 
@@ -331,10 +321,6 @@ export const BUCIndexVedtaksKontekst = (): JSX.Element => {
   }, [animating, dispatch])
 
   useEffect(() => {
-    dispatch(loadAllEntries())
-    if (!rinaUrl) {
-      dispatch(getRinaUrl())
-    }
     setContentA(WaitingDiv)
 
     if (!aktoerId || !sakId) {
@@ -367,13 +353,6 @@ export const BUCIndexVedtaksKontekst = (): JSX.Element => {
       dispatch(fetchBucsInfoList(aktoerId))
     }
   }, [aktoerId, bucs, dispatch, gettingBucsList, pesysContext, sakId, vedtakId])
-
-  useEffect(() => {
-    if (aktoerId && sakId && sakType === undefined && !gettingSakType && !_askSakType) {
-      dispatch(getSakType(sakId, aktoerId))
-      _setAskSakType(true)
-    }
-  }, [aktoerId, dispatch, gettingSakType, sakId, sakType])
 
   useEffect(() => {
     if (aktoerId && sakId && _.isEmpty(bucs) && !_.isEmpty(bucsList) && howManyBucLists === 0 && !gettingBucs) {
