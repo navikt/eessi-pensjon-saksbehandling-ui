@@ -6,7 +6,7 @@ import {
   getSakType,
   setMode
 } from 'actions/buc'
-import { BUCIndexVedtaksKontekst, BUCIndexSelector, ContainerDiv, WindowDiv } from 'applications/BUC/BUCIndexVedtaksKontekst'
+import { BUCIndexVedtaksKontekst, BUCIndexVedtaktsKontekstSelector, ContainerDiv, WindowDiv } from 'applications/BUC/BUCIndexVedtaksKontekst'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
 import { Buc } from 'declarations/buc'
@@ -36,7 +36,7 @@ Object.keys(_mockBucs).forEach(bucId => {
   _mockBucs[bucId].institusjon = undefined
 })
 
-const defaultSelector: BUCIndexSelector = {
+const defaultSelector: BUCIndexVedtaktsKontekstSelector = {
   aktoerId: '123',
   bucs: _mockBucs,
   bucsList: undefined,

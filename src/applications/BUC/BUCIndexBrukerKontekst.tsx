@@ -113,12 +113,12 @@ export const WindowDiv = styled.div`
   overflow: hidden;
 `
 
-export interface BUCIndexSelector {
+export interface BUCIndexBrukerKontekstSelector {
   aktoerId: string | null | undefined
   sakId: string | null | undefined
 }
 
-const mapState = (state: State): BUCIndexSelector => ({
+const mapState = (state: State): BUCIndexBrukerKontekstSelector => ({
   aktoerId: state.app.params.aktoerId,
   sakId: state.app.params.sakId,
 })
@@ -147,7 +147,7 @@ export enum Slide {
 export const BUCIndexBrukerKontekst = (): JSX.Element => {
   const {
     aktoerId, sakId
-  }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
+  }: BUCIndexBrukerKontekstSelector = useSelector<State, BUCIndexBrukerKontekstSelector>(mapState)
   const dispatch = useDispatch()
 
   const [_noParams, setNoParams] = useState<boolean | undefined>(undefined)

@@ -122,7 +122,7 @@ export const WindowDiv = styled.div`
   overflow: hidden;
 `
 
-export interface BUCIndexSelector {
+export interface BUCIndexVedtaktsKontekstSelector {
   aktoerId: string | null | undefined
   bucs: Bucs | undefined
   bucsList: Array<BucListItem> | null | undefined
@@ -134,7 +134,7 @@ export interface BUCIndexSelector {
   vedtakId: string | null | undefined
 }
 
-const mapState = (state: State): BUCIndexSelector => ({
+const mapState = (state: State): BUCIndexVedtaktsKontekstSelector => ({
   aktoerId: state.app.params.aktoerId,
   bucs: state.buc.bucs,
   bucsList: state.buc.bucsList,
@@ -171,7 +171,7 @@ export const BUCIndexVedtaksKontekst = (): JSX.Element => {
   const {
     aktoerId, bucs, bucsList, gettingBucs, gettingBucsList, howManyBucLists,
     pesysContext, sakId, vedtakId
-  }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
+  }: BUCIndexVedtaktsKontekstSelector = useSelector<State, BUCIndexVedtaktsKontekstSelector>(mapState)
   const dispatch = useDispatch()
 
   const [_noParams, setNoParams] = useState<boolean | undefined>(undefined)
