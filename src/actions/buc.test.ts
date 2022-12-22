@@ -125,19 +125,6 @@ describe('actions/buc', () => {
     })
   })
 
-  it('fetchBucParticipants()', () => {
-    const mockRinaCaseId = '123'
-    bucActions.fetchBucParticipants(mockRinaCaseId)
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.BUC_GET_PARTICIPANTS_REQUEST,
-        success: types.BUC_GET_PARTICIPANTS_SUCCESS,
-        failure: types.BUC_GET_PARTICIPANTS_FAILURE
-      },
-      url: sprintf(urls.BUC_GET_PARTICIPANTS_URL, { rinaCaseId: mockRinaCaseId })
-    }))
-  })
-
   it('fetchBucsList()', () => {
     const mockAktoerId = '123'
     const mockSakId = '456'

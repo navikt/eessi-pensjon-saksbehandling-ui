@@ -1,7 +1,6 @@
 import {
   endBucsFetch,
   fetchBuc,
-  fetchBucParticipants,
   fetchBucsInfoList,
   fetchBucsList,
   fetchBucsListWithVedtakId,
@@ -176,7 +175,6 @@ export const BUCIndexVedtaksKontekst = (): JSX.Element => {
   const dispatch = useDispatch()
 
   const [_noParams, setNoParams] = useState<boolean | undefined>(undefined)
-  const [_bucs, setBucs] = useState<Bucs | undefined>(undefined)
 
   const [positionA, setPositionA] = useState<Slide>(Slide.LEFT)
   const [positionB, setPositionB] = useState<Slide>(Slide.MIDDLE)
@@ -372,17 +370,6 @@ export const BUCIndexVedtaksKontekst = (): JSX.Element => {
       }
     }
   }, [bucs, bucsList, gettingBucs])
-
-  useEffect(() => {
-    if (bucs && !_bucs) {
-      Object.keys(bucs)?.forEach(bucId => {
-        if (bucs[bucId].type && _.isNil(bucs[bucId].institusjon)) {
-          dispatch(fetchBucParticipants(bucId))
-        }
-      })
-      setBucs(bucs)
-    }
-  }, [bucs, _bucs, dispatch])
 
   if (!sakId || !aktoerId) {
     return EmptyBuc

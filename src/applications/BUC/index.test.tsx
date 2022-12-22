@@ -1,5 +1,4 @@
 import {
-  fetchBucParticipants,
   fetchBucsList,
   fetchBucsInfoList,
   fetchBucsListWithVedtakId,
@@ -21,7 +20,6 @@ jest.mock('applications/BUC/components/BUCDetail/BUCDetail', () => () => (<div c
 jest.mock('actions/buc', () => ({
   fetchBucs: jest.fn(),
   fetchBucsWithVedtakId: jest.fn(),
-  fetchBucParticipants: jest.fn(),
   fetchBucsInfoList: jest.fn(),
   getSakType: jest.fn(),
   getSubjectAreaList: jest.fn(),
@@ -98,13 +96,6 @@ describe('applications/BUC/index', () => {
     wrapper = render(<BUCIndexVedtaksKontekst />)
     // -1 as there is one ErrorBuc in mockBucs
     expect(getSakType).toHaveBeenCalled()
-  })
-
-  it('UseEffect: when getting bucs list, get participants', () => {
-    (fetchBucParticipants as jest.Mock).mockReset()
-    wrapper = render(<BUCIndexVedtaksKontekst />)
-    // -1 as there is one ErrorBuc in mockBucs
-    expect(fetchBucParticipants).toBeCalledTimes(Object.keys(mockBucs()).length - 1)
   })
 
   it('Render: has proper HTML structure ', () => {

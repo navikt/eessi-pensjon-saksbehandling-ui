@@ -299,20 +299,6 @@ export const BUCIndexBrukerKontekst = (): JSX.Element => {
     }
   }, [])
 
-  /*
-
-  useEffect(() => {
-    if (bucs && !_bucs) {
-      Object.keys(bucs)?.forEach(bucId => {
-        if (bucs[bucId].type && _.isNil(bucs[bucId].institusjon)) {
-          dispatch(fetchBucParticipants(bucId))
-        }
-      })
-      setBucs(bucs)
-    }
-  }, [bucs, _bucs, dispatch])
-*/
-
   if (!sakId || !aktoerId) {
     return EmptyBuc
   }

@@ -14,7 +14,6 @@ import {
   Institutions,
   NewBucPayload,
   NewSedPayload,
-  Participants,
   RinaUrlPayload,
   SakTypeValue,
   SaveBucsInfoProps,
@@ -26,7 +25,7 @@ import {
 } from 'declarations/buc'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
 import _ from 'lodash'
-import { mockBuc, mockParticipants } from 'mocks/buc/buc'
+import { mockBuc } from 'mocks/buc/buc'
 import mockBucOptions from 'mocks/buc/bucOptions'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import mockBucsInfoList from 'mocks/buc/bucsInfoList'
@@ -123,23 +122,6 @@ export const createSavingAttachmentJob: ActionCreator<ActionWithPayload<JoarkBro
   type: types.BUC_SAVINGATTACHMENTJOB_SET,
   payload: joarkBrowserItems
 })
-
-export const fetchBucParticipants = (
-  rinaCaseId: string
-): ActionWithPayload<Participants> => {
-  return call({
-    url: sprintf(urls.BUC_GET_PARTICIPANTS_URL, { rinaCaseId }),
-    expectedPayload: /* istanbul ignore next */ mockParticipants(rinaCaseId),
-    context: {
-      rinaCaseId
-    },
-    type: {
-      request: types.BUC_GET_PARTICIPANTS_REQUEST,
-      success: types.BUC_GET_PARTICIPANTS_SUCCESS,
-      failure: types.BUC_GET_PARTICIPANTS_FAILURE
-    }
-  })
-}
 
 export const startBucsFetch = () => ({
   type: types.BUC_GET_BUCS_START
