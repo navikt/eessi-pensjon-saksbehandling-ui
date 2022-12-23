@@ -1,7 +1,6 @@
 import {
   fetchBucsInfo,
   fetchBucsListWithAvdodFnr,
-  getInstitutionsListForBucAndCountry,
   setCurrentBuc
 } from 'actions/buc'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
@@ -26,12 +25,9 @@ import {
   BucListItem,
   Bucs,
   BucsInfo,
-  Institution,
-  InstitutionListMap, JoarkBuc,
-  Participant,
+  JoarkBuc,
   SakTypeMap,
-  SakTypeValue,
-  Sed
+  SakTypeValue
 } from 'declarations/buc.d'
 import { PersonAvdods } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
@@ -127,7 +123,6 @@ export interface BUCListSelector {
   bucsListRina: Array<BucListItem> | null | undefined
   bucsInfo: BucsInfo | undefined
   bucsInfoList: Array<string> | undefined
-  institutionList: InstitutionListMap<Institution> | undefined
   gettingBucsListJoark: boolean
   gettingBucsListRina: boolean
   gettingBucs: boolean
@@ -147,7 +142,6 @@ const mapState = (state: State): BUCListSelector => ({
   bucsListRina: state.buc.bucsListRina,
   bucsInfo: state.buc.bucsInfo,
   bucsInfoList: state.buc.bucsInfoList,
-  institutionList: state.buc.institutionList,
   gettingBucsInfo: state.loading.gettingBucsInfo,
   gettingBucs: state.loading.gettingBucs,
   gettingBucsListJoark: state.loading.gettingBucsListJoark,
@@ -164,7 +158,7 @@ const BUCListBrukerKontekst_V1: React.FC<BUCListProps> = ({
   setMode, initialBucNew = undefined
 }: BUCListProps): JSX.Element => {
   const {
-    aktoerId, bucs, bucsListJoark, bucsInfo, bucsInfoList, institutionList, gettingBucsInfo,
+    aktoerId, bucs, bucsListJoark, bucsInfo, bucsInfoList, gettingBucsInfo,
     gettingBucs, gettingBucsListJoark, newlyCreatedBuc, personAvdods, pesysContext, sakId, sakType
   } = useSelector<State, BUCListSelector>(mapState)
   const dispatch = useDispatch()
@@ -172,7 +166,6 @@ const BUCListBrukerKontekst_V1: React.FC<BUCListProps> = ({
 
   const [_loggedTime] = useState<Date>(new Date())
   const [_avdodFnr, setAvdodFnr] = useState<string>('')
-  const [_parsedCountries, setParsedCountries] = useState<boolean>(false)
   const [_mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
   const [_newBucPanelOpen, setNewBucPanelOpen] = useState<boolean | undefined>(initialBucNew)
   const [_totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
@@ -253,52 +246,6 @@ const BUCListBrukerKontekst_V1: React.FC<BUCListProps> = ({
       dispatch(fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO))
     }
   }, [aktoerId, bucsInfo, bucsInfoList, dispatch, gettingBucsInfo])
-
-  useEffect(() => {
-    if (!_.isEmpty(bucs) && !gettingBucs && !_parsedCountries) {
-      setParsedCountries(true)
-      const listOfCountries: Array<{country: string, buc: string}> = []
-      bucs && Object.keys(bucs).forEach(key => {
-        const buc: Buc = bucs[key]
-        if (_.isArray(buc.institusjon)) {
-          buc.institusjon.forEach((it: Institution) => {
-            if (!_.find(listOfCountries, { country: it.country })) {
-              listOfCountries.push({
-                country: it.country,
-                buc: buc.type!
-              })
-            }
-          })
-        }
-        if (_.isArray(buc.seds)) {
-          buc.seds.forEach((sed: Sed) => {
-            if (_.isArray(sed.participants)) {
-              sed.participants.forEach((participant: Participant) => {
-                const country = participant.organisation.countryCode
-                if (!_.find(listOfCountries, { country })) {
-                  listOfCountries.push({
-                    country,
-                    buc: buc.type!
-                  })
-                }
-              })
-            }
-          })
-        }
-      })
-
-      listOfCountries.forEach((country) => {
-        if (institutionList && !_.find(Object.keys(institutionList), country.country)) {
-          dispatch(getInstitutionsListForBucAndCountry(country.buc, country.country))
-        }
-      })
-      standardLogger('buc.list.bucs.data', {
-        numberOfBucs: bucs ? Object.keys(bucs).length : 0
-      })
-    } /* else {
-      setNewBucPanelOpen(true)
-    } */
-  }, [institutionList, bucs, dispatch, _parsedCountries])
 
   const status = !_.isEmpty(bucsListJoark) && Object.keys(bucs!).length === bucsListJoark?.length ? 'done' : 'inprogress'
   const now = _.isEmpty(bucsListJoark) ? 20 : 20 + Math.floor(Object.keys(bucs!).length / (bucsListJoark?.length ?? 1) * 80)

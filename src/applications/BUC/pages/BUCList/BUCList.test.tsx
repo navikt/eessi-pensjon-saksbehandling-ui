@@ -39,14 +39,6 @@ const defaultSelector: BUCListSelector = {
   bucs: _.keyBy(mockBucs(), 'caseId'),
   bucsList: mockBucsList('123', '456'),
   bucsInfo: mockBucsInfo,
-  institutionList: {
-    NO: [{
-      name: 'mockInstitution1',
-      institution: 'NO:MI1',
-      acronym: 'MI1',
-      country: 'NO'
-    }]
-  },
   gettingBucsList: false,
   gettingBucs: false,
   locale: 'nb',

@@ -98,14 +98,6 @@ const defaultSelector: BUCListSelector = {
     }
   },
   bucsInfo: mockBucsInfo,
-  institutionList: {
-    NO: [{
-      name: 'mockInstitution1',
-      institution: 'NO:MI1',
-      country: 'NO',
-      acronym: 'MI1'
-    }]
-  },
   gettingBucsList: false,
   gettingBucs: false,
   locale: 'nb',
