@@ -36,8 +36,6 @@ const mockPersonAvdods = personAvdod(1)
 
 const defaultSelector: BUCListSelector = {
   aktoerId: '123',
-  sakId: '456',
-  sakType: undefined,
   bucs: _.keyBy(mockBucs(), 'caseId'),
   bucsList: mockBucsList('123', '456'),
   bucsInfo: mockBucsInfo,

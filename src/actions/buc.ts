@@ -216,9 +216,9 @@ export const  fetchBucsListWithAvdodFnr = (
     cascadeFailureError: true,
     expectedPayload: mockBucs(aktoerId, sakId),
     type: {
-      request: types.BUC_GET_BUCSLIST_WITH_AVDOD_FNR_REQUEST,
-      success: types.BUC_GET_BUCSLIST_WITH_AVDOD_FNR_SUCCESS,
-      failure: types.BUC_GET_BUCSLIST_WITH_AVDOD_FNR_FAILURE
+      request: types.BUC_GET_BUCSLIST_REQUEST,
+      success: types.BUC_GET_BUCSLIST_SUCCESS,
+      failure: types.BUC_GET_BUCSLIST_FAILURE
     }
   })
 }

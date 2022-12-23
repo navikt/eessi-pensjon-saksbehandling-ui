@@ -1,5 +1,4 @@
 import {
-  fetchBucsListWithAvdodFnr,
   getInstitutionsListForBucAndCountry,
   setCurrentBuc
 } from 'actions/buc'
@@ -7,16 +6,13 @@ import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
 import { bucFilter, bucSorter, pbuc02filter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import { Search } from '@navikt/ds-icons'
 import classNames from 'classnames'
 import { HorizontalLineSeparator } from 'components/StyledComponents'
 import ProgressBar from '@navikt/fremdriftslinje'
 import {
-  HorizontalSeparatorDiv,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
 
-import { BRUKERKONTEKST } from 'constants/constants'
 import { AllowedLocaleString, BUCMode, PesysContext } from 'declarations/app.d'
 import {
   Buc,
@@ -27,15 +23,13 @@ import {
   Institution,
   InstitutionListMap,
   Participant,
-  SakTypeMap,
-  SakTypeValue,
   Sed
 } from 'declarations/buc.d'
 import { PersonAvdods } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
-import { Accordion, Alert, BodyLong, Heading, Button, TextField } from '@navikt/ds-react'
+import { Alert, BodyLong, Heading, Button } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -47,8 +41,6 @@ import {
   BUCListHeader,
   BUCNewDiv,
   BUCStartDiv,
-  FlexDiv,
-  HiddenDiv,
   ProgressBarDiv
 } from "../../CommonBucComponents";
 
@@ -69,8 +61,6 @@ export interface BUCListSelector {
   newlyCreatedBuc: Buc | undefined
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
-  sakId: string | null | undefined
-  sakType: SakTypeValue | null | undefined
 }
 
 const mapState = (state: State): BUCListSelector => ({
@@ -85,8 +75,6 @@ const mapState = (state: State): BUCListSelector => ({
   newlyCreatedBuc: state.buc.newlyCreatedBuc,
   personAvdods: state.person.personAvdods,
   pesysContext: state.app.pesysContext,
-  sakId: state.app.params.sakId,
-  sakType: state.app.params.sakType as SakTypeValue
 })
 
 const BUCList: React.FC<BUCListProps> = ({
@@ -94,18 +82,16 @@ const BUCList: React.FC<BUCListProps> = ({
 }: BUCListProps): JSX.Element => {
   const {
     aktoerId, bucs, bucsList, bucsInfo, institutionList,
-    gettingBucs, gettingBucsList, newlyCreatedBuc, personAvdods, pesysContext, sakId, sakType
+    gettingBucs, gettingBucsList, newlyCreatedBuc, personAvdods, pesysContext
   } = useSelector<State, BUCListSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
 
   const [_loggedTime] = useState<Date>(new Date())
-  const [_avdodFnr, setAvdodFnr] = useState<string>('')
   const [_parsedCountries, setParsedCountries] = useState<boolean>(false)
   const [_mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
   const [_newBucPanelOpen, setNewBucPanelOpen] = useState<boolean | undefined>(initialBucNew)
   const [_totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
-  const [_validation, setValidation] = useState<string | undefined>(undefined)
 
   const [_sortedBucs, _setSortedBucs] = useState<Array<Buc> | undefined>(undefined)
   const [_filteredBucs, _setFilteredBucs] = useState<Array<Buc> | undefined>(undefined)
@@ -132,23 +118,6 @@ const BUCList: React.FC<BUCListProps> = ({
     setNewBucPanelOpen(true)
   }
 
-  const performValidation = (): boolean => _avdodFnr.match(/^\d{11}$/) !== null
-
-  const onAvdodFnrChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setValidation(undefined)
-    setAvdodFnr(e.target.value)
-  }
-
-  const onAvdodFnrButtonClick = (): void => {
-    const valid = performValidation()
-    if (valid && aktoerId && sakId) {
-      setNewBucPanelOpen(false)
-      dispatch(fetchBucsListWithAvdodFnr(aktoerId, sakId, _avdodFnr))
-    } else {
-      setValidation(t('message:validation-badAvdodFnr'))
-    }
-  }
-
   const onBUCEdit = (buc: Buc): void => {
     dispatch(setCurrentBuc(buc.caseId!))
     setMode('bucedit' as BUCMode, 'forward')
@@ -157,12 +126,6 @@ const BUCList: React.FC<BUCListProps> = ({
       left: 0,
       behavior: 'smooth'
     })
-  }
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      onAvdodFnrButtonClick()
-    }
   }
 
   useEffect(() => {
@@ -333,57 +296,6 @@ const BUCList: React.FC<BUCListProps> = ({
               </BucLenkePanel>
             )
           })}
-      {!_.isEmpty(bucs) && pesysContext === BRUKERKONTEKST &&
-          (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
-            <>
-              <VerticalSeparatorDiv size='2' />
-              <BadBucDiv>
-                <>
-                  <Accordion id='a_buc_c_buclist--no-buc-id'>
-                    <Accordion.Item>
-                      <Accordion.Header>
-                        <FlexDiv>
-                          <Search width='24' />
-                          <HorizontalSeparatorDiv />
-                          <Heading size='small'>
-                            {t('buc:form-searchOtherBUCs')}
-                          </Heading>
-                        </FlexDiv>
-                      </Accordion.Header>
-                      <Accordion.Content>
-                        <FlexDiv className={classNames({ error: _validation || false })}>
-                          <TextField
-                            style={{ width: '200px' }}
-                            data-testid='a-buc-p-buclist--avdod-input-id'
-                            error={_validation || false}
-                            id='a-buc-p-buclist--avdod-input-id'
-                            label={(
-                              <HiddenDiv>
-                                {t('buc:form-avdodFnr')}
-                              </HiddenDiv>
-                          )}
-                            onChange={onAvdodFnrChange}
-                            description={t('buc:form-searchOtherBUCs-description')}
-                            value={_avdodFnr || ''}
-                            onKeyPress={handleKeyPress}
-                          />
-                          <HorizontalSeparatorDiv />
-                          <Button
-                            variant='primary'
-                            onClick={onAvdodFnrButtonClick}
-                          >
-                            {t('ui:get')}
-                          </Button>
-                        </FlexDiv>
-                      </Accordion.Content>
-                    </Accordion.Item>
-                  </Accordion>
-                  <VerticalSeparatorDiv size='2' />
-                </>
-              </BadBucDiv>
-              <VerticalSeparatorDiv size='2' />
-            </>
-      )}
       <BUCFooter />
     </BUCListDiv>
   )

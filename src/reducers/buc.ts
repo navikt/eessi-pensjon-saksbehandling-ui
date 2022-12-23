@@ -388,40 +388,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
           }
     */
 
-    case types.BUC_GET_BUCSLIST_WITH_AVDOD_FNR_REQUEST: {
-      return {
-        ...state,
-        bucsListRina: _.isNil(state.bucsListRina) ? undefined : state.bucsListRina
-      }
-    }
-
-    case types.BUC_GET_BUCSLIST_WITH_AVDOD_FNR_SUCCESS: {
-      // merge only the new ones, do not have duplicates
-      const newBucsList = _.isNil(state.bucsListRina) ? [] : _.cloneDeep(state.bucsListRina);
-      (action as ActionWithPayload).payload?.forEach((buc: BucListItem) => {
-        const foundIndex = _.findIndex(newBucsList, (b: BucListItem) => b.euxCaseId === buc.euxCaseId)
-        if (foundIndex < 0) {
-          newBucsList.push(buc)
-        } else {
-          // sometimes, list 1 and list 2 gets bucswith same euxCaseID, but list 2 comes with a avdodFnr filled out
-          // so, if that is the case, replace it
-          if (!_.isNil(buc.avdodFnr) && _.isNil(newBucsList[foundIndex].avdodFnr)) {
-            newBucsList[foundIndex] = buc
-          }
-        }
-      })
-      return {
-        ...state,
-        bucsListRina: newBucsList
-      }
-    }
-
-    case types.BUC_GET_BUCSLIST_WITH_AVDOD_FNR_FAILURE:
-      return {
-        ...state,
-        bucsListRina: _.isNil(state.bucsListRina) ? null : state.bucsListRina
-      }
-
     case types.BUC_GET_BUC_SUCCESS: {
       const bucs = _.cloneDeep(state.bucs)
       const buc: Buc | undefined = (action as ActionWithPayload).payload
