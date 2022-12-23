@@ -4,6 +4,7 @@ import { State } from 'declarations/reducers'
 import {useDispatch, useSelector} from 'react-redux'
 import BUCIndexVedtaksKontekst from "./BUCIndexVedtaksKontekst";
 import BUCIndexBrukerKontekst from "./BUCIndexBrukerKontekst";
+import BUCEmpty from "./pages/BUCEmpty/BUCEmpty";
 import {useEffect, useState} from "react";
 import {fetchBucsInfo, getRinaUrl, getSakType} from "../../actions/buc";
 import {BucsInfo, SakTypeValue} from "../../declarations/buc";
@@ -66,6 +67,15 @@ export const BUCIndex = (): JSX.Element => {
       dispatch(fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO))
     }
   }, [aktoerId, bucsInfo, bucsInfoList, dispatch, gettingBucsInfo])
+
+  if (!sakId || !aktoerId) {
+    return (
+      <BUCEmpty
+        aktoerId={aktoerId}
+        sakId={sakId}
+      />
+    )
+  }
 
   return (
     isVedtaksKontekst ? <BUCIndexVedtaksKontekst/> : <BUCIndexBrukerKontekst/>

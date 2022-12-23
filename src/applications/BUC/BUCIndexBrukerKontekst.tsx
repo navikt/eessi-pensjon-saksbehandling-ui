@@ -299,10 +299,6 @@ export const BUCIndexBrukerKontekst = (): JSX.Element => {
     }
   }, [])
 
-  if (!sakId || !aktoerId) {
-    return EmptyBuc
-  }
-
   const cls = (position: Slide) => ({
     animate: ![
       Slide.LEFT, Slide.MIDDLE, Slide.RIGHT,

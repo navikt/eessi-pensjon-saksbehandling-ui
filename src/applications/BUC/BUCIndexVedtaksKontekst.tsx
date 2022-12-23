@@ -371,10 +371,6 @@ export const BUCIndexVedtaksKontekst = (): JSX.Element => {
     }
   }, [bucs, bucsList, gettingBucs])
 
-  if (!sakId || !aktoerId) {
-    return EmptyBuc
-  }
-
   const cls = (position: Slide) => ({
     animate: ![
       Slide.LEFT, Slide.MIDDLE, Slide.RIGHT,
