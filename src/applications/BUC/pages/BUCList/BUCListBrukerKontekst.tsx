@@ -1,26 +1,35 @@
 import {Alert, Button, Heading} from "@navikt/ds-react";
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
-import {BUCMode, PesysContext} from "../../../../declarations/app";
+import {BUCMode, PesysContext} from "declarations/app.d";
 import React, {useEffect, useState} from "react";
 import {
   fetchBuc,
   fetchBucsInfoList,
   fetchJoarkBucsListForBrukerKontekst,
   setCurrentBuc
-} from "../../../../actions/buc";
-import {State} from "../../../../declarations/reducers";
-import {Buc, BucInfo, Bucs, BucsInfo, JoarkBuc} from "../../../../declarations/buc";
+} from "actions/buc";
+import {State} from "declarations/reducers";
+import {Buc, BucInfo, Bucs, BucsInfo, JoarkBuc, SakTypeMap, SakTypeValue} from 'declarations/buc.d';
 import BUCHeader from "../../components/BUCHeader/BUCHeader";
-import _ from "lodash";
-import {bucFilter, bucSorter, pbuc02filter} from "../../components/BUCUtils/BUCUtils";
-import {VerticalSeparatorDiv} from "@navikt/hoykontrast";
-import {PersonAvdods} from "../../../../declarations/person";
-import {buttonLogger} from "../../../../metrics/loggers";
-import classNames from "classnames";
-import {HorizontalLineSeparator} from "../../../../components/StyledComponents";
+import BUCFooter from "../../components/BUCFooter/BUCFooter";
 import BUCStart from "../../components/BUCStart/BUCStart";
-import {BadBucDiv, BucLenkePanel, BUCListDiv, BUCListHeader, BUCNewDiv, BUCStartDiv} from "../../CommonBucComponents";
+import {bucFilter, bucSorter, pbuc02filter} from "../../components/BUCUtils/BUCUtils";
+import _ from "lodash";
+import { VerticalSeparatorDiv} from "@navikt/hoykontrast";
+import {PersonAvdods} from "declarations/person.d";
+import {buttonLogger} from "metrics/loggers";
+import classNames from "classnames";
+import {HorizontalLineSeparator} from "components/StyledComponents";
+import {
+  BadBucDiv,
+  BucLenkePanel,
+  BUCListDiv,
+  BUCListHeader,
+  BUCNewDiv,
+  BUCStartDiv
+} from "../../CommonBucComponents";
+import AvdodFnrSearch from "./AvdodFnrSearch";
 
 
 export interface BUCListProps {
@@ -39,6 +48,7 @@ export interface BUCListBrukerKontekstSelector {
   personAvdods: PersonAvdods | undefined,
   bucs: Bucs | undefined
   newlyCreatedBuc: Buc | undefined
+  sakType: SakTypeValue | null | undefined
 }
 
 const mapState = (state: State): BUCListBrukerKontekstSelector => ({
@@ -52,6 +62,7 @@ const mapState = (state: State): BUCListBrukerKontekstSelector => ({
   personAvdods: state.person.personAvdods,
   bucs: state.buc.bucs,
   newlyCreatedBuc: state.buc.newlyCreatedBuc,
+  sakType: state.app.params.sakType as SakTypeValue
 })
 const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
   setMode, initialBucNew = undefined
@@ -59,7 +70,7 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
 
   const {
     aktoerId, sakId, pesysContext, bucsListJoark, gettingBucsListJoark, bucsInfo,
-    personAvdods, bucs, newlyCreatedBuc
+    personAvdods, bucs, newlyCreatedBuc, sakType
   }: BUCListBrukerKontekstSelector = useSelector<State, BUCListBrukerKontekstSelector>(mapState)
 
   const dispatch = useDispatch()
@@ -72,7 +83,6 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
   const [_pBuc02filteredBucsExJoark, _setPBuc02filteredBucsExJoark] = useState<Array<Buc> | undefined>(undefined)
   const [_sortedBucsExJoark, _setSortedBucsExJoark] = useState<Array<Buc> | undefined>(undefined)
   const [_newBucPanelOpen, setNewBucPanelOpen] = useState<boolean | undefined>(initialBucNew)
-
 
   useEffect(() => {
     if (aktoerId && sakId && bucsListJoark === undefined && !gettingBucsListJoark) {
@@ -220,6 +230,11 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
       {_sortedBucs?.map((buc, index: number) => {
         return (<BucLenkeCard buc={buc} index={index}/>)
       })}
+
+      {(!_.isEmpty(bucs) || !_.isEmpty(bucsListJoark)) && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
+        <AvdodFnrSearch setNewBucPanelOpen={setNewBucPanelOpen}/>
+      )}
+      <BUCFooter />
     </BUCListDiv>
   )
 }
