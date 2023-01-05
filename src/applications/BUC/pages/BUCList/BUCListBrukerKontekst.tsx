@@ -1,18 +1,12 @@
-import {Alert, Button, Heading} from "@navikt/ds-react";
-import {useDispatch, useSelector} from "react-redux";
+import {Button, Heading} from "@navikt/ds-react";
+import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 import {BUCMode, PesysContext} from "declarations/app.d";
-import React, {useEffect, useState} from "react";
-import {
-  fetchBuc,
-  setCurrentBuc
-} from "actions/buc";
+import React, {useState} from "react";
 import {State} from "declarations/reducers";
-import {Buc, BucInfo, Bucs, BucsInfo, JoarkBuc, SakTypeMap, SakTypeValue} from 'declarations/buc.d';
-import BUCHeader from "../../components/BUCHeader/BUCHeader";
+import {Bucs, JoarkBuc, SakTypeMap, SakTypeValue} from 'declarations/buc.d';
 import BUCFooter from "../../components/BUCFooter/BUCFooter";
 import BUCStart from "../../components/BUCStart/BUCStart";
-import {bucFilter, bucSorter, pbuc02filter} from "../../components/BUCUtils/BUCUtils";
 import _ from "lodash";
 import { VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import {PersonAvdods} from "declarations/person.d";
@@ -20,14 +14,14 @@ import {buttonLogger} from "metrics/loggers";
 import classNames from "classnames";
 import {HorizontalLineSeparator} from "components/StyledComponents";
 import {
-  BadBucDiv,
-  BucLenkePanel,
   BUCListDiv,
   BUCListHeader,
   BUCNewDiv,
   BUCStartDiv
 } from "../../CommonBucComponents";
 import AvdodFnrSearch from "./AvdodFnrSearch";
+import BUCListJoark from "./BUCListJoark";
+import BUCListExcludingJoark from "./BUCListExcludingJoark";
 
 export interface BUCListProps {
   initialBucNew?: boolean
@@ -39,11 +33,9 @@ export interface BUCListBrukerKontekstSelector {
   sakId: string | null | undefined
   pesysContext: PesysContext | undefined
   bucsListJoark: Array<JoarkBuc> | null | undefined
-  bucsInfo: BucsInfo | undefined
   gettingBuc: boolean
   personAvdods: PersonAvdods | undefined,
   bucs: Bucs | undefined
-  newlyCreatedBuc: Buc | undefined
   sakType: SakTypeValue | null | undefined
 }
 
@@ -52,104 +44,27 @@ const mapState = (state: State): BUCListBrukerKontekstSelector => ({
   sakId: state.app.params.sakId,
   pesysContext: state.app.pesysContext,
   bucsListJoark: state.buc.bucsListJoark,
-  bucsInfo: state.buc.bucsInfo,
   gettingBuc: state.loading.gettingBuc,
   personAvdods: state.person.personAvdods,
   bucs: state.buc.bucs,
-  newlyCreatedBuc: state.buc.newlyCreatedBuc,
   sakType: state.app.params.sakType as SakTypeValue
 })
+
 const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
   setMode, initialBucNew = undefined
 }: BUCListProps): JSX.Element => {
 
   const {
-    aktoerId, pesysContext, bucsListJoark, bucsInfo,
-    personAvdods, bucs, newlyCreatedBuc, sakType
+    aktoerId, bucsListJoark, bucs, sakType
   }: BUCListBrukerKontekstSelector = useSelector<State, BUCListBrukerKontekstSelector>(mapState)
 
-  const dispatch = useDispatch()
   const { t } = useTranslation()
 
-  const [_sortedBucs, _setSortedBucs] = useState<Array<JoarkBuc> | undefined>(undefined)
-  const [_filteredBucs, _setFilteredBucs] = useState<Array<JoarkBuc> | undefined>(undefined)
-  const [_pBuc02filteredBucs, _setPBuc02filteredBucs] = useState<Array<JoarkBuc> | undefined>(undefined)
-  const [_filteredBucsExJoark, _setFilteredBucsExJoark] = useState<Array<Buc> | undefined>(undefined)
-  const [_pBuc02filteredBucsExJoark, _setPBuc02filteredBucsExJoark] = useState<Array<Buc> | undefined>(undefined)
-  const [_sortedBucsExJoark, _setSortedBucsExJoark] = useState<Array<Buc> | undefined>(undefined)
   const [_newBucPanelOpen, setNewBucPanelOpen] = useState<boolean | undefined>(initialBucNew)
-
-  // SORT LIST FROM JOARK
-  useEffect(() => {
-    if (!_.isEmpty(bucsListJoark)) {
-      const filteredBucs: Array<JoarkBuc> = bucsListJoark!.filter(bucFilter)
-      _setFilteredBucs(filteredBucs)
-      const pBuc02filteredBucs = filteredBucs.filter(pbuc02filter(pesysContext, personAvdods))
-      _setPBuc02filteredBucs(pBuc02filteredBucs)
-      const sortedBucs = pBuc02filteredBucs.sort(bucSorter)
-      _setSortedBucs(sortedBucs)
-    }
-  }, [bucsListJoark])
-
-  // SORT BUCS FROM RINA AND NEW BUCS, FILTER OUT BUCS FROM THE JOARK LIST
-  useEffect(() => {
-    if (!_.isEmpty(bucs)) {
-      const filteredBucs: Array<Buc> = Object.keys(bucs!).map(key => bucs![key]).filter(bucFilter)
-      _setFilteredBucsExJoark(filteredBucs)
-      const pBuc02filteredBucs = filteredBucs.filter(pbuc02filter(pesysContext, personAvdods))
-      _setPBuc02filteredBucsExJoark(pBuc02filteredBucs)
-      const sortedBucs = pBuc02filteredBucs.sort(bucSorter)
-      const myBucs = sortedBucs.filter((b) => {
-        return !bucsListJoark?.some((b2) => {
-          return b.caseId === b2.caseId;
-        });
-      })
-      _setSortedBucsExJoark(myBucs)
-    }
-  }, [bucs])
-
-  const onBUCEdit = (buc: JoarkBuc | Buc): void => {
-    dispatch(setCurrentBuc(buc.caseId!))
-    if (bucs && buc.caseId && !bucs[buc.caseId!]) {
-      dispatch(fetchBuc(buc.caseId))
-    }
-    setMode('bucedit' as BUCMode, 'forward')
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
-    })
-  }
 
   const onBUCNew = (e: React.MouseEvent<HTMLButtonElement>): void => {
     buttonLogger(e)
     setNewBucPanelOpen(true)
-  }
-
-  const BucLenkeCard: React.FC<any> = (props: any): JSX.Element => {
-    const {buc, index} = props;
-    const bucId: string = buc.caseId!
-    const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs && bucsInfo.bucs[bucId] ? bucsInfo.bucs[bucId] : {} as BucInfo
-    return (
-      <BucLenkePanel
-        href='#'
-        border
-        data-testid={'a-buc-p-buclist--buc-' + buc.caseId}
-        key={index}
-        className={classNames({ new: (newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false })}
-        style={{ animationDelay: (0.1 * index) + 's' }}
-        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-          e.preventDefault()
-          e.stopPropagation()
-          onBUCEdit(buc)
-        }}
-      >
-        <BUCHeader
-          buc={buc}
-          bucInfo={bucInfo}
-        />
-      </BucLenkePanel>
-    )
   }
 
   return (
@@ -222,26 +137,8 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
       )}
  */}
 
-      {((!_.isNil(_filteredBucs) && !_.isNil(_pBuc02filteredBucs) && _filteredBucs.length !== _pBuc02filteredBucs.length) ||
-        (!_.isNil(_filteredBucsExJoark) && !_.isNil(_pBuc02filteredBucsExJoark) && _filteredBucsExJoark.length !== _pBuc02filteredBucsExJoark.length)) && (
-        <>
-          <VerticalSeparatorDiv />
-          <BadBucDiv>
-            <Alert variant='warning'>
-              {t('message:warning-filteredBucs')}
-            </Alert>
-          </BadBucDiv>
-          <VerticalSeparatorDiv />
-        </>
-      )}
-
-      {_sortedBucsExJoark?.map((buc, index: number) => {
-        return (<BucLenkeCard buc={buc} index={index}/>)
-      })}
-
-      {_sortedBucs?.map((buc, index: number) => {
-        return (<BucLenkeCard buc={buc} index={index}/>)
-      })}
+      <BUCListExcludingJoark setMode={setMode}/>
+      <BUCListJoark setMode={setMode}/>
 
       {(!_.isEmpty(bucs) || !_.isEmpty(bucsListJoark)) && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
         <AvdodFnrSearch setNewBucPanelOpen={setNewBucPanelOpen}/>
