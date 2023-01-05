@@ -5,8 +5,6 @@ import {BUCMode, PesysContext} from "declarations/app.d";
 import React, {useEffect, useState} from "react";
 import {
   fetchBuc,
-  fetchBucsInfoList,
-  fetchJoarkBucsListForBrukerKontekst,
   setCurrentBuc
 } from "actions/buc";
 import {State} from "declarations/reducers";
@@ -31,7 +29,6 @@ import {
 } from "../../CommonBucComponents";
 import AvdodFnrSearch from "./AvdodFnrSearch";
 
-
 export interface BUCListProps {
   initialBucNew?: boolean
   setMode: (mode: BUCMode, s: string, callback?: any, content ?: JSX.Element) => void
@@ -42,7 +39,6 @@ export interface BUCListBrukerKontekstSelector {
   sakId: string | null | undefined
   pesysContext: PesysContext | undefined
   bucsListJoark: Array<JoarkBuc> | null | undefined
-  gettingBucsListJoark: boolean
   bucsInfo: BucsInfo | undefined
   gettingBuc: boolean
   personAvdods: PersonAvdods | undefined,
@@ -56,7 +52,6 @@ const mapState = (state: State): BUCListBrukerKontekstSelector => ({
   sakId: state.app.params.sakId,
   pesysContext: state.app.pesysContext,
   bucsListJoark: state.buc.bucsListJoark,
-  gettingBucsListJoark: state.loading.gettingBucsListJoark,
   bucsInfo: state.buc.bucsInfo,
   gettingBuc: state.loading.gettingBuc,
   personAvdods: state.person.personAvdods,
@@ -69,7 +64,7 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
 }: BUCListProps): JSX.Element => {
 
   const {
-    aktoerId, sakId, pesysContext, bucsListJoark, gettingBucsListJoark, bucsInfo,
+    aktoerId, pesysContext, bucsListJoark, bucsInfo,
     personAvdods, bucs, newlyCreatedBuc, sakType
   }: BUCListBrukerKontekstSelector = useSelector<State, BUCListBrukerKontekstSelector>(mapState)
 
@@ -83,13 +78,6 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
   const [_pBuc02filteredBucsExJoark, _setPBuc02filteredBucsExJoark] = useState<Array<Buc> | undefined>(undefined)
   const [_sortedBucsExJoark, _setSortedBucsExJoark] = useState<Array<Buc> | undefined>(undefined)
   const [_newBucPanelOpen, setNewBucPanelOpen] = useState<boolean | undefined>(initialBucNew)
-
-  useEffect(() => {
-    if (aktoerId && sakId && bucsListJoark === undefined && !gettingBucsListJoark) {
-      dispatch(fetchJoarkBucsListForBrukerKontekst(aktoerId, sakId))
-      dispatch(fetchBucsInfoList(aktoerId))
-    }
-  }, [aktoerId, gettingBucsListJoark, pesysContext, sakId])
 
   // SORT LIST FROM JOARK
   useEffect(() => {
@@ -170,6 +158,20 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
         <Heading size='small'>
           {t('buc:form-buclist')}
         </Heading>
+{/*
+        <ProgressBarDiv>
+          {(gettingBucsListJoark || gettingBucs) && (
+            <ProgressBar
+              status={status}
+              now={now}
+            >
+              <BodyLong>
+                {t(_.isEmpty(bucsListJoark) ? 'message:loading-bucListX' : 'message:loading-bucsX', { x: now })}
+              </BodyLong>
+            </ProgressBar>
+          )}
+        </ProgressBarDiv>
+*/}
         {!_newBucPanelOpen && (
           <Button
             variant='secondary'
@@ -209,6 +211,16 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
         <VerticalSeparatorDiv />
       </BUCStartDiv>
       <VerticalSeparatorDiv />
+
+{/*      {!gettingBucs && _.isEmpty(bucsListJoark) && (
+        <>
+          <VerticalSeparatorDiv size='2' />
+          <BodyLong>
+            {t('message:warning-noBucs')}
+          </BodyLong>
+        </>
+      )}
+ */}
 
       {((!_.isNil(_filteredBucs) && !_.isNil(_pBuc02filteredBucs) && _filteredBucs.length !== _pBuc02filteredBucs.length) ||
         (!_.isNil(_filteredBucsExJoark) && !_.isNil(_pBuc02filteredBucsExJoark) && _filteredBucsExJoark.length !== _pBuc02filteredBucsExJoark.length)) && (

@@ -269,7 +269,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       return {
         ...state,
         howManyBucLists: (action as ActionWithPayload).context && (action as ActionWithPayload).context.howManyBucLists ? (action as ActionWithPayload).context.howManyBucLists : 1,
-        bucsList: undefined
+        bucsList: _.isNil(state.bucsList) ? undefined : state.bucsList
       }
 
     case types.BUC_GET_BUCSLIST_SUCCESS:
@@ -360,33 +360,32 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         bucsListJoark: _.isNil(state.bucsListJoark) ? null : state.bucsListJoark
       }
 
-      /*
-        case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST:
-          return {
-            ...state,
-            bucsListRina: undined
-          }
+    case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST:
+      return {
+        ...state,
+        bucsList: undefined
+      }
 
-        case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS:
-          const newBucsList: BucListItem[] = [];
-          (action as ActionWithPayload).payload?.forEach((buc: BucListItem) => {
-            const foundIndex = _.findIndex(state.bucsListJoark, (b: BucListItem) => b.euxCaseId === buc.euxCaseId)
-            if (foundIndex < 0) {
-              newBucsList.push(buc)
-            }
-          })
+    case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS:
+      const newBucsList = _.isNil(state.bucsList) ? [] : _.cloneDeep(state.bucsList);
+      (action as ActionWithPayload).payload?.forEach((buc: BucListItem) => {
+        const foundIndex = _.findIndex(state.bucsList, (b: BucListItem) => b.euxCaseId === buc.euxCaseId)
+        const foundIndexInBucsListJoark = _.findIndex(state.bucsListJoark, (b: JoarkBuc) => b.caseId === buc.euxCaseId)
+        if (foundIndex < 0 && foundIndexInBucsListJoark < 0) {
+          newBucsList.push(buc)
+        }
+      })
 
-          return {
-            ...state,
-            bucsListRina: newBucsList
-          }
+      return {
+        ...state,
+        bucsList: newBucsList
+      }
 
-        case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE:
-          return {
-            ...state,
-            bucsListRina: _.isNil(state.bucsListRina) ? null : state.bucsListRina
-          }
-    */
+    case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE:
+      return {
+        ...state,
+        bucsList: _.isNil(state.bucsList) ? null : state.bucsList
+      }
 
     case types.BUC_GET_BUC_SUCCESS: {
       const bucs = _.cloneDeep(state.bucs)

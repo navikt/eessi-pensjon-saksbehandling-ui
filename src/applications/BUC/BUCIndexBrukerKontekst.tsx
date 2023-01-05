@@ -1,5 +1,9 @@
 import {
-  setMode,
+  endBucsFetch,
+  fetchBuc,
+  fetchBucsInfoList,
+  fetchJoarkBucsListForBrukerKontekst, fetchRinaBucsListForBrukerKontekst,
+  setMode, startBucsFetch,
 } from 'actions/buc'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
@@ -12,6 +16,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
 import BUCListBrukerKontekst from "./pages/BUCList/BUCListBrukerKontekst";
+import {BucListItem, Bucs, JoarkBuc} from "../../declarations/buc";
+import _ from "lodash";
 
 const transition = 500
 const timeout = 501
@@ -116,11 +122,23 @@ export const WindowDiv = styled.div`
 export interface BUCIndexBrukerKontekstSelector {
   aktoerId: string | null | undefined
   sakId: string | null | undefined
+  bucs: Bucs | undefined
+  bucsListJoark: Array<JoarkBuc> | null | undefined
+  gettingBucsListJoark: boolean
+  bucsList: Array<BucListItem> | null | undefined
+  gettingBucsList: boolean
+  gettingBucs: boolean
 }
 
 const mapState = (state: State): BUCIndexBrukerKontekstSelector => ({
   aktoerId: state.app.params.aktoerId,
   sakId: state.app.params.sakId,
+  bucs: state.buc.bucs,
+  bucsListJoark: state.buc.bucsListJoark,
+  gettingBucsListJoark: state.loading.gettingBucsListJoark,
+  bucsList: state.buc.bucsList,
+  gettingBucsList: state.loading.gettingBucsList,
+  gettingBucs: state.loading.gettingBucs
 })
 
 export enum Slide {
@@ -146,7 +164,7 @@ export enum Slide {
 
 export const BUCIndexBrukerKontekst = (): JSX.Element => {
   const {
-    aktoerId, sakId
+    aktoerId, sakId, bucs, gettingBucs, bucsListJoark, gettingBucsListJoark, bucsList, gettingBucsList,
   }: BUCIndexBrukerKontekstSelector = useSelector<State, BUCIndexBrukerKontekstSelector>(mapState)
   const dispatch = useDispatch()
 
@@ -298,6 +316,39 @@ export const BUCIndexBrukerKontekst = (): JSX.Element => {
       setContentA(<BUCListBrukerKontekst setMode={changeMode} />)
     }
   }, [])
+
+  useEffect(() => {
+    if (aktoerId && sakId && bucsListJoark === undefined && !gettingBucsListJoark) {
+      dispatch(fetchJoarkBucsListForBrukerKontekst(aktoerId, sakId))
+      dispatch(fetchBucsInfoList(aktoerId))
+    }
+  }, [aktoerId, sakId, gettingBucsListJoark])
+
+  useEffect(() => {
+    if (aktoerId && sakId && bucsList === undefined && !gettingBucsList) {
+      dispatch(fetchRinaBucsListForBrukerKontekst(aktoerId, sakId))
+    }
+  }, [aktoerId, sakId, gettingBucsList])
+
+  useEffect(() => {
+    if (aktoerId && sakId && _.isEmpty(bucs) && !_.isEmpty(bucsList)  && !gettingBucs) {
+      dispatch(startBucsFetch())
+      bucsList?.forEach((bucListItem) => {
+        dispatch(fetchBuc(
+          bucListItem.euxCaseId, bucListItem.aktoerId, bucListItem.saknr, bucListItem.avdodFnr, bucListItem.kilde
+        ))
+      })
+    }
+  }, [bucs, bucsList, gettingBucs])
+
+  useEffect(() => {
+    if (aktoerId && sakId && !_.isEmpty(bucs) && !_.isNil(bucsList) && gettingBucs) {
+      if (Object.keys(bucs!).length === bucsList!.length) {
+        dispatch(endBucsFetch())
+      }
+    }
+  }, [bucs, bucsList, gettingBucs])
+
 
   const cls = (position: Slide) => ({
     animate: ![
