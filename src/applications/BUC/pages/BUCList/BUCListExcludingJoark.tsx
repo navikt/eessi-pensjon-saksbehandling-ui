@@ -89,10 +89,10 @@ const BUCListExcludingJoark: React.FC<BUCListExcludingJoarkProps> = ({
   }, [bucs])
 
   useEffect(() => {
-    if (aktoerId && sakId && bucsList === undefined && !gettingBucsList) {
+    if (aktoerId && sakId && bucsList === undefined && !gettingBucsList && bucsListJoark!==undefined) {
       dispatch(fetchRinaBucsListForBrukerKontekst(aktoerId, sakId))
     }
-  }, [aktoerId, sakId, gettingBucsList])
+  }, [aktoerId, sakId, gettingBucsList, bucsListJoark])
 
   useEffect(() => {
     if (aktoerId && sakId && _.isEmpty(bucs) && !_.isEmpty(bucsList)  && !gettingBucs) {
