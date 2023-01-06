@@ -1,6 +1,4 @@
-import {
-  setMode
-} from 'actions/buc'
+import {setMode} from 'actions/buc'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import classNames from 'classnames'

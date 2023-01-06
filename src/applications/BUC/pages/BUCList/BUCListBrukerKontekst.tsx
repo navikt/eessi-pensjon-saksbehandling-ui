@@ -1,4 +1,4 @@
-import {Button, Heading} from "@navikt/ds-react";
+import {Alert, BodyLong, Button, Heading} from "@navikt/ds-react";
 import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 import {BUCMode, PesysContext} from "declarations/app.d";
@@ -17,7 +17,8 @@ import {
   BUCListDiv,
   BUCListHeader,
   BUCNewDiv,
-  BUCStartDiv
+  BUCStartDiv,
+  BadBucDiv
 } from "../../CommonBucComponents";
 import AvdodFnrSearch from "./AvdodFnrSearch";
 import BUCListJoark from "./BUCListJoark";
@@ -61,11 +62,14 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
   const { t } = useTranslation()
 
   const [_newBucPanelOpen, setNewBucPanelOpen] = useState<boolean | undefined>(initialBucNew)
+  const [_showWarningFilteredBucs, setShowWarningFilteredBucs] = useState<boolean>(false)
+  const [_showWarningNoBucs, setShowWarningNoBucs] = useState<boolean>(false)
 
   const onBUCNew = (e: React.MouseEvent<HTMLButtonElement>): void => {
     buttonLogger(e)
     setNewBucPanelOpen(true)
   }
+  const showAvdodFnrSearch = (!_.isEmpty(bucs) || !_.isEmpty(bucsListJoark)) && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
 
   return (
     <BUCListDiv>
@@ -127,22 +131,34 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
       </BUCStartDiv>
       <VerticalSeparatorDiv />
 
-{/*      {!gettingBucs && _.isEmpty(bucsListJoark) && (
+      {_showWarningNoBucs &&
         <>
           <VerticalSeparatorDiv size='2' />
           <BodyLong>
-            {t('message:warning-noBucs')}
+           {t('message:warning-noBucs')}
           </BodyLong>
         </>
-      )}
- */}
+      }
 
-      <BUCListExcludingJoark setMode={setMode}/>
-      <BUCListJoark setMode={setMode}/>
+      {_showWarningFilteredBucs &&
+        <>
+          <VerticalSeparatorDiv />
+            <BadBucDiv>
+              <Alert variant='warning'>
+                {t('message:warning-filteredBucs')}
+              </Alert>
+            </BadBucDiv>
+          <VerticalSeparatorDiv />
+        </>
+      }
 
-      {(!_.isEmpty(bucs) || !_.isEmpty(bucsListJoark)) && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
+      <BUCListExcludingJoark setMode={setMode} setShowWarningFilteredBucs={setShowWarningFilteredBucs} setShowWarningNoBucs={setShowWarningNoBucs}/>
+      <BUCListJoark setMode={setMode} setShowWarningFilteredBucs={setShowWarningFilteredBucs} setShowWarningNoBucs={setShowWarningNoBucs}/>
+
+      {showAvdodFnrSearch &&
         <AvdodFnrSearch setNewBucPanelOpen={setNewBucPanelOpen}/>
-      )}
+      }
+
       <BUCFooter />
     </BUCListDiv>
   )

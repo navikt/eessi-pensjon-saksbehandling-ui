@@ -12,6 +12,8 @@ import BUCLenkeCard from "./BUCLenkeCard";
 
 export interface BUCListJoarkProps {
   setMode: (mode: BUCMode, s: string, callback?: any, content ?: JSX.Element) => void
+  setShowWarningFilteredBucs: (b:boolean) => void
+  setShowWarningNoBucs: (b:boolean) => void
 }
 
 export interface BUCListJoarkSelector {
@@ -37,7 +39,7 @@ const mapState = (state: State): BUCListJoarkSelector => ({
 })
 
 const BUCListJoark: React.FC<BUCListJoarkProps> = ({
-  setMode
+  setMode, setShowWarningFilteredBucs, setShowWarningNoBucs
 }: BUCListJoarkProps): JSX.Element => {
 
   const {
@@ -59,6 +61,12 @@ const BUCListJoark: React.FC<BUCListJoarkProps> = ({
       const sortedBucs = pBuc02filteredBucs.sort(bucSorter)
       _setSortedBucs(sortedBucs)
     }
+
+    setShowWarningFilteredBucs(
+      !_.isNil(_filteredBucs) &&
+      !_.isNil(_pBuc02filteredBucs) &&
+      _filteredBucs.length !== _pBuc02filteredBucs.length
+    )
   }, [bucsListJoark])
 
   useEffect(() => {
@@ -68,22 +76,10 @@ const BUCListJoark: React.FC<BUCListJoarkProps> = ({
     }
   }, [aktoerId, sakId, gettingBucsListJoark])
 
+  setShowWarningNoBucs(!gettingBucsListJoark && _.isEmpty(bucsListJoark))
+
   return (
     <>
-
-      {((!_.isNil(_filteredBucs) && !_.isNil(_pBuc02filteredBucs) && _filteredBucs.length !== _pBuc02filteredBucs.length)) && (
-        <>
-          NO BUCS
-          {/*<VerticalSeparatorDiv />
-          <BadBucDiv>
-            <Alert variant='warning'>
-              {t('message:warning-filteredBucs')}
-            </Alert>
-          </BadBucDiv>
-          <VerticalSeparatorDiv />*/}
-        </>
-      )}
-
       {_sortedBucs?.map((buc, index: number) => {
         return (<BUCLenkeCard buc={buc} bucsInfo={bucsInfo} newlyCreatedBuc={newlyCreatedBuc} setMode={setMode} index={index}/>)
       })}
