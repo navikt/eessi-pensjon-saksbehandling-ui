@@ -8,6 +8,7 @@ import {bucFilter, bucSorter, pbuc02filter} from "../../components/BUCUtils/BUCU
 import {PersonAvdods} from "../../../../declarations/person";
 import {BUCMode, PesysContext} from "../../../../declarations/app";
 import BUCLenkeCard from "./BUCLenkeCard";
+import WaitingPanel from "../../../../components/WaitingPanel/WaitingPanel";
 
 
 export interface BUCListJoarkProps {
@@ -80,6 +81,9 @@ const BUCListJoark: React.FC<BUCListJoarkProps> = ({
 
   return (
     <>
+      {gettingBucsListJoark &&
+        <WaitingPanel/>
+      }
       {_sortedBucs?.map((buc, index: number) => {
         return (<BUCLenkeCard buc={buc} bucsInfo={bucsInfo} newlyCreatedBuc={newlyCreatedBuc} setMode={setMode} index={index}/>)
       })}
