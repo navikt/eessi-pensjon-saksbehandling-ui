@@ -77,20 +77,6 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
         <Heading size='small'>
           {t('buc:form-buclist')}
         </Heading>
-{/*
-        <ProgressBarDiv>
-          {(gettingBucsListJoark || gettingBucs) && (
-            <ProgressBar
-              status={status}
-              now={now}
-            >
-              <BodyLong>
-                {t(_.isEmpty(bucsListJoark) ? 'message:loading-bucListX' : 'message:loading-bucsX', { x: now })}
-              </BodyLong>
-            </ProgressBar>
-          )}
-        </ProgressBarDiv>
-*/}
         {!_newBucPanelOpen && (
           <Button
             variant='secondary'
