@@ -276,7 +276,7 @@ const BUCList: React.FC<BUCListProps> = ({
               </BucLenkePanel>
             )
           })}
-      // TODO: Remove whe feature toggle for splitting is removed
+      {/*TODO: Remove whe feature toggle for splitting is removed*/}
       {!_.isEmpty(bucs) && pesysContext === BRUKERKONTEKST &&
           (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
             <>
