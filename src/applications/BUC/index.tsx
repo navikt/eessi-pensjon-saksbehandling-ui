@@ -1,5 +1,5 @@
 import * as constants from 'constants/constants'
-import {PesysContext, RinaUrl} from 'declarations/app.d'
+import {FeatureToggles, PesysContext, RinaUrl} from 'declarations/app.d'
 import { State } from 'declarations/reducers'
 import {useDispatch, useSelector} from 'react-redux'
 import BUCIndexVedtaksKontekst from "./BUCIndexVedtaksKontekst";
@@ -13,6 +13,7 @@ import _ from "lodash";
 import * as storage from "../../constants/storage";
 
 export interface BUCIndexSelector {
+  featureToggles: FeatureToggles
   pesysContext: PesysContext | undefined
   aktoerId: string | null | undefined
   vedtakId: string | null | undefined
@@ -26,6 +27,7 @@ export interface BUCIndexSelector {
 }
 
 const mapState = (state: State): BUCIndexSelector => ({
+  featureToggles: state.app.featureToggles,
   pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
   sakType: state.app.params.sakType as SakTypeValue,
@@ -40,12 +42,13 @@ const mapState = (state: State): BUCIndexSelector => ({
 
 export const BUCIndex = (): JSX.Element => {
   const {
-    pesysContext, vedtakId, aktoerId, sakId, sakType, gettingSakType, rinaUrl, bucsInfo, bucsInfoList, gettingBucsInfo
+    featureToggles, pesysContext, vedtakId, aktoerId, sakId, sakType, gettingSakType, rinaUrl, bucsInfo, bucsInfoList, gettingBucsInfo
   }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
 
   const [_askSakType, _setAskSakType] = useState<boolean>(false)
   const isVedtaksKontekst = !!vedtakId && pesysContext === constants.VEDTAKSKONTEKST
+  const isAdmin: boolean = featureToggles.ADMIN_NOTIFICATION_MESSAGE === true
 
   useEffect(() => {
     dispatch(loadAllEntries())
@@ -78,7 +81,7 @@ export const BUCIndex = (): JSX.Element => {
   }
 
   return (
-    isVedtaksKontekst ? <BUCIndexVedtaksKontekst/> : <BUCIndexBrukerKontekst/>
+    !isAdmin || isVedtaksKontekst ? <BUCIndexVedtaksKontekst/> : <BUCIndexBrukerKontekst/>
   )
 }
 
