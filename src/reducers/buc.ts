@@ -326,6 +326,32 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         }
       })
 
+      const getCreator:any = (buc: any) => {
+        return {
+          country: buc.creator.organisation.countryCode,
+          institution: buc.creator.organisation.id,
+          name: buc.creator.organisation.name,
+          acronym: buc.creator.organisation.acronym
+        }
+      }
+
+      const getCaseOwner:any = (buc: any) => {
+        if(buc.participants){
+          const caseOwner = buc.participants.filter((p:any) => {
+            return p.role === "CaseOwner"
+          }).map((co:any) => {
+            return {
+              country: co.organisation.countryCode,
+              institution: co.organisation.id,
+              name: co.organisation.name,
+              acronym: co.organisation.acronym
+            }
+          })
+          return caseOwner[0]
+        }
+        return null
+      }
+
       return {
         ...state,
         institutionNames,
@@ -334,12 +360,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
             caseId: buc.id,
             type: buc.processDefinitionName,
             startDate: buc.startDate,
-            creator: {
-              country: buc.creator.organisation.countryCode,
-              institution: buc.creator.organisation.id,
-              name: buc.creator.organisation.name,
-              acronym: buc.creator.organisation.acronym
-            },
+            creator: getCaseOwner(buc) ? getCaseOwner(buc) : getCreator(buc),
             deltakere: buc.participants.map((i:any) => {
               return {
                 country: i.organisation.countryCode,
