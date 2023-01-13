@@ -276,12 +276,14 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                   <VerticalSeparatorDiv size='0.5' />
                 </>
               )}
-              {(bucInfo?.comment as Array<Comment>)?.map((c: Comment, i: number) => (
+              
+              {Array.isArray(bucInfo) && (bucInfo?.comment as Array<Comment>)?.map((c: Comment, i: number) => (
                 <div key={i + '-' + c}>
                   <span>{c.value}</span>
                   <HorizontalSeparatorDiv size='0.5' />
                 </div>
               ))}
+
             </PileDiv>
           </LabelsDiv>
         </FlexRow>
