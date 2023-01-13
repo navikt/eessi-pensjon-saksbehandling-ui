@@ -222,7 +222,7 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
     case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST:
       return {
         ...state,
-        gettingBucsListRina: true
+        gettingBucsList: true
       }
 
     case types.BUC_GET_BUCSLIST_SUCCESS:
@@ -242,7 +242,7 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
     case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE:
       return {
         ...state,
-        gettingBucsListRina: false
+        gettingBucsList: false
       }
 
 
