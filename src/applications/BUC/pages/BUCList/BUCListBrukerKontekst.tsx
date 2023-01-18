@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {BUCMode, PesysContext} from "declarations/app.d";
 import React, {useState} from "react";
 import {State} from "declarations/reducers";
-import {Bucs, JoarkBuc, SakTypeMap, SakTypeValue} from 'declarations/buc.d';
+import {BucListItem, Bucs, JoarkBuc, SakTypeMap, SakTypeValue} from 'declarations/buc.d';
 import BUCFooter from "../../components/BUCFooter/BUCFooter";
 import BUCStart from "../../components/BUCStart/BUCStart";
 import _ from "lodash";
@@ -18,11 +18,12 @@ import {
   BUCListHeader,
   BUCNewDiv,
   BUCStartDiv,
-  BadBucDiv
+  BadBucDiv, ProgressBarDiv
 } from "../../CommonBucComponents";
 import AvdodFnrSearch from "./AvdodFnrSearch";
 import BUCListJoark from "./BUCListJoark";
 import BUCListExcludingJoark from "./BUCListExcludingJoark";
+import ProgressBar from "@navikt/fremdriftslinje";
 
 export interface BUCListProps {
   initialBucNew?: boolean
@@ -37,6 +38,9 @@ export interface BUCListBrukerKontekstSelector {
   gettingBuc: boolean
   personAvdods: PersonAvdods | undefined,
   bucs: Bucs | undefined
+  bucsList: Array<BucListItem> | null | undefined
+  gettingBucsList: boolean
+  gettingBucs: boolean
   sakType: SakTypeValue | null | undefined
 }
 
@@ -48,6 +52,9 @@ const mapState = (state: State): BUCListBrukerKontekstSelector => ({
   gettingBuc: state.loading.gettingBuc,
   personAvdods: state.person.personAvdods,
   bucs: state.buc.bucs,
+  bucsList: state.buc.bucsList,
+  gettingBucsList: state.loading.gettingBucsList,
+  gettingBucs: state.loading.gettingBucs,
   sakType: state.app.params.sakType as SakTypeValue
 })
 
@@ -56,7 +63,7 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
 }: BUCListProps): JSX.Element => {
 
   const {
-    aktoerId, bucsListJoark, bucs, sakType
+    aktoerId, bucsListJoark, bucs, sakType, gettingBucs, bucsList, gettingBucsList
   }: BUCListBrukerKontekstSelector = useSelector<State, BUCListBrukerKontekstSelector>(mapState)
 
   const { t } = useTranslation()
@@ -71,12 +78,27 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
   }
   const showAvdodFnrSearch = (!_.isEmpty(bucs) || !_.isEmpty(bucsListJoark)) && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
 
+  const status = !_.isEmpty(bucsList) && Object.keys(bucs!).length === bucsList?.length ? 'done' : 'inprogress'
+  const now = _.isEmpty(bucsList) ? 20 : 20 + Math.floor(Object.keys(bucs!).length / (bucsList?.length ?? 1) * 80)
+
   return (
     <BUCListDiv>
       <BUCListHeader>
         <Heading size='small'>
           {t('buc:form-buclist')}
         </Heading>
+        <ProgressBarDiv>
+          {(gettingBucsList || gettingBucs) && (
+            <ProgressBar
+              status={status}
+              now={now}
+            >
+              <BodyLong>
+                {t(_.isEmpty(bucsList) ? 'message:loading-bucListX' : 'message:loading-bucsX', { x: now })}
+              </BodyLong>
+            </ProgressBar>
+          )}
+        </ProgressBarDiv>
         {!_newBucPanelOpen && (
           <Button
             variant='secondary'

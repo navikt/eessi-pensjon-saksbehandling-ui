@@ -12,10 +12,6 @@ import {bucFilter, bucSorter, pbuc02filter} from "../../components/BUCUtils/BUCU
 import {PersonAvdods} from "../../../../declarations/person";
 import {BUCMode, PesysContext} from "../../../../declarations/app";
 import BUCLenkeCard from "./BUCLenkeCard";
-import {ProgressBarDiv} from "../../CommonBucComponents";
-import ProgressBar from "@navikt/fremdriftslinje";
-import {BodyLong} from "@navikt/ds-react";
-import {useTranslation} from "react-i18next";
 
 export interface BUCListExcludingJoarkProps {
   setMode: (mode: BUCMode, s: string, callback?: any, content ?: JSX.Element) => void
@@ -60,7 +56,6 @@ const BUCListExcludingJoark: React.FC<BUCListExcludingJoarkProps> = ({
   }: BUCListExcludingJoarkSelector = useSelector<State, BUCListExcludingJoarkSelector>(mapState)
 
   const dispatch = useDispatch()
-  const { t } = useTranslation()
 
   const [_filteredBucsExJoark, _setFilteredBucsExJoark] = useState<Array<Buc> | undefined>(undefined)
   const [_pBuc02filteredBucsExJoark, _setPBuc02filteredBucsExJoark] = useState<Array<Buc> | undefined>(undefined)
@@ -115,24 +110,8 @@ const BUCListExcludingJoark: React.FC<BUCListExcludingJoarkProps> = ({
 
   setShowWarningNoBucs(!gettingBucs && _.isEmpty(bucsList))
 
-  const status = !_.isEmpty(bucsList) && Object.keys(bucs!).length === bucsList?.length ? 'done' : 'inprogress'
-  const now = _.isEmpty(bucsList) ? 20 : 20 + Math.floor(Object.keys(bucs!).length / (bucsList?.length ?? 1) * 80)
-
   return (
     <>
-      <ProgressBarDiv>
-        {(gettingBucsList || gettingBucs) && (
-          <ProgressBar
-            status={status}
-            now={now}
-          >
-            <BodyLong>
-              {t(_.isEmpty(bucsList) ? 'message:loading-bucListX' : 'message:loading-bucsX', { x: now })}
-            </BodyLong>
-          </ProgressBar>
-        )}
-      </ProgressBarDiv>
-
       {_sortedBucsExJoark?.map((buc, index: number) => {
         return (<BUCLenkeCard buc={buc} bucsInfo={bucsInfo} newlyCreatedBuc={newlyCreatedBuc} setMode={setMode} index={index}/>)
       })}
