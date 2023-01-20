@@ -11,6 +11,8 @@ export const initialLoadingState: LoadingState = {
   deletingPageNotification: false,
   generatingPDF: false,
   gettingBucsList: false,
+  gettingBucsListJoark: false,
+  gettingBucsListRina: false,
   gettingBucs: false,
   gettingBuc: false,
   gettingBucDeltakere: false,
@@ -207,7 +209,17 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
       }
 
     case types.BUC_GET_BUCSLIST_REQUEST:
+      return {
+        ...state,
+        gettingBucsList: true
+      }
 
+    case types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST:
+      return {
+        ...state,
+        gettingBucsListJoark: true
+      }
+    case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST:
       return {
         ...state,
         gettingBucsList: true
@@ -219,6 +231,20 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
         ...state,
         gettingBucsList: false
       }
+
+    case types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS:
+    case types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE:
+      return {
+        ...state,
+        gettingBucsListJoark: false
+      }
+    case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS:
+    case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE:
+      return {
+        ...state,
+        gettingBucsList: false
+      }
+
 
     case types.BUC_GET_BUCS_START:
 

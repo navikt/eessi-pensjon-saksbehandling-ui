@@ -1,5 +1,4 @@
 import {
-  fetchBucParticipants,
   fetchBucsList,
   fetchBucsInfoList,
   fetchBucsListWithVedtakId,
@@ -7,7 +6,7 @@ import {
   getSakType,
   setMode
 } from 'actions/buc'
-import { BUCIndex, BUCIndexSelector, ContainerDiv, WindowDiv } from 'applications/BUC/index'
+import { BUCIndexVedtaksKontekst, BUCIndexVedtaktsKontekstSelector, ContainerDiv, WindowDiv } from 'applications/BUC/BUCIndexVedtaksKontekst'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
 import { Buc } from 'declarations/buc'
@@ -21,7 +20,6 @@ jest.mock('applications/BUC/components/BUCDetail/BUCDetail', () => () => (<div c
 jest.mock('actions/buc', () => ({
   fetchBucs: jest.fn(),
   fetchBucsWithVedtakId: jest.fn(),
-  fetchBucParticipants: jest.fn(),
   fetchBucsInfoList: jest.fn(),
   getSakType: jest.fn(),
   getSubjectAreaList: jest.fn(),
@@ -38,18 +36,15 @@ Object.keys(_mockBucs).forEach(bucId => {
   _mockBucs[bucId].institusjon = undefined
 })
 
-const defaultSelector: BUCIndexSelector = {
+const defaultSelector: BUCIndexVedtaktsKontekstSelector = {
   aktoerId: '123',
   bucs: _mockBucs,
   bucsList: undefined,
   gettingBucs: false,
   gettingBucsList: false,
-  gettingSakType: false,
   howManyBucLists: 0,
   pesysContext: VEDTAKSKONTEKST,
-  rinaUrl: undefined,
   sakId: '456',
-  sakType: 'Generell',
   vedtakId: undefined
 }
 
@@ -61,13 +56,13 @@ describe('applications/BUC/index', () => {
   })
 
   it('Render: match snapshot', () => {
-    const { container } = render(<BUCIndex />)
+    const { container } = render(<BUCIndexVedtaksKontekst />)
     expect(container.firstChild).toMatchSnapshot()
   })
 
   it('UseEffect: getRinaUrl', () => {
     (getRinaUrl as jest.Mock).mockReset()
-    wrapper = render(<BUCIndex />)
+    wrapper = render(<BUCIndexVedtaksKontekst />)
     expect(getRinaUrl).toHaveBeenCalled()
   })
 
@@ -78,7 +73,7 @@ describe('applications/BUC/index', () => {
       bucs: undefined,
       pesysContext: BRUKERKONTEKST
     })
-    wrapper = render(<BUCIndex />)
+    wrapper = render(<BUCIndexVedtaksKontekst />)
     expect(fetchBucsList).toHaveBeenCalled()
     expect(fetchBucsInfoList).toHaveBeenCalled()
   })
@@ -90,7 +85,7 @@ describe('applications/BUC/index', () => {
       bucs: undefined,
       vedtakId: '789'
     })
-    wrapper = render(<BUCIndex />)
+    wrapper = render(<BUCIndexVedtaksKontekst />)
     expect(fetchBucsListWithVedtakId).toHaveBeenCalled()
     expect(fetchBucsInfoList).toHaveBeenCalled()
   })
@@ -98,20 +93,13 @@ describe('applications/BUC/index', () => {
   it('UseEffect: getting sakType', () => {
     (getSakType as jest.Mock).mockReset()
     stageSelector(defaultSelector, { sakType: undefined })
-    wrapper = render(<BUCIndex />)
+    wrapper = render(<BUCIndexVedtaksKontekst />)
     // -1 as there is one ErrorBuc in mockBucs
     expect(getSakType).toHaveBeenCalled()
   })
 
-  it('UseEffect: when getting bucs list, get participants', () => {
-    (fetchBucParticipants as jest.Mock).mockReset()
-    wrapper = render(<BUCIndex />)
-    // -1 as there is one ErrorBuc in mockBucs
-    expect(fetchBucParticipants).toBeCalledTimes(Object.keys(mockBucs()).length - 1)
-  })
-
   it('Render: has proper HTML structure ', () => {
-    wrapper = render(<BUCIndex />)
+    wrapper = render(<BUCIndexVedtaksKontekst />)
     expect(screen.getByTestId('a-buc-index\']')).toBeInTheDocument()
     expect(wrapper.exists(ContainerDiv)).toBeTruthy()
     expect(wrapper.exists(WindowDiv)).toBeTruthy()
@@ -123,7 +111,7 @@ describe('applications/BUC/index', () => {
       sakId: undefined,
       aktoerId: undefined
     })
-    wrapper = render(<BUCIndex />)
+    wrapper = render(<BUCIndexVedtaksKontekst />)
     expect(wrapper.exists(BUCEmpty)).toBeTruthy()
   })
 

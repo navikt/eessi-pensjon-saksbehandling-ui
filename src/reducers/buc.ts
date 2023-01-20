@@ -1,4 +1,4 @@
-import { bucsThatSupportAvdod, getFnr } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import {bucsThatSupportAvdod, getFnr, sedFilter} from 'applications/BUC/components/BUCUtils/BUCUtils'
 import * as types from 'constants/actionTypes'
 import { VEDTAKSKONTEKST } from 'constants/constants'
 import { BUCMode, RinaUrl } from 'declarations/app.d'
@@ -21,7 +21,8 @@ import {
   SedsWithAttachmentsMap,
   ValidBuc,
   P6000,
-  BucListItem
+  BucListItem,
+  JoarkBuc
 } from 'declarations/buc'
 import { JoarkBrowserItem, JoarkBrowserItems, JoarkPreview } from 'declarations/joark'
 import { ActionWithPayload } from '@navikt/fetch'
@@ -36,6 +37,8 @@ export interface BucState {
   attachmentsError: boolean
   bucs: Bucs | undefined
   bucsList: Array<BucListItem> | null | undefined
+  bucsListJoark: Array<JoarkBuc> | null | undefined
+  bucsListRina: Array<BucListItem> | null | undefined
   bucsInfoList: Array<string> | undefined
   bucsInfo: BucsInfo | undefined
   bucOptions: Array<string> | undefined
@@ -71,6 +74,8 @@ export const initialBucState: BucState = {
   bucsInfoList: undefined,
   bucsInfo: undefined,
   bucsList: undefined,
+  bucsListJoark: undefined,
+  bucsListRina: undefined,
   bucOptions: undefined,
   countryList: undefined,
   currentBuc: undefined,
@@ -263,8 +268,8 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.BUC_GET_BUCSLIST_REQUEST:
       return {
         ...state,
-        howManyBucLists: (action as ActionWithPayload).context.howManyBucLists,
-        bucsList: undefined
+        howManyBucLists: (action as ActionWithPayload).context && (action as ActionWithPayload).context.howManyBucLists ? (action as ActionWithPayload).context.howManyBucLists : 1,
+        bucsList: _.isNil(state.bucsList) ? undefined : state.bucsList
       }
 
     case types.BUC_GET_BUCSLIST_SUCCESS:
@@ -296,6 +301,110 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       return {
         ...state,
         howManyBucLists: (state.howManyBucLists - 1),
+        bucsList: _.isNil(state.bucsList) ? null : state.bucsList
+      }
+
+    case types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST:
+      standardLogger('buc.get.joark.buclist.request')
+      return {
+        ...state,
+        bucsListJoark: undefined
+      }
+
+    case types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS:
+      standardLogger('buc.get.joark.buclist.success')
+      const bucList = (action as ActionWithPayload).payload
+      const institutionNames = _.cloneDeep(state.institutionNames)
+
+      bucList.forEach((buc: any) => {
+        if (buc.participants) {
+          buc.participants.forEach((i: any) => {
+            if (i.organisation.id && !institutionNames[i.organisation.id]) {
+              institutionNames[i.organisation.id] = i.organisation
+            }
+          })
+        }
+      })
+
+      const getCreator:any = (buc: any) => {
+        return {
+          country: buc.creator.organisation.countryCode,
+          institution: buc.creator.organisation.id,
+          name: buc.creator.organisation.name,
+          acronym: buc.creator.organisation.acronym
+        }
+      }
+
+      const getCaseOwner:any = (buc: any) => {
+        if(buc.participants){
+          const caseOwner = buc.participants.filter((p:any) => {
+            return p.role === "CaseOwner"
+          }).map((co:any) => {
+            return {
+              country: co.organisation.countryCode,
+              institution: co.organisation.id,
+              name: co.organisation.name,
+              acronym: co.organisation.acronym
+            }
+          })
+          return caseOwner[0]
+        }
+        return null
+      }
+
+      return {
+        ...state,
+        institutionNames,
+        bucsListJoark: bucList.map((buc: any) => {
+          return {
+            caseId: buc.id,
+            type: buc.processDefinitionName,
+            startDate: buc.startDate,
+            creator: getCaseOwner(buc) ? getCaseOwner(buc) : getCreator(buc),
+            deltakere: buc.participants.map((i:any) => {
+              return {
+                country: i.organisation.countryCode,
+                institution: i.organisation.id,
+                name: i.organisation.name,
+                acronym: i.organisation.acronym
+              }
+            }),
+            numberOfSeds: buc.documents.filter(sedFilter).length
+          }
+        })
+      }
+
+    case types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE:
+      standardLogger('buc.get.joark.buclist.failure')
+      return {
+        ...state,
+        bucsListJoark: _.isNil(state.bucsListJoark) ? null : state.bucsListJoark
+      }
+
+    case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST:
+      return {
+        ...state,
+        bucsList: undefined
+      }
+
+    case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS:
+      const newBucsList = _.isNil(state.bucsList) ? [] : _.cloneDeep(state.bucsList);
+      (action as ActionWithPayload).payload?.forEach((buc: BucListItem) => {
+        const foundIndex = _.findIndex(state.bucsList, (b: BucListItem) => b.euxCaseId === buc.euxCaseId)
+        const foundIndexInBucsListJoark = _.findIndex(state.bucsListJoark, (b: JoarkBuc) => b.caseId === buc.euxCaseId)
+        if (foundIndex < 0 && foundIndexInBucsListJoark < 0) {
+          newBucsList.push(buc)
+        }
+      })
+
+      return {
+        ...state,
+        bucsList: newBucsList
+      }
+
+    case types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE:
+      return {
+        ...state,
         bucsList: _.isNil(state.bucsList) ? null : state.bucsList
       }
 

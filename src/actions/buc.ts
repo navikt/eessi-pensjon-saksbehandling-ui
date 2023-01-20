@@ -14,7 +14,6 @@ import {
   Institutions,
   NewBucPayload,
   NewSedPayload,
-  Participants,
   RinaUrlPayload,
   SakTypeValue,
   SaveBucsInfoProps,
@@ -26,11 +25,12 @@ import {
 } from 'declarations/buc'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
 import _ from 'lodash'
-import { mockBuc, mockParticipants } from 'mocks/buc/buc'
+import { mockBuc } from 'mocks/buc/buc'
 import mockBucOptions from 'mocks/buc/bucOptions'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import mockBucsInfoList from 'mocks/buc/bucsInfoList'
 import mockBucs from 'mocks/buc/bucsList'
+import mockBucsFromJoark from 'mocks/buc/bucsFromJoark'
 import mockBucsWithVedtak from 'mocks/buc/bucsListWithVedtak'
 import mockCreateBuc from 'mocks/buc/createBuc'
 import mockCreateSed from 'mocks/buc/createSed'
@@ -123,23 +123,6 @@ export const createSavingAttachmentJob: ActionCreator<ActionWithPayload<JoarkBro
   payload: joarkBrowserItems
 })
 
-export const fetchBucParticipants = (
-  rinaCaseId: string
-): ActionWithPayload<Participants> => {
-  return call({
-    url: sprintf(urls.BUC_GET_PARTICIPANTS_URL, { rinaCaseId }),
-    expectedPayload: /* istanbul ignore next */ mockParticipants(rinaCaseId),
-    context: {
-      rinaCaseId
-    },
-    type: {
-      request: types.BUC_GET_PARTICIPANTS_REQUEST,
-      success: types.BUC_GET_PARTICIPANTS_SUCCESS,
-      failure: types.BUC_GET_PARTICIPANTS_FAILURE
-    }
-  })
-}
-
 export const startBucsFetch = () => ({
   type: types.BUC_GET_BUCS_START
 })
@@ -162,6 +145,37 @@ export const fetchBucsList = (
       request: types.BUC_GET_BUCSLIST_REQUEST,
       success: types.BUC_GET_BUCSLIST_SUCCESS,
       failure: types.BUC_GET_BUCSLIST_FAILURE
+    }
+  })
+}
+
+//NEW ENDPOINTS FOR BUCSLIST from JOARK/EUXRINA FOR BRUKERKONTEKST
+export const fetchJoarkBucsListForBrukerKontekst = (
+  aktoerId: string, sakId: string
+): ActionWithPayload<Bucs> => {
+  return call({
+    url: sprintf(urls.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_URL, { aktoerId, sakId }),
+    cascadeFailureError: true,
+    expectedPayload: mockBucsFromJoark(),
+    type: {
+      request: types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST,
+      success: types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS,
+      failure: types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE
+    }
+  })
+}
+
+export const fetchRinaBucsListForBrukerKontekst = (
+  aktoerId: string, sakId: string
+): ActionWithPayload<Bucs> => {
+  return call({
+    url: sprintf(urls.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_URL, { aktoerId, sakId }),
+    cascadeFailureError: true,
+    expectedPayload: mockBucs(aktoerId, sakId),
+    type: {
+      request: types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST,
+      success: types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS,
+      failure: types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE
     }
   })
 }
@@ -194,7 +208,7 @@ export const fetchBucsInfoList = (
   })
 }
 
-export const fetchBucsListWithAvdodFnr = (
+export const  fetchBucsListWithAvdodFnr = (
   aktoerId: string, sakId: string, avdodFnr: string
 ): ActionWithPayload<Bucs> => {
   return call({
@@ -241,11 +255,11 @@ export const fetchKravDato = ({
 }
 
 export const fetchBuc = (
-  rinaCaseId: string, aktoerId: string, sakId: string, avdodFnr: string | null | undefined, kilde: string
+  rinaCaseId: string, aktoerId?: string, sakId?: string, avdodFnr?: string | null | undefined, kilde?: string
 ): ActionWithPayload<ValidBuc> => {
   const url = !_.isEmpty(avdodFnr)
     ? sprintf(urls.BUC_GET_BUC_WITH_AVDOD_URL, { rinaCaseId, aktoerId, sakId, avdodFnr, kilde })
-    : sprintf(urls.BUC_GET_BUC_URL, { rinaCaseId, aktoerId, sakId, kilde })
+    : sprintf(urls.BUC_GET_BUC_URL, { rinaCaseId })
 
   return call({
     url,

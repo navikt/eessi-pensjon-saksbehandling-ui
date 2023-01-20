@@ -8,7 +8,7 @@ import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { WidthSize } from 'declarations/app'
 import { HorizontalSeparatorDiv, PileDiv, VerticalSeparatorDiv, Column, Row } from '@navikt/hoykontrast'
 import { AllowedLocaleString, RinaUrl } from 'declarations/app.d'
-import { Buc, BucInfo, Comment, Institution, InstitutionListMap, InstitutionNames } from 'declarations/buc'
+import {Buc, BucInfo, Comment, Institution, InstitutionListMap, InstitutionNames, JoarkBuc} from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import { FlagItems, FlagList } from '@navikt/flagg-ikoner'
@@ -77,12 +77,11 @@ const TagsDiv = styled.div`
 `
 
 export interface BUCHeaderProps {
-  buc: Buc
+  buc: Buc | JoarkBuc
   bucInfo?: BucInfo
 }
 
 export interface BUCHeaderSelector {
-  gettingBucDeltakere: boolean
   institutionNames: InstitutionNames
   locale: AllowedLocaleString
   rinaUrl: RinaUrl | undefined
@@ -90,7 +89,6 @@ export interface BUCHeaderSelector {
 }
 
 const mapState = /* istanbul ignore next */ (state: State): BUCHeaderSelector => ({
-  gettingBucDeltakere: state.loading.gettingBucDeltakere,
   institutionNames: state.buc.institutionNames,
   locale: state.ui.locale,
   rinaUrl: state.buc.rinaUrl,
@@ -104,7 +102,9 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
     useSelector<State, BUCHeaderSelector>(mapState)
   const { t } = useTranslation()
   const [_flagSize, setFlagSize] = useState<string>('XL')
-  const numberOfSeds: string | undefined = buc.seds ? '' + buc.seds.filter(sedFilter).length : undefined
+  const numberOfSeds: string | undefined =  ("seds" in buc) && buc.seds
+    ? '' + buc.seds.filter(sedFilter).length :
+    ("numberOfSeds" in buc) && buc.numberOfSeds ? '' + buc.numberOfSeds : undefined
 
   const generateFlagItems = (): FlagItems => {
     const institutionList: InstitutionListMap<string> = {}

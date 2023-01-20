@@ -19,6 +19,10 @@ export default {
 
     158124: {
       tags: ['tag-uttakFor67ar']
+    },
+
+    1443133: {
+      tags: ['tag-refusjonskrav']
     }
   }
 }

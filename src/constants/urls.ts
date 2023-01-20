@@ -49,10 +49,12 @@ export const PERSON_GJP_BP_URL = PER_URL + '/vedtak/%(vedtakId)s/buc/%(sakId)s/a
 export const BUC_GET_BUCSLIST_URL = BUC_URL + '/rinasaker/%(aktoerId)s/saknr/%(sakId)s'
 export const BUC_GET_BUCSLIST_WITH_VEDTAKID_URL = BUC_URL + '/rinasaker/%(aktoerId)s/saknr/%(sakId)s/vedtak/%(vedtakId)s'
 export const BUC_GET_BUCSLIST_WITH_AVDODFNR_URL = BUC_URL + '/rinasaker/%(aktoerId)s/saknr/%(sakId)s/avdod/%(avdodFnr)s'
-export const BUC_GET_BUC_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/aktoerid/%(aktoerId)s/saknr/%(sakId)s/kilde/%(kilde)s'
+export const BUC_GET_BUC_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s'
 export const BUC_GET_BUC_WITH_AVDOD_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/aktoerid/%(aktoerId)s/saknr/%(sakId)s/avdodfnr/%(avdodFnr)s/kilde/%(kilde)s'
 
-export const BUC_GET_PARTICIPANTS_URL = BUC_URL + '/%(rinaCaseId)s/bucdeltakere'
+export const BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_URL = BUC_URL + '/joark/aktoer/%(aktoerId)s/pesyssak/%(sakId)s'
+export const BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_URL = BUC_URL + '/rinasaker/euxrina/%(aktoerId)s/pesyssak/%(sakId)s'
+
 export const BUC_GET_BUC_OPTIONS_URL = BUC_URL + '/bucs/%(sakId)s'
 export const BUC_CREATE_BUC_URL = BUC_URL + '/%(buc)s'
 

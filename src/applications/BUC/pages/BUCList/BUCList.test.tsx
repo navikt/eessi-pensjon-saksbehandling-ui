@@ -11,14 +11,10 @@ import mockBucsList from 'mocks/buc/bucsList'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import { stageSelector } from 'setupTests'
 import BUCList, {
-  BadBucDiv,
-  BucLenkePanel,
-  BUCListDiv,
   BUCListProps,
-  BUCListSelector,
-  BUCLoadingDiv,
-  BUCStartDiv
+  BUCListSelector
 } from './BUCList'
+import {BadBucDiv, BucLenkePanel, BUCListDiv, BUCLoadingDiv, BUCStartDiv} from "../../CommonBucComponents";
 
 jest.mock('applications/BUC/components/BUCFooter/BUCFooter', () => () => <div className='mock-bucfooter' />)
 
@@ -40,22 +36,11 @@ const mockPersonAvdods = personAvdod(1)
 
 const defaultSelector: BUCListSelector = {
   aktoerId: '123',
-  sakId: '456',
   sakType: undefined,
   bucs: _.keyBy(mockBucs(), 'caseId'),
   bucsList: mockBucsList('123', '456'),
   bucsInfo: mockBucsInfo,
-  bucsInfoList: [],
-  institutionList: {
-    NO: [{
-      name: 'mockInstitution1',
-      institution: 'NO:MI1',
-      acronym: 'MI1',
-      country: 'NO'
-    }]
-  },
   gettingBucsList: false,
-  gettingBucsInfo: false,
   gettingBucs: false,
   locale: 'nb',
   newlyCreatedBuc: undefined,

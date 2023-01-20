@@ -8,7 +8,6 @@ import { stageSelector } from 'setupTests'
 import BUCHeader, { BUCHeaderProps, BUCHeaderSelector } from './BUCHeader'
 
 const defaultSelector: BUCHeaderSelector = {
-  gettingBucDeltakere: false,
   institutionNames: {},
   locale: 'nb',
   rinaUrl: 'http://rinaurl.mock.com',
