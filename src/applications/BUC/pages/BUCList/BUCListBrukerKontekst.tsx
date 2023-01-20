@@ -2,7 +2,7 @@ import {Alert, BodyLong, Button, Heading} from "@navikt/ds-react";
 import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 import {BUCMode, PesysContext} from "declarations/app.d";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {State} from "declarations/reducers";
 import {BucListItem, Bucs, JoarkBuc, SakTypeMap, SakTypeValue} from 'declarations/buc.d';
 import BUCFooter from "../../components/BUCFooter/BUCFooter";
@@ -10,7 +10,7 @@ import BUCStart from "../../components/BUCStart/BUCStart";
 import _ from "lodash";
 import { VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import {PersonAvdods} from "declarations/person.d";
-import {buttonLogger} from "metrics/loggers";
+import {buttonLogger, standardLogger} from "metrics/loggers";
 import classNames from "classnames";
 import {HorizontalLineSeparator} from "components/StyledComponents";
 import {
@@ -80,6 +80,10 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
 
   const status = !_.isEmpty(bucsList) && Object.keys(bucs!).length === bucsList?.length ? 'done' : 'inprogress'
   const now = _.isEmpty(bucsList) ? 20 : 20 + Math.floor(Object.keys(bucs!).length / (bucsList?.length ?? 1) * 80)
+
+  useEffect(() => {
+    standardLogger('buc.list.entrance')
+  }, [])
 
   return (
     <BUCListDiv>
