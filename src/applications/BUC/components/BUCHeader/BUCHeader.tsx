@@ -6,16 +6,16 @@ import {
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { WidthSize } from 'declarations/app'
-import { HorizontalSeparatorDiv, PileDiv, VerticalSeparatorDiv, Column, Row } from '@navikt/hoykontrast'
+import { HorizontalSeparatorDiv, Column, Row } from '@navikt/hoykontrast'
 import { AllowedLocaleString, RinaUrl } from 'declarations/app.d'
-import {Buc, BucInfo, Comment, Institution, InstitutionListMap, InstitutionNames, JoarkBuc} from 'declarations/buc'
+import {Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames, JoarkBuc} from 'declarations/buc'
 import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import { FlagItems, FlagList } from '@navikt/flagg-ikoner'
 import _ from 'lodash'
 import { linkLogger } from 'metrics/loggers'
 import moment from 'moment'
-import { LinkPanel, BodyLong, Link, Heading, Tag, Detail } from '@navikt/ds-react'
+import { LinkPanel, BodyLong, Link, Heading, Tag } from '@navikt/ds-react'
 import Tooltip from '@navikt/tooltip'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -265,26 +265,6 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 </div>
               ))}
             </TagsDiv>
-          </LabelsDiv>
-          <LabelsDiv>
-            <PileDiv>
-              {bucInfo?.comment && (
-                <>
-                  <Detail>
-                    {t('ui:comment')}
-                  </Detail>
-                  <VerticalSeparatorDiv size='0.5' />
-                </>
-              )}
-              
-              {Array.isArray(bucInfo) && (bucInfo?.comment as Array<Comment>)?.map((c: Comment, i: number) => (
-                <div key={i + '-' + c}>
-                  <span>{c.value}</span>
-                  <HorizontalSeparatorDiv size='0.5' />
-                </div>
-              ))}
-
-            </PileDiv>
           </LabelsDiv>
         </FlexRow>
       </LinkPanel.Description>

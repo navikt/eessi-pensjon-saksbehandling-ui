@@ -2,15 +2,14 @@ import { getTagList, saveBucsInfo } from 'actions/buc'
 import {dateSorter, sedFilter} from 'applications/BUC/components/BUCUtils/BUCUtils'
 import P5000 from 'applications/P5000/P5000'
 import P4000 from "applications/P4000/P4000";
-import { Delete, NextFilled } from '@navikt/ds-icons'
+import { NextFilled } from '@navikt/ds-icons'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { AllowedLocaleString, BUCMode, Loading } from 'declarations/app.d'
 import {
   Buc,
   BucInfo,
   BucsInfo,
-  Comment,
-  Comments, Sed,
+  Sed,
   Tag,
   TagRawList,
   Tags,
@@ -20,7 +19,7 @@ import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
-import { Detail, BodyLong, Heading, Loader, Button, Panel, Textarea, Tabs } from '@navikt/ds-react'
+import { Detail, BodyLong, Heading, Button, Panel, Textarea, Tabs } from '@navikt/ds-react'
 import {
   HorizontalSeparatorDiv,
   slideInFromRight,
@@ -42,15 +41,6 @@ const BUCToolsPanel = styled(Panel)`
     background-color: rgba(128,128,128,0.2);
   }
 `
-const CommentDiv = styled.div`
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: var(--navds-semantic-color-border);
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-`
 const FlexDiv = styled.div`
   display: flex;
 `
@@ -64,10 +54,6 @@ const P4000Div = styled.div`
   margin-bottom: 1rem;
 `
 
-
-const RemoveComment = styled.div`
-  cursor: pointer;
-`
 export const TextArea = styled(Textarea)`
   min-height: 150px;
   width: 100%;
@@ -115,16 +101,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
 
   const [_activeTab, setActiveTab] = useState<string>(initialTab)
   const [_allTags, setAllTags] = useState<Tags | undefined>(undefined)
-  const [_comment, setComment] = useState< string | null | undefined >('')
-
-  const [_originalComments, setOriginalComments] = useState<Comments>(() => {
-    return bucInfo
-      ? _.isString(bucInfo.comment)
-          ? [{ value: bucInfo.comment }]
-          : bucInfo.comment!
-      : []
-  })
-
   const [_tags, setTags] = useState<Tags | undefined>(undefined)
 
   const onTagsChange = (tagsList: unknown): void => {
@@ -138,47 +114,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         bucsInfo: bucsInfo!,
         aktoerId,
         tags: (tagsList as Tags)?.map((tag: Tag) => tag.value) ?? [],
-        comment: _originalComments,
-        buc: buc as ValidBuc
-      }))
-    }
-  }
-
-  const onCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-    setComment(e.target.value)
-  }
-
-  const onSaveCommentClick = (): void => {
-    standardLogger('buc.view.tools.comment.textarea', { comment: _comment })
-    const newOriginalComments: Comments = _.cloneDeep(_originalComments)
-
-    const newComment: Comment = {
-      value: _comment!
-    }
-    if (_comment) {
-      newOriginalComments!.push(newComment)
-      setOriginalComments(newOriginalComments)
-      setComment('')
-    }
-    dispatch(saveBucsInfo({
-      bucsInfo: bucsInfo!,
-      aktoerId,
-      tags: _tags ? _tags.map(tag => tag.value) : [],
-      comment: newOriginalComments,
-      buc: buc as ValidBuc
-    }))
-  }
-
-  const onDeleteComment = (i: number): void => {
-    if (window.confirm(t('buc:form-areYouSureDeleteComment'))) {
-      const newOriginalComments: Comments = _.cloneDeep(_originalComments) as Comments
-      newOriginalComments.splice(i, 1)
-      setOriginalComments(newOriginalComments)
-      dispatch(saveBucsInfo({
-        bucsInfo: bucsInfo!,
-        aktoerId,
-        tags: _tags ? _tags.map(tag => tag.value) : [],
-        comment: newOriginalComments,
         buc: buc as ValidBuc
       }))
     }
@@ -348,53 +283,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
             label={t('buc:form-tagsForBUC')}
             values={_tags || []}
           />
-        </Tabs.Panel>
-        <Tabs.Panel value='comments'>
-          {/*TODO: Remove this tab - and all references to comments*/}
-          <VerticalSeparatorDiv size='0.5' />
-          <Detail>
-            {t('ui:comment')}
-          </Detail>
-          {_originalComments
-            ? (_originalComments as Comments)?.map((comment: Comment, i: number) => (
-              <CommentDiv
-                data-testid='a_buc_c_buctools--comment-div-id'
-                key={i}
-              >
-                <BodyLong>
-                  {comment.value}
-                </BodyLong>
-                <RemoveComment>
-                  <Delete
-                    data-testid={'a_buc_c_buctools--comment-delete-' + i + '-id'}
-                    width={20}
-                    onClick={() => onDeleteComment(i)}
-                  />
-                </RemoveComment>
-              </CommentDiv>
-              ))
-            : (
-              <BodyLong>
-                {t('ui:noCommentsYet')}
-              </BodyLong>
-              )}
-          <VerticalSeparatorDiv size='0.5' />
-          <TextArea
-            data-testid='a_buc_c_buctools--comment-textarea-id'
-            className='skjemaelement--input'
-            label=''
-            value={_comment || ''}
-            onChange={onCommentChange}
-          />
-          <Button
-            variant='secondary'
-            data-testid='a_buc_c_buctools--comment-save-button-id'
-            disabled={loading.savingBucsInfo}
-            onClick={onSaveCommentClick}
-          >
-            {loading.savingBucsInfo && <Loader />}
-            {loading.savingBucsInfo ? t('ui:saving') : t('ui:add')}
-          </Button>
         </Tabs.Panel>
       </Tabs>
     </BUCToolsPanel>

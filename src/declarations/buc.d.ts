@@ -32,12 +32,6 @@ export interface BucListItem {
   kilde: string
 }
 
-export interface Comment {
-  value: string
-}
-
-export type Comments = Array<Comment>
-
 export interface Date {
   year: number
   month: string
@@ -135,7 +129,6 @@ export interface RinaUrlPayload {
 export interface BucInfo {
   avdod ?: string
   tags?: RawList | null
-  comment?: Comments | string | null
 }
 
 export interface BucsInfo {
@@ -172,7 +165,6 @@ export interface SaveBucsInfoProps {
     caseId: string
   };
   bucsInfo: BucsInfo
-  comment?: string | Array<Comment>
   kravDato?: string
   tags?: RawList
 }

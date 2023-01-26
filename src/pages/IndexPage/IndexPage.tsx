@@ -1,8 +1,6 @@
 import { readNotification } from 'actions/pagenotification'
-import { Journalføring } from 'applications'
 import PageNotification from 'applications/PageNotification'
 import PersonPanel from 'applications/PersonPanel/PersonPanel'
-import S3Inventory from 'applications/S3Inventory'
 import ContextBanner from 'components/ContextBanner/ContextBanner'
 import Modal from 'components/Modal/Modal'
 import TopContainer from 'components/TopContainer/TopContainer'
@@ -101,13 +99,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
             <>
               <Row>
                 <Column>
-                  <Journalføring />
-                </Column>
-                <Column>
                   <PageNotification />
-                </Column>
-                <Column>
-                  <S3Inventory />
                 </Column>
               </Row>
               <VerticalSeparatorDiv />

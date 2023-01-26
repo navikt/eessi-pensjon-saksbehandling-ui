@@ -464,7 +464,7 @@ export const resetSedAttachments: ActionCreator<Action> = (): Action => ({
 })
 
 export const saveBucsInfo = ({
-  aktoerId, avdod, buc, bucsInfo = { bucs: {} }, comment, tags
+  aktoerId, avdod, buc, bucsInfo = { bucs: {} }, tags
 }: SaveBucsInfoProps): Action => {
   const newBucsInfo = _.cloneDeep(bucsInfo)
   const newTags = tags || [] // ? tags.map(tag => tag.value) : []
@@ -473,9 +473,6 @@ export const saveBucsInfo = ({
   newBucsInfo.bucs[bucId] = newBucsInfo.bucs[bucId] || {}
   if (tags) {
     newBucsInfo.bucs[bucId].tags = newTags
-  }
-  if (comment) {
-    newBucsInfo.bucs[bucId].comment = comment
   }
   if (avdod) {
     newBucsInfo.bucs[bucId].avdod = avdod

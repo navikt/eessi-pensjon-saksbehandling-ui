@@ -15,7 +15,6 @@ const EUX_URL = FAGMODUL_API_URL + '/eux'
 const PEN_URL = FAGMODUL_API_URL + '/pensjon'
 const PER_URL = FAGMODUL_API_URL + '/person'
 const SAF_URL = FAGMODUL_API_URL + '/saf'
-const JOU_URL = FAGMODUL_API_URL + '/journalforing'
 const STG_URL = FRONTEND_API_URL + '/api/storage'
 
 // EuxController
@@ -72,10 +71,6 @@ export const P5000_GET_URL = SED_URL + '/get/%(caseId)s/%(sedId)s'
 export const P5000_PUT_URL = SED_URL + '/put/%(caseId)s/%(sedId)s'
 export const BUC_GET_P6000_URL = SED_URL + '/getP6000/%(rinaCaseId)s'
 export const BUC_GET_P6000PDF_URL = SED_URL + '/get/%(rinaCaseId)s/%(documentId)s/pdf'
-
-// Journalføring
-export const JOURNALFØRING_SED_GET_URL = JOU_URL + '/get/%(sakId)s/%(aktoerId)s'
-export const JOURNALFØRING_SED_SEND_URL = JOU_URL + '/send/%(sakId)s/%(aktoerId)s/%(sedId)s'
 
 // Page Notification
 export const API_PAGENOTIFICATION_GET_URL = API_URL + '/storage/get/EP___PAGE___NOTIFICATION'

@@ -1,6 +1,6 @@
 import { within } from '@testing-library/dom'
-import { getTagList, saveBucsInfo } from 'actions/buc'
-import { Buc, BucInfo, BucsInfo, Comment, Comments, TagRawList } from 'declarations/buc.d'
+import { getTagList } from 'actions/buc'
+import { Buc, BucInfo, BucsInfo, TagRawList } from 'declarations/buc.d'
 import { AllowedLocaleString } from 'declarations/app.d'
 import { render, screen, fireEvent } from '@testing-library/react'
 import mockFeatureToggles from 'mocks/app/featureToggles'
@@ -64,25 +64,14 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   it('Render: has proper HTML: P5000 tab', () => {
     expect(screen.getByTestId('a_buc_c_buctools--P5000-button-id')).toBeInTheDocument()
     expect(screen.queryByTestId('a_buc_c_buctools--tags-select-id')).toBeFalsy()
-    expect(screen.queryByTestId('a_buc_c_buctools--comment-textarea-id')).toBeFalsy()
-    expect(screen.queryByTestId('a_buc_c_buctools--comment-save-button-id')).toBeFalsy()
   })
 
   it('Render: has proper HTML: tag tab', () => {
     render(<BUCTools {...initialMockProps} initialTab='tag' />)
     expect(screen.queryByTestId('a_buc_c_buctools--P5000-button-id')).toBeFalsy()
     expect(screen.getByTestId('a_buc_c_buctools--tags-select-id')).toBeInTheDocument()
-    expect(screen.queryByTestId('a_buc_c_buctools--comment-textarea-id')).toBeFalsy()
-    expect(screen.queryByTestId('a_buc_c_buctools--comment-save-button-id')).toBeFalsy()
   })
 
-  it('Render: has proper HTML: comment tab', () => {
-    render(<BUCTools {...initialMockProps} initialTab='comment' />)
-    expect(screen.queryByTestId('a_buc_c_buctools--P5000-button-id')).toBeFalsy()
-    expect(screen.getByTestId('a_buc_c_buctools--tags-select-id')).toBeFalsy()
-    expect(screen.getByTestId('a_buc_c_buctools--comment-textarea-id')).toBeInTheDocument()
-    expect(screen.getByTestId('a_buc_c_buctools--comment-save-button-id')).toBeInTheDocument()
-  })
 
   it('UseEffect: fetches tag list', () => {
     stageSelector(defaultSelector, { tagList: undefined })
@@ -105,38 +94,6 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
       label: 'buc:' + allTags[1],
       value: allTags[1]
     }])
-  })
-
-  it('Handling: Changing comments', () => {
-    (saveBucsInfo as jest.Mock).mockReset()
-    render(<BUCTools {...initialMockProps} initialTab='comment' />)
-    const newComment = 'this is a new comment'
-    expect(screen.getByTestId('a_buc_c_buctools--comment-textarea-id')).toBeInTheDocument()
-    expect(screen.getAllByTestId('a_buc_c_buctools--comment-div-id').length).toEqual(bucInfo.comment!.length)
-
-    expect(screen.getByRole('textarea')).toHaveTextContext('')
-
-    fireEvent.change(screen.getByTestId('a_buc_c_buctools--comment-textarea-id'), { target: { value: newComment } })
-    fireEvent.click(screen.getByTestId('a_buc_c_buctools--save-button-id'))
-
-    expect(saveBucsInfo).toHaveBeenCalledWith(expect.objectContaining({
-      comment: (bucInfo.comment as Comments)!.concat([{ value: newComment } as Comment])
-    }))
-  })
-
-  it('Handling: Deleting comments', () => {
-    (saveBucsInfo as jest.Mock).mockReset()
-    jest.spyOn(global, 'confirm' as any).mockReturnValueOnce(true)
-    render(<BUCTools {...initialMockProps} initialTab='comment' />)
-    expect(screen.getAllByTestId('a_buc_c_buctools--comment-div-id').length).toEqual(bucInfo.comment!.length)
-
-    expect(screen.getByRole('textarea')).toHaveTextContext('')
-
-    fireEvent.click(screen.getByTestId('a_buc_c_buctools--comment-delete-0-id'))
-
-    expect(saveBucsInfo).toHaveBeenCalledWith(expect.objectContaining({
-      comment: (bucInfo.comment as Comments)!.splice(1, 1)
-    }))
   })
 
   it('Handling: Loads SEDs for P5000', () => {
