@@ -2,7 +2,6 @@ import { AlertState } from 'reducers/alert'
 import { AppState } from 'reducers/app'
 import { BucState } from 'reducers/buc'
 import { JoarkState } from 'reducers/joark'
-import { JournalføringState } from 'reducers/journalføring'
 import { LoadingState } from 'reducers/loading'
 import { LocalStorageState } from 'reducers/localStorage'
 import { P5000State } from 'reducers/p5000'
@@ -16,7 +15,6 @@ export interface State {
   app: AppState
   buc: BucState
   joark: JoarkState
-  journalføring: JournalføringState
   loading: LoadingState
   localStorage: LocalStorageState
   pagenotification: PageNotificationState

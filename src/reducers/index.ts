@@ -2,7 +2,6 @@ import alert from './alert'
 import app from './app'
 import buc from './buc'
 import joark from './joark'
-import journalføring from './journalføring'
 import loading from './loading'
 import localStorage from './localStorage'
 import pagenotification from './pagenotification'
@@ -13,5 +12,5 @@ import sentry from './sentry'
 import ui from './ui'
 
 export default {
-  alert, app, buc, joark, journalføring, loading, localStorage, pagenotification, p5000, person, s3inventory, sentry, ui
+  alert, app, buc, joark, loading, localStorage, pagenotification, p5000, person, s3inventory, sentry, ui
 }
