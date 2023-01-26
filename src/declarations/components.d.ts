@@ -22,11 +22,3 @@ export interface ModalContent {
   modalButtons?: Array<ModalButton> |null
   closeButton?: boolean | null
 }
-
-export interface GetS3FilesJob {
-  total: Array<any>
-  loaded: Array<any>
-  notloaded: Array<any>
-  loading: any | undefined
-  remaining: Array<any>
-}
