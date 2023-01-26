@@ -444,7 +444,6 @@ describe('actions/buc', () => {
       bucsInfo: { bucs: {} },
       aktoerId: '123',
       tags: ['tag'],
-      comment: [{ value: 'comment 1' }, { value: 'comment 2' }],
       buc: {
         caseId: '456'
       }
@@ -453,7 +452,6 @@ describe('actions/buc', () => {
       bucs: {
         456: {
           tags: ['tag'],
-          comment: [{ value: 'comment 1' }, { value: 'comment 2' }]
         }
       }
     }

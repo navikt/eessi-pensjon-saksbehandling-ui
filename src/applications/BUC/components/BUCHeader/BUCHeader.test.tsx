@@ -67,8 +67,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     const mockProps = {
       ...initialMockProps,
       bucInfo: {
-        tags: [],
-        comment: undefined
+        tags: []
       },
       buc: {
         ...buc,

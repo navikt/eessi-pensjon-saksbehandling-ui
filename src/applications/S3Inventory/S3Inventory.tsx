@@ -100,7 +100,7 @@ const S3Inventory = () => {
       {s3stats.tags && (
         <>
           <VerticalSeparatorDiv size='0.5' />
-          <BodyLong>Comments:</BodyLong>
+          <BodyLong>Tags:</BodyLong>
           {Object.keys(s3stats.tags)
             .sort((a, b) =>
               s3stats.tags[b] - s3stats.tags[a]
@@ -108,22 +108,6 @@ const S3Inventory = () => {
               <Row key={'tags-' + k}>
                 <Column>
                   {k}: {s3stats.tags[k]}
-                </Column>
-              </Row>
-            ))}
-        </>
-      )}
-      {s3stats.comments && (
-        <>
-          <VerticalSeparatorDiv size='0.5' />
-          <BodyLong>Comments:</BodyLong>
-          {Object.keys(s3stats.comments)
-            .sort((a, b) =>
-              s3stats.comments[b] - s3stats.comments[a]
-            ).map(k => (
-              <Row key={'comments-' + k}>
-                <Column>
-                  {k}: {s3stats.comments[k]}
                 </Column>
               </Row>
             ))}

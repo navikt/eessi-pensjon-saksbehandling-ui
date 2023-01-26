@@ -1,5 +1,5 @@
 import * as types from 'constants/actionTypes'
-import { BucInfo, Comment } from 'declarations/buc'
+import { BucInfo } from 'declarations/buc'
 import { GetS3FilesJob } from 'declarations/components'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
@@ -10,7 +10,6 @@ export interface S3InventoryState {
   getS3FilesJob: GetS3FilesJob | undefined
   s3stats: {
     type?: {[k in string]: number}
-    comments?: {[k in string]: number}
     tags?: {[k in string]: number}
   }
 }
@@ -94,25 +93,6 @@ const s3inventoryReducer = (state: S3InventoryState = initialS3InventoryState, a
         if (type === 'BUC') {
           if (payload.bucs) {
             Object.values(payload.bucs as Array<BucInfo>).forEach((buc: BucInfo) => {
-              if (!_.isEmpty(buc.comment)) {
-                if (!Object.prototype.hasOwnProperty.call(newS3stats, 'comments')) {
-                  newS3stats.comments = {}
-                }
-                if (_.isString(buc.comment) && !_.isNil(newS3stats.comments)) {
-                  newS3stats.comments[buc.comment] = Object.prototype.hasOwnProperty.call(newS3stats.comments, buc.comment)
-                    ? ++(newS3stats.comments[buc.comment])
-                    : 1
-                }
-                if (_.isArray(buc.comment)) {
-                  buc.comment.forEach((c: Comment) => {
-                    if (c.value && !_.isNil(newS3stats.comments)) {
-                      newS3stats.comments[c.value] = Object.prototype.hasOwnProperty.call(newS3stats.comments, c.value)
-                        ? ++newS3stats.comments[c.value]
-                        : 1
-                    }
-                  })
-                }
-              }
               if (_.isArray(buc.tags)) {
                 buc.tags.forEach((t) => {
                   if (!Object.prototype.hasOwnProperty.call(newS3stats, 'tags')) {
