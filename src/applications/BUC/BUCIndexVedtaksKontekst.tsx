@@ -21,7 +21,6 @@ import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
-import {VEDTAKSKONTEKST} from "../../constants/constants";
 
 const transition = 500
 const timeout = 501
@@ -345,24 +344,10 @@ export const BUCIndexVedtaksKontekst = (): JSX.Element => {
   }, [])
 
   useEffect(() => {
-    /* TODO: Use when feature toggle for splitting is removed
     if (aktoerId && sakId && bucsList === undefined && !gettingBucsList) {
       let howManyBucLists = 2
       dispatch(fetchBucsList(aktoerId, sakId, howManyBucLists))
       dispatch(fetchBucsListWithVedtakId(aktoerId, sakId, vedtakId!))
-      dispatch(fetchBucsInfoList(aktoerId))
-    }
-    */
-    /*TODO: Remove when feature toggle for splitting is removed*/
-    if (aktoerId && sakId && bucsList === undefined && !gettingBucsList) {
-      let howManyBucLists = 1
-      if (!!vedtakId && pesysContext === VEDTAKSKONTEKST) {
-        howManyBucLists = 2
-      }
-      dispatch(fetchBucsList(aktoerId, sakId, howManyBucLists))
-      if (howManyBucLists === 2) {
-        dispatch(fetchBucsListWithVedtakId(aktoerId, sakId, vedtakId!))
-      }
       dispatch(fetchBucsInfoList(aktoerId))
     }
   }, [aktoerId, bucs, dispatch, gettingBucsList, pesysContext, sakId, vedtakId])
