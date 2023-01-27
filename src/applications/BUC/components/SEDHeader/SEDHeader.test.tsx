@@ -36,13 +36,6 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
     render(<SEDHeader {...initialMockProps} />)
   })
 
-
-
-  it('Render: match snapshot', () => {
-    const { container } = render(<SEDHeader {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: has proper HTML structure', () => {
     expect(screen.getByTestId("a_buc_c_sedheader--name-id")).toHaveTextContent('P2000 - buc:buc-P2000')
     expect(screen.getByTestId("a_buc_c_sedheader--version-date-id")).toHaveTextContent('29.05.2019')

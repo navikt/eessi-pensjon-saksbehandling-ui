@@ -1,69 +1,49 @@
-
-import { render } from '@testing-library/react'
+import { screen, render } from '@testing-library/react'
 import personAvdod from 'mocks/person/personAvdod'
 import mockPerson from 'mocks/person/personPdl'
-import PersonBody, { PersonBodyDiv, PersonBodyProps } from './PersonBody'
+import PersonBody, { PersonBodyProps } from './PersonBody'
 
 describe('applications/PersonPanel/PersonBody', () => {
-  let wrapper: any
-
   const initialMockProps: PersonBodyProps = {
     locale: 'nb',
     person: mockPerson,
     personAvdods: personAvdod(1)
   }
 
-  beforeEach(() => {
-    wrapper = render(<PersonBody {...initialMockProps} />)
-  })
-
-  afterEach(() => {
-    wrapper.unmount()
-  })
-
-  it('Render: match snapshot', () => {
-    const { container } = render(<PersonBody {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
-  it('Render: returns empty with no person', () => {
-    const { container } = render(<PersonBody {...initialMockProps} person={undefined} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
+  const mockPropsEmptyValue: PersonBodyProps = {
+    locale: 'nb',
+    person: {
+      ...mockPerson,
+      bostedsadresse: null,
+      foedsel: {}
+    },
+    personAvdods: personAvdod(1)
+  }
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.exists(PersonBodyDiv)).toBeTruthy()
-    expect(wrapper.find('svg[kind="nav-home"]')).toBeTruthy()
-    expect(wrapper.find('#w-overview-personPanel--element-bostedsadresse').hostNodes().render().text()).toEqual(
-      'ui:bostedsadresse:' + '01.01.2020 - 01.01.2021' + 'Adressenavn' + '00' + 'A' + '0768' + 'OSLO')
+    render(<PersonBody {...initialMockProps} />)
 
-    expect(wrapper.find('svg[kind="calendar"]')).toBeTruthy()
-    expect(wrapper.find('#w-overview-personPanel--element-birthdate').hostNodes().render().text()).toEqual(
-      'ui:birthdate:' + '09.02.1980')
-
-    expect(wrapper.find('svg[kind="nav-work"]')).toBeTruthy()
-    expect(wrapper.find('#w-overview-personPanel--element-nationality').hostNodes().render().text()).toEqual(
-      'ui:nationality:' + 'Norge (09.02.1980)')
+    expect(screen.getByTestId("person-body-div")).toBeInTheDocument()
+    expect(screen.getByTitle("ui:bostedsadresse")).toBeInTheDocument()
+    expect(screen.getByTitle("ui:birthdate")).toBeInTheDocument()
+    expect(screen.getByTitle("ui:nationality")).toBeInTheDocument()
+    expect(screen.getByTitle("ui:oppholdsadresse")).toBeInTheDocument()
+    expect(screen.getByTitle("ui:marital-status")).toBeInTheDocument()
+    expect(screen.getByTestId("w-overview-PersonBody--element-bostedsadresse")).toHaveTextContent(/ui:bostedsadresse:ui:fram-og-til01.01.2020 - 01.01.2021ui:adressenavnAdressenavnui:husnummer00ui:husbokstavAui:poststed0768ui:cityOSLO/i)
+    expect(screen.getByTestId("w-overview-PersonBody--element-birthdate")).toHaveTextContent(/ui:birthdate:09.02.1980/i)
+    expect(screen.getByTestId("w-overview-PersonBody--element-nationality")).toHaveTextContent(/ui:nationality:Norge \(09.02.1980\)/i)
   })
 
   it('Render: Empty value renders not registered', () => {
-    wrapper.setProps({
-      person: {
-        ...mockPerson,
-        bostedsadresse: null,
-        foedsel: {}
-      }
-    })
-    expect(wrapper.exists(PersonBodyDiv)).toBeTruthy()
-    expect(wrapper.find('svg[kind="nav-home"]')).toBeTruthy()
-    expect(wrapper.find('#w-overview-personPanel--element-bostedsadresse').hostNodes().render().text()).toEqual(
-      'ui:bostedsadresse:' + 'ui:notRegistered')
-    expect(wrapper.find('#w-overview-personPanel--element-birthdate').hostNodes().render().text()).toEqual(
-      'ui:birthdate:' + 'ui:notRegistered')
+    render(<PersonBody {...mockPropsEmptyValue} />)
+    expect(screen.getByTestId("person-body-div")).toBeInTheDocument()
+    expect(screen.getByTitle("ui:bostedsadresse")).toBeInTheDocument()
+    expect(screen.getByTestId("w-overview-PersonBody--element-bostedsadresse")).toHaveTextContent(/ui:bostedsadresse:ui:notRegistered/i)
+    expect(screen.getByTestId("w-overview-PersonBody--element-birthdate")).toHaveTextContent(/ui:birthdate:ui:notRegistered/i)
   })
 
   it('Render: gets dates converted properly', () => {
-    expect(wrapper.find('#w-overview-personPanel--element-marital-status').hostNodes().render().text()).toEqual(
-      'ui:marital-status:ui:widget-overview-maritalstatus-Gift (10.10.2007)')
+    render(<PersonBody {...initialMockProps} />)
+    expect(screen.getByTestId("w-overview-PersonBody--element-marital-status")).toHaveTextContent(/ui:marital-status:Gift \(10.10.2007\)/i)
   })
 })

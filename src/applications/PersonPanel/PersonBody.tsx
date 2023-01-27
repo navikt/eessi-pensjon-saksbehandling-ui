@@ -54,6 +54,7 @@ const PersonBody: React.FC<PersonBodyProps> = ({
     return (
       <Element
         id={'w-overview-PersonBody--element-' + label.replace('ui:', '')}
+        data-testid={'w-overview-PersonBody--element-' + label.replace('ui:', '')}
       >
         <Detail>
           <strong>
@@ -175,20 +176,20 @@ const PersonBody: React.FC<PersonBodyProps> = ({
   }
 
   return (
-    <PersonBodyDiv>
+    <PersonBodyDiv data-testid="person-body-div">
       <MarginRow key="personBody-marginrow-1">
         <MarginColumn key="personBody-marginrow-1-margincolumn-1">
-          <Home />
+          <Home title={t('ui:bostedsadresse')}/>
           <HorizontalSeparatorDiv />
           {bostedsadresse ? renderEntity('ui:bostedsadresse', bostedsadresse) : null}
         </MarginColumn>
         <MarginColumn key="personBody-marginrow-1-margincolumn-2">
-          <Calender />
+          <Calender title={t('ui:birthdate')}/>
           <HorizontalSeparatorDiv />
           {renderEntity('ui:birthdate', birthDateString)}
         </MarginColumn>
         <MarginColumn key="personBody-marginrow-1-margincolumn-3">
-          <Profile />
+          <Profile title={t('ui:nationality')}/>
           <HorizontalSeparatorDiv />
           {renderEntity('ui:nationality', nationality)}
         </MarginColumn>
@@ -196,12 +197,12 @@ const PersonBody: React.FC<PersonBodyProps> = ({
       <HorizontalLineSeparator />
       <MarginRow key="personBody-marginrow-2">
         <MarginColumn key="personBody-marginrow-2-margincolumn-1">
-          <Globe />
+          <Globe title={t('ui:oppholdsadresse')}/>
           <HorizontalSeparatorDiv />
           {renderEntity('ui:oppholdsadresse', oppholdsadresse)}
         </MarginColumn>
         <MarginColumn key="personBody-marginrow-2-margincolumn-2">
-          <Heart />
+          <Heart title={t('ui:marital-status')}/>
           <HorizontalSeparatorDiv />
           {renderEntity('ui:marital-status', maritalStatus)}
         </MarginColumn>
