@@ -1,92 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications/BUC/components/SEDHeader/SEDHeader Render: match snapshot 1`] = `
-.c31 {
-  -webkit-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
-  color: !important;
-  background-color: transparent;
-}
-
-.c31:hover:not(:disabled) {
-  color: !important;
-  border-color: !important;
-}
-
-.c31:focus {
-  box-shadow: 0 0 0 3px !important;
-}
-
-.c31:disabled {
-  color: !important;
-  background-color: !important;
-  border-color: !important;
-}
-
-.c31:disabled svg {
-  color: !important;
-}
-
-.c31:disabled svg path {
-  stroke: !important;
-}
-
-.c31:disabled .knapp__spinner {
-  border: 2px solid !important;
-  border-top-color: !important;
-  border-right-color: !important;
-}
-
-.c31 .knapp__spinner {
-  border: 2px solid !important;
-  border-left-color: !important;
-  border-bottom-color: !important;
-}
-
-.c31:not(:disabled) svg {
-  color: !important;
-}
-
-.c31:not(:disabled) svg path {
-  stroke: !important;
-}
-
-ui-fss.g4[id="c30"] {
-  content: "c31,";
-}
-
-.c2 {
-  border-style: none;
-}
-
-ui-fss.g11[id="c0"] {
-  content: "c2,";
-}
-
-.c13 {
-  display: inline-block;
-  margin-left: 1rem;
-}
-
-ui-fss.g31[id="c12"] {
-  content: "c13,";
-}
-
-.c23 {
+.c27 {
   -webkit-perspective: 1000px;
   -moz-perspective: 1000px;
   -ms-perspective: 1000px;
   perspective: 1000px;
   display: inline-block;
+  line-height: 0px;
+  margin: 0.25rem;
 }
 
-.c23.animate {
+.c27.animate {
   opacity: 0.01;
   -webkit-animation: iPdXhn 0.5s forwards;
   animation: iPdXhn 0.5s forwards;
 }
 
-.c23.type-original.wave div {
+.c27.type-original.wave div {
   -webkit-transform-origin: left top;
   -ms-transform-origin: left top;
   transform-origin: left top;
@@ -94,7 +25,7 @@ ui-fss.g31[id="c12"] {
   animation: eRATHR 4s ease-in-out infinite;
 }
 
-.c23.type-circle.wave div img {
+.c27.type-circle.wave div img {
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
   transform: scale(1.1);
@@ -105,22 +36,22 @@ ui-fss.g31[id="c12"] {
   animation: eRATHR 4s ease-in-out infinite;
 }
 
-ui-fss.g49[id="c22"] {
-  content: "c23,";
+ui-fss.g1[id="c26"] {
+  content: "c27,";
 }
 
-.c25.type-circle {
+.c29.type-circle {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  border: 1px solid #6a6a6a;
+  border: 1px solid var(--navds-semantic-color-border);
   border-radius: 50%;
   overflow: hidden;
   position: relative;
 }
 
-.c25.type-circle img {
+.c29.type-circle img {
   position: absolute;
   margin: auto;
   top: -999px;
@@ -129,7 +60,7 @@ ui-fss.g49[id="c22"] {
   right: -999px;
 }
 
-.c25.type-circle.size-XS {
+.c29.type-circle.size-XS {
   width: 16px;
   height: 16px;
   min-width: 16px;
@@ -138,11 +69,11 @@ ui-fss.g49[id="c22"] {
   max-height: 16px;
 }
 
-.c25.type-circle.size-XS img {
+.c29.type-circle.size-XS img {
   height: 18px;
 }
 
-.c25.type-circle.size-S {
+.c29.type-circle.size-S {
   width: 24px;
   height: 24px;
   min-width: 24px;
@@ -151,11 +82,11 @@ ui-fss.g49[id="c22"] {
   max-height: 24px;
 }
 
-.c25.type-circle.size-S img {
+.c29.type-circle.size-S img {
   height: 26px;
 }
 
-.c25.type-circle.size-M {
+.c29.type-circle.size-M {
   width: 32px;
   height: 32px;
   min-width: 32px;
@@ -164,11 +95,11 @@ ui-fss.g49[id="c22"] {
   max-height: 32px;
 }
 
-.c25.type-circle.size-M img {
+.c29.type-circle.size-M img {
   height: 35px;
 }
 
-.c25.type-circle.size-L {
+.c29.type-circle.size-L {
   width: 40px;
   height: 40px;
   min-width: 40px;
@@ -177,11 +108,11 @@ ui-fss.g49[id="c22"] {
   max-height: 40px;
 }
 
-.c25.type-circle.size-L img {
+.c29.type-circle.size-L img {
   height: 45px;
 }
 
-.c25.type-circle.size-XL {
+.c29.type-circle.size-XL {
   width: 48px;
   height: 48px;
   min-width: 48px;
@@ -190,11 +121,11 @@ ui-fss.g49[id="c22"] {
   max-height: 48px;
 }
 
-.c25.type-circle.size-XL img {
+.c29.type-circle.size-XL img {
   height: 54px;
 }
 
-.c25.type-circle.size-XXL {
+.c29.type-circle.size-XXL {
   width: 72px;
   height: 72px;
   min-width: 72px;
@@ -203,51 +134,59 @@ ui-fss.g49[id="c22"] {
   max-height: 72px;
 }
 
-.c25.type-circle.size-XXL img {
+.c29.type-circle.size-XXL img {
   height: 82px;
 }
 
-.c25.type-original.size-XS img {
+.c29.type-original.size-XS img {
   height: 16px;
   min-height: 16px;
   width: auto;
 }
 
-.c25.type-original.size-S img {
+.c29.type-original.size-S img {
   height: 24px;
   min-height: 24px;
   width: auto;
 }
 
-.c25.type-original.size-M img {
+.c29.type-original.size-M img {
   height: 32px;
   min-height: 32px;
   width: auto;
 }
 
-.c25.type-original.size-L img {
+.c29.type-original.size-L img {
   height: 40px;
   min-height: 40px;
   width: auto;
 }
 
-.c25.type-original.size-XL img {
+.c29.type-original.size-XL img {
   height: 48px;
   min-height: 48px;
   width: auto;
 }
 
-.c25.type-original.size-XXL img {
+.c29.type-original.size-XXL img {
   height: 72px;
   min-height: 72px;
   width: auto;
 }
 
-ui-fss.g50[id="c24"] {
+ui-fss.g2[id="c28"] {
+  content: "c29,";
+}
+
+.c25 {
+  padding: 0.25rem;
+}
+
+ui-fss.g5[id="c24"] {
   content: "c25,";
 }
 
-.c21 {
+.c23 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -261,15 +200,15 @@ ui-fss.g50[id="c24"] {
   align-items: center;
 }
 
-.c21:not(.noMargin) {
+.c23:not(.noMargin) {
   margin-bottom: 0.35rem;
 }
 
-ui-fss.g54[id="c20"] {
-  content: "c21,";
+ui-fss.g6[id="c22"] {
+  content: "c23,";
 }
 
-.c19 {
+.c21 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -280,45 +219,85 @@ ui-fss.g54[id="c20"] {
   flex-direction: column;
 }
 
-ui-fss.g55[id="c18"] {
-  content: "c19,";
+ui-fss.g7[id="c20"] {
+  content: "c21,";
 }
 
-.c27 {
+.c31 {
   margin-left: 0.5rem;
 }
 
-ui-fss.g56[id="c26"] {
-  content: "c27,";
+.c31.oneLine {
+  white-space: nowrap;
+}
+
+ui-fss.g8[id="c30"] {
+  content: "c31,";
+}
+
+.c13.received {
+  background-color: var(--navds-global-color-lightblue-500) !important;
+}
+
+.c13.active {
+  background-color: var(--navds-global-color-purple-200) !important;
+  border-color: var(--navds-global-color-purple-500) !important;
+}
+
+.c13.first_sent,
+.c13.first_received,
+.c13.first_cancelled {
+  background-color: var(--navds-global-color-gray-400) !important;
+}
+
+ui-fss.g9[id="c12"] {
+  content: "c13,";
+}
+
+.c15 {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+ui-fss.g27[id="c14"] {
+  content: "c15,";
+}
+
+.c37 {
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+ui-fss.g40[id="c36"] {
+  content: "c37,";
+}
+
+.c9 {
+  margin: 0.3rem;
+  color: var(--navds-semantic-color-text);
+}
+
+ui-fss.g59[id="c8"] {
+  content: "c9,";
 }
 
 .c11 {
-  text-transform: capitalize;
-  font-size: 12px;
-  min-width: 70px;
-  font-weight: normal;
+  display: inline-block;
 }
 
-.c11.received {
-  background-color: !important;
-}
-
-.c11.active {
-  background-color: !important;
-  border-color: !important;
-}
-
-.c11.first_sent,
-.c11.first_received,
-.c11.first_cancelled {
-  background-color: !important;
-}
-
-ui-fss.g57[id="c10"] {
+ui-fss.g60[id="c10"] {
   content: "c11,";
 }
 
-.c29 {
+.c33 {
   -webkit-flex: 2;
   -ms-flex: 2;
   flex: 2;
@@ -330,21 +309,29 @@ ui-fss.g57[id="c10"] {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
 }
 
-ui-fss.g131[id="c28"] {
-  content: "c29,";
+ui-fss.g76[id="c32"] {
+  content: "c33,";
 }
 
-.c5 {
+.c35 {
+  margin-right: 0.5rem;
+}
+
+ui-fss.g77[id="c34"] {
+  content: "c35,";
+}
+
+.c3 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   display: -webkit-box;
@@ -361,11 +348,11 @@ ui-fss.g131[id="c28"] {
   align-items: flex-start;
 }
 
-ui-fss.g133[id="c4"] {
-  content: "c5,";
+ui-fss.g78[id="c2"] {
+  content: "c3,";
 }
 
-.c3 {
+.c1 {
   width: 100%;
   padding: 0rem;
   -webkit-transform: translateX(-20px);
@@ -375,13 +362,14 @@ ui-fss.g133[id="c4"] {
   -webkit-animation: fSLHgq 0.2s forwards;
   animation: fSLHgq 0.2s forwards;
   border: none;
+  background: transparent !important;
 }
 
-ui-fss.g134[id="c1"] {
-  content: "c3,";
+ui-fss.g79[id="c0"] {
+  content: "c1,";
 }
 
-.c17 {
+.c19 {
   -webkit-flex: 3;
   -ms-flex: 3;
   flex: 3;
@@ -400,11 +388,11 @@ ui-fss.g134[id="c1"] {
   padding: 0.3rem;
 }
 
-ui-fss.g135[id="c16"] {
-  content: "c17,";
+ui-fss.g80[id="c18"] {
+  content: "c19,";
 }
 
-.c7 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -422,11 +410,11 @@ ui-fss.g135[id="c16"] {
   justify-content: center;
 }
 
-ui-fss.g136[id="c6"] {
-  content: "c7,";
+ui-fss.g81[id="c4"] {
+  content: "c5,";
 }
 
-.c9 {
+.c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -440,11 +428,11 @@ ui-fss.g136[id="c6"] {
   margin-top: 0.5rem;
 }
 
-ui-fss.g137[id="c8"] {
-  content: "c9,";
+ui-fss.g82[id="c6"] {
+  content: "c7,";
 }
 
-.c15 {
+.c17 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -458,23 +446,23 @@ ui-fss.g137[id="c8"] {
   align-items: flex-start;
 }
 
-ui-fss.g138[id="c14"] {
-  content: "c15,";
+ui-fss.g83[id="c16"] {
+  content: "c17,";
 }
 
 @media all and (-ms-high-contrast:none),(-ms-high-contrast:active) {
-  .c25.type-original {
+  .c29.type-original {
     display: inline-block;
   }
 
-  .c25.type-original img {
-    border: 1px solid #6a6a6a;
+  .c29.type-original img {
+    border: 1px solid var(--navds-semantic-color-border);
   }
 }
 
 @supports not (-ms-high-contrast:none) {
-  .c25.type-original {
-    border: 1px solid #6a6a6a;
+  .c29.type-original {
+    border: 1px solid var(--navds-semantic-color-border);
     display: -webkit-inline-box;
     display: -webkit-inline-flex;
     display: -ms-inline-flexbox;
@@ -482,1514 +470,252 @@ ui-fss.g138[id="c14"] {
   }
 }
 
-<SEDHeader
-  buc={
-    Object {
-      "addedParams": Object {
-        "subject": Object {
-          "avdod": Object {
-            "fnr": "personFarFnr",
-          },
-          "gjenlevende": Object {
-            "fnr": "personFnr",
-          },
-        },
-      },
-      "aktoerId": "1000070418092",
-      "caseId": "195440",
-      "creator": Object {
-        "acronym": "NAVAT07",
-        "country": "NO",
-        "institution": "NO:NAVAT07",
-        "name": "NAV ACCEPTANCE TEST 07",
-      },
-      "institusjon": Array [
-        Object {
-          "acronym": "NAVAT07",
-          "country": "NO",
-          "institution": "NO:NAVAT07",
-          "name": "NAV acceptance Test 07",
-        },
-        Object {
-          "acronym": "DEMOSE01",
-          "country": "SE",
-          "institution": "SE:DEMOSE01",
-          "name": "Swedish institution 01",
-        },
-        Object {
-          "acronym": "DEMOFI02",
-          "country": "FI",
-          "institution": "FI:DEMOFI02",
-          "name": "Finnish institution 02",
-        },
-        Object {
-          "acronym": "DEMOGB02",
-          "country": "GB",
-          "institution": "GB:DEMOGB03",
-          "name": "GB institution 03",
-        },
-        Object {
-          "acronym": "DEMOPT04",
-          "country": "PT",
-          "institution": "PT:DEMOPT04",
-          "name": "PT institution 04",
-        },
-        Object {
-          "acronym": "DEMOFR05",
-          "country": "FR",
-          "institution": "FR:DEMO005",
-          "name": "French institution 05",
-        },
-      ],
-      "lastUpdate": 1571731814000,
-      "readOnly": false,
-      "sakType": "Generell",
-      "seds": Array [
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [
-            Object {
-              "documentId": "cac9db2726d54f2c9b51d1562b7b0a79",
-              "fileName": "balrog.png",
-              "id": "58828e7ff57943779ab7b24c522b1a3f",
-              "lastUpdate": 1571818175000,
-              "medical": false,
-              "mimeType": "image/png",
-              "name": "balrog.png",
-            },
-          ],
-          "creationDate": 1559117379454,
-          "firstVersion": Object {
-            "date": 1559117379454,
-            "id": "1",
-          },
-          "id": "90149c52a98044b599c3bf5d48537782",
-          "lastUpdate": 1559080800000,
-          "lastVersion": Object {
-            "date": 1559080800000,
-            "id": "r",
-          },
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "acronym": "DEMONO02",
-                "countryCode": "NO",
-                "id": "NO:DEMONO02",
-                "name": "Norwegian institution 02",
-              },
-              "role": "Sender",
-              "selected": true,
-            },
-            Object {
-              "organisation": Object {
-                "acronym": "DEMONO01",
-                "countryCode": "NO",
-                "id": "NO:DEMONO01",
-                "name": "Norwegian institution 01",
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "received",
-          "type": "P2000",
-          "version": "5",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [
-            Object {
-              "documentId": "cac9db2726d54f2c9b51d1562b7b0a79",
-              "fileName": "balrog.png",
-              "id": "58828e7ff57943779ab7b24c522b1a3e",
-              "lastUpdate": 1571818175000,
-              "medical": false,
-              "mimeType": "image/png",
-              "name": "balrog.png",
-            },
-          ],
-          "creationDate": 1559117444000,
-          "firstVersion": Object {
-            "date": 1559117444000,
-            "id": "1",
-          },
-          "id": "ff98ea9256244b908e19d4439db5bad3",
-          "lastUpdate": 1559080800000,
-          "lastVersion": Object {
-            "date": 1559080800000,
-            "id": "4",
-          },
-          "parentDocumentId": "90149c52a98044b599c3bf5d48537782",
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "acronym": "DEMONO02",
-                "countryCode": "NO",
-                "id": "NO:DEMONO02",
-                "name": "Norwegin institution 02",
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "acronym": "DEMONO01",
-                "countryCode": "NO",
-                "id": "NO:DEMONO01",
-                "name": "Norwegian institution 01",
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "received",
-          "type": "P6000",
-          "version": "4",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1559117443000,
-          "firstVersion": Object {
-            "date": 1559117443000,
-            "id": "1",
-          },
-          "id": "549bab7141c54cfcb14902e7e3b107b4",
-          "lastUpdate": 1559080800000,
-          "lastVersion": Object {
-            "date": 1559080800000,
-            "id": "4",
-          },
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "acronym": "12347",
-                "countryCode": "NO",
-                "id": "NO:DEMO001",
-                "name": "DEMO001",
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "acronym": "12348",
-                "countryCode": "NO",
-                "id": "NO:DEMO002",
-                "name": "DEMO002",
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-          ],
-          "status": "empty",
-          "type": "P3000_NO",
-          "version": "4",
-        },
-        Object {
-          "allowsAttachments": false,
-          "attachments": Array [],
-          "creationDate": 1559117444000,
-          "firstVersion": Object {
-            "date": 1559117444000,
-            "id": "1",
-          },
-          "id": "1911923c542746ada10f7c922b46a271",
-          "lastUpdate": 1559080800000,
-          "lastVersion": Object {
-            "date": 1559080800000,
-            "id": "3",
-          },
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "acronym": "12348",
-                "countryCode": "NO",
-                "id": "NO:DEMO002",
-                "name": "DEMO002",
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "acronym": "12347",
-                "countryCode": "NO",
-                "id": "NO:DEMO001",
-                "name": "DEMO001",
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "open",
-          "type": "P5000",
-          "version": "3",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1559117443000,
-          "firstVersion": Object {
-            "date": 1559117443000,
-            "id": "1",
-          },
-          "id": "9ebb27b848c644ba8a8ba95772403618",
-          "lastUpdate": 1559080800000,
-          "lastVersion": Object {
-            "date": 1559080800000,
-            "id": "4",
-          },
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "acronym": "12348",
-                "countryCode": "NO",
-                "id": "NO:DEMO002",
-                "name": "DEMO002",
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "acronym": "12347",
-                "countryCode": "NO",
-                "id": "NO:DEMO001",
-                "name": "DEMO001",
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "empty",
-          "type": "X009",
-          "version": "4",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1559117444000,
-          "firstVersion": Object {
-            "date": 1559117444000,
-            "id": "1",
-          },
-          "id": "4ae14845e31d4d0db52acb692d9abe8e",
-          "lastUpdate": 1559080800000,
-          "lastVersion": Object {
-            "date": 1559080800000,
-            "id": "2",
-          },
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "acronym": "12348",
-                "countryCode": "NO",
-                "id": "NO:DEMO002",
-                "name": "DEMO002",
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "acronym": "12347",
-                "countryCode": "NO",
-                "id": "NO:DEMO001",
-                "name": "DEMO001",
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "empty",
-          "type": "P8000",
-          "version": "2",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1559117443000,
-          "firstVersion": Object {
-            "date": 1559117443000,
-            "id": "1",
-          },
-          "id": "5ef5fdea78e94911a873322d98589664",
-          "lastUpdate": 1559080800000,
-          "lastVersion": Object {
-            "date": 1559080800000,
-            "id": "2",
-          },
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "acronym": "12348",
-                "countryCode": "NO",
-                "id": "NO:DEMO002",
-                "name": "DEMO002",
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "acronym": "12347",
-                "countryCode": "NO",
-                "id": "NO:DEMO001",
-                "name": "DEMO001",
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "empty",
-          "type": "P7000",
-          "version": "2",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1559117444000,
-          "firstVersion": Object {
-            "date": 1559117443000,
-            "id": "1",
-          },
-          "id": "2cfa8cc7af2647c4ad89315a6d1b0ad7",
-          "lastUpdate": 1559080800000,
-          "lastVersion": Object {
-            "date": 1559080800000,
-            "id": "2",
-          },
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "acronym": "12348",
-                "countryCode": "NO",
-                "id": "NO:DEMO002",
-                "name": "DEMO002",
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "acronym": "12347",
-                "countryCode": "NO",
-                "id": "NO:DEMO001",
-                "name": "DEMO001",
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "empty",
-          "type": "P4000",
-          "version": "2",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1559117444000,
-          "firstVersion": Object {
-            "date": 1559117443000,
-            "id": "1",
-          },
-          "id": "af7f8476e55f4c53b501c41fd03a25be",
-          "lastUpdate": 1559080800000,
-          "lastVersion": Object {
-            "date": 1559080800000,
-            "id": "2",
-          },
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "acronym": "12348",
-                "countryCode": "NO",
-                "id": "NO:DEMO002",
-                "name": "DEMO002",
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "acronym": "12347",
-                "countryCode": "NO",
-                "id": "NO:DEMO001",
-                "name": "DEMO001",
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "empty",
-          "type": "X007",
-          "version": "2",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1559117444000,
-          "firstVersion": Object {
-            "date": 1559117444000,
-            "id": "1",
-          },
-          "id": "4c10c2288a23442f85b511ecfaecb0f7",
-          "lastUpdate": 1559080800000,
-          "lastVersion": Object {
-            "date": 1559080800000,
-            "id": "2",
-          },
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "acronym": "12348",
-                "countryCode": "NO",
-                "id": "NO:DEMO002",
-                "name": "DEMO002",
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "acronym": "12347",
-                "countryCode": "NO",
-                "id": "NO:DEMO001",
-                "name": "DEMO001",
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "empty",
-          "type": "X005",
-          "version": "2",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1559117444000,
-          "firstVersion": Object {
-            "date": 1559117444000,
-            "id": "1",
-          },
-          "id": "147065531dca429a90d47b5aa3b7cf2c",
-          "lastUpdate": 1559080800000,
-          "lastVersion": Object {
-            "date": 1559080800000,
-            "id": "2",
-          },
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "acronym": "12348",
-                "countryCode": "NO",
-                "id": "NO:DEMO002",
-                "name": "DEMO002",
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "acronym": "12347",
-                "countryCode": "NO",
-                "id": "NO:DEMO001",
-                "name": "DEMO001",
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "empty",
-          "type": "P10000",
-          "version": "2",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1559117444000,
-          "firstVersion": Object {
-            "date": 1559117444000,
-            "id": "1",
-          },
-          "id": "07cce7d3b2514676ba342caab580c573",
-          "lastUpdate": 1559080800000,
-          "lastVersion": Object {
-            "date": 1559080800000,
-            "id": "2",
-          },
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "acronym": "12348",
-                "countryCode": "NO",
-                "id": "NO:DEMO002",
-                "name": "DEMO002",
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "acronym": "12347",
-                "countryCode": "NO",
-                "id": "NO:DEMO001",
-                "name": "DEMO001",
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "empty",
-          "type": "H020",
-          "version": "2",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1559117444000,
-          "firstVersion": Object {
-            "date": 1559117444000,
-            "id": "1",
-          },
-          "id": "7e2b28e4bc3b47e992fc06e5024bec3a",
-          "lastUpdate": 1559080800000,
-          "lastVersion": Object {
-            "date": 1559080800000,
-            "id": "2",
-          },
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "acronym": "12348",
-                "countryCode": "NO",
-                "id": "NO:DEMO002",
-                "name": "DEMO002",
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "acronym": "12347",
-                "countryCode": "NO",
-                "id": "NO:DEMO001",
-                "name": "DEMO001",
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "empty",
-          "type": "H120",
-          "version": "2",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1559117443000,
-          "firstVersion": Object {
-            "date": 1559117443000,
-            "id": "1",
-          },
-          "id": "7c60826b53cc431f9059d8b30e4a1f7d",
-          "lastUpdate": 1559080800000,
-          "lastVersion": Object {
-            "date": 1559080800000,
-            "id": "2",
-          },
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "acronym": "12348",
-                "countryCode": "NO",
-                "id": "NO:DEMO002",
-                "name": "DEMO002",
-              },
-              "role": "Sender",
-              "selected": true,
-            },
-            Object {
-              "organisation": Object {
-                "acronym": "12347",
-                "countryCode": "NO",
-                "id": "NO:DEMO001",
-                "name": "DEMO001",
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "empty",
-          "type": "X008",
-          "version": "2",
-        },
-        Object {
-          "allowsAttachments": true,
-          "attachments": Array [],
-          "creationDate": 1559117444000,
-          "firstVersion": Object {
-            "date": 1559117444000,
-            "id": "1",
-          },
-          "id": "c1069862321c419e8e3ca418f7372d64",
-          "lastUpdate": 1559080800000,
-          "lastVersion": Object {
-            "date": 1559080800000,
-            "id": "2",
-          },
-          "participants": Array [
-            Object {
-              "organisation": Object {
-                "acronym": "12348",
-                "countryCode": "NO",
-                "id": "NO:DEMO002",
-                "name": "DEMO002",
-              },
-              "role": "Sender",
-              "selected": false,
-            },
-            Object {
-              "organisation": Object {
-                "acronym": "12347",
-                "countryCode": "NO",
-                "id": "NO:DEMO001",
-                "name": "DEMO001",
-              },
-              "role": "Receiver",
-              "selected": false,
-            },
-          ],
-          "status": "empty",
-          "type": "H070",
-          "version": "2",
-        },
-      ],
-      "startDate": 1571731760978,
-      "status": "open",
-      "type": "P_BUC_02",
-    }
-  }
-  onSEDNew={[MockFunction]}
-  sed={
-    Object {
-      "allowsAttachments": true,
-      "attachments": Array [
-        Object {
-          "documentId": "cac9db2726d54f2c9b51d1562b7b0a79",
-          "fileName": "balrog.png",
-          "id": "58828e7ff57943779ab7b24c522b1a3f",
-          "lastUpdate": 1571818175000,
-          "medical": false,
-          "mimeType": "image/png",
-          "name": "balrog.png",
-        },
-      ],
-      "creationDate": 1559117379454,
-      "firstVersion": Object {
-        "date": 1559117379454,
-        "id": "1",
-      },
-      "id": "90149c52a98044b599c3bf5d48537782",
-      "lastUpdate": 1559080800000,
-      "lastVersion": Object {
-        "date": 1559080800000,
-        "id": "r",
-      },
-      "participants": Array [
-        Object {
-          "organisation": Object {
-            "acronym": "DEMONO02",
-            "countryCode": "NO",
-            "id": "NO:DEMONO02",
-            "name": "Norwegian institution 02",
-          },
-          "role": "Sender",
-          "selected": true,
-        },
-        Object {
-          "organisation": Object {
-            "acronym": "DEMONO01",
-            "countryCode": "NO",
-            "id": "NO:DEMONO01",
-            "name": "Norwegian institution 01",
-          },
-          "role": "Receiver",
-          "selected": false,
-        },
-      ],
-      "status": "received",
-      "type": "P2000",
-      "version": "5",
-    }
-  }
+<div
+  class="navds-panel c0 c1"
 >
-  <Styled(Styled(f))>
-    <f
-      border={false}
-      className="c0 c1 c2 c3"
+  <div
+    class="c2 c3"
+  >
+    <div
+      class="c4 c5"
+    >
+      <p
+        class="navds-detail"
+        data-testid="a_buc_c_sedheader--name-id"
+      >
+        P2000
+         - buc:buc-P2000
+      </p>
+      <div
+        class="c6 c7"
+      >
+        <div
+          aria-hidden="true"
+          class="navds-popover navds-popover--hidden"
+          data-placement="right"
+          style="position: absolute; top: 0px; left: 0px;"
+          tabindex="-1"
+        >
+          <div
+            class="c8 c9"
+          >
+            <p
+              class="navds-body-long"
+            >
+              ui:firstVersion
+              29.05.2019
+            </p>
+          </div>
+          <div
+            class="navds-popover__arrow"
+            style="left: -0.5rem;"
+          />
+        </div>
+        <div
+          class="c10 c11"
+          id="386338e6-0957-4423-83fb-552544e8e27d"
+        >
+          <span
+            class="navds-tag c12 c13 received navds-tag--info navds-tag--medium navds-body-short"
+            data-testid="sedstatus"
+          >
+            buc:status-received
+          </span>
+        </div>
+        <div
+          class="c14 c15"
+        />
+        <div
+          class="c16 c17"
+        >
+          <p
+            class="navds-body-long"
+            data-testid="a_buc_c_sedheader--version-date-id"
+          >
+            29.05.2019
+          </p>
+          <p
+            class="navds-body-long"
+            data-testid="a_buc_c_sedheader--version-id"
+          >
+            ui:version
+            : 
+            5
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="c18 c19"
     >
       <div
-        className="panel c0 c1 c2 c3"
+        class="c20 c21"
+        data-testid="a_buc_c_sedheader--institutions-id"
       >
-        <styled.div>
+        <div
+          class="c22 c23"
+          data-testid="a_buc_c_institutionlist--div-id"
+        >
           <div
-            className="c4 c5"
+            aria-hidden="true"
+            class="navds-popover navds-popover--hidden"
+            data-placement="top"
+            style="position: absolute; top: 0px; left: 0px;"
+            tabindex="-1"
           >
-            <styled.div>
-              <div
-                className="c6 c7"
-              >
-                <Element
-                  data-testid="a-buc-c-sedheader__name-id"
-                >
-                  <TypografiBase
-                    data-testid="a-buc-c-sedheader__name-id"
-                    type="element"
-                  >
-                    <p
-                      className="typo-element"
-                      data-testid="a-buc-c-sedheader__name-id"
-                    >
-                      P2000
-                       - buc:buc-P2000
-                    </p>
-                  </TypografiBase>
-                </Element>
-                <styled.div>
-                  <div
-                    className="c8 c9"
-                  >
-                    <Component
-                      overlay={
-                        <Normaltekst>
-                          ui:firstVersion
-                          29.05.2019
-                        </Normaltekst>
-                      }
-                      placement="top"
-                      trigger={
-                        Array [
-                          "hover",
-                        ]
-                      }
-                    >
-                      <div
-                        data-testid="mock-tooltip"
-                      >
-                        <SEDStatus
-                          data-testid="a-buc-c-sedheader__status-id"
-                          status="received"
-                        >
-                          <Styled(EtikettBase)
-                            className="received"
-                            type="info"
-                          >
-                            <EtikettBase
-                              className="c10 c11 received"
-                              mini={false}
-                              type="info"
-                            >
-                              <div
-                                className="etikett c10 c11 received etikett--info"
-                              >
-                                <TypografiBase
-                                  tag="span"
-                                  type="normaltekst"
-                                >
-                                  <span
-                                    className="typo-normal"
-                                  >
-                                    buc:status-received
-                                  </span>
-                                </TypografiBase>
-                              </div>
-                            </EtikettBase>
-                          </Styled(EtikettBase)>
-                        </SEDStatus>
-                      </div>
-                    </Component>
-                    <styled.div
-                      date-size="0.5"
-                    >
-                      <div
-                        className="c12 c13"
-                      />
-                    </styled.div>
-                    <styled.div>
-                      <div
-                        className="c14 c15"
-                      >
-                        <Normaltekst
-                          data-testid="a-buc-c-sedheader__version-date-id"
-                        >
-                          <TypografiBase
-                            data-testid="a-buc-c-sedheader__version-date-id"
-                            type="normaltekst"
-                          >
-                            <p
-                              className="typo-normal"
-                              data-testid="a-buc-c-sedheader__version-date-id"
-                            >
-                              29.05.2019
-                            </p>
-                          </TypografiBase>
-                        </Normaltekst>
-                        <Normaltekst
-                          data-testid="a-buc-c-sedheader__version-id"
-                        >
-                          <TypografiBase
-                            data-testid="a-buc-c-sedheader__version-id"
-                            type="normaltekst"
-                          >
-                            <p
-                              className="typo-normal"
-                              data-testid="a-buc-c-sedheader__version-id"
-                            >
-                              ui:version
-                              :
-                              5
-                            </p>
-                          </TypografiBase>
-                        </Normaltekst>
-                      </div>
-                    </styled.div>
-                  </div>
-                </styled.div>
-              </div>
-            </styled.div>
-            <styled.div>
-              <div
-                className="c16 c17"
-              >
-                <InstitutionList
-                  data-testid="a-buc-c-sedheader__institutions-id"
-                  institutions={
-                    Array [
-                      Object {
-                        "acronym": "DEMONO02",
-                        "country": "NO",
-                        "institution": "NO:DEMONO02",
-                        "name": "Norwegian institution 02",
-                      },
-                    ]
-                  }
-                  locale="nb"
-                  type="separated"
-                >
-                  <styled.div
-                    key="NO"
-                  >
-                    <div
-                      className="c18 c19"
-                    >
-                      <styled.div
-                        data-testid="a-buc-c-institutionlist__div-id"
-                        key="NO:DEMONO02"
-                      >
-                        <div
-                          className="c20 c21"
-                          data-testid="a-buc-c-institutionlist__div-id"
-                        >
-                          <Yh
-                            animate={true}
-                            country="NO"
-                            label="Norge"
-                            size="S"
-                            type="circle"
-                            wave={false}
-                          >
-                            <he
-                              highContrast={false}
-                            >
-                              <Component
-                                theme={
-                                  Object {
-                                    "alternative-background-color": "#FFFFFF",
-                                    "alternative-hover-color": "#cce1ff",
-                                    "alternative-interactive-color": "#0074df",
-                                    "black": "#000000",
-                                    "border-radius-base": "4px",
-                                    "border-radius-large": "6px",
-                                    "border-radius-small": "2px",
-                                    "container-desktop": "(940px + @grid-gutter-width)",
-                                    "container-large-desktop": "(1140px + @grid-gutter-width)",
-                                    "container-lg": "(1140px + @grid-gutter-width)",
-                                    "container-md": "(940px + @grid-gutter-width)",
-                                    "container-sm": "(720px + @grid-gutter-width)",
-                                    "container-tablet": "(720px + @grid-gutter-width)",
-                                    "fokusFarge": "#00347d",
-                                    "grayBackground": "#f1f1f1",
-                                    "grayIcon": "#a0a0a0",
-                                    "grayInactive": "#6a6a6a",
-                                    "grayModia": "#333333",
-                                    "grid-columns": "12",
-                                    "grid-float-breakpoint": "768px",
-                                    "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
-                                    "grid-gutter-width": "16px",
-                                    "inverted-font-color": "#FFFFFF",
-                                    "line-height-large": "1.3333333",
-                                    "line-height-small": "1.5",
-                                    "main-active-color": "#005b82",
-                                    "main-background-color": "#f1f1f1",
-                                    "main-border-color": "#6a6a6a",
-                                    "main-border-radius": "4px",
-                                    "main-border-width": "1px",
-                                    "main-disabled-color": "#a0a0a0",
-                                    "main-error-color": "#ba3a26",
-                                    "main-focus-color": "#00347d",
-                                    "main-font-color": "#262626",
-                                    "main-hover-color": "#99c3ff",
-                                    "main-interactive-color": "#0067c5",
-                                    "main-success-color": "#06893a",
-                                    "main-warning-color": "#ff9100",
-                                    "navBakgrunn": "#ffffff",
-                                    "navBla": "#0067c5",
-                                    "navBlaDarken20": "#0056b4",
-                                    "navBlaDarken40": "#00459c",
-                                    "navBlaDarken60": "#00347d",
-                                    "navBlaDarken80": "#002252",
-                                    "navBlaLighten20": "#3386e0",
-                                    "navBlaLighten40": "#66a5f4",
-                                    "navBlaLighten60": "#99c3ff",
-                                    "navBlaLighten80": "#cce1ff",
-                                    "navDypBla": "#005b82",
-                                    "navDypBlaDarken20": "#005077",
-                                    "navDypBlaDarken40": "#004367",
-                                    "navDypBlaDarken60": "#003453",
-                                    "navDypBlaDarken80": "#00243a",
-                                    "navDypBlaLighten20": "#3380a5",
-                                    "navDypBlaLighten40": "#66a3c4",
-                                    "navDypBlaLighten60": "#99c4dd",
-                                    "navDypBlaLighten80": "#cce2f0",
-                                    "navGra20": "#c9c9c9",
-                                    "navGra40": "#a0a0a0",
-                                    "navGra60": "#6a6a6a",
-                                    "navGra80": "#4f4f4f",
-                                    "navGraBakgrunn": "#f1f1f1",
-                                    "navGronn": "#06893a",
-                                    "navGronnDarken20": "#007c2e",
-                                    "navGronnDarken40": "#006a23",
-                                    "navGronnDarken60": "#005519",
-                                    "navGronnDarken80": "#003b0f",
-                                    "navGronnLighten20": "#33aa5f",
-                                    "navGronnLighten40": "#66c786",
-                                    "navGronnLighten60": "#99dead",
-                                    "navGronnLighten80": "#ccf1d6",
-                                    "navLilla": "#634689",
-                                    "navLillaDarken20": "#523874",
-                                    "navLillaDarken40": "#412b5d",
-                                    "navLillaDarken60": "#301f46",
-                                    "navLillaDarken80": "#1f142f",
-                                    "navLillaLighten20": "#8269a2",
-                                    "navLillaLighten40": "#a18dbb",
-                                    "navLillaLighten60": "#c0b2d2",
-                                    "navLillaLighten80": "#e0d8e9",
-                                    "navLimeGronn": "#a2ad00",
-                                    "navLimeGronnDarken20": "#939e00",
-                                    "navLimeGronnDarken40": "#7f8900",
-                                    "navLimeGronnDarken60": "#666e00",
-                                    "navLimeGronnDarken80": "#474e00",
-                                    "navLimeGronnLighten20": "#c1cb33",
-                                    "navLimeGronnLighten40": "#d9e366",
-                                    "navLimeGronnLighten60": "#ecf399",
-                                    "navLimeGronnLighten80": "#f9fccc",
-                                    "navLysBla": "#66cbec",
-                                    "navLysBlaDarken20": "#4cadcd",
-                                    "navLysBlaDarken40": "#368da8",
-                                    "navLysBlaDarken60": "#236b7d",
-                                    "navLysBlaDarken80": "#134852",
-                                    "navLysBlaLighten20": "#7cdaf8",
-                                    "navLysBlaLighten40": "#97e6ff",
-                                    "navLysBlaLighten60": "#b5f1ff",
-                                    "navLysBlaLighten80": "#d8f9ff",
-                                    "navLysGra": "#f1f1f1",
-                                    "navMorkGra": "#262626",
-                                    "navOransje": "#ff9100",
-                                    "navOransjeDarken20": "#d47b00",
-                                    "navOransjeDarken40": "#a86400",
-                                    "navOransjeDarken60": "#7d4c00",
-                                    "navOransjeDarken80": "#523300",
-                                    "navOransjeLighten20": "#ffaa33",
-                                    "navOransjeLighten40": "#ffc166",
-                                    "navOransjeLighten60": "#ffd799",
-                                    "navOransjeLighten80": "#ffeccc",
-                                    "navRod": "#c30000",
-                                    "padding-base-horizontal": "12px",
-                                    "padding-base-vertical": "6px",
-                                    "padding-large-horizontal": "16px",
-                                    "padding-large-vertical": "10px",
-                                    "padding-small-horizontal": "10px",
-                                    "padding-small-vertical": "5px",
-                                    "padding-xs-horizontal": "5px",
-                                    "padding-xs-vertical": "1px",
-                                    "pinkErrorBg": "#f3e3e3",
-                                    "redError": "#ba3a26",
-                                    "redErrorDarken20": "#a32a17",
-                                    "redErrorDarken40": "#881d0c",
-                                    "redErrorDarken60": "#6a1204",
-                                    "redErrorDarken80": "#480900",
-                                    "redErrorLighten20": "#d05c4a",
-                                    "redErrorLighten40": "#e18071",
-                                    "redErrorLighten60": "#efa89d",
-                                    "redErrorLighten80": "#f9d2cc",
-                                    "screen-desktop": "992px",
-                                    "screen-lg": "1200px",
-                                    "screen-lg-desktop": "1200px",
-                                    "screen-lg-min": "1200px",
-                                    "screen-md": "992px",
-                                    "screen-md-max": "(@screen-lg-min - 1)",
-                                    "screen-md-min": "992px",
-                                    "screen-sm": "768px",
-                                    "screen-sm-max": "(@screen-md-min - 1)",
-                                    "screen-sm-min": "768px",
-                                    "screen-tablet": "768px",
-                                    "screen-xs-max": "(@screen-sm-min - 1)",
-                                    "type": "theme",
-                                    "white": "#FFFFFF",
-                                  }
-                                }
-                              >
-                                <Component
-                                  overlay={
-                                    <span>
-                                      Norge
-                                    </span>
-                                  }
-                                  placement="top"
-                                  trigger={
-                                    Array [
-                                      "hover",
-                                    ]
-                                  }
-                                >
-                                  <div
-                                    data-testid="mock-tooltip"
-                                  >
-                                    <styled.div
-                                      className="size-S type-circle animate"
-                                      style={Object {}}
-                                    >
-                                      <div
-                                        className="c22 c23 size-S type-circle animate"
-                                        style={Object {}}
-                                      >
-                                        <styled.div
-                                          className="size-S type-circle"
-                                        >
-                                          <div
-                                            className="c24 c25 size-S type-circle"
-                                          >
-                                            <img
-                                              alt="Norge"
-                                              src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 800'%3e %3crect width='1100' height='800' fill='%23ef2b2d'/%3e %3crect width='200' height='800' x='300' fill='%23fff'/%3e %3crect width='1100' height='200' y='300' fill='%23fff'/%3e %3crect width='100' height='800' x='350' fill='%23002868'/%3e %3crect width='1100' height='100' y='350' fill='%23002868'/%3e %3c/svg%3e"
-                                              style={Object {}}
-                                            />
-                                          </div>
-                                        </styled.div>
-                                      </div>
-                                    </styled.div>
-                                  </div>
-                                </Component>
-                              </Component>
-                            </he>
-                          </Yh>
-                          <Styled(Normaltekst)>
-                            <Normaltekst
-                              className="c26 c27"
-                            >
-                              <TypografiBase
-                                className="c26 c27"
-                                type="normaltekst"
-                              >
-                                <p
-                                  className="typo-normal c26 c27"
-                                >
-                                  NO:DEMONO02
-                                </p>
-                              </TypografiBase>
-                            </Normaltekst>
-                          </Styled(Normaltekst)>
-                        </div>
-                      </styled.div>
-                    </div>
-                  </styled.div>
-                </InstitutionList>
-              </div>
-            </styled.div>
-            <styled.div>
-              <div
-                className="c16 c17"
-              >
-                <InstitutionList
-                  data-testid="a-buc-c-sedheader__institutions-id"
-                  institutions={
-                    Array [
-                      Object {
-                        "acronym": "DEMONO01",
-                        "country": "NO",
-                        "institution": "NO:DEMONO01",
-                        "name": "Norwegian institution 01",
-                      },
-                    ]
-                  }
-                  locale="nb"
-                  type="separated"
-                >
-                  <styled.div
-                    key="NO"
-                  >
-                    <div
-                      className="c18 c19"
-                    >
-                      <styled.div
-                        data-testid="a-buc-c-institutionlist__div-id"
-                        key="NO:DEMONO01"
-                      >
-                        <div
-                          className="c20 c21"
-                          data-testid="a-buc-c-institutionlist__div-id"
-                        >
-                          <Yh
-                            animate={true}
-                            country="NO"
-                            label="Norge"
-                            size="S"
-                            type="circle"
-                            wave={false}
-                          >
-                            <he
-                              highContrast={false}
-                            >
-                              <Component
-                                theme={
-                                  Object {
-                                    "alternative-background-color": "#FFFFFF",
-                                    "alternative-hover-color": "#cce1ff",
-                                    "alternative-interactive-color": "#0074df",
-                                    "black": "#000000",
-                                    "border-radius-base": "4px",
-                                    "border-radius-large": "6px",
-                                    "border-radius-small": "2px",
-                                    "container-desktop": "(940px + @grid-gutter-width)",
-                                    "container-large-desktop": "(1140px + @grid-gutter-width)",
-                                    "container-lg": "(1140px + @grid-gutter-width)",
-                                    "container-md": "(940px + @grid-gutter-width)",
-                                    "container-sm": "(720px + @grid-gutter-width)",
-                                    "container-tablet": "(720px + @grid-gutter-width)",
-                                    "fokusFarge": "#00347d",
-                                    "grayBackground": "#f1f1f1",
-                                    "grayIcon": "#a0a0a0",
-                                    "grayInactive": "#6a6a6a",
-                                    "grayModia": "#333333",
-                                    "grid-columns": "12",
-                                    "grid-float-breakpoint": "768px",
-                                    "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
-                                    "grid-gutter-width": "16px",
-                                    "inverted-font-color": "#FFFFFF",
-                                    "line-height-large": "1.3333333",
-                                    "line-height-small": "1.5",
-                                    "main-active-color": "#005b82",
-                                    "main-background-color": "#f1f1f1",
-                                    "main-border-color": "#6a6a6a",
-                                    "main-border-radius": "4px",
-                                    "main-border-width": "1px",
-                                    "main-disabled-color": "#a0a0a0",
-                                    "main-error-color": "#ba3a26",
-                                    "main-focus-color": "#00347d",
-                                    "main-font-color": "#262626",
-                                    "main-hover-color": "#99c3ff",
-                                    "main-interactive-color": "#0067c5",
-                                    "main-success-color": "#06893a",
-                                    "main-warning-color": "#ff9100",
-                                    "navBakgrunn": "#ffffff",
-                                    "navBla": "#0067c5",
-                                    "navBlaDarken20": "#0056b4",
-                                    "navBlaDarken40": "#00459c",
-                                    "navBlaDarken60": "#00347d",
-                                    "navBlaDarken80": "#002252",
-                                    "navBlaLighten20": "#3386e0",
-                                    "navBlaLighten40": "#66a5f4",
-                                    "navBlaLighten60": "#99c3ff",
-                                    "navBlaLighten80": "#cce1ff",
-                                    "navDypBla": "#005b82",
-                                    "navDypBlaDarken20": "#005077",
-                                    "navDypBlaDarken40": "#004367",
-                                    "navDypBlaDarken60": "#003453",
-                                    "navDypBlaDarken80": "#00243a",
-                                    "navDypBlaLighten20": "#3380a5",
-                                    "navDypBlaLighten40": "#66a3c4",
-                                    "navDypBlaLighten60": "#99c4dd",
-                                    "navDypBlaLighten80": "#cce2f0",
-                                    "navGra20": "#c9c9c9",
-                                    "navGra40": "#a0a0a0",
-                                    "navGra60": "#6a6a6a",
-                                    "navGra80": "#4f4f4f",
-                                    "navGraBakgrunn": "#f1f1f1",
-                                    "navGronn": "#06893a",
-                                    "navGronnDarken20": "#007c2e",
-                                    "navGronnDarken40": "#006a23",
-                                    "navGronnDarken60": "#005519",
-                                    "navGronnDarken80": "#003b0f",
-                                    "navGronnLighten20": "#33aa5f",
-                                    "navGronnLighten40": "#66c786",
-                                    "navGronnLighten60": "#99dead",
-                                    "navGronnLighten80": "#ccf1d6",
-                                    "navLilla": "#634689",
-                                    "navLillaDarken20": "#523874",
-                                    "navLillaDarken40": "#412b5d",
-                                    "navLillaDarken60": "#301f46",
-                                    "navLillaDarken80": "#1f142f",
-                                    "navLillaLighten20": "#8269a2",
-                                    "navLillaLighten40": "#a18dbb",
-                                    "navLillaLighten60": "#c0b2d2",
-                                    "navLillaLighten80": "#e0d8e9",
-                                    "navLimeGronn": "#a2ad00",
-                                    "navLimeGronnDarken20": "#939e00",
-                                    "navLimeGronnDarken40": "#7f8900",
-                                    "navLimeGronnDarken60": "#666e00",
-                                    "navLimeGronnDarken80": "#474e00",
-                                    "navLimeGronnLighten20": "#c1cb33",
-                                    "navLimeGronnLighten40": "#d9e366",
-                                    "navLimeGronnLighten60": "#ecf399",
-                                    "navLimeGronnLighten80": "#f9fccc",
-                                    "navLysBla": "#66cbec",
-                                    "navLysBlaDarken20": "#4cadcd",
-                                    "navLysBlaDarken40": "#368da8",
-                                    "navLysBlaDarken60": "#236b7d",
-                                    "navLysBlaDarken80": "#134852",
-                                    "navLysBlaLighten20": "#7cdaf8",
-                                    "navLysBlaLighten40": "#97e6ff",
-                                    "navLysBlaLighten60": "#b5f1ff",
-                                    "navLysBlaLighten80": "#d8f9ff",
-                                    "navLysGra": "#f1f1f1",
-                                    "navMorkGra": "#262626",
-                                    "navOransje": "#ff9100",
-                                    "navOransjeDarken20": "#d47b00",
-                                    "navOransjeDarken40": "#a86400",
-                                    "navOransjeDarken60": "#7d4c00",
-                                    "navOransjeDarken80": "#523300",
-                                    "navOransjeLighten20": "#ffaa33",
-                                    "navOransjeLighten40": "#ffc166",
-                                    "navOransjeLighten60": "#ffd799",
-                                    "navOransjeLighten80": "#ffeccc",
-                                    "navRod": "#c30000",
-                                    "padding-base-horizontal": "12px",
-                                    "padding-base-vertical": "6px",
-                                    "padding-large-horizontal": "16px",
-                                    "padding-large-vertical": "10px",
-                                    "padding-small-horizontal": "10px",
-                                    "padding-small-vertical": "5px",
-                                    "padding-xs-horizontal": "5px",
-                                    "padding-xs-vertical": "1px",
-                                    "pinkErrorBg": "#f3e3e3",
-                                    "redError": "#ba3a26",
-                                    "redErrorDarken20": "#a32a17",
-                                    "redErrorDarken40": "#881d0c",
-                                    "redErrorDarken60": "#6a1204",
-                                    "redErrorDarken80": "#480900",
-                                    "redErrorLighten20": "#d05c4a",
-                                    "redErrorLighten40": "#e18071",
-                                    "redErrorLighten60": "#efa89d",
-                                    "redErrorLighten80": "#f9d2cc",
-                                    "screen-desktop": "992px",
-                                    "screen-lg": "1200px",
-                                    "screen-lg-desktop": "1200px",
-                                    "screen-lg-min": "1200px",
-                                    "screen-md": "992px",
-                                    "screen-md-max": "(@screen-lg-min - 1)",
-                                    "screen-md-min": "992px",
-                                    "screen-sm": "768px",
-                                    "screen-sm-max": "(@screen-md-min - 1)",
-                                    "screen-sm-min": "768px",
-                                    "screen-tablet": "768px",
-                                    "screen-xs-max": "(@screen-sm-min - 1)",
-                                    "type": "theme",
-                                    "white": "#FFFFFF",
-                                  }
-                                }
-                              >
-                                <Component
-                                  overlay={
-                                    <span>
-                                      Norge
-                                    </span>
-                                  }
-                                  placement="top"
-                                  trigger={
-                                    Array [
-                                      "hover",
-                                    ]
-                                  }
-                                >
-                                  <div
-                                    data-testid="mock-tooltip"
-                                  >
-                                    <styled.div
-                                      className="size-S type-circle animate"
-                                      style={Object {}}
-                                    >
-                                      <div
-                                        className="c22 c23 size-S type-circle animate"
-                                        style={Object {}}
-                                      >
-                                        <styled.div
-                                          className="size-S type-circle"
-                                        >
-                                          <div
-                                            className="c24 c25 size-S type-circle"
-                                          >
-                                            <img
-                                              alt="Norge"
-                                              src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 800'%3e %3crect width='1100' height='800' fill='%23ef2b2d'/%3e %3crect width='200' height='800' x='300' fill='%23fff'/%3e %3crect width='1100' height='200' y='300' fill='%23fff'/%3e %3crect width='100' height='800' x='350' fill='%23002868'/%3e %3crect width='1100' height='100' y='350' fill='%23002868'/%3e %3c/svg%3e"
-                                              style={Object {}}
-                                            />
-                                          </div>
-                                        </styled.div>
-                                      </div>
-                                    </styled.div>
-                                  </div>
-                                </Component>
-                              </Component>
-                            </he>
-                          </Yh>
-                          <Styled(Normaltekst)>
-                            <Normaltekst
-                              className="c26 c27"
-                            >
-                              <TypografiBase
-                                className="c26 c27"
-                                type="normaltekst"
-                              >
-                                <p
-                                  className="typo-normal c26 c27"
-                                >
-                                  NO:DEMONO01
-                                </p>
-                              </TypografiBase>
-                            </Normaltekst>
-                          </Styled(Normaltekst)>
-                        </div>
-                      </styled.div>
-                    </div>
-                  </styled.div>
-                </InstitutionList>
-              </div>
-            </styled.div>
-            <styled.div
-              data-testid="a-buc-c-sedheader__actions-id"
+            <span
+              class="c24 c25"
+            >
+              Norge
+            </span>
+            <div
+              class="navds-popover__arrow"
+              style="bottom: -0.5rem;"
+            />
+          </div>
+          <div
+            id="flag-a3c4bb30-6a42-4957-97bc-650cdf4e7b50"
+            style="display: inline-block;"
+          >
+            <div
+              class="c26 c27 size-S type-circle animate"
             >
               <div
-                className="c28 c29"
-                data-testid="a-buc-c-sedheader__actions-id"
+                class="c28 c29 size-S type-circle"
               >
-                <Component
-                  overlay={
-                    <span>
-                      buc:form-youHaveXAttachmentsInSed
-                    </span>
-                  }
-                  placement="top"
-                  trigger={
-                    Array [
-                      "hover",
-                    ]
-                  }
-                >
-                  <div
-                    data-testid="mock-tooltip"
-                  >
-                    <styled.div
-                      data-testid="a-buc-c-sedheader__actions-attachments"
-                    >
-                      <div
-                        className=""
-                        data-testid="a-buc-c-sedheader__actions-attachments"
-                      >
-                        <FilledPaperClipIcon>
-                          <svg
-                            contentScriptType="text/ecmascript"
-                            contentStyleType="text/css"
-                            enableBackground="new 0 0 24 24"
-                            height="30px"
-                            id="Filled_Version"
-                            preserveAspectRatio="xMidYMid meet"
-                            version="1.1"
-                            viewBox="0 0 24 24"
-                            width="30px"
-                            x="0px"
-                            xmlns="http://www.w3.org/2000/svg"
-                            y="0px"
-                            zoomAndPan="magnify"
-                          >
-                            <g
-                              fill="#3e3832"
-                            >
-                              <g
-                                fill="#3e3832"
-                              >
-                                <path
-                                  d="M11,24c-2.896,0-5-2.313-5-5.5V7c0-3.99,2.795-7,6.5-7C16.206,0,19,3.01,19,7v8.498c0,0.552-0.447,1-1,1    c-0.552,0-1-0.448-1-1V7c0-2.897-1.893-5-4.5-5S8,4.103,8,7v11.5c0,1.743,0.928,3.5,3,3.5s3-1.757,3-3.5V9.498    c0-0.602-0.146-2-1.5-2c-1.354,0-1.5,1.398-1.5,2v7.5c0,0.552-0.447,1-1,1c-0.552,0-1-0.448-1-1v-7.5c0-2.393,1.407-4,3.5-4    c2.094,0,3.5,1.607,3.5,4V18.5C16,21.688,13.897,24,11,24z"
-                                  fill="#3e3832"
-                                />
-                              </g>
-                            </g>
-                          </svg>
-                        </FilledPaperClipIcon>
-                      </div>
-                    </styled.div>
-                  </div>
-                </Component>
-                <Styled(u)
-                  data-amplitude="buc.view.besvarSed"
-                  data-testid="a-buc-c-sedheader__answer-button-id"
-                  disabled={false}
-                  mini={true}
-                  onClick={[Function]}
-                >
-                  <u
-                    className="c30 c31"
-                    data-amplitude="buc.view.besvarSed"
-                    data-testid="a-buc-c-sedheader__answer-button-id"
-                    disabled={false}
-                    mini={true}
-                    onClick={[Function]}
-                  >
-                    <p
-                      autoDisableVedSpinner={false}
-                      className="c30 c31"
-                      data-amplitude="buc.view.besvarSed"
-                      data-testid="a-buc-c-sedheader__answer-button-id"
-                      disabled={false}
-                      htmlType="submit"
-                      inaktivKlasseVedDisabled={false}
-                      kompakt={false}
-                      mini={true}
-                      onClick={[Function]}
-                      spinner={false}
-                      type="flat"
-                    >
-                      <button
-                        className="knapp c30 c31 knapp--flat knapp--mini"
-                        data-amplitude="buc.view.besvarSed"
-                        data-testid="a-buc-c-sedheader__answer-button-id"
-                        disabled={false}
-                        onClick={[Function]}
-                        type="submit"
-                      >
-                        buc:form-answerSED
-                      </button>
-                    </p>
-                  </u>
-                </Styled(u)>
+                <img
+                  alt="Norge"
+                  src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 800'%3e %3crect width='1100' height='800' fill='%23ef2b2d'/%3e %3crect width='200' height='800' x='300' fill='%23fff'/%3e %3crect width='1100' height='200' y='300' fill='%23fff'/%3e %3crect width='100' height='800' x='350' fill='%23002868'/%3e %3crect width='1100' height='100' y='350' fill='%23002868'/%3e %3c/svg%3e"
+                />
               </div>
-            </styled.div>
+            </div>
           </div>
-        </styled.div>
+          <p
+            class="c30 c31 navds-body-long"
+          >
+            NO:DEMONO02
+          </p>
+        </div>
       </div>
-    </f>
-  </Styled(Styled(f))>
-</SEDHeader>
+    </div>
+    <div
+      class="c18 c19"
+    >
+      <div
+        class="c20 c21"
+        data-testid="a_buc_c_sedheader--institutions-id"
+      >
+        <div
+          class="c22 c23"
+          data-testid="a_buc_c_institutionlist--div-id"
+        >
+          <div
+            aria-hidden="true"
+            class="navds-popover navds-popover--hidden"
+            data-placement="top"
+            style="position: absolute; top: 0px; left: 0px;"
+            tabindex="-1"
+          >
+            <span
+              class="c24 c25"
+            >
+              Norge
+            </span>
+            <div
+              class="navds-popover__arrow"
+              style="bottom: -0.5rem;"
+            />
+          </div>
+          <div
+            id="flag-99beb983-9026-4fbb-afc2-e2cd2c083550"
+            style="display: inline-block;"
+          >
+            <div
+              class="c26 c27 size-S type-circle animate"
+            >
+              <div
+                class="c28 c29 size-S type-circle"
+              >
+                <img
+                  alt="Norge"
+                  src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 800'%3e %3crect width='1100' height='800' fill='%23ef2b2d'/%3e %3crect width='200' height='800' x='300' fill='%23fff'/%3e %3crect width='1100' height='200' y='300' fill='%23fff'/%3e %3crect width='100' height='800' x='350' fill='%23002868'/%3e %3crect width='1100' height='100' y='350' fill='%23002868'/%3e %3c/svg%3e"
+                />
+              </div>
+            </div>
+          </div>
+          <p
+            class="c30 c31 navds-body-long"
+          >
+            NO:DEMONO01
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="c32 c33"
+      data-testid="a_buc_c_sedheader--actions-id"
+    >
+      <div
+        aria-hidden="true"
+        class="navds-popover navds-popover--hidden"
+        data-placement="right"
+        style="position: absolute; top: 0px; left: 0px;"
+        tabindex="-1"
+      >
+        <div
+          class="c8 c9"
+        >
+          <span>
+            buc:form-youHaveXAttachmentsInSed
+          </span>
+        </div>
+        <div
+          class="navds-popover__arrow"
+          style="left: -0.5rem;"
+        />
+      </div>
+      <div
+        class="c10 c11"
+        id="599cf83f-2031-445d-9989-efb507eb88f6"
+      >
+        <div
+          class="c34 c35"
+          data-testid="a_buc_c_sedheader--actions-attachments"
+        >
+          <svg
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M2 0a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Zm11.377 3.307a4.312 4.312 0 0 1 6.185 0 4.49 4.49 0 0 1 0 6.258l-6.925 7.076a3.07 3.07 0 0 1-4.401 0 3.18 3.18 0 0 1 0-4.436l4.267-4.36a1 1 0 1 1 1.43 1.398l-4.268 4.361a1.18 1.18 0 0 0 0 1.638 1.07 1.07 0 0 0 1.543 0l6.924-7.076a2.49 2.49 0 0 0 0-3.46 2.312 2.312 0 0 0-3.326 0L6.07 13.634c-1.425 1.457-1.425 3.827 0 5.283a3.554 3.554 0 0 0 5.109 0l.006-.007 2.059-2.063c.016-.019.032-.037.05-.054l1.499-1.5 5.5-5.5a1 1 0 1 1 1.415 1.414l-5.499 5.5-3.604 3.612a5.554 5.554 0 0 1-7.965-.003c-2.185-2.234-2.185-5.847 0-8.08l8.738-8.93Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+      <button
+        class="navds-button navds-button--secondary navds-button--medium"
+        data-amplitude="buc.view.besvarSed"
+        data-testid="a_buc_c_sedheader--answer-button-id"
+      >
+        <span
+          aria-live="polite"
+          class="navds-label"
+        >
+          buc:form-answerSED
+        </span>
+      </button>
+      <div
+        class="c36 c37"
+      />
+    </div>
+  </div>
+</div>
 `;

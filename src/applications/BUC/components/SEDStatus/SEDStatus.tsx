@@ -46,7 +46,7 @@ const SEDStatus: React.FC<SEDStatusProps> = ({
   const tagType: StatusType | undefined =
     Object.prototype.hasOwnProperty.call(statusList, status) ? (statusList[status] as StatusType)! : (statusList.unknown as StatusType)!
   return (
-    <MyTag className={classNames(status, className)} variant={tagType}>
+    <MyTag className={classNames(status, className)} variant={tagType} data-testid='sedstatus'>
       {t('buc:status-' + status)}
     </MyTag>
   )

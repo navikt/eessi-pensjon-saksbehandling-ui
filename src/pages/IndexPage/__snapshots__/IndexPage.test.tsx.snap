@@ -1,336 +1,293 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`pages/IndexPage Render: match snapshot 1`] = `
-.c1 {
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  position: relative;
-  margin: 0 auto;
-  width: 100%;
-  padding: 0rem 1rem;
+.c11 {
+  display: inline-block;
+  margin-left: 1rem;
 }
 
-ui-fss.g307[id="c0"] {
+ui-fss.g18[id="c10"] {
+  content: "c11,";
+}
+
+.c1 {
+  margin-bottom: 1rem;
+}
+
+ui-fss.g19[id="c0"] {
   content: "c1,";
 }
 
-<IndexPage>
-  <Component>
+.c3 {
+  padding: 1rem;
+}
+
+ui-fss.g35[id="c2"] {
+  content: "c3,";
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border-color: var(--navds-semantic-color-border);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 2rem;
+  background-color: var(--navds-semantic-color-component-background-alternate);
+}
+
+ui-fss.g160[id="c4"] {
+  content: "c5,";
+}
+
+.c7 {
+  position: relative;
+  height: 300px;
+  width: 250px;
+}
+
+.c7 .monitor {
+  width: 250px;
+  height: 200px;
+}
+
+.c7 .cup {
+  width: 33px;
+  height: 30px;
+  top: 170px;
+  left: 255px;
+}
+
+.c7 .mouse {
+  width: 60px;
+  height: 80px;
+  left: 190px;
+  top: 180px;
+}
+
+.c7 .map {
+  width: 70px;
+  height: 100px;
+  top: 20px;
+  left: 90px;
+}
+
+.c7 img {
+  position: absolute;
+}
+
+ui-fss.g161[id="c6"] {
+  content: "c7,";
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: flex-end;
+  -webkit-box-align: flex-end;
+  -ms-flex-align: flex-end;
+  align-items: flex-end;
+}
+
+.c9 .skjemaelement {
+  margin-bottom: 0px !important;
+}
+
+ui-fss.g162[id="c8"] {
+  content: "c9,";
+}
+
+<div
+  class="mock-c-topcontainer"
+  data-testid="topcontainer"
+>
+  <div
+    class="mock-c-contextbanner"
+  />
+  <div
+    class="c0 c1"
+  />
+  <div
+    class="c2 c3"
+  >
     <div
-      className="mock-c-topcontainer"
+      class="navds-alert navds-alert--warning navds-alert--medium"
+      data-testid="w-PersonPanel--alert"
     >
-      <IEAlert>
-        <div />
-      </IEAlert>
-      <Component
-        highContrast={false}
-        mode="buclist"
+      <svg
+        aria-labelledby="title-:r3:"
+        class="navds-alert__icon"
+        fill="none"
+        focusable="false"
+        height="1em"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title
+          id="title-:r3:"
+        >
+          Advarsel
+        </title>
+        <path
+          d="M11.126.564a.962.962 0 0 1 1.741-.021l11.011 21.912c.358.695-.117 1.54-.865 1.54H.987c-.738 0-1.215-.826-.876-1.519L11.126.564Z"
+          fill="#D47B00"
+        />
+        <path
+          d="M11 7.996h2v7h-2v-7Z"
+          fill="#fff"
+        />
+        <circle
+          cx="12"
+          cy="18.496"
+          fill="#fff"
+          r="1.5"
+        />
+      </svg>
+      <div
+        class="navds-alert__wrapper navds-body-long"
+      >
+        message:validation-noAktoerId
+      </div>
+    </div>
+    <div
+      class="c0 c1"
+    />
+    <div
+      class="c4 c5"
+    >
+      <div
+        class="c6 c7"
+      >
+        <img
+          alt=""
+          class="monitor"
+          src="dataskjerm.png"
+        />
+        <img
+          alt=""
+          class="cup"
+          src="kop.png"
+        />
+        <img
+          alt=""
+          class="mouse"
+          src="NAVmusematte.png"
+        />
+        <img
+          alt=""
+          class="map"
+          src="saksstatus.png"
+        />
+      </div>
+      <div
+        class="c0 c1"
+      />
+      <div
+        class="c8 c9"
       >
         <div
-          className="mock-c-contextbanner"
-        />
-      </Component>
-      <Styled(Component)
-        allowedWidgets={
-          Array [
-            "buc",
-            "overview",
-          ]
-        }
-        configurable={true}
-        defaultConfig={
-          Object {
-            "breakpoints": Object {
-              "lg": 992,
-              "md": 768,
-              "sm": 0,
-            },
-            "cols": Object {
-              "lg": 12,
-              "md": 3,
-              "sm": 1,
-            },
-            "containerPadding": Array [
-              10,
-              10,
-            ],
-            "defaultTabIndex": 0,
-            "margin": Array [
-              10,
-              10,
-            ],
-            "rowHeight": 30,
-            "version": 1,
-          }
-        }
-        defaultLayouts={
-          Array [
-            Object {
-              "body": Object {
-                "lg": Array [
-                  Object {
-                    "h": 1,
-                    "i": "w-1-overview",
-                    "maxH": 999,
-                    "maxW": 12,
-                    "minH": 1,
-                    "minW": 6,
-                    "w": 12,
-                    "x": 0,
-                    "y": 0,
-                  },
-                  Object {
-                    "h": 6,
-                    "i": "w-2-buc",
-                    "maxH": 999,
-                    "maxW": 12,
-                    "minH": 2,
-                    "minW": 6,
-                    "w": 12,
-                    "x": 0,
-                    "y": 2,
-                  },
-                ],
-                "md": Array [
-                  Object {
-                    "h": 1,
-                    "i": "w-1-overview",
-                    "maxH": 999,
-                    "maxW": 3,
-                    "minH": 1,
-                    "minW": 2,
-                    "w": 3,
-                    "x": 0,
-                    "y": 0,
-                  },
-                  Object {
-                    "h": 6,
-                    "i": "w-2-buc",
-                    "maxH": 999,
-                    "maxW": 3,
-                    "minH": 2,
-                    "minW": 2,
-                    "w": 3,
-                    "x": 0,
-                    "y": 2,
-                  },
-                ],
-                "sm": Array [
-                  Object {
-                    "h": 1,
-                    "i": "w-1-overview",
-                    "maxH": 999,
-                    "maxW": 1,
-                    "minH": 1,
-                    "minW": 1,
-                    "w": 1,
-                    "x": 0,
-                    "y": 0,
-                  },
-                  Object {
-                    "h": 6,
-                    "i": "w-2-buc",
-                    "maxH": 999,
-                    "maxW": 1,
-                    "minH": 2,
-                    "minW": 1,
-                    "w": 1,
-                    "x": 0,
-                    "y": 2,
-                  },
-                ],
-              },
-              "label": "default",
-            },
-          ]
-        }
-        defaultWidgets={
-          Array [
-            Object {
-              "i": "w-1-overview",
-              "options": Object {
-                "collapsed": true,
-              },
-              "title": "Overview widget",
-              "type": "overview",
-              "visible": true,
-            },
-            Object {
-              "i": "w-2-buc",
-              "options": Object {
-                "allowFullScreen": true,
-              },
-              "title": "BUC widget",
-              "type": "buc",
-              "visible": true,
-            },
-          ]
-        }
-        extraWidgets={
-          Object {
-            "BUCWidget": [Function],
-            "DocWidget": [Function],
-            "OverviewWidget": [Function],
-          }
-        }
-        highContrast={false}
-        id="eessi-pensjon-ui-fss"
-      >
-        <Component
-          allowedWidgets={
-            Array [
-              "buc",
-              "overview",
-            ]
-          }
-          className="c0 c1"
-          configurable={true}
-          defaultConfig={
-            Object {
-              "breakpoints": Object {
-                "lg": 992,
-                "md": 768,
-                "sm": 0,
-              },
-              "cols": Object {
-                "lg": 12,
-                "md": 3,
-                "sm": 1,
-              },
-              "containerPadding": Array [
-                10,
-                10,
-              ],
-              "defaultTabIndex": 0,
-              "margin": Array [
-                10,
-                10,
-              ],
-              "rowHeight": 30,
-              "version": 1,
-            }
-          }
-          defaultLayouts={
-            Array [
-              Object {
-                "body": Object {
-                  "lg": Array [
-                    Object {
-                      "h": 1,
-                      "i": "w-1-overview",
-                      "maxH": 999,
-                      "maxW": 12,
-                      "minH": 1,
-                      "minW": 6,
-                      "w": 12,
-                      "x": 0,
-                      "y": 0,
-                    },
-                    Object {
-                      "h": 6,
-                      "i": "w-2-buc",
-                      "maxH": 999,
-                      "maxW": 12,
-                      "minH": 2,
-                      "minW": 6,
-                      "w": 12,
-                      "x": 0,
-                      "y": 2,
-                    },
-                  ],
-                  "md": Array [
-                    Object {
-                      "h": 1,
-                      "i": "w-1-overview",
-                      "maxH": 999,
-                      "maxW": 3,
-                      "minH": 1,
-                      "minW": 2,
-                      "w": 3,
-                      "x": 0,
-                      "y": 0,
-                    },
-                    Object {
-                      "h": 6,
-                      "i": "w-2-buc",
-                      "maxH": 999,
-                      "maxW": 3,
-                      "minH": 2,
-                      "minW": 2,
-                      "w": 3,
-                      "x": 0,
-                      "y": 2,
-                    },
-                  ],
-                  "sm": Array [
-                    Object {
-                      "h": 1,
-                      "i": "w-1-overview",
-                      "maxH": 999,
-                      "maxW": 1,
-                      "minH": 1,
-                      "minW": 1,
-                      "w": 1,
-                      "x": 0,
-                      "y": 0,
-                    },
-                    Object {
-                      "h": 6,
-                      "i": "w-2-buc",
-                      "maxH": 999,
-                      "maxW": 1,
-                      "minH": 2,
-                      "minW": 1,
-                      "w": 1,
-                      "x": 0,
-                      "y": 2,
-                    },
-                  ],
-                },
-                "label": "default",
-              },
-            ]
-          }
-          defaultWidgets={
-            Array [
-              Object {
-                "i": "w-1-overview",
-                "options": Object {
-                  "collapsed": true,
-                },
-                "title": "Overview widget",
-                "type": "overview",
-                "visible": true,
-              },
-              Object {
-                "i": "w-2-buc",
-                "options": Object {
-                  "allowFullScreen": true,
-                },
-                "title": "BUC widget",
-                "type": "buc",
-                "visible": true,
-              },
-            ]
-          }
-          extraWidgets={
-            Object {
-              "BUCWidget": [Function],
-              "DocWidget": [Function],
-              "OverviewWidget": [Function],
-            }
-          }
-          highContrast={false}
-          id="eessi-pensjon-ui-fss"
+          class="navds-form-field navds-form-field--medium"
         >
-          <div
-            className="mock-c-dashboard"
-            onClick={[Function]}
+          <label
+            class="navds-form-field__label navds-label"
+            for="a-buc-p-bucempty--aktoerid-input-id"
+          >
+            ui:aktoerId
+          </label>
+          <input
+            aria-invalid="false"
+            class="navds-text-field__input navds-body-short navds-body-medium"
+            data-testid="a-buc-p-bucempty--aktoerid-input-id"
+            id="a-buc-p-bucempty--aktoerid-input-id"
+            type="text"
+            value=""
           />
-        </Component>
-      </Styled(Component)>
+          <div
+            aria-live="polite"
+            aria-relevant="additions removals"
+            class="navds-form-field__error"
+            id="textField-error-:r4:"
+          />
+        </div>
+        <div
+          class="c10 c11"
+        />
+        <button
+          class="navds-button navds-button--primary navds-button--medium"
+          data-testid="a-buc-p-bucempty--aktoerid-button-id"
+        >
+          <span
+            aria-live="polite"
+            class="navds-label"
+          >
+            ui:add
+          </span>
+        </button>
+      </div>
+      <div
+        class="c8 c9"
+      >
+        <div
+          class="navds-form-field navds-form-field--medium"
+        >
+          <label
+            class="navds-form-field__label navds-label"
+            for="a-buc-p-bucempty--sakid-input-id"
+          >
+            buc:form-caseId
+          </label>
+          <input
+            aria-invalid="false"
+            class="navds-text-field__input navds-body-short navds-body-medium"
+            data-testid="a-buc-p-bucempty--sakid-input-id"
+            id="a-buc-p-bucempty--sakid-input-id"
+            type="text"
+            value=""
+          />
+          <div
+            aria-live="polite"
+            aria-relevant="additions removals"
+            class="navds-form-field__error"
+            id="textField-error-:r5:"
+          />
+        </div>
+        <div
+          class="c10 c11"
+        />
+        <button
+          class="navds-button navds-button--primary navds-button--medium"
+          data-testid="a-buc-p-bucempty--sakid-button-id"
+        >
+          <span
+            aria-live="polite"
+            class="navds-label"
+          >
+            ui:add
+          </span>
+        </button>
+      </div>
     </div>
-  </Component>
-</IndexPage>
+  </div>
+</div>
 `;
