@@ -1,70 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`components/Footer Render: match snapshot 1`] = `
-.c13 {
-  -webkit-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
-  background-color: inherit !important;
-  color: !important;
-  border-color: !important;
-}
-
-.c13:hover:not(:disabled) {
-  background-color: !important;
-  color: !important;
-}
-
-.c13:hover:not(:disabled) svg {
-  color: !important;
-}
-
-.c13:hover:not(:disabled) svg path {
-  stroke: !important;
-}
-
-.c13:disabled {
-  color: !important;
-  background-color: !important;
-  border-color: !important;
-}
-
-.c13:disabled svg {
-  color: !important;
-}
-
-.c13:disabled svg path {
-  stroke: !important;
-}
-
-.c13:disabled .knapp__spinner {
-  border: 2px solid !important;
-  border-top-color: !important;
-  border-right-color: !important;
-}
-
-.c13 .knapp__spinner {
-  border: 2px solid !important;
-  border-left-color: !important;
-  border-bottom-color: !important;
-}
-
-.c13:not(:disabled) svg {
-  color: !important;
-}
-
-.c13:not(:disabled) svg path {
-  stroke: !important;
-}
-
-ui-fss.g7[id="c12"] {
-  content: "c13,";
-}
-
 .c1 {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  background-color: white;
+  background-color: var(--navds-semantic-color-component-background-alternate);
   padding: 0rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -89,7 +30,7 @@ ui-fss.g7[id="c12"] {
   height: 10px;
 }
 
-ui-fss.g49[id="c0"] {
+ui-fss.g1[id="c0"] {
   content: "c1,";
 }
 
@@ -109,11 +50,12 @@ ui-fss.g49[id="c0"] {
   margin: 0px;
   display: block;
   padding: 0px;
-  background-color: white;
+  background-color: var(--navds-semantic-color-component-background-alternate);
 }
 
 .c3 .footerButtonClosed:hover {
   cursor: pointer;
+  background-color: var(--navds-semantic-color-component-background-alternate);
 }
 
 .c3 .footerButtonOpen {
@@ -121,14 +63,15 @@ ui-fss.g49[id="c0"] {
   margin-right: 0.5rem;
   display: inline-block;
   padding-top: 0.6rem;
-  text-align: center;
+  color: var(--navds-color-text-primary) text-align:center;
 }
 
 .c3 .footerButtonOpen:hover {
   cursor: pointer;
+  background-color: var(--navds-semantic-color-component-background-alternate);
 }
 
-ui-fss.g50[id="c2"] {
+ui-fss.g2[id="c2"] {
   content: "c3,";
 }
 
@@ -152,7 +95,7 @@ ui-fss.g50[id="c2"] {
   align-items: baseline;
 }
 
-ui-fss.g51[id="c4"] {
+ui-fss.g3[id="c4"] {
   content: "c5,";
 }
 
@@ -161,7 +104,7 @@ ui-fss.g51[id="c4"] {
   margin-bottom: 0px;
 }
 
-ui-fss.g52[id="c6"] {
+ui-fss.g4[id="c6"] {
   content: "c7,";
 }
 
@@ -170,19 +113,11 @@ ui-fss.g52[id="c6"] {
   margin-bottom: 0px;
 }
 
-ui-fss.g53[id="c8"] {
+ui-fss.g5[id="c8"] {
   content: "c9,";
 }
 
 .c11 {
-  padding: 0.5rem;
-}
-
-ui-fss.g54[id="c10"] {
-  content: "c11,";
-}
-
-.c15 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -192,238 +127,186 @@ ui-fss.g54[id="c10"] {
   flex-direction: row-reverse;
 }
 
-.c15 div {
+.c11 div {
   margin-left: 0.25rem;
 }
 
-ui-fss.g55[id="c14"] {
-  content: "c15,";
+ui-fss.g6[id="c10"] {
+  content: "c11,";
 }
 
-<Footer
-  footerOpen={true}
-  highContrast={false}
-  params={Object {}}
+<footer
+  class="c0 c1 toggled"
+  role="contentinfo"
 >
-  <styled.footer
-    className="toggled"
-    role="contentinfo"
+  <div
+    class="c2 c3"
   >
-    <footer
-      className="c0 c1 toggled"
-      role="contentinfo"
+    <div
+      class="footerButtonOpen"
+      role="button"
+      tabindex="0"
     >
-      <styled.div
-        className=""
+      ▼
+    </div>
+    <div
+      class="c4 c5"
+    >
+      <div
+        class="c6 c7 navds-form-field navds-form-field--medium"
       >
-        <div
-          className="c2 c3"
-        >
-          <div
-            className="footerButtonOpen"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="button"
-            tabIndex={0}
-          >
-            ▼
-          </div>
-          <styled.div>
-            <div
-              className="c4 c5"
-            >
-              <Styled(Select)
-                data-testid="c-footer__select-id"
-                id="c-footer__select-id"
-                label=""
-                onChange={[Function]}
-              >
-                <Select
-                  bredde="fullbredde"
-                  className="c6 c7"
-                  data-testid="c-footer__select-id"
-                  disabled={false}
-                  id="c-footer__select-id"
-                  label=""
-                  onChange={[Function]}
-                >
-                  <div
-                    className="skjemaelement c6 c7"
-                  >
-                    <div
-                      className="selectContainer input--fullbredde"
-                    >
-                      <select
-                        aria-invalid={false}
-                        className="skjemaelement__input"
-                        data-testid="c-footer__select-id"
-                        disabled={false}
-                        id="c-footer__select-id"
-                        onChange={[Function]}
-                      >
-                        <option
-                          value=""
-                        >
-                          --
-                        </option>
-                        <option
-                          key="buc"
-                          value="buc"
-                        >
-                          buc
-                        </option>
-                        <option
-                          key="sed"
-                          value="sed"
-                        >
-                          sed
-                        </option>
-                        <option
-                          key="rinaId"
-                          value="rinaId"
-                        >
-                          rinaId
-                        </option>
-                        <option
-                          key="sakId"
-                          value="sakId"
-                        >
-                          sakId
-                        </option>
-                        <option
-                          key="aktoerId"
-                          value="aktoerId"
-                        >
-                          aktoerId
-                        </option>
-                        <option
-                          key="vedtakId"
-                          value="vedtakId"
-                        >
-                          vedtakId
-                        </option>
-                        <option
-                          key="kravId"
-                          value="kravId"
-                        >
-                          kravId
-                        </option>
-                        <option
-                          key="fnr"
-                          value="fnr"
-                        >
-                          fnr
-                        </option>
-                        <option
-                          key="mottaker"
-                          value="mottaker"
-                        >
-                          mottaker
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </Select>
-              </Styled(Select)>
-              <Styled(Input)
-                data-testid="c-footer__input-id"
-                id="c-footer__input-id"
-                label=""
-                onChange={[Function]}
-                value=""
-              >
-                <Input
-                  bredde="fullbredde"
-                  className="c8 c9"
-                  data-testid="c-footer__input-id"
-                  id="c-footer__input-id"
-                  label=""
-                  onChange={[Function]}
-                  value=""
-                >
-                  <div
-                    className="skjemaelement c8 c9"
-                  >
-                    <input
-                      aria-invalid={false}
-                      className="skjemaelement__input input--fullbredde"
-                      data-testid="c-footer__input-id"
-                      id="c-footer__input-id"
-                      onChange={[Function]}
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                </Input>
-              </Styled(Input)>
-              <Styled(KnappBase)
-                data-testid="c-footer__add-button-id"
-                onClick={[Function]}
-              >
-                <KnappBase
-                  autoDisableVedSpinner={false}
-                  className="c10 c11"
-                  data-testid="c-footer__add-button-id"
-                  disabled={false}
-                  htmlType="submit"
-                  inaktivKlasseVedDisabled={false}
-                  kompakt={false}
-                  mini={false}
-                  onClick={[Function]}
-                  spinner={false}
-                  type="standard"
-                >
-                  <button
-                    className="knapp c10 c11 knapp--standard"
-                    data-testid="c-footer__add-button-id"
-                    disabled={false}
-                    onClick={[Function]}
-                    type="submit"
-                  >
-                     + 
-                  </button>
-                </KnappBase>
-              </Styled(KnappBase)>
-              <Styled(u)
-                onClick={[Function]}
-              >
-                <u
-                  className="c12 c13"
-                  onClick={[Function]}
-                >
-                  <p
-                    autoDisableVedSpinner={false}
-                    className="c12 c13"
-                    disabled={false}
-                    htmlType="submit"
-                    inaktivKlasseVedDisabled={false}
-                    kompakt={false}
-                    mini={false}
-                    onClick={[Function]}
-                    spinner={false}
-                    type="standard"
-                  >
-                    <button
-                      className="knapp c12 c13 knapp--standard"
-                      disabled={false}
-                      onClick={[Function]}
-                      type="submit"
-                    >
-                      Dump store
-                    </button>
-                  </p>
-                </u>
-              </Styled(u)>
-            </div>
-          </styled.div>
-        </div>
-      </styled.div>
-      <styled.div>
-        <div
-          className="c14 c15"
+        <label
+          class="navds-form-field__label navds-label"
+          for="c-footer--select-id"
         />
-      </styled.div>
-    </footer>
-  </styled.footer>
-</Footer>
+        <div
+          class="navds-select__container"
+        >
+          <select
+            aria-invalid="false"
+            class="navds-select__input navds-body-short navds-body--medium"
+            data-testid="c-footer--select-id"
+            id="c-footer--select-id"
+          >
+            <option
+              value=""
+            >
+              --
+            </option>
+            <option
+              value="buc"
+            >
+              buc
+            </option>
+            <option
+              value="sed"
+            >
+              sed
+            </option>
+            <option
+              value="rinaId"
+            >
+              rinaId
+            </option>
+            <option
+              value="sakId"
+            >
+              sakId
+            </option>
+            <option
+              value="aktoerId"
+            >
+              aktoerId
+            </option>
+            <option
+              value="vedtakId"
+            >
+              vedtakId
+            </option>
+            <option
+              value="kravId"
+            >
+              kravId
+            </option>
+            <option
+              value="fnr"
+            >
+              fnr
+            </option>
+            <option
+              value="mottaker"
+            >
+              mottaker
+            </option>
+          </select>
+          <svg
+            aria-hidden="true"
+            class="navds-select__chevron"
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M12 17.414 4.293 9.707l1.414-1.414L12 14.586l6.293-6.293 1.414 1.414L12 17.414Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <div
+          aria-live="polite"
+          aria-relevant="additions removals"
+          class="navds-form-field__error"
+          id="textField-error-:r0:"
+        />
+      </div>
+      <div
+        class="c8 c9 navds-form-field navds-form-field--medium"
+      >
+        <label
+          class="navds-form-field__label navds-label"
+          for="c-footer--input-id"
+        />
+        <input
+          aria-invalid="false"
+          class="navds-text-field__input navds-body-short navds-body-medium"
+          data-testid="c-footer--input-id"
+          id="c-footer--input-id"
+          type="text"
+          value=""
+        />
+        <div
+          aria-live="polite"
+          aria-relevant="additions removals"
+          class="navds-form-field__error"
+          id="textField-error-:r2:"
+        />
+      </div>
+      <button
+        class="navds-button navds-button--tertiary navds-button--small"
+        data-testid="c-footer--add-button-id"
+      >
+        <span
+          aria-live="polite"
+          class="navds-label navds-label--small"
+        >
+          <svg
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0Zm0 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2Zm1 4v5h5v2h-5v5h-2v-5H6v-2h5V6h2Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+      <button
+        class="navds-button navds-button--primary navds-button--small"
+      >
+        <span
+          aria-live="polite"
+          class="navds-label navds-label--small"
+        >
+          Dump store
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
+    class="c10 c11"
+  />
+</footer>
 `;

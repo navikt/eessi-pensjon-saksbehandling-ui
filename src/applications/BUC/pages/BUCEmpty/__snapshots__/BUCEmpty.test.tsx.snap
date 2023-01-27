@@ -1,219 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applications/BUC/widgets/BUCEmpty/BUCEmpty Render: match snapshot 1`] = `
-.c13 {
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
-  -webkit-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
-  background-color: !important;
-  color: !important;
-  border-color: !important;
-}
-
-.c13:hover:not(:disabled) {
-  background-color: !important;
-  border-color: !important;
-  color: !important;
-}
-
-.c13:hover:not(:disabled) svg {
-  color: !important;
-}
-
-.c13:hover:not(:disabled) svg path {
-  stroke: !important;
-}
-
-.c13:focus {
-  box-shadow: 0 0 0 3px !important;
-}
-
-.c13:disabled {
-  color: !important;
-  background-color: !important;
-  border-color: !important;
-}
-
-.c13:disabled svg {
-  color: !important;
-}
-
-.c13:disabled svg path {
-  stroke: !important;
-}
-
-.c13:disabled .knapp__spinner {
-  border: 2px solid !important;
-  border-top-color: !important;
-  border-right-color: !important;
-}
-
-.c13 .knapp__spinner {
-  border: 2px solid !important;
-  border-left-color: !important;
-  border-bottom-color: !important;
-}
-
-.c13 svg {
-  color: !important;
-}
-
-.c13 svg path {
-  stroke: !important;
-}
-
-ui-fss.g5[id="c12"] {
-  content: "c13,";
-}
-
-.c9 input {
-  border-style: solid;
-}
-
-.c9 input:focus {
-  box-shadow: 0 0 0 3px;
-}
-
-ui-fss.g6[id="c8"] {
-  content: "c9,";
-}
-
-.c15 {
-  -webkit-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
-  background-color: inherit !important;
-  color: !important;
-  border-color: !important;
-}
-
-.c15:hover:not(:disabled) {
-  background-color: !important;
-  color: !important;
-}
-
-.c15:hover:not(:disabled) svg {
-  color: !important;
-}
-
-.c15:hover:not(:disabled) svg path {
-  stroke: !important;
-}
-
-.c15:disabled {
-  color: !important;
-  background-color: !important;
-  border-color: !important;
-}
-
-.c15:disabled svg {
-  color: !important;
-}
-
-.c15:disabled svg path {
-  stroke: !important;
-}
-
-.c15:disabled .knapp__spinner {
-  border: 2px solid !important;
-  border-top-color: !important;
-  border-right-color: !important;
-}
-
-.c15 .knapp__spinner {
-  border: 2px solid !important;
-  border-left-color: !important;
-  border-bottom-color: !important;
-}
-
-.c15:not(:disabled) svg {
-  color: !important;
-}
-
-.c15:not(:disabled) svg path {
-  stroke: !important;
-}
-
-ui-fss.g7[id="c14"] {
-  content: "c15,";
-}
-
-.c19 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-size: inherit;
-  line-height: inherit;
-  color: !important;
-}
-
-.c19:focus {
-  background-color: !important;
-  color: !important;
-}
-
-.c19 svg {
-  fill: !important;
-  stroke: !important;
-}
-
-.c19 svg path {
-  stroke: !important;
-}
-
-.c19 svg:focus {
-  fill: !important;
-  stroke: !important;
-}
-
-ui-fss.g10[id="c18"] {
-  content: "c19,";
-}
-
-.c11 {
+exports[`applications/BUC/components/BUCEmpty/BUCEmpty Render: match snapshot 1`] = `
+.c9 {
   display: inline-block;
   margin-left: 1rem;
 }
 
-.c20 {
-  display: inline-block;
-  margin-left: 0.5rem;
-}
-
-ui-fss.g31[id="c10"] {
-  content: "c11,c20,";
+ui-fss.g18[id="c8"] {
+  content: "c9,heHwTk,";
 }
 
 .c5 {
   margin-bottom: 1rem;
 }
 
-ui-fss.g32[id="c4"] {
+ui-fss.g19[id="c4"] {
   content: "c5,";
-}
-
-.c17 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row-reverse;
-  -ms-flex-direction: row-reverse;
-  flex-direction: row-reverse;
-  width: 100%;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-ui-fss.g50[id="c16"] {
-  content: "c17,";
 }
 
 .c1 {
@@ -221,8 +23,10 @@ ui-fss.g50[id="c16"] {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  border-color: var(--navds-semantic-color-border);
   border-style: solid;
   border-width: 1px;
+  border-radius: 4px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -235,9 +39,10 @@ ui-fss.g50[id="c16"] {
   -ms-flex-direction: column;
   flex-direction: column;
   padding: 2rem;
+  background-color: var(--navds-semantic-color-component-background-alternate);
 }
 
-ui-fss.g51[id="c0"] {
+ui-fss.g42[id="c0"] {
   content: "c1,";
 }
 
@@ -277,7 +82,7 @@ ui-fss.g51[id="c0"] {
   position: absolute;
 }
 
-ui-fss.g52[id="c2"] {
+ui-fss.g43[id="c2"] {
   content: "c3,";
 }
 
@@ -299,300 +104,123 @@ ui-fss.g52[id="c2"] {
   margin-bottom: 0px !important;
 }
 
-ui-fss.g53[id="c6"] {
+ui-fss.g44[id="c6"] {
   content: "c7,";
 }
 
-<BUCEmpty>
-  <styled.div>
+<div
+  class="c0 c1"
+>
+  <div
+    class="c2 c3"
+  >
+    <img
+      alt=""
+      class="monitor"
+      src="dataskjerm.png"
+    />
+    <img
+      alt=""
+      class="cup"
+      src="kop.png"
+    />
+    <img
+      alt=""
+      class="mouse"
+      src="NAVmusematte.png"
+    />
+    <img
+      alt=""
+      class="map"
+      src="saksstatus.png"
+    />
+  </div>
+  <div
+    class="c4 c5"
+  />
+  <div
+    class="c6 c7"
+  >
     <div
-      className="c0 c1"
+      class="navds-form-field navds-form-field--medium"
     >
-      <styled.div>
-        <div
-          className="c2 c3"
-        >
-          <img
-            alt=""
-            className="monitor"
-            src="dataskjerm.png"
-          />
-          <img
-            alt=""
-            className="cup"
-            src="kop.png"
-          />
-          <img
-            alt=""
-            className="mouse"
-            src="NAVmusematte.png"
-          />
-          <img
-            alt=""
-            className="map"
-            src="saksstatus.png"
-          />
-        </div>
-      </styled.div>
-      <styled.div>
-        <div
-          className="c4 c5"
-        />
-      </styled.div>
-      <styled.div>
-        <div
-          className="c6 c7"
-        >
-          <Styled(b)
-            bredde="fullbredde"
-            data-testid="a-buc-p-bucempty__aktoerid-input-id"
-            feil={false}
-            id="a-buc-p-bucempty__aktoerid-input-id"
-            label="ui:aktoerId"
-            onChange={[Function]}
-            value=""
-          >
-            <b
-              bredde="fullbredde"
-              className="c8 c9"
-              data-testid="a-buc-p-bucempty__aktoerid-input-id"
-              feil={false}
-              id="a-buc-p-bucempty__aktoerid-input-id"
-              label="ui:aktoerId"
-              onChange={[Function]}
-              value=""
-            >
-              <div
-                className="skjemaelement c8 c9"
-              >
-                <c
-                  htmlFor="a-buc-p-bucempty__aktoerid-input-id"
-                >
-                  <label
-                    className="skjemaelement__label"
-                    htmlFor="a-buc-p-bucempty__aktoerid-input-id"
-                  >
-                    ui:aktoerId
-                  </label>
-                </c>
-                <input
-                  aria-invalid={false}
-                  className="skjemaelement__input input--fullbredde"
-                  data-testid="a-buc-p-bucempty__aktoerid-input-id"
-                  id="a-buc-p-bucempty__aktoerid-input-id"
-                  onChange={[Function]}
-                  type="text"
-                  value=""
-                />
-              </div>
-            </b>
-          </Styled(b)>
-          <styled.div>
-            <div
-              className="c10 c11"
-            />
-          </styled.div>
-          <Styled(u)
-            data-testid="a-buc-p-bucempty__aktoerid-button-id"
-            onClick={[Function]}
-          >
-            <u
-              className="c12 c13"
-              data-testid="a-buc-p-bucempty__aktoerid-button-id"
-              onClick={[Function]}
-            >
-              <p
-                autoDisableVedSpinner={false}
-                className="c12 c13"
-                data-testid="a-buc-p-bucempty__aktoerid-button-id"
-                disabled={false}
-                htmlType="submit"
-                inaktivKlasseVedDisabled={false}
-                kompakt={false}
-                mini={false}
-                onClick={[Function]}
-                spinner={false}
-                type="hoved"
-              >
-                <button
-                  className="knapp c12 c13 knapp--hoved"
-                  data-testid="a-buc-p-bucempty__aktoerid-button-id"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="submit"
-                >
-                  ui:add
-                </button>
-              </p>
-            </u>
-          </Styled(u)>
-        </div>
-      </styled.div>
-      <styled.div>
-        <div
-          className="c6 c7"
-        >
-          <Styled(b)
-            bredde="fullbredde"
-            data-testid="a-buc-p-bucempty__sakid-input-id"
-            feil={false}
-            id="a-buc-p-bucempty__sakid-input-id"
-            label="buc:form-caseId"
-            onChange={[Function]}
-            value=""
-          >
-            <b
-              bredde="fullbredde"
-              className="c8 c9"
-              data-testid="a-buc-p-bucempty__sakid-input-id"
-              feil={false}
-              id="a-buc-p-bucempty__sakid-input-id"
-              label="buc:form-caseId"
-              onChange={[Function]}
-              value=""
-            >
-              <div
-                className="skjemaelement c8 c9"
-              >
-                <c
-                  htmlFor="a-buc-p-bucempty__sakid-input-id"
-                >
-                  <label
-                    className="skjemaelement__label"
-                    htmlFor="a-buc-p-bucempty__sakid-input-id"
-                  >
-                    buc:form-caseId
-                  </label>
-                </c>
-                <input
-                  aria-invalid={false}
-                  className="skjemaelement__input input--fullbredde"
-                  data-testid="a-buc-p-bucempty__sakid-input-id"
-                  id="a-buc-p-bucempty__sakid-input-id"
-                  onChange={[Function]}
-                  type="text"
-                  value=""
-                />
-              </div>
-            </b>
-          </Styled(b)>
-          <styled.div>
-            <div
-              className="c10 c11"
-            />
-          </styled.div>
-          <Styled(u)
-            data-testid="a-buc-p-bucempty__sakid-button-id"
-            onClick={[Function]}
-          >
-            <u
-              className="c14 c15"
-              data-testid="a-buc-p-bucempty__sakid-button-id"
-              onClick={[Function]}
-            >
-              <p
-                autoDisableVedSpinner={false}
-                className="c14 c15"
-                data-testid="a-buc-p-bucempty__sakid-button-id"
-                disabled={false}
-                htmlType="submit"
-                inaktivKlasseVedDisabled={false}
-                kompakt={false}
-                mini={false}
-                onClick={[Function]}
-                spinner={false}
-                type="standard"
-              >
-                <button
-                  className="knapp c14 c15 knapp--standard"
-                  data-testid="a-buc-p-bucempty__sakid-button-id"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="submit"
-                >
-                  ui:add
-                </button>
-              </p>
-            </u>
-          </Styled(u)>
-        </div>
-      </styled.div>
-    </div>
-  </styled.div>
-  <BUCFooter>
-    <styled.div>
-      <div
-        className="c16 c17"
+      <label
+        class="navds-form-field__label navds-label"
+        for="a-buc-p-bucempty--aktoerid-input-id"
       >
-        <Styled(f)
-          data-amplitude="buc.list.rinaurl"
-          data-testid="a-buc-c-bucfooter__gotorina-link"
-          href="http://mock.url"
-          onClick={[Function]}
-          target="rinaWindow"
-        >
-          <f
-            className="c18 c19"
-            data-amplitude="buc.list.rinaurl"
-            data-testid="a-buc-c-bucfooter__gotorina-link"
-            href="http://mock.url"
-            onClick={[Function]}
-            target="rinaWindow"
-          >
-            <a
-              className="lenke c18 c19"
-              data-amplitude="buc.list.rinaurl"
-              data-testid="a-buc-c-bucfooter__gotorina-link"
-              href="http://mock.url"
-              onClick={[Function]}
-              rel="noopener"
-              target="rinaWindow"
-            >
-              ui:goToRina
-              <styled.div
-                size="0.5"
-              >
-                <div
-                  className="c10 c20"
-                  size="0.5"
-                />
-              </styled.div>
-              <LogoutIcon
-                color="#0067c5"
-              >
-                <svg
-                  color="#0067c5"
-                  contentScriptType="text/ecmascript"
-                  contentStyleType="text/css"
-                  enableBackground="new 0 0 24 24"
-                  height="24px"
-                  id="Outline_Version"
-                  preserveAspectRatio="xMidYMid meet"
-                  version="1.1"
-                  viewBox="0 0 24 24"
-                  width="24px"
-                  x="0px"
-                  xmlns="http://www.w3.org/2000/svg"
-                  y="0px"
-                  zoomAndPan="magnify"
-                >
-                  <g
-                    fill="#0067c5"
-                  >
-                    <path
-                      d="M13.5,18c-0.276,0-0.5,0.224-0.5,0.5V22H1V2h12v3.5C13,5.776,13.224,6,13.5,6S14,5.776,14,5.5v-4C14,1.224,13.776,1,13.5,1   h-13C0.224,1,0,1.224,0,1.5v21C0,22.776,0.224,23,0.5,23h13c0.276,0,0.5-0.224,0.5-0.5v-4C14,18.224,13.776,18,13.5,18z"
-                    />
-                    <path
-                      d="M23.961,12.691c0.051-0.122,0.051-0.26,0-0.382c-0.025-0.062-0.062-0.117-0.108-0.163l-5-5 c-0.195-0.195-0.512-0.195-0.707,0s-0.195,0.512,0,0.707L22.293,12H5.5C5.224,12,5,12.224,5,12.5S5.224,13,5.5,13h16.793   l-4.146,4.146c-0.195,0.195-0.195,0.512,0,0.707C18.244,17.951,18.372,18,18.5,18s0.256-0.049,0.354-0.146l5-5   C23.899,12.808,23.936,12.752,23.961,12.691z"
-                    />
-                  </g>
-                </svg>
-              </LogoutIcon>
-            </a>
-          </f>
-        </Styled(f)>
-      </div>
-    </styled.div>
-  </BUCFooter>
-</BUCEmpty>
+        ui:aktoerId
+      </label>
+      <input
+        aria-invalid="false"
+        class="navds-text-field__input navds-body-short navds-body-medium"
+        data-testid="a-buc-p-bucempty--aktoerid-input-id"
+        id="a-buc-p-bucempty--aktoerid-input-id"
+        type="text"
+        value=""
+      />
+      <div
+        aria-live="polite"
+        aria-relevant="additions removals"
+        class="navds-form-field__error"
+        id="textField-error-:r3:"
+      />
+    </div>
+    <div
+      class="c8 c9"
+    />
+    <button
+      class="navds-button navds-button--primary navds-button--medium"
+      data-testid="a-buc-p-bucempty--aktoerid-button-id"
+    >
+      <span
+        aria-live="polite"
+        class="navds-label"
+      >
+        ui:add
+      </span>
+    </button>
+  </div>
+  <div
+    class="c6 c7"
+  >
+    <div
+      class="navds-form-field navds-form-field--medium"
+    >
+      <label
+        class="navds-form-field__label navds-label"
+        for="a-buc-p-bucempty--sakid-input-id"
+      >
+        buc:form-caseId
+      </label>
+      <input
+        aria-invalid="false"
+        class="navds-text-field__input navds-body-short navds-body-medium"
+        data-testid="a-buc-p-bucempty--sakid-input-id"
+        id="a-buc-p-bucempty--sakid-input-id"
+        type="text"
+        value=""
+      />
+      <div
+        aria-live="polite"
+        aria-relevant="additions removals"
+        class="navds-form-field__error"
+        id="textField-error-:r4:"
+      />
+    </div>
+    <div
+      class="c8 c9"
+    />
+    <button
+      class="navds-button navds-button--primary navds-button--medium"
+      data-testid="a-buc-p-bucempty--sakid-button-id"
+    >
+      <span
+        aria-live="polite"
+        class="navds-label"
+      >
+        ui:add
+      </span>
+    </button>
+  </div>
+</div>
 `;

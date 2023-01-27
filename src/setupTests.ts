@@ -4,6 +4,10 @@ import { act } from 'react-dom/test-utils'
 import { useDispatch, useSelector } from 'react-redux'
 import 'jest-styled-components'
 import '@testing-library/jest-dom/extend-expect'
+import { TextEncoder, TextDecoder } from 'util';
+(global as any).TextEncoder = TextEncoder;
+(global as any).TextDecoder = TextDecoder;
+
 jest.mock('react-redux');
 
 (global as any).screen = screen;

@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`widgets/Overview/PersonTitle Render: match snapshot 1`] = `
+exports[`applications/PersonPanel/PersonTitle Render: match snapshot 1`] = `
 .c3 {
   display: inline-block;
   margin-left: 1rem;
 }
 
-ui-fss.g31[id="c2"] {
+ui-fss.g18[id="c2"] {
   content: "c3,";
 }
 
@@ -26,141 +26,31 @@ ui-fss.g31[id="c2"] {
   filter: grayscale(100%);
 }
 
-ui-fss.g53[id="c0"] {
+ui-fss.g44[id="c0"] {
   content: "c1,";
 }
 
-<PersonTitle
-  gettingPersonInfo={false}
-  person={
-    Object {
-      "adressebeskyttelse": Array [
-        "UGRADERT",
-      ],
-      "bostedsadresse": Object {
-        "gyldigFraOgMed": "2020-01-01",
-        "gyldigTilOgMed": "2021-01-01",
-        "utenlandskAdresse": Object {
-          "landkode": "SE",
-        },
-        "vegadresse": Object {
-          "adressenavn": "Adressenavn",
-          "husbokstav": "A",
-          "husnummer": "00",
-          "postnummer": "0768",
-        },
-      },
-      "doedsfall": null,
-      "familierelasjoner": Array [
-        Object {
-          "minRolleForPerson": "FAR",
-          "relatertPersonsIdent": "personBarnFnr",
-          "relatertPersonsRolle": "BARN",
-        },
-        Object {
-          "minRolleForPerson": "BARN",
-          "relatertPersonsIdent": "personFarFnr",
-          "relatertPersonsRolle": "FAR",
-        },
-        Object {
-          "minRolleForPerson": "BARN",
-          "relatertPersonsIdent": "personMorFnr",
-          "relatertPersonsRolle": "MOR",
-        },
-      ],
-      "foedsel": Object {
-        "foedeland": null,
-        "foedested": null,
-        "foedselsdato": "1980-02-09",
-        "folkeregistermetadata": Object {
-          "gyldighetstidspunkt": "2020-10-12T11:40:56",
-        },
-      },
-      "geografiskTilknytning": null,
-      "identer": Array [
-        Object {
-          "gruppe": "FOLKEREGISTERIDENT",
-          "ident": "personFnr",
-        },
-        Object {
-          "gruppe": "AKTORID",
-          "ident": "personAktoerId",
-        },
-      ],
-      "kjoenn": Object {
-        "folkeregistermetadata": Object {
-          "gyldighetstidspunkt": "2020-10-12T11:40:56",
-        },
-        "kjoenn": "MANN",
-      },
-      "navn": Object {
-        "etternavn": "SAKS",
-        "fornavn": "LEALAUS",
-        "mellomnavn": null,
-        "sammensattNavn": "LEALAUS SAKS",
-      },
-      "oppholdsadresse": Object {
-        "gyldigFraOgMed": "2022-01-01",
-        "gyldigTilOgMed": "2023-01-01",
-        "utenlandskAdresse": Object {
-          "landkode": "FI",
-        },
-        "vegadresse": Object {
-          "adressenavn": "Adressenavn2",
-          "husbokstav": "B",
-          "husnummer": "01",
-          "postnummer": "0768",
-        },
-      },
-      "sivilstand": Array [
-        Object {
-          "gyldigFraOgMed": "2007-10-10",
-          "relatertVedSivilstand": "20047520887",
-          "type": "GIFT",
-        },
-      ],
-      "statsborgerskap": Array [
-        Object {
-          "gyldigFraOgMed": "1980-02-09",
-          "gyldigTilOgMed": null,
-          "land": "NOR",
-        },
-      ],
-    }
-  }
+<div
+  class="c0 c1"
 >
-  <styled.div>
-    <div
-      className="c0 c1"
-    >
-      <img
-        alt="nav-man-icon"
-        className=""
-        data-testid="w-persontitle__img"
-        src="icon-mann.png"
-        width={40}
-      />
-      <styled.div>
-        <div
-          className="c2 c3"
-        />
-      </styled.div>
-      <Systemtittel>
-        <TypografiBase
-          type="systemtittel"
-        >
-          <h2
-            className="typo-systemtittel"
-          >
-            LEALAUS SAKS
-             (
-            41
-            ) -
-            personFnr
-          </h2>
-        </TypografiBase>
-      </Systemtittel>
-    </div>
-  </styled.div>
-</PersonTitle>
+  <img
+    alt="nav-man-icon"
+    class=""
+    data-testid="w-persontitle--img"
+    src="icon-mann.png"
+    width="40"
+  />
+  <div
+    class="c2 c3"
+  />
+  <h1
+    class="navds-heading navds-heading--medium"
+  >
+    LEALAUS SAKS
+     (
+    42
+    ) - 
+    personFnr
+  </h1>
+</div>
 `;

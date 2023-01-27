@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Alert/Alert Render: match snapshot 1`] = `
+.c1 {
+  opacity: 0;
+  -webkit-animation: kGLwuF 1s forwards;
+  animation: kGLwuF 1s forwards;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  border-radius: 0px !important;
+  border: 0px !important;
+}
+
+.c1 .alertstripe--tekst {
+  display: -webkit-box !important;
+  display: -webkit-flex !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  max-width: none !important;
+}
+
+ui-fss.g40[id="c0"] {
+  content: "c1,";
+}
+
+.c3 {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  cursor: pointer;
+}
+
+ui-fss.g41[id="c2"] {
+  content: "c3,";
+}
+
+<div
+  class="c0 c1 status-error navds-alert navds-alert--error navds-alert--medium"
+  role="alert"
+>
+  <svg
+    aria-labelledby="title-:r0:"
+    class="navds-alert__icon"
+    fill="none"
+    focusable="false"
+    height="1em"
+    role="img"
+    viewBox="0 0 24 24"
+    width="1em"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <title
+      id="title-:r0:"
+    >
+      Feil
+    </title>
+    <path
+      d="M11.999 0C5.395 0 .013 5.372 0 11.976a11.923 11.923 0 0 0 3.498 8.493A11.925 11.925 0 0 0 11.977 24H12c6.603 0 11.986-5.373 12-11.978C24.012 5.406 18.64.012 11.999 0Z"
+      fill="#BA3A26"
+    />
+    <path
+      d="m12 10.651 3.372-3.372a.954.954 0 1 1 1.349 1.35L13.349 12l3.372 3.372a.954.954 0 1 1-1.35 1.349L12 13.349 8.628 16.72a.954.954 0 1 1-1.349-1.35L10.651 12 7.28 8.628A.954.954 0 1 1 8.63 7.28L12 10.651Z"
+      fill="#fff"
+    />
+  </svg>
+  <div
+    class="navds-alert__wrapper navds-body-long"
+  >
+    mockErrorMessage
+    <svg
+      class="c2 c3"
+      data-testid="c-alert--close-icon"
+      fill="none"
+      focusable="false"
+      height="1em"
+      role="img"
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clip-rule="evenodd"
+        d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0Zm3.571 7L17 8.429 13.428 12 17 15.571 15.571 17 12 13.428 8.429 17 7 15.571 10.572 12 7 8.429 8.429 7 12 10.572 15.571 7Z"
+        fill="currentColor"
+        fill-rule="evenodd"
+      />
+    </svg>
+  </div>
+</div>
+`;

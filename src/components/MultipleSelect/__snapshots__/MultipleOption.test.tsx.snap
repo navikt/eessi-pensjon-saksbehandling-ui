@@ -13,319 +13,35 @@ ui-fss.g1[id="c0"] {
   content: "c1,";
 }
 
-<MultipleOption
-  clearValue={[MockFunction]}
-  cx={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          Object {
-            "option": true,
-            "option--is-disabled": false,
-            "option--is-focused": false,
-            "option--is-selected": false,
-          },
-          undefined,
-        ],
-      ],
-      "results": Array [
-        Object {
-          "type": "return",
-          "value": undefined,
-        },
-      ],
-    }
-  }
-  data={
-    Object {
-      "label": "mockLabel",
-      "value": "mockValue",
-    }
-  }
-  getStyles={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          "option",
-          Object {
-            "children": <Styled(Component)
-              checked={false}
-              data-testid="c-multipleoption__checkbox--mockValue"
-              id="c-multipleoption__checkbox--mockValue"
-              onChange={[Function]}
-            >
-              mockLabel
-            </Styled(Component)>,
-            "clearValue": [MockFunction],
-            "cx": [MockFunction] {
-              "calls": Array [
-                Array [
-                  Object {
-                    "option": true,
-                    "option--is-disabled": false,
-                    "option--is-focused": false,
-                    "option--is-selected": false,
-                  },
-                  undefined,
-                ],
-              ],
-              "results": Array [
-                Object {
-                  "type": "return",
-                  "value": undefined,
-                },
-              ],
-            },
-            "data": Object {
-              "label": "mockLabel",
-              "value": "mockValue",
-            },
-            "getStyles": [MockFunction] {
-              "calls": [Circular],
-              "results": Array [
-                Object {
-                  "type": "return",
-                  "value": undefined,
-                },
-              ],
-            },
-            "getValue": [MockFunction],
-            "hasValue": false,
-            "id": undefined,
-            "innerProps": Object {
-              "onClick": [MockFunction],
-            },
-            "innerRef": [Function],
-            "isDisabled": false,
-            "isFocused": false,
-            "isMulti": true,
-            "isRtl": false,
-            "isSelected": false,
-            "label": "",
-            "options": Array [],
-            "selectOption": [MockFunction],
-            "selectProps": Object {},
-            "setValue": [MockFunction],
-            "theme": undefined,
-            "type": "option",
-          },
-        ],
-      ],
-      "results": Array [
-        Object {
-          "type": "return",
-          "value": undefined,
-        },
-      ],
-    }
-  }
-  getValue={[MockFunction]}
-  hasValue={false}
-  innerProps={
-    Object {
-      "onClick": [MockFunction],
-    }
-  }
-  innerRef={[Function]}
-  isDisabled={false}
-  isFocused={false}
-  isMulti={true}
-  isRtl={false}
-  isSelected={false}
-  label=""
-  options={Array []}
-  selectOption={[MockFunction]}
-  selectProps={Object {}}
-  setValue={[MockFunction]}
-  type="option"
+<div
+  aria-disabled="false"
+  class="css-0"
 >
-  <Option
-    clearValue={[MockFunction]}
-    cx={
-      [MockFunction] {
-        "calls": Array [
-          Array [
-            Object {
-              "option": true,
-              "option--is-disabled": false,
-              "option--is-focused": false,
-              "option--is-selected": false,
-            },
-            undefined,
-          ],
-        ],
-        "results": Array [
-          Object {
-            "type": "return",
-            "value": undefined,
-          },
-        ],
-      }
-    }
-    data={
-      Object {
-        "label": "mockLabel",
-        "value": "mockValue",
-      }
-    }
-    getStyles={
-      [MockFunction] {
-        "calls": Array [
-          Array [
-            "option",
-            Object {
-              "children": <Styled(Component)
-                checked={false}
-                data-testid="c-multipleoption__checkbox--mockValue"
-                id="c-multipleoption__checkbox--mockValue"
-                onChange={[Function]}
-              >
-                mockLabel
-              </Styled(Component)>,
-              "clearValue": [MockFunction],
-              "cx": [MockFunction] {
-                "calls": Array [
-                  Array [
-                    Object {
-                      "option": true,
-                      "option--is-disabled": false,
-                      "option--is-focused": false,
-                      "option--is-selected": false,
-                    },
-                    undefined,
-                  ],
-                ],
-                "results": Array [
-                  Object {
-                    "type": "return",
-                    "value": undefined,
-                  },
-                ],
-              },
-              "data": Object {
-                "label": "mockLabel",
-                "value": "mockValue",
-              },
-              "getStyles": [MockFunction] {
-                "calls": [Circular],
-                "results": Array [
-                  Object {
-                    "type": "return",
-                    "value": undefined,
-                  },
-                ],
-              },
-              "getValue": [MockFunction],
-              "hasValue": false,
-              "id": undefined,
-              "innerProps": Object {
-                "onClick": [MockFunction],
-              },
-              "innerRef": [Function],
-              "isDisabled": false,
-              "isFocused": false,
-              "isMulti": true,
-              "isRtl": false,
-              "isSelected": false,
-              "label": "",
-              "options": Array [],
-              "selectOption": [MockFunction],
-              "selectProps": Object {},
-              "setValue": [MockFunction],
-              "theme": undefined,
-              "type": "option",
-            },
-          ],
-        ],
-        "results": Array [
-          Object {
-            "type": "return",
-            "value": undefined,
-          },
-        ],
-      }
-    }
-    getValue={[MockFunction]}
-    hasValue={false}
-    innerProps={
-      Object {
-        "onClick": [MockFunction],
-      }
-    }
-    innerRef={[Function]}
-    isDisabled={false}
-    isFocused={false}
-    isMulti={true}
-    isRtl={false}
-    isSelected={false}
-    label=""
-    options={Array []}
-    selectOption={[MockFunction]}
-    selectProps={Object {}}
-    setValue={[MockFunction]}
-    type="option"
+  <div
+    class="c0 c1 navds-checkbox navds-checkbox--medium"
   >
-    <EmotionCssPropInternal
-      __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
-      aria-disabled={false}
-      onClick={[MockFunction]}
+    <input
+      aria-checked="false"
+      aria-invalid="false"
+      class="navds-checkbox__input"
+      data-testid="c-multipleoption--checkbox--mockValue"
+      id="c-multipleoption--checkbox--mockValue"
+      type="checkbox"
+    />
+    <label
+      class="navds-checkbox__label"
+      for="c-multipleoption--checkbox--mockValue"
     >
-      <Noop />
-      <div
-        aria-disabled={false}
-        className="css-0"
-        onClick={[MockFunction]}
+      <span
+        class="navds-checkbox__content"
       >
-        <Styled(Component)
-          checked={false}
-          data-testid="c-multipleoption__checkbox--mockValue"
-          id="c-multipleoption__checkbox--mockValue"
-          onChange={[Function]}
+        <span
+          class="navds-body-short"
         >
-          <ForwardRef
-            checked={false}
-            className="c0 c1"
-            data-testid="c-multipleoption__checkbox--mockValue"
-            id="c-multipleoption__checkbox--mockValue"
-            onChange={[Function]}
-          >
-            <div
-              className="c0 c1 navds-checkbox navds-checkbox--medium"
-            >
-              <input
-                aria-checked={false}
-                aria-invalid={false}
-                checked={false}
-                className="navds-checkbox__input"
-                data-testid="c-multipleoption__checkbox--mockValue"
-                id="c-multipleoption__checkbox--mockValue"
-                onChange={[Function]}
-                type="checkbox"
-              />
-              <label
-                className="navds-checkbox__label"
-                htmlFor="c-multipleoption__checkbox--mockValue"
-              >
-                <div
-                  className="navds-checkbox__content"
-                >
-                  <ForwardRef
-                    as="div"
-                    size="medium"
-                  >
-                    <div
-                      className="navds-body-short"
-                    >
-                      mockLabel
-                    </div>
-                  </ForwardRef>
-                </div>
-              </label>
-            </div>
-          </ForwardRef>
-        </Styled(Component)>
-      </div>
-    </EmotionCssPropInternal>
-  </Option>
-</MultipleOption>
+          mockLabel
+        </span>
+      </span>
+    </label>
+  </div>
+</div>
 `;

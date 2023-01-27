@@ -61,41 +61,41 @@ ui-fss.g4[id="c4"] {
     class="c2 c3"
     data-testid="a_buc_c_SEDPanelHeader--sed"
   >
-    <p
+    <label
       class="navds-label"
     >
       buc:form-sed
-    </p>
+    </label>
   </div>
   <div
     class="c4 c5"
     data-testid="a_buc_c_SEDPanelHeader--sender"
   >
-    <p
+    <label
       class="navds-label"
     >
       buc:form-sender
-    </p>
+    </label>
   </div>
   <div
     class="c4 c5"
     data-testid="a_buc_c_SEDPanelHeader--receiver"
   >
-    <p
+    <label
       class="navds-label"
     >
       buc:form-receiver
-    </p>
+    </label>
   </div>
   <div
     class="c6 c7"
     data-testid="a_buc_c_SEDPanelHeader--actions"
   >
-    <p
+    <label
       class="navds-label"
     >
       buc:form-actions
-    </p>
+    </label>
   </div>
 </div>
 `;

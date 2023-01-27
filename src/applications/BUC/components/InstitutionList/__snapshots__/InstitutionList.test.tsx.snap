@@ -1,21 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications/BUC/components/InstitutionList/InstitutionList Render: match snapshot 1`] = `
-.c5 {
+.c7 {
   -webkit-perspective: 1000px;
   -moz-perspective: 1000px;
   -ms-perspective: 1000px;
   perspective: 1000px;
   display: inline-block;
+  line-height: 0px;
+  margin: 0.25rem;
 }
 
-.c5.animate {
+.c7.animate {
   opacity: 0.01;
   -webkit-animation: iPdXhn 0.5s forwards;
   animation: iPdXhn 0.5s forwards;
 }
 
-.c5.type-original.wave div {
+.c7.type-original.wave div {
   -webkit-transform-origin: left top;
   -ms-transform-origin: left top;
   transform-origin: left top;
@@ -23,7 +25,7 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Render: mat
   animation: eRATHR 4s ease-in-out infinite;
 }
 
-.c5.type-circle.wave div img {
+.c7.type-circle.wave div img {
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
   transform: scale(1.1);
@@ -34,22 +36,22 @@ exports[`applications/BUC/components/InstitutionList/InstitutionList Render: mat
   animation: eRATHR 4s ease-in-out infinite;
 }
 
-ui-fss.g49[id="c4"] {
-  content: "c5,";
+ui-fss.g1[id="c6"] {
+  content: "c7,";
 }
 
-.c7.type-circle {
+.c9.type-circle {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  border: 1px solid #6a6a6a;
+  border: 1px solid var(--navds-semantic-color-border);
   border-radius: 50%;
   overflow: hidden;
   position: relative;
 }
 
-.c7.type-circle img {
+.c9.type-circle img {
   position: absolute;
   margin: auto;
   top: -999px;
@@ -58,7 +60,7 @@ ui-fss.g49[id="c4"] {
   right: -999px;
 }
 
-.c7.type-circle.size-XS {
+.c9.type-circle.size-XS {
   width: 16px;
   height: 16px;
   min-width: 16px;
@@ -67,11 +69,11 @@ ui-fss.g49[id="c4"] {
   max-height: 16px;
 }
 
-.c7.type-circle.size-XS img {
+.c9.type-circle.size-XS img {
   height: 18px;
 }
 
-.c7.type-circle.size-S {
+.c9.type-circle.size-S {
   width: 24px;
   height: 24px;
   min-width: 24px;
@@ -80,11 +82,11 @@ ui-fss.g49[id="c4"] {
   max-height: 24px;
 }
 
-.c7.type-circle.size-S img {
+.c9.type-circle.size-S img {
   height: 26px;
 }
 
-.c7.type-circle.size-M {
+.c9.type-circle.size-M {
   width: 32px;
   height: 32px;
   min-width: 32px;
@@ -93,11 +95,11 @@ ui-fss.g49[id="c4"] {
   max-height: 32px;
 }
 
-.c7.type-circle.size-M img {
+.c9.type-circle.size-M img {
   height: 35px;
 }
 
-.c7.type-circle.size-L {
+.c9.type-circle.size-L {
   width: 40px;
   height: 40px;
   min-width: 40px;
@@ -106,11 +108,11 @@ ui-fss.g49[id="c4"] {
   max-height: 40px;
 }
 
-.c7.type-circle.size-L img {
+.c9.type-circle.size-L img {
   height: 45px;
 }
 
-.c7.type-circle.size-XL {
+.c9.type-circle.size-XL {
   width: 48px;
   height: 48px;
   min-width: 48px;
@@ -119,11 +121,11 @@ ui-fss.g49[id="c4"] {
   max-height: 48px;
 }
 
-.c7.type-circle.size-XL img {
+.c9.type-circle.size-XL img {
   height: 54px;
 }
 
-.c7.type-circle.size-XXL {
+.c9.type-circle.size-XXL {
   width: 72px;
   height: 72px;
   min-width: 72px;
@@ -132,48 +134,56 @@ ui-fss.g49[id="c4"] {
   max-height: 72px;
 }
 
-.c7.type-circle.size-XXL img {
+.c9.type-circle.size-XXL img {
   height: 82px;
 }
 
-.c7.type-original.size-XS img {
+.c9.type-original.size-XS img {
   height: 16px;
   min-height: 16px;
   width: auto;
 }
 
-.c7.type-original.size-S img {
+.c9.type-original.size-S img {
   height: 24px;
   min-height: 24px;
   width: auto;
 }
 
-.c7.type-original.size-M img {
+.c9.type-original.size-M img {
   height: 32px;
   min-height: 32px;
   width: auto;
 }
 
-.c7.type-original.size-L img {
+.c9.type-original.size-L img {
   height: 40px;
   min-height: 40px;
   width: auto;
 }
 
-.c7.type-original.size-XL img {
+.c9.type-original.size-XL img {
   height: 48px;
   min-height: 48px;
   width: auto;
 }
 
-.c7.type-original.size-XXL img {
+.c9.type-original.size-XXL img {
   height: 72px;
   min-height: 72px;
   width: auto;
 }
 
-ui-fss.g50[id="c6"] {
-  content: "c7,";
+ui-fss.g2[id="c8"] {
+  content: "c9,";
+}
+
+.c5 {
+  padding: 0.25rem;
+}
+
+ui-fss.g5[id="c4"] {
+  content: "c5,";
 }
 
 .c3 {
@@ -194,7 +204,7 @@ ui-fss.g50[id="c6"] {
   margin-bottom: 0.35rem;
 }
 
-ui-fss.g54[id="c2"] {
+ui-fss.g6[id="c2"] {
   content: "c3,";
 }
 
@@ -209,31 +219,35 @@ ui-fss.g54[id="c2"] {
   flex-direction: column;
 }
 
-ui-fss.g55[id="c0"] {
+ui-fss.g7[id="c0"] {
   content: "c1,";
 }
 
-.c9 {
+.c11 {
   margin-left: 0.5rem;
 }
 
-ui-fss.g56[id="c8"] {
-  content: "c9,";
+.c11.oneLine {
+  white-space: nowrap;
+}
+
+ui-fss.g8[id="c10"] {
+  content: "c11,";
 }
 
 @media all and (-ms-high-contrast:none),(-ms-high-contrast:active) {
-  .c7.type-original {
+  .c9.type-original {
     display: inline-block;
   }
 
-  .c7.type-original img {
-    border: 1px solid #6a6a6a;
+  .c9.type-original img {
+    border: 1px solid var(--navds-semantic-color-border);
   }
 }
 
 @supports not (-ms-high-contrast:none) {
-  .c7.type-original {
-    border: 1px solid #6a6a6a;
+  .c9.type-original {
+    border: 1px solid var(--navds-semantic-color-border);
     display: -webkit-inline-box;
     display: -webkit-inline-flex;
     display: -ms-inline-flexbox;
@@ -241,512 +255,52 @@ ui-fss.g56[id="c8"] {
   }
 }
 
-<InstitutionList
-  institutions={
-    Array [
-      Object {
-        "country": "NO",
-        "institution": "Mock1",
-      },
-      Object {
-        "country": "NO",
-        "institution": "Mock2",
-      },
-    ]
-  }
-  locale="nb"
+<div
+  class="c0 c1"
 >
-  <styled.div
-    key="NO"
+  <div
+    class="c2 c3"
+    data-testid="a_buc_c_institutionlist--div-id"
   >
     <div
-      className="c0 c1"
+      aria-hidden="true"
+      class="navds-popover navds-popover--hidden"
+      data-placement="top"
+      style="position: absolute; top: 0px; left: 0px;"
+      tabindex="-1"
     >
-      <styled.div
-        data-testid="a-buc-c-institutionlist__div-id"
+      <span
+        class="c4 c5"
+      >
+        Norge
+      </span>
+      <div
+        class="navds-popover__arrow"
+        style="bottom: -0.5rem;"
+      />
+    </div>
+    <div
+      id="flag-f8aa9959-f6b4-402e-88bc-f28e0e0b7fcb"
+      style="display: inline-block;"
+    >
+      <div
+        class="c6 c7 size-S type-circle animate"
       >
         <div
-          className="c2 c3"
-          data-testid="a-buc-c-institutionlist__div-id"
+          class="c8 c9 size-S type-circle"
         >
-          <Yh
-            animate={true}
-            country="NO"
-            label="Norge"
-            size="S"
-            type="circle"
-            wave={false}
-          >
-            <he
-              highContrast={false}
-            >
-              <Component
-                theme={
-                  Object {
-                    "alternative-background-color": "#FFFFFF",
-                    "alternative-hover-color": "#cce1ff",
-                    "alternative-interactive-color": "#0074df",
-                    "black": "#000000",
-                    "border-radius-base": "4px",
-                    "border-radius-large": "6px",
-                    "border-radius-small": "2px",
-                    "container-desktop": "(940px + @grid-gutter-width)",
-                    "container-large-desktop": "(1140px + @grid-gutter-width)",
-                    "container-lg": "(1140px + @grid-gutter-width)",
-                    "container-md": "(940px + @grid-gutter-width)",
-                    "container-sm": "(720px + @grid-gutter-width)",
-                    "container-tablet": "(720px + @grid-gutter-width)",
-                    "fokusFarge": "#00347d",
-                    "grayBackground": "#f1f1f1",
-                    "grayIcon": "#a0a0a0",
-                    "grayInactive": "#6a6a6a",
-                    "grayModia": "#333333",
-                    "grid-columns": "12",
-                    "grid-float-breakpoint": "768px",
-                    "grid-float-breakpoint-max": "(@grid-float-breakpoint - 1)",
-                    "grid-gutter-width": "16px",
-                    "inverted-font-color": "#FFFFFF",
-                    "line-height-large": "1.3333333",
-                    "line-height-small": "1.5",
-                    "main-active-color": "#005b82",
-                    "main-background-color": "#f1f1f1",
-                    "main-border-color": "#6a6a6a",
-                    "main-border-radius": "4px",
-                    "main-border-width": "1px",
-                    "main-disabled-color": "#a0a0a0",
-                    "main-error-color": "#ba3a26",
-                    "main-focus-color": "#00347d",
-                    "main-font-color": "#262626",
-                    "main-hover-color": "#99c3ff",
-                    "main-interactive-color": "#0067c5",
-                    "main-success-color": "#06893a",
-                    "main-warning-color": "#ff9100",
-                    "navBakgrunn": "#ffffff",
-                    "navBla": "#0067c5",
-                    "navBlaDarken20": "#0056b4",
-                    "navBlaDarken40": "#00459c",
-                    "navBlaDarken60": "#00347d",
-                    "navBlaDarken80": "#002252",
-                    "navBlaLighten20": "#3386e0",
-                    "navBlaLighten40": "#66a5f4",
-                    "navBlaLighten60": "#99c3ff",
-                    "navBlaLighten80": "#cce1ff",
-                    "navDypBla": "#005b82",
-                    "navDypBlaDarken20": "#005077",
-                    "navDypBlaDarken40": "#004367",
-                    "navDypBlaDarken60": "#003453",
-                    "navDypBlaDarken80": "#00243a",
-                    "navDypBlaLighten20": "#3380a5",
-                    "navDypBlaLighten40": "#66a3c4",
-                    "navDypBlaLighten60": "#99c4dd",
-                    "navDypBlaLighten80": "#cce2f0",
-                    "navGra20": "#c9c9c9",
-                    "navGra40": "#a0a0a0",
-                    "navGra60": "#6a6a6a",
-                    "navGra80": "#4f4f4f",
-                    "navGraBakgrunn": "#f1f1f1",
-                    "navGronn": "#06893a",
-                    "navGronnDarken20": "#007c2e",
-                    "navGronnDarken40": "#006a23",
-                    "navGronnDarken60": "#005519",
-                    "navGronnDarken80": "#003b0f",
-                    "navGronnLighten20": "#33aa5f",
-                    "navGronnLighten40": "#66c786",
-                    "navGronnLighten60": "#99dead",
-                    "navGronnLighten80": "#ccf1d6",
-                    "navLilla": "#634689",
-                    "navLillaDarken20": "#523874",
-                    "navLillaDarken40": "#412b5d",
-                    "navLillaDarken60": "#301f46",
-                    "navLillaDarken80": "#1f142f",
-                    "navLillaLighten20": "#8269a2",
-                    "navLillaLighten40": "#a18dbb",
-                    "navLillaLighten60": "#c0b2d2",
-                    "navLillaLighten80": "#e0d8e9",
-                    "navLimeGronn": "#a2ad00",
-                    "navLimeGronnDarken20": "#939e00",
-                    "navLimeGronnDarken40": "#7f8900",
-                    "navLimeGronnDarken60": "#666e00",
-                    "navLimeGronnDarken80": "#474e00",
-                    "navLimeGronnLighten20": "#c1cb33",
-                    "navLimeGronnLighten40": "#d9e366",
-                    "navLimeGronnLighten60": "#ecf399",
-                    "navLimeGronnLighten80": "#f9fccc",
-                    "navLysBla": "#66cbec",
-                    "navLysBlaDarken20": "#4cadcd",
-                    "navLysBlaDarken40": "#368da8",
-                    "navLysBlaDarken60": "#236b7d",
-                    "navLysBlaDarken80": "#134852",
-                    "navLysBlaLighten20": "#7cdaf8",
-                    "navLysBlaLighten40": "#97e6ff",
-                    "navLysBlaLighten60": "#b5f1ff",
-                    "navLysBlaLighten80": "#d8f9ff",
-                    "navLysGra": "#f1f1f1",
-                    "navMorkGra": "#262626",
-                    "navOransje": "#ff9100",
-                    "navOransjeDarken20": "#d47b00",
-                    "navOransjeDarken40": "#a86400",
-                    "navOransjeDarken60": "#7d4c00",
-                    "navOransjeDarken80": "#523300",
-                    "navOransjeLighten20": "#ffaa33",
-                    "navOransjeLighten40": "#ffc166",
-                    "navOransjeLighten60": "#ffd799",
-                    "navOransjeLighten80": "#ffeccc",
-                    "navRod": "#c30000",
-                    "padding-base-horizontal": "12px",
-                    "padding-base-vertical": "6px",
-                    "padding-large-horizontal": "16px",
-                    "padding-large-vertical": "10px",
-                    "padding-small-horizontal": "10px",
-                    "padding-small-vertical": "5px",
-                    "padding-xs-horizontal": "5px",
-                    "padding-xs-vertical": "1px",
-                    "pinkErrorBg": "#f3e3e3",
-                    "redError": "#ba3a26",
-                    "redErrorDarken20": "#a32a17",
-                    "redErrorDarken40": "#881d0c",
-                    "redErrorDarken60": "#6a1204",
-                    "redErrorDarken80": "#480900",
-                    "redErrorLighten20": "#d05c4a",
-                    "redErrorLighten40": "#e18071",
-                    "redErrorLighten60": "#efa89d",
-                    "redErrorLighten80": "#f9d2cc",
-                    "screen-desktop": "992px",
-                    "screen-lg": "1200px",
-                    "screen-lg-desktop": "1200px",
-                    "screen-lg-min": "1200px",
-                    "screen-md": "992px",
-                    "screen-md-max": "(@screen-lg-min - 1)",
-                    "screen-md-min": "992px",
-                    "screen-sm": "768px",
-                    "screen-sm-max": "(@screen-md-min - 1)",
-                    "screen-sm-min": "768px",
-                    "screen-tablet": "768px",
-                    "screen-xs-max": "(@screen-sm-min - 1)",
-                    "type": "theme",
-                    "white": "#FFFFFF",
-                  }
-                }
-              >
-                <ForwardRef(Tooltip)
-                  overlay={
-                    <span>
-                      Norge
-                    </span>
-                  }
-                  placement="top"
-                  trigger={
-                    Array [
-                      "hover",
-                    ]
-                  }
-                >
-                  <Trigger
-                    action={
-                      Array [
-                        "hover",
-                      ]
-                    }
-                    afterPopupVisibleChange={[Function]}
-                    autoDestroy={false}
-                    blurDelay={0.15}
-                    builtinPlacements={
-                      Object {
-                        "bottom": Object {
-                          "offset": Array [
-                            0,
-                            4,
-                          ],
-                          "overflow": Object {
-                            "adjustX": 1,
-                            "adjustY": 1,
-                          },
-                          "points": Array [
-                            "tc",
-                            "bc",
-                          ],
-                          "targetOffset": Array [
-                            0,
-                            0,
-                          ],
-                        },
-                        "bottomLeft": Object {
-                          "offset": Array [
-                            0,
-                            4,
-                          ],
-                          "overflow": Object {
-                            "adjustX": 1,
-                            "adjustY": 1,
-                          },
-                          "points": Array [
-                            "tl",
-                            "bl",
-                          ],
-                          "targetOffset": Array [
-                            0,
-                            0,
-                          ],
-                        },
-                        "bottomRight": Object {
-                          "offset": Array [
-                            0,
-                            4,
-                          ],
-                          "overflow": Object {
-                            "adjustX": 1,
-                            "adjustY": 1,
-                          },
-                          "points": Array [
-                            "tr",
-                            "br",
-                          ],
-                          "targetOffset": Array [
-                            0,
-                            0,
-                          ],
-                        },
-                        "left": Object {
-                          "offset": Array [
-                            -4,
-                            0,
-                          ],
-                          "overflow": Object {
-                            "adjustX": 1,
-                            "adjustY": 1,
-                          },
-                          "points": Array [
-                            "cr",
-                            "cl",
-                          ],
-                          "targetOffset": Array [
-                            0,
-                            0,
-                          ],
-                        },
-                        "leftBottom": Object {
-                          "offset": Array [
-                            -4,
-                            0,
-                          ],
-                          "overflow": Object {
-                            "adjustX": 1,
-                            "adjustY": 1,
-                          },
-                          "points": Array [
-                            "br",
-                            "bl",
-                          ],
-                          "targetOffset": Array [
-                            0,
-                            0,
-                          ],
-                        },
-                        "leftTop": Object {
-                          "offset": Array [
-                            -4,
-                            0,
-                          ],
-                          "overflow": Object {
-                            "adjustX": 1,
-                            "adjustY": 1,
-                          },
-                          "points": Array [
-                            "tr",
-                            "tl",
-                          ],
-                          "targetOffset": Array [
-                            0,
-                            0,
-                          ],
-                        },
-                        "right": Object {
-                          "offset": Array [
-                            4,
-                            0,
-                          ],
-                          "overflow": Object {
-                            "adjustX": 1,
-                            "adjustY": 1,
-                          },
-                          "points": Array [
-                            "cl",
-                            "cr",
-                          ],
-                          "targetOffset": Array [
-                            0,
-                            0,
-                          ],
-                        },
-                        "rightBottom": Object {
-                          "offset": Array [
-                            4,
-                            0,
-                          ],
-                          "overflow": Object {
-                            "adjustX": 1,
-                            "adjustY": 1,
-                          },
-                          "points": Array [
-                            "bl",
-                            "br",
-                          ],
-                          "targetOffset": Array [
-                            0,
-                            0,
-                          ],
-                        },
-                        "rightTop": Object {
-                          "offset": Array [
-                            4,
-                            0,
-                          ],
-                          "overflow": Object {
-                            "adjustX": 1,
-                            "adjustY": 1,
-                          },
-                          "points": Array [
-                            "tl",
-                            "tr",
-                          ],
-                          "targetOffset": Array [
-                            0,
-                            0,
-                          ],
-                        },
-                        "top": Object {
-                          "offset": Array [
-                            0,
-                            -4,
-                          ],
-                          "overflow": Object {
-                            "adjustX": 1,
-                            "adjustY": 1,
-                          },
-                          "points": Array [
-                            "bc",
-                            "tc",
-                          ],
-                          "targetOffset": Array [
-                            0,
-                            0,
-                          ],
-                        },
-                        "topLeft": Object {
-                          "offset": Array [
-                            0,
-                            -4,
-                          ],
-                          "overflow": Object {
-                            "adjustX": 1,
-                            "adjustY": 1,
-                          },
-                          "points": Array [
-                            "bl",
-                            "tl",
-                          ],
-                          "targetOffset": Array [
-                            0,
-                            0,
-                          ],
-                        },
-                        "topRight": Object {
-                          "offset": Array [
-                            0,
-                            -4,
-                          ],
-                          "overflow": Object {
-                            "adjustX": 1,
-                            "adjustY": 1,
-                          },
-                          "points": Array [
-                            "br",
-                            "tr",
-                          ],
-                          "targetOffset": Array [
-                            0,
-                            0,
-                          ],
-                        },
-                      }
-                    }
-                    defaultPopupVisible={false}
-                    destroyPopupOnHide={false}
-                    focusDelay={0}
-                    getDocument={[Function]}
-                    getPopupClassNameFromAlign={[Function]}
-                    hideAction={Array []}
-                    mask={false}
-                    maskClosable={true}
-                    mouseEnterDelay={0}
-                    mouseLeaveDelay={0.1}
-                    onPopupAlign={[Function]}
-                    onPopupVisibleChange={[Function]}
-                    overlay={
-                      <span>
-                        Norge
-                      </span>
-                    }
-                    popup={[Function]}
-                    popupAlign={Object {}}
-                    popupClassName=""
-                    popupPlacement="top"
-                    popupStyle={Object {}}
-                    prefixCls="rc-tooltip"
-                    showAction={Array []}
-                  >
-                    <styled.div
-                      className="size-S type-circle animate"
-                      key="trigger"
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      style={Object {}}
-                    >
-                      <div
-                        className="c4 c5 size-S type-circle animate"
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        style={Object {}}
-                      >
-                        <styled.div
-                          className="size-S type-circle"
-                        >
-                          <div
-                            className="c6 c7 size-S type-circle"
-                          >
-                            <img
-                              alt="Norge"
-                              src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 800'%3e %3crect width='1100' height='800' fill='%23ef2b2d'/%3e %3crect width='200' height='800' x='300' fill='%23fff'/%3e %3crect width='1100' height='200' y='300' fill='%23fff'/%3e %3crect width='100' height='800' x='350' fill='%23002868'/%3e %3crect width='1100' height='100' y='350' fill='%23002868'/%3e %3c/svg%3e"
-                              style={Object {}}
-                            />
-                          </div>
-                        </styled.div>
-                      </div>
-                    </styled.div>
-                  </Trigger>
-                </ForwardRef(Tooltip)>
-              </Component>
-            </he>
-          </Yh>
-          <Styled(Normaltekst)>
-            <Normaltekst
-              className="c8 c9"
-            >
-              <TypografiBase
-                className="c8 c9"
-                type="normaltekst"
-              >
-                <p
-                  className="typo-normal c8 c9"
-                >
-                  Mock1, Mock2
-                </p>
-              </TypografiBase>
-            </Normaltekst>
-          </Styled(Normaltekst)>
+          <img
+            alt="Norge"
+            src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 800'%3e %3crect width='1100' height='800' fill='%23ef2b2d'/%3e %3crect width='200' height='800' x='300' fill='%23fff'/%3e %3crect width='1100' height='200' y='300' fill='%23fff'/%3e %3crect width='100' height='800' x='350' fill='%23002868'/%3e %3crect width='1100' height='100' y='350' fill='%23002868'/%3e %3c/svg%3e"
+          />
         </div>
-      </styled.div>
+      </div>
     </div>
-  </styled.div>
-</InstitutionList>
+    <p
+      class="c10 c11 navds-body-long"
+    >
+      Mock1, Mock2
+    </p>
+  </div>
+</div>
 `;
