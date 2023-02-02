@@ -60,10 +60,15 @@
   "buc-X008" : "Ugyldiggjør SED",
   "buc-X009" : "Purring",
   "buc-X010" : "Svar på purring",
+  "buc-X011" : "Avvis SED",
   "buc-X050" : "Unntaksfeil",
   "buc-X100" : "Endre deltaker",
 
   "buc-M040" : "Krav om førtidspensjon",
+  "buc-M050" : "Anmodning om informasjonom inntekt - særskilte innskuddsfrie kontantytelser",
+  "buc-M051" : "Svar på anmodning om informasjonom inntekt - særskilte innskuddsfrie kontantytelser",
+  "buc-M052" : "Anmodning om informasjon om ansettelsesforhold/selvstendig næringsvirksomhet/bosetningsperioder - særskilte innskuddsfrie kontantytelser",
+  "buc-M053" : "Svar på anmodning om informasjon om ansettelsesforhold/selvstendig næringsvirksomhet/bosetningsperioder - særskilte innskuddsfrie kontantytelser",
 
   "form-addSelectedAttachments"       : "Legg til markerte vedlegg",
   "form-andre-seder"                  : "Andre SED-er",
@@ -76,7 +81,6 @@
   "form-BUCtools"                     : "Verktøy",
   "form-P5000-warning"                : "Det finnes tilleggsperioder uten start- og sluttdato i denne P5000. Disse periodene finner du i P5000 som er lagret i dokumentoversikten.",
   "form-actions"                      : "Aksjoner",
-  "form-addSelectedAttachments"       : "Legg til markerte vedlegg",
   "form-alderspensjon"                : "Alderspensjon",
   "form-answerSED"                    : "Besvar SED",
   "form-attachmentsSent"              : "Vedlegg sendt",
