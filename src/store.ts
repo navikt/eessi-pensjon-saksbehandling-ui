@@ -5,7 +5,7 @@ import reducers from 'reducers'
 
 const store = configureStore({
   reducer: reducers,
-  devTools: process.env.NODE_ENV !== 'production'
+  //devTools: process.env.NODE_ENV !== 'production'
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
