@@ -108,7 +108,11 @@ const BUCListExcludingJoark: React.FC<BUCListExcludingJoarkProps> = ({
     }
   }, [bucs, bucsList, gettingBucs])
 
-  setShowWarningNoBucs(!gettingBucs && _.isEmpty(bucsList))
+  useEffect(() => {
+    if(!gettingBucs && bucsList && bucsList.length === 0){
+      setShowWarningNoBucs(true)
+    }
+  }, [gettingBucs, bucsList])
 
   return (
     <>

@@ -70,7 +70,8 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
 
   const [_newBucPanelOpen, setNewBucPanelOpen] = useState<boolean | undefined>(initialBucNew)
   const [_showWarningFilteredBucs, setShowWarningFilteredBucs] = useState<boolean>(false)
-  const [_showWarningNoBucs, setShowWarningNoBucs] = useState<boolean>(false)
+  const [_showWarningNoBucsJoark, setShowWarningNoBucsJoark] = useState<boolean | undefined>(false)
+  const [_showWarningNoBucsExcludingJoark, setShowWarningNoBucsExcludingJoark] = useState<boolean | undefined>(false)
 
   const onBUCNew = (e: React.MouseEvent<HTMLButtonElement>): void => {
     buttonLogger(e)
@@ -143,7 +144,7 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
       </BUCStartDiv>
       <VerticalSeparatorDiv />
 
-      {_showWarningNoBucs &&
+      {_showWarningNoBucsJoark === true && _showWarningNoBucsExcludingJoark === true &&
         <>
           <VerticalSeparatorDiv size='2' />
           <BodyLong>
@@ -164,8 +165,8 @@ const BUCListBrukerKontekst: React.FC<BUCListProps> = ({
         </>
       }
 
-      <BUCListExcludingJoark setMode={setMode} setShowWarningFilteredBucs={setShowWarningFilteredBucs} setShowWarningNoBucs={setShowWarningNoBucs}/>
-      <BUCListJoark setMode={setMode} setShowWarningFilteredBucs={setShowWarningFilteredBucs} setShowWarningNoBucs={setShowWarningNoBucs}/>
+      <BUCListExcludingJoark setMode={setMode} setShowWarningFilteredBucs={setShowWarningFilteredBucs} setShowWarningNoBucs={setShowWarningNoBucsExcludingJoark}/>
+      <BUCListJoark setMode={setMode} setShowWarningFilteredBucs={setShowWarningFilteredBucs} setShowWarningNoBucs={setShowWarningNoBucsJoark}/>
 
       {showAvdodFnrSearch &&
         <AvdodFnrSearch setNewBucPanelOpen={setNewBucPanelOpen}/>
