@@ -110,7 +110,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
 }: SEDHeaderProps): JSX.Element => {
   const { locale, storageEntries }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
-  const followUpSeds: Array<Sed> = buc.seds!.filter(_sed => _sed.parentDocumentId === sed.id && _sed.status !== 'sent')
+  const followUpSeds: Array<Sed> = buc.seds!.filter(_sed => _sed.parentDocumentId === sed.id && _sed.status === 'empty')
 
   const institutionSenderList: Institutions = sed.participants
     ? sed.participants
@@ -142,9 +142,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
 
   const onFollowUpSedClicked = (e: React.MouseEvent) => {
     buttonLogger(e)
-    console.log(buc.seds)
-    console.log(sed.id)
-    console.log(followUpSeds)
     onFollowUpSed(buc, sed, followUpSeds)
   }
 
