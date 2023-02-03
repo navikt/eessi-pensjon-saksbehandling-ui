@@ -155,7 +155,6 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     if (buc.type === 'P_BUC_06' && uniqueSed) {
       dispatch(alertFailure(t('message:error-uniqueSed', { sed: uniqueSed.type })))
     } else {
-      console.log(followUpSeds)
       dispatch(setFollowUpSeds(sed, followUpSeds))
       setStartSed('open')
       if (componentRef && componentRef!.current) {
