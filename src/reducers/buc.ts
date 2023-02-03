@@ -759,7 +759,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     }
 
     case types.BUC_SEDLIST_SET:
-
+      console.log((action as ActionWithPayload).payload)
       return {
         ...state,
         sedList: (action as ActionWithPayload).payload
