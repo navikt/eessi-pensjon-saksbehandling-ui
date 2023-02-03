@@ -142,6 +142,9 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
 
   const onFollowUpSedClicked = (e: React.MouseEvent) => {
     buttonLogger(e)
+    console.log(buc.seds)
+    console.log(sed.id)
+    console.log(followUpSeds)
     onFollowUpSed(buc, sed, followUpSeds)
   }
 
