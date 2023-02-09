@@ -195,36 +195,14 @@ export default {
     ],
     "ansattSelvstendigPerioder": [
       {
-        "jobbUnderAnsattEllerSelvstendig": "Sjauer",
+        "jobbUnderAnsattEllerSelvstendig": null,
         "annenInformasjon": null,
-        "adresseFirma": {
-          "gate": null,
-          "bygning": null,
-          "by": "Oslo",
-          "postnummer": null,
-          "postkode": null,
-          "region": null,
-          "land": "NO",
-          "kontaktpersonadresse": null,
-          "datoforadresseendring": null,
-          "postadresse": null,
-          "startdato": null,
-          "type": null,
-          "annen": null
-        },
-        "periode": {
-          "lukketPeriode": {
-            "fom": "2016-01-05",
-            "tom": "2017-02-02",
-            "extra": null
-          },
-          "openPeriode": null,
-          "periodebeskrivelse": null
-        },
+        "adresseFirma": null,
+        "periode": null,
         "forsikkringEllerRegistreringNr": null,
-        "navnFirma": "Ringnes",
-        "typePeriode": "01",
-        "usikkerDatoIndikator": "1"
+        "navnFirma": null,
+        "typePeriode": null,
+        "usikkerDatoIndikator": null
       },
       {
         "jobbUnderAnsattEllerSelvstendig": "Sjåfør",

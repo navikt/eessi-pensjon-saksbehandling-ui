@@ -9,5 +9,6 @@
     "dagpenger-label": "Dagpenger",
     "sykepenger-label": "Sykepenger",
     "andre-label": "Andre",
-    "title": "Perioder oppgitt av bruker på P4000 fra {{ORGANISATION_NAME}} i {{ORGANISATION_COUNTRY}}"
+    "title": "Perioder oppgitt av bruker på P4000 fra {{ORGANISATION_NAME}} i {{ORGANISATION_COUNTRY}}",
+    "ikke-angitt": "Ikke angitt"
 }

@@ -86,18 +86,20 @@ const P4000: React.FC<P4000Props> = ({
   const generateKeyForListRow = (periode: any, type: string, idx: number): string => {
     const key = idx + '_sedId' + p4000?.sedId +
       '_type' + type +
-      '_land' + (type === "arbeid" ? periode.adresseFirma.land : periode.land) +
+      '_land' + (type === P4000_ARBEID && periode.adresseFirma && periode.adresseFirma.land ? periode.adresseFirma.land : periode.land) +
       '_fom' + (!_.isEmpty(periode.periode?.lukketPeriode?.fom) ? periode.periode?.lukketPeriode?.fom : '-') +
       '_tom' + (!_.isEmpty(periode.periode?.lukketPeriode?.tom) ? periode.periode?.lukketPeriode?.tom : '-')
     return md5(key)
   }
 
   const getPeriodeDates = (periode: P4000PeriodObject) => {
-    let fom, tom
-    if(periode.lukketPeriode) {
+    let fom: Date | String | undefined | null = t('p4000:ikke-angitt')
+    let tom: Date | String | undefined | null = t('p4000:ikke-angitt')
+
+    if(periode && periode.lukketPeriode) {
       fom = periode.lukketPeriode.fom ? new Date(periode.lukketPeriode.fom) : null
       tom = periode.lukketPeriode.tom ? new Date(periode.lukketPeriode.tom) : null
-    } else if (periode.openPeriode){
+    } else if (periode && periode.openPeriode){
       fom = periode.openPeriode.fom ? new Date(periode.openPeriode.fom) : null
     }
 
@@ -111,18 +113,27 @@ const P4000: React.FC<P4000Props> = ({
     if(!perioder) return []
     return perioder.map((periode: any, idx: number) => {
       const {fom, tom} = getPeriodeDates(periode.periode)
+      let land = periode.land
+      let sted, yrke, arbeidstakerSelvstendig, arbeidsgiver
+      if(type === P4000_ARBEID){
+        land = periode.adresseFirma && periode.adresseFirma.land ? periode.adresseFirma.land : null
+        sted = periode.adresseFirma && periode.adresseFirma.by ? _.capitalize(periode.adresseFirma.by) : t('p4000:ikke-angitt')
+        yrke = periode.jobbUnderAnsattEllerSelvstendig ? periode.jobbUnderAnsattEllerSelvstendig : t('p4000:ikke-angitt')
+        arbeidstakerSelvstendig = periode.typePeriode ? periode.typePeriode === "01" ? "Arbeidstaker" : "Selvstendig" : t('p4000:ikke-angitt')
+        arbeidsgiver = periode.navnFirma ? periode.navnFirma : t('p4000:ikke-angitt')
+      }
       return {
         key: generateKeyForListRow(periode, type, idx),
-        land: type === P4000_ARBEID ? periode.adresseFirma.land : periode.land,
+        land,
         type: t('p4000:' + type + '-label'),
         startdato: fom,
         sluttdato: tom,
-        usikreDatoer: periode.usikkerDatoIndikator ? periode.usikkerDatoIndikator === "0" ? "Nei" : "Ja" : null,
+        usikreDatoer: periode.usikkerDatoIndikator ? periode.usikkerDatoIndikator === "0" ? "Nei" : "Ja" : t('p4000:ikke-angitt'),
         tilleggsInfo: periode.annenInformasjon ? "Ja" : "Nei",
-        arbeidsgiver: type === P4000_ARBEID ? periode.navnFirma : null,
-        sted: type === P4000_ARBEID ? _.capitalize(periode.adresseFirma.by) : null,
-        yrke: type === P4000_ARBEID ? periode.jobbUnderAnsattEllerSelvstendig : null,
-        arbeidstakerSelvstendig: type === P4000_ARBEID ? periode.typePeriode === "01" ? "Arbeidstaker" : "Selvstendig" : null
+        arbeidsgiver,
+        sted,
+        yrke,
+        arbeidstakerSelvstendig
       }
     })
   }
@@ -186,7 +197,7 @@ const P4000: React.FC<P4000Props> = ({
 
   const renderLand = ({ value }: RenderOptions<P4000ListRow, P4000TableContext, string>) => {
     if (_.isEmpty(value)) {
-      return <div>-</div>
+      return <div>{t('p4000:ikke-angitt')}</div>
     }
     return <div>{countryInstance.findByValue(value)?.label}</div>
   }
