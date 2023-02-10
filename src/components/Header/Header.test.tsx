@@ -1,7 +1,7 @@
 import { clearData } from 'actions/app'
 import { toggleHighContrast } from 'actions/ui'
 import * as routes from 'constants/routes'
-import { render } from '@testing-library/react'
+import { screen, render } from '@testing-library/react'
 import { stageSelector } from 'setupTests'
 import Header, { HeaderProps } from './Header'
 
@@ -14,32 +14,20 @@ jest.mock('actions/ui', () => ({
 
 const mockHistoryPush = jest.fn()
 
-jest.mock('react-router-dom', () => {
-  return {
-    useHistory: () => ({
-      push: mockHistoryPush
-    }),
-    useLocation: () => ({
-      pathname: '/mockPathname'
-    })
-  }
-})
+jest.mock("react-router-dom", () => ({
+  useNavigate: () => mockHistoryPush,
+}));
 
 describe('components/Header/Header', () => {
-  let wrapper: any
-
   const initialMockProps: HeaderProps = {
     username: 'testUser'
   }
 
   beforeEach(() => {
     stageSelector({}, {})
-    wrapper = render(<Header {...initialMockProps} />)
+    render(<Header {...initialMockProps} />)
   })
 
-  afterEach(() => {
-    wrapper.unmount()
-  })
 
   it('Render: match snapshot', () => {
     const { container } = render(<Header {...initialMockProps} />)
@@ -49,7 +37,7 @@ describe('components/Header/Header', () => {
   it('Handling: clicking logo is handled', () => {
     (clearData as jest.Mock).mockReset();
     (mockHistoryPush as jest.Mock).mockReset()
-    wrapper.find('[data-testid=\'c-header--logo-link\']').hostNodes().simulate('click')
+    screen.getByTestId('c-header--logo-link').click()
     expect(clearData).toHaveBeenCalled()
     expect(mockHistoryPush).toHaveBeenCalledWith({
       pathname: routes.ROOT,
@@ -59,7 +47,7 @@ describe('components/Header/Header', () => {
 
   it('Handling: Clicking highConstrast handled', () => {
     (toggleHighContrast as jest.Mock).mockReset()
-    wrapper.find('[data-testid=\'c-header--highcontrast-link-id').hostNodes().simulate('click')
+    screen.getByTestId('c-header--highcontrast-link-id').click()
     expect(toggleHighContrast).toHaveBeenCalled()
   })
 })
