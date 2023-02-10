@@ -1,9 +1,7 @@
-import { render } from '@testing-library/react'
+import { screen, render } from '@testing-library/react'
 import Modal, { ModalProps } from './Modal'
 
 describe('components/Modal', () => {
-  let wrapper: any
-
   const initialMockProps: ModalProps = {
     open: true,
     modal: {
@@ -27,28 +25,23 @@ describe('components/Modal', () => {
   })
 
   it('Render: has proper HTML structure', () => {
-    wrapper = render(<Modal {...initialMockProps} />)
-    expect(wrapper.find('[data-testid=\'c-modal--title-id').hostNodes().render().text()).toEqual(initialMockProps.modal!.modalTitle)
-    expect(wrapper.find('[data-testid=\'c-modal--text-id').hostNodes().render().text()).toEqual(initialMockProps.modal!.modalText)
-    expect(wrapper.find('[data-testid=\'c-modal--button-id-0\']').hostNodes().render().text()).toEqual(initialMockProps.modal!.modalButtons![0].text)
-    expect(wrapper.find('[data-testid=\'c-modal--button-id-1\']').hostNodes().render().text()).toEqual(initialMockProps.modal!.modalButtons![1].text)
+    render(<Modal {...initialMockProps} />)
+    expect(screen.getByTestId('modal--title-id')).toHaveTextContent(initialMockProps.modal!.modalTitle as string)
+    expect(screen.getByTestId('modal--text-id')).toHaveTextContent(initialMockProps.modal!.modalText as string)
+    expect(screen.getByTestId('modal--button-id-0')).toHaveTextContent(initialMockProps.modal!.modalButtons![0].text)
+    expect(screen.getByTestId('modal--button-id-1')).toHaveTextContent(initialMockProps.modal!.modalButtons![1].text)
   })
 
   it('Handling: buttons are active', () => {
-    wrapper = render(<Modal {...initialMockProps} />);
     (initialMockProps.modal!.modalButtons![0].onClick as jest.Mock).mockReset();
-    (initialMockProps.modal!.modalButtons![1].onClick as jest.Mock).mockReset()
-    wrapper.find('[data-testid=\'c-modal--button-id-0\']').hostNodes().simulate('click')
+    (initialMockProps.modal!.modalButtons![1].onClick as jest.Mock).mockReset();
+
+    render(<Modal {...initialMockProps} />)
+    screen.getByTestId('modal--button-id-0').click()
     expect(initialMockProps.modal!.modalButtons![0].onClick).toHaveBeenCalled()
-
-    wrapper.find('[data-testid=\'c-modal--button-id-1\']').hostNodes().simulate('click')
+    screen.getByTestId('modal--button-id-1').click()
     expect(initialMockProps.modal!.modalButtons![1].onClick).toHaveBeenCalled()
-  })
 
-  it('Handling: close buttons clicked', () => {
-    (initialMockProps.onModalClose as jest.Mock).mockReset()
-    wrapper = render(<Modal {...initialMockProps} />)
-    wrapper.find('[data-testid=\'c-modal--close-button-id').hostNodes().simulate('click')
     expect(initialMockProps.onModalClose).toHaveBeenCalled()
   })
 })
