@@ -139,6 +139,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             data-tip={t('ui:preview')}
             disabled={previewing}
             id={'c-tablesorter--preview-button-' + item.journalpostId + '-' + item.dokumentInfoId}
+            data-testid={'c-tablesorter--preview-button-' + item.journalpostId + '-' + item.dokumentInfoId}
             className='c-tablesorter--preview-button'
             onClick={() => onPreviewItem(item as JoarkBrowserItem)}
           >
