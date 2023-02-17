@@ -82,8 +82,6 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
     (getJoarkItemPreview as jest.Mock).mockReset()
     render(<JoarkBrowser {...initialMockProps} mode='select' />)
     fireEvent.click(screen.getByTestId('c-tablesorter--preview-button-2-3'))
-
-    //screen.debug(null, 200000)
     expect(getJoarkItemPreview).toHaveBeenCalledWith(expect.objectContaining({
       date: new Date('2010-11-01T11:26:55.000Z'),
       disabled: true,
