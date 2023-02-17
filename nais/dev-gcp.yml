@@ -14,7 +14,9 @@ spec:
     application:
       enabled: true
       allowAllUsers: true
-
+      claims:
+        extra:
+          - NAVident
   env:
     - name: NAV_TRUSTSTORE_KEYSTOREALIAS
       value: na
