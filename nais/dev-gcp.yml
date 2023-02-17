@@ -12,6 +12,7 @@ spec:
       autoLogin: false
       errorPath: "/errorlogon"
     application:
+      enabled: true
       allowAllUsers: true
 
   env:
