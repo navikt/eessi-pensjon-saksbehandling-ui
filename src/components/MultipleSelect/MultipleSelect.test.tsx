@@ -1,10 +1,8 @@
 import { Option } from 'declarations/app.d'
 import MultipleSelect, { MultipleSelectProps } from './MultipleSelect'
-import { render } from '@testing-library/react'
+import {screen, render, fireEvent} from '@testing-library/react'
 
 describe('components/MultipleSelect/MultipleSelect', () => {
-  let wrapper: any
-
   const options = [
     { label: 'mockLabel01', value: 'mockValue01' },
     { label: 'mockLabel02', value: 'mockValue02' }
@@ -24,27 +22,20 @@ describe('components/MultipleSelect/MultipleSelect', () => {
     values: [options[1]]
   }
 
-  beforeEach(() => {
-    wrapper = render(<MultipleSelect {...initialMockProps} />)
-  })
-
-  afterEach(() => {
-    wrapper.unmount()
-  })
-
   it('Render: match snapshot', () => {
     const { container } = render(<MultipleSelect {...initialMockProps} />)
     expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.find('c-multipleSelect')).toBeTruthy()
+    render(<MultipleSelect {...initialMockProps} />)
+    expect(screen.getByTestId('c-multipleSelect')).toBeInTheDocument()
   })
 
   it('Handling: Triggers onSelect', () => {
-    (initialMockProps.onSelect as jest.Mock).mockReset()
-    wrapper.find('input').hostNodes().simulate('keyDown', { key: 'ArrowDown' })
-    wrapper.find('input').hostNodes().first().simulate('keyDown', { key: 'Enter' })
+    render(<MultipleSelect {...initialMockProps} />)
+    fireEvent.keyDown(screen.getByRole('combobox'), { key: 'ArrowDown' })
+    fireEvent.keyDown(screen.getByRole('combobox'), { key: 'Enter' })
     expect(initialMockProps.onSelect).toHaveBeenCalledWith([options[1], options[0]])
   })
 })

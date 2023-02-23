@@ -56,6 +56,7 @@ const MultipleSelect = <T extends Option> ({
   return (
     <MultipleSelectDiv
       className={classNames(className, { skjemaelement__feilmelding: error })}
+      data-testid='c-multipleSelect'
     >
       {label && (<label className='navds-text-field--label navds-label' htmlFor={inputId}>{label}</label>)}
       <Component

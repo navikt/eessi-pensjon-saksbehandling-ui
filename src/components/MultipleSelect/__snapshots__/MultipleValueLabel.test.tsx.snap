@@ -19,6 +19,7 @@ ui-fss.g1[id="c0"] {
 <div>
   <div
     class="c0 c1"
+    data-testid="c-multipleselect-multivaluelabel"
   >
     <p
       class="navds-body-long"

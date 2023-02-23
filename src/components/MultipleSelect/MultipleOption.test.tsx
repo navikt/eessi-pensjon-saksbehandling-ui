@@ -3,8 +3,6 @@ import { render, screen } from '@testing-library/react'
 import MultipleOption, { MultipleOptionProps } from './MultipleOption'
 
 describe('components/MultipleSelect/MultipleOption', () => {
-  let wrapper: any
-
   const initialMockProps: MultipleOptionProps<Option> = {
     innerRef (): void {},
     // @ts-ignore
@@ -37,26 +35,20 @@ describe('components/MultipleSelect/MultipleOption', () => {
     isDisabled: false
   }
 
-  beforeEach(() => {
-    wrapper = render(<MultipleOption {...initialMockProps} />)
-  })
-
-  afterEach(() => {
-    wrapper.unmount()
-  })
-
   it('Render: match snapshot', () => {
     const { container } = render(<MultipleOption {...initialMockProps} />)
     expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(screen.getByTestId('c-multipleoption--div-id')).toBeInTheDocument()
-    expect(screen.getByTestId('c-multipleoption--checkbox-mockId-mockValue\']')).toBeInTheDocument()
+    render(<MultipleOption {...initialMockProps} />)
+    expect(screen.getByTestId('c-multipleoption--checkbox--mockValue')).toBeInTheDocument()
+    screen.debug()
   })
 
   it('Handling: Triggers innerProps.onClick', () => {
-    wrapper.find('[data-testid=\'c-multipleoption--div-id').simulate('click')
+    render(<MultipleOption {...initialMockProps} />)
+    screen.getByTestId('c-multipleoption--checkbox--mockValue').click()
     expect(initialMockProps.innerProps.onClick).toHaveBeenCalled()
   })
 })

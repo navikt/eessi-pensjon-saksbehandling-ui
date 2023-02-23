@@ -42,6 +42,7 @@ ui-fss.g4[id="c0"] {
 
 <div
   class="c0 c1"
+  data-testid="c-multipleSelect"
 >
   <label
     class="navds-text-field--label navds-label"
@@ -54,7 +55,7 @@ ui-fss.g4[id="c0"] {
   >
     <span
       class="css-1f43avz-a11yText-A11yText"
-      id="react-select-3-live-region"
+      id="react-select-2-live-region"
     />
     <span
       aria-atomic="false"
@@ -76,6 +77,7 @@ ui-fss.g4[id="c0"] {
           >
             <div
               class="c2 c3"
+              data-testid="c-multipleselect-multivaluelabel"
             >
               <p
                 class="navds-body-long"

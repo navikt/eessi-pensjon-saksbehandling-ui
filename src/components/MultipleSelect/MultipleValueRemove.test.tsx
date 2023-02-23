@@ -1,18 +1,8 @@
-import { render } from '@testing-library/react'
+import { screen, render } from '@testing-library/react'
 import MultipleValueRemove from './MultipleValueRemove'
 
 describe('components/MultipleSelect/MultipleValueRemove', () => {
-  let wrapper: any
   const initialMockProps = {}
-
-  beforeEach(() => {
-    // @ts-ignore
-    wrapper = render(<MultipleValueRemove {...initialMockProps} />)
-  })
-
-  afterEach(() => {
-    wrapper.unmount()
-  })
 
   it('Render: match snapshot', () => {
     const { container } = render(<MultipleValueRemove {...initialMockProps} />)
@@ -20,6 +10,7 @@ describe('components/MultipleSelect/MultipleValueRemove', () => {
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.find('[data-testid=\'c-multipleselect-multiplevalueremove\']')).toBeTruthy()
+    render(<MultipleValueRemove {...initialMockProps} />)
+    expect(screen.getByTestId('c-multipleselect-multiplevalueremove')).toBeInTheDocument()
   })
 })
