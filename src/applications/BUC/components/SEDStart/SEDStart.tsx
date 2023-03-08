@@ -295,7 +295,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const sedPrefillsCountriesAndInstitutions = ['P4000', 'P5000', 'P6000', 'P7000', 'P8000', 'P10000', 'H020', 'H070', 'H120', 'H121']
 
-  const sedFreezesCountriesAndInstitutions = ['P4000', 'P5000', 'P6000', 'P7000', 'P8000', 'H070', 'H121']
+  const sedFreezesCountriesAndInstitutions = ['P4000', 'P5000', 'P6000', 'P7000', 'P8000', 'P10000', 'H020', 'H070', 'H120', 'H121']
 
   const sedNeedsKravOm = (sed: string) => ['P15000'].indexOf(sed) >= 0
 
