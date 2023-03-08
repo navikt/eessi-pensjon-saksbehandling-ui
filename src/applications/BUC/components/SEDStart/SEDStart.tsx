@@ -374,7 +374,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   const isDisabled = _sed ? !isNorwayCaseOwner() && sedFreezesCountriesAndInstitutions.indexOf(_sed) >= 0 : false
-  console.log("IS DISABLED: " + isDisabled)
 
   const _countryIncludeList: CountryRawList = countryList
     ? (isNorwayCaseOwner() ? countryList : getParticipantCountriesWithoutNorway())
