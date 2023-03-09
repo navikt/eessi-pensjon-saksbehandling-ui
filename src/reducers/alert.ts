@@ -58,7 +58,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: AnyAction) 
     return {
       ...state,
       type: action.type,
-      bannerMessage: (action as ActionWithPayload).payload.error,
+      bannerMessage: (action as ActionWithPayload).payload.message,
       bannerStatus: 'error',
       error: (action as ActionWithPayload).payload.error
     }

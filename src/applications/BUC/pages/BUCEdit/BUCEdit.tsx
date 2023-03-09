@@ -123,8 +123,6 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   const [_statusSearch, setStatusSearch] = useState<Tags | undefined>(initialStatusSearch)
   const [_totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
 
-
-
   useEffect(() => {
     if(buc){
       standardLogger('buc.view.entrance')
@@ -149,8 +147,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
 
   const onFollowUpSed = (buc: Buc, sed: Sed | undefined, followUpSeds: Array<Sed> | undefined): void => {
     const uniqueSed: Sed | undefined = _.find(buc.seds, (s: Sed) =>
-      (s.type === 'P5000' || s.type === 'P6000' || s.type === 'P7000' || s.type === 'P10000') &&
-      (s.status !== 'empty')
+      (s.type === 'P5000' || s.type === 'P6000' || s.type === 'P7000' || s.type === 'P10000')
     )
     if (buc.type === 'P_BUC_06' && uniqueSed) {
       dispatch(alertFailure(t('message:error-uniqueSed', { sed: uniqueSed.type })))
@@ -245,7 +242,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
         {_startSed !== 'open' && (
           <Button
             variant='secondary'
-            disabled={buc!.readOnly === true}
+            disabled={buc!.readOnly === true || !!(buc!.type === 'P_BUC_06' && buc!.seds && buc!.seds.length > 0)}
             data-amplitude='buc.view.newsed'
             data-testid='a-buc-p-bucedit--new-sed-button-id'
             onClick={onNewSedButtonClick}
