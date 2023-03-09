@@ -7,6 +7,7 @@ import _ from 'lodash'
 import styled from 'styled-components/macro'
 import SEDBody from '../SEDBody/SEDBody'
 import { Accordion, Panel } from '@navikt/ds-react'
+import {useState} from "react";
 
 const activeStatus: Array<string> = ['new', 'active']
 
@@ -27,8 +28,14 @@ export const SEDPanelDiv = styled.div`
 `
 
 export const MyAccordion = styled(Accordion)`
- &.new {
+  &.new {
     background: var(--navds-global-color-limegreen-100) !important;
+  }
+  .navds-accordion__header{
+    visibility:hidden;
+    padding: 0;
+    margin: 0;
+    max-height: 0px;
   }
 `
 
@@ -53,6 +60,8 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
   sed,
   style
 }: SEDPanelProps): JSX.Element => {
+  const [_open, _setOpen] = useState(false)
+
   const sedCanHaveAttachments = (sed: Sed): boolean => {
     return !buc.readOnly && sed !== undefined && sed.allowsAttachments && _.includes(activeStatus, sed.status)
   }
@@ -72,29 +81,35 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
           </SEDPanelDiv>
           )
         : (
-          <MyAccordion
-            className={classNames(className, { new: newSed })}
-            style={style}
-          >
-            <Accordion.Item>
-              <Accordion.Header>
-                <SEDHeader
-                  buc={buc}
-                  onFollowUpSed={onFollowUpSed}
-                  setMode={setMode}
-                  sed={sed}
-                />
-              </Accordion.Header>
-              <Accordion.Content>
-                <SEDBody
-                  aktoerId={aktoerId}
-                  buc={buc}
-                  canHaveAttachments={sedCanHaveAttachments(sed)}
-                  sed={sed}
-                />
-              </Accordion.Content>
-            </Accordion.Item>
-          </MyAccordion>
+          <>
+            <SEDPanelDiv className={classNames(className, { new: newSed })}>
+              <SEDHeader
+                buc={buc}
+                onFollowUpSed={onFollowUpSed}
+                setMode={setMode}
+                sed={sed}
+                style={style}
+                toggleOpen={_setOpen}
+                toggleState={_open}
+              />
+            </SEDPanelDiv>
+            <MyAccordion
+              className={classNames(className, { new: newSed })}
+              style={style}
+            >
+              <Accordion.Item open={_open}>
+                <Accordion.Header>&nbsp;</Accordion.Header>
+                <Accordion.Content>
+                  <SEDBody
+                    aktoerId={aktoerId}
+                    buc={buc}
+                    canHaveAttachments={sedCanHaveAttachments(sed)}
+                    sed={sed}
+                  />
+                </Accordion.Content>
+              </Accordion.Item>
+            </MyAccordion>
+          </>
           )}
     </SEDPanelContainer>
   )

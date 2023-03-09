@@ -11,7 +11,7 @@ import _ from 'lodash'
 import {buttonLogger} from 'metrics/loggers'
 import moment from 'moment'
 import { Alert, Detail, BodyLong, Button, Panel } from '@navikt/ds-react'
-import { NextFilled, AttachmentFilled } from '@navikt/ds-icons'
+import {NextFilled, Expand, Collapse, Attachment} from '@navikt/ds-icons'
 import {
   HorizontalSeparatorDiv,
   PileDiv,
@@ -79,6 +79,12 @@ const SEDVersion = styled.div`
   align-items: flex-start;
 `
 
+const ExpandDiv = styled.div`
+  margin-left: auto;
+`
+
+
+
 export interface SEDHeaderProps {
   buc: Buc
   className ?: string
@@ -86,6 +92,8 @@ export interface SEDHeaderProps {
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
   sed: Sed
   style?: React.CSSProperties
+  toggleOpen?: (b:boolean) => void
+  toggleState?: boolean
 }
 
 export interface SEDListSelector {
@@ -106,11 +114,17 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   onFollowUpSed,
   setMode,
   sed,
-  style
+  style,
+  toggleOpen,
+  toggleState
 }: SEDHeaderProps): JSX.Element => {
   const { locale, storageEntries }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
   const followUpSeds: Array<Sed> = buc.seds!.filter(_sed => _sed.parentDocumentId === sed.id && _sed.status === 'empty')
+
+  const sedCanHaveAttachments = (sed: Sed): boolean => {
+    return !buc.readOnly && sed !== undefined && sed.allowsAttachments && _.includes(['new', 'active'], sed.status)
+  }
 
   const institutionSenderList: Institutions = sed.participants
     ? sed.participants
@@ -230,7 +244,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               <SEDListAttachmentsDiv
                 data-testid='a_buc_c_sedheader--actions-attachments'
               >
-                <AttachmentFilled />
+                <Attachment/>
               </SEDListAttachmentsDiv>
             </Tooltip>
           )}
@@ -280,6 +294,14 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             </>
           )}
           </PileDiv>
+          {sedCanHaveAttachments(sed) && toggleOpen &&
+            <ExpandDiv>
+              <Button variant="tertiary" onClick={() => toggleOpen(!toggleState)}>
+                {!toggleState && <Expand/>}
+                {toggleState && <Collapse/>}
+              </Button>
+            </ExpandDiv>
+          }
         </SEDListActionsDiv>
       </SEDHeaderContent>
       {P5000Draft !== undefined
