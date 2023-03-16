@@ -145,9 +145,16 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     }
   }
 
+  const hasSeds = (buc: Buc): boolean => {
+    return !!_.find(buc.seds, (s: Sed) =>
+      (s.type === 'P5000' || s.type === 'P6000' || s.type === 'P7000' || s.type === 'P10000') && (s.status !== 'empty')
+    )
+  }
+
   const onFollowUpSed = (buc: Buc, sed: Sed | undefined, followUpSeds: Array<Sed> | undefined): void => {
     const uniqueSed: Sed | undefined = _.find(buc.seds, (s: Sed) =>
-      (s.type === 'P5000' || s.type === 'P6000' || s.type === 'P7000' || s.type === 'P10000')
+      (s.type === 'P5000' || s.type === 'P6000' || s.type === 'P7000' || s.type === 'P10000') &&
+      (s.status !== 'empty')
     )
     if (buc.type === 'P_BUC_06' && uniqueSed) {
       dispatch(alertFailure(t('message:error-uniqueSed', { sed: uniqueSed.type })))
@@ -242,7 +249,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
         {_startSed !== 'open' && (
           <Button
             variant='secondary'
-            disabled={buc!.readOnly === true || !!(buc!.type === 'P_BUC_06' && buc!.seds && buc!.seds.length > 0)}
+            disabled={buc!.readOnly === true || (buc!.type === 'P_BUC_06' && hasSeds(buc!))}
             data-amplitude='buc.view.newsed'
             data-testid='a-buc-p-bucedit--new-sed-button-id'
             onClick={onNewSedButtonClick}
