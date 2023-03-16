@@ -555,7 +555,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
     if (startdato.isValid() && sluttdato.isValid()) {
       if (startdato.isAfter(sluttdato)) {
-        errors.startdato = t('message:validation-endDateBeforeStartDate')
+        errors.sluttdato = t('message:validation-endDateBeforeStartDate')
       }
       const range = moment.range(startdato, sluttdato)
 
@@ -581,8 +581,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const beforeRowAdded = (newRowValues: NewRowValues, context: P5000TableContext): ItemErrors | undefined => {
     const errors: ItemErrors = {}
     const typeValue = newRowValues.type?.value
-    const startdatovalue: string | undefined = newRowValues.startdato?.value
-    const sluttdatovalue: string | undefined = newRowValues.sluttdato?.value
+    const startdatovalue: string | undefined = newRowValues.startdato
+    const sluttdatovalue: string | undefined = newRowValues.sluttdato
 
     const startdato = moment(dateTransform(startdatovalue), 'DD.MM.YYYY')
     const sluttdato = moment(dateTransform(sluttdatovalue), 'DD.MM.YYYY')
