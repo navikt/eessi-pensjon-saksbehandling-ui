@@ -486,11 +486,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         size='small'
         key='c-table--edit-beregning-select-key'
         id='c-table--edit-beregning-select-id'
+        className='P5000Edit-type-select input-focus'
+        error={options.error}
         options={beregningOptions}
         menuPortalTarget={document.body}
         onChange={(e: unknown) => options.setValues({ beregning: (e as Option).value })}
-        defaultValue={_.find(beregningOptions, o => o.value === options.value)}
-        value={_.find(beregningOptions, o => o.value === options.value)}
+        defaultValue={_.find(beregningOptions, o => o.value === options.value) ?? null}
+        value={_.find(beregningOptions, o => o.value === options.value) ?? null}
       />
     )
   }
@@ -880,6 +882,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               },
               edit: {
                 validation: [{
+                  mandatory: true,
                   test: '^.+$',
                   message: t('message:validation-addBeregning')
                 }],
