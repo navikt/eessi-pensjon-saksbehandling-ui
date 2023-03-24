@@ -66,6 +66,7 @@ export interface P5000EditControlsProps {
   items: P5000ListRows
   componentRef: any
   sedId: string
+  editingRow: boolean
 }
 
 const mapState = (state: State): P5000EditControlsSelector => ({
@@ -101,7 +102,8 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
   items,
   validation,
   componentRef,
-  sedId
+  sedId,
+  editingRow = false
 }: P5000EditControlsProps): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -515,7 +517,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
             <HorizontalSeparatorDiv />
             <Button
               variant='primary'
-              disabled={sendingP5000info}
+              disabled={sendingP5000info || editingRow}
               onClick={handleOverforTilRina}
             >
               {sendingP5000info && <Loader />}

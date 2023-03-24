@@ -102,6 +102,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
     .map((e: string | number) => ({ label: '[' + e + '] ' + _.get(typePeriode, e), value: '' + e })))
 
+  const [_itemsEditing, _setItemsEditing] = useState<any>({})
+
   const beregningOptions: Array<Option> = [
     { label: '000 - ' + informasjonOmBeregningLabels['000'], value: '000' },
     { label: '001 - ' + informasjonOmBeregningLabels['001'], value: '001' },
@@ -577,6 +579,14 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         }
       }
     }
+
+    if(_.isEmpty(errors)) {
+      _setItemsEditing((current: any) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const {[item.key]: removedKey, ...rest} = current
+        return rest
+      })
+    }
     return !_.isEmpty(errors) ? errors : undefined
   }
 
@@ -655,6 +665,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           setRenderPrintTable={setRenderPrintTable}
           validation={_validation}
           sedId={mainSed.id}
+          editingRow={Object.keys(_itemsEditing).length > 0}
         />
         <HorizontalLineSeparator />
         <VerticalSeparatorDiv />
@@ -688,6 +699,19 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           onRowsChanged={onRowsChanged}
           beforeRowAdded={beforeRowAdded}
           beforeRowEdited={beforeRowEdited}
+          onRowEdit={(item) => {
+            _setItemsEditing({
+              ..._itemsEditing,
+              [item.key]: item
+            })
+          }}
+          onResetRowEdit={(key) => {
+            _setItemsEditing((current: any) => {
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              const {[key]: removedKey, ...rest} = current
+              return rest
+            })
+          }}
           itemsPerPage={_itemsPerPage}
           categories={[{
             colSpan: 4,
