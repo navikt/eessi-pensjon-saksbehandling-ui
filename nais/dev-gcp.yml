@@ -19,6 +19,10 @@ spec:
           - id: 79c6b5b5-1144-495c-a2c9-78aebfb5faf4 #Tilgang til 0000-ga-eessi-clerk-ufore
         extra:
           - NAVident
+  accessPolicy:
+    outbound:
+      external:
+        - host: pensjon-utland-q2.dev.intern.nav.no
   env:
     - name: NAV_TRUSTSTORE_KEYSTOREALIAS
       value: na
