@@ -19,6 +19,11 @@ spec:
           - id: fedabd32-4cab-4307-ad69-ea24edc69790 #Tilgang til 0000-ga-eessi-clerk-ufore
         extra:
           - NAVident
+  accessPolicy:
+    outbound:
+      external:
+        - host: pensjon-utland.intern.nav.no
+
   env:
     - name: NAV_TRUSTSTORE_KEYSTOREALIAS
       value: na
