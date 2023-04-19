@@ -22,7 +22,7 @@ spec:
   accessPolicy:
     outbound:
       external:
-        - host: pensjon-utland-q2.dev.intern.nav.no
+        - host: pensjon-utland-q2.intern.dev.nav.no
   env:
     - name: NAV_TRUSTSTORE_KEYSTOREALIAS
       value: na
@@ -38,8 +38,8 @@ spec:
       value: {{eessi_pensjon_fagmodul_token_scope}}
   image: {{ image }}
   ingresses:
-    - https://pensjon-utland-q2.dev.intern.nav.no
-    - https://eessi-pensjon-frontend-ui-q2.dev.intern.nav.no
+    - https://pensjon-utland-q2.intern.dev.nav.no
+    - https://eessi-pensjon-frontend-ui-q2.intern.dev.nav.no
   liveness:
     path: internal/isAlive
     port: 8080
