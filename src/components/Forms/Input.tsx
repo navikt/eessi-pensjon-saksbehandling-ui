@@ -10,6 +10,7 @@ export interface InputProps {
   id: string
   hideLabel?: boolean
   label: string
+  onChange?: (e: string) => void
   onChanged: (e: string) => void
   onEnterPress?: (e: string) => void
   size?: 'medium' | 'small'
@@ -18,6 +19,7 @@ export interface InputProps {
   required ?: boolean
   type?: 'number' | 'text' | 'email' | 'password' | 'tel' | 'url' | undefined
   value: string | undefined
+  reference?: any
 }
 const Input: React.FC<InputProps> = ({
   ariaLabel,
@@ -27,6 +29,7 @@ const Input: React.FC<InputProps> = ({
   hideLabel = false,
   label,
   namespace,
+  onChange,
   onChanged,
   onEnterPress,
   required = false,
@@ -34,7 +37,8 @@ const Input: React.FC<InputProps> = ({
   type = 'text',
   size = 'medium',
   style = {},
-  value
+  value,
+  reference
 }: InputProps) => {
   const [_value, _setValue] = useState<string>(value ?? '')
   const [_dirty, _setDirty] = useState<boolean>(false)
@@ -43,6 +47,7 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <TextField
+      ref={reference}
       aria-invalid={!!error}
       aria-label={ariaLabel ?? label}
       className={className}
@@ -68,6 +73,9 @@ const Input: React.FC<InputProps> = ({
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         e.stopPropagation()
+        if(_.isFunction(onChange)) {
+          onChange(e.target.value)
+        }
         _setValue(e.target.value)
         _setDirty(true)
       }}

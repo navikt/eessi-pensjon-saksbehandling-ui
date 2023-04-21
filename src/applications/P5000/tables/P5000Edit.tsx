@@ -103,6 +103,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     .map((e: string | number) => ({ label: '[' + e + '] ' + _.get(typePeriode, e), value: '' + e })))
 
   const [_itemsEditing, _setItemsEditing] = useState<any>({})
+  const [_addRowEditing, _setAddRowEditing] = useState<any>(false)
+
 
   const beregningOptions: Array<Option> = [
     { label: '000 - ' + informasjonOmBeregningLabels['000'], value: '000' },
@@ -115,6 +117,23 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     { label: '111 - ' + informasjonOmBeregningLabels['111'], value: '111' }
   ]
 
+  const renderTypeAdd = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
+    return (
+      <Select
+        size='small'
+        noMarginTop
+        key='c-table--edit-type-select-key-'
+        id='c-table--edit-type-select-id'
+        className='P5000Edit-type-select input-focus'
+        error={options.error}
+        options={typeOptions}
+        menuPortalTarget={document.body}
+        onChange={(e: unknown) => {options.setValues({ type: (e as Option).value }); _setAddRowEditing(true)}}
+        defaultValue={_.find(typeOptions, o => o.value === options.value) ?? null}
+        value={_.find(typeOptions, o => o.value === options.value) ?? null}
+      />
+    )
+  }
   const renderTypeEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
     return (
       <Select
@@ -214,6 +233,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return {}
   }
 
+  const startDatoRef = useRef()
+  const sluttDatoRef = useRef()
+  const aarRef = useRef()
+  const maanedRef = useRef()
+  const dagerRef = useRef()
+
   const renderStartDatoEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => (
     <Input
       size='small'
@@ -236,6 +261,30 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     />
   )
 
+  const renderStartDatoAdd = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => (
+    <Input
+      reference={startDatoRef}
+      size='small'
+      namespace='c-table--edit'
+      id='startdato-input-id'
+      className='c-table--edit-input'
+      label='startdato'
+      hideLabel
+      error={options.error}
+      placeholder={t('buc:placeholder-date2')}
+      onChange={() => _setAddRowEditing(true)}
+      onChanged={(newStartdato: string) => {
+        const otherDate: string | undefined = dateTransform(options.values.sluttdato)
+        const extra = maybeDoSomePrefill(newStartdato, otherDate, options)
+        options.setValues({ ...extra, startdato: newStartdato })
+      }}
+      onEnterPress={(e: string) => {
+        options.onEnter({ startdato: e })
+      }}
+      value={dateTransform(options.value) ?? ''}
+    />
+  )
+
   const renderSluttDatoEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => (
     <Input
       size='small'
@@ -246,6 +295,30 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       hideLabel
       error={options.error}
       placeholder={t('buc:placeholder-date2')}
+      onChanged={(newSluttdato: string) => {
+        const otherDate: string | undefined = dateTransform(options.values.startdato)
+        const extra = maybeDoSomePrefill(otherDate, newSluttdato, options)
+        options.setValues({ ...extra, sluttdato: newSluttdato })
+      }}
+      onEnterPress={(e: string) => {
+        options.onEnter({ sluttdato: e })
+      }}
+      value={dateTransform(options.value) ?? ''}
+    />
+  )
+
+  const renderSluttDatoAdd = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => (
+    <Input
+      reference={sluttDatoRef}
+      size='small'
+      namespace='c-table--edit'
+      id='sluttdato-input-id'
+      className='c-table--edit-input'
+      label='sluttdato'
+      hideLabel
+      error={options.error}
+      placeholder={t('buc:placeholder-date2')}
+      onChange={() => _setAddRowEditing(true)}
       onChanged={(newSluttdato: string) => {
         const otherDate: string | undefined = dateTransform(options.values.startdato)
         const extra = maybeDoSomePrefill(otherDate, newSluttdato, options)
@@ -321,6 +394,35 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
+  const renderDagerAdd = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
+    const value = checkForBosetningsperioder(options, 'dag', ['mnd', 'aar'])
+    return (
+      <Input
+        reference={dagerRef}
+        size='small'
+        aria-invalid={!!options.error}
+        aria-label='dag'
+        data-testid='c-table--edit-dag-input-id'
+        error={options.error}
+        namespace='c-table--edit'
+        id='dag-input-id'
+        label='dag'
+        hideLabel
+        onChange={() => _setAddRowEditing(true)}
+        onChanged={(e: string) => {
+          options.setValues({
+            dag: isNaN(parseFloat(e)) ? 0 : parseFloat(e)
+          })
+        }}
+        onEnterPress={(e: string) => {
+          options.onEnter({ dag: isNaN(parseFloat(e)) ? 0 : parseFloat(e) })
+        }}
+        placeholder=''
+        value={'' + value}
+      />
+    )
+  }
+
   const renderManedEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
     const value = checkForBosetningsperioder(options, 'mnd', ['dag', 'aar'])
     return (
@@ -348,6 +450,35 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
+  const renderManedAdd = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
+    const value = checkForBosetningsperioder(options, 'mnd', ['dag', 'aar'])
+    return (
+      <Input
+        reference={maanedRef}
+        size='small'
+        aria-invalid={!!options.error}
+        aria-label='mnd'
+        namespace='c-table--edit'
+        data-testid='mnd-input-id'
+        error={options.error}
+        id='mnd-input-id'
+        label='mnd'
+        hideLabel
+        onChange={() => _setAddRowEditing(true)}
+        onChanged={(e: string) => {
+          options.setValues({
+            mnd: isNaN(parseFloat(e)) ? 0 : parseFloat(e)
+          })
+        }}
+        onEnterPress={(e: string) => {
+          options.onEnter({ mnd: isNaN(parseFloat(e)) ? 0 : parseFloat(e) })
+        }}
+        placeholder=''
+        value={'' + value}
+      />
+    )
+  }
+
   const renderAarEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
     const value = checkForBosetningsperioder(options, 'aar', ['mnd', 'dag'])
     return (
@@ -361,6 +492,35 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         namespace='c-table--edit'
         label='aar'
         hideLabel
+        onChanged={(e: string) => {
+          options.setValues({
+            aar: isNaN(parseFloat(e)) ? 0 : parseFloat(e)
+          })
+        }}
+        onEnterPress={(e: string) => {
+          options.onEnter({ aar: isNaN(parseFloat(e)) ? 0 : parseFloat(e) })
+        }}
+        placeholder=''
+        value={'' + value}
+      />
+    )
+  }
+
+  const renderAarAdd = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
+    const value = checkForBosetningsperioder(options, 'aar', ['mnd', 'dag'])
+    return (
+      <Input
+        reference={aarRef}
+        size='small'
+        aria-invalid={!!options.error}
+        aria-label='aar'
+        data-testid='c-table--edit-aar-input-id'
+        error={options.error}
+        id='aar-input-id'
+        namespace='c-table--edit'
+        label='aar'
+        hideLabel
+        onChange={() => _setAddRowEditing(true)}
         onChanged={(e: string) => {
           options.setValues({
             aar: isNaN(parseFloat(e)) ? 0 : parseFloat(e)
@@ -499,6 +659,24 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
+  const renderBeregningAdd = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
+    return (
+      <Select
+        noMarginTop
+        size='small'
+        key='c-table--edit-beregning-select-key'
+        id='c-table--edit-beregning-select-id'
+        className='P5000Edit-type-select input-focus'
+        error={options.error}
+        options={beregningOptions}
+        menuPortalTarget={document.body}
+        onChange={(e: unknown) => {options.setValues({ beregning: (e as Option).value }); _setAddRowEditing(true)}}
+        defaultValue={_.find(beregningOptions, o => o.value === options.value) ?? null}
+        value={_.find(beregningOptions, o => o.value === options.value) ?? null}
+      />
+    )
+  }
+
   const testDate = (value: undefined | null | string | Date): boolean => {
     if (_.isNil(value)) {
       return false
@@ -616,6 +794,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         }
       }
     }
+
+    if(_.isEmpty(errors)) {
+      _setAddRowEditing(false)
+    }
     return !_.isEmpty(errors) ? errors : undefined
   }
 
@@ -665,7 +847,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           setRenderPrintTable={setRenderPrintTable}
           validation={_validation}
           sedId={mainSed.id}
-          editingRow={Object.keys(_itemsEditing).length > 0}
+          editingRow={Object.keys(_itemsEditing).length > 0 || _addRowEditing}
         />
         <HorizontalLineSeparator />
         <VerticalSeparatorDiv />
@@ -698,6 +880,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           sort={_tableSort}
           onRowsChanged={onRowsChanged}
           beforeRowAdded={beforeRowAdded}
+          showResetButtonAddRow={true}
+          onResetRowAdd={() => _setAddRowEditing(false)}
           beforeRowEdited={beforeRowEdited}
           onRowEdit={(item) => {
             _setItemsEditing({
@@ -744,7 +928,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               label: t('p5000:type-43113'),
               type: 'string',
               add: {
-                render: renderTypeEdit,
+                render: renderTypeAdd,
                 validation: [{
                   mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder !== '0'),
                   test: '^.+$',
@@ -767,7 +951,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               type: 'date',
               render: renderDateCell,
               add: {
-                render: renderStartDatoEdit,
+                render: renderStartDatoAdd,
+                reference: {startDatoRef},
                 validation: [{
                   mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder !== '0'),
                   test: testDate,
@@ -793,7 +978,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               type: 'date',
               render: renderDateCell,
               add: {
-                render: renderSluttDatoEdit,
+                render: renderSluttDatoAdd,
+                reference: {sluttDatoRef},
                 validation: [{
                   mandatory: (context: P5000TableContext) => (context.forsikringEllerBosetningsperioder === '1'),
                   test: testDate,
@@ -824,7 +1010,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   test: testFloat,
                   message: t('message:validation-addPositiveNumber')
                 }],
-                render: renderAarEdit
+                render: renderAarAdd,
+                reference: {aarRef}
               },
               edit: {
                 validation: [{
@@ -845,7 +1032,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   test: testFloat,
                   message: t('message:validation-addPositiveNumber')
                 }],
-                render: renderManedEdit
+                render: renderManedAdd,
+                reference: {maanedRef}
               },
               edit: {
                 validation: [{
@@ -862,7 +1050,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
               type: 'string',
               add: {
                 defaultValue: 0,
-                render: renderDagerEdit,
+                render: renderDagerAdd,
+                reference: {dagerRef},
                 validation: [{
                   test: testFloat,
                   message: t('message:validation-addPositiveNumber')
@@ -902,7 +1091,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   test: '^.+$',
                   message: t('message:validation-addBeregning')
                 }],
-                render: renderBeregningEdit
+                render: renderBeregningAdd
               },
               edit: {
                 validation: [{
