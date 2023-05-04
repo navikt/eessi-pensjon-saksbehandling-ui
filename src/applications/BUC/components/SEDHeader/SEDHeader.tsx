@@ -182,8 +182,10 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             <Tooltip
               label={(
                 <BodyLong>
-                  {t('ui:firstVersion')}
+                  {t('ui:firstVersion')}: &nbsp;
                   {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
+                  <br/>
+                  Dokument ID: {sed.id}
                 </BodyLong>
                 )}
             >
