@@ -517,7 +517,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
             <HorizontalSeparatorDiv />
             <Button
               variant='primary'
-              disabled={sendingP5000info || editingRow}
+              disabled={sendingP5000info || editingRow || _.isNil(p5000WorkingCopy)}
               onClick={handleOverforTilRina}
             >
               {sendingP5000info && <Loader />}
