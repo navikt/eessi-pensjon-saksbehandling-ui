@@ -21,7 +21,8 @@ import {
   SedsWithAttachmentsMap,
   ValidBuc,
   P6000,
-  BucListItem
+  BucListItem,
+  EditingSed
 } from 'declarations/buc'
 import { JoarkBrowserItem, JoarkBrowserItems, JoarkPreview } from 'declarations/joark'
 import { ActionWithPayload } from '@navikt/fetch'
@@ -30,7 +31,7 @@ import md5 from 'md5'
 import { standardLogger } from 'metrics/loggers'
 import { AnyAction } from 'redux'
 import { P5000sFromRinaMap } from 'declarations/p5000'
-import {P4000SED} from "../declarations/p4000";
+import {P4000SED} from "../declarations/p4000"
 
 export interface BucState {
   attachmentsError: boolean
@@ -42,6 +43,7 @@ export interface BucState {
   countryList: Array<string> | undefined
   currentBuc: string | undefined
   currentSed: Sed | undefined
+  currentEditingSed: EditingSed | undefined
   followUpSeds: Array<Sed> | undefined
   howManyBucLists: number
   kravDato: string | null | undefined
@@ -75,6 +77,7 @@ export const initialBucState: BucState = {
   countryList: undefined,
   currentBuc: undefined,
   currentSed: undefined,
+  currentEditingSed: undefined,
   followUpSeds: undefined,
   institutionList: undefined,
   institutionNames: {},
@@ -802,6 +805,42 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         howManyBucLists: (state.howManyBucLists - 1),
         bucsList: _.isNil(state.bucsList) ? null : state.bucsList
       }
+
+    case types.BUC_GET_SED_REQUEST: {
+      return {
+        ...state,
+        currentEditingSed: undefined
+      }
+    }
+    case types.BUC_GET_SED_SUCCESS: {
+      return {
+        ...state,
+        currentEditingSed: (action as ActionWithPayload).payload
+      }
+    }
+    case types.BUC_GET_SED_FAILURE: {
+      return {
+        ...state,
+        currentEditingSed: null
+      }
+    }
+
+    case types.BUC_SED_UPDATE: {
+      let newEditingSed: EditingSed | null | undefined = _.cloneDeep(state.currentEditingSed)
+      if (!newEditingSed) {
+        newEditingSed = {} as EditingSed
+      }
+      _.set(newEditingSed,
+        (action as ActionWithPayload).payload.needle,
+        (action as ActionWithPayload).payload.value
+      )
+
+      return {
+        ...state,
+        currentEditingSed: newEditingSed,
+        currentEditingSedChanged: true
+      }
+    }
 
     default:
       return state

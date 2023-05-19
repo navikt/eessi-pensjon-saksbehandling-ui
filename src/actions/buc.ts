@@ -43,6 +43,7 @@ import mockRinaUrl from 'mocks/buc/rinaUrl'
 import mockSakType from 'mocks/buc/sakType'
 import mockSedList from 'mocks/buc/sedList'
 import { Action, ActionCreator } from 'redux'
+import {UpdateSedPayload} from "../declarations/types";
 
 const sprintf = require('sprintf-js').sprintf
 
@@ -327,6 +328,35 @@ export const getSed = (
     }
   })
 }
+
+export const saveSed = (
+  caseId: string, sedId: string, sedType: string, payload: any
+): Action => {
+  return call({
+    url: sprintf(urls.BUC_PUT_SED_URL, { caseId, sedId }),
+    method: 'PUT',
+    body: payload,
+    cascadeFailureError: true,
+    context: {
+      caseId,
+      sedId,
+      sedType,
+      payload
+    },
+    type: {
+      request: types.BUC_PUT_SED_REQUEST,
+      success: types.BUC_PUT_SED_SUCCESS,
+      failure: types.BUC_PUT_SED_FAILURE
+    }
+  })
+}
+
+export const updateSed: ActionCreator<ActionWithPayload<UpdateSedPayload>> = (
+  needle: string, value: any
+): ActionWithPayload<UpdateSedPayload> => ({
+  type: types.BUC_SED_UPDATE,
+  payload: { needle, value }
+})
 
 export const getSedP4000 = (
   caseId: string, sed: Sed
