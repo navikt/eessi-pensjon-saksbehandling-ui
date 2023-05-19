@@ -52,7 +52,7 @@ const P2000: React.FC<P2000Props> = ({
   }
 
   const setVergemalMandat = (mandat: string) => {
-    dispatch(updateSed("nav.verge.vergemal.mandat", mandat))
+    dispatch(updateSed("nav.verge.vergemaal.mandat", mandat))
   }
 
   return (
@@ -77,7 +77,7 @@ const P2000: React.FC<P2000Props> = ({
         id=''
         label="Vergemål mandat"
         onChanged={setVergemalMandat}
-        value={((currentSed as P2000SED)?.nav.verge?.vergemal?.mandat) as string}
+        value={((currentSed as P2000SED)?.nav.verge?.vergemaal?.mandat) as string}
       />
 
       <Button

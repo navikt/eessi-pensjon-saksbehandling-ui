@@ -64,7 +64,7 @@ export interface Verge {
     "fornavn": string
     "etternavn": string
   },
-  vergemal: {
+  vergemaal: {
     mandat: string | null
   } | null
 }
