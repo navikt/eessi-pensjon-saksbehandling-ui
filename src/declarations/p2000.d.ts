@@ -47,26 +47,27 @@ export interface Arbeidsforhold {
 }
 
 export interface Verge {
-  "person": {
-    "kontakt": {
-      "telefon": [
+  person: {
+    kontakt: {
+      telefon: [
         {
-          "nummer": string | null
-          "type": string | null
+          nummer: string | null
+          type: string | null
         }
       ] | null,
-      "email": [
+      email: [
         {
-          "adresse": string | null
+          adresse: string | null
         }
       ] | null
     },
-    "fornavn": string
-    "etternavn": string
+    fornavn: string
+    etternavn: string
   },
   vergemaal: {
     mandat: string | null
-  } | null
+  } | null,
+  adresse: Adresse | null
 }
 
 export interface Adresse {

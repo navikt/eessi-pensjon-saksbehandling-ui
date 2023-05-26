@@ -6,17 +6,20 @@ import {BUCMode} from "../../declarations/app";
 import {Button, Heading} from "@navikt/ds-react";
 import {BackFilled} from "@navikt/ds-icons";
 import {HorizontalSeparatorDiv} from "@navikt/hoykontrast";
-import {getSed, saveSed, updateSed} from "../../actions/buc";
+import {getSed, saveSed} from "../../actions/buc";
 import {State} from "../../declarations/reducers";
 import {P2000SED} from "../../declarations/p2000";
-import Input from "../../components/Forms/Input";
+import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
+import Verge from "./Verge";
 
 export interface P2000Selector {
   currentSed: P2000SED
+  savingSed: boolean
 }
 
 const mapState = (state: State): P2000Selector => ({
-  currentSed: state.buc.currentEditingSed as P2000SED
+  currentSed: state.buc.currentEditingSed as P2000SED,
+  savingSed: state.loading.savingSed
 })
 
 export interface P2000Props {
@@ -32,9 +35,7 @@ const P2000: React.FC<P2000Props> = ({
 }: P2000Props): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useDispatch()
-  const { currentSed }: P2000Selector = useSelector<State, P2000Selector>(mapState)
-
-  const error = null
+  const { currentSed, savingSed }: P2000Selector = useSelector<State, P2000Selector>(mapState)
 
   useEffect(() => {
     if(sed){
@@ -49,10 +50,6 @@ const P2000: React.FC<P2000Props> = ({
 
   const onSaveSed = () => {
     dispatch(saveSed(buc.caseId!, sed!.id, sed!.type, currentSed))
-  }
-
-  const setVergemalMandat = (mandat: string) => {
-    dispatch(updateSed("nav.verge.vergemaal.mandat", mandat))
   }
 
   return (
@@ -70,19 +67,12 @@ const P2000: React.FC<P2000Props> = ({
         </Button>
       </div>
       <Heading size={"medium"}>P2000</Heading>
-
-      <Input
-        error={error}
-        namespace={"verge"}
-        id=''
-        label="Vergemål mandat"
-        onChanged={setVergemalMandat}
-        value={((currentSed as P2000SED)?.nav.verge?.vergemaal?.mandat) as string}
-      />
-
+      <Verge sed={currentSed}/>
+      <VerticalSeparatorDiv/>
       <Button
         variant='primary'
         onClick={onSaveSed}
+        loading={savingSed}
       >
         Lagre
       </Button>

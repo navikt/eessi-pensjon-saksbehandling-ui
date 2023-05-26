@@ -41,7 +41,8 @@ export const initialLoadingState: LoadingState = {
   sendingPageNotification: false,
   sendingP5000info: false,
   gettingP5000FromS3: false,
-  sendingP5000ToS3: false
+  sendingP5000ToS3: false,
+  savingSed: false
 }
 
 const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAction) => {
@@ -537,6 +538,21 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
       return {
         ...state,
         gettingGjpBp: false
+      }
+
+    case types.BUC_PUT_SED_REQUEST:
+
+      return {
+        ...state,
+        savingSed: true
+      }
+
+    case types.BUC_PUT_SED_SUCCESS:
+    case types.BUC_PUT_SED_FAILURE:
+
+      return {
+        ...state,
+        savingSed: false
       }
 
     default:
