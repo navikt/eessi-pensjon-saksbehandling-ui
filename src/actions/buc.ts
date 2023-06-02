@@ -44,6 +44,7 @@ import mockSakType from 'mocks/buc/sakType'
 import mockSedList from 'mocks/buc/sedList'
 import { Action, ActionCreator } from 'redux'
 import {UpdateSedPayload} from "../declarations/types";
+import {PSED} from "declarations/app.d";
 
 const sprintf = require('sprintf-js').sprintf
 
@@ -351,7 +352,14 @@ export const saveSed = (
   })
 }
 
-export const updateSed: ActionCreator<ActionWithPayload<UpdateSedPayload>> = (
+export const setPSED: ActionCreator<ActionWithPayload<PSED>> = (
+  PSED: PSED
+): ActionWithPayload<PSED> => ({
+  type: types.BUC_SED_SET,
+  payload: PSED
+})
+
+export const updatePSED: ActionCreator<ActionWithPayload<UpdateSedPayload>> = (
   needle: string, value: any
 ): ActionWithPayload<UpdateSedPayload> => ({
   type: types.BUC_SED_UPDATE,

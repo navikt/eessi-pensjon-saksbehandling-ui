@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro'
+import { Panel } from '@navikt/ds-react'
 
 export const OneLineSpan = styled.span`
   white-space: nowrap;
@@ -24,4 +25,13 @@ export const HorizontalLineSeparator = styled.div`
   width: -webkit-fill-available;
   margin-left: 2rem;
   margin-right: 2rem;
+`
+export const WithErrorPanel = styled(Panel)`
+  padding: 0rem;
+  background-color: transparent;
+  border: none;
+  &.error {
+    margin: -4px;
+    border: 4px solid var(--navds-error-summary-color-border) !important;
+  }
 `

@@ -1,56 +1,60 @@
 import React from "react";
 import {useDispatch} from "react-redux";
-import {updateSed} from "../../actions/buc";
-import {P2000SED, Verge as P2000Verge} from "../../declarations/p2000";
+import {Verge as P2000Verge} from "../../declarations/p2000";
 import Input from "../../components/Forms/Input";
 import _ from "lodash";
-import {AlignStartRow, Column, VerticalSeparatorDiv} from '@navikt/hoykontrast'
-import {Heading, Panel} from "@navikt/ds-react";
+import {AlignStartRow, Column, VerticalSeparatorDiv, PaddedDiv} from '@navikt/hoykontrast'
+import {Heading} from "@navikt/ds-react";
+import {MainFormProps} from "./MainForm";
 
-export interface VergeProps {
-  sed?: P2000SED,
-}
+const Verge: React.FC<MainFormProps> = ({
+  label,
+  parentNamespace,
+  PSED,
+  updatePSED
+}: MainFormProps): JSX.Element => {
 
-const Verge: React.FC<VergeProps> = ({sed}: VergeProps): JSX.Element => {
   const dispatch = useDispatch()
-  const namespace = 'verge'
+  const namespace = `${parentNamespace}-verge`
   const target = 'nav.verge'
-  const verge: P2000Verge | undefined = _.get(sed, target)
+  const verge: P2000Verge | undefined = _.get(PSED, target)
 
   const error = null
 
   const setEtternavn = (etternavn: string) => {
-    dispatch(updateSed(`${target}.person.etternavn`, etternavn))
+    dispatch(updatePSED(`${target}.person.etternavn`, etternavn))
   }
 
   const setFornavn = (fornavn: string) => {
-    dispatch(updateSed(`${target}.person.fornavn`, fornavn))
+    dispatch(updatePSED(`${target}.person.fornavn`, fornavn))
   }
 
   const setVergemaalMandat = (mandat: string) => {
-    dispatch(updateSed(`${target}.vergemaal.mandat`, mandat))
+    dispatch(updatePSED(`${target}.vergemaal.mandat`, mandat))
   }
 
   const setGate = (gate: string) => {
-    dispatch(updateSed(`${target}.adresse.gate`, gate))
+    dispatch(updatePSED(`${target}.adresse.gate`, gate))
   }
 
   const setPostnummer = (postnummer: string) => {
-    dispatch(updateSed(`${target}.adresse.postnummer`, postnummer))
+    dispatch(updatePSED(`${target}.adresse.postnummer`, postnummer))
   }
 
   const setBy = (by: string) => {
-    dispatch(updateSed(`${target}.adresse.by`, by))
+    dispatch(updatePSED(`${target}.adresse.by`, by))
   }
 
   const setRegion = (region: string) => {
-    dispatch(updateSed(`${target}.adresse.region`, region))
+    dispatch(updatePSED(`${target}.adresse.region`, region))
   }
 
   return (
     <>
-      <Panel border>
-        <Heading size="medium">Informasjon om representant/verge</Heading>
+      <PaddedDiv>
+        <Heading size='small'>
+          {label}
+        </Heading>
         <VerticalSeparatorDiv/>
         <AlignStartRow>
           <Column>
@@ -88,9 +92,7 @@ const Verge: React.FC<VergeProps> = ({sed}: VergeProps): JSX.Element => {
           </Column>
           <Column></Column>
         </AlignStartRow>
-      </Panel>
-      <VerticalSeparatorDiv/>
-      <Panel border>
+        <VerticalSeparatorDiv/>
         <Heading size="medium">Adresse</Heading>
         <VerticalSeparatorDiv/>
         <AlignStartRow>
@@ -142,7 +144,7 @@ const Verge: React.FC<VergeProps> = ({sed}: VergeProps): JSX.Element => {
           </Column>
         </AlignStartRow>
         <VerticalSeparatorDiv/>
-      </Panel>
+      </PaddedDiv>
     </>
   )
 }

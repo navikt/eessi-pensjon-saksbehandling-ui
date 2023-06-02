@@ -6,19 +6,21 @@ import {BUCMode} from "../../declarations/app";
 import {Button, Heading} from "@navikt/ds-react";
 import {BackFilled} from "@navikt/ds-icons";
 import {HorizontalSeparatorDiv} from "@navikt/hoykontrast";
-import {getSed, saveSed} from "../../actions/buc";
-import {State} from "../../declarations/reducers";
+import {getSed, saveSed, setPSED, updatePSED} from "../../actions/buc";
+import { State } from "../../declarations/reducers";
 import {P2000SED} from "../../declarations/p2000";
 import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
+
 import Verge from "./Verge";
+import MainForm from "./MainForm";
 
 export interface P2000Selector {
-  currentSed: P2000SED
+  currentPSED: P2000SED
   savingSed: boolean
 }
 
 const mapState = (state: State): P2000Selector => ({
-  currentSed: state.buc.currentEditingSed as P2000SED,
+  currentPSED: state.buc.PSED as P2000SED,
   savingSed: state.loading.savingSed
 })
 
@@ -35,7 +37,7 @@ const P2000: React.FC<P2000Props> = ({
 }: P2000Props): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useDispatch()
-  const { currentSed, savingSed }: P2000Selector = useSelector<State, P2000Selector>(mapState)
+  const { currentPSED, savingSed }: P2000Selector = useSelector<State, P2000Selector>(mapState)
 
   useEffect(() => {
     if(sed){
@@ -49,7 +51,7 @@ const P2000: React.FC<P2000Props> = ({
   }
 
   const onSaveSed = () => {
-    dispatch(saveSed(buc.caseId!, sed!.id, sed!.type, currentSed))
+    dispatch(saveSed(buc.caseId!, sed!.id, sed!.type, currentPSED))
   }
 
   return (
@@ -67,7 +69,15 @@ const P2000: React.FC<P2000Props> = ({
         </Button>
       </div>
       <Heading size={"medium"}>P2000</Heading>
-      <Verge sed={currentSed}/>
+      <MainForm
+        forms={[
+          { label: "Verge", value: 'verge', component: Verge},
+        ]}
+        PSED={currentPSED}
+        setPSED={setPSED}
+        updatePSED={updatePSED}
+        namespace="psed"
+      />
       <VerticalSeparatorDiv/>
       <Button
         variant='primary'

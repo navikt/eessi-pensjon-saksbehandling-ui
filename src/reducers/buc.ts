@@ -22,8 +22,8 @@ import {
   ValidBuc,
   P6000,
   BucListItem,
-  EditingSed
 } from 'declarations/buc'
+import {PSED} from "declarations/app.d";
 import { JoarkBrowserItem, JoarkBrowserItems, JoarkPreview } from 'declarations/joark'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
@@ -43,7 +43,7 @@ export interface BucState {
   countryList: Array<string> | undefined
   currentBuc: string | undefined
   currentSed: Sed | undefined
-  currentEditingSed: EditingSed | undefined
+  PSED: PSED | undefined
   followUpSeds: Array<Sed> | undefined
   howManyBucLists: number
   kravDato: string | null | undefined
@@ -77,7 +77,7 @@ export const initialBucState: BucState = {
   countryList: undefined,
   currentBuc: undefined,
   currentSed: undefined,
-  currentEditingSed: undefined,
+  PSED: undefined,
   followUpSeds: undefined,
   institutionList: undefined,
   institutionNames: {},
@@ -809,36 +809,44 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.BUC_GET_SED_REQUEST: {
       return {
         ...state,
-        currentEditingSed: undefined
+        PSED: undefined
       }
     }
     case types.BUC_GET_SED_SUCCESS: {
       return {
         ...state,
-        currentEditingSed: (action as ActionWithPayload).payload
+        PSED: (action as ActionWithPayload).payload
       }
     }
     case types.BUC_GET_SED_FAILURE: {
       return {
         ...state,
-        currentEditingSed: null
+        PSED: null
       }
     }
 
-    case types.BUC_SED_UPDATE: {
-      let newEditingSed: EditingSed | null | undefined = _.cloneDeep(state.currentEditingSed)
-      if (!newEditingSed) {
-        newEditingSed = {} as EditingSed
+
+    case types.BUC_SED_SET:
+      return {
+        ...state,
+        PSED: (action as ActionWithPayload).payload,
+        PSEDChanged: true
       }
-      _.set(newEditingSed,
+
+    case types.BUC_SED_UPDATE: {
+      let newPSED: PSED | null | undefined = _.cloneDeep(state.PSED)
+      if (!newPSED) {
+        newPSED = {} as PSED
+      }
+      _.set(newPSED,
         (action as ActionWithPayload).payload.needle,
         (action as ActionWithPayload).payload.value
       )
 
       return {
         ...state,
-        currentEditingSed: newEditingSed,
-        currentEditingSedChanged: true
+        PSED: newPSED,
+        PSEDChanged: true
       }
     }
 

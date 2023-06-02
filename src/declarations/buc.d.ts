@@ -1,9 +1,6 @@
 import { Option } from 'declarations/app.d'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark.d'
 import { PersonAvdod } from 'declarations/person.d'
-import {P2000SED} from "./p2000";
-import {P4000SED} from "./p4000";
-import {P5000SED} from "./p5000";
 
 export interface Address {
   country: string
@@ -217,8 +214,6 @@ export interface SEDAttachment {
 export type SEDAttachments = Array<SEDAttachment>
 
 export type Direction = 'IN' | 'OUT'
-
-export type EditingSed = P2000SED | P4000SED | P5000SED
 
 export interface Sed {
   allowsAttachments: boolean
