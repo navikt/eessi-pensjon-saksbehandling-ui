@@ -1,82 +1,198 @@
-import { Delete, Add } from '@navikt/ds-icons'
+import {AddCircle, Cancel, Copy, Delete, Edit, SuccessStroke} from '@navikt/ds-icons'
 import classNames from 'classnames'
-import { BodyLong, Button } from '@navikt/ds-react'
-import { FlexCenterDiv, HorizontalSeparatorDiv } from '@navikt/hoykontrast'
-import React from 'react'
+import { Labels } from 'declarations/app'
+import { Button, BodyLong } from '@navikt/ds-react'
+import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
+import _ from 'lodash'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
 
-export interface AddRemovePanelProps {
-  candidateForDeletion: boolean
-  existingItem: boolean
-  marginTop?: boolean,
+export interface AddRemovePanelProps<T> {
+  item: T | null
+  index: number
+  labels?: Labels
+  marginTop?: boolean
+  allowEdit?: boolean
+  allowDelete?: boolean
   onAddNew?: () => void
+  onCopy?: (item: T, index: number) => void
+  inEditMode?: boolean
+  onStartEdit?: (item: T, index: number) => void
+  onConfirmEdit?: () => void
+  onCancelEdit?: () => void
   onCancelNew?: () => void
-  onBeginRemove: () => void
-  onCancelRemove: () => void
-  onConfirmRemove: () => void
+  onRemove: (item: T) => void
 }
 
-const AddRemovePanel: React.FC<AddRemovePanelProps> = ({
-  candidateForDeletion,
-  existingItem,
+const InlineFlexDiv = styled.div`
+  display: inline-flex;
+  align-items: flex-center;
+  margin-top: 0.5rem;
+  &.marginTop {
+    margin-top: 2.5rem;
+  }
+  &.noMargin {
+    margin-top: 0rem;
+  }
+`
+
+const AddRemovePanel = <T extends any>({
+  labels = {},
+  item,
+  index,
+  allowEdit = true,
+  allowDelete = true,
   marginTop = undefined,
+  inEditMode = false,
+  onStartEdit,
+  onConfirmEdit,
+  onCancelEdit,
+  onRemove,
   onAddNew,
-  onCancelNew,
-  onBeginRemove,
-  onCancelRemove,
-  onConfirmRemove
-}: AddRemovePanelProps): JSX.Element => {
+  onCopy,
+  onCancelNew
+}: AddRemovePanelProps<T>): JSX.Element | null => {
   const { t } = useTranslation()
 
-  return candidateForDeletion
-    ? (
-      <FlexCenterDiv className={classNames('slideInFromRight', { nolabel: marginTop })}>
-        <BodyLong>
-          {t('ui:are-you-sure')}
+  const [inDeleteMode, setInDeleteMode] = useState<boolean>(false)
+
+  const isNew = item === null
+  const candidateForDeletion = isNew ? false : inDeleteMode
+  const candidateForEdition = isNew ? false : inEditMode
+
+  if (candidateForDeletion) {
+    return (
+      <InlineFlexDiv className={classNames('slideInFromRight', { marginTop })}>
+        <BodyLong style={{ whiteSpace: 'nowrap' }}>
+          {labels?.areYouSure ?? t('ui:are-you-sure')}
         </BodyLong>
         <HorizontalSeparatorDiv size='0.5' />
         <Button
-          variant='tertiary'
           size='small'
-          onClick={onConfirmRemove}
+          variant='tertiary'
+          onClick={() => onRemove(item!)}
         >
-          {t('ui:yes')}
+          {labels?.yes ?? t('ui:yes')}
         </Button>
         <HorizontalSeparatorDiv size='0.5' />
         <Button
-          variant='tertiary'
           size='small'
-          onClick={onCancelRemove}
+          variant='tertiary'
+          onClick={() => setInDeleteMode(false)}
         >
-          {t('ui:no')}
+          {labels?.no ?? t('ui:no')}
         </Button>
-      </FlexCenterDiv>
-      )
-    : (
-      <div className={classNames({ nolabel: marginTop })}>
+      </InlineFlexDiv>
+    )
+  }
+
+  if (candidateForEdition) {
+    return (
+      <InlineFlexDiv className={classNames({ marginTop })}>
+        <HorizontalSeparatorDiv />
         <Button
-          variant='tertiary'
           size='small'
-          onClick={existingItem ? onBeginRemove : onAddNew}
+          variant='tertiary'
+          onClick={() => {
+            onConfirmEdit!()
+          }}
         >
-          {!existingItem ? <Add /> : <Delete />}
-          <HorizontalSeparatorDiv size='0.5' />
-          {!existingItem ? t('ui:add') : t('ui:remove')}
+          <SuccessStroke />
+          {labels?.ok ?? t('el:button-save')}
         </Button>
-        {!existingItem && (
-          <>
-            <HorizontalSeparatorDiv />
-            <Button
-              variant='tertiary'
-              size='small'
-              onClick={onCancelNew}
-            >
-              {t('ui:cancel')}
-            </Button>
-          </>
-        )}
-      </div>
-      )
+        <HorizontalSeparatorDiv />
+        <Button
+          size='small'
+          variant='tertiary'
+          onClick={() => {
+            if (onCancelEdit) {
+              onCancelEdit()
+            }
+          }}
+        >
+          <Cancel />
+          {labels?.cancel ?? t('ui:cancel')}
+        </Button>
+      </InlineFlexDiv>
+    )
+  }
+
+  if (isNew) {
+    return (
+      <InlineFlexDiv className={classNames({ marginTop })}>
+        <Button
+          size='small'
+          variant='tertiary'
+          onClick={() => {
+            if (_.isFunction(onAddNew)) {
+              onAddNew()
+            }
+          }}
+        >
+          <AddCircle />
+          {labels?.add ?? t('ui:add')}
+        </Button>
+        <HorizontalSeparatorDiv />
+        <Button
+          size='small'
+          variant='tertiary'
+          onClick={() => {
+            if (_.isFunction(onCancelNew)) {
+              onCancelNew()
+            }
+          }}
+        >
+          <Cancel />
+          {labels?.cancel ?? t('ui:cancel')}
+        </Button>
+      </InlineFlexDiv>
+    )
+  }
+
+  return (
+    <InlineFlexDiv className={classNames('control-buttons', 'noMargin')}>
+      {allowEdit && (
+        <Button
+          size='small'
+          variant='tertiary'
+          onClick={() => {
+            if (onStartEdit) {
+              onStartEdit(item!, index)
+            }
+          }}
+        >
+          <Edit />
+          {labels?.edit ?? t('ui:edit')}
+        </Button>
+      )}
+      {onCopy &&
+        <Button
+          size='small'
+          variant='tertiary'
+          onClick={() => {
+            onCopy(item!, index)
+          }}
+        >
+          <Copy/>
+          {labels?.copy ?? t('ui:copy')}
+        </Button>
+      }
+      {allowDelete && (
+        <>
+          <HorizontalSeparatorDiv />
+          <Button
+            size='small'
+            variant='tertiary'
+            onClick={() => setInDeleteMode(true)}
+          >
+            <Delete />
+            {labels?.remove ?? t('ui:remove')}
+          </Button>
+        </>
+      )}
+    </InlineFlexDiv>
+  )
 }
 
 export default AddRemovePanel

@@ -6,6 +6,7 @@ import _ from "lodash";
 import {AlignStartRow, Column, VerticalSeparatorDiv, PaddedDiv} from '@navikt/hoykontrast'
 import {Heading} from "@navikt/ds-react";
 import {MainFormProps} from "./MainForm";
+import CountrySelect from "@navikt/landvelger";
 
 const Verge: React.FC<MainFormProps> = ({
   label,
@@ -52,8 +53,12 @@ const Verge: React.FC<MainFormProps> = ({
   return (
     <>
       <PaddedDiv>
-        <Heading size='small'>
+        <Heading size='medium'>
           {label}
+        </Heading>
+        <VerticalSeparatorDiv/>
+        <Heading size='small'>
+          Informasjon om representant/verge
         </Heading>
         <VerticalSeparatorDiv/>
         <AlignStartRow>
@@ -93,7 +98,7 @@ const Verge: React.FC<MainFormProps> = ({
           <Column></Column>
         </AlignStartRow>
         <VerticalSeparatorDiv/>
-        <Heading size="medium">Adresse</Heading>
+        <Heading size="small">Adresse</Heading>
         <VerticalSeparatorDiv/>
         <AlignStartRow>
           <Column>
@@ -141,6 +146,22 @@ const Verge: React.FC<MainFormProps> = ({
               onChanged={setRegion}
               value={(verge?.adresse?.region)  ?? ''}
             />
+          </Column>
+        </AlignStartRow>
+        <VerticalSeparatorDiv/>
+        <AlignStartRow>
+          <Column>
+            <CountrySelect
+              label='Land'
+              ariaLabel='Land'
+              flags={false}
+            />
+          </Column>
+        </AlignStartRow>
+        <VerticalSeparatorDiv/>
+        <AlignStartRow>
+          <Column>
+
           </Column>
         </AlignStartRow>
         <VerticalSeparatorDiv/>

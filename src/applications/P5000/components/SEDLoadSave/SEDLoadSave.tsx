@@ -2,7 +2,6 @@ import { BodyLong, Panel } from '@navikt/ds-react'
 import { saveEntries } from 'actions/localStorage'
 import { updateP5000WorkingCopies } from 'applications/P5000/utils/entriesUtils'
 import { ytelseType } from 'applications/P5000/P5000.labels'
-import AddRemovePanel from 'components/AddRemovePanel/AddRemovePanel'
 import { LocalStorageEntry, LocalStorageEntriesMap, Option } from 'declarations/app'
 import { Buc } from 'declarations/buc'
 import { P5000SED } from 'declarations/p5000'
@@ -13,6 +12,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
+import AddRemovePanel from "components/AddRemovePanel/AddRemovePanel";
 
 const MyPanel = styled(Panel)`
   background: var(--a-surface-subtle);
@@ -35,7 +35,6 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
   buc,
   sedId
 }: SEDLoadSaveProps) => {
-  const [_confirmDelete, setConfirmDelete] = useState<boolean>(false)
   const { storageEntries } = useSelector<State, SEDLoadSaveSelector>(mapState)
 
   const [ytelseOptions] = useState<Array<Option>>(() => Object.keys(ytelseType)
@@ -48,14 +47,15 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
   const entries: Array<LocalStorageEntry<P5000SED>> | undefined =
     storageEntries?.[buc.caseId!]?.filter(entry => entry.sedId === sedId && entry.sedType === 'P5000') as Array<LocalStorageEntry<P5000SED>> | undefined
 
-  const onRemove = (caseId: string, sedId: string) => {
+  const onRemove = (removedEntry: LocalStorageEntry) => {
+    const sedId = removedEntry.sedId
     const newEntries: Array<LocalStorageEntry<P5000SED>> = updateP5000WorkingCopies(entries!, undefined, sedId)
-    dispatch(saveEntries(caseId, newEntries))
+    dispatch(saveEntries(buc.caseId!, newEntries))
   }
 
   return (
     <PileDiv>
-      {entries?.map((entry: LocalStorageEntry<P5000SED>) => (
+      {entries?.map((entry: LocalStorageEntry<P5000SED>, index) => (
         <FlexBaseDiv key={entry.sedId} style={{ flexDirection: 'row-reverse' }}>
           <MyPanel border>
             <FlexBaseDiv style={{ alignItems: 'center' }}>
@@ -105,11 +105,10 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
               <HorizontalSeparatorDiv />
               <FlexBaseDiv>
                 <AddRemovePanel
-                  existingItem
-                  candidateForDeletion={_confirmDelete}
-                  onBeginRemove={() => setConfirmDelete(true)}
-                  onConfirmRemove={() => onRemove(buc.caseId!, entry.sedId)}
-                  onCancelRemove={() => setConfirmDelete(false)}
+                  item={entry}
+                  index={index}
+                  onRemove={onRemove}
+                  allowEdit={false}
                 />
               </FlexBaseDiv>
             </FlexBaseDiv>
