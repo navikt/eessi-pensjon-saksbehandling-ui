@@ -1,15 +1,14 @@
-import React, {useState} from "react";
+import React from "react";
 import {useDispatch} from "react-redux";
-import {Telefon, Verge as P2000Verge} from "../../declarations/p2000";
+import {Verge as P2000Verge} from "../../declarations/p2000";
 import Input from "../../components/Forms/Input";
 import _ from "lodash";
-import {AlignStartRow, Column, VerticalSeparatorDiv, PaddedDiv, AlignEndColumn} from '@navikt/hoykontrast'
-import {Button, Heading} from "@navikt/ds-react";
+import {AlignStartRow, Column, VerticalSeparatorDiv, PaddedDiv} from '@navikt/hoykontrast'
+import {Heading} from "@navikt/ds-react";
 import {MainFormProps} from "./MainForm";
 import CountrySelect from "@navikt/landvelger";
-import AddRemovePanel from "components/AddRemovePanel/AddRemovePanel";
-import {getIdx} from "../../utils/namespace";
-import {AddCircle} from "@navikt/ds-icons";
+import Telefon from "./Telefon";
+import Epost from "./Epost";
 
 const Verge: React.FC<MainFormProps> = ({
   label,
@@ -22,13 +21,6 @@ const Verge: React.FC<MainFormProps> = ({
   const namespace = `${parentNamespace}-verge`
   const target = 'nav.verge'
   const verge: P2000Verge | undefined = _.get(PSED, target)
-  const telefonnumre: Array<Telefon> | undefined = _.get(PSED, `${target}.person.kontakt.telefon`)
-
-  const [_newTelefon, _setNewTelefon] = useState<Telefon | undefined>(undefined)
-  const [_editTelefon, _setEditTelefon] = useState<Telefon | undefined>(undefined)
-
-  const [_editTelefonIndex, _setEditTelefonIndex] = useState<number | undefined>(undefined)
-  const [_newTelefonForm, _setNewTelefonForm] = useState<boolean>(false)
 
   const error = null
 
@@ -58,113 +50,6 @@ const Verge: React.FC<MainFormProps> = ({
 
   const setRegion = (region: string) => {
     dispatch(updatePSED(`${target}.adresse.region`, region))
-  }
-
-
-  const setTelefonNummer = (nummer: string, index: number) => {
-    if (index < 0) {
-      _setNewTelefon({
-        ..._newTelefon,
-        nummer: nummer.trim(),
-        type: _newTelefon?.type!
-      })
-      return
-    }
-    _setEditTelefon({
-      ..._editTelefon,
-      nummer: nummer.trim(),
-      type: _editTelefon?.type!
-    })
-  }
-
-  const setTelefonType = (type: string, index: number) => {
-    if (index < 0) {
-      _setNewTelefon({
-        ..._newTelefon,
-        type: type.trim(),
-        nummer: _newTelefon?.nummer!
-      })
-      return
-    }
-    _setEditTelefon({
-      ..._editTelefon,
-      type: type.trim(),
-      nummer: _editTelefon?.nummer!
-    })
-  }
-
-  const onAddNewTelefon = () => {
-    if (!!_newTelefon) {
-      let newTelefonnumre: Array<Telefon> | undefined = _.cloneDeep(telefonnumre)
-      if (_.isNil(newTelefonnumre)) {
-        newTelefonnumre = []
-      }
-      newTelefonnumre.push(_newTelefon)
-      dispatch(updatePSED(`${target}.person.kontakt.telefon`, newTelefonnumre))
-      onCloseNewTelefon()
-    }
-  }
-
-  const onCloseNewTelefon = () => {
-    _setNewTelefon(undefined)
-    _setNewTelefonForm(false)
-    _setEditTelefonIndex(undefined)
-  }
-
-  const renderTelefon = (telefon: Telefon | null, index: number) => {
-    const _namespace = namespace + getIdx(index)
-    const inEditMode = index < 0 || _editTelefonIndex === index
-    const _telefon = index < 0 ? _newTelefon : (inEditMode ? _editTelefon : telefon)
-    return(
-      <AlignStartRow>
-          {inEditMode
-            ? (
-                <>
-                  <Column>
-                    <Input
-                      error={error}
-                      namespace={_namespace}
-                      id=''
-                      label="Telefon"
-                      onChanged={(e) => setTelefonNummer(e, index)}
-                      value={(_telefon?.nummer)  ?? ''}
-                    />
-                  </Column>
-                  <Column>
-                    <Input
-                      error={error}
-                      namespace={_namespace}
-                      id=''
-                      label="Type"
-                      onChanged={(e) => setTelefonType(e, index)}
-                      value={(_telefon?.type)  ?? ''}
-                    />
-                  </Column>
-                </>
-              )
-            : (
-                <Column>
-                  <div>TELEFON: {_telefon?.nummer}</div>
-                </Column>
-              )
-          }
-
-        <AlignEndColumn>
-          <AddRemovePanel
-            item={telefon}
-            marginTop={index < 0}
-            index={index}
-            inEditMode={inEditMode}
-            onRemove={()=>{}}
-            onAddNew={onAddNewTelefon}
-            onCancelNew={onCloseNewTelefon}
-            onStartEdit={()=>{}}
-            onConfirmEdit={()=>{}}
-            onCancelEdit={() => {}}
-          />
-        </AlignEndColumn>
-      </AlignStartRow>
-    )
   }
 
   return (
@@ -269,32 +154,17 @@ const Verge: React.FC<MainFormProps> = ({
         <AlignStartRow>
           <Column>
             <CountrySelect
+              id=''
               label='Land'
               ariaLabel='Land'
-              flags={false}
+              flags={true}
             />
           </Column>
         </AlignStartRow>
         <VerticalSeparatorDiv/>
-        <AlignStartRow>
-          <Column>
-            {telefonnumre?.map(renderTelefon)}
-          </Column>
-        </AlignStartRow>
+        <Telefon PSED={PSED} parentNamespace={namespace} updatePSED={updatePSED}/>
         <VerticalSeparatorDiv/>
-        {_newTelefonForm
-          ? renderTelefon(null, -1)
-          : (
-              <PaddedDiv>
-                <Button
-                  variant='tertiary'
-                  onClick={() => _setNewTelefonForm(true)}
-                >
-                  <AddCircle /> LEGG TIL TELEFON
-                </Button>
-              </PaddedDiv>
-            )
-        }
+        <Epost PSED={PSED} parentNamespace={namespace} updatePSED={updatePSED}/>
       </PaddedDiv>
     </>
   )
