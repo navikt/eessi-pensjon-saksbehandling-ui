@@ -49,17 +49,8 @@ export interface Arbeidsforhold {
 export interface Verge {
   person: {
     kontakt: {
-      telefon: [
-        {
-          nummer: string | null
-          type: string | null
-        }
-      ] | null,
-      email: [
-        {
-          adresse: string | null
-        }
-      ] | null
+      telefon: Array<Telefon> | null,
+      email: Array<Email> | null
     },
     fornavn: string
     etternavn: string
@@ -81,6 +72,15 @@ export interface Adresse {
   datoforadresseendring : string | null,
   postadresse : string | null,
   startdato : string | null
+}
+
+export interface Telefon {
+  nummer: string | null
+  type: string | null
+}
+
+export interface Email {
+  adresse: string | null
 }
 
 export interface P2000SED {
