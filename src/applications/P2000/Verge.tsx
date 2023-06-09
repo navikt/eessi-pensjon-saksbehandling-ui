@@ -108,6 +108,7 @@ const Verge: React.FC<MainFormProps> = ({
   const onCloseNewTelefon = () => {
     _setNewTelefon(undefined)
     _setNewTelefonForm(false)
+    _setEditTelefonIndex(undefined)
   }
 
   const renderTelefon = (telefon: Telefon | null, index: number) => {
