@@ -8,13 +8,15 @@ const useValidation = <ValidationData extends any>(
   validateFunction: (
     newValidation: Validation,
     t: TFunction,
-    validationData: ValidationData
-  ) => boolean
+    validationData: ValidationData,
+    namespace?: string | undefined,
+  ) => boolean,
+  namespace?: string | undefined
 ): [
-    Validation,
-    (key?: string | undefined) => void,
-    (validationData: ValidationData) => boolean,
-    (v: Validation) => void
+      Validation,
+      (key?: (string | undefined)) => void,
+      (validationData: ValidationData) => boolean,
+      ((value: (((prevState: Validation) => Validation) | Validation)) => void)
   ] => {
   const { t } = useTranslation()
   const [_validation, setValidation] = useState<Validation>(initialValue)
@@ -34,7 +36,8 @@ const useValidation = <ValidationData extends any>(
     const hasErrors: boolean = validateFunction(
       newValidation,
       t,
-      validationData
+      validationData,
+      namespace
     )
     setValidation(newValidation)
     return !hasErrors
