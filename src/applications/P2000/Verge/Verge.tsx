@@ -1,14 +1,22 @@
 import React from "react";
 import {useDispatch} from "react-redux";
-import {Verge as P2000Verge} from "../../declarations/p2000";
-import Input from "../../components/Forms/Input";
+import {Verge as P2000Verge} from "../../../declarations/p2000";
+import Input from "../../../components/Forms/Input";
 import _ from "lodash";
 import {AlignStartRow, Column, VerticalSeparatorDiv, PaddedDiv} from '@navikt/hoykontrast'
 import {Heading} from "@navikt/ds-react";
-import {MainFormProps} from "./MainForm";
+import {MainFormProps, MainFormSelector} from "../MainForm";
 import CountrySelect from "@navikt/landvelger";
 import Telefon from "./Telefon";
 import Epost from "./Epost";
+import {State} from "../../../declarations/reducers";
+import {useAppSelector} from "../../../store";
+
+
+const mapState = (state: State): MainFormSelector => ({
+  validation: state.validation.status
+})
+
 
 const Verge: React.FC<MainFormProps> = ({
   label,
@@ -18,6 +26,7 @@ const Verge: React.FC<MainFormProps> = ({
 }: MainFormProps): JSX.Element => {
 
   const dispatch = useDispatch()
+  const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-verge`
   const target = 'nav.verge'
   const verge: P2000Verge | undefined = _.get(PSED, target)
@@ -66,9 +75,9 @@ const Verge: React.FC<MainFormProps> = ({
         <AlignStartRow>
           <Column>
             <Input
-              error={error}
+              error={validation[namespace + '-person-etternavn']?.feilmelding}
               namespace={namespace}
-              id=''
+              id='person-etternavn'
               label="Etternavn"
               onChanged={setEtternavn}
               value={(verge?.person?.etternavn) ?? ''}
@@ -76,9 +85,9 @@ const Verge: React.FC<MainFormProps> = ({
           </Column>
           <Column>
             <Input
-              error={error}
+              error={validation[namespace + '-person-fornavn']?.feilmelding}
               namespace={namespace}
-              id=''
+              id='person-fornavn'
               label="Fornavn"
               onChanged={setFornavn}
               value={(verge?.person?.fornavn)  ?? ''}

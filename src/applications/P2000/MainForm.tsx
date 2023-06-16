@@ -12,7 +12,7 @@ import {
   PileDiv
 } from '@navikt/hoykontrast'
 
-import { PSED } from "declarations/app.d";
+import {PSED, Validation} from "declarations/app.d";
 import classNames from 'classnames'
 import { WithErrorPanel } from 'components/StyledComponents'
 import { Option } from 'declarations/app'
@@ -120,6 +120,10 @@ export interface MainFormProps {
   setPSED: (PSED: PSED ) => ActionWithPayload<PSED>
   updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
   options ?: any
+}
+
+export interface MainFormSelector {
+  validation: Validation
 }
 
 export interface Form extends Option {

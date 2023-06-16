@@ -4,14 +4,14 @@ import {AddCircle} from "@navikt/ds-icons";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
-import {Telefon as P2000Telefon} from "../../declarations/p2000";
-import {getIdx} from "../../utils/namespace";
-import {RepeatableRow} from "../../components/StyledComponents";
-import Input from "../../components/Forms/Input";
-import AddRemovePanel from "../../components/AddRemovePanel/AddRemovePanel";
+import {Telefon as P2000Telefon} from "../../../declarations/p2000";
+import {getIdx} from "../../../utils/namespace";
+import {RepeatableRow} from "../../../components/StyledComponents";
+import Input from "../../../components/Forms/Input";
+import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
-import {UpdateSedPayload} from "../../declarations/types";
-import { PSED } from "declarations/app.d";
+import {UpdateSedPayload} from "../../../declarations/types";
+import { PSED } from "declarations/app";
 
 export interface TelefonProps {
   PSED: PSED | null | undefined

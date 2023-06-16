@@ -13,10 +13,11 @@ import {P2000SED} from "../../declarations/p2000";
 import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import _ from 'lodash'
 
-import Verge from "./Verge";
+import Verge from "./Verge/Verge";
 import MainForm from "./MainForm";
 import performValidation from "../../utils/performValidation";
 import {validateP2000, ValidationP2000Props} from "./validateP2000";
+import ValidationBox from "../../components/ValidationBox/ValidationBox";
 
 export interface P2000Selector {
   currentPSED: P2000SED
@@ -90,9 +91,10 @@ const P2000: React.FC<P2000Props> = ({
         PSED={currentPSED}
         setPSED={setPSED}
         updatePSED={updatePSED}
-        namespace="psed"
+        namespace="p2000"
       />
       <VerticalSeparatorDiv/>
+      <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
       <Button
         variant='primary'
         onClick={onSaveSed}

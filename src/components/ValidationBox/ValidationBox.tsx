@@ -27,6 +27,8 @@ const ValidationBox: React.FC<ValidationBoxProps> = ({
       {Object.values(validation)
         .filter(v => v !== undefined)
         .filter(v => v?.feilmelding !== 'notnull')
+        .filter(v => v?.feilmelding !== 'error')
+        .filter(v => v?.feilmelding !== 'ok')
         .map(v => ({
           feilmelding: v!.feilmelding,
           skjemaelementId: v!.skjemaelementId
