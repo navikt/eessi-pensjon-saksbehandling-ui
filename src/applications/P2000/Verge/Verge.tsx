@@ -7,8 +7,8 @@ import {AlignStartRow, Column, VerticalSeparatorDiv, PaddedDiv} from '@navikt/ho
 import {Heading} from "@navikt/ds-react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import CountrySelect from "@navikt/landvelger";
-import Telefon from "./Telefon";
-import Epost from "./Epost";
+import Telefon from "../Telefon/Telefon";
+import Epost from "../Epost/Epost";
 import {State} from "../../../declarations/reducers";
 import {useAppSelector} from "../../../store";
 
@@ -30,8 +30,6 @@ const Verge: React.FC<MainFormProps> = ({
   const namespace = `${parentNamespace}-verge`
   const target = 'nav.verge'
   const verge: P2000Verge | undefined = _.get(PSED, target)
-
-  const error = null
 
   const setEtternavn = (etternavn: string) => {
     dispatch(updatePSED(`${target}.person.etternavn`, etternavn))
@@ -98,9 +96,9 @@ const Verge: React.FC<MainFormProps> = ({
         <AlignStartRow>
           <Column>
             <Input
-              error={error}
+              error={validation[namespace + '-vergemaal-mandat']?.feilmelding}
               namespace={namespace}
-              id=''
+              id='vergemaal-mandat'
               label="Årsak til vergemål, representasjon"
               onChanged={setVergemaalMandat}
               value={(verge?.vergemaal?.mandat)  ?? ''}
@@ -114,9 +112,9 @@ const Verge: React.FC<MainFormProps> = ({
         <AlignStartRow>
           <Column>
             <Input
-              error={error}
+              error={validation[namespace + '-adresse-gate']?.feilmelding}
               namespace={namespace}
-              id=''
+              id='adresse-gate'
               label="Gate"
               onChanged={setGate}
               value={(verge?.adresse?.gate)  ?? ''}
@@ -127,9 +125,9 @@ const Verge: React.FC<MainFormProps> = ({
         <AlignStartRow>
           <Column>
             <Input
-              error={error}
+              error={validation[namespace + '-adresse-postnummer']?.feilmelding}
               namespace={namespace}
-              id=''
+              id='adresse-postnummer'
               label="Postnummer"
               onChanged={setPostnummer}
               value={(verge?.adresse?.postnummer) ?? ''}
@@ -137,9 +135,9 @@ const Verge: React.FC<MainFormProps> = ({
           </Column>
           <Column>
             <Input
-              error={error}
+              error={validation[namespace + '-adresse-by']?.feilmelding}
               namespace={namespace}
-              id=''
+              id='adresse-by'
               label="By"
               onChanged={setBy}
               value={(verge?.adresse?.by)  ?? ''}
@@ -150,9 +148,9 @@ const Verge: React.FC<MainFormProps> = ({
         <AlignStartRow>
           <Column>
             <Input
-              error={error}
+              error={validation[namespace + '-adresse-region']?.feilmelding}
               namespace={namespace}
-              id=''
+              id='adresse-region'
               label="Region"
               onChanged={setRegion}
               value={(verge?.adresse?.region)  ?? ''}
@@ -163,7 +161,8 @@ const Verge: React.FC<MainFormProps> = ({
         <AlignStartRow>
           <Column>
             <CountrySelect
-              id=''
+              error={validation[namespace + '-adresse-land']?.feilmelding}
+              id={namespace + '-' + 'adresse-land'}
               label='Land'
               ariaLabel='Land'
               flags={true}

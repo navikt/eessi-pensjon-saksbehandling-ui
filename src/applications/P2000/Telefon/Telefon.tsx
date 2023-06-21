@@ -11,7 +11,18 @@ import Input from "../../../components/Forms/Input";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "../../../declarations/types";
-import { PSED } from "declarations/app";
+import {PSED, Validation} from "declarations/app";
+import useValidation from "../../../hooks/useValidation";
+import {validateTelefon, ValidationTelefonProps} from "./validation";
+import { resetValidation, setValidation } from 'actions/validation'
+import performValidation from 'utils/performValidation'
+import {State} from "../../../declarations/reducers";
+import {MainFormSelector} from "../MainForm";
+import {useAppSelector} from "../../../store";
+
+const mapState = (state: State): MainFormSelector => ({
+  validation: state.validation.status
+})
 
 export interface TelefonProps {
   PSED: PSED | null | undefined
@@ -24,9 +35,8 @@ const Telefon: React.FC<TelefonProps> = ({
   PSED,
   updatePSED
 }: TelefonProps): JSX.Element => {
-
+  const { validation } = useAppSelector(mapState)
   const dispatch = useDispatch()
-  const error = null
   const namespace = `${parentNamespace}-person-kontakt-telefon`
   const target = 'nav.verge.person.kontakt.telefon'
   const telefonnumre: Array<P2000Telefon> | undefined = _.get(PSED, `${target}`)
@@ -36,6 +46,8 @@ const Telefon: React.FC<TelefonProps> = ({
 
   const [_editTelefonIndex, _setEditTelefonIndex] = useState<number | undefined>(undefined)
   const [_newTelefonForm, _setNewTelefonForm] = useState<boolean>(false)
+
+  const [_validation, _resetValidation, _performValidation] = useValidation<ValidationTelefonProps>(validateTelefon, namespace)
 
   const setTelefonNummer = (nummer: string, index: number) => {
     if (index < 0) {
@@ -70,7 +82,11 @@ const Telefon: React.FC<TelefonProps> = ({
   }
 
   const onAddNewTelefon = () => {
-    if (!!_newTelefon) {
+    const valid: boolean = _performValidation({
+      telefon: _newTelefon
+    })
+
+    if (!!_newTelefon && valid) {
       let newTelefonnumre: Array<P2000Telefon> | undefined = _.cloneDeep(telefonnumre)
       if (_.isNil(newTelefonnumre)) {
         newTelefonnumre = []
@@ -85,21 +101,37 @@ const Telefon: React.FC<TelefonProps> = ({
     _setNewTelefon(undefined)
     _setNewTelefonForm(false)
     _setEditTelefonIndex(undefined)
+    _resetValidation()
   }
 
-  const onCloseEditTelefon = () => {
+  const onCloseEditTelefon = (namespace: string) => {
     _setEditTelefon(undefined)
     _setEditTelefonIndex(undefined)
+    dispatch(resetValidation(namespace))
   }
 
   const onStartEditTelefon = (t: P2000Telefon, index: number) => {
+    if (_editTelefonIndex !== undefined) {
+      dispatch(resetValidation(namespace + getIdx(_editTelefonIndex)))
+    }
     _setEditTelefon(t)
     _setEditTelefonIndex(index)
   }
 
   const onSaveEditTelefon = () => {
-    dispatch(updatePSED(`${target}[${_editTelefonIndex}]`, _editTelefon))
-    onCloseEditTelefon()
+    const clonedvalidation = _.cloneDeep(validation)
+    const hasErrors = performValidation<ValidationTelefonProps>(
+      clonedvalidation, namespace, validateTelefon, {
+        telefon: _editTelefon,
+        index: _editTelefonIndex
+      }
+    )
+    if(!hasErrors) {
+      dispatch(updatePSED(`${target}[${_editTelefonIndex}]`, _editTelefon))
+      onCloseEditTelefon(namespace + getIdx(_editTelefonIndex))
+    } else {
+        dispatch(setValidation(clonedvalidation))
+    }
   }
 
   const onRemoveTelefon = (removedTelefon: P2000Telefon) => {
@@ -109,6 +141,7 @@ const Telefon: React.FC<TelefonProps> = ({
   }
   const renderTelefon = (telefon: P2000Telefon | null, index: number) => {
     const _namespace = namespace + getIdx(index)
+    const _v: Validation = index < 0 ? _validation : validation
     const inEditMode = index < 0 || _editTelefonIndex === index
     const _telefon = index < 0 ? _newTelefon : (inEditMode ? _editTelefon : telefon)
     return(
@@ -119,7 +152,7 @@ const Telefon: React.FC<TelefonProps> = ({
               <>
                 <Column>
                   <Input
-                    error={error}
+                    error={_v[_namespace + '-nummer']?.feilmelding}
                     namespace={_namespace}
                     id=''
                     label="Nummer"
@@ -129,6 +162,7 @@ const Telefon: React.FC<TelefonProps> = ({
                 </Column>
                 <Column>
                   <Select
+                    error={_v[_namespace + '-type']?.feilmelding}
                     label="Type"
                     onChange={(e) => setTelefonType(e.target.value, index)}
                     value={(_telefon?.type)  ?? ''}
@@ -159,7 +193,7 @@ const Telefon: React.FC<TelefonProps> = ({
               onCancelNew={onCloseNewTelefon}
               onStartEdit={onStartEditTelefon}
               onConfirmEdit={onSaveEditTelefon}
-              onCancelEdit={onCloseEditTelefon}
+              onCancelEdit={() => onCloseEditTelefon(_namespace)}
             />
           </AlignEndColumn>
         </AlignStartRow>

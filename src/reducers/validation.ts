@@ -17,20 +17,20 @@ const validationReducer = (state: ValidationState = initialValidationState, acti
     case types.PSED_RESET:
       return initialValidationState
 
-    case types.VALIDATION_RESET: {
+    case types.VALIDATION_RESET:
       const key: Array<string> | string | undefined = (action as ActionWithPayload).payload
       if (!key) {
         return {
+          ...state,
           status: {}
         }
       }
-
       const newStatus = _.cloneDeep(state.status)
       filterAllWithNamespace(newStatus, key)
       return {
+        ...state,
         status: newStatus
       }
-    }
 
     case types.VALIDATION_SET:
       return {
