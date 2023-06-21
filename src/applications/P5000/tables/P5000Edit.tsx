@@ -76,7 +76,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const { sentP5000info }: any = useSelector<State, any>(mapState)
   const componentRef = useRef(null)
 
-  const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>({}, P5000EditValidate)
+  const [_validation, _resetValidation, _performValidation] = useValidation<P5000EditValidationProps>(P5000EditValidate, "", {})
   const [_itemsPerPage, _setItemsPerPage] = useState<number>(30)
   const [_items, sourceStatus] = convertP5000SEDToP5000ListRows({
     seds: [mainSed],
