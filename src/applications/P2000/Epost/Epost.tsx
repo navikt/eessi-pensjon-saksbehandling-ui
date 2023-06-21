@@ -11,7 +11,18 @@ import Input from "../../../components/Forms/Input";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "../../../declarations/types";
-import { PSED } from "declarations/app";
+import {PSED, Validation} from "declarations/app";
+import useValidation from "../../../hooks/useValidation";
+import {validateEpost, ValidationEpostProps} from "./validation";
+import {resetValidation, setValidation} from "../../../actions/validation";
+import performValidation from "../../../utils/performValidation";
+import {useAppSelector} from "../../../store";
+import {State} from "../../../declarations/reducers";
+import {MainFormSelector} from "../MainForm";
+
+const mapState = (state: State): MainFormSelector => ({
+  validation: state.validation.status
+})
 
 export interface EpostProps {
   PSED: PSED | null | undefined
@@ -25,8 +36,8 @@ const Epost: React.FC<EpostProps> = ({
   updatePSED
 }: EpostProps): JSX.Element => {
 
+  const { validation } = useAppSelector(mapState)
   const dispatch = useDispatch()
-  const error = null
   const namespace = `${parentNamespace}-person-kontakt-email`
   const target = 'nav.verge.person.kontakt.email'
   const epostAdresser: Array<Email> | undefined = _.get(PSED, `${target}`)
@@ -36,6 +47,8 @@ const Epost: React.FC<EpostProps> = ({
 
   const [_editEpostIndex, _setEditEpostIndex] = useState<number | undefined>(undefined)
   const [_newEpostForm, _setNewEpostForm] = useState<boolean>(false)
+
+  const [_validation, _resetValidation, _performValidation] = useValidation<ValidationEpostProps>(validateEpost, namespace)
 
   const setEpost = (adresse: string, index: number) => {
     if (index < 0) {
@@ -52,7 +65,11 @@ const Epost: React.FC<EpostProps> = ({
   }
 
   const onAddNewEpost = () => {
-    if (!!_newEpost) {
+    const valid: boolean = _performValidation({
+      epost: _newEpost
+    })
+
+    if (!!_newEpost && valid) {
       let newEpostadresser: Array<Email> | undefined = _.cloneDeep(epostAdresser)
       if (_.isNil(newEpostadresser)) {
         newEpostadresser = []
@@ -67,21 +84,38 @@ const Epost: React.FC<EpostProps> = ({
     _setNewEpost(undefined)
     _setNewEpostForm(false)
     _setEditEpostIndex(undefined)
+    _resetValidation()
   }
 
-  const onCloseEditEpost = () => {
+  const onCloseEditEpost = (namespace: string) => {
     _setEditEpost(undefined)
     _setEditEpostIndex(undefined)
+    dispatch(resetValidation(namespace))
   }
 
   const onStartEditEpost = (t: Email, index: number) => {
+    if (_editEpostIndex !== undefined) {
+      dispatch(resetValidation(namespace + getIdx(_editEpostIndex)))
+    }
     _setEditEpost(t)
     _setEditEpostIndex(index)
   }
 
   const onSaveEditEpost = () => {
-    dispatch(updatePSED(`${target}[${_editEpostIndex}]`, _editEpost))
-    onCloseEditEpost()
+    const clonedvalidation = _.cloneDeep(validation)
+    const hasErrors = performValidation<ValidationEpostProps>(
+      clonedvalidation, namespace, validateEpost, {
+        epost: _editEpost,
+        index: _editEpostIndex
+      }
+    )
+
+    if(!hasErrors) {
+      dispatch(updatePSED(`${target}[${_editEpostIndex}]`, _editEpost))
+      onCloseEditEpost(namespace + getIdx(_editEpostIndex))
+    } else {
+      dispatch(setValidation(clonedvalidation))
+    }
   }
 
   const onRemoveEpost = (removedEpost: Email) => {
@@ -91,6 +125,7 @@ const Epost: React.FC<EpostProps> = ({
   }
   const renderEpost = (epost: Email | null, index: number) => {
     const _namespace = namespace + getIdx(index)
+    const _v: Validation = index < 0 ? _validation : validation
     const inEditMode = index < 0 || _editEpostIndex === index
     const _epost = index < 0 ? _newEpost : (inEditMode ? _editEpost : epost)
     return(
@@ -101,7 +136,7 @@ const Epost: React.FC<EpostProps> = ({
               <>
                 <Column>
                   <Input
-                    error={error}
+                    error={_v[_namespace + '-adresse']?.feilmelding}
                     namespace={_namespace}
                     id=''
                     label="Adresse"
@@ -129,7 +164,7 @@ const Epost: React.FC<EpostProps> = ({
               onCancelNew={onCloseNewEpost}
               onStartEdit={onStartEditEpost}
               onConfirmEdit={onSaveEditEpost}
-              onCancelEdit={onCloseEditEpost}
+              onCancelEdit={() => onCloseEditEpost(_namespace)}
             />
           </AlignEndColumn>
         </AlignStartRow>
