@@ -11,12 +11,14 @@ import Telefon from "../Telefon/Telefon";
 import Epost from "../Epost/Epost";
 import {State} from "../../../declarations/reducers";
 import {useAppSelector} from "../../../store";
-
+import useUnmount from "../../../hooks/useUnmount";
+import performValidation from "../../../utils/performValidation";
+import {validateVerge, ValidationVergeProps} from "./validation";
+import {setValidation} from "../../../actions/validation";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
 })
-
 
 const Verge: React.FC<MainFormProps> = ({
   label,
@@ -30,6 +32,16 @@ const Verge: React.FC<MainFormProps> = ({
   const namespace = `${parentNamespace}-verge`
   const target = 'nav.verge'
   const verge: P2000Verge | undefined = _.get(PSED, target)
+
+  useUnmount(() => {
+    const clonedvalidation = _.cloneDeep(validation)
+    performValidation<ValidationVergeProps>(
+      clonedvalidation, namespace, validateVerge, {
+        verge
+      }, true
+    )
+    dispatch(setValidation(clonedvalidation))
+  })
 
   const setEtternavn = (etternavn: string) => {
     dispatch(updatePSED(`${target}.person.etternavn`, etternavn))
@@ -57,6 +69,10 @@ const Verge: React.FC<MainFormProps> = ({
 
   const setRegion = (region: string) => {
     dispatch(updatePSED(`${target}.adresse.region`, region))
+  }
+
+  const setLand = (land: string) => {
+    dispatch(updatePSED(`${target}.adresse.land`, land))
   }
 
   return (
@@ -166,6 +182,8 @@ const Verge: React.FC<MainFormProps> = ({
               label='Land'
               ariaLabel='Land'
               flags={true}
+              onOptionSelected={setLand}
+              values={(verge?.adresse?.land) ?? ''}
             />
           </Column>
         </AlignStartRow>

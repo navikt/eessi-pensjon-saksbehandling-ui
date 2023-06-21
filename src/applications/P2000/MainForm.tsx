@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import {
-  NextFilled
+  ErrorFilled,
+  NextFilled,
+  SuccessFilled
 } from '@navikt/ds-icons'
 import { BodyLong } from '@navikt/ds-react'
 import { ActionWithPayload } from '@navikt/fetch'
@@ -21,6 +23,8 @@ import { UpdateSedPayload } from 'declarations/types'
 import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
+import {useAppSelector} from "../../store";
+import {State} from "../../declarations/reducers";
 
 const LeftDiv = styled.div`
   flex: 1;
@@ -131,6 +135,9 @@ export interface Form extends Option {
   condition ?: () => void
 }
 
+export const mapState = (state: State): MainFormSelector => ({
+  validation: state.validation.status
+})
 
 const MainForm = <T extends PSED>({
   forms,
@@ -140,6 +147,7 @@ const MainForm = <T extends PSED>({
   namespace,
 }: MainFormFCProps<T>) => {
   const { t } = useTranslation()
+  const { validation }: any = useAppSelector(mapState)
 
   const initialMenu = forms.length === 1 ? forms[0].value : undefined
   const [currentMenu, _setCurrentMenu] = useState<string | undefined>(initialMenu)
@@ -204,6 +212,9 @@ const MainForm = <T extends PSED>({
   const renderOneLevelMenu = (forms: Array<Form>) => {
     return forms.filter(o => _.isFunction(o.condition) ? o.condition() : true).map((form) => {
       const selected: boolean = currentMenu === form.value
+      const validationKeys = Object.keys(validation).filter(k => k.startsWith(namespace + '-' + form.value))
+      const isValidated = validationKeys.length > 0
+      const validationHasErrors = isValidated && _.some(validationKeys, v => validation[v]?.feilmelding !== 'ok')
       return (
         <NameAndOptionsDiv
           key={form.value}
@@ -218,6 +229,12 @@ const MainForm = <T extends PSED>({
             <NameLabelDiv
               className={classNames({ selected })}
             >
+              {!isValidated
+                ? null
+                : validationHasErrors
+                  ? <ErrorFilled height={20} color='red' />
+                  : <SuccessFilled color='green' height={20} />
+              }
               <>
                 <HorizontalSeparatorDiv size='0.5' />
                 <MenuLabelText className={classNames({ selected })}>

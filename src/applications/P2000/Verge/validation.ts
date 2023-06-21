@@ -4,7 +4,7 @@ import {Verge} from "declarations/p2000";
 
 
 export interface ValidationVergeProps {
-  verge: Verge
+  verge: Verge | undefined
 }
 
 export const validateVerge = (

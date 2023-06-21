@@ -18,6 +18,7 @@ import MainForm from "./MainForm";
 import performValidation from "../../utils/performValidation";
 import {validateP2000, ValidationP2000Props} from "./validateP2000";
 import ValidationBox from "../../components/ValidationBox/ValidationBox";
+import ForsikretPerson from "./ForsikrettPerson/ForsikretPerson";
 
 export interface P2000Selector {
   currentPSED: P2000SED
@@ -86,7 +87,8 @@ const P2000: React.FC<P2000Props> = ({
       <Heading size={"medium"}>P2000</Heading>
       <MainForm
         forms={[
-          { label: "Verge", value: 'verge', component: Verge},
+          { label: "Forsikret person", value: 'forsikretPerson', component: ForsikretPerson},
+          { label: "Verge", value: 'verge', component: Verge}
         ]}
         PSED={currentPSED}
         setPSED={setPSED}
