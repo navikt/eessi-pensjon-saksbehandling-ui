@@ -1,0 +1,66 @@
+import {Heading} from "@navikt/ds-react";
+import {VerticalSeparatorDiv, PaddedDiv} from "@navikt/hoykontrast";
+import React from "react";
+import {MainFormProps, MainFormSelector} from "../MainForm";
+import {Person, PIN} from "declarations/p2000";
+import _ from "lodash";
+import {State} from "declarations/reducers";
+import {useDispatch} from "react-redux";
+import {useAppSelector} from "store";
+import {resetValidation} from "actions/validation";
+import UtenlandskePin from "../UtenlandskePin/UtenlandskePin";
+
+const mapState = (state: State): MainFormSelector => ({
+  validation: state.validation.status
+})
+
+const ForsikretPerson: React.FC<MainFormProps> = ({
+  label,
+  parentNamespace,
+  PSED,
+  updatePSED
+}: MainFormProps): JSX.Element => {
+
+  const dispatch = useDispatch()
+  const { validation } = useAppSelector(mapState)
+  const namespace = `${parentNamespace}-forsikretperson`
+  const target = 'nav.bruker.person'
+  const forsikretPerson:  Person | undefined = _.get(PSED, target)
+
+  const norskPin: PIN | undefined = _.find(forsikretPerson?.pin, p => p.land === 'NO')
+  const utenlandskePin: Array<PIN> = _.filter(forsikretPerson?.pin, p => p.land !== 'NO')
+
+  const setUtenlandskePin = (newPins: Array<PIN>) => {
+    let pins: Array<PIN> | undefined = _.cloneDeep(newPins)
+    if (_.isNil(pins)) {
+      pins = []
+    }
+    const norskPin: PIN | undefined = _.find(forsikretPerson!.pin, p => p.land === 'NO')
+    if (!_.isEmpty(norskPin)) {
+      pins.unshift(norskPin!)
+    }
+    dispatch(updatePSED(`${target}.pin`, pins))
+    dispatch(resetValidation(namespace + '-pin'))
+  }
+
+  console.log(namespace, forsikretPerson)
+  console.log(norskPin)
+  return (
+    <>
+      <PaddedDiv>
+        <Heading size='medium'>
+          {label}
+        </Heading>
+        <VerticalSeparatorDiv/>
+        <UtenlandskePin
+          pins={utenlandskePin}
+          onPinsChanged={setUtenlandskePin}
+          namespace={namespace + '-pin'}
+          validation={validation}
+        />
+      </PaddedDiv>
+    </>
+  )
+}
+
+export default ForsikretPerson

@@ -19,6 +19,49 @@ export const checkIfNotEmpty = (v: Validation, { needle, id, message, extra }: V
   return false
 }
 
+export const checkIfDuplicate = (v: Validation, {
+  needle, haystack, index, matchFn, id, message, extra
+}: any): boolean => {
+  let duplicate: boolean
+  let _h
+  if (!_.isEmpty(needle)) {
+    if (_.isNil(index)) {
+      _h = haystack
+    } else {
+      _h = _.filter(haystack, (p, i) => i !== index)
+    }
+    duplicate = _.find(_h, matchFn) !== undefined
+    if (duplicate) {
+      return addError(v, { id, message, extra })
+    }
+  }
+  return false
+}
+
+export const checkIfValidLand = (v: Validation, {
+  needle,
+  id,
+  message,
+  extra
+}: any): boolean => {
+  if (!_.isEmpty(needle) && needle?.trim()?.length !== 2) {
+    return addError(v, { id, message, extra })
+  }
+  return false
+}
+
+export const checkIfNotGB = (v: Validation, {
+  needle,
+  id,
+  message,
+  extra
+}: any): boolean => {
+  if (!_.isEmpty(needle) && needle?.trim()?.toLowerCase() === 'gb') {
+    return addError(v, { id, message, extra })
+  }
+  return false
+}
+
 export const addError = (v: Validation, { id, message, extra = {} }: ValidateParams
 ) => {
   v[id] = {
@@ -27,6 +70,9 @@ export const addError = (v: Validation, { id, message, extra = {} }: ValidatePar
   } as ErrorElement
   return true
 }
+
+export const hasNamespaceWithErrors = (v: Validation, namespace: string): boolean =>
+  _.some(v, (value, key) => (key.startsWith(namespace) && v[key]?.feilmelding !== 'ok'))
 
 // note that this function not only returns validation, but CHANGES original object, because we want
 // that to chain-validate

@@ -3,6 +3,7 @@
     "app-headerTitle-gjenny": "EESSI Pensjon - Gjenny",
 
     "add" : "Legg til",
+    "add-new-x": "Legg til {{x}}",
     "adresse" : "Adresse",
     "aktoerId" : "Aktoer ID",
     "are-you-sure" : "Er du sikker?",

@@ -55,3 +55,15 @@ export const RepeatableRow = styled(PaddedHorizontallyDiv)`
     margin-left: -10000px;
   }
 `
+
+export const Hr = styled.div`
+   background: var(--navds-panel-color-border);
+   width: 100%;
+   height: 1px;
+`
+
+export const SpacedHr = styled(Hr)`
+   margin-top: 0.5rem;
+   margin-bottom: 0.5rem;
+`
+

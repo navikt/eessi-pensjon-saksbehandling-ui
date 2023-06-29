@@ -27,18 +27,20 @@ const mapState = (state: State): MainFormSelector => ({
 export interface TelefonProps {
   PSED: PSED | null | undefined
   parentNamespace: string
+  parentTarget: string
   updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
 }
 
 const Telefon: React.FC<TelefonProps> = ({
   parentNamespace,
+  parentTarget,
   PSED,
   updatePSED
 }: TelefonProps): JSX.Element => {
   const { validation } = useAppSelector(mapState)
   const dispatch = useDispatch()
   const namespace = `${parentNamespace}-person-kontakt-telefon`
-  const target = 'nav.verge.person.kontakt.telefon'
+  const target = `${parentTarget}.person.kontakt.telefon`
   const telefonnumre: Array<P2000Telefon> | undefined = _.get(PSED, `${target}`)
 
   const [_newTelefon, _setNewTelefon] = useState<P2000Telefon | undefined>(undefined)

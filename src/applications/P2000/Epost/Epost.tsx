@@ -27,11 +27,13 @@ const mapState = (state: State): MainFormSelector => ({
 export interface EpostProps {
   PSED: PSED | null | undefined
   parentNamespace: string
+  parentTarget: string
   updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
 }
 
 const Epost: React.FC<EpostProps> = ({
   parentNamespace,
+  parentTarget,
   PSED,
   updatePSED
 }: EpostProps): JSX.Element => {
@@ -39,7 +41,7 @@ const Epost: React.FC<EpostProps> = ({
   const { validation } = useAppSelector(mapState)
   const dispatch = useDispatch()
   const namespace = `${parentNamespace}-person-kontakt-email`
-  const target = 'nav.verge.person.kontakt.email'
+  const target = `${parentTarget}.person.kontakt.email`
   const epostAdresser: Array<Email> | undefined = _.get(PSED, `${target}`)
 
   const [_newEpost, _setNewEpost] = useState<Email | undefined>(undefined)

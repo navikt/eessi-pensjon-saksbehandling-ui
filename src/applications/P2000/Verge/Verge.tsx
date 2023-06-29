@@ -188,9 +188,9 @@ const Verge: React.FC<MainFormProps> = ({
           </Column>
         </AlignStartRow>
         <VerticalSeparatorDiv/>
-        <Telefon PSED={PSED} parentNamespace={namespace} updatePSED={updatePSED}/>
+        <Telefon PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/>
         <VerticalSeparatorDiv/>
-        <Epost PSED={PSED} parentNamespace={namespace} updatePSED={updatePSED}/>
+        <Epost PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/>
       </PaddedDiv>
     </>
   )

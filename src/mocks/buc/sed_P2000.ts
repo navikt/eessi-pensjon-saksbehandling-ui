@@ -23,7 +23,6 @@ export default {
             "institusjon": null
           }
         ],
-        "pinland": null,
         "statsborgerskap": [
           {
             "land": "AD"

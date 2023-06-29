@@ -18,7 +18,7 @@ import MainForm from "./MainForm";
 import performValidation from "../../utils/performValidation";
 import {validateP2000, ValidationP2000Props} from "./validateP2000";
 import ValidationBox from "../../components/ValidationBox/ValidationBox";
-import ForsikretPerson from "./ForsikrettPerson/ForsikretPerson";
+import ForsikretPerson from "./ForsikretPerson/ForsikretPerson";
 
 export interface P2000Selector {
   currentPSED: P2000SED
@@ -97,12 +97,13 @@ const P2000: React.FC<P2000Props> = ({
       />
       <VerticalSeparatorDiv/>
       <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
+      <VerticalSeparatorDiv/>
       <Button
         variant='primary'
         onClick={onSaveSed}
         loading={savingSed}
       >
-        Lagre
+        Lagre i RINA
       </Button>
     </>
   )
