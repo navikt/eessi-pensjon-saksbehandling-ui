@@ -1,5 +1,5 @@
 import { AddCircle } from '@navikt/ds-icons'
-import { BodyLong, Button, Label } from '@navikt/ds-react'
+import {BodyLong, Button, Heading, Label} from '@navikt/ds-react'
 import Flag from '@navikt/flagg-ikoner'
 import {
   AlignEndColumn,
@@ -7,7 +7,6 @@ import {
   Column,
   FlexCenterDiv,
   HorizontalSeparatorDiv,
-  PaddedDiv,
   PaddedHorizontallyDiv,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
@@ -18,7 +17,7 @@ import classNames from 'classnames'
 import AddRemovePanel from 'components/AddRemovePanel/AddRemovePanel'
 import FormText from 'components/Forms/FormText'
 import Input from 'components/Forms/Input'
-import { RepeatableRow, SpacedHr } from 'components/StyledComponents'
+import { RepeatableRow } from 'components/StyledComponents'
 import { Validation} from 'declarations/app'
 import useValidation from 'hooks/useValidation'
 import _ from 'lodash'
@@ -178,7 +177,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
                   id={_namespace + '-land'}
                   includeList={landUtenNorge}
                   hideLabel={index >= 0}
-                  label={t('label:land')}
+                  label={t('ui:land')}
                   menuPortalTarget={document.body}
                   onOptionSelected={(e: Country) => setUtenlandskeLand(e.value, index)}
                   values={_pin?.land}
@@ -203,7 +202,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
                 <Input
                   error={_v[_namespace + '-identifikator']?.feilmelding}
                   id='identifikator'
-                  label={t('label:utenlandsk-pin')}
+                  label={t('ui:utenlandsk-pin')}
                   hideLabel={index >= 0}
                   namespace={_namespace}
                   onChanged={(id: string) => setUtenlandskeIdentifikator(id, index)}
@@ -241,15 +240,13 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
 
   return (
     <>
+      <Heading size="small">Utenlandske PIN</Heading>
+      <VerticalSeparatorDiv size='0.5' />
       {_.isEmpty(pins)
         ? (
-          <PaddedHorizontallyDiv>
-            <SpacedHr />
-            <BodyLong>
-              {t('message:warning-no-utenlandskepin')}
-            </BodyLong>
-            <SpacedHr />
-          </PaddedHorizontallyDiv>
+          <BodyLong>
+            {t('message:warning-no-utenlandskepin')}
+          </BodyLong>
           )
         : (
           <>
@@ -257,12 +254,12 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
               <AlignStartRow>
                 <Column>
                   <Label>
-                    {t('label:land')}
+                    {t('ui:land')}
                   </Label>
                 </Column>
                 <Column>
                   <Label>
-                    {t('label:pin')}
+                    {t('ui:pin')}
                   </Label>
                 </Column>
                 <Column />
@@ -271,22 +268,21 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
             <VerticalSeparatorDiv size='0.8' />
             {pins?.map(renderRow)}
           </>
-          )}
+          )
+      }
       <VerticalSeparatorDiv />
       {_newForm
         ? renderRow(null, -1)
         : (
           <>
             {(pins?.length ?? 0) < limit && (
-              <PaddedDiv>
-                <Button
-                  variant='tertiary'
-                  onClick={() => _setNewForm(true)}
-                >
-                  <AddCircle />&nbsp;
-                  {t('ui:add-new-x', { x: t('buc:form-utenlandsk-pin')?.toLowerCase() })}
-                </Button>
-              </PaddedDiv>
+              <Button
+                variant='tertiary'
+                onClick={() => _setNewForm(true)}
+              >
+                <AddCircle />&nbsp;
+                {t('ui:add-new-x', { x: t('buc:form-utenlandsk-pin')?.toLowerCase() })}
+              </Button>
             )}
           </>
           )}

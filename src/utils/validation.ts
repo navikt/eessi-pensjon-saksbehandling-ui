@@ -72,7 +72,7 @@ export const addError = (v: Validation, { id, message, extra = {} }: ValidatePar
 }
 
 export const hasNamespaceWithErrors = (v: Validation, namespace: string): boolean =>
-  _.some(v, (value, key) => (key.startsWith(namespace) && v[key]?.feilmelding !== 'ok'))
+  _.some(v, (value, key) => (key.startsWith(namespace) && v[key]?.feilmelding !== 'ok' && v[key]?.feilmelding !== undefined))
 
 // note that this function not only returns validation, but CHANGES original object, because we want
 // that to chain-validate

@@ -19,6 +19,7 @@ import performValidation from 'utils/performValidation'
 import {State} from "../../../declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 import {useAppSelector} from "../../../store";
+import {useTranslation} from "react-i18next";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -37,6 +38,7 @@ const Telefon: React.FC<TelefonProps> = ({
   PSED,
   updatePSED
 }: TelefonProps): JSX.Element => {
+  const { t } = useTranslation()
   const { validation } = useAppSelector(mapState)
   const dispatch = useDispatch()
   const namespace = `${parentNamespace}-person-kontakt-telefon`
@@ -218,7 +220,8 @@ const Telefon: React.FC<TelefonProps> = ({
               variant='tertiary'
               onClick={() => _setNewTelefonForm(true)}
             >
-              <AddCircle /> LEGG TIL TELEFON
+              <AddCircle />&nbsp
+              {t('ui:add-new-x', { x: t('buc:form-telefon')?.toLowerCase() })}
             </Button>
           )
       }

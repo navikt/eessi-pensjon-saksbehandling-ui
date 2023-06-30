@@ -19,6 +19,7 @@ import performValidation from "../../../utils/performValidation";
 import {useAppSelector} from "../../../store";
 import {State} from "../../../declarations/reducers";
 import {MainFormSelector} from "../MainForm";
+import {useTranslation} from "react-i18next";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -37,7 +38,7 @@ const Epost: React.FC<EpostProps> = ({
   PSED,
   updatePSED
 }: EpostProps): JSX.Element => {
-
+  const { t } = useTranslation()
   const { validation } = useAppSelector(mapState)
   const dispatch = useDispatch()
   const namespace = `${parentNamespace}-person-kontakt-email`
@@ -189,7 +190,8 @@ const Epost: React.FC<EpostProps> = ({
               variant='tertiary'
               onClick={() => _setNewEpostForm(true)}
             >
-              <AddCircle /> LEGG TIL EPOST
+              <AddCircle />&nbsp;
+              {t('ui:add-new-x', { x: t('buc:form-epost')?.toLowerCase() })}
             </Button>
           )
       }

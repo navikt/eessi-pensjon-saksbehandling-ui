@@ -161,6 +161,8 @@
   "form-youhaveXseds"                 : "Du har {{seds}} SED-er på BUC",
   "form-kopier-internasjonal-id"      : "Kopier internasjonal ID",
   "form-utenlandsk-pin"               : "Utenlandsk PIN",
+  "form-telefonnummer"                : "Telefonnummer",
+  "form-epost"                        : "Epost",
 
   "p4000-rediger"                 : "P4000 rediger",
   "p4000-updating"                : "Oppdater P4000",
