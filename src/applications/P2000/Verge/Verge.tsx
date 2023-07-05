@@ -15,6 +15,7 @@ import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
 import {validateVerge, ValidationVergeProps} from "./validation";
 import {setValidation} from "../../../actions/validation";
+import {Country} from "@navikt/land-verktoy";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -72,6 +73,7 @@ const Verge: React.FC<MainFormProps> = ({
   }
 
   const setLand = (land: string) => {
+    console.log(land)
     dispatch(updatePSED(`${target}.adresse.land`, land))
   }
 
@@ -182,7 +184,7 @@ const Verge: React.FC<MainFormProps> = ({
               label='Land'
               ariaLabel='Land'
               flags={true}
-              onOptionSelected={setLand}
+              onOptionSelected={(land: Country) => setLand(land.value)}
               values={(verge?.adresse?.land) ?? ''}
             />
           </Column>
