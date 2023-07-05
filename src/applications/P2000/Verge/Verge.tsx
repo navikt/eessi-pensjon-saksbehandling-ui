@@ -73,7 +73,6 @@ const Verge: React.FC<MainFormProps> = ({
   }
 
   const setLand = (land: string) => {
-    console.log(land)
     dispatch(updatePSED(`${target}.adresse.land`, land))
   }
 
