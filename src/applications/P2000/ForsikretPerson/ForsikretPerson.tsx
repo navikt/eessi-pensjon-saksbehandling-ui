@@ -9,6 +9,7 @@ import {useDispatch} from "react-redux";
 import {useAppSelector} from "store";
 import {resetValidation} from "actions/validation";
 import UtenlandskePin from "../UtenlandskePin/UtenlandskePin";
+import FamilieStatus from "../FamilieStatus/FamilieStatus";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -27,7 +28,6 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
   const target = 'nav.bruker.person'
   const forsikretPerson:  Person | undefined = _.get(PSED, target)
 
-  const norskPin: PIN | undefined = _.find(forsikretPerson?.pin, p => p.land === 'NO')
   const utenlandskePin: Array<PIN> = _.filter(forsikretPerson?.pin, p => p.land !== 'NO')
 
   const setUtenlandskePin = (newPins: Array<PIN>) => {
@@ -43,8 +43,6 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
     dispatch(resetValidation(namespace + '-pin'))
   }
 
-  console.log(namespace, forsikretPerson)
-  console.log(norskPin)
   return (
     <>
       <PaddedDiv>
@@ -57,6 +55,12 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
           onPinsChanged={setUtenlandskePin}
           namespace={namespace + '-pin'}
           validation={validation}
+        />
+        <FamilieStatus
+          PSED={PSED}
+          parentNamespace={namespace}
+          parentTarget={target}
+          updatePSED={updatePSED}
         />
       </PaddedDiv>
     </>

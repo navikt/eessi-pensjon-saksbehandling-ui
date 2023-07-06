@@ -117,8 +117,8 @@ export interface PIN {
 }
 
 export interface Sivilstand {
-  status: string | null,
-  fradato: string | null
+  status: string | null
+  fradato: string
 }
 
 export interface Inntekt {
