@@ -152,14 +152,14 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
   }
 
   const sivilstandStatusOptions = [
-    {value:'01', label:'Enslig'},
-    {value:'02', label:'Gift'},
-    {value:'03', label:'Samboer'},
-    {value:'04', label:'Registrert partner'},
-    {value:'05', label:'Skilt'},
-    {value:'06', label:'Skilt fra registrert partner'},
-    {value:'07', label:'Separert'},
-    {value:'08', label:'Enke/enkemann'}
+    {value:'enslig', label:'Enslig'},
+    {value:'gift', label:'Gift'},
+    {value:'samboer', label:'Samboer'},
+    {value:'registrert_partnerskap', label:'Registrert partner'},
+    {value:'skilt', label:'Skilt'},
+    {value:'skilt_fra_registrert_partnerskap', label:'Skilt fra registrert partner'},
+    {value:'separert', label:'Separert'},
+    {value:'enke_enkemann', label:'Enke/enkemann'}
   ]
 
   const formatDate = (dateString: String | undefined) => {
