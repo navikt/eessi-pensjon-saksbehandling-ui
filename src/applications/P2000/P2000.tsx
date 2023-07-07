@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {Buc, Sed} from "../../declarations/buc";
 import {BUCMode, Validation} from "../../declarations/app";
-import {Button, Heading} from "@navikt/ds-react";
+import {Button, Heading, Loader} from "@navikt/ds-react";
 import {BackFilled} from "@navikt/ds-icons";
 import {HorizontalSeparatorDiv} from "@navikt/hoykontrast";
 import {getSed, saveSed, setPSED, updatePSED} from "actions/buc";
@@ -23,12 +23,14 @@ import ForsikretPerson from "./ForsikretPerson/ForsikretPerson";
 export interface P2000Selector {
   currentPSED: P2000SED
   savingSed: boolean
+  gettingSed: boolean
   validation: Validation
 }
 
 const mapState = (state: State): P2000Selector => ({
   currentPSED: state.buc.PSED as P2000SED,
   savingSed: state.loading.savingSed,
+  gettingSed: state.loading.gettingSed,
   validation: state.validation.status
 })
 
@@ -45,7 +47,7 @@ const P2000: React.FC<P2000Props> = ({
 }: P2000Props): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useDispatch()
-  const { currentPSED, savingSed, validation }: P2000Selector = useSelector<State, P2000Selector>(mapState)
+  const { currentPSED, gettingSed, savingSed, validation }: P2000Selector = useSelector<State, P2000Selector>(mapState)
   const namespace = "p2000"
 
   useEffect(() => {
@@ -70,6 +72,12 @@ const P2000: React.FC<P2000Props> = ({
     if (!hasErrors) {
       dispatch(saveSed(buc.caseId!, sed!.id, sed!.type, currentPSED))
     }
+  }
+
+  if(gettingSed){
+    return(
+      <Loader/>
+    )
   }
 
   return (
