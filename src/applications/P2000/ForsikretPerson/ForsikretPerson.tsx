@@ -13,6 +13,8 @@ import FamilieStatus from "../FamilieStatus/FamilieStatus";
 import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
 import {validateForsikretPerson, ValidationForsikretPersonProps} from "./validation";
+import Telefon from "../Telefon/Telefon";
+import Epost from "../Epost/Epost";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -29,8 +31,8 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
   const dispatch = useDispatch()
   const { validation, bucMode } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-forsikretperson`
-  const target = 'nav.bruker.person'
-  const forsikretPerson:  Person | undefined = _.get(PSED, target)
+  const target = 'nav.bruker'
+  const forsikretPerson:  Person | undefined = _.get(PSED, target + '.person')
 
   useUnmount(() => {
     const clonedvalidation = _.cloneDeep(validation)
@@ -57,12 +59,17 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
           parentTarget={target}
           updatePSED={updatePSED}
         />
+        <VerticalSeparatorDiv/>
         <FamilieStatus
           PSED={PSED}
           parentNamespace={namespace}
           parentTarget={target}
           updatePSED={updatePSED}
         />
+        <VerticalSeparatorDiv/>
+        <Telefon PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/>
+        <VerticalSeparatorDiv/>
+        <Epost PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/>
       </PaddedDiv>
     </>
   )

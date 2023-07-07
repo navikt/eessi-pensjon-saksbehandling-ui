@@ -42,7 +42,7 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
   const { validation } = useAppSelector(mapState)
   const dispatch = useDispatch()
   const namespace = `${parentNamespace}-sivilstand`
-  const target = `${parentTarget}.sivilstand`
+  const target = `${parentTarget}.person.sivilstand`
   const sivilstandList: Array<Sivilstand> | undefined = _.get(PSED, `${target}`)
 
   const [_newSivilstand, _setNewSivilstand] = useState<Sivilstand | undefined>(undefined)

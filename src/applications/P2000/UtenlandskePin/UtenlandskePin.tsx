@@ -57,8 +57,9 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
   const dispatch = useAppDispatch()
   const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-pin`
+  const target = `${parentTarget}.person.pin`
 
-  const person:  Person | undefined = _.get(PSED, parentTarget)
+  const person:  Person | undefined = _.get(PSED, `${parentTarget}.person`)
   const utenlandskePINs: Array<PIN> = _.filter(person?.pin, p => p.land !== 'NO')
 
   const countryData = CountryData.getCountryInstance('nb')
@@ -81,7 +82,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
     if (!_.isEmpty(norskPin)) {
       pins.unshift(norskPin!)
     }
-    dispatch(updatePSED(`${parentTarget}.pin`, pins))
+    dispatch(updatePSED(`${target}`, pins))
     dispatch(resetValidation(namespace))
   }
 
