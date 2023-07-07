@@ -1,5 +1,5 @@
 import {useDatepicker} from "@navikt/ds-react/esm/date/hooks/useDatepicker";
-import React from "react";
+import React, {useEffect} from "react";
 import {UNSAFE_DatePicker as DatePicker} from "@navikt/ds-react/esm/date";
 
 export interface DateFieldProps {
@@ -23,10 +23,14 @@ const DateField: React.FC<DateFieldProps> = ({
   defaultDate
 }: DateFieldProps): JSX.Element => {
 
-  const { datepickerProps, inputProps } = useDatepicker({
+  const { datepickerProps, inputProps, setSelected } = useDatepicker({
     onDateChange: (v) => {onChanged(v)},
     defaultSelected: defaultDate ? new Date(defaultDate) : new Date()
   });
+
+  useEffect(() => {
+    defaultDate ? setSelected(new Date(defaultDate)) : setSelected(new Date())
+  }, [])
 
   return (
     <DatePicker {...datepickerProps}>
