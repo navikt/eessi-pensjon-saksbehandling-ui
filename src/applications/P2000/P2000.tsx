@@ -7,7 +7,7 @@ import {Button, Heading} from "@navikt/ds-react";
 import {BackFilled} from "@navikt/ds-icons";
 import {HorizontalSeparatorDiv} from "@navikt/hoykontrast";
 import {getSed, saveSed, setPSED, updatePSED} from "actions/buc";
-import { setValidation } from 'actions/validation'
+import {resetValidation, setValidation} from 'actions/validation'
 import { State } from "../../declarations/reducers";
 import {P2000SED} from "../../declarations/p2000";
 import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
@@ -46,6 +46,7 @@ const P2000: React.FC<P2000Props> = ({
   const {t} = useTranslation()
   const dispatch = useDispatch()
   const { currentPSED, savingSed, validation }: P2000Selector = useSelector<State, P2000Selector>(mapState)
+  const namespace = "p2000"
 
   useEffect(() => {
     if(sed){
@@ -55,13 +56,14 @@ const P2000: React.FC<P2000Props> = ({
   }, [sed])
 
   const onBackClick = () => {
+    dispatch(resetValidation(namespace))
     setMode('bucedit', 'back')
   }
 
   const onSaveSed = () => {
     const newP2000SED: P2000SED = _.cloneDeep(currentPSED)
     const clonedValidation = _.cloneDeep(validation)
-    const hasErrors = performValidation<ValidationP2000Props>(clonedValidation, '', validateP2000, {
+    const hasErrors = performValidation<ValidationP2000Props>(clonedValidation, namespace, validateP2000, {
       P2000SED: newP2000SED
     })
     dispatch(setValidation(clonedValidation))
@@ -87,13 +89,13 @@ const P2000: React.FC<P2000Props> = ({
       <Heading size={"medium"}>P2000</Heading>
       <MainForm
         forms={[
-          { label: "Forsikret person", value: 'forsikretPerson', component: ForsikretPerson},
+          { label: "Forsikret person", value: 'forsikretperson', component: ForsikretPerson},
           { label: "Verge", value: 'verge', component: Verge}
         ]}
         PSED={currentPSED}
         setPSED={setPSED}
         updatePSED={updatePSED}
-        namespace="p2000"
+        namespace={namespace}
       />
       <VerticalSeparatorDiv/>
       <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />

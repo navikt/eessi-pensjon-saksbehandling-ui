@@ -305,7 +305,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 data-testid='a_buc_c_sedheader--p2000-button-id'
                 onClick={(e) => {
                   buttonLogger(e)
-                  setMode('p5000', 'forward', undefined, (
+                  setMode('p2000', 'forward', undefined, (
                     <P2000
                       buc={buc}
                       setMode={setMode}

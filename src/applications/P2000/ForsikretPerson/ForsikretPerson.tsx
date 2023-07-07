@@ -7,12 +7,16 @@ import _ from "lodash";
 import {State} from "declarations/reducers";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "store";
-import {resetValidation} from "actions/validation";
+import {resetValidation, setValidation} from "actions/validation";
 import UtenlandskePin from "../UtenlandskePin/UtenlandskePin";
 import FamilieStatus from "../FamilieStatus/FamilieStatus";
+import useUnmount from "../../../hooks/useUnmount";
+import performValidation from "../../../utils/performValidation";
+import {validateForsikretPerson, ValidationForsikretPersonProps} from "./validation";
 
 const mapState = (state: State): MainFormSelector => ({
-  validation: state.validation.status
+  validation: state.validation.status,
+  bucMode: state.buc.bucMode
 })
 
 const ForsikretPerson: React.FC<MainFormProps> = ({
@@ -23,12 +27,23 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
 }: MainFormProps): JSX.Element => {
 
   const dispatch = useDispatch()
-  const { validation } = useAppSelector(mapState)
+  const { validation, bucMode } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-forsikretperson`
   const target = 'nav.bruker.person'
   const forsikretPerson:  Person | undefined = _.get(PSED, target)
-
   const utenlandskePin: Array<PIN> = _.filter(forsikretPerson?.pin, p => p.land !== 'NO')
+
+  useUnmount(() => {
+    const clonedvalidation = _.cloneDeep(validation)
+    performValidation<ValidationForsikretPersonProps>(
+      clonedvalidation, namespace, validateForsikretPerson, {
+        forsikretPerson
+      }, true
+    )
+    if(bucMode === parentNamespace){
+      dispatch(setValidation(clonedvalidation))
+    }
+  })
 
   const setUtenlandskePin = (newPins: Array<PIN>) => {
     let pins: Array<PIN> | undefined = _.cloneDeep(newPins)

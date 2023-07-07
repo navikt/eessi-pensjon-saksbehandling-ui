@@ -18,7 +18,8 @@ import {setValidation} from "../../../actions/validation";
 import {Country} from "@navikt/land-verktoy";
 
 const mapState = (state: State): MainFormSelector => ({
-  validation: state.validation.status
+  validation: state.validation.status,
+  bucMode: state.buc.bucMode
 })
 
 const Verge: React.FC<MainFormProps> = ({
@@ -29,7 +30,7 @@ const Verge: React.FC<MainFormProps> = ({
 }: MainFormProps): JSX.Element => {
 
   const dispatch = useDispatch()
-  const { validation } = useAppSelector(mapState)
+  const { validation, bucMode } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-verge`
   const target = 'nav.verge'
   const verge: P2000Verge | undefined = _.get(PSED, target)
@@ -41,7 +42,9 @@ const Verge: React.FC<MainFormProps> = ({
         verge
       }, true
     )
-    dispatch(setValidation(clonedvalidation))
+    if(bucMode === parentNamespace){
+      dispatch(setValidation(clonedvalidation))
+    }
   })
 
   const setEtternavn = (etternavn: string) => {
