@@ -18,35 +18,49 @@ import AddRemovePanel from 'components/AddRemovePanel/AddRemovePanel'
 import FormText from 'components/Forms/FormText'
 import Input from 'components/Forms/Input'
 import { RepeatableRow } from 'components/StyledComponents'
-import { Validation} from 'declarations/app'
 import useValidation from 'hooks/useValidation'
 import _ from 'lodash'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useAppDispatch } from 'store'
+import {useAppDispatch, useAppSelector} from 'store'
 import { getIdx } from 'utils/namespace'
 import performValidation from 'utils/performValidation'
 import { hasNamespaceWithErrors } from 'utils/validation'
 import {validateUtenlandskPIN, ValidationUtenlandskPINProps} from './validation'
-import {PIN} from "../../../declarations/p2000";
+import {Person, PIN} from "../../../declarations/p2000";
+import {ActionWithPayload} from "@navikt/fetch";
+import {UpdateSedPayload} from "../../../declarations/types";
+import {PSED, Validation} from "declarations/app";
+import {State} from "../../../declarations/reducers";
+import {MainFormSelector} from "../MainForm";
+
+const mapState = (state: State): MainFormSelector => ({
+  validation: state.validation.status
+})
 
 export interface UtenlandskPinProps {
-  pins: Array<PIN> | undefined
-  onPinsChanged: (newPins: Array<PIN>) => void
-  namespace: string
   limit?: number
-  validation: Validation
+  PSED: PSED | null | undefined
+  parentNamespace: string
+  parentTarget: string
+  updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
 }
 
 const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
-  pins,
-  onPinsChanged,
-  namespace,
-  validation,
-  limit = 99
+  limit = 99,
+  parentNamespace,
+  parentTarget,
+  PSED,
+  updatePSED
 }: UtenlandskPinProps): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
+  const { validation } = useAppSelector(mapState)
+  const namespace = `${parentNamespace}-pin`
+
+  const person:  Person | undefined = _.get(PSED, parentTarget)
+  const utenlandskePINs: Array<PIN> = _.filter(person?.pin, p => p.land !== 'NO')
+
   const countryData = CountryData.getCountryInstance('nb')
   const landUtenNorge = CountryFilter.RINA_ACCEPTED({ useUK: true })?.filter((it: string) => it !== 'NO')
   const getId = (p: PIN | null): string => p ? p.land + '-' + p.identifikator : 'new'
@@ -57,6 +71,19 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
   const [_editIndex, _setEditIndex] = useState<number | undefined>(undefined)
   const [_newForm, _setNewForm] = useState<boolean>(false)
   const [_validation, _resetValidation, _performValidation] = useValidation<ValidationUtenlandskPINProps>(validateUtenlandskPIN, namespace)
+
+  const setUtenlandskePin = (newPins: Array<PIN>) => {
+    let pins: Array<PIN> | undefined = _.cloneDeep(newPins)
+    if (_.isNil(pins)) {
+      pins = []
+    }
+    const norskPin: PIN | undefined = _.find(person!.pin, p => p.land === 'NO')
+    if (!_.isEmpty(norskPin)) {
+      pins.unshift(norskPin!)
+    }
+    dispatch(updatePSED(`${parentTarget}.pin`, pins))
+    dispatch(resetValidation(namespace))
+  }
 
   const setUtenlandskeIdentifikator = (newIdentifikator: string, index: number) => {
     if (index < 0) {
@@ -116,13 +143,13 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
     const hasErrors = performValidation<ValidationUtenlandskPINProps>(
       clonedValidation, namespace, validateUtenlandskPIN, {
         pin: _editPin,
-        utenlandskePINs: pins,
+        utenlandskePINs: utenlandskePINs,
         index: _editIndex,
       })
     if (_editIndex !== undefined && !!_editPin && !hasErrors) {
-      const newPins: Array<PIN> = _.cloneDeep(pins) as Array<PIN>
+      const newPins: Array<PIN> = _.cloneDeep(utenlandskePINs) as Array<PIN>
       newPins[_editIndex] = _editPin
-      onPinsChanged(newPins)
+      setUtenlandskePin(newPins)
       onCloseEdit(namespace + getIdx(_editIndex))
     } else {
       dispatch(setValidation(clonedValidation))
@@ -130,22 +157,22 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
   }
 
   const onRemove = (removedPin: PIN) => {
-    const newUtenlandskePins: Array<PIN> = _.reject(pins, (pin: PIN) => _.isEqual(removedPin, pin))
-    onPinsChanged(newUtenlandskePins)
+    const newUtenlandskePins: Array<PIN> = _.reject(utenlandskePINs, (pin: PIN) => _.isEqual(removedPin, pin))
+    setUtenlandskePin(newUtenlandskePins)
   }
 
   const onAddNew = () => {
     const valid: boolean = _performValidation({
       pin: _newPin,
-      utenlandskePINs: pins,
+      utenlandskePINs: utenlandskePINs,
     })
     if (!!_newPin && valid) {
-      let newUtenlandskePins: Array<PIN> = _.cloneDeep(pins) as Array<PIN>
+      let newUtenlandskePins: Array<PIN> = _.cloneDeep(utenlandskePINs) as Array<PIN>
       if (_.isNil(newUtenlandskePins)) {
         newUtenlandskePins = []
       }
       newUtenlandskePins.push(_newPin)
-      onPinsChanged(newUtenlandskePins)
+      setUtenlandskePin(newUtenlandskePins)
       onCloseNew()
     }
   }
@@ -242,7 +269,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
     <>
       <Heading size="small">Utenlandske PIN</Heading>
       <VerticalSeparatorDiv size='0.5' />
-      {_.isEmpty(pins)
+      {_.isEmpty(utenlandskePINs)
         ? (
           <BodyLong>
             {t('message:warning-no-utenlandskepin')}
@@ -266,7 +293,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
               </AlignStartRow>
             </PaddedHorizontallyDiv>
             <VerticalSeparatorDiv size='0.8' />
-            {pins?.map(renderRow)}
+            {utenlandskePINs?.map(renderRow)}
           </>
           )
       }
@@ -275,7 +302,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
         ? renderRow(null, -1)
         : (
           <>
-            {(pins?.length ?? 0) < limit && (
+            {(utenlandskePINs?.length ?? 0) < limit && (
               <Button
                 variant='tertiary'
                 onClick={() => _setNewForm(true)}
