@@ -199,7 +199,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const [_cancelled, _setCancelled] = useState(false)
 
   const prefill = (prop: string): RawList => {
     const institutions: Array<any> = bucs[currentBuc!] && bucs[currentBuc!].institusjon
@@ -800,7 +799,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const onCancelButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     buttonLogger(e)
     resetSedForm()
-    _setCancelled(true)
     onSedCancelled()
   }
 
@@ -848,15 +846,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }, [])
 
   useEffect(() => {
-    if(!_cancelled){
-      console.log("NOT CANCEL")
-      dispatch(_.isEmpty(followUpSeds) ? getSedList(_buc as ValidBuc) : setSedList(followUpSeds!.map(s => s.type)))
-      if (!_.isEmpty(followUpSeds) && followUpSeds!.length === 1) {
-        handleSedChange(followUpSeds![0].type)
-      }
-    } else {
-      console.log("CANCELLED")
-      _setCancelled(false)
+    if (!_.isEmpty(followUpSeds) && followUpSeds!.length === 1) {
+      handleSedChange(followUpSeds![0].type)
     }
   }, [followUpSeds])
 

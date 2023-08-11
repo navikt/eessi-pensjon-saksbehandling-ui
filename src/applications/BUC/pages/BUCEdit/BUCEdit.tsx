@@ -1,7 +1,7 @@
 import { BackFilled } from '@navikt/ds-icons'
 import {BodyLong, Button, Label, Loader, Panel} from '@navikt/ds-react'
 import { alertFailure } from 'actions/alert'
-import { resetNewSed, setCurrentBuc, setFollowUpSeds } from 'actions/buc'
+import {getSedList, resetNewSed, setCurrentBuc, setFollowUpSeds, setSedList} from 'actions/buc'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
 import { getBucTypeLabel, sedFilter, sedSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
@@ -11,7 +11,7 @@ import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 import classNames from 'classnames'
 import { AllowedLocaleString, BUCMode } from 'declarations/app.d'
-import { Buc, BucInfo, Bucs, BucsInfo, Sed, Tags } from 'declarations/buc'
+import {Buc, BucInfo, Bucs, BucsInfo, Sed, Tags, ValidBuc} from 'declarations/buc'
 import { PersonAvdods } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import CountryData from '@navikt/land-verktoy'
@@ -164,6 +164,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       dispatch(alertFailure(t('message:error-uniqueSed', { sed: uniqueSed.type })))
     } else {
       dispatch(setFollowUpSeds(sed, followUpSeds))
+      dispatch(_.isEmpty(followUpSeds) ? getSedList(buc as ValidBuc) : setSedList(followUpSeds!.map(s => s.type)))
       setStartSed('open')
       if (componentRef && componentRef!.current) {
         if ((componentRef.current as any).scrollIntoView) {
