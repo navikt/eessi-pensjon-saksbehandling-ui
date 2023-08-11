@@ -212,11 +212,18 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     onFollowUpSed(buc!, undefined, undefined)
   }
 
+  const backLinkCallback = () => {
+    if(_startSed === 'open'){
+      setStartSed('close')
+    }
+    dispatch(setCurrentBuc(undefined))
+  }
+
   const onBackLinkClick = (e: any) => {
     e.preventDefault()
     e.stopPropagation()
     dispatch(resetNewSed())
-    setMode('buclist', 'back', () => dispatch(setCurrentBuc(undefined)))
+    setMode('buclist', 'back', backLinkCallback)
   }
 
   if (_.isEmpty(bucs) || !currentBuc || !bucs[currentBuc]) {
