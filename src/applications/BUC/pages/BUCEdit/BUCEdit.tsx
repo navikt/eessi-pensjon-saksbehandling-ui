@@ -55,6 +55,10 @@ const SEDStartDiv = styled.div`
   max-height: 0;
   height: 0%;
   overflow: hidden;
+    &.closeOnBack {
+    will-change: max-height, height;
+    max-height: 0;
+  }
   &.close {
     will-change: max-height, height;
     max-height: 0;
@@ -214,7 +218,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
 
   const backLinkCallback = () => {
     if(_startSed === 'open'){
-      setStartSed('close')
+      setStartSed('closeOnBack')
     }
     dispatch(setCurrentBuc(undefined))
   }
@@ -269,7 +273,8 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       <SEDStartDiv
         className={classNames({
           open: _startSed === 'open',
-          close: _startSed === 'close'
+          close: _startSed === 'close',
+          closeOnBack: _startSed === 'closeOnBack'
         })}
         ref={componentRef}
       >
