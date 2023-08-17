@@ -14,7 +14,7 @@ import {
   PileDiv
 } from '@navikt/hoykontrast'
 
-import {BUCMode, PSED, Validation} from "declarations/app.d";
+import {PSED, Validation} from "declarations/app.d";
 import classNames from 'classnames'
 import { WithErrorPanel } from 'components/StyledComponents'
 import { Option } from 'declarations/app'
@@ -127,8 +127,7 @@ export interface MainFormProps {
 }
 
 export interface MainFormSelector {
-  validation: Validation,
-  bucMode?: BUCMode | undefined
+  validation: Validation
 }
 
 export interface Form extends Option {

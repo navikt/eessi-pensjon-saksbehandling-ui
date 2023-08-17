@@ -18,7 +18,6 @@ import Epost from "../Epost/Epost";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
-  bucMode: state.buc.bucMode
 })
 
 const ForsikretPerson: React.FC<MainFormProps> = ({
@@ -29,7 +28,7 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
 }: MainFormProps): JSX.Element => {
 
   const dispatch = useDispatch()
-  const { validation, bucMode } = useAppSelector(mapState)
+  const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-forsikretperson`
   const target = 'nav.bruker'
   const forsikretPerson:  Person | undefined = _.get(PSED, target + '.person')
@@ -41,7 +40,7 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
         forsikretPerson
       }, true
     )
-    if(bucMode === parentNamespace){
+    if('p2000' === parentNamespace){
       dispatch(setValidation(clonedvalidation))
     }
   })

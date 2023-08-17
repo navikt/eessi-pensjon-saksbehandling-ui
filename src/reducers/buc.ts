@@ -65,7 +65,6 @@ export interface BucState {
   sedList: Array<string> | undefined
   subjectAreaList: Array<string>
   tagList: Array<string> | undefined
-  bucMode: BUCMode | undefined
 }
 
 export const initialBucState: BucState = {
@@ -100,7 +99,6 @@ export const initialBucState: BucState = {
   sedsWithAttachments: {},
   subjectAreaList: ['Pensjon'],
   tagList: undefined,
-  bucMode: undefined
 }
 
 const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
@@ -850,14 +848,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         PSED: newPSED,
         PSEDChanged: true
       }
-    }
-
-    case types.BUC_MODE_SET: {
-      return {
-        ...state,
-        bucMode: (action as ActionWithPayload).payload
-      }
-
     }
 
     default:
