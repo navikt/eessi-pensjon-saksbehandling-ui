@@ -70,5 +70,7 @@ jobs:
           VARS: nais/dev-gcp-nais-vars.yml
 
       - name: 'Echo Image Name'
-        run: echo "### Image Name ${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_STEP_SUMMARY
+        run: |
+          echo "## Image name:" >> $GITHUB_STEP_SUMMARY
+          echo "${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_STEP_SUMMARY
 
