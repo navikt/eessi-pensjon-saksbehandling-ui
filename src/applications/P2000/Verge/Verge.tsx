@@ -41,9 +41,7 @@ const Verge: React.FC<MainFormProps> = ({
         verge
       }, true
     )
-    if('p2000' === parentNamespace){
-      dispatch(setValidation(clonedvalidation))
-    }
+    dispatch(setValidation(clonedvalidation))
   })
 
   const setEtternavn = (etternavn: string) => {

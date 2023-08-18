@@ -40,9 +40,7 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
         forsikretPerson
       }, true
     )
-    if('p2000' === parentNamespace){
-      dispatch(setValidation(clonedvalidation))
-    }
+    dispatch(setValidation(clonedvalidation))
   })
 
   return (

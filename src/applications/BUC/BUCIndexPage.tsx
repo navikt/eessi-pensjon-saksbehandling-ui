@@ -4,7 +4,6 @@ import {
   fetchBucsInfoList,
   fetchBucsList,
   fetchBucsListWithVedtakId,
-  setMode,
   startBucsFetch
 } from 'actions/buc'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
@@ -215,7 +214,6 @@ export const BUCIndexPage = (): JSX.Element => {
   )
 
   const changeMode = useCallback((newMode: BUCMode, from: string, callback?: () => void, content?: JSX.Element) => {
-    dispatch(setMode(newMode))
     if (animating) {
       return
     }
