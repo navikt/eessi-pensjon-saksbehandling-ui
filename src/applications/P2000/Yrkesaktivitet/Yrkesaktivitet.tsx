@@ -163,9 +163,8 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
               (
                 <>
                   <Label>
-                    Yrkesaktivitet
+                    Yrke
                   </Label>
-                  <VerticalSeparatorDiv />
                   <BodyLong>
                     {_arbeidsforhold?.yrke}
                   </BodyLong>

@@ -5,6 +5,83 @@ const later = new Date(1970, 0, 1).getTime()
 
 const mockBuc = [
   {
+    "type": "P_BUC_01",
+    "caseId": "999999",
+    "internationalId": "f1406de50b7a4084a4149d41c0ea00da",
+    "creator": {
+      "country": "NO",
+      "institution": "NO:NAVAT07",
+      "name": "NAV ACC 07",
+      "acronym": "NAVAT07"
+    },
+    "sakType": null,
+    "status": "open",
+    "startDate": 1654168571352,
+    "lastUpdate": 1654168938132,
+    "institusjon": [
+      {
+        "country": "NO",
+        "institution": "NO:NAVAT07",
+        "name": "NAV ACC 07",
+        "acronym": "NAVAT07"
+      },
+      {
+        "country": "NO",
+        "institution": "NO:NAVAT05",
+        "name": "NAV ACC 05",
+        "acronym": "NAVAT05"
+      }
+    ],
+    "seds": [
+      {
+        id: '10678159cd4142f890d56264bfdefd13',
+        parentDocumentId: null,
+        type: 'P2000',
+        status: 'active',
+        direction: 'IN' as Direction,
+        creationDate: 1571818194896,
+        lastUpdate: 1571818294896,
+        receiveDate: later,
+        displayName: 'Pension decision',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 07',
+              id: 'NO:NAVAT07'
+            },
+            selected: false
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'NAVAT08',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 08',
+              id: 'NO:NAVAT08'
+            },
+            selected: false
+          }
+        ],
+        attachments: [],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1571818194896
+        },
+        lastVersion: {
+          id: '3',
+          date: 1571818294896
+        },
+        allowsAttachments: true
+      },
+    ],
+    "error": null,
+    "readOnly": false,
+  },
+  {
     type: 'P_BUC_01',
     readOnly: false,
     caseId: '600891',

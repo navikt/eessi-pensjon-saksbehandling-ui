@@ -5,7 +5,7 @@ export default {
       {
         "institusjonsid": "NO:NAVAT07",
         "institusjonsnavn": "NAV ACCEPTANCE TEST 07",
-        "saksnummer": "22971951",
+        "saksnummer": "22958426",
         "land": "NO"
       }
     ],
@@ -18,38 +18,48 @@ export default {
             "institusjonsnavn": "NAV ACCEPTANCE TEST 07",
             "institusjonsid": "NO:NAVAT07",
             "sektor": null,
-            "identifikator": "02496010356",
+            "identifikator": "16465444863",
             "land": "NO",
+            "institusjon": null
+          },
+          {
+            "institusjonsnavn": null,
+            "institusjonsid": null,
+            "sektor": null,
+            "identifikator": "23456789",
+            "land": "SE",
             "institusjon": null
           }
         ],
+        "pinland": null,
         "statsborgerskap": [
           {
             "land": "AD"
           }
         ],
-        "etternavn": "Sjokoladekake",
+        "etternavn": "Hieroglyf",
         "etternavnvedfoedsel": null,
-        "fornavn": "Klassisk",
+        "fornavn": "Iherdig",
         "fornavnvedfoedsel": null,
         "tidligerefornavn": null,
         "tidligereetternavn": null,
-        "kjoenn": "M",
+        "kjoenn": "K",
         "foedested": {
           "by": "Unknown",
           "land": "NO",
           "region": null
         },
-        "foedselsdato": "1960-09-02",
+        "foedselsdato": "1954-06-16",
         "sivilstand": null,
         "relasjontilavdod": null,
-        "rolle": null
+        "rolle": null,
+        "kontakt": null
       },
       "adresse": {
-        "gate": "Seelanders Bakke 6",
+        "gate": "Gudbrandsdalsvegen 2582",
         "bygning": null,
-        "by": "ARENDAL",
-        "postnummer": "4839",
+        "by": "DOMBÅS",
+        "postnummer": "2660",
         "postkode": null,
         "region": null,
         "land": "NO",
@@ -63,128 +73,125 @@ export default {
       "arbeidsforhold": null,
       "bank": null
     },
-    "ektefelle": {
+    "ektefelle": null,
+    "barn": null,
+    "verge": {
       "person": {
-        "pin": [
-          {
-            "institusjonsnavn": "NAV ACCEPTANCE TEST 07",
-            "institusjonsid": "NO:NAVAT07",
-            "sektor": null,
-            "identifikator": "14506129649",
-            "land": "NO",
-            "institusjon": null
-          }
-        ],
+        "pin": null,
         "pinland": null,
-        "statsborgerskap": [
-          {
-            "land": "NO"
-          }
-        ],
-        "etternavn": "Vare",
+        "statsborgerskap": null,
+        "etternavn": "Vergesen",
         "etternavnvedfoedsel": null,
-        "fornavn": "Skjør",
+        "fornavn": "Verge",
         "fornavnvedfoedsel": null,
         "tidligerefornavn": null,
         "tidligereetternavn": null,
-        "kjoenn": "K",
-        "foedested": {
-          "by": "Unknown",
-          "land": "NO",
-          "region": null
-        },
-        "foedselsdato": "1961-10-14",
+        "kjoenn": null,
+        "foedested": null,
+        "foedselsdato": null,
         "sivilstand": null,
         "relasjontilavdod": null,
-        "rolle": null
+        "rolle": null,
+        "kontakt": {
+          "telefon": [
+            {
+              "type": "mobil",
+              "nummer": "90909191"
+            }
+          ],
+          "email": [
+            {
+              "adresse": "verge@vergesen.no"
+            }
+          ]
+        }
       },
-      "type": "ektefelle"
-    },
-    "barn": [
-      {
-        "mor": {
-          "person": {
-            "pin": null,
-            "pinland": null,
-            "statsborgerskap": null,
-            "etternavn": null,
-            "etternavnvedfoedsel": null,
-            "fornavn": "Skjør",
-            "fornavnvedfoedsel": null,
-            "tidligerefornavn": null,
-            "tidligereetternavn": null,
-            "kjoenn": null,
-            "foedested": null,
-            "foedselsdato": null,
-            "sivilstand": null,
-            "relasjontilavdod": null,
-            "rolle": null
-          }
-        },
-        "person": {
-          "pin": [
-            {
-              "institusjonsnavn": "NAV ACCEPTANCE TEST 07",
-              "institusjonsid": "NO:NAVAT07",
-              "sektor": null,
-              "identifikator": "09410898494",
-              "land": "NO",
-              "institusjon": null
-            }
-          ],
-          "pinland": null,
-          "statsborgerskap": [
-            {
-              "land": "NO"
-            }
-          ],
-          "etternavn": "Gran",
-          "etternavnvedfoedsel": null,
-          "fornavn": "Aktverdig",
-          "fornavnvedfoedsel": null,
-          "tidligerefornavn": null,
-          "tidligereetternavn": null,
-          "kjoenn": "K",
-          "foedested": {
-            "by": "Unknown",
-            "land": "NO",
-            "region": null
-          },
-          "foedselsdato": "2008-01-09",
-          "sivilstand": null,
-          "relasjontilavdod": null,
-          "rolle": null
-        },
-        "far": {
-          "person": {
-            "pin": null,
-            "pinland": null,
-            "statsborgerskap": null,
-            "etternavn": null,
-            "etternavnvedfoedsel": null,
-            "fornavn": "Klassisk",
-            "fornavnvedfoedsel": null,
-            "tidligerefornavn": null,
-            "tidligereetternavn": null,
-            "kjoenn": null,
-            "foedested": null,
-            "foedselsdato": null,
-            "sivilstand": null,
-            "relasjontilavdod": null,
-            "rolle": null
-          }
-        },
-        "relasjontilbruker": null
+      "vergemaal": {
+        "mandat": "Sykdom"
+      },
+      "adresse": {
+        "gate": "Vergelandsveien 3",
+        "bygning": null,
+        "by": "Oslo",
+        "postnummer": "0680",
+        "postkode": null,
+        "region": "Oslo",
+        "land": "NO",
+        "kontaktpersonadresse": null,
+        "datoforadresseendring": null,
+        "postadresse": null,
+        "startdato": null,
+        "type": null,
+        "annen": null
       }
-    ],
-    "verge": null,
+    },
     "krav": {
-      "dato": "2023-03-15",
+      "dato": "2023-04-01",
       "type": null
     },
     "annenperson": null
   },
-  "pensjon": null,
+  "pensjon": {
+    "bruker": {
+      "mor": null,
+      "far": null,
+      "person": null,
+      "adresse": null,
+      "arbeidsforhold": [
+        {
+          "inntekt": [
+            {
+              "betalingshyppighetinntekt": "06",
+              "beloeputbetaltsiden": "2022-01-02",
+              "valuta": "NOK",
+              "annenbetalingshyppighetinntekt": null,
+              "beloep": "1000"
+            },
+            {
+              "betalingshyppighetinntekt": "99",
+              "beloeputbetaltsiden": "2022-06-06",
+              "valuta": "EUR",
+              "annenbetalingshyppighetinntekt": null,
+              "beloep": "200"
+            }
+          ],
+          "planlagtstartdato": null,
+          "arbeidstimerperuke": null,
+          "planlagtpensjoneringsdato": null,
+          "yrke": "Kokk",
+          "type": "forsikrede_har_fortsatt_inntektsgivende_arbeid",
+          "sluttdato": null
+        },
+        {
+          "inntekt": [
+            {
+              "betalingshyppighetinntekt": "06",
+              "beloeputbetaltsiden": "2018-01-01",
+              "valuta": "NOK",
+              "annenbetalingshyppighetinntekt": null,
+              "beloep": "1000"
+            }
+          ],
+          "planlagtstartdato": null,
+          "arbeidstimerperuke": null,
+          "planlagtpensjoneringsdato": null,
+          "yrke": null,
+          "type": "forsikrede_driver_fortsatt_selvstendig_naerigsvirksomhet",
+          "sluttdato": null
+        }
+      ],
+      "bank": null
+    },
+    "angitidligstdato": null,
+    "utsettelse": null,
+    "ytelser": null,
+    "forespurtstartdato": null,
+    "vedtak": null,
+    "vedlegg": null,
+    "kravDato": null,
+    "etterspurtedokumenter": null,
+    "ytterligeinformasjon": null
+  },
   "sedGVer": "4",
   "sedVer": "2"
 }
