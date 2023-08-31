@@ -11,7 +11,7 @@ import { Heading } from '@navikt/ds-react'
 import PT from 'prop-types'
 import styled from 'styled-components/macro'
 import PersonLoading from './PersonLoading'
-import { getFnr } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import {getFnr, getNPID} from 'applications/BUC/components/BUCUtils/BUCUtils'
 
 export const Title = styled.div`
   display: flex;
@@ -74,7 +74,7 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
       />
       <HorizontalSeparatorDiv />
       <Heading size='medium'>
-        {person.navn?.sammensattNavn} ({age}) - {getFnr(person)}
+        {person.navn?.sammensattNavn} ({age}) - {getFnr(person) ? getFnr(person) : getNPID(person)}
       </Heading>
     </Title>
   )
