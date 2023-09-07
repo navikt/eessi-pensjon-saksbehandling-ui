@@ -29,13 +29,13 @@ export interface Ytelser {
 }
 
 export interface Arbeidsforhold {
-  yrke: string | null
-  planlagtpensjoneringsdato: string | null
-  inntekt: Array<Inntekt> | null
-  type: string | null
-  arbeidstimerperuke: string | null
-  sluttdato: string | null
-  planlagtstartdato: string | null
+  yrke?: string | null
+  planlagtpensjoneringsdato?: string | null
+  inntekt?: Array<Inntekt> | null
+  type?: string | null
+  arbeidstimerperuke?: string | null
+  sluttdato?: string | null
+  planlagtstartdato?: string | null
 }
 
 export interface Person {

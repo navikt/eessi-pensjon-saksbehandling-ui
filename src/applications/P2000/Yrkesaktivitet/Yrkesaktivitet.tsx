@@ -1,4 +1,4 @@
-import {BodyLong, Button, Heading, Label} from "@navikt/ds-react";
+import {BodyLong, Button, Heading, Label, Select} from "@navikt/ds-react";
 import {
   VerticalSeparatorDiv,
   PaddedDiv,
@@ -52,7 +52,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
   const arbeidsforholdArray:  Array<Arbeidsforhold> | undefined = _.get(PSED, target)
   const [_validation, _resetValidation, _performValidation] = useValidation<ValidationArbeidsforholdProps>(validateArbeidsforhold, namespace)
 
-  const [_newArbeidsforholdArray, _setNewArbeidsforhold] = useState<Arbeidsforhold | undefined>(undefined)
+  const [_newArbeidsforhold, _setNewArbeidsforhold] = useState<Arbeidsforhold | undefined>(undefined)
   const [_editArbeidsforhold, _setEditArbeidsforhold] = useState<Arbeidsforhold | undefined>(undefined)
 
   const [_editIndex, _setEditIndex] = useState<number | undefined>(undefined)
@@ -123,25 +123,55 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
 
   const onAddNew = () => {
     const valid: boolean = _performValidation({
-      arbeidsforhold: _newArbeidsforholdArray,
+      arbeidsforhold: _newArbeidsforhold,
       arbeidsforholdArray: arbeidsforholdArray,
     })
-    if (!!_newArbeidsforholdArray && valid) {
+    if (!!_newArbeidsforhold && valid) {
       let newArbeidsforholdArray: Array<Arbeidsforhold> = _.cloneDeep(arbeidsforholdArray) as Array<Arbeidsforhold>
       if (_.isNil(newArbeidsforholdArray)) {
         newArbeidsforholdArray = []
       }
-      newArbeidsforholdArray.push(_newArbeidsforholdArray)
+      newArbeidsforholdArray.push(_newArbeidsforhold)
       setArbeidsforhold(newArbeidsforholdArray)
       onCloseNew()
     }
+  }
+
+  const yrkeOptions = [
+    {value:'forsikrede_har_fortsatt_inntektsgivende_arbeid', label: 'Forsikrede har fortsatt inntektsgivende arbeid'},
+    {value:'forsikrede_driver_fortsatt_selvstendig_naerigsvirksomhet', label: 'Forsikrede driver fortsatt selvstendig naerigsvirksomhet'},
+    {value:'forsikrede_har_ikke_lenger_inntektsgivendwe_arbeid', label: 'Forsikrede har ikke lenger inntektsgivendwe arbeid'},
+    {value:'forsikrede_driver_ikke_lenger_selvstendig_naerigsvirksomhet', label: 'Forsikrede driver ikke lenger selvstendig naerigsvirksomhet'},
+    {value:'forsikrede_skal_pensjonere_seg_fra_inntektsgivende_arbeid', label: 'Forsikrede skal pensjonere seg fra inntektsgivende arbeid'},
+    {value:'forsikrede_skal_pensjonere_seg_fra_selvstendig_naerigsvirksomhet', label: 'Forsikrede skal pensjonere seg fra selvstendig naerigsvirksomhet'},
+    {value:'forsikrede_skal_starte_inntektsgivende_arbeid', label: 'Forsikrede skal starte inntektsgivende arbeid'},
+    {value:'forsikrede_skal_starte_selvstendig_naerigsvirksomhet', label: 'Forsikrede skal starte selvstendig naerigsvirksomhet'}
+  ]
+
+  const getYrkeLabel = (yrke:string | undefined | null) => {
+    const selectedYrke = yrkeOptions.find((y) => y.value === yrke)
+    return selectedYrke ? selectedYrke.label : yrke
+  }
+
+  const setYrke = (yrke: string, index: number) => {
+    if (index < 0) {
+      _setNewArbeidsforhold({
+        ..._newArbeidsforhold,
+        yrke: yrke
+      })
+      return
+    }
+    _setEditArbeidsforhold({
+      ..._editArbeidsforhold,
+      yrke: yrke
+    })
   }
 
   const renderRow = (arbeidsforhold: Arbeidsforhold | null, index: number) => {
     const _namespace = namespace + getIdx(index)
     const _v: Validation = index < 0 ? _validation : validation
     const inEditMode = index < 0 || _editIndex === index
-    const _arbeidsforhold = index < 0 ? _newArbeidsforholdArray : (inEditMode ? _editArbeidsforhold : arbeidsforhold)
+    const _arbeidsforhold = index < 0 ? _newArbeidsforhold : (inEditMode ? _editArbeidsforhold : arbeidsforhold)
     return (
       <RepeatableRow
         id={'repeatablerow-' + _namespace}
@@ -157,7 +187,20 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
             {inEditMode
               ?
               (
-                <>EDIT</>
+                <>
+                  <Select
+                    error={_v[_namespace + '-yrkesaktivitet']?.feilmelding}
+                    id='yrkesaktivitet'
+                    label="Yrkesaktivitet"
+                    onChange={(e) => setYrke(e.target.value, index)}
+                    value={(_arbeidsforhold?.yrke)  ?? ''}
+                  >
+                    <option value=''>Velg</option>
+                    {yrkeOptions.map((option) => {
+                      return(<option value={option.value}>{option.label}</option>)
+                    })}
+                  </Select>
+                </>
               )
               :
               (
@@ -166,7 +209,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
                     Yrke
                   </Label>
                   <BodyLong>
-                    {_arbeidsforhold?.yrke}
+                    {getYrkeLabel(_arbeidsforhold?.yrke)}
                   </BodyLong>
                 </>
               )
