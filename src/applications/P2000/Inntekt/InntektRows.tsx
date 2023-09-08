@@ -83,6 +83,26 @@ const InntektRows: React.FC<InntektProps> = ({
     }
   }
 
+  const onCloseNew = () => {
+    _setNewInntekt(undefined)
+    //_setNewForm(false)
+    _resetValidation()
+  }
+
+  const onAddNew = () => {
+    const valid: boolean = _performValidation({
+    })
+    if (!!_newInntekt && valid) {
+      let newInntektArray: Array<Inntekt> = _.cloneDeep(inntekt) as Array<Inntekt>
+      if (_.isNil(newInntektArray)) {
+        newInntektArray = []
+      }
+      newInntektArray.push(_newInntekt)
+      setInntekt(newInntektArray, parentIndex)
+      onCloseNew()
+    }
+  }
+
   const setInntektProperty = (property: string, value: string, index: number) => {
     if (index < 0) {
       _setNewInntekt({
@@ -191,8 +211,8 @@ const InntektRows: React.FC<InntektProps> = ({
                 index={index}
                 inEditMode={inEditMode}
                 onRemove={()=>{}}
-                onAddNew={()=>{}}
-                onCancelNew={()=>{}}
+                onAddNew={onAddNew}
+                onCancelNew={onCloseNew}
                 onStartEdit={onStartEdit}
                 onConfirmEdit={onSaveEdit}
                 onCancelEdit={() => onCloseEdit(_namespace)}
