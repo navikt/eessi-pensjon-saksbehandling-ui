@@ -122,11 +122,11 @@ export interface Sivilstand {
 }
 
 export interface Inntekt {
-  beloep: string | null,
-  valuta: string | null,
-  beloeputbetaltsiden: string | null,
-  betalingshyppighetinntekt: string | null,
-  annenbetalingshyppighetinntekt: string | null
+  beloep?: string | null,
+  valuta?: string | null,
+  beloeputbetaltsiden?: string | null,
+  betalingshyppighetinntekt?: string | null,
+  annenbetalingshyppighetinntekt?: string | null
 }
 
 export interface Bank {

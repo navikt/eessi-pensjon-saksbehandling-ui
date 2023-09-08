@@ -4,7 +4,8 @@ import {
   PaddedDiv,
   AlignStartRow,
   Column,
-  AlignEndColumn
+  AlignEndColumn,
+  PileDiv
 } from "@navikt/hoykontrast";
 import React, {useState} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
@@ -15,7 +16,7 @@ import {useAppSelector} from "store";
 import {resetValidation, setValidation} from "actions/validation";
 import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
-import {Arbeidsforhold} from "../../../declarations/p2000";
+import {Arbeidsforhold, Inntekt} from "../../../declarations/p2000";
 import {
   validateArbeidsforhold,
   validateYrkesaktivitet,
@@ -31,6 +32,7 @@ import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import useValidation from "../../../hooks/useValidation";
 import {AddCircle} from "@navikt/ds-icons";
 import {useTranslation} from "react-i18next";
+import InntektRows from "../Inntekt/InntektRows";
 //import useValidation from "../../../hooks/useValidation";
 
 const mapState = (state: State): MainFormSelector => ({
@@ -167,6 +169,20 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
     })
   }
 
+  const setInntekt = (inntekt: Array<Inntekt>, index: number) => {
+    if (index < 0) {
+      _setNewArbeidsforhold({
+        ..._newArbeidsforhold,
+        inntekt: inntekt
+      })
+      return
+    }
+    _setEditArbeidsforhold({
+      ..._editArbeidsforhold,
+      inntekt: inntekt
+    })
+  }
+
   const renderRow = (arbeidsforhold: Arbeidsforhold | null, index: number) => {
     const _namespace = namespace + getIdx(index)
     const _v: Validation = index < 0 ? _validation : validation
@@ -187,7 +203,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
             {inEditMode
               ?
               (
-                <>
+                <PileDiv>
                   <Select
                     error={_v[_namespace + '-yrkesaktivitet']?.feilmelding}
                     id='yrkesaktivitet'
@@ -200,7 +216,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
                       return(<option value={option.value}>{option.label}</option>)
                     })}
                   </Select>
-                </>
+                </PileDiv>
               )
               :
               (
@@ -229,6 +245,18 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
               onCancelEdit={() => onCloseEdit(_namespace)}
             />
           </AlignEndColumn>
+        </AlignStartRow>
+        <AlignStartRow>
+          <Column>
+            {inEditMode
+              ? (
+                <InntektRows parentEditMode={true} setInntekt={setInntekt} parentIndex={index} inntekt={_arbeidsforhold?.inntekt} parentNamespace={_namespace}/>
+              )
+              : (
+                <InntektRows parentEditMode={false} setInntekt={setInntekt} parentIndex={index} inntekt={_arbeidsforhold?.inntekt} parentNamespace={_namespace}/>
+              )
+            }
+          </Column>
         </AlignStartRow>
         <VerticalSeparatorDiv size='0.5' />
       </RepeatableRow>
