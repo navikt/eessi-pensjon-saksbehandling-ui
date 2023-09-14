@@ -149,7 +149,7 @@ const InntektRows: React.FC<InntektProps> = ({
                 </Column>
               </AlignStartRow>
             }
-            {inEditMode
+            {inEditMode && parentEditMode
               ? (
                 <AlignStartRow>
                   <Column>
