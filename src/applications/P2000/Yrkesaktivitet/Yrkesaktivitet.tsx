@@ -225,7 +225,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
                     Yrke
                   </Label>
                   <BodyLong>
-                    {getYrkeLabel(_arbeidsforhold?.yrke)}
+                    {getYrkeLabel(_arbeidsforhold?.type)}
                   </BodyLong>
                 </>
               )

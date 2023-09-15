@@ -10,7 +10,7 @@ import {
 import {getIdx} from "../../../utils/namespace";
 import classNames from "classnames";
 //import {hasNamespaceWithErrors} from "../../../utils/validation";
-import {RepeatableRow} from "../../../components/StyledComponents";
+import {RepeatableRowNoHorizontalPadding} from "../../../components/StyledComponents";
 import InntektRow from "./InntektRow";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {resetValidation, setValidation} from "../../../actions/validation";
@@ -136,7 +136,7 @@ const InntektRows: React.FC<InntektProps> = ({
     const _inntekt = index < 0 ? _newInntekt : (inEditMode ? _editInntekt : inntekt)
 
     return (
-      <RepeatableRow
+      <RepeatableRowNoHorizontalPadding
         id={'repeatablerow-' + _namespace}
         key={index}
         className={classNames({
@@ -239,7 +239,7 @@ const InntektRows: React.FC<InntektProps> = ({
             }
           </AlignEndColumn>
         </AlignStartRow>
-      </RepeatableRow>
+      </RepeatableRowNoHorizontalPadding>
     )
   }
 

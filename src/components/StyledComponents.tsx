@@ -56,6 +56,11 @@ export const RepeatableRow = styled(PaddedHorizontallyDiv)`
   }
 `
 
+export const RepeatableRowNoHorizontalPadding = styled(RepeatableRow)`
+  padding-left:0;
+  padding-right:0;
+`
+
 export const Hr = styled.div`
    background: var(--navds-panel-color-border);
    width: 100%;
