@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Inntekt} from "../../../declarations/p2000";
 import _ from "lodash";
-import {BodyLong, Label} from "@navikt/ds-react";
+import {BodyLong, Label, Select} from "@navikt/ds-react";
 import {
   VerticalSeparatorDiv,
   AlignStartRow,
@@ -23,6 +23,8 @@ import {MainFormSelector} from "../MainForm";
 import useValidation from "../../../hooks/useValidation";
 import {validateInntekt, ValidationInntektProps} from "./validation";
 import performValidation from "../../../utils/performValidation";
+import CountrySelect from "@navikt/landvelger";
+import {Currency} from "@navikt/land-verktoy";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -117,6 +119,16 @@ const InntektRows: React.FC<InntektProps> = ({
     })
   }
 
+  const betalingshyppighetOptions = [
+    {value:'01', label: 'Årlig'},
+    {value:'02', label: 'Kvartalsvis'},
+    {value:'03', label: 'Månedlig 12/år'},
+    {value:'04', label: 'Månedlig 13/år'},
+    {value:'05', label: 'Månedlig 14/år'},
+    {value:'06', label: 'Ukentlig'},
+    {value:'99', label: 'Annet - legg direkte inn i RINA'},
+  ]
+
   const renderRow = (inntekt: Inntekt, index: number) => {
     const _namespace = namespace + getIdx(index)
     const _v: Validation = index < 0 ? _validation : validation
@@ -132,7 +144,7 @@ const InntektRows: React.FC<InntektProps> = ({
         })}
       >
         <AlignStartRow>
-          <Column>
+          <Column flex="2">
             {index <= 0 &&
               <AlignStartRow>
                 <Column>
@@ -164,14 +176,17 @@ const InntektRows: React.FC<InntektProps> = ({
                     />
                   </Column>
                   <Column>
-                    <Input
+                    <CountrySelect
                       error={_v[namespace + '-valuta']?.feilmelding}
                       namespace={namespace}
                       id='inntekt-valuta'
                       label="Valuta"
                       hideLabel={true}
-                      onChanged={(e) => setInntektProperty("valuta", e, index)}
-                      value={_inntekt?.valuta ?? ''}
+                      type='currency'
+                      sort="noeuFirst"
+                      onChanged={(e:any) => setInntektProperty("valuta", e.target.value, index)}
+                      onOptionSelected={(valuta: Currency) => setInntektProperty("valuta", valuta.value, index)}
+                      values={_inntekt?.valuta ?? ''}
                     />
                   </Column>
                   <Column>
@@ -186,15 +201,19 @@ const InntektRows: React.FC<InntektProps> = ({
                     />
                   </Column>
                   <Column>
-                    <Input
+                    <Select
                       error={_v[namespace + '-betalingshyppighetinntekt']?.feilmelding}
-                      namespace={namespace}
                       id='inntekt-betalingshyppighetinntekt'
-                      label="Hyppighet"
+                      label="Betalingshyppighet"
                       hideLabel={true}
-                      onChanged={(e) => setInntektProperty("betalingshyppighetinntekt", e, index)}
+                      onChange={(e) => setInntektProperty("betalingshyppighetinntekt", e.target.value, index)}
                       value={_inntekt?.betalingshyppighetinntekt ?? ''}
-                    />
+                    >
+                      <option value=''>Velg</option>
+                      {betalingshyppighetOptions.map((option) => {
+                        return(<option value={option.value}>{option.label}</option>)
+                      })}
+                    </Select>
                   </Column>
                 </AlignStartRow>
               )

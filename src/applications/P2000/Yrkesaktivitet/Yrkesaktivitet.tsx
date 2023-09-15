@@ -155,17 +155,17 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
     return selectedYrke ? selectedYrke.label : yrke
   }
 
-  const setYrke = (yrke: string, index: number) => {
+  const setYrkeType = (yrke: string, index: number) => {
     if (index < 0) {
       _setNewArbeidsforhold({
         ..._newArbeidsforhold,
-        yrke: yrke
+        type: yrke
       })
       return
     }
     _setEditArbeidsforhold({
       ..._editArbeidsforhold,
-      yrke: yrke
+      type: yrke
     })
   }
 
@@ -199,7 +199,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
       >
         <VerticalSeparatorDiv size='0.5' />
         <AlignStartRow>
-          <Column>
+          <Column flex="2">
             {inEditMode
               ?
               (
@@ -208,8 +208,8 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
                     error={_v[_namespace + '-yrkesaktivitet']?.feilmelding}
                     id='yrkesaktivitet'
                     label="Yrkesaktivitet"
-                    onChange={(e) => setYrke(e.target.value, index)}
-                    value={(_arbeidsforhold?.yrke)  ?? ''}
+                    onChange={(e) => setYrkeType(e.target.value, index)}
+                    value={(_arbeidsforhold?.type)  ?? ''}
                   >
                     <option value=''>Velg</option>
                     {yrkeOptions.map((option) => {
@@ -247,7 +247,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
           </AlignEndColumn>
         </AlignStartRow>
         <AlignStartRow>
-          <Column>
+          <Column flex="2">
             {inEditMode
               ? (
                 <InntektRows parentEditMode={true} setInntekt={setInntekt} parentIndex={index} inntekt={_arbeidsforhold?.inntekt} parentNamespace={_namespace}/>

@@ -6,6 +6,16 @@ export interface InntektRowProps {
   inntekt: Inntekt | undefined
 }
 
+const betalingshyppighetMap:any = {
+    '01': 'Årlig',
+    '02': 'Kvartalsvis',
+    '03': 'Månedlig 12/år',
+    '04': 'Månedlig 13/år',
+    '05': 'Månedlig 14/år',
+    '06': 'Ukentlig',
+    '99': 'Annet - legg direkte inn i RINA'
+}
+
 const InntektRow: React.FC<InntektRowProps> = ({
   inntekt
 }: InntektRowProps): JSX.Element => {
@@ -22,7 +32,7 @@ const InntektRow: React.FC<InntektRowProps> = ({
         {inntekt?.beloeputbetaltsiden}
       </Column>
       <Column>
-        {inntekt?.betalingshyppighetinntekt}
+        {inntekt?.betalingshyppighetinntekt ? betalingshyppighetMap[inntekt?.betalingshyppighetinntekt] : ''}
       </Column>
     </AlignStartRow>
   )
