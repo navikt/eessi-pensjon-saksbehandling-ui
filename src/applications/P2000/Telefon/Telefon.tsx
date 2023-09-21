@@ -159,7 +159,7 @@ const Telefon: React.FC<TelefonProps> = ({
                     error={_v[_namespace + '-nummer']?.feilmelding}
                     namespace={_namespace}
                     id=''
-                    label="Nummer"
+                    label={t('p2000:form-telefon-nummer')}
                     onChanged={(e) => setTelefonNummer(e, index)}
                     value={(_telefon?.nummer)  ?? ''}
                   />
@@ -167,14 +167,14 @@ const Telefon: React.FC<TelefonProps> = ({
                 <Column>
                   <Select
                     error={_v[_namespace + '-type']?.feilmelding}
-                    label="Type"
+                    label={t('p2000:form-telefon-type')}
                     onChange={(e) => setTelefonType(e.target.value, index)}
                     value={(_telefon?.type)  ?? ''}
                   >
                     <option value=''></option>
-                    <option value='mobil'>Mobil</option>
-                    <option value='hjem'>Hjem</option>
-                    <option value='arbeid'>Arbeid</option>
+                    <option value='mobil'>{t('p2000:form-telefon-type-mobil')}</option>
+                    <option value='hjem'>{t('p2000:form-telefon-type-hjem')}</option>
+                    <option value='arbeid'>{t('p2000:form-telefon-type-arbeid')}</option>
                   </Select>
                 </Column>
               </>
@@ -207,7 +207,7 @@ const Telefon: React.FC<TelefonProps> = ({
 
   return (
     <>
-      <Heading size="small">Telefon</Heading>
+      <Heading size="small">{t('p2000:form-telefon')}</Heading>
       <AlignStartRow>
         <Column>
           {telefonnumre?.map(renderTelefon)}
@@ -221,7 +221,7 @@ const Telefon: React.FC<TelefonProps> = ({
               onClick={() => _setNewTelefonForm(true)}
             >
               <AddCircle />&nbsp;
-              {t('ui:add-new-x', { x: t('buc:form-telefon')?.toLowerCase() })}
+              {t('ui:add-new-x', { x: t('p2000:form-telefon')?.toLowerCase() })}
             </Button>
           )
       }

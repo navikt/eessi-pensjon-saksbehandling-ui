@@ -142,7 +142,7 @@ const Epost: React.FC<EpostProps> = ({
                     error={_v[_namespace + '-adresse']?.feilmelding}
                     namespace={_namespace}
                     id=''
-                    label="Adresse"
+                    label={t('p2000:form-epost-adresse')}
                     onChanged={(e) => setEpost(e, index)}
                     value={(_epost?.adresse)  ?? ''}
                   />
@@ -177,7 +177,7 @@ const Epost: React.FC<EpostProps> = ({
 
   return (
     <>
-      <Heading size="small">Epost</Heading>
+      <Heading size="small">{t('p2000:form-epost')}</Heading>
       <AlignStartRow>
         <Column>
           {epostAdresser?.map(renderEpost)}
@@ -191,7 +191,7 @@ const Epost: React.FC<EpostProps> = ({
               onClick={() => _setNewEpostForm(true)}
             >
               <AddCircle />&nbsp;
-              {t('ui:add-new-x', { x: t('buc:form-epost')?.toLowerCase() })}
+              {t('ui:add-new-x', { x: t('p2000:form-epost')?.toLowerCase() })}
             </Button>
           )
       }

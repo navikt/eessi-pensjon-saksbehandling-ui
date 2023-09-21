@@ -152,14 +152,14 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
   }
 
   const sivilstandStatusOptions = [
-    {value:'enslig', label:'Enslig'},
-    {value:'gift', label:'Gift'},
-    {value:'samboer', label:'Samboer'},
-    {value:'registrert_partnerskap', label:'Registrert partner'},
-    {value:'skilt', label:'Skilt'},
-    {value:'skilt_fra_registrert_partnerskap', label:'Skilt fra registrert partner'},
-    {value:'separert', label:'Separert'},
-    {value:'enke_enkemann', label:'Enke/enkemann'}
+    {value:'enslig', label: t('p2000:form-familiestatus-sivilstand-enslig')},
+    {value:'gift', label: t('p2000:form-familiestatus-sivilstand-gift')},
+    {value:'samboer', label: t('p2000:form-familiestatus-sivilstand-samboer')},
+    {value:'registrert_partnerskap', label: t('p2000:form-familiestatus-sivilstand-registrert_partnerskap')},
+    {value:'skilt', label: t('p2000:form-familiestatus-sivilstand-skilt')},
+    {value:'skilt_fra_registrert_partnerskap', label: t('p2000:form-familiestatus-sivilstand-separert')},
+    {value:'separert', label: t('p2000:form-familiestatus-sivilstand-skilt_fra_registrert_partnerskap')},
+    {value:'enke_enkemann', label: t('p2000:form-familiestatus-sivilstand-enke_enkemann')}
   ]
 
   const formatDate = (dateString: String | undefined) => {
@@ -187,7 +187,7 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
                   <Select
                     error={_v[_namespace + '-status']?.feilmelding}
                     id='status'
-                    label="Status"
+                    label={t('p2000:form-familiestatus-status')}
                     onChange={(e) => setSivilstandStatus(e.target.value, index)}
                     value={(_sivilstand?.status)  ?? ''}
                   >
@@ -201,7 +201,7 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
                   <DateField
                     id='fraDato'
                     index={index}
-                    label="Fra dato"
+                    label={t('p2000:form-familiestatus-fradato')}
                     error={_v[_namespace + '-fradato']?.feilmelding}
                     namespace={_namespace}
                     onChanged={(e) => setSivilstandFraDato(e, index)}
@@ -247,19 +247,19 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
 
   return (
     <>
-      <Heading size="small">Familiestatus</Heading>
+      <Heading size="small">{t('p2000:form-familiestatus')}</Heading>
       <VerticalSeparatorDiv size='0.5' />
       <>
         <PaddedHorizontallyDiv>
           <AlignStartRow>
             <Column>
               <Label>
-                {t('ui:status')}
+                {t('p2000:form-familiestatus-status')}
               </Label>
             </Column>
             <Column>
               <Label>
-                {t('ui:fradato')}
+                {t('p2000:form-familiestatus-fradato')}
               </Label>
             </Column>
             <Column />
@@ -276,7 +276,7 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
             onClick={() => _setNewSivilstandForm(true)}
           >
             <AddCircle />&nbsp;
-            {t('ui:add-new-x', { x: t('buc:form-familiestatus')?.toLowerCase() })}
+            {t('ui:add-new-x', { x: t('p2000:form-familiestatus')?.toLowerCase() })}
           </Button>
         )
       }

@@ -99,7 +99,7 @@ const AddRemovePanel = <T extends any>({
           }}
         >
           <SuccessStroke />
-          {labels?.ok ?? t('el:button-save')}
+          {labels?.ok ?? t('ui:save')}
         </Button>
         <HorizontalSeparatorDiv />
         <Button

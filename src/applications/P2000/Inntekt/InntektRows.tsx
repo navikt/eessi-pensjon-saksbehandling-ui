@@ -130,13 +130,13 @@ const InntektRows: React.FC<InntektProps> = ({
   }
 
   const betalingshyppighetOptions = [
-    {value:'01', label: 'Årlig'},
-    {value:'02', label: 'Kvartalsvis'},
-    {value:'03', label: 'Månedlig 12/år'},
-    {value:'04', label: 'Månedlig 13/år'},
-    {value:'05', label: 'Månedlig 14/år'},
-    {value:'06', label: 'Ukentlig'},
-    {value:'99', label: 'Annet - legg direkte inn i RINA'},
+    {value:'01', label: t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet-aarlig')},
+    {value:'02', label: t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet-kvartalsvis')},
+    {value:'03', label: t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet-maanedlig-12')},
+    {value:'04', label: t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet-maanedlig-13')},
+    {value:'05', label: t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet-maanedlig-14')},
+    {value:'06', label: t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet-ukentlig')},
+    {value:'99', label: t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet-annet')}
   ]
 
   const renderRow = (inntekt: Inntekt | null, index: number) => {
@@ -158,16 +158,16 @@ const InntektRows: React.FC<InntektProps> = ({
             {index <= 0 &&
               <AlignStartRow>
                 <Column>
-                  <Label>Beløp</Label>
+                  <Label>{t('p2000:form-arbeidsforhold-inntekt-belop')}</Label>
                 </Column>
                 <Column>
-                  <Label>Valuta</Label>
+                  <Label>{t('p2000:form-arbeidsforhold-inntekt-valuta')}</Label>
                 </Column>
                 <Column>
-                  <Label>Utbetalt siden</Label>
+                  <Label>{t('p2000:form-arbeidsforhold-inntekt-belop-siden')}</Label>
                 </Column>
                 <Column>
-                  <Label>Hyppighet</Label>
+                  <Label>{t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet')}</Label>
                 </Column>
               </AlignStartRow>
             }
@@ -179,7 +179,7 @@ const InntektRows: React.FC<InntektProps> = ({
                       error={_v[namespace + '-beloep']?.feilmelding}
                       namespace={namespace}
                       id='inntekt-beloep'
-                      label="Beløp"
+                      label={t('p2000:form-arbeidsforhold-inntekt-belop')}
                       hideLabel={true}
                       onChanged={(e) => setInntektProperty("beloep", e, index)}
                       value={_inntekt?.beloep ?? ''}
@@ -190,7 +190,7 @@ const InntektRows: React.FC<InntektProps> = ({
                       error={_v[namespace + '-valuta']?.feilmelding}
                       namespace={namespace}
                       id='inntekt-valuta'
-                      label="Valuta"
+                      label={t('p2000:form-arbeidsforhold-inntekt-valuta')}
                       hideLabel={true}
                       type='currency'
                       sort="noeuFirst"
@@ -204,7 +204,7 @@ const InntektRows: React.FC<InntektProps> = ({
                       error={_v[namespace + '-beloeputbetaltsiden']?.feilmelding}
                       namespace={namespace}
                       id='inntekt-beloeputbetaltsiden'
-                      label="Utbetalt siden"
+                      label={t('p2000:form-arbeidsforhold-inntekt-belop-siden')}
                       hideLabel={true}
                       onChanged={(e) => setInntektProperty("beloeputbetaltsiden", e, index)}
                       value={_inntekt?.beloeputbetaltsiden ?? ''}
@@ -214,7 +214,7 @@ const InntektRows: React.FC<InntektProps> = ({
                     <Select
                       error={_v[namespace + '-betalingshyppighetinntekt']?.feilmelding}
                       id='inntekt-betalingshyppighetinntekt'
-                      label="Betalingshyppighet"
+                      label={t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet')}
                       hideLabel={true}
                       onChange={(e) => setInntektProperty("betalingshyppighetinntekt", e.target.value, index)}
                       value={_inntekt?.betalingshyppighetinntekt ?? ''}

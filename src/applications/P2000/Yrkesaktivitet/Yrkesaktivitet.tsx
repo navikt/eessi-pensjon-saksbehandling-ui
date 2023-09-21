@@ -142,14 +142,14 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
   }
 
   const yrkeOptions = [
-    {value:'forsikrede_har_fortsatt_inntektsgivende_arbeid', label: 'Forsikrede har fortsatt inntektsgivende arbeid'},
-    {value:'forsikrede_driver_fortsatt_selvstendig_naerigsvirksomhet', label: 'Forsikrede driver fortsatt selvstendig næringsvirksomhet'},
-    {value:'forsikrede_har_ikke_lenger_inntektsgivendwe_arbeid', label: 'Forsikrede har ikke lenger inntektsgivende arbeid'},
-    {value:'forsikrede_driver_ikke_lenger_selvstendig_naerigsvirksomhet', label: 'Forsikrede driver ikke lenger selvstendig næringsvirksomhet'},
-    {value:'forsikrede_skal_pensjonere_seg_fra_inntektsgivende_arbeid', label: 'Forsikrede skal pensjonere seg fra inntektsgivende arbeid'},
-    {value:'forsikrede_skal_pensjonere_seg_fra_selvstendig_naerigsvirksomhet', label: 'Forsikrede skal pensjonere seg fra selvstendig næringsvirksomhet'},
-    {value:'forsikrede_skal_starte_inntektsgivende_arbeid', label: 'Forsikrede skal starte inntektsgivende arbeid'},
-    {value:'forsikrede_skal_starte_selvstendig_naerigsvirksomhet', label: 'Forsikrede skal starte selvstendig næringsvirksomhet'}
+    {value:'forsikrede_har_fortsatt_inntektsgivende_arbeid', label: t('p2000:form-yrke-type-forsikrede_har_fortsatt_inntektsgivende_arbeid')},
+    {value:'forsikrede_driver_fortsatt_selvstendig_naerigsvirksomhet', label: t('p2000:form-yrke-type-forsikrede_driver_fortsatt_selvstendig_naerigsvirksomhet')},
+    {value:'forsikrede_har_ikke_lenger_inntektsgivendwe_arbeid', label: t('p2000:form-yrke-type-forsikrede_har_ikke_lenger_inntektsgivendwe_arbeid')},
+    {value:'forsikrede_driver_ikke_lenger_selvstendig_naerigsvirksomhet', label: t('p2000:form-yrke-type-forsikrede_driver_ikke_lenger_selvstendig_naerigsvirksomhet')},
+    {value:'forsikrede_skal_pensjonere_seg_fra_inntektsgivende_arbeid', label: t('p2000:form-yrke-type-forsikrede_skal_pensjonere_seg_fra_inntektsgivende_arbeid')},
+    {value:'forsikrede_skal_pensjonere_seg_fra_selvstendig_naerigsvirksomhet', label: t('p2000:form-yrke-type-forsikrede_skal_pensjonere_seg_fra_selvstendig_naerigsvirksomhet')},
+    {value:'forsikrede_skal_starte_inntektsgivende_arbeid', label: t('p2000:form-yrke-type-forsikrede_skal_starte_inntektsgivende_arbeid')},
+    {value:'forsikrede_skal_starte_selvstendig_naerigsvirksomhet', label: t('p2000:form-yrke-type-forsikrede_skal_starte_selvstendig_naerigsvirksomhet')}
   ]
 
   const getYrkeLabel = (yrke:string | undefined | null) => {

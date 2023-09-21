@@ -205,7 +205,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
                   id={_namespace + '-land'}
                   includeList={landUtenNorge}
                   hideLabel={index >= 0}
-                  label={t('ui:land')}
+                  label={t('p2000:form-utenlandske-pin-land')}
                   menuPortalTarget={document.body}
                   onOptionSelected={(e: Country) => setUtenlandskeLand(e.value, index)}
                   values={_pin?.land}
@@ -230,7 +230,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
                 <Input
                   error={_v[_namespace + '-identifikator']?.feilmelding}
                   id='identifikator'
-                  label={t('ui:utenlandsk-pin')}
+                  label={t('p2000:form-utenlandske-pin-pin')}
                   hideLabel={index >= 0}
                   namespace={_namespace}
                   onChanged={(id: string) => setUtenlandskeIdentifikator(id, index)}
@@ -268,7 +268,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
 
   return (
     <>
-      <Heading size="small">Utenlandske PIN</Heading>
+      <Heading size="small">{t('p2000:form-utenlandske-pin')}</Heading>
       <VerticalSeparatorDiv size='0.5' />
       {_.isEmpty(utenlandskePINs)
         ? (
@@ -282,12 +282,12 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
               <AlignStartRow>
                 <Column>
                   <Label>
-                    {t('ui:land')}
+                    {t('p2000:form-utenlandske-pin-land')}
                   </Label>
                 </Column>
                 <Column>
                   <Label>
-                    {t('ui:pin')}
+                    {t('p2000:form-utenlandske-pin-pin')}
                   </Label>
                 </Column>
                 <Column />
@@ -309,7 +309,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
                 onClick={() => _setNewForm(true)}
               >
                 <AddCircle />&nbsp;
-                {t('ui:add-new-x', { x: t('buc:form-utenlandsk-pin')?.toLowerCase() })}
+                {t('ui:add-new-x', { x: t('p2000:form-utenlandske-pin')?.toLowerCase() })}
               </Button>
             )}
           </>
