@@ -120,7 +120,9 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
   }
 
   const onRemove = (removedArbeidsforhold: Arbeidsforhold) => {
-    console.log(removedArbeidsforhold)
+    const newArbeidsforhold: Array<Arbeidsforhold> = _.reject(arbeidsforholdArray,
+      (a: Arbeidsforhold) => _.isEqual(removedArbeidsforhold, a))
+    dispatch(updatePSED(`${target}`, newArbeidsforhold))
   }
 
   const onAddNew = () => {

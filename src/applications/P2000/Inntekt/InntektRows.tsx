@@ -123,6 +123,12 @@ const InntektRows: React.FC<InntektProps> = ({
     })
   }
 
+  const onRemove = (removedInntekt: Inntekt) => {
+    const newInntekt: Array<Inntekt> = _.reject(inntekt,
+      (i: Inntekt) => _.isEqual(removedInntekt, i))
+    setInntekt(newInntekt, parentIndex)
+  }
+
   const betalingshyppighetOptions = [
     {value:'01', label: 'Årlig'},
     {value:'02', label: 'Kvartalsvis'},
@@ -233,7 +239,7 @@ const InntektRows: React.FC<InntektProps> = ({
                 marginTop={index < 0}
                 index={index}
                 inEditMode={inEditMode}
-                onRemove={()=>{}}
+                onRemove={onRemove}
                 onAddNew={onAddNew}
                 onCancelNew={onCloseNew}
                 onStartEdit={onStartEdit}

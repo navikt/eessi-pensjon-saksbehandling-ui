@@ -71,7 +71,7 @@ const AddRemovePanel = <T extends any>({
         <Button
           size='small'
           variant='tertiary'
-          onClick={() => onRemove(item!)}
+          onClick={() => {onRemove(item!);setInDeleteMode(false)}}
         >
           {labels?.yes ?? t('ui:yes')}
         </Button>
