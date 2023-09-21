@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Inntekt} from "../../../declarations/p2000";
 import _ from "lodash";
-import {BodyLong, Label, Select} from "@navikt/ds-react";
+import {BodyLong, Button, Label, Select} from "@navikt/ds-react";
 import {
   VerticalSeparatorDiv,
   AlignStartRow,
@@ -25,6 +25,8 @@ import {validateInntekt, ValidationInntektProps} from "./validation";
 import performValidation from "../../../utils/performValidation";
 import CountrySelect from "@navikt/landvelger";
 import {Currency} from "@navikt/land-verktoy";
+import {AddCircle} from "@navikt/ds-icons";
+import {useTranslation} from "react-i18next";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -46,14 +48,16 @@ const InntektRows: React.FC<InntektProps> = ({
   parentNamespace
 }: InntektProps): JSX.Element => {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-inntekt`
 
   const [_validation, _resetValidation, _performValidation] = useValidation<ValidationInntektProps>(validateInntekt, namespace)
 
-  const [_editIndex, _setEditIndex] = useState<number | undefined>(undefined)
   const [_editInntekt, _setEditInntekt] = useState<Inntekt | undefined>(undefined)
   const [_newInntekt, _setNewInntekt] = useState<Inntekt | undefined>(undefined)
+  const [_editIndex, _setEditIndex] = useState<number | undefined>(undefined)
+  const [_newForm, _setNewForm] = useState<boolean>(false)
 
   const onStartEdit = (inntekt: Inntekt, index: number) => {
     if (_editIndex !== undefined) {
@@ -87,7 +91,7 @@ const InntektRows: React.FC<InntektProps> = ({
 
   const onCloseNew = () => {
     _setNewInntekt(undefined)
-    //_setNewForm(false)
+    _setNewForm(false)
     _resetValidation()
   }
 
@@ -129,7 +133,7 @@ const InntektRows: React.FC<InntektProps> = ({
     {value:'99', label: 'Annet - legg direkte inn i RINA'},
   ]
 
-  const renderRow = (inntekt: Inntekt, index: number) => {
+  const renderRow = (inntekt: Inntekt | null, index: number) => {
     const _namespace = namespace + getIdx(index)
     const _v: Validation = index < 0 ? _validation : validation
     const inEditMode = index < 0 || _editIndex === index
@@ -258,6 +262,21 @@ const InntektRows: React.FC<InntektProps> = ({
         )
       }
       <VerticalSeparatorDiv />
+
+      {parentEditMode && _newForm
+        ? renderRow(null, -1)
+        : parentEditMode && (
+          <>
+            <Button
+              variant='tertiary'
+              onClick={() => _setNewForm(true)}
+            >
+              <AddCircle />&nbsp;
+              {t('ui:add-new-x', { x: t('p2000:form-arbeidsforhold-inntekt')?.toLowerCase() })}
+            </Button>
+          </>
+        )}
+
     </>
   )
 }

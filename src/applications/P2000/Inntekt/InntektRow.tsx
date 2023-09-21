@@ -3,7 +3,7 @@ import React from "react";
 import {Inntekt} from "../../../declarations/p2000";
 
 export interface InntektRowProps {
-  inntekt: Inntekt | undefined
+  inntekt: Inntekt | null | undefined
 }
 
 const betalingshyppighetMap:any = {

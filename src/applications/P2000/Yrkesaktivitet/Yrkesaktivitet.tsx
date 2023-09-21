@@ -141,13 +141,13 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
 
   const yrkeOptions = [
     {value:'forsikrede_har_fortsatt_inntektsgivende_arbeid', label: 'Forsikrede har fortsatt inntektsgivende arbeid'},
-    {value:'forsikrede_driver_fortsatt_selvstendig_naerigsvirksomhet', label: 'Forsikrede driver fortsatt selvstendig naerigsvirksomhet'},
-    {value:'forsikrede_har_ikke_lenger_inntektsgivendwe_arbeid', label: 'Forsikrede har ikke lenger inntektsgivendwe arbeid'},
-    {value:'forsikrede_driver_ikke_lenger_selvstendig_naerigsvirksomhet', label: 'Forsikrede driver ikke lenger selvstendig naerigsvirksomhet'},
+    {value:'forsikrede_driver_fortsatt_selvstendig_naerigsvirksomhet', label: 'Forsikrede driver fortsatt selvstendig næringsvirksomhet'},
+    {value:'forsikrede_har_ikke_lenger_inntektsgivendwe_arbeid', label: 'Forsikrede har ikke lenger inntektsgivende arbeid'},
+    {value:'forsikrede_driver_ikke_lenger_selvstendig_naerigsvirksomhet', label: 'Forsikrede driver ikke lenger selvstendig næringsvirksomhet'},
     {value:'forsikrede_skal_pensjonere_seg_fra_inntektsgivende_arbeid', label: 'Forsikrede skal pensjonere seg fra inntektsgivende arbeid'},
-    {value:'forsikrede_skal_pensjonere_seg_fra_selvstendig_naerigsvirksomhet', label: 'Forsikrede skal pensjonere seg fra selvstendig naerigsvirksomhet'},
+    {value:'forsikrede_skal_pensjonere_seg_fra_selvstendig_naerigsvirksomhet', label: 'Forsikrede skal pensjonere seg fra selvstendig næringsvirksomhet'},
     {value:'forsikrede_skal_starte_inntektsgivende_arbeid', label: 'Forsikrede skal starte inntektsgivende arbeid'},
-    {value:'forsikrede_skal_starte_selvstendig_naerigsvirksomhet', label: 'Forsikrede skal starte selvstendig naerigsvirksomhet'}
+    {value:'forsikrede_skal_starte_selvstendig_naerigsvirksomhet', label: 'Forsikrede skal starte selvstendig næringsvirksomhet'}
   ]
 
   const getYrkeLabel = (yrke:string | undefined | null) => {
@@ -292,7 +292,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
                 onClick={() => _setNewForm(true)}
               >
                 <AddCircle />&nbsp;
-                {t('ui:add-new-x', { x: t('buc:form-arbeidsforhold')?.toLowerCase() })}
+                {t('ui:add-new-x', { x: t('p2000:form-arbeidsforhold')?.toLowerCase() })}
               </Button>
             </>
           )}
