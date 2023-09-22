@@ -27,6 +27,7 @@ import {Currency} from "@navikt/land-verktoy";
 import {AddCircle} from "@navikt/ds-icons";
 import {useTranslation} from "react-i18next";
 import DateField from "../DateField/DateField";
+import {dateToString} from "../../../utils/utils";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -191,7 +192,7 @@ const InntektRows: React.FC<InntektProps> = ({
                       index={index}
                       error={_v[namespace + '-beloeputbetaltsiden']?.feilmelding}
                       namespace={namespace}
-                      onChanged={(e) => setInntektProperty("beloeputbetaltsiden", e?.toISOString().split('T')[0]!, index)}
+                      onChanged={(e) => setInntektProperty("beloeputbetaltsiden", dateToString(e)!, index)}
                       defaultDate={_inntekt?.beloeputbetaltsiden}
                     />
                   </Column>

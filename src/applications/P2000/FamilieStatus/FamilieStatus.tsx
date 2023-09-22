@@ -20,6 +20,7 @@ import {useAppSelector} from "../../../store";
 import {useTranslation} from "react-i18next";
 import {validateFamilieStatus, ValidationFamilieStatusProps} from "./validation";
 import DateField from "../DateField/DateField";
+import {dateToString, formatDate} from "../../../utils/utils";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -71,22 +72,19 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
 
   const setSivilstandFraDato = (fraDato: Date | undefined, index: number) => {
     if(fraDato){
-      const year = fraDato?.getFullYear()
-      const month = (fraDato?.getMonth() + 1).toString().padStart(2, '0')
-      const day = fraDato?.getDate().toString().padStart(2, '0')
-      const dateString = year + "-" + month + "-" + day
+      const dateString = dateToString(fraDato)
 
       if (index < 0) {
         _setNewSivilstand({
           ..._newSivilstand,
-          fradato: dateString,
+          fradato: dateString!,
           status: _newSivilstand?.status!
         })
         return
       }
       _setEditSivilstand({
         ..._editSivilstand,
-        fradato: dateString,
+        fradato: dateString!,
         status: _editSivilstand?.status!
       })
     }
@@ -161,15 +159,6 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
     {value:'separert', label: t('p2000:form-familiestatus-sivilstand-skilt_fra_registrert_partnerskap')},
     {value:'enke_enkemann', label: t('p2000:form-familiestatus-sivilstand-enke_enkemann')}
   ]
-
-  const formatDate = (dateString: String | undefined) => {
-    if(dateString) {
-      const dateParts = dateString.split("-")
-      return dateParts[2] + "." + dateParts[1] + "." + dateParts[0]
-    } else {
-      return dateString
-    }
-  }
 
   const renderSivilstand = (sivilstand: Sivilstand | null, index: number) => {
     const _namespace = namespace + getIdx(index)

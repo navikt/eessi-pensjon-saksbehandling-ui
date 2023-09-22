@@ -3,6 +3,7 @@ import React from "react";
 import {Inntekt} from "../../../declarations/p2000";
 import {Label} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
+import {formatDate} from "../../../utils/utils";
 
 export interface InntektRowProps {
   inntekt: Inntekt | null | undefined
@@ -51,7 +52,7 @@ const InntektRow: React.FC<InntektRowProps> = ({
           {inntekt?.valuta}
         </Column>
         <Column>
-          {new Date(inntekt?.beloeputbetaltsiden as string).toLocaleDateString("no-NO")}
+          {formatDate(inntekt?.beloeputbetaltsiden as string)}
         </Column>
         <Column>
           {inntekt?.betalingshyppighetinntekt ? betalingshyppighetMap[inntekt?.betalingshyppighetinntekt] : ''}
