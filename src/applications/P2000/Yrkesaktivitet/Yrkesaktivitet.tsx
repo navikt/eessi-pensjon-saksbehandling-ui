@@ -260,7 +260,6 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
             }
           </Column>
         </AlignStartRow>
-        <VerticalSeparatorDiv size='0.5' />
       </RepeatableRow>
     )
   }
@@ -288,7 +287,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
         {_newForm
           ? renderRow(null, -1)
           : (
-            <>
+            <AlignEndColumn>
               <Button
                 variant='tertiary'
                 onClick={() => _setNewForm(true)}
@@ -296,7 +295,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
                 <AddCircle />&nbsp;
                 {t('ui:add-new-x', { x: t('p2000:form-arbeidsforhold')?.toLowerCase() })}
               </Button>
-            </>
+            </AlignEndColumn>
           )}
 
       </PaddedDiv>

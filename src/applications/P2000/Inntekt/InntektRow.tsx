@@ -1,9 +1,12 @@
 import {AlignStartRow, Column} from "@navikt/hoykontrast";
 import React from "react";
 import {Inntekt} from "../../../declarations/p2000";
+import {Label} from "@navikt/ds-react";
+import {useTranslation} from "react-i18next";
 
 export interface InntektRowProps {
   inntekt: Inntekt | null | undefined
+  index: number
 }
 
 const betalingshyppighetMap:any = {
@@ -17,24 +20,44 @@ const betalingshyppighetMap:any = {
 }
 
 const InntektRow: React.FC<InntektRowProps> = ({
-  inntekt
+  inntekt, index
 }: InntektRowProps): JSX.Element => {
 
+  const { t } = useTranslation()
+
   return (
-    <AlignStartRow>
-      <Column>
-        {inntekt?.beloep}
-      </Column>
-      <Column>
-        {inntekt?.valuta}
-      </Column>
-      <Column>
-        {inntekt?.beloeputbetaltsiden}
-      </Column>
-      <Column>
-        {inntekt?.betalingshyppighetinntekt ? betalingshyppighetMap[inntekt?.betalingshyppighetinntekt] : ''}
-      </Column>
-    </AlignStartRow>
+    <>
+    {index <= 0 &&
+      <AlignStartRow>
+        <Column>
+          <Label>{t('p2000:form-arbeidsforhold-inntekt-belop')}</Label>
+        </Column>
+        <Column>
+          <Label>{t('p2000:form-arbeidsforhold-inntekt-valuta')}</Label>
+        </Column>
+        <Column>
+          <Label>{t('p2000:form-arbeidsforhold-inntekt-belop-siden')}</Label>
+        </Column>
+        <Column>
+          <Label>{t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet')}</Label>
+        </Column>
+      </AlignStartRow>
+    }
+      <AlignStartRow>
+        <Column>
+          {inntekt?.beloep}
+        </Column>
+        <Column>
+          {inntekt?.valuta}
+        </Column>
+        <Column>
+          {inntekt?.beloeputbetaltsiden}
+        </Column>
+        <Column>
+          {inntekt?.betalingshyppighetinntekt ? betalingshyppighetMap[inntekt?.betalingshyppighetinntekt] : ''}
+        </Column>
+      </AlignStartRow>
+    </>
   )
 }
 

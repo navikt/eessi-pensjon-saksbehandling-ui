@@ -1,9 +1,8 @@
 import React, {useState} from "react";
 import {Inntekt} from "../../../declarations/p2000";
 import _ from "lodash";
-import {BodyLong, Button, Label, Select} from "@navikt/ds-react";
+import {BodyLong, Button, Select} from "@navikt/ds-react";
 import {
-  VerticalSeparatorDiv,
   AlignStartRow,
   Column, AlignEndColumn,
 } from "@navikt/hoykontrast";
@@ -27,6 +26,7 @@ import CountrySelect from "@navikt/landvelger";
 import {Currency} from "@navikt/land-verktoy";
 import {AddCircle} from "@navikt/ds-icons";
 import {useTranslation} from "react-i18next";
+import DateField from "../DateField/DateField";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -155,22 +155,6 @@ const InntektRows: React.FC<InntektProps> = ({
       >
         <AlignStartRow>
           <Column flex="2">
-            {index <= 0 &&
-              <AlignStartRow>
-                <Column>
-                  <Label>{t('p2000:form-arbeidsforhold-inntekt-belop')}</Label>
-                </Column>
-                <Column>
-                  <Label>{t('p2000:form-arbeidsforhold-inntekt-valuta')}</Label>
-                </Column>
-                <Column>
-                  <Label>{t('p2000:form-arbeidsforhold-inntekt-belop-siden')}</Label>
-                </Column>
-                <Column>
-                  <Label>{t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet')}</Label>
-                </Column>
-              </AlignStartRow>
-            }
             {inEditMode && parentEditMode
               ? (
                 <AlignStartRow>
@@ -180,7 +164,7 @@ const InntektRows: React.FC<InntektProps> = ({
                       namespace={namespace}
                       id='inntekt-beloep'
                       label={t('p2000:form-arbeidsforhold-inntekt-belop')}
-                      hideLabel={true}
+                      hideLabel={index > 0}
                       onChanged={(e) => setInntektProperty("beloep", e, index)}
                       value={_inntekt?.beloep ?? ''}
                     />
@@ -191,7 +175,7 @@ const InntektRows: React.FC<InntektProps> = ({
                       namespace={namespace}
                       id='inntekt-valuta'
                       label={t('p2000:form-arbeidsforhold-inntekt-valuta')}
-                      hideLabel={true}
+                      hideLabel={index > 0}
                       type='currency'
                       sort="noeuFirst"
                       onChanged={(e:any) => setInntektProperty("valuta", e.target.value, index)}
@@ -200,14 +184,15 @@ const InntektRows: React.FC<InntektProps> = ({
                     />
                   </Column>
                   <Column>
-                    <Input
-                      error={_v[namespace + '-beloeputbetaltsiden']?.feilmelding}
-                      namespace={namespace}
+                    <DateField
                       id='inntekt-beloeputbetaltsiden'
                       label={t('p2000:form-arbeidsforhold-inntekt-belop-siden')}
-                      hideLabel={true}
-                      onChanged={(e) => setInntektProperty("beloeputbetaltsiden", e, index)}
-                      value={_inntekt?.beloeputbetaltsiden ?? ''}
+                      hideLabel={index > 0}
+                      index={index}
+                      error={_v[namespace + '-beloeputbetaltsiden']?.feilmelding}
+                      namespace={namespace}
+                      onChanged={(e) => setInntektProperty("beloeputbetaltsiden", e?.toLocaleDateString()!, index)}
+                      defaultDate={_inntekt?.beloeputbetaltsiden}
                     />
                   </Column>
                   <Column>
@@ -215,7 +200,7 @@ const InntektRows: React.FC<InntektProps> = ({
                       error={_v[namespace + '-betalingshyppighetinntekt']?.feilmelding}
                       id='inntekt-betalingshyppighetinntekt'
                       label={t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet')}
-                      hideLabel={true}
+                      hideLabel={index > 0}
                       onChange={(e) => setInntektProperty("betalingshyppighetinntekt", e.target.value, index)}
                       value={_inntekt?.betalingshyppighetinntekt ?? ''}
                     >
@@ -228,7 +213,7 @@ const InntektRows: React.FC<InntektProps> = ({
                 </AlignStartRow>
               )
               : (
-                <InntektRow inntekt={_inntekt}/>
+                <InntektRow inntekt={_inntekt} index={index}/>
               )
             }
           </Column>
@@ -267,8 +252,6 @@ const InntektRows: React.FC<InntektProps> = ({
           </>
         )
       }
-      <VerticalSeparatorDiv />
-
       {parentEditMode && _newForm
         ? renderRow(null, -1)
         : parentEditMode && (
