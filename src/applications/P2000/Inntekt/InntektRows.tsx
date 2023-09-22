@@ -191,7 +191,7 @@ const InntektRows: React.FC<InntektProps> = ({
                       index={index}
                       error={_v[namespace + '-beloeputbetaltsiden']?.feilmelding}
                       namespace={namespace}
-                      onChanged={(e) => setInntektProperty("beloeputbetaltsiden", e?.toLocaleDateString()!, index)}
+                      onChanged={(e) => setInntektProperty("beloeputbetaltsiden", e?.toDateString()!, index)}
                       defaultDate={_inntekt?.beloeputbetaltsiden}
                     />
                   </Column>

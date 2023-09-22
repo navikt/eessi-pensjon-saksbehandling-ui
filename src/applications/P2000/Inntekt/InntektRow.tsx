@@ -51,7 +51,7 @@ const InntektRow: React.FC<InntektRowProps> = ({
           {inntekt?.valuta}
         </Column>
         <Column>
-          {inntekt?.beloeputbetaltsiden}
+          {new Date(inntekt?.beloeputbetaltsiden as string).toLocaleDateString("no-NO")}
         </Column>
         <Column>
           {inntekt?.betalingshyppighetinntekt ? betalingshyppighetMap[inntekt?.betalingshyppighetinntekt] : ''}
