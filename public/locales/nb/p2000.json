@@ -41,5 +41,8 @@
   "form-yrke-type-forsikrede_skal_pensjonere_seg_fra_inntektsgivende_arbeid": "Forsikrede skal pensjonere seg fra inntektsgivende arbeid",
   "form-yrke-type-forsikrede_skal_pensjonere_seg_fra_selvstendig_naerigsvirksomhet": "Forsikrede skal pensjonere seg fra selvstendig næringsvirksomhet",
   "form-yrke-type-forsikrede_skal_starte_inntektsgivende_arbeid": "Forsikrede skal starte inntektsgivende arbeid",
-  "form-yrke-type-forsikrede_skal_starte_selvstendig_naerigsvirksomhet": "Forsikrede skal starte selvstendig næringsvirksomhet"
+  "form-yrke-type-forsikrede_skal_starte_selvstendig_naerigsvirksomhet": "Forsikrede skal starte selvstendig næringsvirksomhet",
+
+  "ingen-arbeidsforhold": "Ingen arbeidsforhold",
+  "yrkesaktivitet": "Yrkesaktivitet"
 }

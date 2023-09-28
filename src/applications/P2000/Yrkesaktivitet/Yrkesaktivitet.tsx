@@ -106,7 +106,6 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
     const hasErrors = performValidation<ValidationArbeidsforholdProps>(
       clonedValidation, namespace, validateArbeidsforhold, {
         arbeidsforhold: _editArbeidsforhold,
-        arbeidsforholdArray: arbeidsforholdArray,
         index: _editIndex,
       })
     if (_editIndex !== undefined && !!_editArbeidsforhold && !hasErrors) {
@@ -128,7 +127,6 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
   const onAddNew = () => {
     const valid: boolean = _performValidation({
       arbeidsforhold: _newArbeidsforhold,
-      arbeidsforholdArray: arbeidsforholdArray,
     })
     if (!!_newArbeidsforhold && valid) {
       let newArbeidsforholdArray: Array<Arbeidsforhold> = _.cloneDeep(arbeidsforholdArray) as Array<Arbeidsforhold>
@@ -224,7 +222,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
               (
                 <>
                   <Label>
-                    Yrke
+                    {t('p2000:yrkesaktivitet')}
                   </Label>
                   <BodyLong>
                     {getYrkeLabel(_arbeidsforhold?.type)}
@@ -274,7 +272,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
         {_.isEmpty(arbeidsforholdArray)
           ? (
             <BodyLong>
-              Ingen arbeidsforhold
+              {t('p2000:ingen-arbeidsforhold')}
             </BodyLong>
           )
           : (

@@ -78,6 +78,7 @@ const InntektRows: React.FC<InntektProps> = ({
     const clonedValidation = _.cloneDeep(validation)
     const hasErrors = performValidation<ValidationInntektProps>(
       clonedValidation, namespace, validateInntekt, {
+        inntekt: _editInntekt,
         index: _editIndex,
       })
     if (_editIndex !== undefined && !!_editInntekt && !hasErrors) {
@@ -98,6 +99,7 @@ const InntektRows: React.FC<InntektProps> = ({
 
   const onAddNew = () => {
     const valid: boolean = _performValidation({
+      inntekt: _newInntekt
     })
     if (!!_newInntekt && valid) {
       let newInntektArray: Array<Inntekt> = _.cloneDeep(inntekt) as Array<Inntekt>
@@ -178,8 +180,8 @@ const InntektRows: React.FC<InntektProps> = ({
                 <AlignStartRow>
                   <Column>
                     <Input
-                      error={_v[namespace + '-beloep']?.feilmelding}
-                      namespace={namespace}
+                      error={_v[_namespace + '-beloep']?.feilmelding}
+                      namespace={_namespace}
                       id='inntekt-beloep'
                       label={t('p2000:form-arbeidsforhold-inntekt-belop')}
                       hideLabel={index > 0}
@@ -189,9 +191,9 @@ const InntektRows: React.FC<InntektProps> = ({
                   </Column>
                   <Column>
                     <CountrySelect
-                      error={_v[namespace + '-valuta']?.feilmelding}
+                      error={_v[_namespace + '-valuta']?.feilmelding}
                       placeholder="Velg valuta"
-                      namespace={namespace}
+                      namespace={_namespace}
                       id='inntekt-valuta'
                       label={t('p2000:form-arbeidsforhold-inntekt-valuta')}
                       hideLabel={index > 0}
@@ -208,15 +210,15 @@ const InntektRows: React.FC<InntektProps> = ({
                       label={t('p2000:form-arbeidsforhold-inntekt-belop-siden')}
                       hideLabel={index > 0}
                       index={index}
-                      error={_v[namespace + '-beloeputbetaltsiden']?.feilmelding}
-                      namespace={namespace}
+                      error={_v[_namespace + '-beloeputbetaltsiden']?.feilmelding}
+                      namespace={_namespace}
                       onChanged={(e) => setInntektProperty("beloeputbetaltsiden", dateToString(e)!, index)}
                       defaultDate={_inntekt?.beloeputbetaltsiden}
                     />
                   </Column>
                   <Column>
                     <Select
-                      error={_v[namespace + '-betalingshyppighetinntekt']?.feilmelding}
+                      error={_v[_namespace + '-betalingshyppighetinntekt']?.feilmelding}
                       id='inntekt-betalingshyppighetinntekt'
                       label={t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet')}
                       hideLabel={index > 0}
