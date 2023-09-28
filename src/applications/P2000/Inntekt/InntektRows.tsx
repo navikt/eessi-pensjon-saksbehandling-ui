@@ -110,17 +110,34 @@ const InntektRows: React.FC<InntektProps> = ({
     }
   }
 
+  const setBelop = (beloep: string, index: number) => {
+    setInntektProperty("beloep", beloep, index)
+    const i = index < 0 ? _newInntekt : _editInntekt
+    if(parseFloat(beloep) > 0){
+      if(!i?.valuta || i?.valuta === "") {
+        setInntektProperty("valuta", "NOK", index)
+      }
+      if(!i?.betalingshyppighetinntekt || i?.betalingshyppighetinntekt === ""){
+        setInntektProperty("betalingshyppighetinntekt", "03", index)
+      }
+
+    }
+  }
+
   const setInntektProperty = (property: string, value: string, index: number) => {
     if (index < 0) {
-      _setNewInntekt({
-        ..._newInntekt,
-        [property]: value
+      _setNewInntekt((prevState) => {
+        return {
+          ...prevState,
+          [property]: value
+        }
       })
-      return
     }
-    _setEditInntekt({
-      ..._editInntekt,
-      [property]: value
+    _setEditInntekt((prevState) => {
+      return {
+        ...prevState,
+        [property]: value
+      }
     })
   }
 
@@ -166,13 +183,14 @@ const InntektRows: React.FC<InntektProps> = ({
                       id='inntekt-beloep'
                       label={t('p2000:form-arbeidsforhold-inntekt-belop')}
                       hideLabel={index > 0}
-                      onChanged={(e) => setInntektProperty("beloep", e, index)}
+                      onChanged={(e) => setBelop(e, index)}
                       value={_inntekt?.beloep ?? ''}
                     />
                   </Column>
                   <Column>
                     <CountrySelect
                       error={_v[namespace + '-valuta']?.feilmelding}
+                      placeholder="Velg valuta"
                       namespace={namespace}
                       id='inntekt-valuta'
                       label={t('p2000:form-arbeidsforhold-inntekt-valuta')}
