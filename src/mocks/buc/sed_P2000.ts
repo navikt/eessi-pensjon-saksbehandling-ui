@@ -184,7 +184,30 @@ export default {
     },
     "angitidligstdato": null,
     "utsettelse": null,
-    "ytelser": null,
+    "ytelser": [
+      {
+        "totalbruttobeloeparbeidsbasert": "1000",
+        "institusjon": null,
+        "pin": null,
+        "startdatoutbetaling": "2023-01-01",
+        "mottasbasertpaa": "botid",
+        "ytelse": "01",
+        "startdatoretttilytelse": "2023-12-01",
+        "sluttdatoUtbetaling": null,
+        "beloep": [
+          {
+            "betalingshyppighetytelse": "03",
+            "valuta": "EUR",
+            "beloep": "100000",
+            "beloepBrutto": null,
+            "gjeldendesiden": "2022-09-01",
+            "utbetalingshyppighetAnnen": null
+          }
+        ],
+        "status": "02",
+        "annenbetalingshyppighetytelse": null
+      }
+    ],
     "forespurtstartdato": null,
     "vedtak": null,
     "vedlegg": null,

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Inntekt} from "../../../declarations/p2000";
+import {Beloep} from "../../../declarations/p2000";
 import _ from "lodash";
 import {BodyLong, Button, Select} from "@navikt/ds-react";
 import {
@@ -10,7 +10,7 @@ import {getIdx} from "../../../utils/namespace";
 import classNames from "classnames";
 //import {hasNamespaceWithErrors} from "../../../utils/validation";
 import {RepeatableRowNoHorizontalPadding} from "../../../components/StyledComponents";
-import InntektRow from "./InntektRow";
+import BeloepRow from "./BeloepRow";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {resetValidation, setValidation} from "../../../actions/validation";
 import {useDispatch} from "react-redux";
@@ -20,7 +20,7 @@ import {useAppSelector} from "../../../store";
 import {State} from "../../../declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 import useValidation from "../../../hooks/useValidation";
-import {validateInntekt, ValidationInntektProps} from "./validation";
+import {validateBeloep, ValidationBeloepProps} from "./validation";
 import performValidation from "../../../utils/performValidation";
 import CountrySelect from "@navikt/landvelger";
 import {Currency} from "@navikt/land-verktoy";
@@ -33,58 +33,58 @@ const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
 })
 
-export interface InntektProps {
-  inntekt: Array<Inntekt> | null | undefined
-  setInntekt: (i: Array<Inntekt>, index:number) => void
+export interface BeloepProps {
+  beloep: Array<Beloep> | null | undefined
+  setBeloep: (i: Array<Beloep>, index:number) => void
   parentIndex: number
   parentEditMode: boolean
   parentNamespace: string
 }
 
-const InntektRows: React.FC<InntektProps> = ({
-  inntekt,
-  setInntekt,
+const BeloepRows: React.FC<BeloepProps> = ({
+  beloep,
+  setBeloep,
   parentIndex,
   parentEditMode,
   parentNamespace
-}: InntektProps): JSX.Element => {
+}: BeloepProps): JSX.Element => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const { validation } = useAppSelector(mapState)
-  const namespace = `${parentNamespace}-inntekt`
+  const namespace = `${parentNamespace}-beloep`
 
-  const [_validation, _resetValidation, _performValidation] = useValidation<ValidationInntektProps>(validateInntekt, namespace)
+  const [_validation, _resetValidation, _performValidation] = useValidation<ValidationBeloepProps>(validateBeloep, namespace)
 
-  const [_editInntekt, _setEditInntekt] = useState<Inntekt | undefined>(undefined)
-  const [_newInntekt, _setNewInntekt] = useState<Inntekt | undefined>(undefined)
+  const [_editBeloep, _setEditBeloep] = useState<Beloep | undefined>(undefined)
+  const [_newBeloep, _setNewBeloep] = useState<Beloep | undefined>(undefined)
   const [_editIndex, _setEditIndex] = useState<number | undefined>(undefined)
   const [_newForm, _setNewForm] = useState<boolean>(false)
 
-  const onStartEdit = (inntekt: Inntekt, index: number) => {
+  const onStartEdit = (beloep: Beloep, index: number) => {
     if (_editIndex !== undefined) {
       dispatch(resetValidation(namespace + getIdx(_editIndex)))
     }
-    _setEditInntekt(inntekt)
+    _setEditBeloep(beloep)
     _setEditIndex(index)
   }
 
   const onCloseEdit = (namespace: string) => {
-    _setEditInntekt(undefined)
+    _setEditBeloep(undefined)
     _setEditIndex(undefined)
     dispatch(resetValidation(namespace))
   }
 
   const onSaveEdit = () => {
     const clonedValidation = _.cloneDeep(validation)
-    const hasErrors = performValidation<ValidationInntektProps>(
-      clonedValidation, namespace, validateInntekt, {
-        inntekt: _editInntekt,
+    const hasErrors = performValidation<ValidationBeloepProps>(
+      clonedValidation, namespace, validateBeloep, {
+        beloep: _editBeloep,
         index: _editIndex,
       })
-    if (_editIndex !== undefined && !!_editInntekt && !hasErrors) {
-      const newInntektArray: Array<Inntekt> = _.cloneDeep(inntekt) as Array<Inntekt>
-      newInntektArray[_editIndex] = _editInntekt
-      setInntekt(newInntektArray, parentIndex)
+    if (_editIndex !== undefined && !!_editBeloep && !hasErrors) {
+      const newBeloepArray: Array<Beloep> = _.cloneDeep(beloep) as Array<Beloep>
+      newBeloepArray[_editIndex] = _editBeloep
+      setBeloep(newBeloepArray, parentIndex)
       onCloseEdit(namespace + getIdx(_editIndex))
     } else {
       dispatch(setValidation(clonedValidation))
@@ -92,50 +92,50 @@ const InntektRows: React.FC<InntektProps> = ({
   }
 
   const onCloseNew = () => {
-    _setNewInntekt(undefined)
+    _setNewBeloep(undefined)
     _setNewForm(false)
     _resetValidation()
   }
 
   const onAddNew = () => {
     const valid: boolean = _performValidation({
-      inntekt: _newInntekt
+      beloep: _newBeloep
     })
-    if (!!_newInntekt && valid) {
-      let newInntektArray: Array<Inntekt> = _.cloneDeep(inntekt) as Array<Inntekt>
-      if (_.isNil(newInntektArray)) {
-        newInntektArray = []
+    if (!!_newBeloep && valid) {
+      let newBeloepArray: Array<Beloep> = _.cloneDeep(beloep) as Array<Beloep>
+      if (_.isNil(newBeloepArray)) {
+        newBeloepArray = []
       }
-      newInntektArray.push(_newInntekt)
-      setInntekt(newInntektArray, parentIndex)
+      newBeloepArray.push(_newBeloep)
+      setBeloep(newBeloepArray, parentIndex)
       onCloseNew()
     }
   }
 
   const setBelop = (beloep: string, index: number) => {
-    setInntektProperty("beloep", beloep, index)
-    const i = index < 0 ? _newInntekt : _editInntekt
+    setBeloepProperty("beloep", beloep, index)
+    const i = index < 0 ? _newBeloep : _editBeloep
     if(parseFloat(beloep) > 0){
       if(!i?.valuta || i?.valuta === "") {
-        setInntektProperty("valuta", "NOK", index)
+        setBeloepProperty("valuta", "NOK", index)
       }
-      if(!i?.betalingshyppighetinntekt || i?.betalingshyppighetinntekt === ""){
-        setInntektProperty("betalingshyppighetinntekt", "03", index)
+      if(!i?.betalingshyppighetytelse || i?.betalingshyppighetytelse === ""){
+        setBeloepProperty("betalingshyppighetinntekt", "03", index)
       }
 
     }
   }
 
-  const setInntektProperty = (property: string, value: string, index: number) => {
+  const setBeloepProperty = (property: string, value: string, index: number) => {
     if (index < 0) {
-      _setNewInntekt((prevState) => {
+      _setNewBeloep((prevState) => {
         return {
           ...prevState,
           [property]: value
         }
       })
     }
-    _setEditInntekt((prevState) => {
+    _setEditBeloep((prevState) => {
       return {
         ...prevState,
         [property]: value
@@ -143,10 +143,10 @@ const InntektRows: React.FC<InntektProps> = ({
     })
   }
 
-  const onRemove = (removedInntekt: Inntekt) => {
-    const newInntekt: Array<Inntekt> = _.reject(inntekt,
-      (i: Inntekt) => _.isEqual(removedInntekt, i))
-    setInntekt(newInntekt, parentIndex)
+  const onRemove = (removedBeloep: Beloep) => {
+    const newInntekt: Array<Beloep> = _.reject(beloep,
+      (b: Beloep) => _.isEqual(removedBeloep, b))
+    setBeloep(newInntekt, parentIndex)
   }
 
   const betalingshyppighetOptions = [
@@ -159,11 +159,11 @@ const InntektRows: React.FC<InntektProps> = ({
     {value:'99', label: t('p2000:form-betalingshyppighet-annet')}
   ]
 
-  const renderRow = (inntekt: Inntekt | null, index: number) => {
+  const renderRow = (beloep: Beloep | null, index: number) => {
     const _namespace = namespace + getIdx(index)
     const _v: Validation = index < 0 ? _validation : validation
     const inEditMode = index < 0 || _editIndex === index
-    const _inntekt = index < 0 ? _newInntekt : (inEditMode ? _editInntekt : inntekt)
+    const _beloep = index < 0 ? _newBeloep : (inEditMode ? _editBeloep : beloep)
 
     return (
       <RepeatableRowNoHorizontalPadding
@@ -182,11 +182,11 @@ const InntektRows: React.FC<InntektProps> = ({
                     <Input
                       error={_v[_namespace + '-beloep']?.feilmelding}
                       namespace={_namespace}
-                      id='inntekt-beloep'
-                      label={t('p2000:form-arbeidsforhold-inntekt-belop')}
+                      id='beloep-beloep'
+                      label={t('p2000:form-ytelse-beloep-beloep')}
                       hideLabel={index > 0}
                       onChanged={(e) => setBelop(e, index)}
-                      value={_inntekt?.beloep ?? ''}
+                      value={_beloep?.beloep ?? ''}
                     />
                   </Column>
                   <Column>
@@ -194,36 +194,36 @@ const InntektRows: React.FC<InntektProps> = ({
                       error={_v[_namespace + '-valuta']?.feilmelding}
                       placeholder="Velg valuta"
                       namespace={_namespace}
-                      id='inntekt-valuta'
-                      label={t('p2000:form-arbeidsforhold-inntekt-valuta')}
+                      id='beloep-valuta'
+                      label={t('p2000:form-ytelse-beloep-valuta')}
                       hideLabel={index > 0}
                       type='currency'
                       sort="noeuFirst"
-                      onChanged={(e:any) => setInntektProperty("valuta", e.target.value, index)}
-                      onOptionSelected={(valuta: Currency) => setInntektProperty("valuta", valuta.value, index)}
-                      values={_inntekt?.valuta ?? ''}
+                      onChanged={(e:any) => setBeloepProperty("valuta", e.target.value, index)}
+                      onOptionSelected={(valuta: Currency) => setBeloepProperty("valuta", valuta.value, index)}
+                      values={_beloep?.valuta ?? ''}
                     />
                   </Column>
                   <Column>
                     <DateField
-                      id='inntekt-beloeputbetaltsiden'
-                      label={t('p2000:form-arbeidsforhold-inntekt-belop-siden')}
+                      id='beloep-gjeldendesiden'
+                      label={t('p2000:form-ytelse-beloep-beloep-siden')}
                       hideLabel={index > 0}
                       index={index}
-                      error={_v[_namespace + '-beloeputbetaltsiden']?.feilmelding}
+                      error={_v[_namespace + '-gjeldendesiden']?.feilmelding}
                       namespace={_namespace}
-                      onChanged={(e) => setInntektProperty("beloeputbetaltsiden", dateToString(e)!, index)}
-                      defaultDate={_inntekt?.beloeputbetaltsiden}
+                      onChanged={(e) => setBeloepProperty("gjeldendesiden", dateToString(e)!, index)}
+                      defaultDate={_beloep?.gjeldendesiden}
                     />
                   </Column>
                   <Column>
                     <Select
-                      error={_v[_namespace + '-betalingshyppighetinntekt']?.feilmelding}
-                      id='inntekt-betalingshyppighetinntekt'
-                      label={t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet')}
+                      error={_v[_namespace + '-betalingshyppighetytelse']?.feilmelding}
+                      id='inntekt-betalingshyppighetytelse'
+                      label={t('p2000:form-ytelse-beloep-betalingshyppighetytelse')}
                       hideLabel={index > 0}
-                      onChange={(e) => setInntektProperty("betalingshyppighetinntekt", e.target.value, index)}
-                      value={_inntekt?.betalingshyppighetinntekt ?? ''}
+                      onChange={(e) => setBeloepProperty("betalingshyppighetytelse", e.target.value, index)}
+                      value={_beloep?.betalingshyppighetytelse ?? ''}
                     >
                       <option value=''>Velg</option>
                       {betalingshyppighetOptions.map((option) => {
@@ -234,14 +234,14 @@ const InntektRows: React.FC<InntektProps> = ({
                 </AlignStartRow>
               )
               : (
-                <InntektRow inntekt={_inntekt} index={index}/>
+                <BeloepRow beloep={_beloep} index={index}/>
               )
             }
           </Column>
           <AlignEndColumn>
             {parentEditMode &&
-              <AddRemovePanel<Inntekt>
-                item={inntekt}
+              <AddRemovePanel<Beloep>
+                item={beloep}
                 marginTop={index < 0}
                 index={index}
                 inEditMode={inEditMode}
@@ -261,15 +261,15 @@ const InntektRows: React.FC<InntektProps> = ({
 
   return (
     <>
-      {_.isEmpty(inntekt)
+      {_.isEmpty(beloep)
         ? (
           <BodyLong>
-            Ingen inntekter
+            Ingen beløp
           </BodyLong>
         )
         : (
           <>
-            {inntekt?.map(renderRow)}
+            {beloep?.map(renderRow)}
           </>
         )
       }
@@ -291,4 +291,4 @@ const InntektRows: React.FC<InntektProps> = ({
   )
 }
 
-export default InntektRows
+export default BeloepRows

@@ -1,16 +1,16 @@
 export interface Beloep {
-  annenbetalingshyppighetytelse: string | null
-  gjeldendesiden: string | null
-  beloep: string | null
-  valuta: string | null
-  betalingshyppighetytelse: string | null
+  annenbetalingshyppighetytelse?: string | null
+  gjeldendesiden?: string | null
+  beloep?: string | null
+  valuta?: string | null
+  betalingshyppighetytelse?: string | null
 }
 
-export interface Ytelser {
+export interface Ytelse {
   status: string | null
   totalbruttobeloeparbeidsbasert: string | null
   startdatoutbetaling: string | null
-  beloep: Array<Beloep> | null
+  beloep?: Array<Beloep> | null
   sluttdatoutbetaling: string | null
   annenytelse: string | null
   totalbruttobeloepbostedsbasert: string | null
@@ -176,7 +176,7 @@ export interface P2000SED {
       institusjonsnavn: string
       tildato: string
     }>
-    ytelser: Array<Ytelser>
+    ytelser: Array<Ytelse>
     ytterligeinformasjon: string
     bruker: {
       arbeidsforhold: Array<Arbeidsforhold>

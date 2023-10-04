@@ -1,20 +1,21 @@
 import {AlignStartRow, Column} from "@navikt/hoykontrast";
 import React from "react";
-import {Inntekt} from "../../../declarations/p2000";
+import {Beloep} from "../../../declarations/p2000";
 import {Label} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
 import {formatDate} from "../../../utils/utils";
 
-export interface InntektRowProps {
-  inntekt: Inntekt | null | undefined
+export interface BeloepRowProps {
+  beloep: Beloep | null | undefined
   index: number
 }
 
-const InntektRow: React.FC<InntektRowProps> = ({
-  inntekt, index
-}: InntektRowProps): JSX.Element => {
+const BeloepRow: React.FC<BeloepRowProps> = ({
+  beloep, index
+}: BeloepRowProps): JSX.Element => {
 
   const { t } = useTranslation()
+
   const betalingshyppighetMap:any = {
     '01': t('p2000:form-betalingshyppighet-aarlig'),
     '02': t('p2000:form-betalingshyppighet-kvartalsvis'),
@@ -30,35 +31,35 @@ const InntektRow: React.FC<InntektRowProps> = ({
     {index <= 0 &&
       <AlignStartRow>
         <Column>
-          <Label>{t('p2000:form-arbeidsforhold-inntekt-belop')}</Label>
+          <Label>{t('p2000:form-ytelse-beloep-beloep')}</Label>
         </Column>
         <Column>
-          <Label>{t('p2000:form-arbeidsforhold-inntekt-valuta')}</Label>
+          <Label>{t('p2000:form-ytelse-beloep-valuta')}</Label>
         </Column>
         <Column>
-          <Label>{t('p2000:form-arbeidsforhold-inntekt-belop-siden')}</Label>
+          <Label>{t('p2000:form-ytelse-beloep-beloep-siden')}</Label>
         </Column>
         <Column>
-          <Label>{t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet')}</Label>
+          <Label>{t('p2000:form-ytelse-beloep-betalingshyppighet')}</Label>
         </Column>
       </AlignStartRow>
     }
       <AlignStartRow>
         <Column>
-          {inntekt?.beloep}
+          {beloep?.beloep}
         </Column>
         <Column>
-          {inntekt?.valuta}
+          {beloep?.valuta}
         </Column>
         <Column>
-          {formatDate(inntekt?.beloeputbetaltsiden as string)}
+          {formatDate(beloep?.gjeldendesiden as string)}
         </Column>
         <Column>
-          {inntekt?.betalingshyppighetinntekt ? betalingshyppighetMap[inntekt?.betalingshyppighetinntekt] : ''}
+          {beloep?.betalingshyppighetytelse ? betalingshyppighetMap[beloep?.betalingshyppighetytelse] : ''}
         </Column>
       </AlignStartRow>
     </>
   )
 }
 
-export default InntektRow
+export default BeloepRow
