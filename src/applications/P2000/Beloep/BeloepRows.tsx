@@ -28,6 +28,7 @@ import {AddCircle} from "@navikt/ds-icons";
 import {useTranslation} from "react-i18next";
 import DateField from "../DateField/DateField";
 import {dateToString} from "../../../utils/utils";
+import ErrorLabel from "../../../components/Forms/ErrorLabel";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -78,6 +79,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
     const clonedValidation = _.cloneDeep(validation)
     const hasErrors = performValidation<ValidationBeloepProps>(
       clonedValidation, namespace, validateBeloep, {
+        beloepArray: beloep,
         beloep: _editBeloep,
         index: _editIndex,
       })
@@ -99,6 +101,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
 
   const onAddNew = () => {
     const valid: boolean = _performValidation({
+      beloepArray: beloep,
       beloep: _newBeloep
     })
     if (!!_newBeloep && valid) {
@@ -177,61 +180,64 @@ const BeloepRows: React.FC<BeloepProps> = ({
           <Column flex="2">
             {inEditMode && parentEditMode
               ? (
-                <AlignStartRow>
-                  <Column>
-                    <Input
-                      error={_v[_namespace + '-beloep']?.feilmelding}
-                      namespace={_namespace}
-                      id='beloep-beloep'
-                      label={t('p2000:form-ytelse-beloep-beloep')}
-                      hideLabel={index > 0}
-                      onChanged={(e) => setBelop(e, index)}
-                      value={_beloep?.beloep ?? ''}
-                    />
-                  </Column>
-                  <Column>
-                    <CountrySelect
-                      error={_v[_namespace + '-valuta']?.feilmelding}
-                      placeholder="Velg valuta"
-                      namespace={_namespace}
-                      id='beloep-valuta'
-                      label={t('p2000:form-ytelse-beloep-valuta')}
-                      hideLabel={index > 0}
-                      type='currency'
-                      sort="noeuFirst"
-                      onChanged={(e:any) => setBeloepProperty("valuta", e.target.value, index)}
-                      onOptionSelected={(valuta: Currency) => setBeloepProperty("valuta", valuta.value, index)}
-                      values={_beloep?.valuta ?? ''}
-                    />
-                  </Column>
-                  <Column>
-                    <DateField
-                      id='beloep-gjeldendesiden'
-                      label={t('p2000:form-ytelse-beloep-beloep-siden')}
-                      hideLabel={index > 0}
-                      index={index}
-                      error={_v[_namespace + '-gjeldendesiden']?.feilmelding}
-                      namespace={_namespace}
-                      onChanged={(e) => setBeloepProperty("gjeldendesiden", dateToString(e)!, index)}
-                      defaultDate={_beloep?.gjeldendesiden}
-                    />
-                  </Column>
-                  <Column>
-                    <Select
-                      error={_v[_namespace + '-betalingshyppighetytelse']?.feilmelding}
-                      id='beloep-betalingshyppighetytelse'
-                      label={t('p2000:form-ytelse-beloep-betalingshyppighet')}
-                      hideLabel={index > 0}
-                      onChange={(e) => setBeloepProperty("betalingshyppighetytelse", e.target.value, index)}
-                      value={_beloep?.betalingshyppighetytelse ?? ''}
-                    >
-                      <option value=''>Velg</option>
-                      {betalingshyppighetOptions.map((option) => {
-                        return(<option value={option.value}>{option.label}</option>)
-                      })}
-                    </Select>
-                  </Column>
-                </AlignStartRow>
+                <>
+                  <AlignStartRow>
+                    <Column>
+                      <Input
+                        error={_v[_namespace + '-beloep']?.feilmelding}
+                        namespace={_namespace}
+                        id='beloep-beloep'
+                        label={t('p2000:form-ytelse-beloep-beloep')}
+                        hideLabel={index > 0}
+                        onChanged={(e) => setBelop(e, index)}
+                        value={_beloep?.beloep ?? ''}
+                      />
+                    </Column>
+                    <Column>
+                      <CountrySelect
+                        error={_v[_namespace + '-valuta']?.feilmelding}
+                        placeholder="Velg valuta"
+                        namespace={_namespace}
+                        id='beloep-valuta'
+                        label={t('p2000:form-ytelse-beloep-valuta')}
+                        hideLabel={index > 0}
+                        type='currency'
+                        sort="noeuFirst"
+                        onChanged={(e:any) => setBeloepProperty("valuta", e.target.value, index)}
+                        onOptionSelected={(valuta: Currency) => setBeloepProperty("valuta", valuta.value, index)}
+                        values={_beloep?.valuta ?? ''}
+                      />
+                    </Column>
+                    <Column>
+                      <DateField
+                        id='beloep-gjeldendesiden'
+                        label={t('p2000:form-ytelse-beloep-beloep-siden')}
+                        hideLabel={index > 0}
+                        index={index}
+                        error={_v[_namespace + '-gjeldendesiden']?.feilmelding}
+                        namespace={_namespace}
+                        onChanged={(e) => setBeloepProperty("gjeldendesiden", dateToString(e)!, index)}
+                        defaultDate={_beloep?.gjeldendesiden}
+                      />
+                    </Column>
+                    <Column>
+                      <Select
+                        error={_v[_namespace + '-betalingshyppighetytelse']?.feilmelding}
+                        id='beloep-betalingshyppighetytelse'
+                        label={t('p2000:form-ytelse-beloep-betalingshyppighet')}
+                        hideLabel={index > 0}
+                        onChange={(e) => setBeloepProperty("betalingshyppighetytelse", e.target.value, index)}
+                        value={_beloep?.betalingshyppighetytelse ?? ''}
+                      >
+                        <option value=''>Velg</option>
+                        {betalingshyppighetOptions.map((option) => {
+                          return(<option value={option.value}>{option.label}</option>)
+                        })}
+                      </Select>
+                    </Column>
+                  </AlignStartRow>
+                  <ErrorLabel error={_v[_namespace + '-beloepArray']?.feilmelding}/>
+                </>
               )
               : (
                 <BeloepRow beloep={_beloep} index={index}/>

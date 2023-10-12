@@ -257,14 +257,16 @@ const Ytelser: React.FC<MainFormProps> = ({
               </Select>
             </Column>
             <Column flex="2">
-              <Input
-                error={_v[_namespace + '-ytelse-annenytelse']?.feilmelding}
-                namespace={_namespace}
-                id='ytelse-annenytelse'
-                label={t('p2000:form-ytelse-annen-ytelse')}
-                onChanged={(e) => setYtelseProperty("annenytelse", e, index)}
-                value={ytelse?.annenytelse ?? ''}
-              />
+              {_ytelse?.ytelse === "99" &&
+                <Input
+                  error={_v[_namespace + '-ytelse-annenytelse']?.feilmelding}
+                  namespace={_namespace}
+                  id='ytelse-annenytelse'
+                  label={t('p2000:form-ytelse-annen-ytelse')}
+                  onChanged={(e) => setYtelseProperty("annenytelse", e, index)}
+                  value={ytelse?.annenytelse ?? ''}
+                />
+              }
             </Column>
             <Column>
               {addremovepanel}
