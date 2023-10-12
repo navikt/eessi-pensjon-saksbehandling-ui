@@ -7,25 +7,25 @@ export interface Beloep {
 }
 
 export interface Ytelse {
-  status: string | null
-  totalbruttobeloeparbeidsbasert: string | null
-  startdatoutbetaling: string | null
+  status?: string | null
+  totalbruttobeloeparbeidsbasert?: string | null
+  startdatoutbetaling?: string | null
   beloep?: Array<Beloep> | null
-  sluttdatoutbetaling: string | null
-  annenytelse: string | null
-  totalbruttobeloepbostedsbasert: string | null
-  institusjon: {
-    saksnummer: string | null
-    land: string | null
-    pin: string | null
-    institusjonsnavn: string | null
-    sektor: string | null
-    institusjonsid: string | null
+  sluttdatoutbetaling?: string | null
+  annenytelse?: string | null
+  totalbruttobeloepbostedsbasert?: string | null
+  institusjon?: {
+    saksnummer?: string | null
+    land?: string | null
+    pin?: string | null
+    institusjonsnavn?: string | null
+    sektor?: string | null
+    institusjonsid?: string | null
   },
-  mottasbasertpaa: string | null
-  startdatoretttilytelse: string | null
-  ytelse: string | null
-  sluttdatoUtbetaling: string | null
+  mottasbasertpaa?: string | null
+  startdatoretttilytelse?: string | null
+  ytelse?: string | null
+  sluttdatoUtbetaling?: string | null
 }
 
 export interface Arbeidsforhold {

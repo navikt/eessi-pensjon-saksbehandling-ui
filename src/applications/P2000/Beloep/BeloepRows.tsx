@@ -120,7 +120,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
         setBeloepProperty("valuta", "NOK", index)
       }
       if(!i?.betalingshyppighetytelse || i?.betalingshyppighetytelse === ""){
-        setBeloepProperty("betalingshyppighetinntekt", "03", index)
+        setBeloepProperty("betalingshyppighetytelse", "03", index)
       }
 
     }
@@ -144,9 +144,9 @@ const BeloepRows: React.FC<BeloepProps> = ({
   }
 
   const onRemove = (removedBeloep: Beloep) => {
-    const newInntekt: Array<Beloep> = _.reject(beloep,
+    const newBeloep: Array<Beloep> = _.reject(beloep,
       (b: Beloep) => _.isEqual(removedBeloep, b))
-    setBeloep(newInntekt, parentIndex)
+    setBeloep(newBeloep, parentIndex)
   }
 
   const betalingshyppighetOptions = [
@@ -219,8 +219,8 @@ const BeloepRows: React.FC<BeloepProps> = ({
                   <Column>
                     <Select
                       error={_v[_namespace + '-betalingshyppighetytelse']?.feilmelding}
-                      id='inntekt-betalingshyppighetytelse'
-                      label={t('p2000:form-ytelse-beloep-betalingshyppighetytelse')}
+                      id='beloep-betalingshyppighetytelse'
+                      label={t('p2000:form-ytelse-beloep-betalingshyppighet')}
                       hideLabel={index > 0}
                       onChange={(e) => setBeloepProperty("betalingshyppighetytelse", e.target.value, index)}
                       value={_beloep?.betalingshyppighetytelse ?? ''}
@@ -282,7 +282,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
               onClick={() => _setNewForm(true)}
             >
               <AddCircle />&nbsp;
-              {t('ui:add-new-x', { x: t('p2000:form-arbeidsforhold-inntekt')?.toLowerCase() })}
+              {t('ui:add-new-x', { x: t('p2000:form-ytelse-beloep')?.toLowerCase() })}
             </Button>
           </>
         )}

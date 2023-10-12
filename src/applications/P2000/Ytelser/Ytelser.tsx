@@ -4,7 +4,7 @@ import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../../store";
-import {BodyLong, Button, Heading, Label, Tag} from "@navikt/ds-react";
+import {BodyLong, Button, Heading, Label, Radio, RadioGroup, Select, Tag} from "@navikt/ds-react";
 import {
   VerticalSeparatorDiv,
   PaddedDiv,
@@ -15,7 +15,7 @@ import {
 } from "@navikt/hoykontrast";
 import _ from "lodash";
 import {AddCircle} from "@navikt/ds-icons";
-import {Ytelse} from "../../../declarations/p2000";
+import {Beloep, Ytelse} from "../../../declarations/p2000";
 import {getIdx} from "../../../utils/namespace";
 import {Validation} from "../../../declarations/app";
 import classNames from "classnames";
@@ -28,7 +28,18 @@ import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import BeloepRows from "../Beloep/BeloepRows";
-import {formatDate} from "../../../utils/utils";
+import {dateToString, formatDate} from "../../../utils/utils";
+import Input from "../../../components/Forms/Input";
+import styled from "styled-components/macro";
+import DateField from "../DateField/DateField";
+
+const StyledRadioGroup = styled(RadioGroup)`
+  > .navds-radio-buttons {
+    display: flex;
+    gap: var(--navds-spacing-4);
+    margin-bottom: var(--navds-spacing-2)
+  }
+`
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -72,6 +83,37 @@ const Ytelser: React.FC<MainFormProps> = ({
     }
     dispatch(updatePSED(`${target}`, ytelser))
     dispatch(resetValidation(namespace))
+  }
+
+  const setYtelseProperty = (property: string, value: string, index: number) => {
+    if (index < 0) {
+      _setNewYtelse((prevState) => {
+        return {
+          ...prevState,
+          [property]: value
+        }
+      })
+    }
+    _setEditYtelse((prevState) => {
+      return {
+        ...prevState,
+        [property]: value
+      }
+    })
+  }
+
+  const setBeloep = (beloep: Array<Beloep>, index: number) => {
+    if (index < 0) {
+      _setNewYtelse({
+        ..._newYtelse,
+        beloep: beloep
+      })
+      return
+    }
+    _setEditYtelse({
+      ..._editYtelse,
+      beloep: beloep
+    })
   }
 
   const onCloseNew = () => {
@@ -200,6 +242,122 @@ const Ytelser: React.FC<MainFormProps> = ({
         >
           <VerticalSeparatorDiv size='0.5' />
           <AlignStartRow>
+            <Column flex="3">
+              <Select
+                error={_v[_namespace + '-ytelse-ytelse']?.feilmelding}
+                id='ytelse-ytelse'
+                label={t('p2000:form-ytelse')}
+                onChange={(e) => setYtelseProperty("ytelse", e.target.value, index)}
+                value={(_ytelse?.ytelse)  ?? ''}
+              >
+                <option value=''>Velg</option>
+                {ytelseOptions.map((option) => {
+                  return(<option value={option.value}>{option.label}</option>)
+                })}
+              </Select>
+            </Column>
+            <Column flex="2">
+              <Input
+                error={_v[_namespace + '-ytelse-annenytelse']?.feilmelding}
+                namespace={_namespace}
+                id='ytelse-annenytelse'
+                label={t('p2000:form-ytelse-annen-ytelse')}
+                onChanged={(e) => setYtelseProperty("annenytelse", e, index)}
+                value={ytelse?.annenytelse ?? ''}
+              />
+            </Column>
+            <Column>
+              {addremovepanel}
+            </Column>
+          </AlignStartRow>
+          <AlignStartRow>
+            <Column>
+              <StyledRadioGroup
+                id="ytelse-status"
+                legend={t('p2000:form-ytelse-status')}
+                onChange={(e: any) => setYtelseProperty("status", e, index)}
+                value={_ytelse?.status}
+              >
+                {statusOptions.map((option) => {
+                  return(<Radio value={option.value}>{option.label}</Radio>)
+                })}
+              </StyledRadioGroup>
+            </Column>
+          </AlignStartRow>
+          <AlignStartRow>
+            <Column flex="1">
+              <DateField
+                id='ytelse-startdatoutbetaling'
+                label={t('p2000:form-ytelse-startdato-utbetaling')}
+                index={index}
+                error={_v[_namespace + '-startdatoutbetaling']?.feilmelding}
+                namespace={_namespace}
+                onChanged={(e) => setYtelseProperty("startdatoutbetaling", dateToString(e)!, index)}
+                defaultDate={_ytelse?.startdatoutbetaling}
+              />
+            </Column>
+            <Column flex="2">
+              <DateField
+                id='ytelse-sluttdatoutbetaling'
+                label={t('p2000:form-ytelse-sluttdato-utbetaling')}
+                index={index}
+                error={_v[_namespace + '-sluttdatoutbetaling']?.feilmelding}
+                namespace={_namespace}
+                onChanged={(e) => setYtelseProperty("sluttdatoutbetaling", dateToString(e)!, index)}
+                defaultDate={_ytelse?.sluttdatoutbetaling}
+              />
+            </Column>
+          </AlignStartRow>
+          <VerticalSeparatorDiv/>
+          <AlignStartRow>
+            <Column>
+              <DateField
+                id='ytelse-startdatoretttilytelse'
+                label={t('p2000:form-ytelse-startdato-rett-til-ytelser')}
+                index={index}
+                error={_v[_namespace + '-startdatoretttilytelse']?.feilmelding}
+                namespace={_namespace}
+                onChanged={(e) => setYtelseProperty("startdatoretttilytelse", dateToString(e)!, index)}
+                defaultDate={_ytelse?.startdatoretttilytelse}
+              />
+            </Column>
+          </AlignStartRow>
+          <VerticalSeparatorDiv/>
+          <BeloepRows beloep={_ytelse?.beloep} setBeloep={setBeloep} parentIndex={index} parentEditMode={true} parentNamespace={_namespace}/>
+          <AlignStartRow>
+            <Column>
+              <StyledRadioGroup
+                id="ytelse-mottasbasertpaa"
+                legend={t('p2000:form-ytelse-mottas-basert-paa')}
+                onChange={(e: any) => setYtelseProperty("mottasbasertpaa", e, index)}
+                value={_ytelse?.mottasbasertpaa}
+              >
+                <Radio value="botid">Botid</Radio>
+                <Radio value="arbeid">Arbeid</Radio>
+              </StyledRadioGroup>
+            </Column>
+          </AlignStartRow>
+          <AlignStartRow>
+            <Column>
+              <Input
+                error={_v[_namespace + '-ytelse-totalbruttobeloepbostedsbasert']?.feilmelding}
+                namespace={_namespace}
+                id='ytelse-totalbruttobeloepbostedsbasert'
+                label={t('p2000:form-ytelse-bruttobeloep-bostedsbasert')}
+                onChanged={(e) => setYtelseProperty("totalbruttobeloepbostedsbasert", e, index)}
+                value={_ytelse?.totalbruttobeloepbostedsbasert ?? ''}
+              />
+            </Column>
+            <Column>
+              <Input
+                error={_v[_namespace + '-ytelse-totalbruttobeloeparbeidsbasert']?.feilmelding}
+                namespace={_namespace}
+                id='ytelse-totalbruttobeloeparbeidsbasert'
+                label={t('p2000:form-ytelse-bruttobeloep-arbeidsrelatert')}
+                onChanged={(e) => setYtelseProperty("totalbruttobeloeparbeidsbasert", e, index)}
+                value={_ytelse?.totalbruttobeloeparbeidsbasert ?? ''}
+              />
+            </Column>
           </AlignStartRow>
         </RepeatableRow>
       )
@@ -251,16 +409,17 @@ const Ytelser: React.FC<MainFormProps> = ({
             </Column>
           </AlignStartRow>
           <VerticalSeparatorDiv/>
-          <BeloepRows parentEditMode={false} setBeloep={()=>{}} parentIndex={index} beloep={_ytelse?.beloep} parentNamespace={_namespace}/>
+          <BeloepRows parentEditMode={false} setBeloep={setBeloep} parentIndex={index} beloep={_ytelse?.beloep} parentNamespace={_namespace}/>
           <VerticalSeparatorDiv/>
           <AlignStartRow>
             <Column flex={5}>
               <Label>{t('p2000:form-ytelse-mottas-basert-paa')}</Label>
               <BodyLong>
-                {_ytelse?.mottasbasertpaa}
+                {_ytelse?.mottasbasertpaa ? _ytelse?.mottasbasertpaa.charAt(0).toUpperCase() + _ytelse?.mottasbasertpaa.slice(1) : ''}
               </BodyLong>
             </Column>
           </AlignStartRow>
+          <VerticalSeparatorDiv/>
           <AlignStartRow>
             <Column>
               <Label>{t('p2000:form-ytelse-bruttobeloep-bostedsbasert')}</Label>
