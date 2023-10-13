@@ -1,6 +1,7 @@
 import {Validation} from "declarations/app";
 import {Ytelse} from "../../../declarations/p2000";
 import {getIdx} from "../../../utils/namespace";
+import {checkIfNotEmpty} from "../../../utils/validation";
 
 export interface ValidationYtelserProps {
   ytelser: Array<Ytelse> | undefined
@@ -22,7 +23,25 @@ export const validateYtelse = (
   const hasErrors: Array<boolean> = []
   const idx = getIdx(index)
 
-  console.log(v, ytelse, idx)
+  hasErrors.push(checkIfNotEmpty(v, {
+    needle: ytelse?.ytelse,
+    id: namespace + idx + '-ytelse',
+    message: 'validation:missing-p2000-ytelse-ytelse'
+  }))
+
+  hasErrors.push(checkIfNotEmpty(v, {
+    needle: ytelse?.status,
+    id: namespace + idx + '-status',
+    message: 'validation:missing-p2000-ytelse-status'
+  }))
+
+  hasErrors.push(checkIfNotEmpty(v, {
+    needle: ytelse?.mottasbasertpaa,
+    id: namespace + idx + '-mottasbasertpaa',
+    message: 'validation:missing-p2000-ytelse-mottasbasertpaa'
+  }))
+
+
 
   return hasErrors.find(value => value) !== undefined
 }

@@ -20,7 +20,7 @@ import {getIdx} from "../../../utils/namespace";
 import {Validation} from "../../../declarations/app";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "../../../utils/validation";
-import {RepeatableRow} from "../../../components/StyledComponents";
+import {RepeatableRowAlternateColors} from "../../../components/StyledComponents";
 import useValidation from "../../../hooks/useValidation";
 import {validateYtelse, validateYtelser, ValidationYtelseProps, ValidationYtelserProps} from "./validation";
 import {resetValidation, setValidation} from "../../../actions/validation";
@@ -232,20 +232,20 @@ const Ytelser: React.FC<MainFormProps> = ({
 
     if(inEditMode){
       return (
-        <RepeatableRow
+        <RepeatableRowAlternateColors
           id={'repeatablerow-' + _namespace}
           key={index}
           className={classNames({
             new: index < 0,
-            error: hasNamespaceWithErrors(_v, _namespace)
+            error: hasNamespaceWithErrors(_v, _namespace),
           })}
         >
           <VerticalSeparatorDiv size='0.5' />
           <AlignStartRow>
             <Column flex="3">
               <Select
-                error={_v[_namespace + '-ytelse-ytelse']?.feilmelding}
-                id='ytelse-ytelse'
+                error={_v[_namespace + '-ytelse']?.feilmelding}
+                id={_namespace + '-ytelse'}
                 label={t('p2000:form-ytelse')}
                 onChange={(e) => setYtelseProperty("ytelse", e.target.value, index)}
                 value={(_ytelse?.ytelse)  ?? ''}
@@ -259,9 +259,9 @@ const Ytelser: React.FC<MainFormProps> = ({
             <Column flex="2">
               {_ytelse?.ytelse === "99" &&
                 <Input
-                  error={_v[_namespace + '-ytelse-annenytelse']?.feilmelding}
+                  error={_v[_namespace + '-annenytelse']?.feilmelding}
                   namespace={_namespace}
-                  id='ytelse-annenytelse'
+                  id={_namespace + '-annenytelse'}
                   label={t('p2000:form-ytelse-annen-ytelse')}
                   onChanged={(e) => setYtelseProperty("annenytelse", e, index)}
                   value={ytelse?.annenytelse ?? ''}
@@ -272,10 +272,12 @@ const Ytelser: React.FC<MainFormProps> = ({
               {addremovepanel}
             </Column>
           </AlignStartRow>
+          <VerticalSeparatorDiv/>
           <AlignStartRow>
             <Column>
               <StyledRadioGroup
-                id="ytelse-status"
+                error={_v[_namespace + '-status']?.feilmelding}
+                id={_namespace + "-status"}
                 legend={t('p2000:form-ytelse-status')}
                 onChange={(e: any) => setYtelseProperty("status", e, index)}
                 value={_ytelse?.status}
@@ -286,10 +288,11 @@ const Ytelser: React.FC<MainFormProps> = ({
               </StyledRadioGroup>
             </Column>
           </AlignStartRow>
+          <VerticalSeparatorDiv/>
           <AlignStartRow>
             <Column flex="1">
               <DateField
-                id='ytelse-startdatoutbetaling'
+                id={_namespace + '-startdatoutbetaling'}
                 label={t('p2000:form-ytelse-startdato-utbetaling')}
                 index={index}
                 error={_v[_namespace + '-startdatoutbetaling']?.feilmelding}
@@ -300,7 +303,7 @@ const Ytelser: React.FC<MainFormProps> = ({
             </Column>
             <Column flex="2">
               <DateField
-                id='ytelse-sluttdatoutbetaling'
+                id={_namespace + '-sluttdatoutbetaling'}
                 label={t('p2000:form-ytelse-sluttdato-utbetaling')}
                 index={index}
                 error={_v[_namespace + '-sluttdatoutbetaling']?.feilmelding}
@@ -314,7 +317,7 @@ const Ytelser: React.FC<MainFormProps> = ({
           <AlignStartRow>
             <Column>
               <DateField
-                id='ytelse-startdatoretttilytelse'
+                id={_namespace + '-startdatoretttilytelse'}
                 label={t('p2000:form-ytelse-startdato-rett-til-ytelser')}
                 index={index}
                 error={_v[_namespace + '-startdatoretttilytelse']?.feilmelding}
@@ -329,7 +332,8 @@ const Ytelser: React.FC<MainFormProps> = ({
           <AlignStartRow>
             <Column>
               <StyledRadioGroup
-                id="ytelse-mottasbasertpaa"
+                error={_v[_namespace + '-mottasbasertpaa']?.feilmelding}
+                id={_namespace + "-mottasbasertpaa"}
                 legend={t('p2000:form-ytelse-mottas-basert-paa')}
                 onChange={(e: any) => setYtelseProperty("mottasbasertpaa", e, index)}
                 value={_ytelse?.mottasbasertpaa}
@@ -339,12 +343,13 @@ const Ytelser: React.FC<MainFormProps> = ({
               </StyledRadioGroup>
             </Column>
           </AlignStartRow>
+          <VerticalSeparatorDiv/>
           <AlignStartRow>
             <Column>
               <Input
-                error={_v[_namespace + '-ytelse-totalbruttobeloepbostedsbasert']?.feilmelding}
+                error={_v[_namespace + '-totalbruttobeloepbostedsbasert']?.feilmelding}
                 namespace={_namespace}
-                id='ytelse-totalbruttobeloepbostedsbasert'
+                id={_namespace + '-totalbruttobeloepbostedsbasert'}
                 label={t('p2000:form-ytelse-bruttobeloep-bostedsbasert')}
                 onChanged={(e) => setYtelseProperty("totalbruttobeloepbostedsbasert", e, index)}
                 value={_ytelse?.totalbruttobeloepbostedsbasert ?? ''}
@@ -352,20 +357,21 @@ const Ytelser: React.FC<MainFormProps> = ({
             </Column>
             <Column>
               <Input
-                error={_v[_namespace + '-ytelse-totalbruttobeloeparbeidsbasert']?.feilmelding}
+                error={_v[_namespace + '-totalbruttobeloeparbeidsbasert']?.feilmelding}
                 namespace={_namespace}
-                id='ytelse-totalbruttobeloeparbeidsbasert'
+                id={_namespace + '-totalbruttobeloeparbeidsbasert'}
                 label={t('p2000:form-ytelse-bruttobeloep-arbeidsrelatert')}
                 onChanged={(e) => setYtelseProperty("totalbruttobeloeparbeidsbasert", e, index)}
                 value={_ytelse?.totalbruttobeloeparbeidsbasert ?? ''}
               />
             </Column>
           </AlignStartRow>
-        </RepeatableRow>
+          <VerticalSeparatorDiv/>
+        </RepeatableRowAlternateColors>
       )
     } else {
       return (
-        <RepeatableRow
+        <RepeatableRowAlternateColors
           id={'repeatablerow-' + _namespace}
           key={index}
           className={classNames({
@@ -436,7 +442,8 @@ const Ytelser: React.FC<MainFormProps> = ({
               </BodyLong>
             </Column>
           </AlignStartRow>
-        </RepeatableRow>
+          <VerticalSeparatorDiv/>
+        </RepeatableRowAlternateColors>
       )
     }
   }

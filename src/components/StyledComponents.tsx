@@ -56,6 +56,18 @@ export const RepeatableRow = styled(PaddedHorizontallyDiv)`
   }
 `
 
+export const RepeatableRowAlternateColors = styled(RepeatableRow)`
+  border: 1px solid transparent;
+  &:nth-child(even){
+    background-color: var(--navds-global-color-gray-300);
+  }
+   &:hover:not(.new):not(.error) {
+    background-color: var(--navds-global-color-gray-100);
+    border: 1px solid #000000;
+  }
+`
+
+
 export const RepeatableRowNoHorizontalPadding = styled(RepeatableRow)`
   padding-left:0;
   padding-right:0;
