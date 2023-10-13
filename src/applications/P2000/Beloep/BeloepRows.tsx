@@ -159,7 +159,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
     {value:'04', label: t('p2000:form-betalingshyppighet-maanedlig-13')},
     {value:'05', label: t('p2000:form-betalingshyppighet-maanedlig-14')},
     {value:'06', label: t('p2000:form-betalingshyppighet-ukentlig')},
-    {value:'99', label: t('p2000:form-betalingshyppighet-annet')}
+    {value:'99', label: t('p2000:form-betalingshyppighet-annet-ytelse')}
   ]
 
   const renderRow = (beloep: Beloep | null, index: number) => {
@@ -235,6 +235,20 @@ const BeloepRows: React.FC<BeloepProps> = ({
                         })}
                       </Select>
                     </Column>
+                    <Column>
+                      {_beloep?.betalingshyppighetytelse === "99" &&
+                        <Input
+                          error={_v[_namespace + '-annenbetalingshyppighetytelse']?.feilmelding}
+                          namespace={_namespace}
+                          id='beloep-annenbetalingshyppighetytelse'
+                          label={t('p2000:form-ytelse-beloep-annenbetalingshyppighetytelse')}
+                          hideLabel={index > 0}
+                          onChanged={(e) => setBeloepProperty("annenbetalingshyppighetytelse", e, index)}
+                          value={_beloep?.annenbetalingshyppighetytelse ?? ''}
+                        />
+                      }
+                    </Column>
+
                   </AlignStartRow>
                   <ErrorLabel error={_v[_namespace + '-beloepArray']?.feilmelding}/>
                 </>

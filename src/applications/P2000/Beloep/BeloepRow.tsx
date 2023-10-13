@@ -55,7 +55,12 @@ const BeloepRow: React.FC<BeloepRowProps> = ({
           {formatDate(beloep?.gjeldendesiden as string)}
         </Column>
         <Column>
-          {beloep?.betalingshyppighetytelse ? betalingshyppighetMap[beloep?.betalingshyppighetytelse] : ''}
+          {beloep?.betalingshyppighetytelse ?
+            beloep?.betalingshyppighetytelse === "99" ?
+              beloep?.annenbetalingshyppighetytelse :
+              betalingshyppighetMap[beloep?.betalingshyppighetytelse]
+            : ''
+          }
         </Column>
       </AlignStartRow>
     </>
