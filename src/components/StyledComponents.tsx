@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import { Panel } from '@navikt/ds-react'
+import {Panel, RadioGroup} from '@navikt/ds-react'
 import { PaddedHorizontallyDiv } from '@navikt/hoykontrast'
 
 export const OneLineSpan = styled.span`
@@ -82,5 +82,13 @@ export const Hr = styled.div`
 export const SpacedHr = styled(Hr)`
    margin-top: 0.5rem;
    margin-bottom: 0.5rem;
+`
+
+export const HorizontalRadioGroup = styled(RadioGroup)`
+  > .navds-radio-buttons {
+    display: flex;
+    gap: var(--navds-spacing-4);
+    margin-bottom: var(--navds-spacing-2)
+  }
 `
 

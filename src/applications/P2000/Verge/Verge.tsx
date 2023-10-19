@@ -16,6 +16,7 @@ import performValidation from "../../../utils/performValidation";
 import {validateVerge, ValidationVergeProps} from "./validation";
 import {setValidation} from "../../../actions/validation";
 import {Country} from "@navikt/land-verktoy";
+import {useTranslation} from "react-i18next";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -29,6 +30,7 @@ const Verge: React.FC<MainFormProps> = ({
 }: MainFormProps): JSX.Element => {
 
   const dispatch = useDispatch()
+  const {t} = useTranslation()
   const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-verge`
   const target = 'nav.verge'
@@ -93,7 +95,7 @@ const Verge: React.FC<MainFormProps> = ({
               error={validation[namespace + '-person-etternavn']?.feilmelding}
               namespace={namespace}
               id='person-etternavn'
-              label="Etternavn"
+              label={t('p2000:form-person-etternavn')}
               onChanged={setEtternavn}
               value={(verge?.person?.etternavn) ?? ''}
             />
@@ -103,7 +105,7 @@ const Verge: React.FC<MainFormProps> = ({
               error={validation[namespace + '-person-fornavn']?.feilmelding}
               namespace={namespace}
               id='person-fornavn'
-              label="Fornavn"
+              label={t('p2000:form-person-fornavn')}
               onChanged={setFornavn}
               value={(verge?.person?.fornavn)  ?? ''}
             />
@@ -116,7 +118,7 @@ const Verge: React.FC<MainFormProps> = ({
               error={validation[namespace + '-vergemaal-mandat']?.feilmelding}
               namespace={namespace}
               id='vergemaal-mandat'
-              label="Årsak til vergemål, representasjon"
+              label={t('p2000:form-verge-vergemaal-mandat')}
               onChanged={setVergemaalMandat}
               value={(verge?.vergemaal?.mandat)  ?? ''}
             />
@@ -124,7 +126,7 @@ const Verge: React.FC<MainFormProps> = ({
           <Column></Column>
         </AlignStartRow>
         <VerticalSeparatorDiv/>
-        <Heading size="small">Adresse</Heading>
+        <Heading size="small">{t('p2000-form-adresse')}</Heading>
         <VerticalSeparatorDiv/>
         <AlignStartRow>
           <Column>
@@ -132,7 +134,7 @@ const Verge: React.FC<MainFormProps> = ({
               error={validation[namespace + '-adresse-gate']?.feilmelding}
               namespace={namespace}
               id='adresse-gate'
-              label="Gate"
+              label={t('p2000:form-adresse-gate')}
               onChanged={setGate}
               value={(verge?.adresse?.gate)  ?? ''}
             />
@@ -145,7 +147,7 @@ const Verge: React.FC<MainFormProps> = ({
               error={validation[namespace + '-adresse-postnummer']?.feilmelding}
               namespace={namespace}
               id='adresse-postnummer'
-              label="Postnummer"
+              label={t('p2000:form-adresse-postnummer')}
               onChanged={setPostnummer}
               value={(verge?.adresse?.postnummer) ?? ''}
             />
@@ -168,7 +170,7 @@ const Verge: React.FC<MainFormProps> = ({
               error={validation[namespace + '-adresse-region']?.feilmelding}
               namespace={namespace}
               id='adresse-region'
-              label="Region"
+              label={t('p2000:form-adresse-region')}
               onChanged={setRegion}
               value={(verge?.adresse?.region)  ?? ''}
             />
@@ -180,8 +182,7 @@ const Verge: React.FC<MainFormProps> = ({
             <CountrySelect
               error={validation[namespace + '-adresse-land']?.feilmelding}
               id={namespace + '-' + 'adresse-land'}
-              label='Land'
-              ariaLabel='Land'
+              label={t('p2000:form-adresse-land')}
               flags={true}
               onOptionSelected={(land: Country) => setLand(land.value)}
               values={(verge?.adresse?.land) ?? ''}

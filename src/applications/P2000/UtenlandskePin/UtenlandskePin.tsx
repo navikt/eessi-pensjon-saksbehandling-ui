@@ -78,7 +78,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
     if (_.isNil(pins)) {
       pins = []
     }
-    const norskPin: PIN | undefined = _.find(person!.pin, p => p.land === 'NO')
+    const norskPin: PIN | undefined = person ? _.find(person.pin, p => p.land === 'NO') : undefined
     if (!_.isEmpty(norskPin)) {
       pins.unshift(norskPin!)
     }

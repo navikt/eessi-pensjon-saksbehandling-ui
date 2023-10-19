@@ -4,7 +4,7 @@ import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../../store";
-import {BodyLong, Button, Heading, Label, Radio, RadioGroup, Select, Tag} from "@navikt/ds-react";
+import {BodyLong, Button, Heading, Label, Radio, Select, Tag} from "@navikt/ds-react";
 import {
   VerticalSeparatorDiv,
   PaddedDiv,
@@ -20,7 +20,7 @@ import {getIdx} from "../../../utils/namespace";
 import {Validation} from "../../../declarations/app";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "../../../utils/validation";
-import {RepeatableRowAlternateColors} from "../../../components/StyledComponents";
+import {RepeatableRowAlternateColors, HorizontalRadioGroup} from "../../../components/StyledComponents";
 import useValidation from "../../../hooks/useValidation";
 import {validateYtelse, validateYtelser, ValidationYtelseProps, ValidationYtelserProps} from "./validation";
 import {resetValidation, setValidation} from "../../../actions/validation";
@@ -30,16 +30,8 @@ import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import BeloepRows from "../Beloep/BeloepRows";
 import {dateToString, formatDate} from "../../../utils/utils";
 import Input from "../../../components/Forms/Input";
-import styled from "styled-components/macro";
 import DateField from "../DateField/DateField";
 
-const StyledRadioGroup = styled(RadioGroup)`
-  > .navds-radio-buttons {
-    display: flex;
-    gap: var(--navds-spacing-4);
-    margin-bottom: var(--navds-spacing-2)
-  }
-`
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -275,7 +267,7 @@ const Ytelser: React.FC<MainFormProps> = ({
           <VerticalSeparatorDiv/>
           <AlignStartRow>
             <Column>
-              <StyledRadioGroup
+              <HorizontalRadioGroup
                 error={_v[_namespace + '-status']?.feilmelding}
                 id={_namespace + "-status"}
                 legend={t('p2000:form-ytelse-status')}
@@ -285,7 +277,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                 {statusOptions.map((option) => {
                   return(<Radio value={option.value}>{option.label}</Radio>)
                 })}
-              </StyledRadioGroup>
+              </HorizontalRadioGroup>
             </Column>
           </AlignStartRow>
           <VerticalSeparatorDiv/>
@@ -331,7 +323,7 @@ const Ytelser: React.FC<MainFormProps> = ({
           <BeloepRows beloep={_ytelse?.beloep} setBeloep={setBeloep} parentIndex={index} parentEditMode={true} parentNamespace={_namespace}/>
           <AlignStartRow>
             <Column>
-              <StyledRadioGroup
+              <HorizontalRadioGroup
                 error={_v[_namespace + '-mottasbasertpaa']?.feilmelding}
                 id={_namespace + "-mottasbasertpaa"}
                 legend={t('p2000:form-ytelse-mottas-basert-paa')}
@@ -340,7 +332,7 @@ const Ytelser: React.FC<MainFormProps> = ({
               >
                 <Radio value="botid">Botid</Radio>
                 <Radio value="arbeid">Arbeid</Radio>
-              </StyledRadioGroup>
+              </HorizontalRadioGroup>
             </Column>
           </AlignStartRow>
           <VerticalSeparatorDiv/>
