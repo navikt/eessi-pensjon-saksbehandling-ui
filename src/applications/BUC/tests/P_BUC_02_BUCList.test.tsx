@@ -29,6 +29,7 @@ const mockPersonAvdods = personAvdod(1)
 
 const defaultSelector: BUCListSelector = {
   aktoerId: '123',
+  sakType: undefined,
   bucsList: [{
     euxCaseId: 'NorwayIsCaseOwner',
     buctype: 'P_BUC_02',
