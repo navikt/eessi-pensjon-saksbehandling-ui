@@ -1,9 +1,9 @@
-import * as constants from 'constants/constants'
+//import * as constants from 'constants/constants'
 import {PesysContext, RinaUrl} from 'declarations/app.d'
 import { State } from 'declarations/reducers'
 import {useDispatch, useSelector} from 'react-redux'
 import BUCIndexVedtaksKontekst from "./BUCIndexVedtaksKontekst";
-import BUCIndexBrukerKontekst from "./BUCIndexBrukerKontekst";
+//import BUCIndexBrukerKontekst from "./BUCIndexBrukerKontekst";
 import BUCEmpty from "./pages/BUCEmpty/BUCEmpty";
 import {useEffect, useState} from "react";
 import {fetchBucsInfo, getRinaUrl, getSakType} from "../../actions/buc";
@@ -40,12 +40,12 @@ const mapState = (state: State): BUCIndexSelector => ({
 
 export const BUCIndex = (): JSX.Element => {
   const {
-    pesysContext, vedtakId, aktoerId, sakId, sakType, gettingSakType, rinaUrl, bucsInfo, bucsInfoList, gettingBucsInfo
+    aktoerId, sakId, sakType, gettingSakType, rinaUrl, bucsInfo, bucsInfoList, gettingBucsInfo
   }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
 
   const [_askSakType, _setAskSakType] = useState<boolean>(false)
-  const isVedtaksKontekst = !!vedtakId && pesysContext === constants.VEDTAKSKONTEKST
+  //const isVedtaksKontekst = !!vedtakId && pesysContext === constants.VEDTAKSKONTEKST
 
   useEffect(() => {
     dispatch(loadAllEntries())
@@ -78,7 +78,8 @@ export const BUCIndex = (): JSX.Element => {
   }
 
   return (
-    isVedtaksKontekst ? <BUCIndexVedtaksKontekst/> : <BUCIndexBrukerKontekst/>
+    <BUCIndexVedtaksKontekst/>
+    //isVedtaksKontekst ? <BUCIndexVedtaksKontekst/> : <BUCIndexBrukerKontekst/>
   )
 }
 

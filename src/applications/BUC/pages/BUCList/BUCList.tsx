@@ -16,6 +16,8 @@ import {
   BucListItem,
   Bucs,
   BucsInfo,
+  SakTypeMap,
+  SakTypeValue
 } from 'declarations/buc.d'
 import { PersonAvdods } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
@@ -35,6 +37,8 @@ import {
   BUCStartDiv,
   ProgressBarDiv
 } from "../../CommonBucComponents";
+import {BRUKERKONTEKST} from "../../../../constants/constants";
+import AvdodFnrSearch from "./AvdodFnrSearch";
 
 export interface BUCListProps {
   initialBucNew?: boolean
@@ -52,6 +56,7 @@ export interface BUCListSelector {
   newlyCreatedBuc: Buc | undefined
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
+  sakType: SakTypeValue | null | undefined
 }
 
 const mapState = (state: State): BUCListSelector => ({
@@ -65,13 +70,14 @@ const mapState = (state: State): BUCListSelector => ({
   newlyCreatedBuc: state.buc.newlyCreatedBuc,
   personAvdods: state.person.personAvdods,
   pesysContext: state.app.pesysContext,
+  sakType: state.app.params.sakType as SakTypeValue
 })
 
 const BUCList: React.FC<BUCListProps> = ({
   setMode, initialBucNew = undefined
 }: BUCListProps): JSX.Element => {
   const {
-    aktoerId, bucs, bucsList, bucsInfo, gettingBucs, gettingBucsList, newlyCreatedBuc, personAvdods, pesysContext
+    aktoerId, bucs, bucsList, bucsInfo, gettingBucs, gettingBucsList, newlyCreatedBuc, personAvdods, pesysContext, sakType
   } = useSelector<State, BUCListSelector>(mapState)
 
   const dispatch = useDispatch()
@@ -239,6 +245,10 @@ const BUCList: React.FC<BUCListProps> = ({
               </BucLenkePanel>
             )
           })}
+      {/*TODO: Remove when feature toggle for splitting is removed*/}
+      {!_.isEmpty(bucs) && pesysContext === BRUKERKONTEKST && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
+        <AvdodFnrSearch/>
+      )}
       <BUCFooter />
     </BUCListDiv>
   )
