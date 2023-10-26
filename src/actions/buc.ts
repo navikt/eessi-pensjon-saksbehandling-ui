@@ -30,7 +30,6 @@ import mockBucOptions from 'mocks/buc/bucOptions'
 import mockBucsInfo from 'mocks/buc/bucsInfo'
 import mockBucsInfoList from 'mocks/buc/bucsInfoList'
 import mockBucs from 'mocks/buc/bucsList'
-import mockBucsFromJoark from 'mocks/buc/bucsFromJoark'
 import mockBucsWithVedtak from 'mocks/buc/bucsListWithVedtak'
 import mockCreateBuc from 'mocks/buc/createBuc'
 import mockCreateSed from 'mocks/buc/createSed'
@@ -145,37 +144,6 @@ export const fetchBucsList = (
       request: types.BUC_GET_BUCSLIST_REQUEST,
       success: types.BUC_GET_BUCSLIST_SUCCESS,
       failure: types.BUC_GET_BUCSLIST_FAILURE
-    }
-  })
-}
-
-//NEW ENDPOINTS FOR BUCSLIST from JOARK/EUXRINA FOR BRUKERKONTEKST
-export const fetchJoarkBucsListForBrukerKontekst = (
-  aktoerId: string, sakId: string
-): ActionWithPayload<Bucs> => {
-  return call({
-    url: sprintf(urls.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_URL, { aktoerId, sakId }),
-    cascadeFailureError: true,
-    expectedPayload: mockBucsFromJoark(),
-    type: {
-      request: types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST,
-      success: types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS,
-      failure: types.BUC_GET_JOARK_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE
-    }
-  })
-}
-
-export const fetchRinaBucsListForBrukerKontekst = (
-  aktoerId: string, sakId: string
-): ActionWithPayload<Bucs> => {
-  return call({
-    url: sprintf(urls.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_URL, { aktoerId, sakId }),
-    cascadeFailureError: true,
-    expectedPayload: mockBucs(aktoerId, sakId),
-    type: {
-      request: types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_REQUEST,
-      success: types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_SUCCESS,
-      failure: types.BUC_GET_RINA_BUCSLIST_FOR_BRUKERKONTEKST_FAILURE
     }
   })
 }
