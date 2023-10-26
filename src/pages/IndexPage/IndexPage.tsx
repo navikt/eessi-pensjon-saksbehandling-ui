@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { Column, PaddedDiv, Row, VerticalSeparatorDiv } from '@navikt/hoykontrast'
-import Buc from 'applications/BUC'
+import BUCIndex from 'applications/BUC'
 
 export interface IndexPageProps {
   username?: string
@@ -106,7 +106,7 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
             </>
             )
           : null}
-        <Buc />
+        <BUCIndex />
       </PaddedDiv>
     </TopContainer>
   )

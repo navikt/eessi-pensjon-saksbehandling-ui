@@ -245,7 +245,6 @@ const BUCList: React.FC<BUCListProps> = ({
               </BucLenkePanel>
             )
           })}
-      {/*TODO: Remove when feature toggle for splitting is removed*/}
       {!_.isEmpty(bucs) && pesysContext === BRUKERKONTEKST && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
         <AvdodFnrSearch/>
       )}

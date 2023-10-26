@@ -1,9 +1,7 @@
-//import * as constants from 'constants/constants'
 import {PesysContext, RinaUrl} from 'declarations/app.d'
 import { State } from 'declarations/reducers'
 import {useDispatch, useSelector} from 'react-redux'
-import BUCIndexVedtaksKontekst from "./BUCIndexVedtaksKontekst";
-//import BUCIndexBrukerKontekst from "./BUCIndexBrukerKontekst";
+import BUCIndexPage from "./BUCIndexPage";
 import BUCEmpty from "./pages/BUCEmpty/BUCEmpty";
 import {useEffect, useState} from "react";
 import {fetchBucsInfo, getRinaUrl, getSakType} from "../../actions/buc";
@@ -45,7 +43,6 @@ export const BUCIndex = (): JSX.Element => {
   const dispatch = useDispatch()
 
   const [_askSakType, _setAskSakType] = useState<boolean>(false)
-  //const isVedtaksKontekst = !!vedtakId && pesysContext === constants.VEDTAKSKONTEKST
 
   useEffect(() => {
     dispatch(loadAllEntries())
@@ -78,8 +75,7 @@ export const BUCIndex = (): JSX.Element => {
   }
 
   return (
-    <BUCIndexVedtaksKontekst/>
-    //isVedtaksKontekst ? <BUCIndexVedtaksKontekst/> : <BUCIndexBrukerKontekst/>
+    <BUCIndexPage/>
   )
 }
 

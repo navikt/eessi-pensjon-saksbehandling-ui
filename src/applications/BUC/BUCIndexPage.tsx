@@ -123,7 +123,7 @@ export const WindowDiv = styled.div`
   overflow: hidden;
 `
 
-export interface BUCIndexVedtaktsKontekstSelector {
+export interface BUCIndexPageSelector {
   aktoerId: string | null | undefined
   bucs: Bucs | undefined
   bucsList: Array<BucListItem> | null | undefined
@@ -135,7 +135,7 @@ export interface BUCIndexVedtaktsKontekstSelector {
   vedtakId: string | null | undefined
 }
 
-const mapState = (state: State): BUCIndexVedtaktsKontekstSelector => ({
+const mapState = (state: State): BUCIndexPageSelector => ({
   aktoerId: state.app.params.aktoerId,
   bucs: state.buc.bucs,
   bucsList: state.buc.bucsList,
@@ -168,11 +168,11 @@ export enum Slide {
   C_GOING_TO_RIGHT
 }
 
-export const BUCIndexVedtaksKontekst = (): JSX.Element => {
+export const BUCIndexPage = (): JSX.Element => {
   const {
     aktoerId, bucs, bucsList, gettingBucs, gettingBucsList, howManyBucLists,
     pesysContext, sakId, vedtakId
-  }: BUCIndexVedtaktsKontekstSelector = useSelector<State, BUCIndexVedtaktsKontekstSelector>(mapState)
+  }: BUCIndexPageSelector = useSelector<State, BUCIndexPageSelector>(mapState)
   const dispatch = useDispatch()
 
   const [_noParams, setNoParams] = useState<boolean | undefined>(undefined)
@@ -345,15 +345,6 @@ export const BUCIndexVedtaksKontekst = (): JSX.Element => {
   }, [])
 
   useEffect(() => {
-    /* TODO: Use when feature toggle for splitting is removed
-    if (aktoerId && sakId && bucsList === undefined && !gettingBucsList) {
-      let howManyBucLists = 2
-      dispatch(fetchBucsList(aktoerId, sakId, howManyBucLists))
-      dispatch(fetchBucsListWithVedtakId(aktoerId, sakId, vedtakId!))
-      dispatch(fetchBucsInfoList(aktoerId))
-    }
-    */
-    /*TODO: Remove when feature toggle for splitting is removed*/
     if (aktoerId && sakId && bucsList === undefined && !gettingBucsList) {
       let howManyBucLists = 1
       if (!!vedtakId && pesysContext === VEDTAKSKONTEKST) {
@@ -446,4 +437,4 @@ export const BUCIndexVedtaksKontekst = (): JSX.Element => {
   )
 }
 
-export default BUCIndexVedtaksKontekst
+export default BUCIndexPage
