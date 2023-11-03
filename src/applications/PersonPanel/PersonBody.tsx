@@ -231,7 +231,7 @@ const PersonBody: React.FC<PersonBodyProps> = ({
                         {avdod?.fornavn +
                       (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
                       (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
-                      ' - ' + avdod.fnr + ' (' + t('buc:relasjon-' + avdod.relasjon) + ')'}
+                      ' - ' + avdod.fnr + ' (' + avdod?.relasjon ? t('buc:relasjon-' + avdod?.relasjon) : 'Dødsdato: ' + avdod?.doedsDato + ')'}
                       </BodyLong>
                     </Element>
                     ))

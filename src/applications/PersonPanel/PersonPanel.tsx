@@ -66,7 +66,7 @@ export const PersonPanel = (): JSX.Element => {
       if (pesysContext === VEDTAKSKONTEKST && !!vedtakId) {
         dispatch(getPersonAvdodInfo(aktoerId, vedtakId, featureToggles.NR_AVDOD as number | undefined))
       } else if (avdodAktoerId && pesysContext === GJENNY) {
-        dispatch(getPersonAvdodInfoFromAktoerId(avdodAktoerId, featureToggles.NR_AVDOD as number | undefined))
+        dispatch(getPersonAvdodInfoFromAktoerId(avdodAktoerId))
       }
     }
   }, [aktoerId, avdodAktoerId, pesysContext])
