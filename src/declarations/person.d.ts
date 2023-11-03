@@ -155,7 +155,8 @@ export interface PersonAvdod {
   fornavn: string
   fulltNavn: string
   mellomnavn?: string | null
-  relasjon: string
+  relasjon?: string
+  doedsDato?: string
 }
 
 export type PersonAvdods = Array<PersonAvdod>
