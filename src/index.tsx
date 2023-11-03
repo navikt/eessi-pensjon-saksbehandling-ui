@@ -20,6 +20,7 @@ import i18n from './i18n'
 import 'nav-frontend-tabell-style/dist/main.css'
 
 import store from './store'
+import {GJENNY, PESYS} from "./constants/constants";
 
 if (!IS_PRODUCTION) {
   // const axe = require('@axe-core/react')
@@ -39,10 +40,17 @@ root.render(
           <Routes>
             <Route
               path='/' element={
-                <RequireAuth>
-                  <Pages.IndexPage />
-                </RequireAuth>
-              }
+              <RequireAuth>
+                <Pages.IndexPage indexType={PESYS}/>
+              </RequireAuth>
+            }
+            />
+            <Route
+              path='/gjenny' element={
+              <RequireAuth>
+                <Pages.IndexPage indexType={GJENNY}/>
+              </RequireAuth>
+            }
             />
             <Route path='/notlogged' element={<Pages.Error type='notLogged' />} />
             <Route path='/notinvited' element={<Pages.Error type='notInvited' />} />
