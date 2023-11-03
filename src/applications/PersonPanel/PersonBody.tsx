@@ -228,10 +228,19 @@ const PersonBody: React.FC<PersonBodyProps> = ({
                     >
                       <HorizontalSeparatorDiv />
                       <BodyLong>
-                        {avdod?.fornavn +
-                      (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
-                      (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
-                      ' - ' + avdod.fnr + ' (' + avdod?.relasjon ? t('buc:relasjon-' + avdod?.relasjon) : 'Dødsdato: ' + avdod?.doedsDato + ')'}
+                        {
+                          avdod?.fornavn +
+                          (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
+                          (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
+                          ' - ' + avdod.fnr
+                        }
+                        {
+                          avdod.relasjon ? ' (' + t('buc:relasjon-' + avdod?.relasjon) + ')' : ''
+                        }
+                        {
+                          avdod?.doedsDato ? ' (Dødsdato: ' + avdod.doedsDato + ')' : ''
+                        }
+
                       </BodyLong>
                     </Element>
                     ))
