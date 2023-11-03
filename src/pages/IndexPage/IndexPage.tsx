@@ -13,9 +13,12 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { Column, PaddedDiv, Row, VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import BUCIndex from 'applications/BUC'
+import {GJENNY, PESYS} from "../../constants/constants";
+import BUCIndexGjenny from "../../applications/BUC/BUCIndexGjenny";
 
 export interface IndexPageProps {
   username?: string
+  indexType?: string
 }
 
 export interface IndexPageSelector {
@@ -37,7 +40,7 @@ const mapState = (state: State): IndexPageSelector => ({
 
 })
 
-export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
+export const IndexPage: React.FC<IndexPageProps> = ({indexType = "PESYS"}): JSX.Element => {
   const { featureToggles, mode, message, show, byline }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -106,7 +109,12 @@ export const IndexPage: React.FC<IndexPageProps> = (): JSX.Element => {
             </>
             )
           : null}
-        <BUCIndex />
+        {indexType === PESYS &&
+          <BUCIndex/>
+        }
+        {indexType === GJENNY &&
+          <BUCIndexGjenny/>
+        }
       </PaddedDiv>
     </TopContainer>
   )

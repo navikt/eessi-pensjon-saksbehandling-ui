@@ -65,7 +65,7 @@ export const PersonPanel = (): JSX.Element => {
         dispatch(getPersonAvdodInfo(aktoerId, vedtakId, featureToggles.NR_AVDOD as number | undefined))
       }
     }
-  }, [])
+  }, [aktoerId, pesysContext])
 
   if (!aktoerId) {
     return (

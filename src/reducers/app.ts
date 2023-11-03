@@ -1,9 +1,9 @@
-import * as constants from 'constants/constants'
 import * as types from 'constants/actionTypes'
 import { Feature, FeatureToggles, Params, PesysContext } from 'declarations/app.d'
 import { SakTypeKey, SakTypeMap } from 'declarations/buc.d'
 import _ from 'lodash'
 import { AnyAction } from 'redux'
+import {BRUKERKONTEKST, GJENNY, KRAVKONTEKST, VEDTAKSKONTEKST} from "constants/constants";
 
 export interface AppState {
   featureToggles: FeatureToggles
@@ -47,12 +47,15 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
         newParams[action.payload.key] = action.payload.value
       }
 
-      newContext = constants.BRUKERKONTEKST
+      newContext = BRUKERKONTEKST
       if (newParams.kravId) {
-        newContext = constants.KRAVKONTEKST
+        newContext = KRAVKONTEKST
       }
       if (newParams.vedtakId) {
-        newContext = constants.VEDTAKSKONTEKST
+        newContext = VEDTAKSKONTEKST
+      }
+      if (newParams.aktoerId && newParams.avdodAktoerId){
+        newContext = GJENNY
       }
 
       return {
@@ -67,12 +70,15 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
       newParams = _.cloneDeep(state.params)
       delete newParams[action.payload.key]
 
-      newContext = constants.BRUKERKONTEKST
+      newContext = BRUKERKONTEKST
       if (newParams.kravId) {
-        newContext = constants.KRAVKONTEKST
+        newContext = KRAVKONTEKST
       }
       if (newParams.vedtakId) {
-        newContext = constants.VEDTAKSKONTEKST
+        newContext = VEDTAKSKONTEKST
+      }
+      if (newParams.aktoerId && newParams.avdodAktoerId){
+        newContext = GJENNY
       }
 
       return {
@@ -151,6 +157,29 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
           ...state.params,
           sakType: null
         }
+      }
+
+    case types.PERSON_AKTOERID_REQUEST:
+      newParams = _.cloneDeep(state.params)
+      delete newParams[action.context]
+
+      return {
+        ...state,
+        params: newParams
+      }
+
+    case types.PERSON_AKTOERID_SUCCESS:
+      newParams = _.cloneDeep(state.params)
+      newParams[action.context] = action.payload
+
+      if (newParams.aktoerId && newParams.avdodAktoerId){
+        newContext = GJENNY
+      }
+
+      return {
+        ...state,
+        params: newParams,
+        pesysContext: newContext
       }
 
     default:

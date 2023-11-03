@@ -105,7 +105,7 @@ describe('applications/BUC/index', () => {
     expect(wrapper.exists(WindowDiv)).toBeTruthy()
   })
 
-  it('Render: shows BUCEmpty when no sakId and aktoerId are given', () => {
+  it('Render: shows BUCEmptyGjenny when no sakId and aktoerId are given', () => {
     (setMode as jest.Mock).mockReset()
     stageSelector(defaultSelector, {
       sakId: undefined,

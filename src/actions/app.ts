@@ -4,6 +4,8 @@ import { ParamPayload } from 'declarations/app.d'
 import { ActionWithPayload, call } from '@navikt/fetch'
 import mockUser from 'mocks/app/user'
 import { Action } from 'redux'
+import mockAktoerId from "../mocks/app/aktoerId";
+const sprintf = require('sprintf-js').sprintf
 
 export const clearData = (): Action => ({
   type: types.APP_DATA_CLEAR
@@ -19,6 +21,19 @@ export const getUserInfo = (): Action => {
       success: types.APP_USERINFO_SUCCESS,
       failure: types.APP_USERINFO_FAILURE,
       forbidden: types.APP_USERINFO_FORBIDDEN
+    }
+  })
+}
+
+export const getAktoerId = (fnr:string, context: string): ActionWithPayload<string> => {
+  return call({
+    url: sprintf(urls.PERSON_PDL_GET_AKTOERID_URL, { fnr }),
+    expectedPayload: mockAktoerId,
+    context: context,
+    type: {
+      request: types.PERSON_AKTOERID_REQUEST,
+      success: types.PERSON_AKTOERID_SUCCESS,
+      failure: types.PERSON_AKTOERID_FAILURE
     }
   })
 }
