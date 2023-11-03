@@ -1,6 +1,5 @@
 import { Accordion, Alert, Panel } from '@navikt/ds-react'
-import { getPersonAvdodInfo, getPersonInfo } from 'actions/person'
-import * as constants from 'constants/constants'
+import {getPersonAvdodInfo, getPersonAvdodInfoFromAktoerId, getPersonInfo} from 'actions/person'
 import { AllowedLocaleString, FeatureToggles, PesysContext } from 'declarations/app.d'
 import { PersonPDL } from 'declarations/person'
 import { PersonAvdods } from 'declarations/person.d'
@@ -11,9 +10,11 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import PersonBody from './PersonBody'
 import PersonTitle from './PersonTitle'
+import {GJENNY, VEDTAKSKONTEKST} from "constants/constants";
 
 export interface PersonPanelSelector {
   aktoerId: string | null | undefined
+  avdodAktoerId: string | null | undefined
   featureToggles: FeatureToggles
   gettingPersonInfo: boolean
   locale: AllowedLocaleString
@@ -26,6 +27,7 @@ export interface PersonPanelSelector {
 const mapState = (state: State): PersonPanelSelector => ({
   /* istanbul ignore next */
   aktoerId: state.app.params.aktoerId,
+  avdodAktoerId: state.app.params.avdodAktoerId,
   featureToggles: state.app.featureToggles,
   gettingPersonInfo: state.loading.gettingPersonInfo,
   locale: state.ui.locale,
@@ -36,7 +38,7 @@ const mapState = (state: State): PersonPanelSelector => ({
 })
 
 export const PersonPanel = (): JSX.Element => {
-  const { aktoerId, featureToggles, gettingPersonInfo, locale, personPdl, personAvdods, pesysContext, vedtakId }: PersonPanelSelector =
+  const { aktoerId, avdodAktoerId, featureToggles, gettingPersonInfo, locale, personPdl, personAvdods, pesysContext, vedtakId }: PersonPanelSelector =
     useSelector<State, PersonPanelSelector>(mapState)
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
@@ -61,11 +63,13 @@ export const PersonPanel = (): JSX.Element => {
   useEffect(() => {
     if (aktoerId && pesysContext && !personPdl) {
       dispatch(getPersonInfo(aktoerId))
-      if (pesysContext === constants.VEDTAKSKONTEKST && !!vedtakId) {
+      if (pesysContext === VEDTAKSKONTEKST && !!vedtakId) {
         dispatch(getPersonAvdodInfo(aktoerId, vedtakId, featureToggles.NR_AVDOD as number | undefined))
+      } else if (avdodAktoerId && pesysContext === GJENNY) {
+        dispatch(getPersonAvdodInfoFromAktoerId(avdodAktoerId, featureToggles.NR_AVDOD as number | undefined))
       }
     }
-  }, [aktoerId, pesysContext])
+  }, [aktoerId, avdodAktoerId, pesysContext])
 
   if (!aktoerId) {
     return (

@@ -17,6 +17,7 @@ describe('applications/PersonPanel/PersonPanel', () => {
 
   const defaultSelector: PersonPanelSelector = {
     aktoerId: '123',
+    avdodAktoerId: undefined,
     featureToggles: {
       ...mockFeatureToggles,
       NR_AVDOD: 1
