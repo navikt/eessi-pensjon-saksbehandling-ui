@@ -24,6 +24,21 @@ export const getPersonAvdodInfo = (
   })
 }
 
+export const getPersonAvdodInfoFromAktoerId = (
+  aktoerId: string,
+  nrAvdod: number | undefined
+): ActionWithPayload<PersonAvdods> => {
+  return call({
+    url: sprintf(urls.PERSON_PDL_URL, { aktoerId }),
+    expectedPayload: /* istanbul ignore next */ mockPersonAvdod(nrAvdod),
+    type: {
+      request: types.PERSON_AVDOD_REQUEST,
+      success: types.PERSON_AVDOD_SUCCESS,
+      failure: types.PERSON_AVDOD_FAILURE
+    }
+  })
+}
+
 export const getPersonInfo = (
   aktoerId: string
 ): ActionWithPayload<any> => {
