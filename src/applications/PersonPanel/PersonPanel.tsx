@@ -71,6 +71,11 @@ export const PersonPanel = (): JSX.Element => {
     }
   }, [aktoerId, avdodAktoerId, pesysContext])
 
+  useEffect(() => {
+    console.log("PERSON PDL:", personPdl)
+    console.log("PERSON AVDØD:", personAvdods)
+  }, [personPdl, personAvdods])
+
   if (!aktoerId) {
     return (
       <Alert

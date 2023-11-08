@@ -30,15 +30,21 @@ const FrontpageForm = styled.div`
 
 export interface BUCIndexSelector {
   rinaUrl: RinaUrl | undefined
+  aktoerId: string | null | undefined
+  avdodAktoerId: string | null | undefined
 }
 
 const mapState = (state: State): BUCIndexSelector => ({
   rinaUrl: state.buc.rinaUrl,
+  aktoerId: state.app.params.aktoerId,
+  avdodAktoerId: state.app.params.avdodAktoerId
 })
 
 export const BUCIndexGjenny = (): JSX.Element => {
   const {
-    rinaUrl
+    rinaUrl,
+    aktoerId,
+    avdodAktoerId
   }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -80,33 +86,39 @@ export const BUCIndexGjenny = (): JSX.Element => {
 
   }
 
-  return (
-    <FrontpageDiv>
-      <FrontpageForm>
-        <TextField
-          error={validationFnr || false}
-          id='gjenny-fnr-input-id'
-          label="FNR"
-          onChange={onFnrChange}
-          value={_fnr || ''}
-        />
-        <VerticalSeparatorDiv/>
-        <TextField
-          error={validationFnrAvdod || false}
-          id='gjenny-fnr-avdod-input-id'
-          label="FNR Avdød"
-          onChange={onFnrAvdodChange}
-          value={_fnrAvdod || ''}
-        />
-        <VerticalSeparatorDiv/>
-        <Button
-          variant='primary'
-          onClick={onSubmit}
-        >
-          {t('ui:add')}
-        </Button>
-      </FrontpageForm>
-    </FrontpageDiv>
+  if (!aktoerId || ! avdodAktoerId) {
+    return (
+      <FrontpageDiv>
+        <FrontpageForm>
+          <TextField
+            error={validationFnr || false}
+            id='gjenny-fnr-input-id'
+            label="FNR"
+            onChange={onFnrChange}
+            value={_fnr || ''}
+          />
+          <VerticalSeparatorDiv/>
+          <TextField
+            error={validationFnrAvdod || false}
+            id='gjenny-fnr-avdod-input-id'
+            label="FNR Avdød"
+            onChange={onFnrAvdodChange}
+            value={_fnrAvdod || ''}
+          />
+          <VerticalSeparatorDiv/>
+          <Button
+            variant='primary'
+            onClick={onSubmit}
+          >
+            {t('ui:add')}
+          </Button>
+        </FrontpageForm>
+      </FrontpageDiv>
+    )
+  }
+
+  return(
+    <>BUCLIST FOR GJENNY</>
   )
 }
 
