@@ -12,6 +12,7 @@ const API_URL = FRONTEND_API_URL + '/api'
 const SED_URL = FAGMODUL_API_URL + '/sed'
 const BUC_URL = FAGMODUL_API_URL + '/buc'
 const EUX_URL = FAGMODUL_API_URL + '/eux'
+const GJENNY_URL = FAGMODUL_API_URL + '/gjenny'
 const PEN_URL = FAGMODUL_API_URL + '/pensjon'
 const PER_URL = FAGMODUL_API_URL + '/person'
 const SAF_URL = FAGMODUL_API_URL + '/saf'
@@ -74,3 +75,7 @@ export const BUC_GET_P6000PDF_URL = SED_URL + '/get/%(rinaCaseId)s/%(documentId)
 export const API_PAGENOTIFICATION_GET_URL = API_URL + '/storage/get/EP___PAGE___NOTIFICATION'
 export const API_PAGENOTIFICATION_POST_URL = API_URL + '/storage/EP___PAGE___NOTIFICATION'
 export const API_PAGENOTIFICATION_DELETE_URL = API_URL + '/storage/EP___PAGE___NOTIFICATION'
+
+//Gjennycontroller
+export const GJENNY_GET_BUCSLIST_GJENLEVENDE_URL = GJENNY_URL + '/rinasaker/%(aktoerId)s'
+export const GJENNY_GET_BUCSLIST_FOR_AVDOD_URL = GJENNY_URL + 'rinasaker/%(aktoerId)s/avdodfnr/%(avdodFnr)s'
