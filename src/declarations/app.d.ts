@@ -33,7 +33,7 @@ export interface Option {
 
 export type Params = {[k: string] : string | null | undefined}
 
-export type PesysContext = constants.BRUKERKONTEKST | constants.KRAVKONTEKST | constants.VEDTAKSKONTEKST
+export type PesysContext = constants.BRUKERKONTEKST | constants.KRAVKONTEKST | constants.VEDTAKSKONTEKST | constants.GJENNY
 
 export interface ParamPayload {
   key: string,

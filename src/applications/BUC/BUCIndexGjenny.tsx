@@ -8,7 +8,7 @@ import styled from "styled-components/macro";
 import {Button, TextField} from "@navikt/ds-react";
 import {VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import {useTranslation} from "react-i18next";
-import {getAktoerId} from "../../actions/app";
+import {getAktoerId, setStatusParam} from "../../actions/app";
 
 export const FrontpageDiv = styled.div`
   display: flex;
@@ -82,11 +82,13 @@ export const BUCIndexGjenny = (): JSX.Element => {
     if(_fnr && _fnrAvdod && _fnr.match(/^\d+$/) && _fnrAvdod.match(/^\d+$/)){
       dispatch(getAktoerId(_fnr, "aktoerId"))
       dispatch(getAktoerId(_fnrAvdod, "avdodAktoerId"))
+      dispatch(setStatusParam("gjenlevendeFnr", _fnr))
+      dispatch(setStatusParam("avdodFnr", _fnrAvdod))
     }
 
   }
 
-  if (!aktoerId || ! avdodAktoerId) {
+  if (!aktoerId || !avdodAktoerId) {
     return (
       <FrontpageDiv>
         <FrontpageForm>

@@ -85,7 +85,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
           <Tag data-testid="tag-pesyscontext">
             <span>{t('ui:youComeFrom')}</span>
             <HorizontalSeparatorDiv size='0.25' />
-            <strong>{pesysContext}</strong>.
+            <strong>{(pesysContext as string).toUpperCase()}</strong>.
           </Tag>
         )}
         <Tag data-testid="tag-buc-case-type">
