@@ -70,7 +70,7 @@ export const PersonPanel = (): JSX.Element => {
       }
     }
   }, [aktoerId, avdodAktoerId, pesysContext])
-  
+
   if (!aktoerId) {
     return (
       <Alert
