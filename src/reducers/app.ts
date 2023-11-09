@@ -54,7 +54,7 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
       if (newParams.vedtakId) {
         newContext = VEDTAKSKONTEKST
       }
-      if (newParams.aktoerId && newParams.avdodAktoerId){
+      if (newParams.avdodFnr){
         newContext = GJENNY
       }
 
@@ -77,7 +77,7 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
       if (newParams.vedtakId) {
         newContext = VEDTAKSKONTEKST
       }
-      if (newParams.aktoerId && newParams.avdodAktoerId){
+      if (newParams.avdodFnr){
         newContext = GJENNY
       }
 
@@ -172,14 +172,9 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
       newParams = _.cloneDeep(state.params)
       newParams[action.context] = action.payload
 
-      if (newParams.aktoerId && newParams.avdodAktoerId){
-        newContext = GJENNY
-      }
-
       return {
         ...state,
-        params: newParams,
-        pesysContext: newContext
+        params: newParams
       }
 
     default:
