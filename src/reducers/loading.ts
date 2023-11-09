@@ -205,6 +205,7 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
       }
 
     case types.BUC_GET_BUCSLIST_REQUEST:
+    case types.GJENNY_GET_BUCSLIST_FOR_GJENLEVENDE_REQUEST:
       return {
         ...state,
         gettingBucsList: true
@@ -212,6 +213,8 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
 
     case types.BUC_GET_BUCSLIST_SUCCESS:
     case types.BUC_GET_BUCSLIST_FAILURE:
+    case types.GJENNY_GET_BUCSLIST_FOR_GJENLEVENDE_SUCCESS:
+    case types.GJENNY_GET_BUCSLIST_FOR_GJENLEVENDE_FAILURE:
       return {
         ...state,
         gettingBucsList: false

@@ -751,6 +751,46 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         newlyCreatedBuc: undefined
       }
     }
+
+    case types.GJENNY_GET_BUCSLIST_FOR_GJENLEVENDE_REQUEST:
+      return {
+        ...state,
+        howManyBucLists: 2,
+        bucsList: _.isNil(state.bucsList) ? undefined : state.bucsList
+      }
+
+    case types.GJENNY_GET_BUCSLIST_FOR_GJENLEVENDE_SUCCESS:
+    case types.GJENNY_GET_BUCSLIST_FOR_AVDOD_SUCCESS: {
+      // merge only the new ones, do not have duplicates
+      const newBucsList = _.isNil(state.bucsList) ? [] : _.cloneDeep(state.bucsList);
+      (action as ActionWithPayload).payload?.forEach((buc: BucListItem) => {
+        const foundIndex = _.findIndex(newBucsList, (b: BucListItem) => b.euxCaseId === buc.euxCaseId)
+        if (foundIndex < 0) {
+          newBucsList.push(buc)
+        } else {
+          // sometimes, list 1 and list 2 gets bucswith same euxCaseID, but list 2 comes with a avdodFnr filled out
+          // so, if that is the case, replace it
+          if (!_.isNil(buc.avdodFnr) && _.isNil(newBucsList[foundIndex].avdodFnr)) {
+            newBucsList[foundIndex] = buc
+          }
+        }
+      })
+      return {
+        ...state,
+        howManyBucLists: (state.howManyBucLists - 1),
+        bucsList: newBucsList
+      }
+    }
+
+    case types.GJENNY_GET_BUCSLIST_FOR_GJENLEVENDE_FAILURE:
+    case types.GJENNY_GET_BUCSLIST_FOR_AVDOD_FAILURE:
+
+      return {
+        ...state,
+        howManyBucLists: (state.howManyBucLists - 1),
+        bucsList: _.isNil(state.bucsList) ? null : state.bucsList
+      }
+
     default:
       return state
   }

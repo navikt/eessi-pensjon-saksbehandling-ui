@@ -9,6 +9,7 @@ import {Button, TextField} from "@navikt/ds-react";
 import {VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import {useTranslation} from "react-i18next";
 import {getAktoerId, setStatusParam} from "../../actions/app";
+import BUCIndexPageGjenny from "./BUCIndexPageGjenny";
 
 export const FrontpageDiv = styled.div`
   display: flex;
@@ -120,7 +121,7 @@ export const BUCIndexGjenny = (): JSX.Element => {
   }
 
   return(
-    <>BUCLIST FOR GJENNY</>
+    <BUCIndexPageGjenny/>
   )
 }
 
