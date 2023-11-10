@@ -1,6 +1,6 @@
 import {bucsThatSupportAvdod, getFnr} from 'applications/BUC/components/BUCUtils/BUCUtils'
 import * as types from 'constants/actionTypes'
-import { VEDTAKSKONTEKST } from 'constants/constants'
+import {GJENNY, VEDTAKSKONTEKST} from 'constants/constants'
 import { BUCMode, RinaUrl } from 'declarations/app.d'
 import {
   Buc,
@@ -381,10 +381,10 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       const sakTypeAllowingPBUC05notVedtakscontext: Array<SakTypeValue> = ['Alderspensjon', 'Barnepensjon', 'Generell', 'Gjenlevendeytelse', 'Omsorgsopptjening', 'Uføretrygd']
       const sakTypeAllowingPBUC05vedtakscontext: Array<SakTypeValue> = ['Alderspensjon', 'Barnepensjon', 'Gjenlevendeytelse', 'Omsorgsopptjening', 'Uføretrygd']
 
-      const sakTypeAllowingPBUC05 = pesysContext === VEDTAKSKONTEKST ? sakTypeAllowingPBUC05vedtakscontext : sakTypeAllowingPBUC05notVedtakscontext
+      const sakTypeAllowingPBUC05 = (pesysContext === VEDTAKSKONTEKST || pesysContext === GJENNY) ? sakTypeAllowingPBUC05vedtakscontext : sakTypeAllowingPBUC05notVedtakscontext
       const sakType: SakTypeValue | null | undefined = (action as ActionWithPayload).context.sakType
 
-      if (pesysContext !== VEDTAKSKONTEKST) {
+      if (pesysContext !== VEDTAKSKONTEKST && pesysContext !== GJENNY) {
         excludedBucs.push('P_BUC_02')
       }
 
