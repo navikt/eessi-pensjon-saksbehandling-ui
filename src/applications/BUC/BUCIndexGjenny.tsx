@@ -5,11 +5,12 @@ import {useEffect, useState} from "react";
 import {getRinaUrl} from "../../actions/buc";
 import {loadAllEntries} from "../../actions/localStorage";
 import styled from "styled-components/macro";
-import {Button, TextField} from "@navikt/ds-react";
+import {Button, Select, TextField} from "@navikt/ds-react";
 import {VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import {useTranslation} from "react-i18next";
 import {getAktoerId, setStatusParam} from "../../actions/app";
 import BUCIndexPageGjenny from "./BUCIndexPageGjenny";
+import { SakTypeKey, SakTypeMap } from 'declarations/buc.d'
 
 export const FrontpageDiv = styled.div`
   display: flex;
@@ -51,6 +52,7 @@ export const BUCIndexGjenny = (): JSX.Element => {
   const { t } = useTranslation()
   const [_fnr, setFnr] = useState<string | null | undefined>("")
   const [_fnrAvdod, setFnrAvdod] = useState<string | null | undefined>("")
+  const [_sakType, setSakType] = useState<string | null | undefined>("")
   const [validationFnr, setValidationFnr] = useState<string | undefined>(undefined)
   const [validationFnrAvdod, setValidationFnrAvdod] = useState<string | undefined>(undefined)
 
@@ -73,6 +75,10 @@ export const BUCIndexGjenny = (): JSX.Element => {
     setFnrAvdod(e.target.value.trim())
   }
 
+  const onSakTypeChange = (e: any) => {
+    setSakType(e.target.value)
+  }
+
   const onSubmit = () => {
     if (!_fnr || !_fnr.match(/^\d+$/)) {
       setValidationFnr("Ingen FNR")
@@ -85,6 +91,7 @@ export const BUCIndexGjenny = (): JSX.Element => {
       dispatch(getAktoerId(_fnrAvdod, "avdodAktoerId"))
       dispatch(setStatusParam("gjenlevendeFnr", _fnr))
       dispatch(setStatusParam("avdodFnr", _fnrAvdod))
+      dispatch(setStatusParam("sakType", SakTypeMap[_sakType as SakTypeKey]))
     }
 
   }
@@ -108,6 +115,12 @@ export const BUCIndexGjenny = (): JSX.Element => {
             onChange={onFnrAvdodChange}
             value={_fnrAvdod || ''}
           />
+          <VerticalSeparatorDiv/>
+          <Select label="Saktype" onChange={onSakTypeChange}>
+            <option value="">Velg saktype</option>
+            <option value="GJENLEV">{SakTypeMap["GJENLEV"]}</option>
+            <option value="BARNEP">{SakTypeMap["BARNEP"]}</option>
+          </Select>
           <VerticalSeparatorDiv/>
           <Button
             variant='primary'
