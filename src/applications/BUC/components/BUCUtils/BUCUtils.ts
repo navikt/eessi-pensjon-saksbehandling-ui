@@ -65,13 +65,13 @@ export const labelSorter = (a: Option, b: Option) => a.label.localeCompare(b.lab
 
 export const pbuc02filter = (pesysContext: PesysContext, personAvdods: PersonAvdods | undefined) =>
   (buc: Buc | JoarkBuc) => {
-    if (buc.type === 'P_BUC_02' && pesysContext !== constants.VEDTAKSKONTEKST && (
+    if (buc.type === 'P_BUC_02' && (pesysContext !== constants.VEDTAKSKONTEKST || pesysContext !== constants.GJENNY) && (
       // 'NO:NAVAT08' in test environment should be read as a foreign institution
       buc?.creator?.country === 'NO' && (buc?.creator?.institution !== 'NO:NAVAT06' && buc?.creator?.institution !== 'NO:NAVAT08')
     )) {
       return false
     }
-    if (buc.type === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST &&
+    if (buc.type === 'P_BUC_02' && (pesysContext === constants.VEDTAKSKONTEKST || pesysContext === constants.GJENNY) &&
       personAvdods?.length === 0 && buc?.creator?.country === 'NO') {
       return false
     }
