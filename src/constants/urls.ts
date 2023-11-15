@@ -51,7 +51,7 @@ export const BUC_GET_BUCSLIST_WITH_AVDODFNR_URL = BUC_URL + '/rinasaker/%(aktoer
 export const BUC_GET_BUC_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s'
 export const BUC_GET_BUC_WITH_AVDOD_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/aktoerid/%(aktoerId)s/saknr/%(sakId)s/avdodfnr/%(avdodFnr)s/kilde/%(kilde)s'
 
-export const BUC_GET_BUC_OPTIONS_URL = BUC_URL + '/bucs/%(sakId)s'
+export const BUC_GET_BUC_OPTIONS_URL = BUC_URL + '/bucs'
 export const BUC_CREATE_BUC_URL = BUC_URL + '/%(buc)s'
 
 // PensjonController

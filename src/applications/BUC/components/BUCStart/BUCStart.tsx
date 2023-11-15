@@ -429,10 +429,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const avdodOptions: Array<Option> = renderAvdodOptions(personAvdods)
 
   useEffect(() => {
-    if (!!sakId && bucOptions === undefined && !loading.gettingBucOptions) {
-      dispatch(getBucOptions(sakId, featureToggles, pesysContext as PesysContext, sakType as SakTypeValue))
+    if (bucOptions === undefined && !loading.gettingBucOptions) {
+      dispatch(getBucOptions(featureToggles, pesysContext as PesysContext, sakType as SakTypeValue))
     }
-  }, [bucOptions, dispatch, loading.gettingBucOptions, pesysContext, sakId, sakType])
+  }, [bucOptions, dispatch, loading.gettingBucOptions, pesysContext, sakType])
 
   useEffect(() => {
     if (tagList === undefined && !loading.gettingTagList) {

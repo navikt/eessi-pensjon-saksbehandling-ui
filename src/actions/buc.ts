@@ -247,10 +247,10 @@ export const fetchBuc = (
 }
 
 export const getBucOptions = (
-  sakId: string, featureToggles: FeatureToggles, pesysContext: PesysContext, sakType: SakTypeValue
+  featureToggles: FeatureToggles, pesysContext: PesysContext, sakType: SakTypeValue
 ): ActionWithPayload<BUCOptions> => {
   return call({
-    url: sprintf(urls.BUC_GET_BUC_OPTIONS_URL, { sakId }),
+    url: sprintf(urls.BUC_GET_BUC_OPTIONS_URL),
     expectedPayload: mockBucOptions,
     context: {
       featureToggles,
