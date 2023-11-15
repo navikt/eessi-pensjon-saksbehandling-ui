@@ -253,17 +253,16 @@ describe('actions/buc', () => {
   })
 
   it('getBucOptions()', () => {
-    const sakId = '123'
     const pesysContext = VEDTAKSKONTEKST
     const sakType = 'AFP' as SakTypeValue
-    bucActions.getBucOptions(sakId, {} as FeatureToggles, pesysContext, sakType)
+    bucActions.getBucOptions({} as FeatureToggles, pesysContext, sakType)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUC_OPTIONS_REQUEST,
         success: types.BUC_GET_BUC_OPTIONS_SUCCESS,
         failure: types.BUC_GET_BUC_OPTIONS_FAILURE
       },
-      url: sprintf(urls.BUC_GET_BUC_OPTIONS_URL, { sakId })
+      url: sprintf(urls.BUC_GET_BUC_OPTIONS_URL)
     }))
   })
 
