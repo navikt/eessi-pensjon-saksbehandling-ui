@@ -1,4 +1,4 @@
-import { Accordion, Alert, Panel } from '@navikt/ds-react'
+import { Accordion, Panel } from '@navikt/ds-react'
 import {getPersonAvdodInfo, getPersonAvdodInfoFromAktoerId, getPersonInfo} from 'actions/person'
 import { AllowedLocaleString, FeatureToggles, PesysContext } from 'declarations/app.d'
 import { PersonPDL } from 'declarations/person'
@@ -6,7 +6,6 @@ import { PersonAvdods } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import { timeDiffLogger } from 'metrics/loggers'
 import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import PersonBody from './PersonBody'
 import PersonTitle from './PersonTitle'
@@ -50,7 +49,6 @@ export const PersonPanel = (): JSX.Element => {
   }, [])
 
   const dispatch = useDispatch()
-  const { t } = useTranslation()
 
   const onMouseEnter = () => setMouseEnterDate(new Date())
 
@@ -70,17 +68,6 @@ export const PersonPanel = (): JSX.Element => {
       }
     }
   }, [aktoerId, avdodAktoerId, pesysContext])
-
-  if (!aktoerId) {
-    return (
-      <Alert
-        variant='warning'
-        data-testid='w-PersonPanel--alert'
-      >
-        {t('message:validation-noAktoerId')}
-      </Alert>
-    )
-  }
 
   return (
     <Panel
