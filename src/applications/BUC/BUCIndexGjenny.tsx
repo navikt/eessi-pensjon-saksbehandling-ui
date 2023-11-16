@@ -34,27 +34,36 @@ export interface BUCIndexSelector {
   rinaUrl: RinaUrl | undefined
   aktoerId: string | null | undefined
   avdodAktoerId: string | null | undefined
+  sakType: string | null | undefined
+  sakId: string | null | undefined
 }
 
 const mapState = (state: State): BUCIndexSelector => ({
   rinaUrl: state.buc.rinaUrl,
   aktoerId: state.app.params.aktoerId,
-  avdodAktoerId: state.app.params.avdodAktoerId
+  avdodAktoerId: state.app.params.avdodAktoerId,
+  sakType: state.app.params.sakType,
+  sakId: state.app.params.sakId
 })
 
 export const BUCIndexGjenny = (): JSX.Element => {
   const {
     rinaUrl,
     aktoerId,
-    avdodAktoerId
+    avdodAktoerId,
+    sakType,
+    sakId
   }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [_fnr, setFnr] = useState<string | null | undefined>("")
   const [_fnrAvdod, setFnrAvdod] = useState<string | null | undefined>("")
   const [_sakType, setSakType] = useState<string | null | undefined>("")
+  const [_sakId, setSakId] = useState<string | null | undefined>("")
   const [validationFnr, setValidationFnr] = useState<string | undefined>(undefined)
   const [validationFnrAvdod, setValidationFnrAvdod] = useState<string | undefined>(undefined)
+  const [validationSakType, setValidationSakType] = useState<string | undefined>(undefined)
+  const [validationSakId, setValidationSakId] = useState<string | undefined>(undefined)
 
 
 
@@ -76,7 +85,13 @@ export const BUCIndexGjenny = (): JSX.Element => {
   }
 
   const onSakTypeChange = (e: any) => {
+    setValidationSakType(undefined)
     setSakType(e.target.value)
+  }
+
+  const onSakIdChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setValidationSakId(undefined)
+    setSakId(e.target.value.trim())
   }
 
   const onSubmit = () => {
@@ -86,17 +101,27 @@ export const BUCIndexGjenny = (): JSX.Element => {
     if (!_fnrAvdod || !_fnrAvdod.match(/^\d+$/)) {
       setValidationFnrAvdod("Ingen FNR Avdød")
     }
+
+    if (!_sakType || _sakType === "") {
+      setValidationSakType("Ingen saktype")
+    }
+
+    if (!_sakId || _sakId === "") {
+      setValidationSakId("Ingen sakID")
+    }
+
     if(_fnr && _fnrAvdod && _fnr.match(/^\d+$/) && _fnrAvdod.match(/^\d+$/)){
       dispatch(getAktoerId(_fnr, "aktoerId"))
       dispatch(getAktoerId(_fnrAvdod, "avdodAktoerId"))
       dispatch(setStatusParam("gjenlevendeFnr", _fnr))
       dispatch(setStatusParam("avdodFnr", _fnrAvdod))
       dispatch(setStatusParam("sakType", SakTypeMap[_sakType as SakTypeKey]))
+      dispatch(setStatusParam("sakId", _sakId))
     }
 
   }
 
-  if (!aktoerId || !avdodAktoerId) {
+  if (!aktoerId || !avdodAktoerId || !sakType || !sakId) {
     return (
       <FrontpageDiv>
         <FrontpageForm>
@@ -116,11 +141,19 @@ export const BUCIndexGjenny = (): JSX.Element => {
             value={_fnrAvdod || ''}
           />
           <VerticalSeparatorDiv/>
-          <Select label="Saktype" onChange={onSakTypeChange}>
+          <Select label="Saktype" onChange={onSakTypeChange} error={validationSakType || false}>
             <option value="">Velg saktype</option>
-            <option value="GJENLEV">{SakTypeMap["GJENLEV"]}</option>
+            <option value="OMSST">{SakTypeMap["OMSST"]}</option>
             <option value="BARNEP">{SakTypeMap["BARNEP"]}</option>
           </Select>
+          <VerticalSeparatorDiv/>
+          <TextField
+            error={validationSakId || false}
+            id='gjenny-sakid-input-id'
+            label="Sak ID"
+            onChange={onSakIdChange}
+            value={_sakId || ''}
+          />
           <VerticalSeparatorDiv/>
           <Button
             variant='primary'
