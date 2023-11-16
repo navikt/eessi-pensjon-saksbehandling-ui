@@ -190,6 +190,7 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
       }
 
     case types.BUC_GET_BUC_OPTIONS_REQUEST:
+    case types.GJENNY_GET_BUC_OPTIONS_REQUEST:
 
       return {
         ...state,
@@ -198,6 +199,8 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
 
     case types.BUC_GET_BUC_OPTIONS_SUCCESS:
     case types.BUC_GET_BUC_OPTIONS_FAILURE:
+    case types.GJENNY_GET_BUC_OPTIONS_SUCCESS:
+    case types.GJENNY_GET_BUC_OPTIONS_FAILURE:
 
       return {
         ...state,

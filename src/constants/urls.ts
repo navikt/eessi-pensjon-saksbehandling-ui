@@ -79,3 +79,4 @@ export const API_PAGENOTIFICATION_DELETE_URL = API_URL + '/storage/EP___PAGE___N
 //Gjennycontroller
 export const GJENNY_GET_BUCSLIST_GJENLEVENDE_URL = GJENNY_URL + '/rinasaker/%(aktoerId)s'
 export const GJENNY_GET_BUCSLIST_FOR_AVDOD_URL = GJENNY_URL + '/rinasaker/%(aktoerId)s/avdodfnr/%(avdodFnr)s'
+export const GJENNY_GET_BUC_OPTIONS_URL = GJENNY_URL + '/bucs'

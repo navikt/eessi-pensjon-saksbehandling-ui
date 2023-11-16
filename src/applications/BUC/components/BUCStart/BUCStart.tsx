@@ -48,6 +48,8 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
+import {GJENNY} from "constants/constants";
+import {getBucOptionsGjenny} from "../../../../actions/gjenny";
 
 const FlexDiv = styled.div`
   display: flex;
@@ -429,8 +431,10 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const avdodOptions: Array<Option> = renderAvdodOptions(personAvdods)
 
   useEffect(() => {
-    if (bucOptions === undefined && !loading.gettingBucOptions) {
+    if (bucOptions === undefined && !loading.gettingBucOptions && pesysContext !== GJENNY) {
       dispatch(getBucOptions(featureToggles, pesysContext as PesysContext, sakType as SakTypeValue))
+    } else if(bucOptions === undefined && !loading.gettingBucOptions && pesysContext === GJENNY){
+      dispatch(getBucOptionsGjenny())
     }
   }, [bucOptions, dispatch, loading.gettingBucOptions, pesysContext, sakType])
 
