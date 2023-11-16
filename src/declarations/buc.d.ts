@@ -137,10 +137,10 @@ export interface BucsInfo {
   }
 }
 
-export type SakTypeKey = 'AFP'|'AFP_PRIVAT'|'ALDER'|'BARNEP'|'FAM_PL'|'GAM_YRK'|'GENRL'|'GJENLEV'|'GRBL'|'KRIGSP'|'OMSORG'|'UFOREP'|'UKJENT'
+export type SakTypeKey = 'AFP'|'AFP_PRIVAT'|'ALDER'|'BARNEP'|'FAM_PL'|'GAM_YRK'|'GENRL'|'GJENLEV'|'GRBL'|'KRIGSP'|'OMSORG'| 'OMSST' | 'UFOREP'|'UKJENT'
 
 export type SakTypeValue = 'AFP'|'AFP Privat'|'Alderspensjon'|'Barnepensjon'|'Familiepleierytelse'|'Gammel yrkesskade'|
-  'Generell'|'Gjenlevendeytelse'|'Grunnblanketter'|'Krigspensjon'|'Omsorgsopptjening'|'Uføretrygd' | 'Ukjent'
+  'Generell'|'Gjenlevendeytelse'|'Grunnblanketter'|'Krigspensjon'|'Omsorgsopptjening'| 'Omstillingsstønad' | 'Uføretrygd' | 'Ukjent'
 
 export const SakTypeMap: {[key in SakTypeKey]: SakTypeValue} = {
   AFP: 'AFP',
@@ -154,6 +154,7 @@ export const SakTypeMap: {[key in SakTypeKey]: SakTypeValue} = {
   GRBL: 'Grunnblanketter',
   KRIGSP: 'Krigspensjon',
   OMSORG: 'Omsorgsopptjening',
+  OMSST: 'Omstillingsstønad',
   UFOREP: 'Uføretrygd',
   Ukjent: 'Ukjent'
 }
