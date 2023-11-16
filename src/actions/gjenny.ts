@@ -1,9 +1,10 @@
 import {ActionWithPayload, call} from "@navikt/fetch";
-import {Bucs} from "../declarations/buc";
+import {BUCOptions, Bucs} from "../declarations/buc";
 import * as urls from "../constants/urls";
 import mockBucsGjenlevende from 'mocks/buc/bucsListGjenlevende'
 import mockBucsAvdod from 'mocks/buc/bucsListAvdod'
 import * as types from "../constants/actionTypes";
+import mockBucOptionsGjenny from "../mocks/gjenny/bucOptionsGjenny";
 
 const sprintf = require('sprintf-js').sprintf
 
@@ -33,6 +34,18 @@ export const fetchBucsListForAvdod = (
       request: types.GJENNY_GET_BUCSLIST_FOR_AVDOD_REQUEST,
       success: types.GJENNY_GET_BUCSLIST_FOR_AVDOD_SUCCESS,
       failure: types.GJENNY_GET_BUCSLIST_FOR_AVDOD_FAILURE
+    }
+  })
+}
+
+export const getBucOptionsGjenny = (): ActionWithPayload<BUCOptions> => {
+  return call({
+    url: sprintf(urls.GJENNY_GET_BUC_OPTIONS_URL),
+    expectedPayload: mockBucOptionsGjenny,
+    type: {
+      request: types.GJENNY_GET_BUC_OPTIONS_REQUEST,
+      success: types.GJENNY_GET_BUC_OPTIONS_SUCCESS,
+      failure: types.GJENNY_GET_BUC_OPTIONS_FAILURE
     }
   })
 }
