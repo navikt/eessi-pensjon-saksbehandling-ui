@@ -5,6 +5,7 @@ import { ActionWithPayload, call } from '@navikt/fetch'
 import mockUser from 'mocks/app/user'
 import { Action } from 'redux'
 import mockAktoerId from "../mocks/app/aktoerId";
+import mockAvdodAktoerId from "../mocks/app/avdodAktoerId";
 const sprintf = require('sprintf-js').sprintf
 
 export const clearData = (): Action => ({
@@ -28,7 +29,7 @@ export const getUserInfo = (): Action => {
 export const getAktoerId = (fnr:string, context: string): ActionWithPayload<string> => {
   return call({
     url: sprintf(urls.PERSON_PDL_GET_AKTOERID_URL, { fnr }),
-    expectedPayload: mockAktoerId,
+    expectedPayload: context === "aktoerId" ? mockAktoerId : mockAvdodAktoerId,
     context: context,
     type: {
       request: types.PERSON_AKTOERID_REQUEST,

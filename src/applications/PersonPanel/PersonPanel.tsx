@@ -59,7 +59,7 @@ export const PersonPanel = (): JSX.Element => {
   }
 
   useEffect(() => {
-    if (aktoerId && pesysContext && !personPdl) {
+    if (aktoerId && pesysContext) {
       dispatch(getPersonInfo(aktoerId))
       if (pesysContext === VEDTAKSKONTEKST && !!vedtakId) {
         dispatch(getPersonAvdodInfo(aktoerId, vedtakId, featureToggles.NR_AVDOD as number | undefined))
