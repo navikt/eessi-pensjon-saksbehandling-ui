@@ -275,7 +275,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
   const onForwardButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     setShowWarningBucDeceased(false)
     dispatch(cleanNewlyCreatedBuc())
-    if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods && personAvdods.length === 0) {
+    if (_buc === 'P_BUC_02' && (pesysContext === constants.VEDTAKSKONTEKST ||  pesysContext === constants.GJENNY) && personAvdods && personAvdods.length === 0) {
       setShowWarningBucDeceased(true)
       return
     }
@@ -446,7 +446,7 @@ const BUCStart: React.FC<BUCStartProps> = ({
 
   useEffect(() => {
     if (bucsThatSupportAvdod(_buc) &&
-      pesysContext === constants.VEDTAKSKONTEKST &&
+      (pesysContext === constants.VEDTAKSKONTEKST || pesysContext === constants.GJENNY) &&
       personAvdods &&
       personAvdods.length === 1 &&
       !_avdod
