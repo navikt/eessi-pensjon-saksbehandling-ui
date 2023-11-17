@@ -299,21 +299,24 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const sedNeedsKravOm = (sed: string) => ['P15000'].indexOf(sed) >= 0
 
-  const sedNeedsKravdato = (sed: string) => ['P15000'].indexOf(sed) >= 0
+  const sedNeedsKravdato = (sed: string) => ['P2100','P15000'].indexOf(sed) >= 0
 
   const bucRequiresP6000s = (buc: Buc) => ['P_BUC_05', 'P_BUC_06', 'P_BUC_10'].indexOf(buc.type!) < 0
 
-  const sedNeedsAvdodBrukerQuestion = (): boolean => _type === 'P_BUC_05' && _sed === 'P8000' &&
-    (pesysContext !== VEDTAKSKONTEKST
-      ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
-      : (personAvdods?.length === 1
-          ? (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP || sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP)
-          : (personAvdods?.length === 2
-              ? (sakType === SakTypeMap.BARNEP)
-              : false
-            )
-        )
-    )
+  const sedNeedsAvdodBrukerQuestion = (): boolean => {
+    if(_type === 'P_BUC_05' && _sed === 'P8000'){
+      if(pesysContext !== VEDTAKSKONTEKST && pesysContext !== GJENNY){
+        return (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)
+      } else {
+        if(personAvdods?.length === 1){
+          return (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP || sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP || sakType === SakTypeMap.OMSST)
+        } else if(personAvdods?.length === 2){
+          return (sakType === SakTypeMap.BARNEP)
+        }
+      }
+    }
+    return false
+  }
 
   // if SED has a prefilled avdod and supports avdod, then let's render avdod name
   const sedHasFixedAvdod = (): boolean => !!(_avdod && sedSupportsAvdod())
