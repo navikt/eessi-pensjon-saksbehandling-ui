@@ -34,7 +34,7 @@ import { HorizontalLineSeparator } from 'components/StyledComponents'
 import ValidationBox from 'components/ValidationBox/ValidationBox'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
-import { VEDTAKSKONTEKST } from 'constants/constants'
+import {GJENNY, VEDTAKSKONTEKST} from 'constants/constants'
 import { IS_TEST } from 'constants/environment'
 import {
   AllowedLocaleString,
@@ -1063,7 +1063,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               />
             </>
           )}
-          {_sed && sedNeedsKravOm(_sed) && (
+          {_sed && sedNeedsKravOm(_sed) && pesysContext !== GJENNY && (
             <>
               <VerticalSeparatorDiv />
               <RadioGroup
