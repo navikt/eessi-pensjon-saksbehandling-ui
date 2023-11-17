@@ -86,7 +86,6 @@ const BUCStartIndex: React.FC<BUCStartIndexProps> = ({
 }: BUCStartIndexProps): JSX.Element | null => {
   const {pesysContext}: BUCStartIndexSelector = useSelector<State, BUCStartIndexSelector>(mapState)
 
-  console.log(pesysContext)
   return(
     pesysContext === GJENNY ?
       <BUCStartGjenny
