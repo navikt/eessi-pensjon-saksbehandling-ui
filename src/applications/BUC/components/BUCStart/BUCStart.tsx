@@ -40,8 +40,6 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
-import {GJENNY} from "constants/constants";
-import {getBucOptionsGjenny} from "../../../../actions/gjenny";
 import {BUCStartIndexProps, BUCStartSelector, mapBUCStartState} from "./BUCStartIndex";
 
 const FlexDiv = styled.div`
@@ -226,7 +224,7 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
   const onForwardButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     setShowWarningBucDeceased(false)
     dispatch(cleanNewlyCreatedBuc())
-    if (_buc === 'P_BUC_02' && (pesysContext === constants.VEDTAKSKONTEKST ||  pesysContext === constants.GJENNY) && personAvdods && personAvdods.length === 0) {
+    if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods && personAvdods.length === 0) {
       setShowWarningBucDeceased(true)
       return
     }
@@ -382,10 +380,8 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
   const avdodOptions: Array<Option> = renderAvdodOptions(personAvdods)
 
   useEffect(() => {
-    if (bucOptions === undefined && !loading.gettingBucOptions && pesysContext !== GJENNY) {
+    if (bucOptions === undefined && !loading.gettingBucOptions) {
       dispatch(getBucOptions(featureToggles, pesysContext as PesysContext, sakType as SakTypeValue))
-    } else if(bucOptions === undefined && !loading.gettingBucOptions && pesysContext === GJENNY){
-      dispatch(getBucOptionsGjenny())
     }
   }, [bucOptions, dispatch, loading.gettingBucOptions, pesysContext, sakType])
 
@@ -397,7 +393,7 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
 
   useEffect(() => {
     if (bucsThatSupportAvdod(_buc) &&
-      (pesysContext === constants.VEDTAKSKONTEKST || pesysContext === constants.GJENNY) &&
+      pesysContext === constants.VEDTAKSKONTEKST &&
       personAvdods &&
       personAvdods.length === 1 &&
       !_avdod

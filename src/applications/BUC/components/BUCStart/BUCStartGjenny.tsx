@@ -1,9 +1,7 @@
-import { Alert, BodyLong, Button, HelpText, Loader, TextField } from '@navikt/ds-react'
+import { Alert, BodyLong, Button, Loader } from '@navikt/ds-react'
 import {
   cleanNewlyCreatedBuc,
   createBuc,
-  fetchKravDato,
-  getBucOptions,
   getTagList,
   resetBuc,
   saveBucsInfo
@@ -12,45 +10,28 @@ import { bucsThatSupportAvdod, getBucTypeLabel, valueSorter } from 'applications
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
 import ValidationBox from 'components/ValidationBox/ValidationBox'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import * as constants from 'constants/constants'
 import {
   ErrorElement,
   Option,
-  PesysContext,
   Validation
 } from 'declarations/app.d'
 import {
   Buc,
   NewBucPayload,
-  SakTypeMap,
-  SakTypeValue,
   SaveBucsInfoProps,
   Tag,
   Tags
 } from 'declarations/buc.d'
-import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
+import { PersonAvdod } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
-import moment from 'moment'
 import { Column, HorizontalSeparatorDiv, Row, VerticalSeparatorDiv } from '@navikt/hoykontrast'
-import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components/macro'
-import {GJENNY} from "constants/constants";
 import {getBucOptionsGjenny} from "../../../../actions/gjenny";
 import {BUCStartIndexProps, BUCStartSelector, mapBUCStartState} from "./BUCStartIndex";
-
-const FlexDiv = styled.div`
-  display: flex;
-  align-items: flex-end;
-  .flex-2 {
-     flex: 2;
-  }
-`
 
 const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
   aktoerId,
@@ -61,74 +42,21 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
   onBucCancelled
 }: BUCStartIndexProps): JSX.Element | null => {
   const {
-    bucOptions, bucParam, bucs, bucsInfo, currentBuc, featureToggles,
-    kravDato, kravId, loading, locale, newlyCreatedBuc, personPdl, personAvdods,
-    pesysContext, sakId, sakType, subjectAreaList, tagList
+    bucOptions, bucParam, bucs, bucsInfo, currentBuc,
+    loading, locale, newlyCreatedBuc, personPdl, personAvdods,
+    pesysContext, subjectAreaList, tagList
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapBUCStartState)
 
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const [_avdod, setAvdod] = useState<PersonAvdod | undefined>(undefined)
-  const [_avdodFnr, setAvdodFnr] = useState<string | undefined>('')
   const [_buc, setBuc] = useState<string | null | undefined>(bucParam)
-  const [_kravDato, setKravDato] = useState<string>(kravDato || '')
   const [_isCreatingBuc, setIsCreatingBuc] = useState<boolean>(initialIsCreatingBuc)
   const [_isCreatingBucInfo, setIsCreatingBucInfo] = useState<boolean>(initialCreatingBucInfo)
-  const [_showWarningBuc01, setShowWarningBuc01] = useState<boolean>(false)
   const [_showWarningBucDeceased, setShowWarningBucDeceased] = useState<boolean>(false)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
   const [_tags, setTags] = useState<Tags>([])
   const [_validation, setValidation] = useState<Validation>({})
-
-  // BEGIN QUESTIONS
-
-  const avdodExists = (): boolean => (personAvdods ? personAvdods.length > 0 : false)
-
-  // show avdod select for P_BUC_02, P_BUC_05, P_BUC_06, P_BUC_10 and when there are avdods
-  const bucNeedsAvdod = (): boolean => {
-    return (
-      bucsThatSupportAvdod(_buc) && avdodExists() &&
-      (_buc === 'P_BUC_10'
-        ? pesysContext === constants.VEDTAKSKONTEKST && (
-            sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP ||
-          sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP)
-        : true
-      )
-    )
-  }
-
-  // when for some reason bucNeedsAvdod fails but we are still in P_BUC_10 (like having no avdød and in other contexts)
-  // then we can punch in the avdods fnr
-  const bucNeedsAvdodButWeHaveNone = (): boolean => {
-    return (
-      !bucNeedsAvdod() &&
-      (_buc === 'P_BUC_10' && (
-        sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP ||
-          sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP
-      )
-      )
-    )
-  }
-
-  // fetch krav dato for P_BUC_10 criteria
-  const bucNeedsKravDatoAndCanFetchIt = (buc: string | null | undefined): boolean => {
-    return !!(buc === 'P_BUC_10' &&
-        sakId && aktoerId && kravId &&
-        pesysContext === constants.VEDTAKSKONTEKST &&
-        (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP ||
-          sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP)
-    )
-  }
-
-  // show krav dato for P_BUC_10
-  const bucNeedsKravDato = (buc: string | null | undefined): boolean => {
-    return !!(buc === 'P_BUC_10' && sakId && aktoerId &&
-      (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP ||
-        sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP)
-    )
-  }
-
-  // END QUESTIONS
 
   const hasNoValidationErrors = (validation: Validation): boolean => {
     return _.find(validation, (it) => (it !== undefined)) === undefined
@@ -140,26 +68,6 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
       newValidation[_key] = undefined
       setValidation(newValidation)
     }
-  }
-
-  const validateAvdod = (avdod: PersonAvdod | undefined): ErrorElement | undefined => {
-    if (!avdod) {
-      return {
-        skjemaelementId: 'a_buc_c_BUCStart--avdod-select-id',
-        feilmelding: t('message:validation-chooseAvdod')
-      } as ErrorElement
-    }
-    return undefined
-  }
-
-  const validateAvdodFnr = (avdodFnr: string | undefined): ErrorElement | undefined => {
-    if (avdodFnr && !(avdodFnr.length === 11 && avdodFnr.match(/\d{11}/))) {
-      return {
-        skjemaelementId: 'a_buc_c_BUCStart--avdod-input-id',
-        feilmelding: t('message:validation-badAvdodFnr')
-      } as ErrorElement
-    }
-    return undefined
   }
 
   const validateBuc = (buc: string | null | undefined): ErrorElement | undefined => {
@@ -182,35 +90,10 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
     return undefined
   }
 
-  const validateKravDato = (kravDato: string | undefined): ErrorElement | undefined => {
-    if (kravDato && !kravDato.match(/\d{2}-\d{2}-\d{4}/)) {
-      return {
-        skjemaelementId: 'a_buc_c_sedstart--kravDato-input-id',
-        feilmelding: t('message:validation-badKravDato')
-      } as ErrorElement
-    }
-    if (kravDato && !moment(kravDato, 'DD-MM-ÅÅÅÅ').isValid()) {
-      return {
-        feilmelding: t('message:validation-invalidKravDato'),
-        skjemaelementId: 'a_buc_c_sedstart--kravDato-input-id'
-      } as ErrorElement
-    }
-    return undefined
-  }
-
   const performValidation = () :boolean => {
     const validation: Validation = {}
     validation.subjectArea = validateSubjectArea(_subjectArea)
     validation.buc = validateBuc(_buc)
-    if (bucNeedsAvdod()) {
-      validation.avdod = validateAvdod(_avdod)
-    }
-    if (bucNeedsAvdodButWeHaveNone()) {
-      validation.avdodFnr = validateAvdodFnr(_avdodFnr)
-    }
-    if (bucNeedsKravDato(_buc)) {
-      validation.kravDato = validateKravDato(_kravDato)
-    }
     setValidation(validation)
     return hasNoValidationErrors(validation)
   }
@@ -218,10 +101,7 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
   const onForwardButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     setShowWarningBucDeceased(false)
     dispatch(cleanNewlyCreatedBuc())
-    if (_buc === 'P_BUC_02' && (pesysContext === constants.VEDTAKSKONTEKST ||  pesysContext === constants.GJENNY) && personAvdods && personAvdods.length === 0) {
-      setShowWarningBucDeceased(true)
-      return
-    }
+
     const valid: boolean = performValidation()
     if (valid) {
       buttonLogger(e, {
@@ -233,16 +113,7 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
         buc: _buc!,
         person: personPdl!
       }
-      if (bucNeedsAvdod()) {
-        payload.avdod = _avdod
-      }
-      if (bucNeedsAvdodButWeHaveNone() && _avdodFnr) {
-        payload.avdodfnr = _avdodFnr
-      }
-      if (bucNeedsKravDato(_buc) && _kravDato) {
-        // change 15-12-2020 to 2020-12-15
-        payload.kravDato = _kravDato.split('-').reverse().join('-')
-      }
+      payload.avdod = _avdod
       dispatch(createBuc(payload))
     }
   }
@@ -251,7 +122,6 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
     buttonLogger(e)
     dispatch(resetBuc())
     setBuc(bucParam)
-    setKravDato('')
     setAvdod(undefined)
     onBucCancelled()
   }
@@ -269,19 +139,6 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
       const thisBuc: string = (option as Option).value
       setBuc(thisBuc)
       updateValidation('buc', validateBuc(thisBuc))
-      if (bucNeedsKravDatoAndCanFetchIt(thisBuc)) {
-        setKravDato('')
-        dispatch(fetchKravDato({
-          sakId,
-          aktoerId,
-          kravId
-        }))
-      }
-      if (thisBuc === 'P_BUC_01' && sakType === SakTypeMap.UFOREP) {
-        setShowWarningBuc01(true)
-      } else {
-        setShowWarningBuc01(false)
-      }
       if (onBucChanged) {
         onBucChanged(option as Option)
       }
@@ -291,12 +148,6 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
   const onTagsChange = (tagsList: unknown): void => {
     setTags(tagsList as Tags)
     standardLogger('buc.new.tags.select', { tags: (tagsList as unknown as Tags)?.map(t => t.label) || [] })
-  }
-
-  const onKravDatoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newKravDato = e.target.value
-    updateValidation('kravDato', undefined)
-    setKravDato(newKravDato)
   }
 
   const getOptionLabel = (value: string): string => {
@@ -342,44 +193,11 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
       })
     : []
 
-  const onAvdodChange = (option: unknown): void => {
-    if (option) {
-      const thisAvdod: PersonAvdod | undefined = _.find(personAvdods,
-        (avdod: PersonAvdod) => {
-          const id: string | undefined = avdod.fnr
-          return id === (option as Option).value
-        }
-      )
-      setAvdod(thisAvdod)
-      updateValidation('avdod', validateAvdod(thisAvdod))
-    }
-  }
-
-  const onAvdodFnrChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const avdodFnr = e.target.value
-    setAvdodFnr(avdodFnr)
-    updateValidation('avdodFnr', validateAvdodFnr(avdodFnr))
-  }
-
-  const renderAvdodOptions = (personAvdods: PersonAvdods | undefined): Array<Option> => {
-    return personAvdods?.map((avdod: PersonAvdod) => {
-      const fnr: string | undefined = avdod.fnr
-      return {
-        label: avdod.fulltNavn + ' (' + fnr + ')',
-        value: fnr!
-      }
-    }) || []
-  }
-
-  const avdodOptions: Array<Option> = renderAvdodOptions(personAvdods)
-
   useEffect(() => {
-    if (bucOptions === undefined && !loading.gettingBucOptions && pesysContext !== GJENNY) {
-      dispatch(getBucOptions(featureToggles, pesysContext as PesysContext, sakType as SakTypeValue))
-    } else if(bucOptions === undefined && !loading.gettingBucOptions && pesysContext === GJENNY){
+    if(bucOptions === undefined && !loading.gettingBucOptions){
       dispatch(getBucOptionsGjenny())
     }
-  }, [bucOptions, dispatch, loading.gettingBucOptions, pesysContext, sakType])
+  }, [bucOptions, loading.gettingBucOptions])
 
   useEffect(() => {
     if (tagList === undefined && !loading.gettingTagList) {
@@ -389,7 +207,6 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
 
   useEffect(() => {
     if (bucsThatSupportAvdod(_buc) &&
-      (pesysContext === constants.VEDTAKSKONTEKST || pesysContext === constants.GJENNY) &&
       personAvdods &&
       personAvdods.length === 1 &&
       !_avdod
@@ -407,12 +224,7 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
         tags: _tags.map((t: Tag) => t.value),
         buc
       } as SaveBucsInfoProps
-      if (bucNeedsAvdod() && _avdod) {
-        payload.avdod = _avdod.fnr
-      }
-      if (bucNeedsKravDato(newlyCreatedBuc.type)) {
-        payload.kravDato = _kravDato
-      }
+      payload.avdod = _avdod?.fnr
       dispatch(saveBucsInfo(payload))
       setIsCreatingBucInfo(true)
     }
@@ -427,13 +239,6 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
       onBucCreated()
     }
   }, [_isCreatingBucInfo, newlyCreatedBuc, onBucCreated, loading.savingBucsInfo])
-
-  useEffect(() => {
-    if (kravDato) {
-      const bucKravDato = kravDato.split('-').reverse().join('-')
-      setKravDato(bucKravDato)
-    }
-  }, [kravDato])
 
   return (
     <div data-testid='a_buc_c_BUCStart'>
@@ -472,68 +277,6 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
               value={_.find(bucListOptions, (b: Option) => b.value === _buc)}
             />
           </>
-          {bucNeedsAvdod() && (
-            <>
-              <VerticalSeparatorDiv />
-              <label className='navds-text-field--label navds-label'>
-                {t('buc:form-chooseAvdod')}
-              </label>
-              <Select
-                data-testid='a_buc_c_BUCStart--avdod-select-id'
-                error={_validation.avdod ? t(_validation.avdod.feilmelding) : undefined}
-                id='a_buc_c_BUCStart--avdod-select-id'
-                isSearchable
-                menuPortalTarget={document.getElementById('main')}
-                onChange={onAvdodChange}
-                options={avdodOptions}
-                value={_.find(avdodOptions, (f: any) => _avdod?.fnr === f.value) || null}
-              />
-            </>
-          )}
-          {bucNeedsAvdodButWeHaveNone() && (
-            <>
-              <VerticalSeparatorDiv />
-              <FlexDiv>
-                <TextField
-                  className='flex-2'
-                  data-testid='a_buc_c_BUCStart--avdod-input-id'
-                  id='a_buc_c_BUCStart--avdod-input-id'
-                  label={t('buc:form-avdod')}
-                  value={_avdodFnr}
-                  onChange={onAvdodFnrChange}
-                  description={t('buc:form-fnrdnr')}
-                  error={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : undefined}
-                />
-                <HorizontalSeparatorDiv size='0.5' />
-                <HelpText>
-                  {t('message:help-avdodFnr')}
-                </HelpText>
-              </FlexDiv>
-            </>
-          )}
-          {bucNeedsKravDato(_buc) && (
-            <>
-              <VerticalSeparatorDiv />
-              <FlexDiv>
-                <TextField
-                  data-testid='a_buc_c_BUCStart--kravDato-input-id'
-                  id='a_buc_c_BUCStart--kravDato-input-id'
-                  label={t('buc:form-kravDato') + '(' + t('buc:form-kravDatoPlaceholder') + ')'}
-                  value={_kravDato}
-                  onChange={onKravDatoChange}
-                  error={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
-                />
-                {loading.gettingKravDato
-                  ? (
-                    <>
-                      <HorizontalSeparatorDiv />
-                      <WaitingPanel size='xsmall' oneLine />
-                    </>
-                    )
-                  : undefined}
-              </FlexDiv>
-            </>
-          )}
         </Column>
         <HorizontalSeparatorDiv size='2' />
         <Column>
@@ -582,32 +325,13 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
           </Row>
         </>
       )}
-      {_showWarningBuc01 && (
-        <>
-          <VerticalSeparatorDiv size='2' />
-          <Row>
-            <Column>
-              <Alert
-                variant='warning'
-                data-testid='a_buc_c_BUCStart--warning-id'
-              >
-                <BodyLong>
-                  {t('message:warning-P_BUC_01-uføretrygd')}
-                </BodyLong>
-              </Alert>
-            </Column>
-            <HorizontalSeparatorDiv size='2' />
-            <Column />
-          </Row>
-        </>
-      )}
       <VerticalSeparatorDiv size='2' />
       <div data-testid='a_buc_c_BUCStart--buttons-id'>
         <Button
           variant='primary'
           data-amplitude='buc.new.create'
           data-testid='a_buc_c_BUCStart--forward-button-id'
-          disabled={_isCreatingBuc || _showWarningBuc01}
+          disabled={_isCreatingBuc}
           onClick={onForwardButtonClick}
         >
           {_isCreatingBuc && <Loader />}
@@ -640,14 +364,6 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
       )}
     </div>
   )
-}
-
-BUCStartGjenny.propTypes = {
-  aktoerId: PT.string.isRequired,
-  initialCreatingBucInfo: PT.bool,
-  initialIsCreatingBuc: PT.bool,
-  onBucCreated: PT.func.isRequired,
-  onBucCancelled: PT.func.isRequired
 }
 
 export default BUCStartGjenny
