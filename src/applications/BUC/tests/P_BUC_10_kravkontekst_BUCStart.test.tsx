@@ -1,5 +1,5 @@
 import { createBuc } from 'actions/buc'
-import BUCStart, { BUCStartProps, BUCStartSelector } from 'applications/BUC/components/BUCStart/BUCStart'
+import BUCStart, { BUCStartProps } from 'applications/BUC/components/BUCStart/BUCStart'
 import * as constants from 'constants/constants'
 import { AllowedLocaleString } from 'declarations/app'
 import { SakTypeMap } from 'declarations/buc.d'
@@ -8,6 +8,7 @@ import mockFeatureToggles from 'mocks/app/featureToggles'
 import mockSubjectAreaList from 'mocks/buc/subjectAreaList'
 import mockTagsList from 'mocks/buc/tagsList'
 import { stageSelector } from 'setupTests'
+import {BUCStartSelector} from "applications/BUC/components/BUCStart/BUCStartIndex";
 
 jest.mock('actions/buc', () => ({
   cleanNewlyCreatedBuc: jest.fn(),

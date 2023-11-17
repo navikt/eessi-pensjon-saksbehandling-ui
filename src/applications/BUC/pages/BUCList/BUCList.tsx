@@ -3,7 +3,7 @@ import {
 } from 'actions/buc'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
-import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
+import BUCStartIndex from 'applications/BUC/components/BUCStart/BUCStartIndex'
 import { bucFilter, bucSorter, pbuc02filter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import classNames from 'classnames'
 import { HorizontalLineSeparator } from 'components/StyledComponents'
@@ -181,7 +181,7 @@ const BUCList: React.FC<BUCListProps> = ({
             {t('buc:step-startBUCTitle')}
           </Heading>
           <HorizontalLineSeparator />
-          <BUCStart
+          <BUCStartIndex
             aktoerId={aktoerId}
             onBucCreated={() => {
               setNewBucPanelOpen(false)

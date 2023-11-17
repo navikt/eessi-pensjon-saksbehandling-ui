@@ -51,16 +51,8 @@ const FlexDiv = styled.div`
      flex: 2;
   }
 `
-export interface BUCStartProps {
-  aktoerId: string | null | undefined
-  initialCreatingBucInfo?: boolean
-  initialIsCreatingBuc?: boolean
-  onBucChanged?: (option: Option) => void
-  onBucCreated: () => void
-  onBucCancelled: () => void
-}
 
-const BUCStart: React.FC<BUCStartIndexProps> = ({
+const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
   aktoerId,
   initialIsCreatingBuc = false,
   initialCreatingBucInfo = false,
@@ -650,7 +642,7 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
   )
 }
 
-BUCStart.propTypes = {
+BUCStartGjenny.propTypes = {
   aktoerId: PT.string.isRequired,
   initialCreatingBucInfo: PT.bool,
   initialIsCreatingBuc: PT.bool,
@@ -658,4 +650,4 @@ BUCStart.propTypes = {
   onBucCancelled: PT.func.isRequired
 }
 
-export default BUCStart
+export default BUCStartGjenny
