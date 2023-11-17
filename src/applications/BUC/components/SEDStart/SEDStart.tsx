@@ -427,7 +427,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }, [_validation])
 
   const validateKravDato = (kravDato: string | undefined): ErrorElement | undefined => {
-    if ((!kravDato || kravDato?.length === 0) && pesysContext === VEDTAKSKONTEKST) {
+    if ((!kravDato || kravDato?.length === 0) && (pesysContext === VEDTAKSKONTEKST || pesysContext === GJENNY)) {
       return {
         feilmelding: t('message:validation-chooseKravDato'),
         skjemaelementId: 'a_buc_c_sedstart--kravDato-input-id'
