@@ -131,10 +131,6 @@ const BUCList: React.FC<BUCListProps> = ({
       _setPBuc02filteredBucs(pBuc02filteredBucs)
       const sortedBucs = pBuc02filteredBucs.sort(bucSorter)
       _setSortedBucs(sortedBucs)
-
-      console.log("FILTERED BUCS:", filteredBucs)
-      console.log("FILTERED P_BUC_02 BUCS:", pBuc02filteredBucs)
-
     }
   }, [bucs])
 
