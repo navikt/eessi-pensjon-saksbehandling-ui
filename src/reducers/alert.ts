@@ -107,12 +107,15 @@ const alertReducer = (state: AlertState = initialAlertState, action: AnyAction) 
     stripeStatus = 'error'
     switch (action.type) {
       case types.BUC_CREATE_BUC_FAILURE:
+      case types.GJENNY_CREATE_BUC_FAILURE:
         stripeMessage = i18n.t('message:alert-createBucFailure')
         bannerMessage = i18n.t('message:alert-createBucFailure')
         break
 
       case types.BUC_CREATE_SED_FAILURE:
       case types.BUC_CREATE_REPLY_SED_FAILURE:
+      case types.GJENNY_CREATE_SED_FAILURE:
+      case types.GJENNY_CREATE_REPLY_SED_FAILURE:
         stripeMessage = i18n.t('message:alert-createSedFailure')
         bannerMessage = i18n.t('message:alert-createSedFailure')
         break
@@ -206,7 +209,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: AnyAction) 
 
   switch (action.type) {
     case types.BUC_CREATE_BUC_SUCCESS:
-
+    case types.GJENNY_CREATE_BUC_SUCCESS:
       bannerMessage = i18n.t('message:alert-createdBuc', { type: (action as ActionWithPayload).payload.type })
       dealWithBanner = true
       break
@@ -217,7 +220,9 @@ const alertReducer = (state: AlertState = initialAlertState, action: AnyAction) 
       break
 
     case types.BUC_CREATE_SED_SUCCESS:
-    case types.BUC_CREATE_REPLY_SED_SUCCESS: {
+    case types.BUC_CREATE_REPLY_SED_SUCCESS:
+    case types.GJENNY_CREATE_SED_SUCCESS:
+    case types.GJENNY_CREATE_REPLY_SED_SUCCESS: {
       const message = ((action as ActionWithPayload).payload as Sed).message
       bannerMessage = i18n.t('message:alert-createdSed', {
         sed: (((action as ActionWithPayload).payload as Sed).type),
