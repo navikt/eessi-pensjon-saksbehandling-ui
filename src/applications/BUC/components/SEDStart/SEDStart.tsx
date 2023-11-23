@@ -303,6 +303,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const bucRequiresP6000s = (buc: Buc) => ['P_BUC_05', 'P_BUC_06', 'P_BUC_10'].indexOf(buc.type!) < 0
 
+  const showVedtakIdField = (sed: string) => sedNeedsVedtakId.indexOf(sed) >= 0 && pesysContext !== GJENNY
+
   const sedNeedsAvdodBrukerQuestion = (): boolean => {
     if(_type === 'P_BUC_05' && _sed === 'P8000'){
       if(pesysContext !== VEDTAKSKONTEKST && pesysContext !== GJENNY){
@@ -727,7 +729,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     validation.institution = validateInstitutions(_institutions)
     validation.country = validateCountries(_countries)
 
-    if (_sed && sedNeedsVedtakId.indexOf(_sed) >= 0) {
+    if (_sed && showVedtakIdField(_sed)) {
       validation.vedtakid = validateVedtakId(_vedtakId)
     }
     if (sedNeedsAvdodBrukerQuestion()) {
@@ -980,7 +982,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           })}
       </Heading>
       <HorizontalLineSeparator />
-      {!vedtakId && _sed === 'P6000' && (
+      {!vedtakId && _sed === 'P6000' && pesysContext !== GJENNY && (
         <FullWidthDiv>
           <AlertDiv>
             <Alert variant='warning'>
@@ -1008,7 +1010,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               value={_.find(_sedOptions, (f: any) => f.value === _sed) || null}
             />
           </>
-          {_sed && sedNeedsVedtakId.indexOf(_sed) >= 0 && (
+          {_sed && showVedtakIdField(_sed) && (
             <>
               <VerticalSeparatorDiv />
               <TextField
