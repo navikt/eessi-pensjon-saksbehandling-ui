@@ -30,6 +30,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import dateDiff, { FormattedDateDiff } from 'utils/dateDiff'
 import * as Moment from 'moment'
+import {GJENNY} from "constants/constants";
+import {sendP5000toRinaGjenny} from "../../../actions/gjenny";
 const moment = extendMoment(Moment)
 
 export interface P5000EditControlsSelector {
@@ -212,7 +214,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         payload.pensjon.medlemskapboarbeid.medlemskap[i] = period
       })
       if (window.confirm(t('buc:form-areYouSureSendToRina'))) {
-        dispatch(sendP5000toRina(caseId, sedId, payload))
+        pesysContext !== GJENNY ? dispatch(sendP5000toRina(caseId, sedId, payload)) : dispatch(sendP5000toRinaGjenny(caseId, sedId, payload))
       }
     }
   }

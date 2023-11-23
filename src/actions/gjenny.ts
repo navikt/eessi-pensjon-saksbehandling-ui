@@ -8,6 +8,7 @@ import mockBucOptionsGjenny from "../mocks/gjenny/bucOptionsGjenny";
 import mockCreateSed from "../mocks/buc/createSed";
 import {Action} from "redux";
 import mockCreateBuc from "../mocks/buc/createBuc";
+import {P5000SED} from "../declarations/p5000";
 
 const sprintf = require('sprintf-js').sprintf
 
@@ -116,6 +117,28 @@ export const createReplySedGjenny = (
       request: types.GJENNY_CREATE_REPLY_SED_REQUEST,
       success: types.GJENNY_CREATE_REPLY_SED_SUCCESS,
       failure: types.GJENNY_CREATE_REPLY_SED_FAILURE
+    }
+  })
+}
+
+export const sendP5000toRinaGjenny = (
+  caseId: string, sedId: string, payload: P5000SED
+): Action => {
+  return call({
+    url: sprintf(urls.GJENNY_P5000_PUT_URL, { caseId, sedId }),
+    method: 'PUT',
+    body: payload,
+    cascadeFailureError: true,
+    expectedPayload: { success: true },
+    context: {
+      caseId,
+      sedId,
+      payload
+    },
+    type: {
+      request: types.P5000_SEND_REQUEST,
+      success: types.P5000_SEND_SUCCESS,
+      failure: types.P5000_SEND_FAILURE
     }
   })
 }
