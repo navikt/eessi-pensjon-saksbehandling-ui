@@ -1,10 +1,13 @@
 import {ActionWithPayload, call} from "@navikt/fetch";
-import {BUCOptions, Bucs} from "../declarations/buc";
+import {Buc, BUCOptions, Bucs, NewBucPayload, NewSedPayload, Sed} from "../declarations/buc";
 import * as urls from "../constants/urls";
 import mockBucsGjenlevende from 'mocks/buc/bucsListGjenlevende'
 import mockBucsAvdod from 'mocks/buc/bucsListAvdod'
 import * as types from "../constants/actionTypes";
 import mockBucOptionsGjenny from "../mocks/gjenny/bucOptionsGjenny";
+import mockCreateSed from "../mocks/buc/createSed";
+import {Action} from "redux";
+import mockCreateBuc from "../mocks/buc/createBuc";
 
 const sprintf = require('sprintf-js').sprintf
 
@@ -46,6 +49,73 @@ export const getBucOptionsGjenny = (): ActionWithPayload<BUCOptions> => {
       request: types.GJENNY_GET_BUC_OPTIONS_REQUEST,
       success: types.GJENNY_GET_BUC_OPTIONS_SUCCESS,
       failure: types.GJENNY_GET_BUC_OPTIONS_FAILURE
+    }
+  })
+}
+
+export const createBucGjenny = (
+  params: NewBucPayload
+): Action => {
+  return call({
+    url: sprintf(urls.GJENNY_CREATE_BUC_URL, { buc: params.buc }),
+    method: 'POST',
+    //  these are params collected on create BUC and have to be passed later so that
+    // create SED either just displays them, or decides if should ask for them again
+    context: {
+      avdod: params.avdod,
+      avdodfnr: params.avdodfnr,
+      person: params.person,
+      kravDato: params.kravDato
+    },
+    cascadeFailureError: true,
+    expectedPayload: mockCreateBuc(params.buc),
+    type: {
+      request: types.GJENNY_CREATE_BUC_REQUEST,
+      success: types.GJENNY_CREATE_BUC_SUCCESS,
+      failure: types.GJENNY_CREATE_BUC_FAILURE
+    }
+  })
+}
+
+
+export const createSedGjenny = (
+  buc: Buc, payload: NewSedPayload
+): ActionWithPayload<Sed> => {
+  return call({
+    url: urls.GJENNY_CREATE_SED_URL,
+    payload,
+    context: {
+      buc,
+      sed: payload
+    },
+    expectedPayload: mockCreateSed(payload),
+    cascadeFailureError: true,
+    method: 'POST',
+    type: {
+      request: types.GJENNY_CREATE_SED_REQUEST,
+      success: types.GJENNY_CREATE_SED_SUCCESS,
+      failure: types.GJENNY_CREATE_SED_FAILURE
+    }
+  })
+}
+
+export const createReplySedGjenny = (
+  buc: Buc, payload: NewSedPayload, parentId: string
+): ActionWithPayload<Sed> => {
+  return call({
+    url: sprintf(urls.GJENNY_CREATE_REPLY_SED_URL, { parentId }),
+    payload,
+    context: {
+      buc,
+      sed: payload
+    },
+    expectedPayload: mockCreateSed(payload),
+    cascadeFailureError: true,
+    method: 'POST',
+    type: {
+      request: types.GJENNY_CREATE_REPLY_SED_REQUEST,
+      success: types.GJENNY_CREATE_REPLY_SED_SUCCESS,
+      failure: types.GJENNY_CREATE_REPLY_SED_FAILURE
     }
   })
 }

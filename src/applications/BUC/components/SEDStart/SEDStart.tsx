@@ -87,6 +87,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { GroupBase } from 'react-select'
 import styled from 'styled-components/macro'
+import {createReplySedGjenny, createSedGjenny} from "actions/gjenny";
 
 const AlertDiv = styled.div`
   display: flex;
@@ -793,9 +794,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         payload.payload = JSON.stringify(_p6000s)
       }
       if (currentSed) {
-        dispatch(createReplySed(_buc, payload, currentSed.id))
+        pesysContext !== GJENNY ? dispatch(createReplySed(_buc, payload, currentSed.id)) : dispatch(createReplySedGjenny(_buc, payload, currentSed.id))
       } else {
-        dispatch(createSed(_buc, payload))
+        pesysContext !== GJENNY ? dispatch(createSed(_buc, payload)) : dispatch(createSedGjenny(_buc, payload))
       }
       buttonLogger(e, loggerPayload)
     }

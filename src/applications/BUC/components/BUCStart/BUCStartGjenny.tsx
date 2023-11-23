@@ -1,7 +1,6 @@
 import { Alert, BodyLong, Button, Loader } from '@navikt/ds-react'
 import {
   cleanNewlyCreatedBuc,
-  createBuc,
   getTagList,
   resetBuc,
   saveBucsInfo
@@ -30,7 +29,7 @@ import { Column, HorizontalSeparatorDiv, Row, VerticalSeparatorDiv } from '@navi
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import {getBucOptionsGjenny} from "../../../../actions/gjenny";
+import {createBucGjenny, getBucOptionsGjenny} from "actions/gjenny";
 import {BUCStartIndexProps, BUCStartSelector, mapBUCStartState} from "./BUCStartIndex";
 
 const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
@@ -114,7 +113,7 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
         person: personPdl!
       }
       payload.avdod = _avdod
-      dispatch(createBuc(payload))
+      dispatch(createBucGjenny(payload))
     }
   }
 

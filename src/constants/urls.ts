@@ -76,7 +76,11 @@ export const API_PAGENOTIFICATION_GET_URL = API_URL + '/storage/get/EP___PAGE___
 export const API_PAGENOTIFICATION_POST_URL = API_URL + '/storage/EP___PAGE___NOTIFICATION'
 export const API_PAGENOTIFICATION_DELETE_URL = API_URL + '/storage/EP___PAGE___NOTIFICATION'
 
-//Gjennycontroller
+//GjennyController
 export const GJENNY_GET_BUCSLIST_GJENLEVENDE_URL = GJENNY_URL + '/rinasaker/%(aktoerId)s'
 export const GJENNY_GET_BUCSLIST_FOR_AVDOD_URL = GJENNY_URL + '/rinasaker/%(aktoerId)s/avdodfnr/%(avdodFnr)s'
 export const GJENNY_GET_BUC_OPTIONS_URL = GJENNY_URL + '/bucs'
+export const GJENNY_CREATE_BUC_URL = GJENNY_URL + '/buc/%(buc)s'
+export const GJENNY_CREATE_SED_URL = GJENNY_URL + '/sed/add'
+export const GJENNY_CREATE_REPLY_SED_URL = GJENNY_URL + '/sed/replysed/%(parentId)s'
+export const GJENNY_P5000_PUT_URL = GJENNY_URL + '/sed/document/%(caseId)s/%(sedId)s'

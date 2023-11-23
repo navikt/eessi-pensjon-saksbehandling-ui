@@ -158,7 +158,7 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
 
       // BUC
     case types.BUC_CREATE_BUC_REQUEST:
-
+    case types.GJENNY_CREATE_BUC_REQUEST:
       return {
         ...state,
         creatingBUC: true
@@ -166,7 +166,8 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
 
     case types.BUC_CREATE_BUC_SUCCESS:
     case types.BUC_CREATE_BUC_FAILURE:
-
+    case types.GJENNY_CREATE_BUC_SUCCESS:
+    case types.GJENNY_CREATE_BUC_FAILURE:
       return {
         ...state,
         creatingBUC: false
@@ -174,6 +175,8 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
 
     case types.BUC_CREATE_SED_REQUEST:
     case types.BUC_CREATE_REPLY_SED_REQUEST:
+    case types.GJENNY_CREATE_SED_REQUEST:
+    case types.GJENNY_CREATE_REPLY_SED_REQUEST:
       return {
         ...state,
         creatingSed: true
@@ -183,6 +186,10 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
     case types.BUC_CREATE_SED_FAILURE:
     case types.BUC_CREATE_REPLY_SED_SUCCESS:
     case types.BUC_CREATE_REPLY_SED_FAILURE:
+    case types.GJENNY_CREATE_SED_SUCCESS:
+    case types.GJENNY_CREATE_SED_FAILURE:
+    case types.GJENNY_CREATE_REPLY_SED_SUCCESS:
+    case types.GJENNY_CREATE_REPLY_SED_FAILURE:
 
       return {
         ...state,

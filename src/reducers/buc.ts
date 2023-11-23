@@ -118,20 +118,22 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
 
     case types.BUC_CREATE_BUC_REQUEST:
-
+    case types.GJENNY_CREATE_BUC_REQUEST:
       return {
         ...state,
         rinaId: undefined
       }
 
     case types.BUC_CREATE_BUC_FAILURE:
+    case types.GJENNY_CREATE_BUC_FAILURE:
       standardLogger('buc.new.create.failure')
       return {
         ...state,
         rinaId: undefined
       }
 
-    case types.BUC_CREATE_BUC_SUCCESS: {
+    case types.BUC_CREATE_BUC_SUCCESS:
+    case types.GJENNY_CREATE_BUC_SUCCESS: {
       const bucs = _.cloneDeep(state.bucs)
       const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
       const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload)
@@ -186,12 +188,14 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     }
 
     case types.BUC_CREATE_SED_FAILURE:
-
+    case types.GJENNY_CREATE_SED_FAILURE:
       standardLogger('sed.new.create.failure')
       return state
 
     case types.BUC_CREATE_SED_SUCCESS:
-    case types.BUC_CREATE_REPLY_SED_SUCCESS: {
+    case types.BUC_CREATE_REPLY_SED_SUCCESS:
+    case types.GJENNY_CREATE_SED_SUCCESS:
+    case types.GJENNY_CREATE_REPLY_SED_SUCCESS: {
       const newSed: Sed = (action as ActionWithPayload).payload as Sed
       const bucs = _.cloneDeep(state.bucs)
       const contextSed: NewSedPayload = (action as ActionWithPayload).context.sed
