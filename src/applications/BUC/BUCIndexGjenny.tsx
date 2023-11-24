@@ -34,6 +34,7 @@ export interface BUCIndexSelector {
   rinaUrl: RinaUrl | undefined
   aktoerId: string | null | undefined
   avdodAktoerId: string | null | undefined
+  avdodFnr: string | null | undefined
   sakType: string | null | undefined
   sakId: string | null | undefined
 }
@@ -42,6 +43,7 @@ const mapState = (state: State): BUCIndexSelector => ({
   rinaUrl: state.buc.rinaUrl,
   aktoerId: state.app.params.aktoerId,
   avdodAktoerId: state.app.params.avdodAktoerId,
+  avdodFnr: state.app.params.avdodFnr,
   sakType: state.app.params.sakType,
   sakId: state.app.params.sakId
 })
@@ -50,7 +52,7 @@ export const BUCIndexGjenny = (): JSX.Element => {
   const {
     rinaUrl,
     aktoerId,
-    avdodAktoerId,
+    avdodFnr,
     sakType,
     sakId
   }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
@@ -71,6 +73,12 @@ export const BUCIndexGjenny = (): JSX.Element => {
     dispatch(loadAllEntries())
     if (!rinaUrl) {
       dispatch(getRinaUrl())
+    }
+  },[])
+
+  useEffect(() => {
+    if(avdodFnr){
+      dispatch(getAktoerId(avdodFnr, "avdodAktoerId"))
     }
   },[])
 
@@ -121,7 +129,7 @@ export const BUCIndexGjenny = (): JSX.Element => {
 
   }
 
-  if (!aktoerId || !avdodAktoerId || !sakType || !sakId) {
+  if (!aktoerId || !avdodFnr || !sakType || !sakId) {
     return (
       <FrontpageDiv>
         <FrontpageForm>
