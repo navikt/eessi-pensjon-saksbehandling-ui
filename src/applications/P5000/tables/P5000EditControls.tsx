@@ -8,7 +8,7 @@ import {
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
 import { resetSentP5000info, sendP5000toRina, setGjpBpWarning } from 'actions/p5000'
-import { getGjpBp, getUFT } from 'actions/person'
+import {getGjpBp, getUFT, setGjpBp} from 'actions/person'
 import { listItemtoPeriod } from 'applications/P5000/utils/conversionUtils'
 import { ytelseType } from 'applications/P5000/P5000.labels'
 import P5000HelpModal from 'applications/P5000/components/P5000HelpModal'
@@ -16,7 +16,7 @@ import Modal from 'components/Modal/Modal'
 import Select from 'components/Select/Select'
 import { OneLineSpan } from 'components/StyledComponents'
 import * as constants from 'constants/constants'
-import { FeatureToggles, LocalStorageEntry, Option, Validation } from 'declarations/app'
+import { LocalStorageEntry, Option, Validation } from 'declarations/app'
 import { SakTypeMap, SakTypeValue } from 'declarations/buc.d'
 import { P5000sFromRinaMap } from 'declarations/p5000.d'
 import { P5000ListRow, P5000ListRows, P5000Period, P5000SED, P5000UpdatePayload } from 'declarations/p5000'
@@ -30,12 +30,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import dateDiff, { FormattedDateDiff } from 'utils/dateDiff'
 import * as Moment from 'moment'
-import {GJENNY} from "constants/constants";
+import {GJENNY, VEDTAKSKONTEKST} from "constants/constants";
 import {sendP5000toRinaGjenny} from "../../../actions/gjenny";
 const moment = extendMoment(Moment)
 
 export interface P5000EditControlsSelector {
-  featureToggles: FeatureToggles
   gettingUft: boolean
   gjpbp: Date | null | undefined
   gjpbpwarning: any | undefined
@@ -73,7 +72,6 @@ export interface P5000EditControlsProps {
 
 const mapState = (state: State): P5000EditControlsSelector => ({
   gettingUft: state.loading.gettingUft,
-  featureToggles: state.app.featureToggles,
   gjpbp: state.person.gjpbp,
   gjpbpwarning: state.p5000.gjpbpwarning,
   pesysContext: state.app.pesysContext,
@@ -110,7 +108,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const {
-    featureToggles, sentP5000info, sendingP5000info, gettingUft, uforetidspunkt,
+    sentP5000info, sendingP5000info, gettingUft, uforetidspunkt,
     virkningstidspunkt, gjpbp, gjpbpwarning, pesysContext, vedtakId, sakType
   }: P5000EditControlsSelector = useSelector<State, P5000EditControlsSelector>(mapState)
   const [_showModal, _setShowModal] = useState<boolean>(false)
@@ -180,6 +178,10 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
       setGjpBpWarning(undefined)
       setRequestingGjpBp(true)
       dispatch(getGjpBp(vedtakId, caseId))
+    } else if (pesysContext === GJENNY){
+      setGjpBpWarning(undefined)
+      setRequestingGjpBp(true)
+      dispatch(setGjpBp())
     }
   }
 
@@ -581,7 +583,11 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                </HelpText>
              </FlexBaseDiv>
           )}
-          {featureToggles.P5000_UPDATES_VISIBLE && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && pesysContext === constants.VEDTAKSKONTEKST && (
+
+          {(
+            pesysContext === GJENNY ||
+            ((sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && pesysContext === VEDTAKSKONTEKST)) &&
+            (
             <>
               <FlexBaseDiv>
                 <Button
@@ -599,10 +605,10 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
               </FlexBaseDiv>
               {!_.isNil(gjpbpwarning) && (
                 <>
-                  <VerticalSeparatorDiv />
                   <Alert variant={gjpbpwarning.type}>{gjpbpwarning.message}</Alert>
                 </>
               )}
+              <VerticalSeparatorDiv />
             </>
           )}
         </Column>
