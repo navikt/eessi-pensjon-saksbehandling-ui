@@ -6,6 +6,7 @@ import mockPerson from 'mocks/person/personPdl'
 import mockPersonAvdod from 'mocks/person/personAvdod'
 import mockUFT from 'mocks/person/uft'
 import mockGJPBP from 'mocks/person/gjpbp'
+import {Action} from "redux";
 const sprintf = require('sprintf-js').sprintf
 
 export const getPersonAvdodInfo = (
@@ -77,3 +78,9 @@ export const getGjpBp = (vedtakId: string, sakId: string) => {
     }
   })
 }
+
+export const setGjpBp = (): Action => ({
+  type: types.PERSON_SET_GJP_BP
+})
+
+

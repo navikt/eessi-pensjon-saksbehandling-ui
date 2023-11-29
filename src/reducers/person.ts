@@ -130,6 +130,12 @@ const personReducer = (state: PersonState = initialPersonState, action: AnyActio
       }
     }
 
+    case types.PERSON_SET_GJP_BP:
+      return {
+        ...state,
+        gjpbp: state.personAvdods && state.personAvdods.length > 0 ? moment(state.personAvdods[0].doedsDato, 'YYYY-MM-DD').toDate() : null
+      }
+
     case types.PERSON_UFT_REQUEST:
 
       return {
