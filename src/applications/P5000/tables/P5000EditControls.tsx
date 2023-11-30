@@ -269,7 +269,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
           dag: '' + diff.days,
           selected: true,
           flag: true,
-          flagIkon: 'GJP/BP',
+          flagIkon: 'OMS/BP',
           key: '' // will be generated later
         } as P5000ListRow
 
