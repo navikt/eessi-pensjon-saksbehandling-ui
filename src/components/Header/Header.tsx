@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import NavLogoTransparent from 'assets/images/NavLogoTransparent'
 import { Link, Loader, Heading } from '@navikt/ds-react'
 import styled from 'styled-components/macro'
+import {GJENNY} from "../../constants/constants";
 
 export interface HeaderProps {
   className ?: string
@@ -19,6 +20,7 @@ export interface HeaderProps {
   header?: JSX.Element | string
   isLoggingOut?: boolean
   username?: string
+  indexType?: string
 }
 
 const BrandDiv = styled.div`
@@ -70,7 +72,7 @@ const UsernameSpan = styled.span`
 `
 
 const Header: React.FC<HeaderProps> = ({
-  className, children, gettingUserInfo, header, isLoggingOut, username
+  className, children, gettingUserInfo, header, isLoggingOut, username, indexType = "PESYS"
 }: HeaderProps): JSX.Element => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -102,7 +104,7 @@ const Header: React.FC<HeaderProps> = ({
         </a>
         <Skillelinje />
         <Title>
-          <span>{t('ui:app-headerTitle')}</span>
+          <span>{indexType === GJENNY ? t('ui:app-headerTitle-gjenny') : t('ui:app-headerTitle')}</span>
         </Title>
       </BrandDiv>
       <Link

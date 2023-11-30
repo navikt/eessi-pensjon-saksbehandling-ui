@@ -76,6 +76,7 @@ export interface TopContainerProps {
   children?: JSX.Element | Array<JSX.Element | null>
   fluid?: boolean
   header?: string | JSX.Element
+  indexType?: string
 }
 
 export interface TopContainerSelector {
@@ -110,7 +111,7 @@ const mapState = (state: State): TopContainerSelector => ({
 })
 
 export const TopContainer: React.FC<TopContainerProps> = ({
-  className, children
+  className, children, indexType = "PESYS"
 }: TopContainerProps): JSX.Element => {
   const {
     bannerStatus, bannerMessage, error, footerOpen,
@@ -170,6 +171,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
               gettingUserInfo={gettingUserInfo}
               isLoggingOut={isLoggingOut}
               key="topContainer-header"
+              indexType={indexType}
             />
             <BannerAlert
               message={bannerMessage}

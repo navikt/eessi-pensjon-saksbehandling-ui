@@ -104,10 +104,10 @@ export const BUCIndexGjenny = (): JSX.Element => {
 
   const onSubmit = () => {
     if (!_fnr || !_fnr.match(/^\d+$/)) {
-      setValidationFnr("Ingen FNR")
+      setValidationFnr("Ingen PID Gjenlevende")
     }
     if (!_fnrAvdod || !_fnrAvdod.match(/^\d+$/)) {
-      setValidationFnrAvdod("Ingen FNR Avdød")
+      setValidationFnrAvdod("Ingen PID Avdød")
     }
 
     if (!_sakType || _sakType === "") {
@@ -136,7 +136,7 @@ export const BUCIndexGjenny = (): JSX.Element => {
           <TextField
             error={validationFnr || false}
             id='gjenny-fnr-input-id'
-            label="FNR"
+            label="PID Gjenlevende"
             onChange={onFnrChange}
             value={_fnr || ''}
           />
@@ -144,7 +144,7 @@ export const BUCIndexGjenny = (): JSX.Element => {
           <TextField
             error={validationFnrAvdod || false}
             id='gjenny-fnr-avdod-input-id'
-            label="FNR Avdød"
+            label="PID Avdød"
             onChange={onFnrAvdodChange}
             value={_fnrAvdod || ''}
           />
