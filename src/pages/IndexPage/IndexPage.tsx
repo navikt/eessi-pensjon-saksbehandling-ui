@@ -68,7 +68,7 @@ export const IndexPage: React.FC<IndexPageProps> = ({indexType = "PESYS"}): JSX.
   const showAdminTools: boolean = featureToggles.ADMIN_NOTIFICATION_MESSAGE === true
 
   return (
-    <TopContainer>
+    <TopContainer indexType={indexType}>
       <Modal
         open={showModal && !!show}
         modal={{
