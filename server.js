@@ -86,7 +86,7 @@ const mainPageAuth = async function(req, res, next) {
     (kravId !== undefined && kravId !== '' ? kravId : '-') + '/' +
     (vedtakId !== undefined && vedtakId !== '' ? vedtakId :  '-') + '/' +
     (sakType !== undefined && sakType !== '' ? sakType :  '-') + '/' +
-    (avdodFnr !== undefined && avodFnr !== '' ? avdodFnr :  '-') + '/' +
+    (avdodFnr !== undefined && advodFnr !== '' ? avdodFnr :  '-') + '/' +
     (req.originalUrl.indexOf("gjenny") > 0 ? "gjenny" : '-') + '/'
 
   const loginPath = '/oauth2/login?redirect=/callback/' + newPath
