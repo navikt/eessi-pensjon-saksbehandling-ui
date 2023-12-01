@@ -79,13 +79,14 @@ const validateAuthorization = async (authorization) => {
 }
 
 const mainPageAuth = async function(req, res, next) {
-  const {sakId, aktoerId, vedtakId, kravId, saksNr, sakType} = req.query
+  const {sakId, aktoerId, vedtakId, kravId, saksNr, sakType, avdodFnr} = req.query
   const newPath =
     (aktoerId !== undefined && aktoerId !== '' ? aktoerId : '-') + '/' +
     (sakId !== undefined && sakId !== '' ? sakId : ( saksNr !== undefined &&  saksNr !== '' ? saksNr : '-')) + '/' +
     (kravId !== undefined && kravId !== '' ? kravId : '-') + '/' +
     (vedtakId !== undefined && vedtakId !== '' ? vedtakId :  '-') + '/' +
-    (sakType !== undefined && sakType !== '' ? sakType :  '-') + '/'
+    (sakType !== undefined && sakType !== '' ? sakType :  '-') + '/' +
+    (avdodFnr !== undefined && avdodFnr !== '' ? avdodFnr :  '-') + '/'
   const loginPath = '/oauth2/login?redirect=/callback/' + newPath
   logger.debug('mainPageAuth: loginPath = ' + loginPath)
   const {authorization} = req.headers
@@ -113,7 +114,9 @@ const handleCallback = (req, res) => {
   let kravId = (paths[4] === '-' ? '' : paths[4])
   let vedtakId = (paths[5] === '-' ? '' : paths[5])
   let sakType = (paths[6] === '-' ? '' : paths[6])
-  const redirectPath = '/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&kravId=' + kravId + '&vedtakId=' + vedtakId + '&sakType=' + sakType
+  let avdodFnr = (paths[7] === '-' ? '' : paths[7])
+
+  const redirectPath = '/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&kravId=' + kravId + '&vedtakId=' + vedtakId + '&sakType=' + sakType + '&avdodFnr=' + avdodFnr
   logger.debug('handleCallback: redirecting to ' + redirectPath)
   res.redirect(redirectPath)
 }
