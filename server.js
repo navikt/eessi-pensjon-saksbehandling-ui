@@ -79,7 +79,14 @@ const validateAuthorization = async (authorization) => {
 }
 
 const mainPageAuth = async function(req, res, next) {
-  const loginPath = '/oauth2/login?redirect='+req.originalUrl
+  let queryString = ""
+  for (let propName in req.query) {
+    if (req.query.hasOwnProperty(propName)) {
+      queryString = queryString + propName + '=' + req.query[propName] + '&'
+    }
+  }
+
+  const loginPath = '/oauth2/login?redirect=' + req.path + '?' + queryString
   logger.debug('mainPageAuth: loginPath = ' + loginPath)
   const {authorization} = req.headers
 
