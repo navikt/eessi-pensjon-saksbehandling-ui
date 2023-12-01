@@ -79,15 +79,13 @@ const validateAuthorization = async (authorization) => {
 }
 
 const mainPageAuth = async function(req, res, next) {
-  const {sakId, aktoerId, vedtakId, kravId, saksNr, sakType, avdodFnr} = req.query
+  const {sakId, aktoerId, vedtakId, kravId, saksNr, sakType} = req.query
   const newPath =
     (aktoerId !== undefined && aktoerId !== '' ? aktoerId : '-') + '/' +
     (sakId !== undefined && sakId !== '' ? sakId : ( saksNr !== undefined &&  saksNr !== '' ? saksNr : '-')) + '/' +
     (kravId !== undefined && kravId !== '' ? kravId : '-') + '/' +
     (vedtakId !== undefined && vedtakId !== '' ? vedtakId :  '-') + '/' +
-    (sakType !== undefined && sakType !== '' ? sakType :  '-') + '/' +
-    (avdodFnr !== undefined && advodFnr !== '' ? avdodFnr :  '-') + '/'
-
+    (sakType !== undefined && sakType !== '' ? sakType :  '-') + '/'
   const loginPath = '/oauth2/login?redirect=/callback/' + newPath
   logger.debug('mainPageAuth: loginPath = ' + loginPath)
   const {authorization} = req.headers
@@ -109,15 +107,13 @@ const mainPageAuth = async function(req, res, next) {
 
 const handleCallback = (req, res) => {
   let paths = req.originalUrl.split('/')
-  // /callback/123/456/789/012/Uføretrygd/111 => ['', 'callback', '123', '456', '789', '012', 'Uføretrygd', '111']
+  // /callback/123/456/789/012/Uføretrygd/ => ['', 'callback', '123', '456', '789', '012', 'Uføretrygd']
   let aktoerId = (paths[2] === '-' ? '' : paths[2])
   let sakId = (paths[3] === '-' ? '' : paths[3])
   let kravId = (paths[4] === '-' ? '' : paths[4])
   let vedtakId = (paths[5] === '-' ? '' : paths[5])
   let sakType = (paths[6] === '-' ? '' : paths[6])
-  let avdodFnr = (paths[7] === '-' ? '' : paths[7])
-
-  const redirectPath = '/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&kravId=' + kravId + '&vedtakId=' + vedtakId + '&sakType=' + sakType + '&avdodFnr=' + avdodFnr
+  const redirectPath = '/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&kravId=' + kravId + '&vedtakId=' + vedtakId + '&sakType=' + sakType
   logger.debug('handleCallback: redirecting to ' + redirectPath)
   res.redirect(redirectPath)
 }
