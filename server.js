@@ -88,8 +88,9 @@ const mainPageAuth = async function(req, res, next) {
     (sakType !== undefined && sakType !== '' ? sakType :  '-') + '/' +
     (avdodFnr !== undefined && avdodFnr !== '' ? avdodFnr :  '-') + '/'
 
+  const gjenny = (avdodFnr !== undefined && avdodFnr !== '' ? 'GJENNY' : '-') + '/'
 
-  const loginPath = '/oauth2/login?redirect=/callback/' + newPath + req.path
+  const loginPath = '/oauth2/login?redirect=/callback/' + newPath + gjenny
   logger.debug('mainPageAuth: loginPath = ' + loginPath)
   const {authorization} = req.headers
 
@@ -118,9 +119,13 @@ const handleCallback = (req, res) => {
   let sakType = (paths[6] === '-' ? '' : paths[6])
   let avdodFnr = (paths[7] === '-' ? '' : paths[7])
 
-  let gjenny = paths[8] === 'gjenny'
+  let redirectPath = '/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&kravId=' + kravId + '&vedtakId=' + vedtakId + '&sakType=' + sakType
 
-  const redirectPath = '/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&kravId=' + kravId + '&vedtakId=' + vedtakId + '&sakType=' + sakType + '&avdodFnr=' + avdodFnr + '&gjenny=' + gjenny
+  if(paths[8] === 'GJENNY'){
+    redirectPath = '/gjenny/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&kravId=' + kravId + '&vedtakId=' + vedtakId + '&sakType=' + sakType + '&avdodFnr=' + avdodFnr
+  }
+
+
   logger.debug('handleCallback: redirecting to ' + redirectPath)
   res.redirect(redirectPath)
 }
