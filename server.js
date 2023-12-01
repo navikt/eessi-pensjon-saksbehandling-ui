@@ -79,14 +79,7 @@ const validateAuthorization = async (authorization) => {
 }
 
 const mainPageAuth = async function(req, res, next) {
-  const {sakId, aktoerId, vedtakId, kravId, saksNr, sakType} = req.query
-  const newPath =
-    (aktoerId !== undefined && aktoerId !== '' ? aktoerId : '-') + '/' +
-    (sakId !== undefined && sakId !== '' ? sakId : ( saksNr !== undefined &&  saksNr !== '' ? saksNr : '-')) + '/' +
-    (kravId !== undefined && kravId !== '' ? kravId : '-') + '/' +
-    (vedtakId !== undefined && vedtakId !== '' ? vedtakId :  '-') + '/' +
-    (sakType !== undefined && sakType !== '' ? sakType :  '-') + '/'
-  const loginPath = '/oauth2/login?redirect=/callback/' + newPath
+  const loginPath = '/oauth2/login?redirect='+req.originalUrl
   logger.debug('mainPageAuth: loginPath = ' + loginPath)
   const {authorization} = req.headers
 
