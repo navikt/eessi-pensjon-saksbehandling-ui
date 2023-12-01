@@ -79,14 +79,17 @@ const validateAuthorization = async (authorization) => {
 }
 
 const mainPageAuth = async function(req, res, next) {
-  let queryString = ""
-  for (let propName in req.query) {
-    if (req.query.hasOwnProperty(propName)) {
-      queryString = queryString + propName + '=' + req.query[propName] + '&'
-    }
-  }
+  const {sakId, aktoerId, vedtakId, kravId, saksNr, sakType, avdodFnr} = req.query
+  const newPath =
+    (aktoerId !== undefined && aktoerId !== '' ? aktoerId : '-') + '/' +
+    (sakId !== undefined && sakId !== '' ? sakId : ( saksNr !== undefined &&  saksNr !== '' ? saksNr : '-')) + '/' +
+    (kravId !== undefined && kravId !== '' ? kravId : '-') + '/' +
+    (vedtakId !== undefined && vedtakId !== '' ? vedtakId :  '-') + '/' +
+    (sakType !== undefined && sakType !== '' ? sakType :  '-') + '/' +
+    (avdodFnr !== undefined && avodFnr !== '' ? avdodFnr :  '-') + '/' +
+    req.originalUrl.indexOf("gjenny") > 0 ? "gjenny" : '-' + '/'
 
-  const loginPath = '/oauth2/login?redirect=' + req.path + '?' + queryString
+  const loginPath = '/oauth2/login?redirect=/callback/' + newPath
   logger.debug('mainPageAuth: loginPath = ' + loginPath)
   const {authorization} = req.headers
 
@@ -107,13 +110,25 @@ const mainPageAuth = async function(req, res, next) {
 
 const handleCallback = (req, res) => {
   let paths = req.originalUrl.split('/')
-  // /callback/123/456/789/012/Uføretrygd/ => ['', 'callback', '123', '456', '789', '012', 'Uføretrygd']
+  // /callback/123/456/789/012/Uføretrygd/111 => ['', 'callback', '123', '456', '789', '012', 'Uføretrygd', '111', 'gjenny']
   let aktoerId = (paths[2] === '-' ? '' : paths[2])
   let sakId = (paths[3] === '-' ? '' : paths[3])
   let kravId = (paths[4] === '-' ? '' : paths[4])
   let vedtakId = (paths[5] === '-' ? '' : paths[5])
   let sakType = (paths[6] === '-' ? '' : paths[6])
-  const redirectPath = '/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&kravId=' + kravId + '&vedtakId=' + vedtakId + '&sakType=' + sakType
+  let avdodFnr = (paths[7] === '-' ? '' : paths[7])
+  let gjenny = (paths[7] !== '-')
+
+
+  let queryString = ""
+  queryString = queryString + aktoerId ? "aktoerId=" + aktoerId + "&" : ""
+  queryString = queryString + sakId ? "sakId=" + sakId + "&" : ""
+  queryString = queryString + kravId ? "kravId=" + kravId + "&" : ""
+  queryString = queryString + vedtakId ? "vedtakId=" + vedtakId + "&"  : ""
+  queryString = queryString + sakType ? "sakType=" + sakType + "&" : ""
+  queryString = queryString + avdodFnr ? "avdodFnr=" + avdodFnr : ""
+
+  const redirectPath = gjenny ? '/gjenny?' + queryString : '/?' + queryString
   logger.debug('handleCallback: redirecting to ' + redirectPath)
   res.redirect(redirectPath)
 }
