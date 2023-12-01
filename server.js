@@ -87,7 +87,7 @@ const mainPageAuth = async function(req, res, next) {
     (vedtakId !== undefined && vedtakId !== '' ? vedtakId :  '-') + '/' +
     (sakType !== undefined && sakType !== '' ? sakType :  '-') + '/' +
     (avdodFnr !== undefined && avodFnr !== '' ? avdodFnr :  '-') + '/' +
-    req.originalUrl.indexOf("gjenny") > 0 ? "gjenny" : '-' + '/'
+    (req.originalUrl.indexOf("gjenny") > 0 ? "gjenny" : '-') + '/'
 
   const loginPath = '/oauth2/login?redirect=/callback/' + newPath
   logger.debug('mainPageAuth: loginPath = ' + loginPath)
