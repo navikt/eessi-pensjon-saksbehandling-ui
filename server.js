@@ -117,7 +117,7 @@ const handleCallback = (req, res) => {
   let vedtakId = (paths[5] === '-' ? '' : paths[5])
   let sakType = (paths[6] === '-' ? '' : paths[6])
   let avdodFnr = (paths[7] === '-' ? '' : paths[7])
-  let gjenny = (paths[7] !== '-')
+  let gjenny = (paths[8] !== '-')
 
 
   let queryString = ""
