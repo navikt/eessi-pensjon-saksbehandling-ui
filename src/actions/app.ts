@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import { ParamPayload } from 'declarations/app.d'
+import {ContextPayload, ParamPayload} from 'declarations/app.d'
 import { ActionWithPayload, call } from '@navikt/fetch'
 import mockUser from 'mocks/app/user'
 import { Action } from 'redux'
@@ -48,6 +48,15 @@ export const setStatusParam = (
     key,
     value
   } as ParamPayload
+})
+
+export const setContext = (
+  context: string
+): ActionWithPayload<ContextPayload> => ({
+  type: types.APP_CONTEXT_SET,
+  payload: {
+    context
+  } as ContextPayload
 })
 
 export const unsetStatusParam = (

@@ -1,4 +1,4 @@
-import { getUserInfo, setStatusParam } from 'actions/app'
+import {getUserInfo, setContext, setStatusParam} from 'actions/app'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import * as routes from 'constants/routes'
@@ -43,6 +43,7 @@ const paramAliases: {[k: string]: string} = {
 }
 
 const RequireAuth: React.FC<any> = (props) => {
+  const {context} = props
   const { loggedIn, userRole, gettingUserInfo, isLoggingIn } = useSelector<State, RequireAuthSelector>(mapState)
   const dispatch = useDispatch()
   const location = useLocation()
@@ -79,6 +80,12 @@ const RequireAuth: React.FC<any> = (props) => {
       dispatch(getUserInfo())
     }
   }, [])
+
+  useEffect(() => {
+    if (context) {
+      dispatch(setContext(context))
+    }
+  }, [context])
 
   if (isLoggingIn || loggedIn === undefined) {
     return (

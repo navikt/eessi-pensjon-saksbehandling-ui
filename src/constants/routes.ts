@@ -1,5 +1,6 @@
 const BASE = ''
 export const ROOT = BASE + '/'
+export const GJENNY = BASE + '/gjenny/'
 export const NOT_INVITED = BASE + '/notinvited'
 export const NOT_LOGGED = BASE + '/notlogged'
 export const FORBIDDEN = BASE + '/forbidden'

@@ -1,4 +1,3 @@
-import { clearData } from 'actions/app'
 import { toggleHighContrast } from 'actions/ui'
 import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import * as routes from 'constants/routes'
@@ -7,7 +6,6 @@ import { Warning, EmployerFilled } from '@navikt/ds-icons'
 import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import NavLogoTransparent from 'assets/images/NavLogoTransparent'
 import { Link, Loader, Heading } from '@navikt/ds-react'
 import styled from 'styled-components/macro'
@@ -76,14 +74,10 @@ const Header: React.FC<HeaderProps> = ({
 }: HeaderProps): JSX.Element => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const navigate = useNavigate()
 
   const onLogoClick = () => {
-    dispatch(clearData())
-    navigate({
-      pathname: routes.ROOT,
-      search: window.location.search
-    })
+    const route = indexType !== GJENNY ? routes.ROOT : routes.GJENNY
+    window.location.href = route + window.location.search
   }
 
   const onHighContrastClick = (e: React.MouseEvent<HTMLElement>) => {
