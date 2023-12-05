@@ -90,7 +90,7 @@ const mainPageAuth = async function(req, res, next) {
 
   // TODO: FIX THIS
   const gjenny = (avdodFnr !== undefined && avdodFnr !== '' ? 'GJENNY' : '-') + '/'
-  const dummy = req.path === "/gjenny" ? 'DUMMY': '-' + '/'
+  const dummy = req.path.indexOf('gjenny') > 0 ? 'DUMMY': '-' + '/'
 
   const loginPath = '/oauth2/login?redirect=/callback/' + newPath + gjenny + dummy
   logger.debug('mainPageAuth: loginPath = ' + loginPath)
