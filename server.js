@@ -92,7 +92,7 @@ const mainPageAuth = async function(req, res, next) {
   const gjenny = (avdodFnr !== undefined && avdodFnr !== '' ? 'GJENNY' : '-') + '/'
   //const dummy = req.path.indexOf('gjenny') > 0 ? 'DUMMY': '-' + '/'
 
-  const loginPath = '/oauth2/login?redirect=/callback/' + newPath + gjenny + req.path
+  const loginPath = '/oauth2/login?redirect=/callback/' + newPath + gjenny + req.originalUrl
   logger.debug('mainPageAuth: loginPath = ' + loginPath)
   const {authorization} = req.headers
 
