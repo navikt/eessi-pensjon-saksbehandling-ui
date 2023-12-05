@@ -47,7 +47,7 @@ root.render(
             />
             <Route
               path='/gjenny' element={
-              <RequireAuth>
+              <RequireAuth context={GJENNY}>
                 <Pages.IndexPage indexType={GJENNY}/>
               </RequireAuth>
             }

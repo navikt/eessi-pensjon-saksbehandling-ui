@@ -40,6 +40,10 @@ export interface ParamPayload {
   value?: any
 }
 
+export interface ContextPayload {
+  context: string
+}
+
 export type RinaUrl = string
 
 export type T = (line: string, ...args: any[]) => string

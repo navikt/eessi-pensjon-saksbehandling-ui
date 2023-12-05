@@ -37,6 +37,12 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
       return initialAppState
     }
 
+    case types.APP_CONTEXT_SET:
+      return {
+        ...state,
+        pesysContext: action.payload.context
+      }
+
     case types.APP_PARAM_SET:
       newParams = _.cloneDeep(state.params)
       newFeatureToggles = _.cloneDeep(state.featureToggles)
@@ -53,9 +59,6 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
       }
       if (newParams.vedtakId) {
         newContext = VEDTAKSKONTEKST
-      }
-      if (newParams.avdodFnr){
-        newContext = GJENNY
       }
 
       return {
