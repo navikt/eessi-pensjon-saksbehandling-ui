@@ -2,7 +2,7 @@ import {RinaUrl} from 'declarations/app.d'
 import { State } from 'declarations/reducers'
 import {useDispatch, useSelector} from 'react-redux'
 import {useEffect, useState} from "react";
-import {getRinaUrl} from "../../actions/buc";
+import {fetchBucsInfo, getRinaUrl} from "../../actions/buc";
 import {loadAllEntries} from "../../actions/localStorage";
 import styled from "styled-components/macro";
 import {Button, Select, TextField} from "@navikt/ds-react";
@@ -10,7 +10,9 @@ import {VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import {useTranslation} from "react-i18next";
 import {getAktoerId, setStatusParam} from "../../actions/app";
 import BUCIndexPageGjenny from "./BUCIndexPageGjenny";
-import { SakTypeKey, SakTypeMap } from 'declarations/buc.d'
+import {BucsInfo, SakTypeKey, SakTypeMap} from 'declarations/buc.d'
+import _ from "lodash";
+import * as storage from "../../constants/storage";
 
 export const FrontpageDiv = styled.div`
   display: flex;
@@ -37,6 +39,9 @@ export interface BUCIndexSelector {
   avdodFnr: string | null | undefined
   sakType: string | null | undefined
   sakId: string | null | undefined
+  bucsInfo: BucsInfo | undefined
+  bucsInfoList: Array<string> | undefined
+  gettingBucsInfo: boolean
 }
 
 const mapState = (state: State): BUCIndexSelector => ({
@@ -45,7 +50,10 @@ const mapState = (state: State): BUCIndexSelector => ({
   avdodAktoerId: state.app.params.avdodAktoerId,
   avdodFnr: state.app.params.avdodFnr,
   sakType: state.app.params.sakType,
-  sakId: state.app.params.sakId
+  sakId: state.app.params.sakId,
+  bucsInfo: state.buc.bucsInfo,
+  bucsInfoList: state.buc.bucsInfoList,
+  gettingBucsInfo: state.loading.gettingBucsInfo
 })
 
 export const BUCIndexGjenny = (): JSX.Element => {
@@ -54,7 +62,10 @@ export const BUCIndexGjenny = (): JSX.Element => {
     aktoerId,
     avdodFnr,
     sakType,
-    sakId
+    sakId,
+    bucsInfo,
+    bucsInfoList, 
+    gettingBucsInfo
   }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -81,6 +92,13 @@ export const BUCIndexGjenny = (): JSX.Element => {
       dispatch(getAktoerId(avdodFnr, "avdodAktoerId"))
     }
   },[])
+
+  useEffect(() => {
+    if (!_.isEmpty(bucsInfoList) && aktoerId && bucsInfo === undefined && !gettingBucsInfo &&
+      bucsInfoList!.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
+      dispatch(fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO))
+    }
+  }, [aktoerId, bucsInfo, bucsInfoList, dispatch, gettingBucsInfo])
 
   const onFnrChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValidationFnr(undefined)
