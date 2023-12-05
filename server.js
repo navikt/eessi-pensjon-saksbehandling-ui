@@ -88,11 +88,9 @@ const mainPageAuth = async function(req, res, next) {
     (sakType !== undefined && sakType !== '' ? sakType :  '-') + '/' +
     (avdodFnr !== undefined && avdodFnr !== '' ? avdodFnr :  '-') + '/'
 
-  // TODO: FIX THIS
-  const gjenny = (avdodFnr !== undefined && avdodFnr !== '' ? 'GJENNY' : '-') + '/'
-  const dummy = req.originalUrl.indexOf('gjenny') > 0 ? 'DUMMY': '-' + '/'
+  const gjenny = req.originalUrl.indexOf('gjenny') > 0 ? 'GJENNY': '-' + '/'
 
-  const loginPath = '/oauth2/login?redirect=/callback/' + newPath + gjenny + dummy
+  const loginPath = '/oauth2/login?redirect=/callback/' + newPath + gjenny
   logger.debug('mainPageAuth: loginPath = ' + loginPath)
   const {authorization} = req.headers
 
@@ -126,11 +124,6 @@ const handleCallback = (req, res) => {
   if(paths[8] === 'GJENNY'){
     redirectPath = '/gjenny/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&sakType=' + sakType + '&avdodFnr=' + avdodFnr
   }
-
-  if(paths[9] === 'DUMMY'){
-    redirectPath = redirectPath + '&=dummy=' + paths[9]
-  }
-
 
   logger.debug('handleCallback: redirecting to ' + redirectPath)
   res.redirect(redirectPath)
