@@ -76,8 +76,7 @@ const Header: React.FC<HeaderProps> = ({
   const { t } = useTranslation()
 
   const onLogoClick = () => {
-    const route = indexType !== GJENNY ? routes.ROOT : routes.GJENNY
-    window.location.href = route + window.location.search
+    window.location.href = indexType !== GJENNY ? routes.ROOT : routes.GJENNY
   }
 
   const onHighContrastClick = (e: React.MouseEvent<HTMLElement>) => {
