@@ -124,6 +124,9 @@ const handleCallback = (req, res) => {
     redirectPath = '/?aktoerId=' +  aktoerId  + '&sakId=' + sakId
   }
 
+  if(aktoerId !== "" && sakId !== "" && sakType !== ""){
+    redirectPath = redirectPath + "&sakType=" + sakType
+  }
   if(aktoerId !== "" && sakId !== "" && kravId !== ""){
     redirectPath = redirectPath + "&kravId=" + kravId
   }
