@@ -119,10 +119,25 @@ const handleCallback = (req, res) => {
   let sakType = (paths[6] === '-' ? '' : paths[6])
   let avdodFnr = (paths[7] === '-' ? '' : paths[7])
 
-  let redirectPath = '/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&kravId=' + kravId + '&vedtakId=' + vedtakId + '&sakType=' + sakType
+  let redirectPath = "/"
+  if(aktoerId !== "" && sakId !== ""){
+    redirectPath = '/?aktoerId=' +  aktoerId  + '&sakId=' + sakId
+  }
+
+  if(aktoerId !== "" && sakId !== "" && kravId !== ""){
+    redirectPath = redirectPath + "&kravId=" + kravId
+  }
+  if(aktoerId !== "" && sakId !== "" && vedtakId !== ""){
+    redirectPath = redirectPath + "&vedtakId=" + vedtakId
+  }
+
 
   if(paths[8] === 'GJENNY'){
-    redirectPath = '/gjenny/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&sakType=' + sakType + '&avdodFnr=' + avdodFnr
+    if(aktoerId !== "" && sakId !== "" && sakType !== "" && avdodFnr !== ""){
+      redirectPath = '/gjenny/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&sakType=' + sakType + '&avdodFnr=' + avdodFnr
+    } else {
+      redirectPath = '/gjenny/'
+    }
   }
 
   logger.debug('handleCallback: redirecting to ' + redirectPath)
