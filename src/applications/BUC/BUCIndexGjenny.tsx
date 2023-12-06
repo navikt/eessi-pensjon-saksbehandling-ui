@@ -8,11 +8,12 @@ import styled from "styled-components/macro";
 import {Button, Select, TextField} from "@navikt/ds-react";
 import {VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import {useTranslation} from "react-i18next";
-import {getAktoerId, setStatusParam} from "../../actions/app";
+import {getAktoerId, setContext, setStatusParam} from "../../actions/app";
 import BUCIndexPageGjenny from "./BUCIndexPageGjenny";
 import {BucsInfo, SakTypeKey, SakTypeMap} from 'declarations/buc.d'
 import _ from "lodash";
 import * as storage from "../../constants/storage";
+import {GJENNY} from "../../constants/constants";
 
 export const FrontpageDiv = styled.div`
   display: flex;
@@ -64,7 +65,7 @@ export const BUCIndexGjenny = (): JSX.Element => {
     sakType,
     sakId,
     bucsInfo,
-    bucsInfoList, 
+    bucsInfoList,
     gettingBucsInfo
   }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
@@ -143,6 +144,7 @@ export const BUCIndexGjenny = (): JSX.Element => {
       dispatch(setStatusParam("avdodFnr", _fnrAvdod))
       dispatch(setStatusParam("sakType", SakTypeMap[_sakType as SakTypeKey]))
       dispatch(setStatusParam("sakId", _sakId))
+      dispatch(setContext(GJENNY))
     }
 
   }
