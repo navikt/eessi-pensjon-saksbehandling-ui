@@ -43,6 +43,9 @@ export interface BUCIndexSelector {
   sakId: string | null | undefined
   personPdl: PersonPDL | undefined,
   personAvdods: PersonAvdods | undefined,
+  gettingPersonInfo: boolean
+  gettingPersonAvdodAktoerId: boolean
+  gettingAktoerId: boolean
 }
 
 const mapState = (state: State): BUCIndexSelector => ({
@@ -53,7 +56,10 @@ const mapState = (state: State): BUCIndexSelector => ({
   sakType: state.app.params.sakType,
   sakId: state.app.params.sakId,
   personPdl: state.person.personPdl,
-  personAvdods: state.person.personAvdods
+  personAvdods: state.person.personAvdods,
+  gettingPersonInfo: state.loading.gettinPersonInfo,
+  gettingPersonAvdodAktoerId: state.loading.gettingPersonAvdodAktoerId,
+  gettingAktoerId: state.loading.gettingAktoerId
 })
 
 export const BUCIndexGjenny = (): JSX.Element => {
@@ -65,7 +71,10 @@ export const BUCIndexGjenny = (): JSX.Element => {
     sakType,
     sakId,
     personPdl,
-    personAvdods
+    personAvdods,
+    gettingAktoerId,
+    gettingPersonInfo,
+    gettingPersonAvdodAktoerId
   }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -205,6 +214,7 @@ export const BUCIndexGjenny = (): JSX.Element => {
           <Button
             variant='primary'
             onClick={onSubmit}
+            loading={gettingAktoerId || gettingPersonInfo || gettingPersonAvdodAktoerId}
           >
             {t('ui:add')}
           </Button>
