@@ -12,7 +12,7 @@ import {getAktoerId, setContext, setStatusParam} from "../../actions/app";
 import BUCIndexPageGjenny from "./BUCIndexPageGjenny";
 import { SakTypeKey, SakTypeMap} from 'declarations/buc.d'
 import {GJENNY} from "../../constants/constants";
-import {getPersonAvdodInfoFromAktoerId, getPersonInfo} from "../../actions/person";
+import {clearPersonData, getPersonAvdodInfoFromAktoerId, getPersonInfo} from "../../actions/person";
 import {PersonAvdods, PersonPDL} from "../../declarations/person";
 
 export const FrontpageDiv = styled.div`
@@ -96,11 +96,13 @@ export const BUCIndexGjenny = (): JSX.Element => {
 
   const onFnrChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValidationFnr(undefined)
+    setHasPersons(false)
     setFnr(e.target.value.trim())
   }
 
   const onFnrAvdodChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValidationFnrAvdod(undefined)
+    setHasPersons(false)
     setFnrAvdod(e.target.value.trim())
   }
 
@@ -115,6 +117,7 @@ export const BUCIndexGjenny = (): JSX.Element => {
   }
 
   const onSubmit = () => {
+    dispatch(clearPersonData())
     if (!_fnr || !_fnr.match(/^\d+$/)) {
       setValidationFnr("Ingen PID Gjenlevende")
     }

@@ -23,6 +23,9 @@ export const initialPersonState: PersonState = {
 
 const personReducer = (state: PersonState = initialPersonState, action: AnyAction) => {
   switch (action.type) {
+    case types.PERSON_DATA_CLEAR:
+      return initialPersonState
+
     case types.PERSON_PDL_REQUEST:
 
       return {

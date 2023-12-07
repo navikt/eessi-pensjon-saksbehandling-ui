@@ -84,4 +84,7 @@ export const setGjpBp = (): Action => ({
   type: types.PERSON_SET_GJP_BP
 })
 
+export const clearPersonData = (): Action => ({
+  type: types.PERSON_DATA_CLEAR
+})
 
