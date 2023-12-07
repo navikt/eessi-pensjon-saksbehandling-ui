@@ -1,7 +1,6 @@
 import {
   endBucsFetch,
   fetchBuc,
-  fetchBucsInfoList,
   setMode,
   startBucsFetch
 } from 'actions/buc'
@@ -325,7 +324,6 @@ export const BUCIndexPageGjenny = (): JSX.Element => {
     if (aktoerId && avdodFnr && bucsList === undefined && !gettingBucsList) {
       dispatch(fetchBucsListForGjenlevende(aktoerId))
       dispatch(fetchBucsListForAvdod(aktoerId, avdodFnr))
-      dispatch(fetchBucsInfoList(aktoerId))
     }
   }, [aktoerId, bucs, dispatch, gettingBucsList, pesysContext, avdodFnr])
 
