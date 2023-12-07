@@ -1,5 +1,5 @@
 import { Accordion, Panel } from '@navikt/ds-react'
-import {getPersonAvdodInfo, getPersonAvdodInfoFromAktoerId, getPersonInfo} from 'actions/person'
+import {getPersonAvdodInfo, getPersonInfo} from 'actions/person'
 import { AllowedLocaleString, FeatureToggles, PesysContext } from 'declarations/app.d'
 import { PersonPDL } from 'declarations/person'
 import { PersonAvdods } from 'declarations/person.d'
@@ -37,7 +37,7 @@ const mapState = (state: State): PersonPanelSelector => ({
 })
 
 export const PersonPanel = (): JSX.Element => {
-  const { aktoerId, avdodAktoerId, featureToggles, gettingPersonInfo, locale, personPdl, personAvdods, pesysContext, vedtakId }: PersonPanelSelector =
+  const { aktoerId, featureToggles, gettingPersonInfo, locale, personPdl, personAvdods, pesysContext, vedtakId }: PersonPanelSelector =
     useSelector<State, PersonPanelSelector>(mapState)
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
@@ -59,15 +59,13 @@ export const PersonPanel = (): JSX.Element => {
   }
 
   useEffect(() => {
-    if (aktoerId && pesysContext) {
-      dispatch(getPersonInfo(aktoerId))
-      if (pesysContext === VEDTAKSKONTEKST && !!vedtakId) {
-        dispatch(getPersonAvdodInfo(aktoerId, vedtakId, featureToggles.NR_AVDOD as number | undefined))
-      } else if (avdodAktoerId && pesysContext === GJENNY) {
-        dispatch(getPersonAvdodInfoFromAktoerId(avdodAktoerId))
-      }
+    if (aktoerId && pesysContext && pesysContext !== GJENNY) {
+        dispatch(getPersonInfo(aktoerId))
+        if (pesysContext === VEDTAKSKONTEKST && !!vedtakId) {
+          dispatch(getPersonAvdodInfo(aktoerId, vedtakId, featureToggles.NR_AVDOD as number | undefined))
+        }
     }
-  }, [aktoerId, avdodAktoerId, pesysContext])
+  }, [aktoerId, pesysContext])
 
   return (
     <Panel

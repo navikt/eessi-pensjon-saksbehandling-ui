@@ -67,7 +67,9 @@ export default {
       gyldighetstidspunkt: '2020-10-12T11:40:56'
     }
   },
-  doedsfall: undefined,
+  doedsfall: {
+    doedsdato: '2023-02-09',
+  },
   familierelasjoner: [
     {
       relatertPersonsIdent: 'personBarnFnr',
