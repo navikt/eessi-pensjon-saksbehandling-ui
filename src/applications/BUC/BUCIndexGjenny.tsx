@@ -10,8 +10,10 @@ import {VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import {useTranslation} from "react-i18next";
 import {getAktoerId, setContext, setStatusParam} from "../../actions/app";
 import BUCIndexPageGjenny from "./BUCIndexPageGjenny";
-import {BucsInfo, SakTypeKey, SakTypeMap} from 'declarations/buc.d'
+import { SakTypeKey, SakTypeMap} from 'declarations/buc.d'
 import {GJENNY} from "../../constants/constants";
+import {getPersonAvdodInfoFromAktoerId, getPersonInfo} from "../../actions/person";
+import {PersonAvdods, PersonPDL} from "../../declarations/person";
 
 export const FrontpageDiv = styled.div`
   display: flex;
@@ -29,6 +31,7 @@ export const FrontpageDiv = styled.div`
 const FrontpageForm = styled.div`
   display: flex;
   flex-direction: column;
+  width:25%
 `
 
 export interface BUCIndexSelector {
@@ -38,6 +41,8 @@ export interface BUCIndexSelector {
   avdodFnr: string | null | undefined
   sakType: string | null | undefined
   sakId: string | null | undefined
+  personPdl: PersonPDL | undefined,
+  personAvdods: PersonAvdods | undefined,
 }
 
 const mapState = (state: State): BUCIndexSelector => ({
@@ -46,16 +51,21 @@ const mapState = (state: State): BUCIndexSelector => ({
   avdodAktoerId: state.app.params.avdodAktoerId,
   avdodFnr: state.app.params.avdodFnr,
   sakType: state.app.params.sakType,
-  sakId: state.app.params.sakId
+  sakId: state.app.params.sakId,
+  personPdl: state.person.personPdl,
+  personAvdods: state.person.personAvdods
 })
 
 export const BUCIndexGjenny = (): JSX.Element => {
   const {
     rinaUrl,
     aktoerId,
+    avdodAktoerId,
     avdodFnr,
     sakType,
-    sakId
+    sakId,
+    personPdl,
+    personAvdods
   }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -68,7 +78,8 @@ export const BUCIndexGjenny = (): JSX.Element => {
   const [validationSakType, setValidationSakType] = useState<string | undefined>(undefined)
   const [validationSakId, setValidationSakId] = useState<string | undefined>(undefined)
 
-
+  const hasValidationErrors = (validationFnr || validationFnrAvdod || validationSakType || validationSakId)
+  const [hasPersons, setHasPersons] = useState<boolean>(false)
 
   useEffect(() => {
     dispatch(loadAllEntries())
@@ -130,9 +141,31 @@ export const BUCIndexGjenny = (): JSX.Element => {
     }
   }
 
+  useEffect(() => {
+    if(aktoerId && avdodAktoerId){
+      if(!personPdl){
+        dispatch(getPersonInfo(aktoerId))
+      }
+      if(!personAvdods){
+        dispatch(getPersonAvdodInfoFromAktoerId(avdodAktoerId))
+      }
+    }
+  },[aktoerId, avdodAktoerId])
+
+  useEffect(() => {
+    if(personPdl && personAvdods){
+      if(personPdl.doedsfall){
+        setValidationFnr("Personen har en dødsdato")
+      }
+      if(personAvdods && personAvdods.length > 0 && !personAvdods[0].doedsDato){
+        setValidationFnrAvdod("Personen har ikke en dødsdato")
+      }
+      setHasPersons(true)
+    }
+  },[personPdl, personAvdods])
 
 
-  if (!aktoerId || !avdodFnr || !sakType || !sakId) {
+  if (!aktoerId || !avdodFnr || !sakType || !sakId || hasValidationErrors || !hasPersons) {
     return (
       <FrontpageDiv>
         <FrontpageForm>

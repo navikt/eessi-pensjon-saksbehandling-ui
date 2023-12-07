@@ -3,6 +3,7 @@ import * as urls from 'constants/urls'
 import { PersonAvdods } from 'declarations/person'
 import { ActionWithPayload, call } from '@navikt/fetch'
 import mockPerson from 'mocks/person/personPdl'
+import mockPersonAvdodAktoerId from 'mocks/person/personAvdodAktoerId'
 import mockPersonAvdod from 'mocks/person/personAvdod'
 import mockUFT from 'mocks/person/uft'
 import mockGJPBP from 'mocks/person/gjpbp'
@@ -30,7 +31,7 @@ export const getPersonAvdodInfoFromAktoerId = (
 ): ActionWithPayload<PersonAvdods> => {
   return call({
     url: sprintf(urls.PERSON_PDL_URL, { aktoerId }),
-    expectedPayload: mockPerson,
+    expectedPayload: mockPersonAvdodAktoerId,
     type: {
       request: types.PERSON_AVDOD_FROM_AKTOERID_REQUEST,
       success: types.PERSON_AVDOD_FROM_AKTOERID_SUCCESS,
