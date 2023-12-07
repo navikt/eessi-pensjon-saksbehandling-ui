@@ -20,7 +20,9 @@ export const initialLoadingState: LoadingState = {
   gettingKravDato: false,
   gettingInstitutionList: false,
   gettingPersonInfo: false,
+  gettingAktoerId: false,
   gettingPersonAvdodInfo: false,
+  gettingPersonAvdodAktoerId: false,
   gettingP4000: false,
   gettingP6000: false,
   gettingP6000PDF: false,
@@ -95,6 +97,33 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
         ...state,
         gettingPersonAvdodInfo: false
       }
+
+    case types.PERSON_AVDOD_FROM_AKTOERID_REQUEST:
+      return{
+        ...state,
+        gettingPersonAvdodAktoerId: true
+      }
+
+    case types.PERSON_AVDOD_FROM_AKTOERID_SUCCESS:
+    case types.PERSON_AVDOD_FROM_AKTOERID_FAILURE:
+      return{
+        ...state,
+        gettingPersonAvdodAktoerId: false
+      }
+
+    case types.PERSON_AKTOERID_REQUEST:
+      return{
+        ...state,
+        gettingAktoerId: true
+      }
+
+    case types.PERSON_AKTOERID_SUCCESS:
+    case types.PERSON_AKTOERID_FAILURE:
+      return{
+        ...state,
+        gettingAktoerId: false
+      }
+
 
     case types.APP_USERINFO_REQUEST:
 
