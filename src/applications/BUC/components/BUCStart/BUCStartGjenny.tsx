@@ -241,6 +241,12 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
     }
   }, [_isCreatingBucInfo, newlyCreatedBuc, onBucCreated, loading.savingBucsInfo])
 
+  useEffect(() => {
+    if(_isCreatingBuc && !loading.creatingBuc) {
+      setIsCreatingBuc(false)
+    }
+  }, [loading.creatingBuc])
+
   return (
     <div data-testid='a_buc_c_BUCStart'>
       <Row>
