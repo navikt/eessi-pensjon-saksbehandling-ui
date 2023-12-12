@@ -2,9 +2,11 @@ import { Alert, BodyLong, Button, Loader } from '@navikt/ds-react'
 import {
   cleanNewlyCreatedBuc,
   getTagList,
-  resetBuc
+  resetBuc,
+  saveBucsInfo
 } from 'actions/buc'
 import { bucsThatSupportAvdod, getBucTypeLabel, valueSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import Select from 'components/Select/Select'
 import ValidationBox from 'components/ValidationBox/ValidationBox'
 import {
@@ -13,12 +15,16 @@ import {
   Validation
 } from 'declarations/app.d'
 import {
-  NewBucPayload, SakTypeKey, SakTypeValueToKeyMap
+  Buc,
+  NewBucPayload, SakTypeKey, SakTypeValueToKeyMap,
+  SaveBucsInfoProps,
+  Tag,
+  Tags
 } from 'declarations/buc.d'
 import { PersonAvdod } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
-import { buttonLogger } from 'metrics/loggers'
+import { buttonLogger, standardLogger } from 'metrics/loggers'
 import { Column, HorizontalSeparatorDiv, Row, VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -27,12 +33,15 @@ import {createBucGjenny, getBucOptionsGjenny} from "actions/gjenny";
 import {BUCStartIndexProps, BUCStartSelector, mapBUCStartState} from "./BUCStartIndex";
 
 const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
+  aktoerId,
+  initialIsCreatingBuc = false,
+  initialCreatingBucInfo = false,
   onBucChanged,
   onBucCreated,
   onBucCancelled
 }: BUCStartIndexProps): JSX.Element | null => {
   const {
-    bucOptions, bucParam,
+    bucOptions, bucParam, bucs, bucsInfo, currentBuc,
     loading, locale, newlyCreatedBuc, personPdl, personAvdods,
     pesysContext, subjectAreaList, tagList, sakType, sakId
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapBUCStartState)
@@ -41,8 +50,11 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
   const dispatch = useDispatch()
   const [_avdod, setAvdod] = useState<PersonAvdod | undefined>(undefined)
   const [_buc, setBuc] = useState<string | null | undefined>(bucParam)
+  const [_isCreatingBuc, setIsCreatingBuc] = useState<boolean>(initialIsCreatingBuc)
+  const [_isCreatingBucInfo, setIsCreatingBucInfo] = useState<boolean>(initialCreatingBucInfo)
   const [_showWarningBucDeceased, setShowWarningBucDeceased] = useState<boolean>(false)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
+  const [_tags, setTags] = useState<Tags>([])
   const [_validation, setValidation] = useState<Validation>({})
 
   const hasNoValidationErrors = (validation: Validation): boolean => {
@@ -95,6 +107,7 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
         subjectArea: _subjectArea,
         buc: _buc
       })
+      setIsCreatingBuc(true)
       const payload: NewBucPayload = {
         buc: _buc!,
         person: personPdl!
@@ -133,6 +146,10 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
     }
   }
 
+  const onTagsChange = (tagsList: unknown): void => {
+    setTags(tagsList as Tags)
+    standardLogger('buc.new.tags.select', { tags: (tagsList as unknown as Tags)?.map(t => t.label) || [] })
+  }
 
   const getOptionLabel = (value: string): string => {
     let label: string = value
@@ -168,6 +185,15 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
 
   const bucListOptions = renderOptions(bucOptions, valueSorter)
 
+  const tagObjectList: Array<Option> = tagList
+    ? tagList.map(tag => {
+        return {
+          value: tag,
+          label: t('buc:' + tag)
+        } as Tag
+      })
+    : []
+
   useEffect(() => {
     if(bucOptions === undefined && !loading.gettingBucOptions){
       dispatch(getBucOptionsGjenny())
@@ -191,11 +217,35 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
   }, [_buc, _avdod, pesysContext, personAvdods])
 
   useEffect(() => {
-    if (newlyCreatedBuc) {
+    if (_isCreatingBuc && newlyCreatedBuc && !_isCreatingBucInfo) {
+      const buc: Buc = bucs![currentBuc!]
+      const payload: SaveBucsInfoProps = {
+        aktoerId,
+        bucsInfo,
+        tags: _tags.map((t: Tag) => t.value),
+        buc
+      } as SaveBucsInfoProps
+      payload.avdod = _avdod?.fnr
+      dispatch(saveBucsInfo(payload))
+      setIsCreatingBucInfo(true)
+    }
+  }, [aktoerId, _avdod, bucs, bucsInfo, currentBuc, dispatch, _isCreatingBuc, _isCreatingBucInfo, newlyCreatedBuc, _tags])
+
+  useEffect(() => {
+    if (_isCreatingBucInfo && newlyCreatedBuc && !loading.savingBucsInfo) {
       setBuc(undefined)
+      setTags([])
+      setIsCreatingBucInfo(false)
+      setIsCreatingBuc(false)
       onBucCreated()
     }
-  }, [newlyCreatedBuc, onBucCreated])
+  }, [_isCreatingBucInfo, newlyCreatedBuc, onBucCreated, loading.savingBucsInfo])
+
+  useEffect(() => {
+    if(_isCreatingBuc && !loading.creatingBuc) {
+      setIsCreatingBuc(false)
+    }
+  }, [loading.creatingBuc])
 
   return (
     <div data-testid='a_buc_c_BUCStart'>
@@ -237,7 +287,30 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
         </Column>
         <HorizontalSeparatorDiv size='2' />
         <Column>
-          <></>
+          <VerticalSeparatorDiv size='2' />
+          <MultipleSelect<Option>
+            ariaLabel={t('buc:form-tagsForBUC')}
+            aria-describedby='help-tags'
+            data-testid='a_buc_c_BUCStart--tags-select-id'
+            hideSelectedOptions={false}
+            id='a_buc_c_BUCStart--tags-select-id'
+            isLoading={loading.gettingTagList}
+            label={(
+              <>
+                <label className='navds-text-field--label navds-label'>
+                  {t(loading.gettingTagList ? 'message:loading-tagList' : 'buc:form-tagsForBUC')}
+                </label>
+                <VerticalSeparatorDiv />
+                <BodyLong>
+                  {t('buc:form-tagsForBUC-description')}
+                </BodyLong>
+              </>
+              )}
+            onSelect={onTagsChange}
+            options={tagObjectList}
+            menuPortalTarget={document.getElementById('main')}
+            values={_tags}
+          />
         </Column>
       </Row>
       {_showWarningBucDeceased && (
@@ -265,13 +338,15 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
           variant='primary'
           data-amplitude='buc.new.create'
           data-testid='a_buc_c_BUCStart--forward-button-id'
-          disabled={loading.creatingBUC}
+          disabled={_isCreatingBuc}
           onClick={onForwardButtonClick}
         >
-          {loading.creatingBUC && <Loader />}
+          {_isCreatingBuc && <Loader />}
           {loading.creatingBUC
             ? t('message:loading-creatingCaseinRINA')
-            : t('buc:form-createCaseinRINA')}
+            : loading.savingBucsInfo
+              ? t('message:loading-savingBucInfo')
+              : t('buc:form-createCaseinRINA')}
         </Button>
         <HorizontalSeparatorDiv />
         <Button
