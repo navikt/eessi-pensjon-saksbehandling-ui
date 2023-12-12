@@ -16,7 +16,7 @@ import {
 } from 'declarations/app.d'
 import {
   Buc,
-  NewBucPayload,
+  NewBucPayload, SakTypeKey, SakTypeValueToKeyMap,
   SaveBucsInfoProps,
   Tag,
   Tags
@@ -43,7 +43,7 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
   const {
     bucOptions, bucParam, bucs, bucsInfo, currentBuc,
     loading, locale, newlyCreatedBuc, personPdl, personAvdods,
-    pesysContext, subjectAreaList, tagList
+    pesysContext, subjectAreaList, tagList, sakType, sakId
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapBUCStartState)
 
   const { t } = useTranslation()
@@ -113,6 +113,8 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
         person: personPdl!
       }
       payload.avdod = _avdod
+      payload.sakType =  SakTypeValueToKeyMap[sakType!] as SakTypeKey
+      payload.sakId = sakId
       dispatch(createBucGjenny(payload))
     }
   }

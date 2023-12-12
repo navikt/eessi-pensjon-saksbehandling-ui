@@ -60,6 +60,10 @@ export const createBucGjenny = (
   return call({
     url: sprintf(urls.GJENNY_CREATE_BUC_URL, { buc: params.buc }),
     method: 'POST',
+    body: {
+      sakType: params.sakType,
+      sakId: params.sakId
+    },
     //  these are params collected on create BUC and have to be passed later so that
     // create SED either just displays them, or decides if should ask for them again
     context: {
