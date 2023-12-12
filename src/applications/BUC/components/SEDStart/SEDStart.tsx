@@ -45,7 +45,7 @@ import {
   PesysContext,
   Validation
 } from 'declarations/app.d'
-import { KravOmValue, P6000, SakTypeKey } from 'declarations/buc'
+import {KravOmValue, P6000, SakTypeKey} from 'declarations/buc'
 import {
   AvdodOrSokerValue,
   Buc,
@@ -59,6 +59,7 @@ import {
   NewSedPayload,
   RawList,
   SakTypeMap,
+  SakTypeValueToKeyMap,
   SakTypeValue,
   SavingAttachmentsJob,
   Sed,
@@ -792,6 +793,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       }
       if (_sed === 'P7000') {
         payload.payload = JSON.stringify(_p6000s)
+      }
+
+      if(pesysContext === GJENNY){
+        payload.sakType = SakTypeValueToKeyMap[sakType!] as SakTypeKey
       }
       if (currentSed) {
         pesysContext !== GJENNY ? dispatch(createReplySed(_buc, payload, currentSed.id)) : dispatch(createReplySedGjenny(_buc, payload, currentSed.id))

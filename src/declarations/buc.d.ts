@@ -87,6 +87,8 @@ export interface NewBucPayload {
   avdod?: PersonAvdod
   avdodfnr?: string
   kravDato?: string
+  sakType?: SakTypeKey
+  sakId?: string | null
 }
 
 export interface NewSedPayload {
@@ -99,6 +101,7 @@ export interface NewSedPayload {
   kravType?: SakTypeKey
   payload ?: string
   sakId: string
+  sakType?: SakTypeKey
   sed: string
   subject?: BUCSubject
   vedtakId?: string
@@ -157,6 +160,23 @@ export const SakTypeMap: {[key in SakTypeKey]: SakTypeValue} = {
   OMSST: 'Omstillingsstønad',
   UFOREP: 'Uføretrygd',
   Ukjent: 'Ukjent'
+}
+
+export const SakTypeValueToKeyMap: {[value in SakTypeValue]: SakTypeKey} = {
+  'AFP': 'AFP',
+  'AFP Privat': 'AFP_PRIVAT',
+  'Alderspensjon': 'ALDER',
+  'Barnepensjon': 'BARNEP',
+  'Familiepleierytelse': 'FAM_PL',
+  'Gammel yrkesskade': 'GAM_YRK',
+  'Generell': 'GENRL',
+  'Gjenlevendeytelse': 'GJENLEV',
+  'Grunnblanketter': 'GRBL',
+  'Krigspensjon': 'KRIGSP',
+  'Omsorgsopptjening': 'OMSORG',
+  'Omstillingsstønad': 'OMSST',
+  'Uføretrygd': 'UFOREP',
+  'Ukjent': 'Ukjent'
 }
 
 export interface SaveBucsInfoProps {
