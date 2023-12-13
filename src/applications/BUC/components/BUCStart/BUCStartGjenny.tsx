@@ -1,8 +1,7 @@
 import { Alert, BodyLong, Button, Loader } from '@navikt/ds-react'
 import {
   cleanNewlyCreatedBuc,
-  resetBuc,
-  saveBucsInfo
+  resetBuc
 } from 'actions/buc'
 import { bucsThatSupportAvdod, getBucTypeLabel, valueSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import Select from 'components/Select/Select'
@@ -13,9 +12,7 @@ import {
   Validation
 } from 'declarations/app.d'
 import {
-  Buc,
-  NewBucPayload, SakTypeKey, SakTypeValueToKeyMap,
-  SaveBucsInfoProps,
+  NewBucPayload, SakTypeKey, SakTypeValueToKeyMap
 } from 'declarations/buc.d'
 import { PersonAvdod } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
@@ -29,15 +26,12 @@ import {createBucGjenny, getBucOptionsGjenny} from "actions/gjenny";
 import {BUCStartIndexProps, BUCStartSelector, mapBUCStartState} from "./BUCStartIndex";
 
 const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
-  aktoerId,
-  initialIsCreatingBuc = false,
-  initialCreatingBucInfo = false,
   onBucChanged,
   onBucCreated,
   onBucCancelled
 }: BUCStartIndexProps): JSX.Element | null => {
   const {
-    bucOptions, bucParam, bucs, bucsInfo, currentBuc,
+    bucOptions, bucParam,
     loading, locale, newlyCreatedBuc, personPdl, personAvdods,
     pesysContext, subjectAreaList, sakType, sakId
   }: BUCStartSelector = useSelector<State, BUCStartSelector>(mapBUCStartState)
@@ -46,8 +40,6 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
   const dispatch = useDispatch()
   const [_avdod, setAvdod] = useState<PersonAvdod | undefined>(undefined)
   const [_buc, setBuc] = useState<string | null | undefined>(bucParam)
-  const [_isCreatingBuc, setIsCreatingBuc] = useState<boolean>(initialIsCreatingBuc)
-  const [_isCreatingBucInfo, setIsCreatingBucInfo] = useState<boolean>(initialCreatingBucInfo)
   const [_showWarningBucDeceased, setShowWarningBucDeceased] = useState<boolean>(false)
   const [_subjectArea, setSubjectArea] = useState<string>('Pensjon')
   const [_validation, setValidation] = useState<Validation>({})
@@ -102,7 +94,6 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
         subjectArea: _subjectArea,
         buc: _buc
       })
-      setIsCreatingBuc(true)
       const payload: NewBucPayload = {
         buc: _buc!,
         person: personPdl!
@@ -192,33 +183,11 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
   }, [_buc, _avdod, pesysContext, personAvdods])
 
   useEffect(() => {
-    if (_isCreatingBuc && newlyCreatedBuc && !_isCreatingBucInfo) {
-      const buc: Buc = bucs![currentBuc!]
-      const payload: SaveBucsInfoProps = {
-        aktoerId,
-        bucsInfo,
-        buc
-      } as SaveBucsInfoProps
-      payload.avdod = _avdod?.fnr
-      dispatch(saveBucsInfo(payload))
-      setIsCreatingBucInfo(true)
-    }
-  }, [aktoerId, _avdod, bucs, bucsInfo, currentBuc, dispatch, _isCreatingBuc, _isCreatingBucInfo, newlyCreatedBuc])
-
-  useEffect(() => {
-    if (_isCreatingBucInfo && newlyCreatedBuc && !loading.savingBucsInfo) {
+    if (newlyCreatedBuc) {
       setBuc(undefined)
-      setIsCreatingBucInfo(false)
-      setIsCreatingBuc(false)
       onBucCreated()
     }
-  }, [_isCreatingBucInfo, newlyCreatedBuc, onBucCreated, loading.savingBucsInfo])
-
-  useEffect(() => {
-    if(_isCreatingBuc && !loading.creatingBuc) {
-      setIsCreatingBuc(false)
-    }
-  }, [loading.creatingBuc])
+  }, [newlyCreatedBuc])
 
   return (
     <div data-testid='a_buc_c_BUCStart'>
@@ -288,15 +257,13 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
           variant='primary'
           data-amplitude='buc.new.create'
           data-testid='a_buc_c_BUCStart--forward-button-id'
-          disabled={_isCreatingBuc}
+          disabled={loading.creatingBuc}
           onClick={onForwardButtonClick}
         >
-          {_isCreatingBuc && <Loader />}
+          {loading.creatingBUC && <Loader />}
           {loading.creatingBUC
             ? t('message:loading-creatingCaseinRINA')
-            : loading.savingBucsInfo
-              ? t('message:loading-savingBucInfo')
-              : t('buc:form-createCaseinRINA')}
+            : t('buc:form-createCaseinRINA')}
         </Button>
         <HorizontalSeparatorDiv />
         <Button
