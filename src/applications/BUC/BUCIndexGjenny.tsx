@@ -15,6 +15,7 @@ import {GJENNY} from "../../constants/constants";
 import {clearPersonData, getPersonAvdodInfoFromAktoerId, getPersonInfo} from "../../actions/person";
 import {PersonAvdods, PersonPDL} from "../../declarations/person";
 import WaitingPanel from "../../components/WaitingPanel/WaitingPanel";
+import {validateFnrDnrNpid} from "../../utils/fnrValidator";
 
 export const FrontpageDiv = styled.div`
   display: flex;
@@ -83,12 +84,12 @@ export const BUCIndexGjenny = (): JSX.Element => {
   const [_fnrAvdod, setFnrAvdod] = useState<string | null | undefined>("")
   const [_sakType, setSakType] = useState<string | null | undefined>("")
   const [_sakId, setSakId] = useState<string | null | undefined>("")
-  const [validationFnr, setValidationFnr] = useState<string | undefined>(undefined)
-  const [validationFnrAvdod, setValidationFnrAvdod] = useState<string | undefined>(undefined)
-  const [validationSakType, setValidationSakType] = useState<string | undefined>(undefined)
-  const [validationSakId, setValidationSakId] = useState<string | undefined>(undefined)
+  const [_validationFnr, _setValidationFnr] = useState<string | undefined>(undefined)
+  const [_validationFnrAvdod, _setValidationFnrAvdod] = useState<string | undefined>(undefined)
+  const [_validationSakType, _setValidationSakType] = useState<string | undefined>(undefined)
+  const [_validationSakId, _setValidationSakId] = useState<string | undefined>(undefined)
 
-  const hasValidationErrors = (validationFnr || validationFnrAvdod || validationSakType || validationSakId)
+  const hasValidationErrors = (_validationFnr || _validationFnrAvdod || _validationSakType || _validationSakId)
   const [hasPersons, setHasPersons] = useState<boolean>(false)
 
   useEffect(() => {
@@ -105,42 +106,73 @@ export const BUCIndexGjenny = (): JSX.Element => {
   },[])
 
   const onFnrChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setValidationFnr(undefined)
+    _setValidationFnr(undefined)
     setHasPersons(false)
     setFnr(e.target.value.trim())
   }
 
   const onFnrAvdodChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setValidationFnrAvdod(undefined)
+    _setValidationFnrAvdod(undefined)
     setHasPersons(false)
     setFnrAvdod(e.target.value.trim())
   }
 
   const onSakTypeChange = (e: any) => {
-    setValidationSakType(undefined)
+    _setValidationSakType(undefined)
     setSakType(e.target.value)
   }
 
   const onSakIdChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setValidationSakId(undefined)
+    _setValidationSakId(undefined)
     setSakId(e.target.value.trim())
+  }
+
+  const getFnrValidation = (fnr: string | null | undefined, type: string) => {
+    if (!fnr || !fnr.match(/^\d+$/)) {
+      return {
+        validation: "Ingen PID " + type,
+        message: ""
+      }
+    }
+
+    const validationResult = validateFnrDnrNpid(fnr)
+    let validation = ""
+    let message = ""
+
+    if (validationResult.status !== 'valid') {
+      validation = "Ugyldig PID " + type
+    } else {
+      if (validationResult.type === 'fnr') {
+        message = t('label:valid-fnr')
+      }
+      if (validationResult.type === 'dnr') {
+        message = t('label:valid-dnr')
+      }
+      if (validationResult.type === 'npid') {
+        message = t('label:valid-npid')
+      }
+    }
+
+    return {
+      validation,
+      message
+    }
   }
 
   const onSubmit = () => {
     dispatch(clearPersonData())
-    if (!_fnr || !_fnr.match(/^\d+$/)) {
-      setValidationFnr("Ingen PID Gjenlevende")
-    }
-    if (!_fnrAvdod || !_fnrAvdod.match(/^\d+$/)) {
-      setValidationFnrAvdod("Ingen PID Avdød")
-    }
+    const fnrGjenlevendeValidationResult = getFnrValidation(_fnr, "Gjenlevende")
+    const fnrAvdodValidationResult = getFnrValidation(_fnrAvdod, "Avdød")
+
+    _setValidationFnr(fnrGjenlevendeValidationResult.validation)
+    _setValidationFnrAvdod(fnrAvdodValidationResult.validation)
 
     if (!_sakType || _sakType === "") {
-      setValidationSakType("Ingen saktype")
+      _setValidationSakType("Ingen saktype")
     }
 
     if (!_sakId || _sakId === "") {
-      setValidationSakId("Ingen sakID")
+      _setValidationSakId("Ingen sakID")
     }
 
     if(_fnr && _fnrAvdod && _fnr.match(/^\d+$/) && _fnrAvdod.match(/^\d+$/)){
@@ -168,10 +200,10 @@ export const BUCIndexGjenny = (): JSX.Element => {
   useEffect(() => {
     if(personPdl && personAvdods){
       if(personPdl.doedsfall){
-        setValidationFnr("Personen har en dødsdato")
+        _setValidationFnr("Personen har en dødsdato")
       }
       if(personAvdods && personAvdods.length > 0 && !personAvdods[0].doedsDato){
-        setValidationFnrAvdod("Personen har ikke en dødsdato")
+        _setValidationFnrAvdod("Personen har ikke en dødsdato")
       }
       setHasPersons(true)
     }
@@ -182,13 +214,13 @@ export const BUCIndexGjenny = (): JSX.Element => {
       <WaitingPanel/>
     )
   }
-  
+
   if (!aktoerId || !avdodFnr || !sakType || !sakId || hasValidationErrors || !hasPersons) {
     return (
       <FrontpageDiv>
         <FrontpageForm>
           <TextField
-            error={validationFnr || false}
+            error={_validationFnr || false}
             id='gjenny-fnr-input-id'
             label="PID Gjenlevende"
             onChange={onFnrChange}
@@ -196,21 +228,21 @@ export const BUCIndexGjenny = (): JSX.Element => {
           />
           <VerticalSeparatorDiv/>
           <TextField
-            error={validationFnrAvdod || false}
+            error={_validationFnrAvdod || false}
             id='gjenny-fnr-avdod-input-id'
             label="PID Avdød"
             onChange={onFnrAvdodChange}
             value={_fnrAvdod || ''}
           />
           <VerticalSeparatorDiv/>
-          <Select label="Saktype" onChange={onSakTypeChange} error={validationSakType || false}>
+          <Select label="Saktype" onChange={onSakTypeChange} error={_validationSakType || false}>
             <option value="">Velg saktype</option>
             <option value="OMSST">{SakTypeMap["OMSST"]}</option>
             <option value="BARNEP">{SakTypeMap["BARNEP"]}</option>
           </Select>
           <VerticalSeparatorDiv/>
           <TextField
-            error={validationSakId || false}
+            error={_validationSakId || false}
             id='gjenny-sakid-input-id'
             label="Sak ID"
             onChange={onSakIdChange}
