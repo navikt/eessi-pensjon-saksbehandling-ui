@@ -160,6 +160,11 @@ export const BUCIndexGjenny = (): JSX.Element => {
 
   const onSubmit = () => {
     dispatch(clearPersonData())
+    dispatch(setStatusParam("gjenlevendeFnr", undefined))
+    dispatch(setStatusParam("avdodFnr", undefined))
+    dispatch(setStatusParam("sakType", undefined))
+    dispatch(setStatusParam("sakId", undefined))
+
     const fnrGjenlevendeValidationResult = getFnrValidation(_fnr, "Gjenlevende")
     const fnrAvdodValidationResult = getFnrValidation(_fnrAvdod, "Avdød")
 
