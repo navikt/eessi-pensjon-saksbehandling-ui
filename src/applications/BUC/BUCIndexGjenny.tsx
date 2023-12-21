@@ -14,7 +14,6 @@ import { SakTypeKey, SakTypeMap} from 'declarations/buc.d'
 import {GJENNY} from "../../constants/constants";
 import {clearPersonData, getPersonAvdodInfoFromAktoerId, getPersonInfo} from "../../actions/person";
 import {PersonAvdods, PersonPDL} from "../../declarations/person";
-import WaitingPanel from "../../components/WaitingPanel/WaitingPanel";
 import {validateFnrDnrNpid} from "../../utils/fnrValidator";
 
 export const FrontpageDiv = styled.div`
@@ -208,12 +207,6 @@ export const BUCIndexGjenny = (): JSX.Element => {
       setHasPersons(true)
     }
   },[personPdl, personAvdods])
-
-  if(gettingPersonInfo){
-    return(
-      <WaitingPanel/>
-    )
-  }
 
   if (!aktoerId || !avdodFnr || !sakType || !sakId || hasValidationErrors || !hasPersons) {
     return (
