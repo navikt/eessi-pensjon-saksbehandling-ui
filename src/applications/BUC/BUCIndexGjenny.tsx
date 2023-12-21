@@ -14,6 +14,7 @@ import { SakTypeKey, SakTypeMap} from 'declarations/buc.d'
 import {GJENNY} from "../../constants/constants";
 import {clearPersonData, getPersonAvdodInfoFromAktoerId, getPersonInfo} from "../../actions/person";
 import {PersonAvdods, PersonPDL} from "../../declarations/person";
+import WaitingPanel from "../../components/WaitingPanel/WaitingPanel";
 
 export const FrontpageDiv = styled.div`
   display: flex;
@@ -176,7 +177,12 @@ export const BUCIndexGjenny = (): JSX.Element => {
     }
   },[personPdl, personAvdods])
 
-
+  if(aktoerId && avdodFnr && sakType && sakId && !hasPersons){
+    return(
+      <WaitingPanel/>
+    )
+  }
+  
   if (!aktoerId || !avdodFnr || !sakType || !sakId || hasValidationErrors || !hasPersons) {
     return (
       <FrontpageDiv>
