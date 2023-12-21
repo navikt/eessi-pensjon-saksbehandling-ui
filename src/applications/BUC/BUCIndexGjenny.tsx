@@ -209,7 +209,7 @@ export const BUCIndexGjenny = (): JSX.Element => {
     }
   },[personPdl, personAvdods])
 
-  if(aktoerId && avdodFnr && sakType && sakId && !hasValidationErrors && !hasPersons){
+  if(gettingPersonInfo){
     return(
       <WaitingPanel/>
     )
