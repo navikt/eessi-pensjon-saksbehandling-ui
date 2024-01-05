@@ -181,7 +181,7 @@ export const BUCIndexGjenny = (): JSX.Element => {
       _setValidationSakId("Ingen sakID")
     }
 
-    if(_fnr && _fnrAvdod && _fnr.match(/^\d+$/) && _fnrAvdod.match(/^\d+$/)){
+    if(_fnr && _fnrAvdod && _fnr.match(/^\d+$/) && _fnrAvdod.match(/^\d+$/) && !hasValidationErrors){
       dispatch(getAktoerId(_fnr, "aktoerId"))
       dispatch(getAktoerId(_fnrAvdod, "avdodAktoerId"))
       dispatch(setStatusParam("gjenlevendeFnr", _fnr))
