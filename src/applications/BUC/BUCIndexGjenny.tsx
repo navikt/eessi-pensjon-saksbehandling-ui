@@ -258,7 +258,7 @@ export const BUCIndexGjenny = (): JSX.Element => {
           >
             {t('ui:add')}
           </Button>
-        </FrontpageForm>
+          </FrontpageForm>
       </FrontpageDiv>
     )
   }

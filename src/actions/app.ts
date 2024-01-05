@@ -31,6 +31,7 @@ export const getAktoerId = (fnr:string, context: string): ActionWithPayload<stri
     url: sprintf(urls.PERSON_PDL_GET_AKTOERID_URL, { fnr }),
     expectedPayload: context === "aktoerId" ? mockAktoerId : mockAvdodAktoerId,
     context: context,
+    cascadeFailureError: true,
     type: {
       request: types.PERSON_AKTOERID_REQUEST,
       success: types.PERSON_AKTOERID_SUCCESS,
