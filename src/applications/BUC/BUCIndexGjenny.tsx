@@ -160,6 +160,7 @@ export const BUCIndexGjenny = (): JSX.Element => {
 
   const onSubmit = () => {
     dispatch(clearPersonData())
+    setHasPersons(false)
     dispatch(setStatusParam("gjenlevendeFnr", undefined))
     dispatch(setStatusParam("avdodFnr", undefined))
     dispatch(setStatusParam("sakType", undefined))
