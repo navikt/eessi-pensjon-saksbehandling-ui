@@ -165,6 +165,7 @@ export const BUCIndexGjenny = (): JSX.Element => {
     dispatch(setStatusParam("avdodFnr", undefined))
     dispatch(setStatusParam("sakType", undefined))
     dispatch(setStatusParam("sakId", undefined))
+    dispatch(setContext(GJENNY))
 
     const fnrGjenlevendeValidationResult = getFnrValidation(_fnr, "Gjenlevende")
     const fnrAvdodValidationResult = getFnrValidation(_fnrAvdod, "Avdød")
