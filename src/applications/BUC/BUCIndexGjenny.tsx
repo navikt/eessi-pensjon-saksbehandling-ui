@@ -193,7 +193,7 @@ export const BUCIndexGjenny = (): JSX.Element => {
   }
 
   useEffect(() => {
-    if(aktoerId && avdodAktoerId){
+    if(aktoerId && avdodAktoerId && !hasValidationErrors){
       if(!personPdl){
         dispatch(getPersonInfo(aktoerId))
       }
