@@ -40,18 +40,40 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
     dispatch(updatePSED(`${target}.konto.innehaver.navn`, navn))
   }
 
+  const setSepaIban = (iban: string) => {
+    dispatch(updatePSED(`${target}.konto.sepa.iban`, iban))
+  }
+
+  const setSepaSwift = (swift: string) => {
+    dispatch(updatePSED(`${target}.konto.sepa.swift`, swift))
+  }
+
+  const setIkkeSepaSwift = (swift: string) => {
+    dispatch(updatePSED(`${target}.konto.ikkesepa.swift`, swift))
+  }
+
+  const setKontonr = (kontonr: string) => {
+    dispatch(updatePSED(`${target}.konto.kontonr`, kontonr))
+  }
+
+  const sepaIkkeSepaChange = (e: string) => {
+    _setSepaIkkeSepa(e)
+    if(e === "sepa"){
+      dispatch(updatePSED(`${target}.konto.ikkesepa.swift`, undefined))
+      dispatch(updatePSED(`${target}.konto.kontonr`, undefined))
+    } else {
+      dispatch(updatePSED(`${target}.konto.sepa.iban`, undefined))
+      dispatch(updatePSED(`${target}.konto.sepa.swift`, undefined))
+    }
+  }
+
   useEffect(() => {
     if(bank?.konto?.sepa?.iban || bank?.konto?.sepa?.swift){
-      console.log("SEPA")
       _setSepaIkkeSepa("sepa")
-    } else if(bank?.konto?.ikkesepa?.swift){
-      console.log("IKKE SEPA")
+    } else if(bank?.konto?.kontonr ||bank?.konto?.ikkesepa?.swift){
       _setSepaIkkeSepa("ikkesepa")
-    } else {
-      console.log("HAR IKKE SEPA INFO")
     }
-
-  }, [])
+  }, [bank])
 
   return (
     <>
@@ -96,18 +118,58 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
         <AlignStartRow>
           <Column>
             <RadioGroup
-              error={validation[namespace + '-konto-innehaver-rolle']?.feilmelding}
-              id='bank-konto-innehaver-rolle'
-              legend={t('p2000:form-bank-konto-innehaver-rolle')}
-              onChange={(e: any) => _setSepaIkkeSepa(e)}
+              error={validation[namespace + '-konto-sepa-ikkesepa']?.feilmelding}
+              id='bank-konto-sepa-ikkesepa'
+              legend={t('p2000:form-bank-konto-sepa-ikkesepa')}
+              onChange={(e: any) => sepaIkkeSepaChange(e)}
               value={(_sepaIkkeSepa) ?? ''}
 
             >
               <Radio value="sepa">SEPA-konto</Radio>
               <Radio value="ikkesepa">Ikke SEPA-konto</Radio>
             </RadioGroup>
-
           </Column>
+          {_sepaIkkeSepa === "sepa" &&
+            <Column>
+              <Input
+                error={validation[namespace + '-konto-sepa-iban']?.feilmelding}
+                namespace={namespace}
+                id='bank-konto-sepa-iban'
+                label={t('p2000:form-bank-konto-sepa-iban')}
+                onChanged={setSepaIban}
+                value={(bank?.konto?.sepa?.iban) ?? ''}
+              />
+              <Input
+                error={validation[namespace + '-konto-sepa-swift']?.feilmelding}
+                namespace={namespace}
+                id='bank-konto-sepa-swift'
+                label={t('p2000:form-bank-konto-sepa-swift')}
+                onChanged={setSepaSwift}
+                value={(bank?.konto?.sepa?.swift) ?? ''}
+              />
+            </Column>
+          }
+          {_sepaIkkeSepa === "ikkesepa" &&
+            <Column>
+              <Input
+                error={validation[namespace + '-konto-kontonr']?.feilmelding}
+                namespace={namespace}
+                id='bank-konto-kontonr'
+                label={t('p2000:form-bank-konto-kontonr')}
+                onChanged={setKontonr}
+                value={(bank?.konto?.kontonr) ?? ''}
+              />
+              <Input
+                error={validation[namespace + '-konto-ikkesepa-swift']?.feilmelding}
+                namespace={namespace}
+                id='bank-konto-ikkesepa-swift'
+                label={t('p2000:form-bank-konto-ikkesepa-swift')}
+                onChanged={setIkkeSepaSwift}
+                value={(bank?.konto?.ikkesepa?.swift) ?? ''}
+              />
+            </Column>
+          }
+
         </AlignStartRow>
       </PaddedDiv>
     </>
