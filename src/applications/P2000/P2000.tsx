@@ -22,6 +22,7 @@ import ForsikretPerson from "./ForsikretPerson/ForsikretPerson";
 import Yrkesaktivitet from "./Yrkesaktivitet/Yrkesaktivitet";
 import Ytelser from "./Ytelser/Ytelser";
 import Ektefelle from "./Ektefelle/Ektefelle";
+import InformasjonOmBetaling from "./InformasjonOmBetaling/InformasjonOmBetaling";
 
 export interface P2000Selector {
   currentPSED: P2000SED
@@ -104,7 +105,8 @@ const P2000: React.FC<P2000Props> = ({
           { label: "Yrkesaktivitet", value: 'yrkesaktivitet', component: Yrkesaktivitet},
           { label: "Ytelser", value: 'ytelser', component: Ytelser},
           { label: "Ektefelle", value: 'ektefelle', component: Ektefelle},
-          { label: "Verge", value: 'verge', component: Verge}
+          { label: "Verge", value: 'verge', component: Verge},
+          { label: "Informasjon om betaling", value: 'informasjon-om-betaling', component: InformasjonOmBetaling}
         ]}
         PSED={currentPSED}
         setPSED={setPSED}
