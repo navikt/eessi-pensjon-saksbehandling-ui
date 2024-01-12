@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {useTranslation} from "react-i18next";
 import {Heading, Radio, RadioGroup} from "@navikt/ds-react";
@@ -28,6 +28,8 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
   const target = 'nav.bruker.bank'
   const bank: Bank | undefined = _.get(PSED, target)
 
+  const [_sepaIkkeSepa, _setSepaIkkeSepa] = useState<string>()
+
   console.log(validation, t)
 
   const setInnehaverRolle = (rolle: string) => {
@@ -37,6 +39,19 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
   const setInnehaverNavn = (navn: string) => {
     dispatch(updatePSED(`${target}.konto.innehaver.navn`, navn))
   }
+
+  useEffect(() => {
+    if(bank?.konto?.sepa?.iban || bank?.konto?.sepa?.swift){
+      console.log("SEPA")
+      _setSepaIkkeSepa("sepa")
+    } else if(bank?.konto?.ikkesepa?.swift){
+      console.log("IKKE SEPA")
+      _setSepaIkkeSepa("ikkesepa")
+    } else {
+      console.log("HAR IKKE SEPA INFO")
+    }
+
+  }, [])
 
   return (
     <>
@@ -71,6 +86,27 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
               onChanged={setInnehaverNavn}
               value={(bank?.konto?.innehaver?.navn) ?? ''}
             />
+          </Column>
+        </AlignStartRow>
+        <VerticalSeparatorDiv/>
+        <Heading size='medium'>
+          Bankinformasjon
+        </Heading>
+        <VerticalSeparatorDiv/>
+        <AlignStartRow>
+          <Column>
+            <RadioGroup
+              error={validation[namespace + '-konto-innehaver-rolle']?.feilmelding}
+              id='bank-konto-innehaver-rolle'
+              legend={t('p2000:form-bank-konto-innehaver-rolle')}
+              onChange={(e: any) => _setSepaIkkeSepa(e)}
+              value={(_sepaIkkeSepa) ?? ''}
+
+            >
+              <Radio value="sepa">SEPA-konto</Radio>
+              <Radio value="ikkesepa">Ikke SEPA-konto</Radio>
+            </RadioGroup>
+
           </Column>
         </AlignStartRow>
       </PaddedDiv>
