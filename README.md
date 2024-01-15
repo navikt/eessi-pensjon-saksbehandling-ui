@@ -26,6 +26,13 @@ Make sure you have installed:
 
 Also, make sure you have read access to [github.com/navikt](//github.com/navikt)
 
+##  Legg til .npmrc
+Lag et personlig access token på github: https://github.com/settings/tokens/new
+
+Oppdaterer .npmrc filen med det nye tokenet
+@navikt:registry=https://npm.pkg.github.com/
+//npm.pkg.github.com/:_authToken=ghp_DITT_PERSONLIG_TOKEN
+
 ## DOWNLOAD
 
 To clone this repo, go into your local working directory, and run (HTTPS) 
