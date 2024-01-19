@@ -54,8 +54,8 @@ ui-fss.g42[id="c11"] {
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  background-color: var(--navds-semantic-color-component-background-alternate);
-  border-bottom: 1px solid var(--navds-semantic-color-border);
+  background-color: var(--a-component-background-alternate);
+  border-bottom: 1px solid var(--a-border);
 }
 
 ui-fss.g43[id="c0"] {
@@ -90,7 +90,7 @@ ui-fss.g44[id="c2"] {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  font-size: var(--navds-font-size-small);
+  font-size: var(--a-font-size-small);
 }
 
 ui-fss.g45[id="c4"] {
@@ -141,7 +141,7 @@ ui-fss.g45[id="c4"] {
     >
       <span>
         buc:form-caseType
-        : 
+        :
       </span>
       <div
         class="c6 c7"

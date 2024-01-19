@@ -21,15 +21,15 @@ export const SEDPanelContainer = styled(Panel)`
 export const SEDPanelDiv = styled.div`
   padding: 1rem;
   border-radius: 4px;
-  background: var(--navds-semantic-color-component-background-light);
+  background: var(--a-component-background-light);
   &.new {
-    background: var(--navds-global-color-limegreen-100) !important;
+    background: var(--a-limegreen-100) !important;
   }
 `
 
 export const MyAccordion = styled(Accordion)`
   &.new {
-    background: var(--navds-global-color-limegreen-100) !important;
+    background: var(--a-limegreen-100) !important;
   }
   .navds-accordion__header{
     visibility:hidden;

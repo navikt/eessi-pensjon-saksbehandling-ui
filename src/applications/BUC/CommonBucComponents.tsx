@@ -49,16 +49,16 @@ export const BucLenkePanel = styled(LinkPanel)`
   transform: translateX(-20px);
   opacity: 0;
   animation: ${slideInFromLeft} 0.2s forwards;
-  background: var(--navds-semantic-color-component-background-light);
+  background: var(--a-component-background-light);
   margin-bottom: 1rem;
   .navds-link-panel__content {
     width: 100%;
   }
   &.new {
-    background: var(--navds-global-color-limegreen-100) !important;
+    background: var(--a-limegreen-100) !important;
   }
   &:hover {
-    background: var(--navds-semantic-color-interaction-primary-hover-subtle);
+    background: var(--a-interaction-primary-hover-subtle);
   }
 `
 

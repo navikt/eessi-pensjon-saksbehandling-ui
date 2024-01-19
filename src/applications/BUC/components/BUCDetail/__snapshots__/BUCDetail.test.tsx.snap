@@ -45,7 +45,7 @@ ui-fss.g1[id="c12"] {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  border: 1px solid var(--navds-semantic-color-border);
+  border: 1px solid var(--a-border);
   border-radius: 50%;
   overflow: hidden;
   position: relative;
@@ -316,7 +316,7 @@ ui-fss.g55[id="c24"] {
 }
 
 .c1 .odd {
-  background-color: var(--navds-semantic-color-component-background-alternate);
+  background-color: var(--a-component-background-alternate);
 }
 
 ui-fss.g56[id="c0"] {
@@ -329,13 +329,13 @@ ui-fss.g56[id="c0"] {
   }
 
   .c15.type-original img {
-    border: 1px solid var(--navds-semantic-color-border);
+    border: 1px solid var(--a-border);
   }
 }
 
 @supports not (-ms-high-contrast:none) {
   .c15.type-original {
-    border: 1px solid var(--navds-semantic-color-border);
+    border: 1px solid var(--a-border);
     display: -webkit-inline-box;
     display: -webkit-inline-flex;
     display: -ms-inline-flexbox;

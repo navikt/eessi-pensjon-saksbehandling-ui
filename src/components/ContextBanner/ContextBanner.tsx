@@ -25,8 +25,8 @@ const Content = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--navds-semantic-color-component-background-alternate);
-  border-bottom: 1px solid var(--navds-semantic-color-border);
+  background-color: var(--a-component-background-alternate);
+  border-bottom: 1px solid var(--a-border);
 `
 export const Context = styled.div`
  padding: 0.5rem 2rem;
@@ -39,7 +39,7 @@ export const Tag = styled.div`
  margin-right: 0.25rem;
  display: flex;
  align-items: center;
- font-size: var(--navds-font-size-small)
+ font-size: var(--a-font-size-small)
 `
 
 export interface ContextBannerProps {

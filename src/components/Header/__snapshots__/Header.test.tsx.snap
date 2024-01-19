@@ -29,7 +29,7 @@ ui-fss.g40[id="c2"] {
 }
 
 .c1 {
-  background-color: var(--navds-global-color-gray-900);
+  background-color: var(--a-gray-900);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -73,7 +73,7 @@ ui-fss.g43[id="c10"] {
 }
 
 .c5 {
-  border-left: 1px solid var(--navds-global-color-white);
+  border-left: 1px solid var(--a-white);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -88,7 +88,7 @@ ui-fss.g44[id="c4"] {
 }
 
 .c7 {
-  color: var(--navds-global-color-white);
+  color: var(--a-white);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -127,7 +127,7 @@ ui-fss.g46[id="c8"] {
   padding: 0.45rem;
   padding-left: 0.5rem;
   padding-right: 1.6rem;
-  color: var(--navds-global-color-white) !important;
+  color: var(--a-white) !important;
 }
 
 ui-fss.g47[id="c16"] {

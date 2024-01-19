@@ -7,7 +7,6 @@ import BUCStartIndex from 'applications/BUC/components/BUCStart/BUCStartIndex'
 import { bucFilter, bucSorter, pbuc02filter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import classNames from 'classnames'
 import { HorizontalLineSeparator } from 'components/StyledComponents'
-import ProgressBar from '@navikt/fremdriftslinje'
 import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import { AllowedLocaleString, BUCMode, PesysContext } from 'declarations/app.d'
 import {
@@ -37,8 +36,9 @@ import {
   BUCStartDiv,
   ProgressBarDiv
 } from "../../CommonBucComponents";
-import {BRUKERKONTEKST} from "../../../../constants/constants";
+import {BRUKERKONTEKST} from "constants/constants";
 import AvdodFnrSearch from "./AvdodFnrSearch";
+import ProgressBar from "components/ProgressBar/ProgressBar";
 
 export interface BUCListProps {
   initialBucNew?: boolean
