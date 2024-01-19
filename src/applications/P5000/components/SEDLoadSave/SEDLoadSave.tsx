@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
 
 const MyPanel = styled(Panel)`
-  background: var(--navds-semantic-color-component-background-alternate);
+  background: var(--a-component-background-alternate);
 `
 
 interface SEDLoadSaveProps {

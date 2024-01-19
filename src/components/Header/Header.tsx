@@ -27,7 +27,7 @@ const BrandDiv = styled.div`
   flex-direction: row;
 `
 const HeaderDiv = styled.header`
-  background-color: var(--navds-global-color-gray-900);
+  background-color: var(--a-gray-900);
   display: flex;
   flex-direction: row;
   height: 4rem;
@@ -43,14 +43,14 @@ const SaksbehandlerUser = styled.div`
    color: white;
 `
 const Skillelinje = styled.div`
-  border-left: 1px solid var(--navds-global-color-white);
+  border-left: 1px solid var(--a-white);
   display: flex;
   height: 30px;
   width: 1px;
   margin-left: 1rem;
 `
 const Title = styled.div`
-  color: var(--navds-global-color-white);
+  color: var(--a-white);
   display: flex;
   font-size: 13pt;
   padding-left: 15px;
@@ -66,7 +66,7 @@ const UsernameSpan = styled.span`
   padding: 0.45rem;
   padding-left: 0.5rem;
   padding-right: 1.6rem;
-  color: var(--navds-global-color-white) !important;
+  color: var(--a-white) !important;
 `
 
 const Header: React.FC<HeaderProps> = ({

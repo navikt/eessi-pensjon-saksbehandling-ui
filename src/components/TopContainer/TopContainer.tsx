@@ -13,7 +13,6 @@ import PT from 'prop-types'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactResizeDetector from 'react-resize-detector'
-import NavHighContrast from '@navikt/hoykontrast'
 import styled, { createGlobalStyle } from 'styled-components/macro'
 import { ErrorBoundary } from 'react-error-boundary'
 import { IS_PRODUCTION } from 'constants/environment'
@@ -23,8 +22,8 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   padding: 0;
-  background-color: var(--navds-semantic-color-canvas-background);
-  color:  var(--navds-color-text-primary);
+  background-color: var(--a-canvas-background);
+  color:  var(--a-color-text-primary);
 `
 const TopContainerDiv = styled.div`
   display: flex;
@@ -115,7 +114,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
 }: TopContainerProps): JSX.Element => {
   const {
     bannerStatus, bannerMessage, error, footerOpen,
-    gettingUserInfo, highContrast, isLoggingOut, modal, params, size, username
+    gettingUserInfo, isLoggingOut, modal, params, size, username
   } = useSelector(mapState)
   const dispatch = useDispatch()
 
@@ -152,7 +151,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
   )
 
   return (
-    <NavHighContrast highContrast={highContrast}>
+    <div >
       <GlobalStyle />
       <TopContainerDiv role='application'>
         <ErrorBoundary
@@ -207,7 +206,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
           </ReactResizeDetector>
         </ErrorBoundary>
       </TopContainerDiv>
-    </NavHighContrast>
+    </div>
   )
 }
 

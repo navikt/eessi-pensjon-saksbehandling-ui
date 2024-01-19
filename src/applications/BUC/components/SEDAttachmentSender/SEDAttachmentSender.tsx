@@ -4,7 +4,6 @@ import { SavingAttachmentsJob, SEDAttachmentPayload, SEDAttachmentPayloadWithFil
 import { SEDAttachmentPayloadPropType } from 'declarations/buc.pt'
 import { JoarkBrowserItem } from 'declarations/joark'
 import { State } from 'declarations/reducers'
-import ProgressBar, { ProgressBarStatus } from '@navikt/fremdriftslinje'
 import _ from 'lodash'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
@@ -12,6 +11,7 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
 import { Button } from '@navikt/ds-react'
+import ProgressBar, {ProgressBarStatus} from "components/ProgressBar/ProgressBar";
 
 const SEDAttachmentSenderDiv = styled.div`
   display: flex;

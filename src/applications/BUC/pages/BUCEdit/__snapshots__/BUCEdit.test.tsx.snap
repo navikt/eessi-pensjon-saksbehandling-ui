@@ -45,7 +45,7 @@ ui-fss.g1[id="c62"] {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  border: 1px solid var(--navds-semantic-color-border);
+  border: 1px solid var(--a-border);
   border-radius: 50%;
   overflow: hidden;
   position: relative;
@@ -421,7 +421,7 @@ ui-fss.g55[id="c91"] {
 }
 
 .c78 .odd {
-  background-color: var(--navds-semantic-color-component-background-alternate);
+  background-color: var(--a-component-background-alternate);
 }
 
 ui-fss.g56[id="c77"] {
@@ -429,18 +429,18 @@ ui-fss.g56[id="c77"] {
 }
 
 .c50.received {
-  background-color: var(--navds-global-color-lightblue-500) !important;
+  background-color: var(--a-lightblue-500) !important;
 }
 
 .c50.active {
-  background-color: var(--navds-global-color-purple-200) !important;
-  border-color: var(--navds-global-color-purple-500) !important;
+  background-color: var(--a-purple-200) !important;
+  border-color: var(--a-purple-500) !important;
 }
 
 .c50.first_sent,
 .c50.first_received,
 .c50.first_cancelled {
-  background-color: var(--navds-global-color-gray-400) !important;
+  background-color: var(--a-gray-400) !important;
 }
 
 ui-fss.g57[id="c49"] {
@@ -449,7 +449,7 @@ ui-fss.g57[id="c49"] {
 
 .c46 {
   margin: 0.3rem;
-  color: var(--navds-semantic-color-text);
+  color: var(--a-text);
 }
 
 ui-fss.g67[id="c45"] {
@@ -643,11 +643,11 @@ ui-fss.g114[id="c33"] {
 .c36 {
   padding: 1rem;
   border-radius: 4px;
-  background: var(--navds-semantic-color-component-background-light);
+  background: var(--a-component-background-light);
 }
 
 .c36.new {
-  background: var(--navds-global-color-limegreen-100) !important;
+  background: var(--a-limegreen-100) !important;
 }
 
 ui-fss.g115[id="c35"] {
@@ -832,13 +832,13 @@ ui-fss.g130[id="c75"] {
   }
 
   .c65.type-original img {
-    border: 1px solid var(--navds-semantic-color-border);
+    border: 1px solid var(--a-border);
   }
 }
 
 @supports not (-ms-high-contrast:none) {
   .c65.type-original {
-    border: 1px solid var(--navds-semantic-color-border);
+    border: 1px solid var(--a-border);
     display: -webkit-inline-box;
     display: -webkit-inline-flex;
     display: -ms-inline-flexbox;
@@ -1173,7 +1173,7 @@ ui-fss.g130[id="c75"] {
                         data-testid="a_buc_c_sedheader--version-id"
                       >
                         ui:version
-                        : 
+                        :
                         5
                       </p>
                     </div>
@@ -1434,7 +1434,7 @@ ui-fss.g130[id="c75"] {
                         data-testid="a_buc_c_sedheader--version-id"
                       >
                         ui:version
-                        : 
+                        :
                         3
                       </p>
                     </div>

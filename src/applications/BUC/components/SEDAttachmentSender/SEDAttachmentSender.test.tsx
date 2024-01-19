@@ -1,9 +1,9 @@
 import { SavingAttachmentsJob } from 'declarations/buc'
 import { render, screen } from '@testing-library/react'
-import ProgressBar from '@navikt/fremdriftslinje'
 import { stageSelector } from 'setupTests'
 import SEDAttachmentSender, { SEDAttachmentSenderProps } from './SEDAttachmentSender'
 import joarkBrowserItems from 'mocks/joark/items'
+import ProgressBar from "components/ProgressBar/ProgressBar";
 
 const defaultSelector = {
   savingAttachmentsJob: {

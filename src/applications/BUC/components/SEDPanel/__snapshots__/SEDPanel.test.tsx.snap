@@ -19,11 +19,11 @@ ui-fss.g40[id="c0"] {
 .c3 {
   padding: 1rem;
   border-radius: 4px;
-  background: var(--navds-semantic-color-component-background-light);
+  background: var(--a-component-background-light);
 }
 
 .c3.new {
-  background: var(--navds-global-color-limegreen-100) !important;
+  background: var(--a-limegreen-100) !important;
 }
 
 ui-fss.g41[id="c2"] {

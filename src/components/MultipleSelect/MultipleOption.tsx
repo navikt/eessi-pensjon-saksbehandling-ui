@@ -14,7 +14,7 @@ const OptionCheckbox = styled(Checkbox)`
    }
    label {
       &:hover {
-       color: var(--navds-semantic-color-text-inverted) !important;
+       color: var(--a-text-inverted) !important;
      }
    }
 `

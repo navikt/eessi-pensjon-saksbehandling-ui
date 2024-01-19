@@ -93,7 +93,7 @@ ui-fss.g32[id="c10"] {
   padding: 0rem 0.2rem !important;
   width: 100% !important;
   display: contents;
-  color: var(--navds-semantic-color-interaction-primary-hover);
+  color: var(--a-interaction-primary-hover);
 }
 
 .c1 tbody tr button.expandingButton {
@@ -101,11 +101,11 @@ ui-fss.g32[id="c10"] {
 }
 
 .c1 tr.tabell__tr--valgt td {
-  background: var(--navds-semantic-color-focus-inverted);
+  background: var(--a-focus-inverted);
 }
 
 .c1.error {
-  border-color: var(--navds-tag-color-error-border) !important;
+  border-color: var(--a-tag-color-error-border) !important;
   border-width: 3px !important;
   border-style: solid !important;
 }
@@ -119,11 +119,11 @@ ui-fss.g32[id="c10"] {
 }
 
 .c1 tbody.striped tr:nth-child(odd) {
-  background: var(--navds-semantic-color-canvas-background);
+  background: var(--a-canvas-background);
 }
 
 .c1 tbody.striped tr:nth-child(even) {
-  background: var(--navds-semantic-color-component-background-light);
+  background: var(--a-component-background-light);
 }
 
 .c1__subcell {
@@ -163,16 +163,16 @@ ui-fss.g32[id="c10"] {
 }
 
 .c1 tbody tr:hover:not(.tabell__tr--disabled) td {
-  background: var(--navds-semantic-color-interaction-primary-hover-subtle) !important;
+  background: var(--a-interaction-primary-hover-subtle) !important;
 }
 
 .c1 .tabell__tr--disabled {
-  background: var(--navds-semantic-color-component-background-alternate) !important;
-  color: var(--navds-semantic-color-text) !important;
+  background: var(--a-component-background-alternate) !important;
+  color: var(--a-text) !important;
 }
 
 .c1 .tabell__tr--disabled * {
-  color: var(--navds-semantic-color-text) !important;
+  color: var(--a-text) !important;
 }
 
 .c1 .tabell thead th button,
@@ -183,20 +183,20 @@ ui-fss.g32[id="c10"] {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  color: var(--navds-semantic-color-interaction-primary) !important;
+  color: var(--a-interaction-primary) !important;
 }
 
 .c1 .tabell thead th button:hover:not(:disabled),.c1 .tabell .tabell__thead th button:hover:not(:disabled),
 .c1 .tabell thead .tabell__th button:hover:not(:disabled),.c1 .tabell .tabell__thead .tabell__th button:hover:not(:disabled) {
-  color: var(--navds-semantic-color-interaction-primary) !important;
-  border-color: var(--navds-semantic-color-interaction-primary) !important;
+  color: var(--a-interaction-primary) !important;
+  border-color: var(--a-interaction-primary) !important;
 }
 
 .c1 .tabell thead th button:focus,
 .c1 .tabell .tabell__thead th button:focus,
 .c1 .tabell thead .tabell__th button:focus,
 .c1 .tabell .tabell__thead .tabell__th button:focus {
-  box-shadow: 0 0 0 3px var(--navds-semantic-color-focus) !important;
+  box-shadow: 0 0 0 3px var(--a-focus) !important;
 }
 
 ui-fss.g63[id="c0"] {

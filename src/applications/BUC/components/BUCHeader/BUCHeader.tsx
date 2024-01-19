@@ -44,7 +44,7 @@ const LabelsDiv = styled(Column)`
 const NumberOfSedsDiv = styled.div`
   border-width: ${(props: any) => props['data-icon-size'] === 'XL' ? '3' : '2'}px};
   border-style: solid;
-  border-color: var(--navds-color-text-primary);
+  border-color: var(--a-color-text-primary);
   border-radius: 50px;
   min-width: ${(props: any) => (props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
   min-height: ${(props: any) => (props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
@@ -63,7 +63,7 @@ const PropertyDiv = styled.div`
 const RinaLink = styled(Link)`
   padding: 0.25rem 0.5rem 0.25rem 0.5rem !important;
   margin-bottom: 0px !important;
-  color: var(--navds-semantic-color-interaction-primary) !important;
+  color: var(--a-interaction-primary) !important;
 `
 const RowText = styled(BodyLong)`
   white-space: nowrap !important;

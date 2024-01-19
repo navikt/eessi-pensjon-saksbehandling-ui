@@ -91,14 +91,14 @@ const MultipleSelect = <T extends Option> ({
             minHeight: size === 'small' ? '35px' : '48px',
             borderWidth: '1px',
             borderStyle: 'solid',
-            borderColor: error ? 'var(--navds-select-color-border-error)' : 'var(--navds-select-color-border)',
-            backgroundColor: isDisabled ? 'var(--navds-semantic-color-component-background-alternate)' : 'var(--navds-select-color-background)',
+            borderColor: error ? 'var(--a-select-color-border-error)' : 'var(--a-select-color-border)',
+            backgroundColor: isDisabled ? 'var(--a-component-background-alternate)' : 'var(--a-select-color-background)',
             borderRadius: '4px',
-            color: 'var(--navds-color-text-primary)'
+            color: 'var(--a-color-text-primary)'
           }),
           indicatorSeparator: (styles: any) => ({
             ...styles,
-            backgroundColor: 'var(--navds-semantic-color-border)'
+            backgroundColor: 'var(--a-border)'
           }),
           menu: (styles: any) => ({
             ...styles,
@@ -110,11 +110,11 @@ const MultipleSelect = <T extends Option> ({
             ...styles,
             borderRadius: '20px',
             borderWidth: '1px',
-            borderColor: 'var(--navds-semantic-color-border)',
+            borderColor: 'var(--a-border)',
             borderStyle: 'solid',
             padding: '0rem 0.25rem',
-            backgroundColor: 'var(--navds-select-color-background)',
-            color: 'var(--navds-color-text-primary)',
+            backgroundColor: 'var(--a-select-color-background)',
+            color: 'var(--a-color-text-primary)',
             alignItems: 'center',
             flexDirection: 'row',
             justifyContent: 'center'
@@ -126,28 +126,28 @@ const MultipleSelect = <T extends Option> ({
           menuList: (styles: any) => ({
             ...styles,
             borderWidth: '1px',
-            borderColor: 'var(--navds-semantic-color-border)',
+            borderColor: 'var(--a-border)',
             borderStyle: 'solid',
-            backgroundColor: 'var(--navds-semantic-color-component-background-alternate)'
+            backgroundColor: 'var(--a-component-background-alternate)'
           }),
           menuPortal: (base: any) => ({ ...base, zIndex: 9999 }),
           option: (styles: any, { isFocused, isSelected }: any) => ({
             ...styles,
             padding: '0.5rem',
             color: isFocused
-              ? 'var(--navds-semantic-color-text-inverted)'
+              ? 'var(--a-text-inverted)'
               : isSelected
-                ? 'var(--navds-semantic-color-text-inverted)'
-                : 'var(--navds-color-text-primary)',
+                ? 'var(--a-text-inverted)'
+                : 'var(--a-color-text-primary)',
             backgroundColor: isFocused
-              ? 'var(--navds-semantic-color-focus)'
+              ? 'var(--a-focus)'
               : isSelected
-                ? 'var(--navds-semantic-color-interaction-primary-selected)'
-                : 'var(--navds-select-color-background)'
+                ? 'var(--a-interaction-primary-selected)'
+                : 'var(--a-select-color-background)'
           }),
           singleValue: (styles: any) => ({
             ...styles,
-            color: 'var(--navds-color-text-primary)'
+            color: 'var(--a-color-text-primary)'
           })
         }}
         tabSelectsValue={false}
