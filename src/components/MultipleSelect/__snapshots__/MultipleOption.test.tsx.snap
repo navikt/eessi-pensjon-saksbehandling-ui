@@ -6,7 +6,7 @@ exports[`components/MultipleSelect/MultipleOption Render: match snapshot 1`] = `
 }
 
 .c1 label:hover {
-  color: var(--a-text-inverted) !important;
+  color: var(--a-text-on-inverted) !important;
 }
 
 ui-fss.g1[id="c0"] {

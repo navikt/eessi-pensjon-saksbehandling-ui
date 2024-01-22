@@ -49,7 +49,7 @@ export const BucLenkePanel = styled(LinkPanel)`
   transform: translateX(-20px);
   opacity: 0;
   animation: ${slideInFromLeft} 0.2s forwards;
-  background: var(--a-component-background-light);
+  background: var(--a-surface-default);
   margin-bottom: 1rem;
   .navds-link-panel__content {
     width: 100%;
@@ -58,7 +58,7 @@ export const BucLenkePanel = styled(LinkPanel)`
     background: var(--a-limegreen-100) !important;
   }
   &:hover {
-    background: var(--a-interaction-primary-hover-subtle);
+    background: var(--a-surface-action-subtle-hover);
   }
 `
 

@@ -38,7 +38,7 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
             borderColor: props.error ? 'var(--a-select-color-border-error)' : 'var(--a-select-color-border)',
             borderRadius: '4px',
             color: 'var(--a-color-text-primary)',
-            backgroundColor: isDisabled ? 'var(--a-component-background-alternate)' : 'var(--a-select-color-background)'
+            backgroundColor: isDisabled ? 'var(--a-surface-subtle)' : 'var(--a-select-color-background)'
           }),
           indicatorSeparator: (styles: any) => ({
             ...styles,
@@ -55,22 +55,22 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
             borderWidth: '1px',
             borderStyle: 'solid',
             borderColor: 'var(--a-select-color-border)',
-            backgroundColor: 'var(--a-component-background-alternate)'
+            backgroundColor: 'var(--a-surface-subtle)'
           }),
           option: (styles: any, { isDisabled, isFocused, isSelected }) => ({
             ...styles,
             color: isFocused
-              ? 'var(--a-text-inverted)'
+              ? 'var(--a-text-on-inverted)'
               : isSelected
-                ? 'var(--a-text-inverted)'
+                ? 'var(--a-text-on-inverted)'
                 : 'var(--a-color-text-primary)',
             backgroundColor: isFocused
-              ? 'var(--a-focus)'
+              ? 'var(--a-border-focus)'
               : isSelected
-                ? 'var(--a-interaction-primary-selected)'
+                ? 'var(--a-surface-action-selected)'
                 : isDisabled
                   ? 'var(--a-text-field-color-background)'
-                  : 'var(--a-component-background-alternate)'
+                  : 'var(--a-surface-subtle)'
           }),
           singleValue: (styles: any) => ({
             ...styles,

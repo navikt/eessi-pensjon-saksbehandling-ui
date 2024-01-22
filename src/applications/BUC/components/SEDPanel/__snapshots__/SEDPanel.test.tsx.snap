@@ -19,7 +19,7 @@ ui-fss.g40[id="c0"] {
 .c3 {
   padding: 1rem;
   border-radius: 4px;
-  background: var(--a-component-background-light);
+  background: var(--a-surface-default);
 }
 
 .c3.new {

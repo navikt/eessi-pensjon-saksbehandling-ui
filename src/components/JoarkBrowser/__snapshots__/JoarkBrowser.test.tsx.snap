@@ -93,7 +93,7 @@ ui-fss.g32[id="c10"] {
   padding: 0rem 0.2rem !important;
   width: 100% !important;
   display: contents;
-  color: var(--a-interaction-primary-hover);
+  color: var(--a-surface-action-hover);
 }
 
 .c1 tbody tr button.expandingButton {
@@ -101,7 +101,7 @@ ui-fss.g32[id="c10"] {
 }
 
 .c1 tr.tabell__tr--valgt td {
-  background: var(--a-focus-inverted);
+  background: var(--a-border-focus-on-inverted);
 }
 
 .c1.error {
@@ -119,11 +119,11 @@ ui-fss.g32[id="c10"] {
 }
 
 .c1 tbody.striped tr:nth-child(odd) {
-  background: var(--a-canvas-background);
+  background: var(--a-bg-subtle);
 }
 
 .c1 tbody.striped tr:nth-child(even) {
-  background: var(--a-component-background-light);
+  background: var(--a-surface-default);
 }
 
 .c1__subcell {
@@ -163,16 +163,16 @@ ui-fss.g32[id="c10"] {
 }
 
 .c1 tbody tr:hover:not(.tabell__tr--disabled) td {
-  background: var(--a-interaction-primary-hover-subtle) !important;
+  background: var(--a-surface-action-subtle-hover) !important;
 }
 
 .c1 .tabell__tr--disabled {
-  background: var(--a-component-background-alternate) !important;
-  color: var(--a-text) !important;
+  background: var(--a-surface-subtle) !important;
+  color: var(--a-text-default) !important;
 }
 
 .c1 .tabell__tr--disabled * {
-  color: var(--a-text) !important;
+  color: var(--a-text-default) !important;
 }
 
 .c1 .tabell thead th button,
@@ -183,20 +183,20 @@ ui-fss.g32[id="c10"] {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  color: var(--a-interaction-primary) !important;
+  color: var(--a-surface-action) !important;
 }
 
 .c1 .tabell thead th button:hover:not(:disabled),.c1 .tabell .tabell__thead th button:hover:not(:disabled),
 .c1 .tabell thead .tabell__th button:hover:not(:disabled),.c1 .tabell .tabell__thead .tabell__th button:hover:not(:disabled) {
-  color: var(--a-interaction-primary) !important;
-  border-color: var(--a-interaction-primary) !important;
+  color: var(--a-surface-action) !important;
+  border-color: var(--a-surface-action) !important;
 }
 
 .c1 .tabell thead th button:focus,
 .c1 .tabell .tabell__thead th button:focus,
 .c1 .tabell thead .tabell__th button:focus,
 .c1 .tabell .tabell__thead .tabell__th button:focus {
-  box-shadow: 0 0 0 3px var(--a-focus) !important;
+  box-shadow: 0 0 0 3px var(--a-border-focus) !important;
 }
 
 ui-fss.g63[id="c0"] {

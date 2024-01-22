@@ -22,7 +22,7 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   padding: 0;
-  background-color: var(--a-canvas-background);
+  background-color: var(--a-bg-subtle);
   color:  var(--a-color-text-primary);
 `
 const TopContainerDiv = styled.div`

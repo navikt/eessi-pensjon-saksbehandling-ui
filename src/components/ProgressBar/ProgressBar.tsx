@@ -19,11 +19,11 @@ const progressBarAnimation = keyframes`
 `
 
 export const ProgressBarDiv = styled.div`
-  background-color: var(--a-canvas-background-light);
+  background-color: var(--a-bg-default);
   width: 100%;
   display: block;
   border-radius: 4px;
-  border-color: var(--a-border-muted);
+  border-color: var(--a-border-default);
   border-width: 1px;
   &.border {
     border-style: solid;
@@ -55,7 +55,7 @@ export const Bar = styled.div`
     color: var(--a-white);
   }
   &.todo {
-     background-color: var(--a-divider);
+     background-color: var(--a-border-divider);
   }
 `
 

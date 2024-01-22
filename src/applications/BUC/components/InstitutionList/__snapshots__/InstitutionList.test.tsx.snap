@@ -45,7 +45,7 @@ ui-fss.g1[id="c6"] {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  border: 1px solid var(--a-border);
+  border: 1px solid var(--a-border-strong);
   border-radius: 50%;
   overflow: hidden;
   position: relative;
@@ -241,13 +241,13 @@ ui-fss.g8[id="c10"] {
   }
 
   .c9.type-original img {
-    border: 1px solid var(--a-border);
+    border: 1px solid var(--a-border-strong);
   }
 }
 
 @supports not (-ms-high-contrast:none) {
   .c9.type-original {
-    border: 1px solid var(--a-border);
+    border: 1px solid var(--a-border-strong);
     display: -webkit-inline-box;
     display: -webkit-inline-flex;
     display: -ms-inline-flexbox;

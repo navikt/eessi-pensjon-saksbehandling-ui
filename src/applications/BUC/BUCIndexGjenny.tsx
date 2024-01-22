@@ -18,7 +18,7 @@ import {validateFnrDnrNpid} from "../../utils/fnrValidator";
 
 export const FrontpageDiv = styled.div`
   display: flex;
-  border-color: var(--a-border);
+  border-color: var(--a-border-strong);
   border-style: solid;
   border-width: 1px;
   border-radius: 4px;
@@ -26,7 +26,7 @@ export const FrontpageDiv = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 2rem;
-  background-color: var(--a-component-background-alternate);
+  background-color: var(--a-surface-subtle);
 `
 
 const FrontpageForm = styled.div`

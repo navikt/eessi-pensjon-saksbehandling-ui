@@ -75,7 +75,7 @@ const Properties = styled.dl`
   flex-wrap: wrap;
   width: 100%;
   .odd {
-    background-color: var(--a-component-background-alternate);
+    background-color: var(--a-surface-subtle);
   }
 `
 
