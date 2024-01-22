@@ -54,8 +54,8 @@ ui-fss.g42[id="c11"] {
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  background-color: var(--a-component-background-alternate);
-  border-bottom: 1px solid var(--a-border);
+  background-color: var(--a-surface-subtle);
+  border-bottom: 1px solid var(--a-border-strong);
 }
 
 ui-fss.g43[id="c0"] {

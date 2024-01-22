@@ -16,10 +16,10 @@ export const SpinnerDiv = styled.div`
 export const HorizontalLineSeparator = styled.div`
   height: 1px;
   background: linear-gradient(90deg,
-    var(--a-canvas-background) 0%,
-    var(--a-border) 5%,
-    var(--a-border) 95%,
-    var(--a-canvas-background) 100%
+    var(--a-bg-subtle) 0%,
+    var(--a-border-strong) 5%,
+    var(--a-border-strong) 95%,
+    var(--a-bg-subtle) 100%
   );
   width: -webkit-fill-available;
   margin-left: 2rem;

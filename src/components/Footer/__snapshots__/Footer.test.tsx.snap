@@ -5,7 +5,7 @@ exports[`components/Footer Render: match snapshot 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  background-color: var(--a-component-background-alternate);
+  background-color: var(--a-surface-subtle);
   padding: 0rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -50,12 +50,12 @@ ui-fss.g1[id="c0"] {
   margin: 0px;
   display: block;
   padding: 0px;
-  background-color: var(--a-component-background-alternate);
+  background-color: var(--a-surface-subtle);
 }
 
 .c3 .footerButtonClosed:hover {
   cursor: pointer;
-  background-color: var(--a-component-background-alternate);
+  background-color: var(--a-surface-subtle);
 }
 
 .c3 .footerButtonOpen {
@@ -68,7 +68,7 @@ ui-fss.g1[id="c0"] {
 
 .c3 .footerButtonOpen:hover {
   cursor: pointer;
-  background-color: var(--a-component-background-alternate);
+  background-color: var(--a-surface-subtle);
 }
 
 ui-fss.g2[id="c2"] {

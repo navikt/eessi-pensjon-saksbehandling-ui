@@ -11,7 +11,7 @@ import { AddCircle, ErrorFilled } from '@navikt/ds-icons'
 
 export const FooterDiv = styled.footer`
   flex-shrink: 0;
-  background-color: var(--a-component-background-alternate);
+  background-color: var(--a-surface-subtle);
   padding: 0rem;
   display: flex;
   flex-direction: row;
@@ -34,11 +34,11 @@ const ContentDiv = styled.div`
     margin: 0px;
     display: block;
     padding: 0px;
-    background-color: var(--a-component-background-alternate);
+    background-color: var(--a-surface-subtle);
   }
   .footerButtonClosed:hover {
     cursor: pointer;
-    background-color: var(--a-component-background-alternate);
+    background-color: var(--a-surface-subtle);
   }
   .footerButtonOpen {
     width: 1.2rem;
@@ -50,7 +50,7 @@ const ContentDiv = styled.div`
   }
   .footerButtonOpen:hover {
     cursor: pointer;
-    background-color:var(--a-component-background-alternate);
+    background-color:var(--a-surface-subtle);
   }
 `
 const FormDiv = styled.div`

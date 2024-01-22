@@ -23,7 +23,7 @@ ui-fss.g19[id="c4"] {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  border-color: var(--a-border);
+  border-color: var(--a-border-strong);
   border-style: solid;
   border-width: 1px;
   border-radius: 4px;
@@ -39,7 +39,7 @@ ui-fss.g19[id="c4"] {
   -ms-flex-direction: column;
   flex-direction: column;
   padding: 2rem;
-  background-color: var(--a-component-background-alternate);
+  background-color: var(--a-surface-subtle);
 }
 
 ui-fss.g42[id="c0"] {

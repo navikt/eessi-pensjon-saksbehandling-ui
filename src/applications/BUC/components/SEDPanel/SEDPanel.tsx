@@ -21,7 +21,7 @@ export const SEDPanelContainer = styled(Panel)`
 export const SEDPanelDiv = styled.div`
   padding: 1rem;
   border-radius: 4px;
-  background: var(--a-component-background-light);
+  background: var(--a-surface-default);
   &.new {
     background: var(--a-limegreen-100) !important;
   }

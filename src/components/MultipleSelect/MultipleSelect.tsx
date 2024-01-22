@@ -92,13 +92,13 @@ const MultipleSelect = <T extends Option> ({
             borderWidth: '1px',
             borderStyle: 'solid',
             borderColor: error ? 'var(--a-select-color-border-error)' : 'var(--a-select-color-border)',
-            backgroundColor: isDisabled ? 'var(--a-component-background-alternate)' : 'var(--a-select-color-background)',
+            backgroundColor: isDisabled ? 'var(--a-surface-subtle)' : 'var(--a-select-color-background)',
             borderRadius: '4px',
             color: 'var(--a-color-text-primary)'
           }),
           indicatorSeparator: (styles: any) => ({
             ...styles,
-            backgroundColor: 'var(--a-border)'
+            backgroundColor: 'var(--a-border-strong)'
           }),
           menu: (styles: any) => ({
             ...styles,
@@ -110,7 +110,7 @@ const MultipleSelect = <T extends Option> ({
             ...styles,
             borderRadius: '20px',
             borderWidth: '1px',
-            borderColor: 'var(--a-border)',
+            borderColor: 'var(--a-border-strong)',
             borderStyle: 'solid',
             padding: '0rem 0.25rem',
             backgroundColor: 'var(--a-select-color-background)',
@@ -126,23 +126,23 @@ const MultipleSelect = <T extends Option> ({
           menuList: (styles: any) => ({
             ...styles,
             borderWidth: '1px',
-            borderColor: 'var(--a-border)',
+            borderColor: 'var(--a-border-strong)',
             borderStyle: 'solid',
-            backgroundColor: 'var(--a-component-background-alternate)'
+            backgroundColor: 'var(--a-surface-subtle)'
           }),
           menuPortal: (base: any) => ({ ...base, zIndex: 9999 }),
           option: (styles: any, { isFocused, isSelected }: any) => ({
             ...styles,
             padding: '0.5rem',
             color: isFocused
-              ? 'var(--a-text-inverted)'
+              ? 'var(--a-text-on-inverted)'
               : isSelected
-                ? 'var(--a-text-inverted)'
+                ? 'var(--a-text-on-inverted)'
                 : 'var(--a-color-text-primary)',
             backgroundColor: isFocused
-              ? 'var(--a-focus)'
+              ? 'var(--a-border-focus)'
               : isSelected
-                ? 'var(--a-interaction-primary-selected)'
+                ? 'var(--a-surface-action-selected)'
                 : 'var(--a-select-color-background)'
           }),
           singleValue: (styles: any) => ({

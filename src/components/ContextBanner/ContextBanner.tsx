@@ -25,8 +25,8 @@ const Content = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--a-component-background-alternate);
-  border-bottom: 1px solid var(--a-border);
+  background-color: var(--a-surface-subtle);
+  border-bottom: 1px solid var(--a-border-strong);
 `
 export const Context = styled.div`
  padding: 0.5rem 2rem;

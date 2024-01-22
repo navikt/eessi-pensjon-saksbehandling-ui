@@ -2,11 +2,11 @@
 
 exports[`applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender Render: match snapshot 1`] = `
 .c3 {
-  background-color: var(--a-canvas-background-light);
+  background-color: var(--a-bg-default);
   width: 100%;
   display: block;
   border-radius: 4px;
-  border-color: var(--a-border-muted);
+  border-color: var(--a-border-default);
   border-width: 1px;
 }
 
@@ -58,7 +58,7 @@ ui-fss.g1[id="c2"] {
 }
 
 .c5.todo {
-  background-color: var(--a-divider);
+  background-color: var(--a-border-divider);
 }
 
 ui-fss.g2[id="c4"] {
