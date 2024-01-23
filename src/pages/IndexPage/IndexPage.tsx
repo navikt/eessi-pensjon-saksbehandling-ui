@@ -15,6 +15,7 @@ import { Column, PaddedDiv, Row, VerticalSeparatorDiv } from '@navikt/hoykontras
 import BUCIndex from 'applications/BUC'
 import {GJENNY, PESYS} from "../../constants/constants";
 import BUCIndexGjenny from "../../applications/BUC/BUCIndexGjenny";
+import "./LegacyDssStyles.css";
 
 export interface IndexPageProps {
   username?: string

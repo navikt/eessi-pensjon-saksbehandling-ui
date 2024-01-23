@@ -1,0 +1,4 @@
+#root {
+  --navds-semantic-color-border: var(--navds-global-color-gray-600);
+  --navds-global-color-gray-600: rgba(112, 112, 112, 1);
+}
