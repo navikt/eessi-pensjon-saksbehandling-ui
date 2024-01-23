@@ -1,7 +1,7 @@
 kind: Application
 apiVersion: nais.io/v1alpha1
 metadata:
-  name: eessi-pensjon-frontend-ui
+  name: eessi-pensjon-frontend-ui-q1
   namespace: eessipensjon
   labels:
     team: eessipensjon
@@ -14,15 +14,14 @@ spec:
       enabled: true
       claims:
         groups:
-          - id: 49d708e9-c141-4a01-9be9-aa539c48f1d2 #Tilgang til 0000-ga-eessi-clerk-pensjon
-          - id: fedabd32-4cab-4307-ad69-ea24edc69790 #Tilgang til 0000-ga-eessi-clerk-ufore
+          - id: 6e921c7e-7b22-4c9a-9ff6-ee3719e3c4ba #Tilgang til 0000-ga-eessi-clerk-pensjon
+          - id: 79c6b5b5-1144-495c-a2c9-78aebfb5faf4 #Tilgang til 0000-ga-eessi-clerk-ufore
         extra:
           - NAVident
   accessPolicy:
     outbound:
       external:
-        - host: pensjon-utland.intern.nav.no
-
+        - host: pensjon-utland-q1.intern.dev.nav.no
   env:
     - name: NAV_TRUSTSTORE_KEYSTOREALIAS
       value: na
@@ -38,8 +37,8 @@ spec:
       value: {{eessi_pensjon_fagmodul_token_scope}}
   image: {{ image }}
   ingresses:
-    - https://pensjon-utland.intern.nav.no
-    - https://eessi-pensjon-frontend-ui.intern.nav.no
+    - https://pensjon-utland-q1.intern.dev.nav.no
+    - https://eessi-pensjon-frontend-ui-q1.intern.dev.nav.no
   liveness:
     path: internal/isAlive
     port: 8080
@@ -54,7 +53,7 @@ spec:
     initialDelay: 45
   replicas:
     min: 1
-    max: 4
+    max: 1
     cpuThresholdPercentage: 50
   resources:
     limits:
