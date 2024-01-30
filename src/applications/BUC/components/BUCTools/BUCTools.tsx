@@ -2,7 +2,7 @@ import { getTagList, saveBucsInfo } from 'actions/buc'
 import {dateSorter, sedFilter} from 'applications/BUC/components/BUCUtils/BUCUtils'
 import P5000 from 'applications/P5000/P5000'
 import P4000 from "applications/P4000/P4000";
-import { NextFilled } from '@navikt/ds-icons'
+import { ChevronRightIcon } from '@navikt/aksel-icons'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { AllowedLocaleString, BUCMode, Loading } from 'declarations/app.d'
 import {
@@ -226,7 +226,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
               >
                 {t('buc:form-seeP5000s')}
                 <HorizontalSeparatorDiv size='0.3' />
-                <NextFilled />
+                <ChevronRightIcon />
               </Button>
             </FlexDiv>
           </P5000Div>
@@ -246,7 +246,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 {t('buc:form-seeP4000s')}
 
                 <HorizontalSeparatorDiv size='0.3' />
-                <NextFilled />
+                <ChevronRightIcon />
               </Button>
             </FlexDiv>
           </P4000Div>

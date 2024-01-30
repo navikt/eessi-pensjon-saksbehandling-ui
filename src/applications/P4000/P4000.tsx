@@ -1,4 +1,4 @@
-import {BackFilled} from '@navikt/ds-icons'
+import { ChevronLeftIcon } from '@navikt/aksel-icons';
 import {BodyLong, Button, Heading, Loader, Panel, Select} from '@navikt/ds-react'
 import {BUCMode} from 'declarations/app'
 import {Buc, Sed} from 'declarations/buc'
@@ -178,7 +178,7 @@ const P4000: React.FC<P4000Props> = ({
         variant='secondary'
         onClick={onBackClick}
       >
-        <BackFilled />
+        <ChevronLeftIcon fontSize="1.5rem" />
         <HorizontalSeparatorDiv size='0.25' />
         <span>
           {t('ui:back')}

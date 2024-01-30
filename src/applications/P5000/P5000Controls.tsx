@@ -1,4 +1,4 @@
-import { BackFilled } from '@navikt/ds-icons'
+import { ChevronLeftIcon } from '@navikt/aksel-icons';
 import { Alert, BodyLong, Button, Checkbox } from '@navikt/ds-react'
 import { Column, HorizontalSeparatorDiv, PileDiv, Row, VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import { Sed } from 'declarations/buc'
@@ -59,7 +59,7 @@ const P5000Controls = ({
           variant='secondary'
           onClick={onBackClick}
         >
-          <BackFilled />
+          <ChevronLeftIcon fontSize="1.5rem" />
           <HorizontalSeparatorDiv size='0.25' />
           <span>
             {t('ui:back')}

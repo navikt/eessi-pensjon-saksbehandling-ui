@@ -1,4 +1,4 @@
-import {AddCircle, Cancel, Copy, Delete, Edit, SuccessStroke} from '@navikt/ds-icons'
+import { TrashIcon, PlusIcon } from '@navikt/aksel-icons'
 import classNames from 'classnames'
 import { Labels } from 'declarations/app'
 import { Button, BodyLong } from '@navikt/ds-react'
@@ -98,8 +98,10 @@ const AddRemovePanel = <T extends any>({
             onConfirmEdit!()
           }}
         >
-          <SuccessStroke />
           {labels?.ok ?? t('ui:save')}
+          {!existingItem ? <PlusIcon fontSize="1.5rem" /> : <TrashIcon fontSize="1.5rem" />}
+          <HorizontalSeparatorDiv size='0.5' />
+          {!existingItem ? t('ui:add') : t('ui:remove')}
         </Button>
         <HorizontalSeparatorDiv />
         <Button

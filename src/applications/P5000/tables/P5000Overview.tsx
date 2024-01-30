@@ -1,5 +1,5 @@
 import { BodyLong, Tabs, Tag } from '@navikt/ds-react'
-import { Star } from '@navikt/ds-icons'
+import { StarIcon } from '@navikt/aksel-icons';
 import { FlexCenterDiv, HiddenDiv, HorizontalSeparatorDiv, PileCenterDiv, VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import CountryData from '@navikt/land-verktoy'
 import Table, {
@@ -145,7 +145,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     <FlexCenterDiv>
       <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
       <HorizontalSeparatorDiv size='0.3' />
-      {item?.options?.startdatoModified && (<Star color='red' />)}
+      {item?.options?.startdatoModified && (<StarIcon fontSize="1.5rem" color="red" />)}
     </FlexCenterDiv>
   )
 
@@ -153,7 +153,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     <FlexCenterDiv>
       <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
       <HorizontalSeparatorDiv size='0.3' />
-      {item?.options?.sluttdatoModified && (<Star color='red' />)}
+      {item?.options?.sluttdatoModified && (<StarIcon fontSize="1.5rem" color="red" />)}
     </FlexCenterDiv>
   )
 
@@ -245,7 +245,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     <FlexCenterDiv>
       <BodyLong>{value}</BodyLong>
       <HorizontalSeparatorDiv size='0.3' />
-      {item?.options?.acronymModified && (<Star color='red' />)}
+      {item?.options?.acronymModified && (<StarIcon fontSize="1.5rem" color="red" />)}
     </FlexCenterDiv>
   )
 

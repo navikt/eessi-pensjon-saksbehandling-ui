@@ -1,4 +1,4 @@
-import { ErrorFilled } from '@navikt/ds-icons'
+import { XMarkOctagonFillIcon } from '@navikt/aksel-icons'
 import styled from 'styled-components/macro'
 
 const FlexDiv = styled.div`
@@ -18,7 +18,7 @@ const MultipleValueRemove = (props: any) => {
       style={{}}
       data-testid='c-multipleselect-multiplevalueremove'
     >
-      <ErrorFilled style={{ visibility }} />
+      <XMarkOctagonFillIcon fontSize="1.5rem" style={{ visibility }} />
     </FlexDiv>
 
   )

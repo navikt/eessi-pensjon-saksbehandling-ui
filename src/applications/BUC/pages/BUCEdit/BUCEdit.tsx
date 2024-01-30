@@ -1,4 +1,4 @@
-import { BackFilled } from '@navikt/ds-icons'
+import { ChevronLeftIcon } from '@navikt/aksel-icons'
 import {BodyLong, Button, Label, Loader, Panel} from '@navikt/ds-react'
 import { alertFailure } from 'actions/alert'
 import {getSedList, resetNewSed, setCurrentBuc, setFollowUpSeds, setSedList} from 'actions/buc'
@@ -251,7 +251,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           data-testid='a-buc-p-bucedit--back-button-id'
           onClick={onBackLinkClick}
         >
-          <BackFilled />
+          <ChevronLeftIcon />
           <HorizontalSeparatorDiv size='0.25' />
           <span>
             {t('ui:back')}

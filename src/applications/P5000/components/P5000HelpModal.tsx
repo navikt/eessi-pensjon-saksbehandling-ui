@@ -1,5 +1,5 @@
 import Modal from 'components/Modal/Modal'
-import { NextFilled, Delete } from '@navikt/ds-icons'
+import { ChevronRightIcon , TrashIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button } from '@navikt/ds-react'
 import { VerticalSeparatorDiv, HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import { useTranslation } from 'react-i18next'
@@ -27,7 +27,7 @@ const P5000HelpModal = ({
               >
                 {t('p5000:registrert')}
                 <HorizontalSeparatorDiv size='0.3' />
-                <NextFilled />
+                <ChevronRightIcon fontSize="1.5rem" />
               </Button>
               {t('p5000:help-modal-2')}
             </BodyLong>
@@ -53,7 +53,7 @@ const P5000HelpModal = ({
               >
                 {t('p5000:rediger')}
                 <HorizontalSeparatorDiv size='0.3' />
-                <NextFilled />
+                <ChevronRightIcon />
               </Button>
               {t('p5000:help-modal-6')}
               <Button
@@ -61,7 +61,7 @@ const P5000HelpModal = ({
                 variant='tertiary'
                 onClick={() => {}}
               >
-                <Delete />
+                <TrashIcon fontSize="1.5rem" />
                 <HorizontalSeparatorDiv size='0.5' />
                 {t('ui:remove')}
               </Button>
