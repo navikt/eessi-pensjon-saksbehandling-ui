@@ -2,7 +2,7 @@ import { toggleHighContrast } from 'actions/ui'
 import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import * as routes from 'constants/routes'
 import PT from 'prop-types'
-import { Warning, EmployerFilled } from '@navikt/ds-icons'
+import { ExclamationmarkTriangleIcon, PersonSuitFillIcon } from '@navikt/aksel-icons'
 import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
@@ -113,7 +113,7 @@ const Header: React.FC<HeaderProps> = ({
           : (
             <>
               <SaksbehandlerUser>
-                <EmployerFilled />
+                <PersonSuitFillIcon fontSize="1.5rem" />
               </SaksbehandlerUser>
               <HorizontalSeparatorDiv />
             </>
@@ -131,7 +131,8 @@ const Header: React.FC<HeaderProps> = ({
                     )
                   : (
                     <>
-                      <Warning width={20} height={20} />
+                      {/*<Warning width={20} height={20} />*/}
+                      <ExclamationmarkTriangleIcon width={20} height={20}/>
                       <UsernameSpan>
                         {t('ui:unknown')}
                       </UsernameSpan>

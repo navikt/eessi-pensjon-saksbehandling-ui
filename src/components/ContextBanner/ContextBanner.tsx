@@ -5,7 +5,7 @@ import { SakTypeMap, SakTypeValue } from 'declarations/buc.d'
 import { PersonPDL } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import { linkLogger, standardLogger } from 'metrics/loggers'
-import { NextFilled, ExternalLink } from '@navikt/ds-icons'
+import { ChevronRightIcon, ExternalLinkIcon } from '@navikt/aksel-icons'
 import { Link } from '@navikt/ds-react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -80,7 +80,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
         {/*  fnr={getFnr(personPdl) ? getFnr(personPdl) : ''}*/}
         {/*  avdodFnr=''*/}
         {/*/>*/}
-        <NextFilled />
+        <ChevronRightIcon fontSize="1.5rem" />
         {pesysContext && (
           <Tag data-testid="tag-pesyscontext">
             <span>{t('ui:youComeFrom')}</span>
@@ -113,7 +113,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
         >
           {t('ui:lawsource')}
           <HorizontalSeparatorDiv size='0.5' />
-          <ExternalLink />
+          <ExternalLinkIcon fontSize="1.5rem" />
         </Link>
         <SeparatorSpan>
           •
@@ -126,7 +126,7 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
         >
           {t('ui:help')}
           <HorizontalSeparatorDiv size='0.5' />
-          <ExternalLink />
+          <ExternalLinkIcon fontSize="1.5rem" />
         </Link>
       </DivWithLinks>
     </Content>

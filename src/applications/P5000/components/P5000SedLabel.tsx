@@ -1,4 +1,4 @@
-import { Warning } from '@navikt/ds-icons'
+import { ExclamationmarkTriangleIcon } from '@navikt/aksel-icons'
 import Flag from '@navikt/flagg-ikoner'
 import { FlexCenterDiv, HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
@@ -44,7 +44,7 @@ const P5000SedLabel = ({
       {warning && (
         <>
           <HorizontalSeparatorDiv size='0.5' />
-          <Warning />
+          <ExclamationmarkTriangleIcon  fontSize="1.5rem" />
         </>
       )}
     </FlexCenterDiv>

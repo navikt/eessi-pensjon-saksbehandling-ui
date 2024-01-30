@@ -1,4 +1,4 @@
-import { ErrorFilled } from '@navikt/ds-icons'
+import { XMarkOctagonFillIcon } from '@navikt/aksel-icons'
 import classNames from 'classnames'
 import { fadeIn } from '@navikt/hoykontrast'
 import { AlertError, AlertVariant } from 'declarations/components'
@@ -23,7 +23,7 @@ export const BannerAlertDiv = styled(Alert)`
     max-width: none !important;
   }
 `
-export const CloseIcon = styled(ErrorFilled)`
+export const CloseIcon = styled(XMarkOctagonFillIcon)`
   position: absolute;
   top: 0.25rem;
   right: 0.25rem;
