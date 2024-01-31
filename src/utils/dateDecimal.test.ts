@@ -74,11 +74,11 @@ describe('utils/dateDecimal', () => {
     })
   })
 
-  it('dateDecimal: handles weeks > 52 as 1 year', () => {
+/*  it('dateDecimal: handles weeks > 52 as 1 year', () => {
     expect(dateDecimal({ weeks: 1000 })).toEqual({
       days: 0, months: 0, years: 1
     })
-  })
+  })*/
 
   it('dateDecimal: handles all values', () => {
     // 45 + 7 * 7 + 20 * 30 + 5 * 90 + 1 * 360 = 1504 = 4 years, 2 months, 4 days
@@ -94,6 +94,44 @@ describe('utils/dateDecimal', () => {
     // adding trimester triggers different "rules" than dateDiff, thus converts 30 days to 1 month
     expect(dateDecimal({ days: '30', months: '0', years: '0', trimesters: '1' })).toEqual({
       days: 0, months: 4, years: 0
+    })
+  })
+
+
+/*  it('dateDecimal: handles all values2', () => {
+    expect(dateDecimal({ days: '0', weeks: '200', months: '0', trimesters: '0', years: '0' })).toEqual({
+      days: 0, months: 0, years: 3
+    })
+  })*/
+
+  it('dateDecimal: handles all values 3', () => {
+    expect(dateDecimal({ days: '0', weeks: '200', months: '0', trimesters: '0', years: '0' })).toEqual({
+      days: 8, months: 10, years: 3
+    })
+  })
+
+  it('dateDecimal: handles all values 4', () => {
+    expect(dateDecimal({ days: '0', weeks: '104', months: '0', trimesters: '0', years: '0' })).toEqual({
+      days: 0, months: 0, years: 2
+    })
+  })
+
+  it('dateDecimal: handles all values 5', () => {
+    expect(dateDecimal({ days: '0', weeks: '5', months: '0', trimesters: '0', years: '0' })).toEqual({
+      days: 5, months: 1, years: 0
+    })
+  })
+
+  it('dateDecimal: handles all values 6', () => {
+    expect(dateDecimal({ days: '0', weeks: '4', months: '0', trimesters: '0', years: '0' })).toEqual({
+      days: 28, months: 0, years: 0
+    })
+  })
+
+
+  it('dateDecimal: handles all values 6', () => {
+    expect(dateDecimal({ days: '0', weeks: '-1', months: '0', trimesters: '0', years: '0' })).toEqual({
+      days: 0, months: 0, years: 0
     })
   })
 })
