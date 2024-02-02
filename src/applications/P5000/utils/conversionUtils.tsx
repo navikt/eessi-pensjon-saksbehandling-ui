@@ -84,6 +84,8 @@ export const periodToListItem = (
   }
 
   const convertedDate = dateDecimal({
+    dateFom: period.periode?.fom,
+    dateTom: period.periode?.tom,
     days: period.sum?.dager?.nr,
     trimesters: period.sum?.kvartal,
     months: period.sum?.maaneder,
