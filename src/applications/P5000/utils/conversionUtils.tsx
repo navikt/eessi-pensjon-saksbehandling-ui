@@ -225,6 +225,8 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
 
 export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, item: P5000ListRow, max40 = false) => {
   const existingDates = dateDecimal({
+    dateFom: arr[index].periode?.fom,
+    dateTom: arr[index].periode?.tom,
     years: arr[index].sum?.aar,
     trimesters: arr[index].sum?.kvartal,
     months: arr[index].sum?.maaneder,

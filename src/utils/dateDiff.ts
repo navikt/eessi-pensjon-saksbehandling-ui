@@ -1,7 +1,7 @@
 import dayjs, {Dayjs} from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat"
-
 dayjs.extend(customParseFormat)
+
 export interface DateDiff {
   dateFom?: string | number | null | undefined
   dateTom?: string | number | null | undefined
