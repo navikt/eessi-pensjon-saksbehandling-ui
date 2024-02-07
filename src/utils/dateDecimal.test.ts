@@ -122,11 +122,11 @@ describe('utils/dateDecimal', () => {
   })
 
 
-/*  it('dateDecimal: handles all values 6', () => {
+  it('dateDecimal: handles all values 6', () => {
     expect(dateDecimal({ dateFom: '1992-04-06', days: '0', weeks: '-1', months: '0', trimesters: '0', years: '0' })).toEqual({
-      days: 0, months: 0, years: 0
+      days: -7, months: 0, years: 0
     })
-  })*/
+  })
 
   it('dateDecimal: 678', () => {
     expect(dateDecimal({ dateFom: '1992-04-06', dateTom: '2022-04-05', days: '0', weeks: '678', months: '0', trimesters: '0', years: '0' })).toEqual({
