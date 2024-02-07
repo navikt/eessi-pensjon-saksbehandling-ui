@@ -235,6 +235,8 @@ export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, it
   })
 
   let newDates = sumDates({
+    dateFom: item.startdato.toDateString(),
+    dateTom:item.sluttdato.toDateString(),
     years: item.aar,
     months: item.mnd,
     days: item.dag
