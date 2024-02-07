@@ -91,20 +91,39 @@ const dateDecimal = (date: DateDiff, outputAsString = false): FormattedDateDiff 
   const fomDate: Dayjs = dayjs(date.dateFom, 'YYYY-MM-DD')
   let calculatedTomDate: Dayjs = dayjs(date.dateFom, 'YYYY-MM-DD')
 
+  function addFractionalYears(tomDate: Dayjs, fractionalYears: number) {
+    const years = Math.floor(fractionalYears);
+    const months = Math.floor((fractionalYears - years) * 12);
+    const days = Math.floor((fractionalYears - years - (months / 12)) * 365);
+
+    return tomDate.add(years, 'year').add(months, 'month').add(days, 'day');
+  }
+
+  function addFractionalMonths(tomDate : Dayjs, fractionalMonths: number) {
+    const months = Math.floor(fractionalMonths);
+    const remainingDays = (fractionalMonths - months) * 30; // Assuming 30 days per month
+
+    return tomDate.add(months, 'month').add(remainingDays, 'day');
+  }
+
   if (Object.prototype.hasOwnProperty.call(date, 'trimesters')) {
     const months = _.isNil(date.trimesters) ? 0 : _.isNumber(date.trimesters) ? date.trimesters * 3.0 : parseFloat(date.trimesters!) * 3.0
-    calculatedTomDate = calculatedTomDate.add(months, 'month')
+    //calculatedTomDate = calculatedTomDate.add(months, 'month')
+    calculatedTomDate = addFractionalMonths(calculatedTomDate, months)
   }
   if (Object.prototype.hasOwnProperty.call(date, 'weeks')) {
     const weeks = _.isNil(date.weeks) ? 0 : _.isNumber(date.weeks) ? date.weeks : parseFloat(date.weeks!)
     calculatedTomDate = calculatedTomDate.add(weeks, 'week')
   }
 
-  const days = _.isNil(date.days) ? 0 : _.isNumber(date.days) ? date.days : date.days === '' ? 0 : parseFloat(date.days)
-  const months = (_.isNil(date.months) ? 0 : _.isNumber(date.months) ? date.months : date.months === '' ? 0 : parseFloat(date.months))
+  const days  = _.isNil(date.days) ? 0 : _.isNumber(date.days) ? date.days : date.days === '' ? 0 : parseFloat(date.days)
+  const months  = (_.isNil(date.months) ? 0 : _.isNumber(date.months) ? date.months : date.months === '' ? 0 : parseFloat(date.months))
   const years = (_.isNil(date.years) ? 0 : _.isNumber(date.years) ? date.years : date.years === '' ? 0 : parseFloat(date.years))
 
-  calculatedTomDate = calculatedTomDate.add(days, 'day').add(months, 'month').add(years, 'year')
+  //calculatedTomDate = calculatedTomDate.add(days, 'day').add(months, 'month').add(years, 'year')
+  calculatedTomDate = calculatedTomDate.add(days, 'day')
+  calculatedTomDate = addFractionalMonths(calculatedTomDate, months)
+  calculatedTomDate = addFractionalYears(calculatedTomDate, years)
 
   const calculatedYears = calculatedTomDate.diff(fomDate, 'year');
   const calculatedMonths = calculatedTomDate.diff(fomDate, 'month') - calculatedYears * 12;
