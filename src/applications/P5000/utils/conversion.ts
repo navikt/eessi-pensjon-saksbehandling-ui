@@ -219,8 +219,6 @@ export const mergeP5000ListRows = (
         let sumDateDiff: DateDiff = { days: 0, months: 0, years: 0 }
         groupedPeriods[key][key2].sub.forEach((sub: P5000ListRow) => {
           sumDateDiff = sumDates({
-            dateFom: sub.startdato.toDateString(),
-            dateTom: sub.sluttdato.toDateString(),
             days: sub.dag,
             months: sub.mnd,
             years: sub.aar
