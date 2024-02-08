@@ -71,8 +71,8 @@ const dateDecimal = (date: DateDiff, outputAsString = false): FormattedDateDiff 
   const fomDate: Dayjs = dayjs(date.dateFom, 'YYYY-MM-DD')
   let calculatedTomDate: Dayjs = dayjs(date.dateFom, 'YYYY-MM-DD')
 
-  if (Object.prototype.hasOwnProperty.call(date, 'trimesters')) {
-    const months = _.isNil(date.trimesters) ? 0 : _.isNumber(date.trimesters) ? date.trimesters * 3.0 : parseFloat(date.trimesters!) * 3.0
+  if (Object.prototype.hasOwnProperty.call(date, 'quarter')) {
+    const months = _.isNil(date.quarter) ? 0 : _.isNumber(date.quarter) ? date.quarter * 3.0 : parseFloat(date.quarter!) * 3.0
     //calculatedTomDate = calculatedTomDate.add(months, 'month')
     calculatedTomDate = addFractionalMonths(calculatedTomDate, months)
   }

@@ -354,7 +354,7 @@ export const convertP5000SEDToP5000SumRows = (
           dateFom: periode.periode?.fom,
           dateTom: periode.periode?.tom,
           days: periode.sum?.dager?.nr,
-          trimesters: periode.sum?.kvartal,
+          quarter: periode.sum?.kvartal,
           months: periode.sum?.maaneder,
           weeks: periode.sum?.uker,
           years: periode.sum?.aar
@@ -400,7 +400,7 @@ export const convertP5000SEDToP5000SumRows = (
           dateFom: periode.periode?.fom,
           dateTom: periode.periode?.tom,
           days: periode.sum?.dager?.nr,
-          trimesters: periode.sum?.kvartal,
+          quarter: periode.sum?.kvartal,
           months: periode.sum?.maaneder,
           weeks: periode.sum?.uker,
           years: periode.sum?.aar

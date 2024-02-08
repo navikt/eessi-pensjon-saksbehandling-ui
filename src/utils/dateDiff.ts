@@ -8,7 +8,7 @@ export interface DateDiff {
   days?: string | number | null | undefined
   months?: string | number | null | undefined
   years?: string | number | null | undefined
-  trimesters ?: string | number | null | undefined
+  quarter ?: string | number | null | undefined
   weeks ?: string | number | null | undefined
 }
 
