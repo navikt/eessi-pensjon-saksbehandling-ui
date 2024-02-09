@@ -107,7 +107,11 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
   const avdod: PersonAvdod | undefined = _.find(personAvdods, p => {
     const avdodFnr = p.fnr
     const needleFnr = (buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr
-    return avdodFnr === needleFnr
+    if(needleFnr){
+      return avdodFnr === needleFnr
+    } else {
+      return true
+    }
   })
 
   return (
