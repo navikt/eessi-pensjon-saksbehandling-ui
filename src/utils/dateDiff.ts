@@ -21,7 +21,7 @@ export interface FormattedDateDiff {
 const dateDiff = (startdato: Date | string, sluttdato: Date | string): FormattedDateDiff => {
 
   const fomDato : Dayjs = dayjs(startdato, 'DD.MM.YYYY')
-  const tomDato : Dayjs = dayjs(sluttdato, 'DD.MM.YYYY')
+  const tomDato : Dayjs = dayjs(sluttdato, 'DD.MM.YYYY').add(1, 'day') //Include fomDato in count
 
   const years = tomDato.diff(fomDato, 'year');
   const months = tomDato.diff(fomDato, 'month') - years * 12;
