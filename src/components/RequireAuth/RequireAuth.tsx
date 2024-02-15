@@ -62,10 +62,12 @@ const RequireAuth: React.FC<any> = (props) => {
           const _key = Object.prototype.hasOwnProperty.call(paramAliases, key)
             ? paramAliases[key]
             : key
+
+          if(_key === "sakType" && SakTypeMap.hasOwnProperty(value)){
+            value = SakTypeMap[value as SakTypeKey]
+          }
+
           if (value && value !== _params[_key]) {
-            if(_key === "sakType" && SakTypeMap.hasOwnProperty(value)){
-              value = SakTypeMap[value as SakTypeKey]
-            }
             dispatch(setStatusParam(_key, value))
             newParams[_key] = value
           }
