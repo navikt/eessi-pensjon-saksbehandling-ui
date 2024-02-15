@@ -2,6 +2,7 @@ import {getUserInfo, setContext, setStatusParam} from 'actions/app'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import * as constants from 'constants/constants'
 import * as routes from 'constants/routes'
+import {SakTypeKey, SakTypeMap} from 'declarations/buc.d'
 import { Params } from 'declarations/app'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
@@ -9,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
+
 
 const RouteDiv = styled.div`
   flex: 1;
@@ -61,6 +63,9 @@ const RequireAuth: React.FC<any> = (props) => {
             ? paramAliases[key]
             : key
           if (value && value !== _params[_key]) {
+            if(_key === "sakType" && SakTypeMap.hasOwnProperty(value)){
+              value = SakTypeMap[value as SakTypeKey]
+            }
             dispatch(setStatusParam(_key, value))
             newParams[_key] = value
           }
