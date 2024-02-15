@@ -217,6 +217,10 @@ export const BUCIndexGjenny = (): JSX.Element => {
     }
   },[personPdl, personAvdods])
 
+  if(aktoerId && avdodFnr && sakType && sakId){
+    return <BUCIndexPageGjenny/>
+  }
+
   if (!aktoerId || !avdodFnr || !sakType || !sakId || hasValidationErrors || !hasPersons) {
     return (
       <FrontpageDiv>
