@@ -84,8 +84,10 @@ export const periodToListItem = (
   }
 
   const convertedDate = dateDecimal({
+    dateFom: period.periode?.fom,
+    dateTom: period.periode?.tom,
     days: period.sum?.dager?.nr,
-    trimesters: period.sum?.kvartal,
+    quarter: period.sum?.kvartal,
     months: period.sum?.maaneder,
     weeks: period.sum?.uker,
     years: period.sum?.aar
@@ -223,8 +225,10 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
 
 export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, item: P5000ListRow, max40 = false) => {
   const existingDates = dateDecimal({
+    dateFom: arr[index].periode?.fom,
+    dateTom: arr[index].periode?.tom,
     years: arr[index].sum?.aar,
-    trimesters: arr[index].sum?.kvartal,
+    quarter: arr[index].sum?.kvartal,
     months: arr[index].sum?.maaneder,
     weeks: arr[index].sum?.uker,
     days: arr[index].sum?.dager?.nr
