@@ -2,6 +2,7 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import P5000 from 'applications/P5000/P5000'
+import P2000 from 'applications/P2000/P2000'
 import SEDLoadSave from 'applications/P5000/components/SEDLoadSave/SEDLoadSave'
 import { AllowedLocaleString, LocalStorageEntriesMap, BUCMode, FeatureToggles, LocalStorageEntry } from 'declarations/app.d'
 import { Buc, Institutions, Participant, Sed } from 'declarations/buc'
@@ -296,6 +297,35 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             </>
           )}
           </PileDiv>
+          {sed.type === 'P2000' && (sed.status !== 'received') &&
+            <>
+              <Button
+                variant='secondary'
+                data-amplitude='buc.view.p2000.edit'
+                data-testid='a_buc_c_sedheader--p2000-button-id'
+                onClick={(e) => {
+                  buttonLogger(e)
+                  setMode('p2000', 'forward', undefined, (
+                    <P2000
+                      buc={buc}
+                      setMode={setMode}
+                      sed={sed}
+                    />
+                  ))
+                  window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                  })
+                }}
+              >
+                Oppdater P2000
+                <HorizontalSeparatorDiv size='0.3' />
+                <NextFilled />
+              </Button>
+              <VerticalSeparatorDiv />
+            </>
+          }
           {sedCanHaveAttachments(sed) && toggleOpen &&
             <ExpandDiv>
               <Button variant="tertiary" onClick={() => toggleOpen(!toggleState)}>

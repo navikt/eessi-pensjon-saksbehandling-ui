@@ -1,7 +1,6 @@
 import {
   endBucsFetch,
   fetchBuc,
-  setMode,
   startBucsFetch
 } from 'actions/buc'
 import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
@@ -197,7 +196,6 @@ export const BUCIndexPageGjenny = (): JSX.Element => {
   )
 
   const changeMode = useCallback((newMode: BUCMode, from: string, callback?: () => void, content?: JSX.Element) => {
-    dispatch(setMode(newMode))
     if (animating) {
       return
     }
@@ -281,7 +279,7 @@ export const BUCIndexPageGjenny = (): JSX.Element => {
         }, timeout)
       }
     }
-    if (newMode === 'p4000' || newMode === 'p5000') {
+    if (newMode === 'p4000' || newMode === 'p5000' || newMode === 'p2000') {
       setContentC(content)
       if (from === 'forward') {
         setPositionA(Slide.A_GOING_TO_LEFT)

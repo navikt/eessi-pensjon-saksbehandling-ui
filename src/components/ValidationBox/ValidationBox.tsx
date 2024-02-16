@@ -14,7 +14,7 @@ const ValidationBox: React.FC<ValidationBoxProps> = ({
   heading,
   eventName = 'feillenke'
 }: ValidationBoxProps): JSX.Element => {
-  const isValid = _.find(_.values(validation), (e) => e !== undefined && e.feilmelding !== 'notnull') === undefined
+  const isValid = _.find(_.values(validation), (e) => e !== undefined && e.feilmelding !== 'notnull' && e.feilmelding !== 'error' && e.feilmelding !== 'ok') === undefined
 
   if (isValid) {
     return <div />
@@ -27,6 +27,8 @@ const ValidationBox: React.FC<ValidationBoxProps> = ({
       {Object.values(validation)
         .filter(v => v !== undefined)
         .filter(v => v?.feilmelding !== 'notnull')
+        .filter(v => v?.feilmelding !== 'error')
+        .filter(v => v?.feilmelding !== 'ok')
         .map(v => ({
           feilmelding: v!.feilmelding,
           skjemaelementId: v!.skjemaelementId

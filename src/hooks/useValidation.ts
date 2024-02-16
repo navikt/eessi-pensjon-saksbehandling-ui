@@ -1,39 +1,40 @@
 import { Validation } from 'declarations/app.d'
-import { TFunction } from 'i18next'
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 const useValidation = <ValidationData extends any>(
-  initialValue: Validation = {},
   validateFunction: (
     newValidation: Validation,
-    t: TFunction,
-    validationData: ValidationData
-  ) => boolean
+    namespace: string | undefined,
+    validationData: ValidationData,
+  ) => boolean,
+  namespace: string,
+  initialValue: Validation = {}
 ): [
-    Validation,
-    (key?: string | undefined) => void,
-    (validationData: ValidationData) => boolean,
-    (v: Validation) => void
+      Validation,
+      (key?: (string | undefined)) => void,
+      (validationData: ValidationData) => boolean,
+      ((value: (((prevState: Validation) => Validation) | Validation)) => void)
   ] => {
-  const { t } = useTranslation()
   const [_validation, setValidation] = useState<Validation>(initialValue)
 
   const resetValidation = (key: string | undefined = undefined): void => {
-    if (!key) {
+    console.log(key)
+    console.log(_validation)
+    if (key === undefined) {
       setValidation({})
+    } else {
+      setValidation({
+        ..._validation,
+        [key!]: undefined
+      })
     }
-    setValidation({
-      ..._validation,
-      [key!]: undefined
-    })
   }
 
   const performValidation = (validationData: ValidationData): boolean => {
     const newValidation: Validation = {}
     const hasErrors: boolean = validateFunction(
       newValidation,
-      t,
+      namespace,
       validationData
     )
     setValidation(newValidation)
