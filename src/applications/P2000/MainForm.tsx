@@ -45,7 +45,7 @@ const RightDiv = styled.div`
 const RightActiveDiv = styled.div`
   border-width: 1px;
   border-style: solid;
-  border-color: var(--navds-panel-color-border);
+  border-color: var(--a-border-strong);
   background-color: var(--a-bg-default);
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
@@ -58,12 +58,12 @@ const NameAndOptionsDiv = styled(PileDiv)`
    background-image: linear-gradient(to right, var(--a-bg-subtle), var(--a-bg-default));
  }
  background-color: var(--a-bg-default);
- border-top: 1px solid var(--navds-panel-color-border);
- border-right: 1px solid var(--navds-panel-color-border);
+ border-top: 1px solid var(--a-border-strong);
+ border-right: 1px solid var(--a-border-strong);
  border-width: 1px;
  border-bottom-width: 0px;
  border-style: solid;
- border-color: var(--navds-panel-color-border);
+ border-color: var(--a-border-strong);
 `
 
 const NameDiv = styled.div`
@@ -82,8 +82,8 @@ const NameLabelDiv = styled(FlexCenterDiv)`
 `
 const LastDiv = styled.div`
   flex: 1;
-  border-top: 1px solid var(--navds-panel-color-border);
-  border-right: 1px solid var(--navds-panel-color-border);
+  border-top: 1px solid var(--a-border-strong);
+  border-right: 1px solid var(--a-border-strong);
 `
 const MenuLabelText = styled(BodyLong)`
   font-weight: bold;
@@ -94,7 +94,7 @@ const MenuArrowDiv = styled.div`
 const BlankDiv = styled(PileCenterDiv)`
   border-width: 1px;
   border-style: solid;
-  border-color: var(--navds-panel-color-border);
+  border-color: var(--a-border-strong);
   background-color: var(--a-bg-default);
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
