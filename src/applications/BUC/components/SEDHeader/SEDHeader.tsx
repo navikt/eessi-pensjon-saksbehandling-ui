@@ -24,6 +24,7 @@ import Tooltip from '@navikt/tooltip'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
+import {NextFilled} from "@navikt/ds-icons";
 
 const SEDListActionsDiv = styled.div`
   flex: 2;
