@@ -1,6 +1,6 @@
 import { ErrorElement, Validation } from 'declarations/app'
 import _ from 'lodash'
-import { TFunction } from 'react-i18next'
+import i18n from "../../i18n";
 
 export interface PageNotificationValidationProps {
   message: string | null | undefined
@@ -10,7 +10,7 @@ export interface PageNotificationValidationProps {
 
 export const pageNotificationValidate = (
   v: Validation,
-  t: TFunction,
+  namespace: string | undefined,
   {
     message,
     byline,
@@ -21,7 +21,7 @@ export const pageNotificationValidate = (
   if (_.isNil(show)) {
     v['w-pagenotification-show'] = {
       skjemaelementId: 'w-pagenotification-show',
-      feilmelding: t('feil')
+      feilmelding: i18n.t('feil')
     } as ErrorElement
     hasError = true
   }
@@ -30,7 +30,7 @@ export const pageNotificationValidate = (
     if (_.isEmpty(message)) {
       v['w-pagenotification-message'] = {
         skjemaelementId: 'w-pagenotification-message',
-        feilmelding: t('feil')
+        feilmelding: i18n.t('feil')
       } as ErrorElement
       hasError = true
     }
@@ -38,7 +38,7 @@ export const pageNotificationValidate = (
     if (_.isEmpty(byline)) {
       v['w-pagenotification-byline'] = {
         skjemaelementId: 'w-pagenotification-byline',
-        feilmelding: t('feil')
+        feilmelding: i18n.t('feil')
       } as ErrorElement
       hasError = true
     }

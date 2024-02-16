@@ -21,8 +21,9 @@ import {
   SedsWithAttachmentsMap,
   ValidBuc,
   P6000,
-  BucListItem
+  BucListItem,
 } from 'declarations/buc'
+import {PSED} from "declarations/app.d";
 import { JoarkBrowserItem, JoarkBrowserItems, JoarkPreview } from 'declarations/joark'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
@@ -30,7 +31,7 @@ import md5 from 'md5'
 import { standardLogger } from 'metrics/loggers'
 import { AnyAction } from 'redux'
 import { P5000sFromRinaMap } from 'declarations/p5000'
-import {P4000SED} from "../declarations/p4000";
+import {P4000SED} from "../declarations/p4000"
 
 export interface BucState {
   attachmentsError: boolean
@@ -42,6 +43,7 @@ export interface BucState {
   countryList: Array<string> | undefined
   currentBuc: string | undefined
   currentSed: Sed | undefined
+  PSED: PSED | undefined
   followUpSeds: Array<Sed> | undefined
   howManyBucLists: number
   kravDato: string | null | undefined
@@ -75,6 +77,7 @@ export const initialBucState: BucState = {
   countryList: undefined,
   currentBuc: undefined,
   currentSed: undefined,
+  PSED: undefined,
   followUpSeds: undefined,
   institutionList: undefined,
   institutionNames: {},
@@ -95,7 +98,7 @@ export const initialBucState: BucState = {
   sedList: undefined,
   sedsWithAttachments: {},
   subjectAreaList: ['Pensjon'],
-  tagList: undefined
+  tagList: undefined,
 }
 
 const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
@@ -802,6 +805,50 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         howManyBucLists: (state.howManyBucLists - 1),
         bucsList: _.isNil(state.bucsList) ? null : state.bucsList
       }
+
+    case types.BUC_GET_SED_REQUEST: {
+      return {
+        ...state,
+        PSED: undefined
+      }
+    }
+    case types.BUC_GET_SED_SUCCESS: {
+      return {
+        ...state,
+        PSED: (action as ActionWithPayload).payload
+      }
+    }
+    case types.BUC_GET_SED_FAILURE: {
+      return {
+        ...state,
+        PSED: null
+      }
+    }
+
+
+    case types.BUC_SED_SET:
+      return {
+        ...state,
+        PSED: (action as ActionWithPayload).payload,
+        PSEDChanged: true
+      }
+
+    case types.BUC_SED_UPDATE: {
+      let newPSED: PSED | null | undefined = _.cloneDeep(state.PSED)
+      if (!newPSED) {
+        newPSED = {} as PSED
+      }
+      _.set(newPSED,
+        (action as ActionWithPayload).payload.needle,
+        (action as ActionWithPayload).payload.value
+      )
+
+      return {
+        ...state,
+        PSED: newPSED,
+        PSEDChanged: true
+      }
+    }
 
     default:
       return state

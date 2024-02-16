@@ -37,11 +37,14 @@ import mockInstitutions from 'mocks/buc/institutions'
 import mockKravDato from 'mocks/buc/kravDato'
 import mockP6000 from 'mocks/buc/p6000'
 import mockP4000 from 'mocks/buc/p4000'
+import mockSed from  'mocks/buc/sed'
 import mockP6000pdf from 'mocks/buc/p6000pdf'
 import mockRinaUrl from 'mocks/buc/rinaUrl'
 import mockSakType from 'mocks/buc/sakType'
 import mockSedList from 'mocks/buc/sedList'
 import { Action, ActionCreator } from 'redux'
+import {UpdateSedPayload} from "../declarations/types";
+import {PSED} from "declarations/app.d";
 
 const sprintf = require('sprintf-js').sprintf
 
@@ -308,6 +311,60 @@ export const getInstitutionsListForBucAndCountry = (
     }
   })
 }
+
+export const getSed = (
+  caseId: string, sed: Sed
+): Action => {
+  return call({
+    url: sprintf(urls.BUC_GET_SED_URL, { caseId, sedId: sed.id }),
+    cascadeFailureError: true,
+    expectedPayload: mockSed(sed.type),
+    context: {
+      sedId: sed.id
+    },
+    type: {
+      request: types.BUC_GET_SED_REQUEST,
+      success: types.BUC_GET_SED_SUCCESS,
+      failure: types.BUC_GET_SED_FAILURE
+    }
+  })
+}
+
+export const saveSed = (
+  caseId: string, sedId: string, sedType: string, payload: any
+): Action => {
+  return call({
+    url: sprintf(urls.BUC_PUT_SED_URL, { caseId, sedId }),
+    method: 'PUT',
+    body: payload,
+    cascadeFailureError: true,
+    context: {
+      caseId,
+      sedId,
+      sedType,
+      payload
+    },
+    type: {
+      request: types.BUC_PUT_SED_REQUEST,
+      success: types.BUC_PUT_SED_SUCCESS,
+      failure: types.BUC_PUT_SED_FAILURE
+    }
+  })
+}
+
+export const setPSED: ActionCreator<ActionWithPayload<PSED>> = (
+  PSED: PSED
+): ActionWithPayload<PSED> => ({
+  type: types.BUC_SED_SET,
+  payload: PSED
+})
+
+export const updatePSED: ActionCreator<ActionWithPayload<UpdateSedPayload>> = (
+  needle: string, value: any
+): ActionWithPayload<UpdateSedPayload> => ({
+  type: types.BUC_SED_UPDATE,
+  payload: { needle, value }
+})
 
 export const getSedP4000 = (
   caseId: string, sed: Sed

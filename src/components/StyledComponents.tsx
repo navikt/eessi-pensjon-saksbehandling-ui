@@ -1,4 +1,6 @@
 import styled from 'styled-components/macro'
+import {Panel, RadioGroup} from '@navikt/ds-react'
+import { PaddedHorizontallyDiv } from '@navikt/hoykontrast'
 
 export const OneLineSpan = styled.span`
   white-space: nowrap;
@@ -25,3 +27,68 @@ export const HorizontalLineSeparator = styled.div`
   margin-left: 2rem;
   margin-right: 2rem;
 `
+export const WithErrorPanel = styled(Panel)`
+  padding: 0rem;
+  background-color: transparent;
+  border: none;
+  &.error {
+    margin: -4px;
+    border: 4px solid var(--navds-error-summary-color-border) !important;
+  }
+`
+
+export const RepeatableRow = styled(PaddedHorizontallyDiv)`
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  min-height: 3.0rem;
+  &.new {
+    background-color: rgba(236, 243, 153, 0.5);
+  };
+  &.error {
+    background-color: rgba(255, 0, 0, 0.2);
+  };
+  &:hover:not(.new):not(.error) {
+    background-color: var(--navds-global-color-gray-100);
+  }
+  &:not(:hover) .control-buttons {
+    position: absolute;
+    margin-left: -10000px;
+  }
+`
+
+export const RepeatableRowAlternateColors = styled(RepeatableRow)`
+  border: 1px solid transparent;
+  &:nth-child(even){
+    background-color: var(--navds-global-color-gray-300);
+  }
+   &:hover:not(.new):not(.error) {
+    background-color: var(--navds-global-color-gray-100);
+    border: 1px solid #000000;
+  }
+`
+
+
+export const RepeatableRowNoHorizontalPadding = styled(RepeatableRow)`
+  padding-left:0;
+  padding-right:0;
+`
+
+export const Hr = styled.div`
+   background: var(--navds-panel-color-border);
+   width: 100%;
+   height: 1px;
+`
+
+export const SpacedHr = styled(Hr)`
+   margin-top: 0.5rem;
+   margin-bottom: 0.5rem;
+`
+
+export const HorizontalRadioGroup = styled(RadioGroup)`
+  > .navds-radio-buttons {
+    display: flex;
+    gap: var(--navds-spacing-4);
+    margin-bottom: var(--navds-spacing-2)
+  }
+`
+

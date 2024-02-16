@@ -9,7 +9,8 @@ import p5000 from './p5000'
 import person from './person'
 import sentry from './sentry'
 import ui from './ui'
+import validation from './validation'
 
 export default {
-  alert, app, buc, joark, loading, localStorage, pagenotification, p5000, person, sentry, ui
+  alert, app, buc, joark, loading, localStorage, pagenotification, p5000, person, sentry, ui, validation
 }

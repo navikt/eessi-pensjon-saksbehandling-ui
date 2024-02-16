@@ -8,6 +8,7 @@ import { P5000State } from 'reducers/p5000'
 import { PersonState } from 'reducers/person'
 import { PageNotificationState } from 'reducers/pagenotification'
 import { UiState } from 'reducers/ui'
+import { ValidationState } from 'reducers/validation'
 
 export interface State {
   alert: AlertState
@@ -19,5 +20,6 @@ export interface State {
   pagenotification: PageNotificationState
   p5000: P5000State
   person: PersonState
-  ui: UiState
+  ui: UiState,
+  validation: ValidationState
 }
