@@ -143,7 +143,8 @@ const handleCallback = (req, res) => {
     }
   }
 
-  logger.debug('handleCallback: redirecting to ' + redirectPath)
+  //logger.debug('handleCallback: redirecting to ' + redirectPath)
+  logger.debug('handleCallback: redirecting to redirect path')
   res.redirect(redirectPath)
 }
 
@@ -185,7 +186,7 @@ const apiProxy = function (target, pathRewrite) {
   //logger.debug('On apiProxy, with target ' + target)
   return createProxyMiddleware( {
     target: target,
-    logLevel: 'debug',
+    logLevel: 'silent',
     changeOrigin: true,
     xfwd: true,
     pathRewrite: pathRewrite,
@@ -208,7 +209,8 @@ const timedOut = function (req, res, next) {
   if (!req.timedout) {
     next()
   } else {
-    logger.warning('request for ' + req.originalUrl + ' timed out!')
+    //logger.warning('request for ' + req.originalUrl + ' timed out!')
+    logger.warning('request for original url timed out!')
   }
 }
 

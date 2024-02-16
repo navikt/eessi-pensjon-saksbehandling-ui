@@ -349,12 +349,16 @@ export const convertP5000SEDToP5000SumRows = (
           data[periode.type].land = getNewLand(periode, sender)
         }
         const convertedDate: FormattedDateDiff = sumDates({
+          dateFom: periode.periode?.fom,
+          dateTom: periode.periode?.tom,
           days: periode.sum?.dager?.nr,
-          trimesters: periode.sum?.kvartal,
+          quarter: periode.sum?.kvartal,
           months: periode.sum?.maaneder,
           weeks: periode.sum?.uker,
           years: periode.sum?.aar
         }, {
+          dateFom: periode.periode?.fom,
+          dateTom: periode.periode?.tom,
           years: data[periode.type].sec51aar,
           months: data[periode.type].sec51mnd,
           days: data[periode.type].sec51dag
@@ -391,12 +395,16 @@ export const convertP5000SEDToP5000SumRows = (
         }
 
         const convertedDate = sumDates({
+          dateFom: periode.periode?.fom,
+          dateTom: periode.periode?.tom,
           days: periode.sum?.dager?.nr,
-          trimesters: periode.sum?.kvartal,
+          quarter: periode.sum?.kvartal,
           months: periode.sum?.maaneder,
           weeks: periode.sum?.uker,
           years: periode.sum?.aar
         }, {
+          dateFom: periode.periode?.fom,
+          dateTom: periode.periode?.tom,
           years: data[periode.type].sec52aar,
           months: data[periode.type].sec52mnd,
           days: data[periode.type].sec52dag
