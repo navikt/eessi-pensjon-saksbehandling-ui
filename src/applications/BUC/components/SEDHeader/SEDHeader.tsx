@@ -119,9 +119,10 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   toggleOpen,
   toggleState
 }: SEDHeaderProps): JSX.Element => {
-  const { locale, storageEntries }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
+  const { locale, storageEntries, featureToggles }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
   const followUpSeds: Array<Sed> = buc.seds!.filter(_sed => _sed.parentDocumentId === sed.id && _sed.status === 'empty')
+  const isAdmin: boolean = featureToggles.ADMIN_NOTIFICATION_MESSAGE === true
 
   const sedCanHaveAttachments = (sed: Sed): boolean => {
     return !buc.readOnly && sed !== undefined && sed.allowsAttachments && _.includes(['new', 'active'], sed.status)
@@ -297,7 +298,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             </>
           )}
           </PileDiv>
-          {sed.type === 'P2000' && (sed.status !== 'received') &&
+          {isAdmin && sed.type === 'P2000' && (sed.status !== 'received') &&
             <>
               <Button
                 variant='secondary'
