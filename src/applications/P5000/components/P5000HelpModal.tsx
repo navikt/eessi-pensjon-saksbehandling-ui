@@ -53,7 +53,7 @@ const P5000HelpModal = ({
               >
                 {t('p5000:rediger')}
                 <HorizontalSeparatorDiv size='0.3' />
-                <ChevronRightIcon />
+                <ChevronRightIcon fontSize="1.5rem" />
               </Button>
               {t('p5000:help-modal-6')}
               <Button

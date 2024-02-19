@@ -224,7 +224,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                         dispatch(copyToClipboard(buc.internationalId ? buc.internationalId : ""))
                       }}
                     >
-                      {hover ? <CopyFilledWithMargin/> : <CopyWithMargin/>}
+                      {hover ? <CopyFilledWithMargin fontSize="1.5rem"/> : <CopyWithMargin fontSize="1.5rem"/>}
                     </Link>
                   </DdTwoColumn>
                 </>
