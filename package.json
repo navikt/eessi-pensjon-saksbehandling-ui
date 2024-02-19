@@ -22,7 +22,6 @@
   "private": true,
   "dependencies": {
     "@navikt/ds-css": "^3.0.1",
-    "@navikt/ds-icons": "^3.3.1",
     "@navikt/ds-react": "^3.0.1",
     "@navikt/fetch": "^2.1.10",
     "@navikt/filopplasting": "^3.0.4",
