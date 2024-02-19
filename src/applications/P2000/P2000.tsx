@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Buc, Sed} from "../../declarations/buc";
 import {BUCMode, Validation} from "../../declarations/app";
 import {Button, Heading, Loader} from "@navikt/ds-react";
-import {BackFilled} from "@navikt/ds-icons";
+import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {HorizontalSeparatorDiv} from "@navikt/hoykontrast";
 import {getSed, saveSed, setPSED, updatePSED} from "actions/buc";
 import {resetValidation, setValidation} from 'actions/validation'
@@ -91,7 +91,7 @@ const P2000: React.FC<P2000Props> = ({
           variant='secondary'
           onClick={onBackClick}
         >
-          <BackFilled />
+          <ChevronLeftIcon />
           <HorizontalSeparatorDiv size='0.25' />
           <span>
             {t('ui:back')}
