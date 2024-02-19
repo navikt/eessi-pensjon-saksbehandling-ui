@@ -290,7 +290,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
                 variant='tertiary'
                 onClick={() => _setNewForm(true)}
               >
-                <PlusCircleIcon />&nbsp;
+                <PlusCircleIcon fontSize="1.5rem" />&nbsp;
                 {t('ui:add-new-x', { x: t('p2000:form-arbeidsforhold')?.toLowerCase() })}
               </Button>
             </AlignEndColumn>

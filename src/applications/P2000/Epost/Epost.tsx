@@ -190,7 +190,7 @@ const Epost: React.FC<EpostProps> = ({
               variant='tertiary'
               onClick={() => _setNewEpostForm(true)}
             >
-              <PlusCircleIcon />&nbsp;
+              <PlusCircleIcon fontSize="1.5rem" />&nbsp;
               {t('ui:add-new-x', { x: t('p2000:form-epost')?.toLowerCase() })}
             </Button>
           )

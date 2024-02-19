@@ -220,7 +220,7 @@ const Telefon: React.FC<TelefonProps> = ({
               variant='tertiary'
               onClick={() => _setNewTelefonForm(true)}
             >
-              <PlusCircleIcon />&nbsp;
+              <PlusCircleIcon fontSize="1.5rem" />&nbsp;
               {t('ui:add-new-x', { x: t('p2000:form-telefon')?.toLowerCase() })}
             </Button>
           )
