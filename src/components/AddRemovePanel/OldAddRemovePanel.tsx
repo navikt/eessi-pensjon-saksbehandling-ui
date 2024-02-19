@@ -1,4 +1,4 @@
-import { Delete, Add } from '@navikt/ds-icons'
+import { TrashIcon, PlusCircleIcon } from '@navikt/aksel-icons'
 import classNames from 'classnames'
 import { BodyLong, Button } from '@navikt/ds-react'
 import { FlexCenterDiv, HorizontalSeparatorDiv } from '@navikt/hoykontrast'
@@ -59,7 +59,7 @@ const OldAddRemovePanel: React.FC<AddRemovePanelProps> = ({
           size='small'
           onClick={existingItem ? onBeginRemove : onAddNew}
         >
-          {!existingItem ? <Add /> : <Delete />}
+          {!existingItem ? <PlusCircleIcon fontSize="1.5rem" /> : <TrashIcon fontSize="1.5rem" />}
           <HorizontalSeparatorDiv size='0.5' />
           {!existingItem ? t('ui:add') : t('ui:remove')}
         </Button>
