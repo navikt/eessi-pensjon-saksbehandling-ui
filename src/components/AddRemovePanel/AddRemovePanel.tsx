@@ -1,4 +1,4 @@
-import {AddCircle, Cancel, Copy, Delete, Edit, SuccessStroke} from '@navikt/ds-icons'
+import {PlusCircleIcon, ArrowUndoIcon, FilesIcon, TrashIcon, PencilIcon, CheckmarkIcon} from '@navikt/aksel-icons'
 import classNames from 'classnames'
 import { Labels } from 'declarations/app'
 import { Button, BodyLong } from '@navikt/ds-react'
@@ -98,7 +98,7 @@ const AddRemovePanel = <T extends any>({
             onConfirmEdit!()
           }}
         >
-          <SuccessStroke />
+          <CheckmarkIcon fontSize="1.5rem" />
           {labels?.ok ?? t('ui:save')}
         </Button>
         <HorizontalSeparatorDiv />
@@ -111,7 +111,7 @@ const AddRemovePanel = <T extends any>({
             }
           }}
         >
-          <Cancel />
+          <ArrowUndoIcon fontSize="1.5rem" />
           {labels?.cancel ?? t('ui:cancel')}
         </Button>
       </InlineFlexDiv>
@@ -130,7 +130,7 @@ const AddRemovePanel = <T extends any>({
             }
           }}
         >
-          <AddCircle />
+          <PlusCircleIcon fontSize="1.5rem" />
           {labels?.add ?? t('ui:add')}
         </Button>
         <HorizontalSeparatorDiv />
@@ -143,7 +143,7 @@ const AddRemovePanel = <T extends any>({
             }
           }}
         >
-          <Cancel />
+          <ArrowUndoIcon fontSize="1.5rem" />
           {labels?.cancel ?? t('ui:cancel')}
         </Button>
       </InlineFlexDiv>
@@ -162,7 +162,7 @@ const AddRemovePanel = <T extends any>({
             }
           }}
         >
-          <Edit />
+          <PencilIcon fontSize="1.5rem" />
           {labels?.edit ?? t('ui:edit')}
         </Button>
       )}
@@ -174,7 +174,7 @@ const AddRemovePanel = <T extends any>({
             onCopy(item!, index)
           }}
         >
-          <Copy/>
+          <FilesIcon fontSize="1.5rem" />
           {labels?.copy ?? t('ui:copy')}
         </Button>
       }
@@ -186,7 +186,7 @@ const AddRemovePanel = <T extends any>({
             variant='tertiary'
             onClick={() => setInDeleteMode(true)}
           >
-            <Delete />
+            <TrashIcon fontSize="1.5rem" />
             {labels?.remove ?? t('ui:remove')}
           </Button>
         </>
