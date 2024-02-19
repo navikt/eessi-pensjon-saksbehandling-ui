@@ -30,7 +30,7 @@ import classNames from "classnames";
 import {hasNamespaceWithErrors} from "../../../utils/validation";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import useValidation from "../../../hooks/useValidation";
-import {AddCircle} from "@navikt/ds-icons";
+import {PlusCircleIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import InntektRows from "../Inntekt/InntektRows";
 //import useValidation from "../../../hooks/useValidation";
@@ -290,7 +290,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
                 variant='tertiary'
                 onClick={() => _setNewForm(true)}
               >
-                <AddCircle />&nbsp;
+                <PlusCircleIcon />&nbsp;
                 {t('ui:add-new-x', { x: t('p2000:form-arbeidsforhold')?.toLowerCase() })}
               </Button>
             </AlignEndColumn>

@@ -24,7 +24,7 @@ import {validateInntekt, ValidationInntektProps} from "./validation";
 import performValidation from "../../../utils/performValidation";
 import CountrySelect from "@navikt/landvelger";
 import {Currency} from "@navikt/land-verktoy";
-import {AddCircle} from "@navikt/ds-icons";
+import {PlusCircleIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import DateField from "../DateField/DateField";
 import {dateToString} from "../../../utils/utils";
@@ -281,7 +281,7 @@ const InntektRows: React.FC<InntektProps> = ({
               variant='tertiary'
               onClick={() => _setNewForm(true)}
             >
-              <AddCircle />&nbsp;
+              <PlusCircleIcon />&nbsp;
               {t('ui:add-new-x', { x: t('p2000:form-arbeidsforhold-inntekt')?.toLowerCase() })}
             </Button>
           </>

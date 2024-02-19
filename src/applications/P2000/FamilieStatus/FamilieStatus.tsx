@@ -1,6 +1,6 @@
 import {Button, Heading, Label, Select} from "@navikt/ds-react";
 import {AlignEndColumn, AlignStartRow, Column, PaddedHorizontallyDiv, VerticalSeparatorDiv} from "@navikt/hoykontrast";
-import {AddCircle} from "@navikt/ds-icons";
+import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
@@ -264,7 +264,7 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
             variant='tertiary'
             onClick={() => _setNewSivilstandForm(true)}
           >
-            <AddCircle />&nbsp;
+            <PlusCircleIcon />&nbsp;
             {t('ui:add-new-x', { x: t('p2000:form-familiestatus')?.toLowerCase() })}
           </Button>
         )

@@ -1,6 +1,6 @@
 import {Button, Heading, Select} from "@navikt/ds-react";
 import {AlignEndColumn, AlignStartRow, Column} from "@navikt/hoykontrast";
-import {AddCircle} from "@navikt/ds-icons";
+import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
@@ -220,7 +220,7 @@ const Telefon: React.FC<TelefonProps> = ({
               variant='tertiary'
               onClick={() => _setNewTelefonForm(true)}
             >
-              <AddCircle />&nbsp;
+              <PlusCircleIcon />&nbsp;
               {t('ui:add-new-x', { x: t('p2000:form-telefon')?.toLowerCase() })}
             </Button>
           )
