@@ -85,6 +85,7 @@ export const BannerAlert: React.FC<BannerAlertProps> = ({
       {_message}
       {onClose && (
         <CloseIcon
+          fontSize="1.5rem"
           data-testid='c-alert--close-icon'
           onClick={onCloseIconClicked}
         />
