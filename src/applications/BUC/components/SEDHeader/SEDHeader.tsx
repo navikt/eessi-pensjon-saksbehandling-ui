@@ -24,7 +24,6 @@ import Tooltip from '@navikt/tooltip'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
-import {NextFilled} from "@navikt/ds-icons";
 
 const SEDListActionsDiv = styled.div`
   flex: 2;
@@ -323,7 +322,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               >
                 Oppdater P2000
                 <HorizontalSeparatorDiv size='0.3' />
-                <NextFilled />
+                <ChevronRightIcon />
               </Button>
               <VerticalSeparatorDiv />
             </>

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import {
-  ErrorFilled,
-  NextFilled,
-  SuccessFilled
-} from '@navikt/ds-icons'
+  XMarkOctagonFillIcon,
+  ChevronRightIcon,
+  CheckmarkCircleFillIcon
+} from '@navikt/aksel-icons'
 import { BodyLong } from '@navikt/ds-react'
 import { ActionWithPayload } from '@navikt/fetch'
 import {
@@ -232,8 +232,8 @@ const MainForm = <T extends PSED>({
               {!isValidated
                 ? null
                 : validationHasErrors
-                  ? <ErrorFilled height={20} color='red' />
-                  : <SuccessFilled color='green' height={20} />
+                  ? <XMarkOctagonFillIcon fontSize="1.5rem" color='red' />
+                  : <CheckmarkCircleFillIcon fontSize="1.5rem" color='green' />
               }
               <>
                 <HorizontalSeparatorDiv size='0.5' />
@@ -243,7 +243,7 @@ const MainForm = <T extends PSED>({
               </>
             </NameLabelDiv>
             <MenuArrowDiv>
-              <NextFilled />
+              <ChevronRightIcon fontSize="1.5rem" />
             </MenuArrowDiv>
           </NameDiv>
         </NameAndOptionsDiv>
