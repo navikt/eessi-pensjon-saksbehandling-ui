@@ -14,7 +14,7 @@ import {
   HorizontalSeparatorDiv
 } from "@navikt/hoykontrast";
 import _ from "lodash";
-import {AddCircle} from "@navikt/ds-icons";
+import {PlusCircleIcon} from "@navikt/aksel-icons";
 import {Beloep, Ytelse} from "../../../declarations/p2000";
 import {getIdx} from "../../../utils/namespace";
 import {Validation} from "../../../declarations/app";
@@ -468,7 +468,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                 variant='tertiary'
                 onClick={() => _setNewForm(true)}
               >
-                <AddCircle />&nbsp;
+                <PlusCircleIcon />&nbsp;
                 {t('ui:add-new-x', { x: t('p2000:form-ytelse')?.toLowerCase() })}
               </Button>
             </AlignEndColumn>

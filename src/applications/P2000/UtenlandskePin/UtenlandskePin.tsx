@@ -1,4 +1,4 @@
-import { AddCircle } from '@navikt/ds-icons'
+import {PlusCircleIcon} from "@navikt/aksel-icons";
 import {BodyLong, Button, Heading, Label} from '@navikt/ds-react'
 import Flag from '@navikt/flagg-ikoner'
 import {
@@ -308,7 +308,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
                 variant='tertiary'
                 onClick={() => _setNewForm(true)}
               >
-                <AddCircle />&nbsp;
+                <PlusCircleIcon />&nbsp;
                 {t('ui:add-new-x', { x: t('p2000:form-utenlandske-pin')?.toLowerCase() })}
               </Button>
             )}

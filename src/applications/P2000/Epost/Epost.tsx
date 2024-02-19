@@ -1,6 +1,6 @@
 import {Button, Heading} from "@navikt/ds-react";
 import {AlignEndColumn, AlignStartRow, Column} from "@navikt/hoykontrast";
-import {AddCircle} from "@navikt/ds-icons";
+import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
@@ -190,7 +190,7 @@ const Epost: React.FC<EpostProps> = ({
               variant='tertiary'
               onClick={() => _setNewEpostForm(true)}
             >
-              <AddCircle />&nbsp;
+              <PlusCircleIcon />&nbsp;
               {t('ui:add-new-x', { x: t('p2000:form-epost')?.toLowerCase() })}
             </Button>
           )
