@@ -301,7 +301,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
               variant='tertiary'
               onClick={() => _setNewForm(true)}
             >
-              <PlusCircleIcon />&nbsp;
+              <PlusCircleIcon fontSize="1.5rem" />&nbsp;
               {t('ui:add-new-x', { x: t('p2000:form-ytelse-beloep')?.toLowerCase() })}
             </Button>
           </>
