@@ -1,5 +1,6 @@
 import dayjs, {Dayjs} from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat"
+import _ from "lodash";
 dayjs.extend(customParseFormat)
 
 export interface DateDiff {
@@ -20,8 +21,12 @@ export interface FormattedDateDiff {
 
 const dateDiff = (startdato: Date | string, sluttdato: Date | string): FormattedDateDiff => {
 
-  const fomDato : Dayjs = dayjs(startdato, 'DD.MM.YYYY')
-  const tomDato : Dayjs = dayjs(sluttdato, 'DD.MM.YYYY').add(1, 'day') //Include fomDato in count
+  const fomDato : Dayjs = _.isString(startdato) ?
+    dayjs(startdato, 'DD.MM.YYYY') :
+    dayjs(startdato)
+  const tomDato : Dayjs = _.isString(sluttdato) ?
+    dayjs(sluttdato, 'DD.MM.YYYY').add(1, 'day') :
+    dayjs(sluttdato).add(1, 'day') //Include fomDato in count
 
   const years = tomDato.diff(fomDato, 'year');
   const months = tomDato.diff(fomDato, 'month') - years * 12;
