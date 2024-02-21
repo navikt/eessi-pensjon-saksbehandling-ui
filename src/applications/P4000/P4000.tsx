@@ -178,7 +178,7 @@ const P4000: React.FC<P4000Props> = ({
         variant='secondary'
         onClick={onBackClick}
       >
-        <ChevronLeftIcon fontSize="1.5rem" />
+        <ChevronLeftIcon />
         <HorizontalSeparatorDiv size='0.25' />
         <span>
           {t('ui:back')}
