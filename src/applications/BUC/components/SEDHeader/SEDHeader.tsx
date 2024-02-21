@@ -292,7 +292,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                     ? t('p5000:updating')
                     : t('p5000:registrert')}
                 <HorizontalSeparatorDiv size='0.3' />
-                <ChevronRightIcon fontSize="1.5rem" />
+                <ChevronRightIcon />
               </Button>
               <VerticalSeparatorDiv />
             </>

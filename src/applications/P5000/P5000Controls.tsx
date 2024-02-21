@@ -59,7 +59,7 @@ const P5000Controls = ({
           variant='secondary'
           onClick={onBackClick}
         >
-          <ChevronLeftIcon fontSize="1.5rem" />
+          <ChevronLeftIcon />
           <HorizontalSeparatorDiv size='0.25' />
           <span>
             {t('ui:back')}
