@@ -131,8 +131,7 @@ const Header: React.FC<HeaderProps> = ({
                     )
                   : (
                     <>
-                      {/*<Warning width={20} height={20} />*/}
-                      <ExclamationmarkTriangleIcon width={20} height={20}/>
+                      <ExclamationmarkTriangleIcon fontSize="1.5rem" />
                       <UsernameSpan>
                         {t('ui:unknown')}
                       </UsernameSpan>
