@@ -100,9 +100,6 @@ const AddRemovePanel = <T extends any>({
         >
           <CheckmarkIcon fontSize="1.5rem" />
           {labels?.ok ?? t('ui:save')}
-          {!existingItem ? <PlusIcon fontSize="1.5rem" /> : <TrashIcon fontSize="1.5rem" />}
-          <HorizontalSeparatorDiv size='0.5' />
-          {!existingItem ? t('ui:add') : t('ui:remove')}
         </Button>
         <HorizontalSeparatorDiv />
         <Button
