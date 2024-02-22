@@ -82,9 +82,9 @@ const dateDecimal = (date: DateDiff, outputAsString = false): FormattedDateDiff 
   }
 
   //calculatedTomDate = calculatedTomDate.add(days, 'day').add(months, 'month').add(years, 'year')
-  calculatedTomDate = calculatedTomDate.add(days, 'day')
-  calculatedTomDate = addFractionalMonths(calculatedTomDate, months)
   calculatedTomDate = addFractionalYears(calculatedTomDate, years)
+  calculatedTomDate = addFractionalMonths(calculatedTomDate, months)
+  calculatedTomDate = calculatedTomDate.add(days, 'day')
 
   const calculatedYears = calculatedTomDate.diff(fomDate, 'year');
   const calculatedMonths = calculatedTomDate.diff(fomDate, 'month') - calculatedYears * 12;
