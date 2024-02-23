@@ -36,7 +36,6 @@ const defaultSelector = {
   bucsInfo: {},
   currentBuc: undefined,
   featureToggles: mockFeatureToggles,
-  highContrast: false,
   loading: {},
   locale: 'nb' as AllowedLocaleString,
   newlyCreatedBuc: undefined,

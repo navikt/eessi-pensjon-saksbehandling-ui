@@ -23,7 +23,6 @@ jest.mock('actions/buc', () => ({
 const defaultSelector = {
   bucsInfo: mockBucsInfo as BucsInfo,
   featureToggles: mockFeatureToggles,
-  highContrast: false,
   loading: {},
   locale: 'nb' as AllowedLocaleString,
   p5000sFromRinaMap: {

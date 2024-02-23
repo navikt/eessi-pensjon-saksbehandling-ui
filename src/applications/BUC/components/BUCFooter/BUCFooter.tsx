@@ -23,12 +23,10 @@ export interface BUCFooterProps {
 }
 
 export interface BUCFooterSelector {
-  highContrast: boolean
   rinaUrl: RinaUrl | undefined
 }
 
 const mapState = (state: State): BUCFooterSelector => ({
-  highContrast: state.ui.highContrast,
   rinaUrl: state.buc.rinaUrl
 })
 

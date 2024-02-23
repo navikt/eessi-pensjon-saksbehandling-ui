@@ -1,13 +1,11 @@
-import { toggleHighContrast } from 'actions/ui'
 import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import * as routes from 'constants/routes'
 import PT from 'prop-types'
 import { Warning, EmployerFilled } from '@navikt/ds-icons'
 import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
 import NavLogoTransparent from 'assets/images/NavLogoTransparent'
-import { Link, Loader, Heading } from '@navikt/ds-react'
+import { Loader, Heading } from '@navikt/ds-react'
 import styled from 'styled-components/macro'
 import {GJENNY} from "../../constants/constants";
 
@@ -72,17 +70,10 @@ const UsernameSpan = styled.span`
 const Header: React.FC<HeaderProps> = ({
   className, children, gettingUserInfo, header, isLoggingOut, username, indexType = "PESYS"
 }: HeaderProps): JSX.Element => {
-  const dispatch = useDispatch()
   const { t } = useTranslation()
 
   const onLogoClick = () => {
     window.location.href = indexType !== GJENNY ? routes.ROOT : routes.GJENNY
-  }
-
-  const onHighContrastClick = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault()
-    e.stopPropagation()
-    dispatch(toggleHighContrast())
   }
 
   return (
@@ -100,13 +91,6 @@ const Header: React.FC<HeaderProps> = ({
           <span>{indexType === GJENNY ? t('ui:app-headerTitle-gjenny') : t('ui:app-headerTitle')}</span>
         </Title>
       </BrandDiv>
-      <Link
-        data-testid='c-header--highcontrast-link-id'
-        href='#highContrast'
-        onClick={onHighContrastClick}
-      >
-        {t('ui:highContrast')}
-      </Link>
       <UserDiv>
         {isLoggingOut
           ? <Loader type='xsmall' />
