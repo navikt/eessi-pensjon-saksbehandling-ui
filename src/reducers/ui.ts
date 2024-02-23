@@ -11,7 +11,6 @@ export interface UiState {
   locale: AllowedLocaleString
   modal: ModalContent | undefined
   footerOpen: boolean
-  highContrast: boolean
   size: WidthSize | undefined
 }
 
@@ -20,7 +19,6 @@ export const initialUiState: UiState = {
   locale: i18n.language as AllowedLocaleString,
   modal: undefined,
   footerOpen: false,
-  highContrast: false,
   size: undefined
 }
 
@@ -45,13 +43,6 @@ const uiReducer = (state: UiState = initialUiState, action: AnyAction) => {
       return {
         ...state,
         footerOpen: !state.footerOpen
-      }
-
-    case types.UI_HIGHCONTRAST_TOGGLE :
-
-      return {
-        ...state,
-        highContrast: !state.highContrast
       }
 
     case types.UI_WIDTH_SET:

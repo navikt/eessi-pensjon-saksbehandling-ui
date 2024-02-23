@@ -39,17 +39,6 @@ describe('reducers/ui', () => {
     })
   })
 
-  it('UI_HIGHCONTRAST_TOGGLE', () => {
-    expect(
-      uiReducer(initialUiState, {
-        type: types.UI_HIGHCONTRAST_TOGGLE
-      })
-    ).toEqual({
-      ...initialUiState,
-      highContrast: true
-    })
-  })
-
   it('UI_WIDTH_SET', () => {
     expect(
       uiReducer(initialUiState, {

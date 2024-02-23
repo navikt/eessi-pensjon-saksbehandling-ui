@@ -34,7 +34,6 @@ const defaultSelector = {
   bucs,
   currentBuc,
   bucsInfo: {} as BucsInfo,
-  highContrast: false,
   locale: 'nb',
   newlyCreatedSed: undefined,
   newlyCreatedSedTime: undefined,

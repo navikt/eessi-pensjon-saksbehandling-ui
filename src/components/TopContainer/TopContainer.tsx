@@ -84,7 +84,6 @@ export interface TopContainerSelector {
   error: any | undefined
   footerOpen: boolean
   gettingUserInfo: boolean
-  highContrast: boolean
   isLoggingOut: boolean
   modal: ModalContent | undefined
   params: Params
@@ -106,7 +105,6 @@ const mapState = (state: State): TopContainerSelector => ({
   footerOpen: state.ui.footerOpen,
   modal: state.ui.modal,
   size: state.ui.size,
-  highContrast: state.ui.highContrast
 })
 
 export const TopContainer: React.FC<TopContainerProps> = ({

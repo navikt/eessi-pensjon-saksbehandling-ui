@@ -4,7 +4,6 @@ import BUCFooter, { BUCFooterProps, BUCFooterSelector } from './BUCFooter'
 import { render, screen } from '@testing-library/react'
 
 const defaultSelector: BUCFooterSelector = {
-  highContrast: false,
   rinaUrl: 'http://mockurl/rinaUrl'
 }
 

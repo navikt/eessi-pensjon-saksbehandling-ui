@@ -29,7 +29,6 @@ const defaultSelector: TopContainerSelector = {
   error: undefined,
   footerOpen: false,
   gettingUserInfo: false,
-  highContrast: false,
   isLoggingOut: false,
   modal: undefined,
   params: {},
@@ -44,7 +43,6 @@ jest.mock('actions/alert', () => ({
 
 jest.mock('actions/ui', () => ({
   closeModal: jest.fn(),
-  toggleHighContrast: jest.fn()
 }))
 
 describe('components/TopContainer', () => {

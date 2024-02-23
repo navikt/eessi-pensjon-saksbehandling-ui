@@ -53,10 +53,4 @@ describe('actions/ui', () => {
     })
   })
 
-  it('toggleHighContrast()', () => {
-    const generatedResult = uiActions.toggleHighContrast()
-    expect(generatedResult).toMatchObject({
-      type: types.UI_HIGHCONTRAST_TOGGLE
-    })
-  })
 })

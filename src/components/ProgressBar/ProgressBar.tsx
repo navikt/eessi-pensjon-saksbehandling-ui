@@ -7,7 +7,6 @@ export type ProgressBarStatus = 'todo' | 'inprogress' | 'done' | 'error'
 
 export interface ProgressBarProps {
   className?: string
-  highContrast ?: boolean
   now?: number
   border ?: boolean
   status?: ProgressBarStatus
