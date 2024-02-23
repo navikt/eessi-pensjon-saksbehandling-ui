@@ -58,7 +58,7 @@ const dateDecimal = (date: DateDiff, outputAsString = false): FormattedDateDiff 
   const months = (_.isNil(date.months) ? 0 : _.isNumber(date.months) ? date.months : date.months === '' ? 0 : parseFloat(date.months))
   const years = (_.isNil(date.years) ? 0 : _.isNumber(date.years) ? date.years : date.years === '' ? 0 : parseFloat(date.years))
 
-  if(!date.dateFom){
+  if(!date.dateFom || !date.dateTom){
     const allInDays = days + months * 30 + years * 360
     const leftoverInMonths = Math.floor(allInDays / 30)
     return {
@@ -69,6 +69,9 @@ const dateDecimal = (date: DateDiff, outputAsString = false): FormattedDateDiff 
   }
 
   const fomDate: Dayjs = dayjs(date.dateFom, 'YYYY-MM-DD')
+  const tomDate: Dayjs = dayjs(date.dateTom, 'YYYY-MM-DD')
+
+
   let calculatedTomDate: Dayjs = dayjs(date.dateFom, 'YYYY-MM-DD')
 
   if (Object.prototype.hasOwnProperty.call(date, 'quarter')) {
@@ -78,7 +81,11 @@ const dateDecimal = (date: DateDiff, outputAsString = false): FormattedDateDiff 
   }
   if (Object.prototype.hasOwnProperty.call(date, 'weeks')) {
     const weeks = _.isNil(date.weeks) ? 0 : _.isNumber(date.weeks) ? date.weeks : parseFloat(date.weeks!)
-    calculatedTomDate = calculatedTomDate.add(weeks, 'week')
+    const wholeYears = Math.floor(weeks/52)
+    const remainingWeeks = weeks % 52
+
+    calculatedTomDate = calculatedTomDate.add(wholeYears, 'year')
+    calculatedTomDate = calculatedTomDate.add(remainingWeeks, 'week')
   }
 
   //calculatedTomDate = calculatedTomDate.add(days, 'day').add(months, 'month').add(years, 'year')
@@ -90,17 +97,29 @@ const dateDecimal = (date: DateDiff, outputAsString = false): FormattedDateDiff 
   const calculatedMonths = calculatedTomDate.diff(fomDate, 'month') - calculatedYears * 12;
   const calculatedDays = calculatedTomDate.diff(fomDate.add(calculatedYears, 'year').add(calculatedMonths, 'month'), 'day');
 
+  const tomDatePlusOne = tomDate.add(1, "day")
+  const actualYears = tomDatePlusOne.diff(fomDate, 'year');
+  const actualMonths = tomDatePlusOne.diff(fomDate, 'month') - actualYears * 12;
+  const actualDays = tomDatePlusOne.diff(fomDate.add(actualYears, 'year').add(actualMonths, 'month'), 'day');
+
+  const returnCalculatedValues = calculatedTomDate.isBefore(tomDatePlusOne)
+
+  const retYears = returnCalculatedValues ? calculatedYears : actualYears
+  const retMonths = returnCalculatedValues ? calculatedMonths : actualMonths
+  const retDays = returnCalculatedValues ? calculatedDays : actualDays
+
   if (outputAsString) {
     return {
-      days: calculatedDays === 0 ? '' : String(calculatedDays),
-      months: calculatedMonths === 0 ? '' : String(calculatedMonths),
-      years: calculatedYears === 0 ? '' : String(calculatedYears)
+      days: retDays === 0 ? '' : String(retDays),
+      months: retMonths === 0 ? '' : String(retMonths),
+      years: retYears === 0 ? '' : String(retYears)
     }
   }
+
   return {
-    days: calculatedDays,
-    months: calculatedMonths,
-    years: calculatedYears
+    days: retDays,
+    months: retMonths,
+    years: retYears
   }
 }
 
