@@ -1,6 +1,6 @@
 import { ChevronLeftIcon } from '@navikt/aksel-icons';
 import { Alert, BodyLong, Button, Checkbox } from '@navikt/ds-react'
-import { Column, HorizontalSeparatorDiv, PileDiv, Row, VerticalSeparatorDiv } from '@navikt/hoykontrast'
+import { Column, PileDiv, Row, VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import { Sed } from 'declarations/buc'
 import { EmptyPeriodsReport } from 'declarations/p5000'
 import _ from 'lodash'
@@ -58,9 +58,8 @@ const P5000Controls = ({
         <Button
           variant='secondary'
           onClick={onBackClick}
+          iconPosition="left" icon={<ChevronLeftIcon aria-hidden />}
         >
-          <ChevronLeftIcon />
-          <HorizontalSeparatorDiv size='0.25' />
           <span>
             {t('ui:back')}
           </span>

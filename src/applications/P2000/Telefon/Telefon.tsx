@@ -219,8 +219,8 @@ const Telefon: React.FC<TelefonProps> = ({
             <Button
               variant='tertiary'
               onClick={() => _setNewTelefonForm(true)}
+              iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
             >
-              <PlusCircleIcon fontSize="1.5rem" />&nbsp;
               {t('ui:add-new-x', { x: t('p2000:form-telefon')?.toLowerCase() })}
             </Button>
           )

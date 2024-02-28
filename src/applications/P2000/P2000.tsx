@@ -5,7 +5,6 @@ import {Buc, Sed} from "../../declarations/buc";
 import {BUCMode, Validation} from "../../declarations/app";
 import {Button, Heading, Loader} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
-import {HorizontalSeparatorDiv} from "@navikt/hoykontrast";
 import {getSed, saveSed, setPSED, updatePSED} from "actions/buc";
 import {resetValidation, setValidation} from 'actions/validation'
 import { State } from "../../declarations/reducers";
@@ -90,9 +89,8 @@ const P2000: React.FC<P2000Props> = ({
         <Button
           variant='secondary'
           onClick={onBackClick}
+          iconPosition="left" icon={<ChevronLeftIcon aria-hidden />}
         >
-          <ChevronLeftIcon />
-          <HorizontalSeparatorDiv size='0.25' />
           <span>
             {t('ui:back')}
           </span>

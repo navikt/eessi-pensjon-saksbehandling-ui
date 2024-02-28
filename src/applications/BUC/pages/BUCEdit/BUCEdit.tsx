@@ -22,7 +22,6 @@ import {
   animationClose,
   animationOpen,
   Column,
-  HorizontalSeparatorDiv,
   Row,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
@@ -250,9 +249,8 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           variant='secondary'
           data-testid='a-buc-p-bucedit--back-button-id'
           onClick={onBackLinkClick}
+          iconPosition="left" icon={<ChevronLeftIcon aria-hidden />}
         >
-          <ChevronLeftIcon />
-          <HorizontalSeparatorDiv size='0.25' />
           <span>
             {t('ui:back')}
           </span>

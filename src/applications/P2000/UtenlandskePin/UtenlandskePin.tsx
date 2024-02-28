@@ -307,8 +307,8 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
               <Button
                 variant='tertiary'
                 onClick={() => _setNewForm(true)}
+                iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
               >
-                <PlusCircleIcon fontSize="1.5rem" />&nbsp;
                 {t('ui:add-new-x', { x: t('p2000:form-utenlandske-pin')?.toLowerCase() })}
               </Button>
             )}

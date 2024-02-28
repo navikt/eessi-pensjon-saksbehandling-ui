@@ -1,7 +1,7 @@
 import Modal from 'components/Modal/Modal'
 import { ChevronRightIcon , TrashIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button } from '@navikt/ds-react'
-import { VerticalSeparatorDiv, HorizontalSeparatorDiv } from '@navikt/hoykontrast'
+import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import { useTranslation } from 'react-i18next'
 import P5000HelpPNG from 'assets/images/p5000help.png'
 
@@ -24,10 +24,9 @@ const P5000HelpModal = ({
                 size='small'
                 variant='tertiary'
                 onClick={() => {}}
+                iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
               >
                 {t('p5000:registrert')}
-                <HorizontalSeparatorDiv size='0.3' />
-                <ChevronRightIcon fontSize="1.5rem" />
               </Button>
               {t('p5000:help-modal-2')}
             </BodyLong>
@@ -50,28 +49,24 @@ const P5000HelpModal = ({
                 size='small'
                 variant='tertiary'
                 onClick={() => {}}
+                iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
               >
                 {t('p5000:rediger')}
-                <HorizontalSeparatorDiv size='0.3' />
-                <ChevronRightIcon fontSize="1.5rem" />
               </Button>
               {t('p5000:help-modal-6')}
               <Button
                 size='small'
                 variant='tertiary'
                 onClick={() => {}}
+                iconPosition="left" icon={<TrashIcon aria-hidden />}
               >
-                <TrashIcon fontSize="1.5rem" />
-                <HorizontalSeparatorDiv size='0.5' />
                 {t('ui:remove')}
               </Button>
               .
             </BodyLong>
-            <VerticalSeparatorDiv />
             <BodyLong>
               {t('p5000:help-modal-7')}
             </BodyLong>
-            <VerticalSeparatorDiv size='2' />
           </div>
         ),
         modalButtons: [{

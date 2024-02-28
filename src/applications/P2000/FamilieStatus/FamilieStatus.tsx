@@ -263,8 +263,8 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
           <Button
             variant='tertiary'
             onClick={() => _setNewSivilstandForm(true)}
+            iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
           >
-            <PlusCircleIcon  fontSize="1.5rem" />&nbsp;
             {t('ui:add-new-x', { x: t('p2000:form-familiestatus')?.toLowerCase() })}
           </Button>
         )

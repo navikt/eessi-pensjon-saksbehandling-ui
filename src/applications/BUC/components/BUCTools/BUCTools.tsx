@@ -21,7 +21,6 @@ import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import { Detail, BodyLong, Heading, Button, Panel, Textarea, Tabs } from '@navikt/ds-react'
 import {
-  HorizontalSeparatorDiv,
   slideInFromRight,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
@@ -223,10 +222,9 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 data-testid='a_buc_c_buctools--P5000-button-id'
                 disabled={!hasP5000s()}
                 onClick={onGettingP5000Click}
+                iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
               >
                 {t('buc:form-seeP5000s')}
-                <HorizontalSeparatorDiv size='0.3' />
-                <ChevronRightIcon />
               </Button>
             </FlexDiv>
           </P5000Div>
@@ -242,11 +240,9 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 data-testid='a_buc_c_buctools--P4000-button-id'
                 disabled={!hasP4000s()}
                 onClick={onGettingP4000Click}
+                iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
               >
                 {t('buc:form-seeP4000s')}
-
-                <HorizontalSeparatorDiv size='0.3' />
-                <ChevronRightIcon />
               </Button>
             </FlexDiv>
           </P4000Div>
