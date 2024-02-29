@@ -853,7 +853,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         <VerticalSeparatorDiv />
         <Table<P5000ListRow, P5000TableContext>
           id={tableId}
-          animatable
+          animatable={false}
           items={_items}
           error={_validation['P5000Edit-tabell']?.feilmelding}
           loading={!!sentP5000info}
