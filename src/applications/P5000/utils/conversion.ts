@@ -171,7 +171,7 @@ export const mergeP5000ListRows = (
         })
       }
 
-      if (!_.isNil(parentRow)) {
+      if (!_.isNil(parentRow) && !parentRow.flag) {
         // found a suitable parent to be merged, therefore increase the parent's period span and recalculate the period range
         parentRow.sluttdato = subRow.sluttdato
         let total: FormattedDateDiff
