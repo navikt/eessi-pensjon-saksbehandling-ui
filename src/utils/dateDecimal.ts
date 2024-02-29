@@ -69,8 +69,6 @@ const dateDecimal = (date: DateDiff, outputAsString = false): FormattedDateDiff 
   }
 
   const fomDate: Dayjs = dayjs(date.dateFom, 'YYYY-MM-DD')
-  const tomDate: Dayjs = dayjs(date.dateTom, 'YYYY-MM-DD')
-
 
   let calculatedTomDate: Dayjs = dayjs(date.dateFom, 'YYYY-MM-DD')
 
@@ -97,29 +95,18 @@ const dateDecimal = (date: DateDiff, outputAsString = false): FormattedDateDiff 
   const calculatedMonths = calculatedTomDate.diff(fomDate, 'month') - calculatedYears * 12;
   const calculatedDays = calculatedTomDate.diff(fomDate.add(calculatedYears, 'year').add(calculatedMonths, 'month'), 'day');
 
-  const tomDatePlusOne = tomDate.add(1, "day")
-  const actualYears = tomDatePlusOne.diff(fomDate, 'year');
-  const actualMonths = tomDatePlusOne.diff(fomDate, 'month') - actualYears * 12;
-  const actualDays = tomDatePlusOne.diff(fomDate.add(actualYears, 'year').add(actualMonths, 'month'), 'day');
-
-  const returnCalculatedValues = calculatedTomDate.isBefore(tomDatePlusOne)
-
-  const retYears = returnCalculatedValues ? calculatedYears : actualYears
-  const retMonths = returnCalculatedValues ? calculatedMonths : actualMonths
-  const retDays = returnCalculatedValues ? calculatedDays : actualDays
-
   if (outputAsString) {
     return {
-      days: retDays === 0 ? '' : String(retDays),
-      months: retMonths === 0 ? '' : String(retMonths),
-      years: retYears === 0 ? '' : String(retYears)
+      days: calculatedDays === 0 ? '' : String(calculatedDays),
+      months: calculatedMonths === 0 ? '' : String(calculatedMonths),
+      years: calculatedYears === 0 ? '' : String(calculatedYears)
     }
   }
 
   return {
-    days: retDays,
-    months: retMonths,
-    years: retYears
+    days: calculatedDays,
+    months: calculatedMonths,
+    years: calculatedYears
   }
 }
 

@@ -130,7 +130,7 @@ describe('utils/dateDecimal', () => {
 
   it('dateDecimal: Should actual when calculated tomdate is after actual tomdate', () => {
     expect(dateDecimal({ dateFom: '2009-04-06', dateTom: '2022-04-05', days: '0', weeks: '678', months: '0', quarter: '0', years: '0' })).toEqual({
-      days: 0, months: 0, years: 13
+      days: 14, months: 0, years: 13
     })
   })
 
