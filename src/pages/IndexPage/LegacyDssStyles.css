@@ -1,10 +1,10 @@
 #root,
 .ReactModalPortal {
-  /* Grå ramme rundt flagg */
+  /* Graa ramme rundt flagg */
   --navds-semantic-color-border: var(--navds-global-color-gray-600);
   --navds-global-color-gray-600: rgba(112, 112, 112, 1);
 
-  /* Grå bakgrunnsfarge i annenhver tabellrad */
+  /* Graa bakgrunnsfarge i annenhver tabellrad */
   --navds-semantic-color-canvas-background: var(--navds-global-color-gray-100);
   --navds-semantic-color-component-background-light: var(--navds-global-color-white);
   --navds-global-color-gray-100: rgba(241, 241, 241, 1);
