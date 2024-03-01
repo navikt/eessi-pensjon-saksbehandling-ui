@@ -1,4 +1,4 @@
-import { People, Home, Calender, Globe, Profile, Heart } from '@navikt/ds-icons'
+import { PersonIcon, HouseIcon, CalendarIcon, GlobeIcon, PersonRectangleIcon, HeartIcon } from '@navikt/aksel-icons'
 import Tooltip from '@navikt/tooltip'
 import PostalCodes from 'components/PostalCodes/PostalCodes'
 import { AllowedLocaleStringPropType } from 'declarations/app.pt'
@@ -179,17 +179,17 @@ const PersonBody: React.FC<PersonBodyProps> = ({
     <PersonBodyDiv data-testid="person-body-div">
       <MarginRow key="personBody-marginrow-1">
         <MarginColumn key="personBody-marginrow-1-margincolumn-1">
-          <Home title={t('ui:bostedsadresse')}/>
+          <HouseIcon title={t('ui:bostedsadresse')} fontSize="1.5rem" />
           <HorizontalSeparatorDiv />
           {bostedsadresse ? renderEntity('ui:bostedsadresse', bostedsadresse) : null}
         </MarginColumn>
         <MarginColumn key="personBody-marginrow-1-margincolumn-2">
-          <Calender title={t('ui:birthdate')}/>
+          <CalendarIcon title={t('ui:birthdate')} fontSize="1.5rem" />
           <HorizontalSeparatorDiv />
           {renderEntity('ui:birthdate', birthDateString)}
         </MarginColumn>
         <MarginColumn key="personBody-marginrow-1-margincolumn-3">
-          <Profile title={t('ui:nationality')}/>
+          <PersonRectangleIcon title={t('ui:nationality')} fontSize="1.5rem"/>
           <HorizontalSeparatorDiv />
           {renderEntity('ui:nationality', nationality)}
         </MarginColumn>
@@ -197,12 +197,12 @@ const PersonBody: React.FC<PersonBodyProps> = ({
       <HorizontalLineSeparator />
       <MarginRow key="personBody-marginrow-2">
         <MarginColumn key="personBody-marginrow-2-margincolumn-1">
-          <Globe title={t('ui:oppholdsadresse')}/>
+          <GlobeIcon title={t('ui:oppholdsadresse')} fontSize="1.5rem" />
           <HorizontalSeparatorDiv />
           {renderEntity('ui:oppholdsadresse', oppholdsadresse)}
         </MarginColumn>
         <MarginColumn key="personBody-marginrow-2-margincolumn-2">
-          <Heart title={t('ui:marital-status')}/>
+          <HeartIcon title={t('ui:marital-status')} fontSize="1.5rem"/>
           <HorizontalSeparatorDiv />
           {renderEntity('ui:marital-status', maritalStatus)}
         </MarginColumn>
@@ -214,7 +214,7 @@ const PersonBody: React.FC<PersonBodyProps> = ({
           <MarginRow key="personBody-marginrow-3">
 
             <MarginColumn key="personBody-marginrow-3-margincolumn-1">
-              <People />
+              <PersonIcon fontSize="1.5rem" />
               <HorizontalSeparatorDiv />
               <Detail size='small'>
                 <strong>{t('ui:deceased')}</strong>:
@@ -260,7 +260,7 @@ const PersonBody: React.FC<PersonBodyProps> = ({
             {deathDateString
               ? (
                 <MarginColumn key="personBody-marginrow-3-margincolumn-2">
-                  <Calender />
+                  <CalendarIcon fontSize="1.5rem" />
                   <HorizontalSeparatorDiv />
                   {renderEntity('ui:deathdate', deathDateString)}
                 </MarginColumn>

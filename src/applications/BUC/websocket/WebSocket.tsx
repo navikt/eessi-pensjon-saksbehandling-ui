@@ -2,7 +2,7 @@
 
 import { alertSuccess } from 'actions/alert'
 import { fetchBuc } from 'actions/buc'
-import { SuccessFilled, LinkFilled, ErrorFilled } from '@navikt/ds-icons'
+import { CheckmarkCircleFillIcon, LinkIcon, XMarkOctagonFillIcon } from '@navikt/aksel-icons'
 import classNames from 'classnames'
 import Modal from 'components/Modal/Modal'
 import { IS_TEST } from 'constants/environment'
@@ -190,11 +190,11 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
         }}
         onModalClose={onModalClose}
       />
-      {_status === 'CONNECTED' && (<SuccessFilled color='green' width={24} height={24} onClick={onIconClick} />)}
+      {_status === 'CONNECTED' && (<CheckmarkCircleFillIcon fontSize="1.5rem" color='green' onClick={onIconClick} />)}
       {(_status === 'NOTCONNECTED' || _status === 'ERROR') && (
-        <ErrorFilled style={{ color: '#A13A28' }} width={24} onClick={onIconClick} />
-      )}
-      {(_status === 'CONNECTING' || _status === 'RECEIVING') && (<LinkFilled width={24} onClick={onIconClick} />)}
+        <XMarkOctagonFillIcon fontSize="1.5rem" style={{ color: '#A13A28' }} onClick={onIconClick} />
+        )}
+      {(_status === 'CONNECTING' || _status === 'RECEIVING') && (<LinkIcon fontSize="1.5rem" onClick={onIconClick}/>)}
 
     </BUCWebsocketDiv>
   )

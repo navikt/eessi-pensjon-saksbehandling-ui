@@ -24,7 +24,7 @@ import {validateBeloep, ValidationBeloepProps} from "./validation";
 import performValidation from "../../../utils/performValidation";
 import CountrySelect from "@navikt/landvelger";
 import {Currency} from "@navikt/land-verktoy";
-import {AddCircle} from "@navikt/ds-icons";
+import {PlusCircleIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import DateField from "../DateField/DateField";
 import {dateToString} from "../../../utils/utils";
@@ -300,8 +300,8 @@ const BeloepRows: React.FC<BeloepProps> = ({
             <Button
               variant='tertiary'
               onClick={() => _setNewForm(true)}
+              iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
             >
-              <AddCircle />&nbsp;
               {t('ui:add-new-x', { x: t('p2000:form-ytelse-beloep')?.toLowerCase() })}
             </Button>
           </>

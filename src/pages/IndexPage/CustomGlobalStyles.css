@@ -1,3 +1,7 @@
 #root {
   --ac-button-secondary-bg: white;
 }
+
+.navds-accordion__item--open>.navds-accordion__header {
+  background-color: var(--a-surface-action-subtle);
+}

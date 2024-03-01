@@ -1,4 +1,4 @@
-import { System } from '@navikt/ds-icons'
+import { MenuGridIcon } from '@navikt/aksel-icons';
 import { Accordion, Panel } from '@navikt/ds-react'
 import { FlexDiv } from '@navikt/hoykontrast'
 import { Draggable } from 'react-beautiful-dnd'
@@ -38,7 +38,7 @@ const P5000Draggable = ({
               <Accordion.Item defaultOpen>
                 <FlexDiv>
                   <div style={{ padding: '1.5rem 1rem' }} {...provided.dragHandleProps}>
-                    <System />
+                    <MenuGridIcon fontSize="1.5rem" />
                   </div>
                   <Accordion.Header>
                     {header}

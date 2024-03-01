@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {HorizontalSeparatorDiv, VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import {BadBucDiv, FlexDiv, HiddenDiv} from "../../CommonBucComponents";
 import {Accordion, Button, Heading, TextField} from "@navikt/ds-react";
-import {Search} from "@navikt/ds-icons";
+import {MagnifyingGlassIcon} from "@navikt/aksel-icons";
 import classNames from "classnames";
 import {fetchBucsListWithAvdodFnr} from "actions/buc";
 import {State} from "../../../../declarations/reducers";
@@ -63,7 +63,7 @@ const AvdodFnrSearch: React.FC<any> = ({setNewBucPanelOpen}: AvdodFnrSearchProps
             <Accordion.Item>
               <Accordion.Header>
                 <FlexDiv>
-                  <Search width='24' />
+                  <MagnifyingGlassIcon fontSize="1.5rem" />
                   <HorizontalSeparatorDiv />
                   <Heading size='small'>
                     {t('buc:form-searchOtherBUCs')}

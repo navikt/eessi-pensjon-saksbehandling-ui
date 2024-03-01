@@ -1,4 +1,11 @@
-import {AddCircle, Cancel, Copy, Delete, Edit, SuccessStroke} from '@navikt/ds-icons'
+import {
+  PlusCircleIcon,
+  ArrowUndoIcon,
+  FilesIcon,
+  TrashIcon,
+  PencilIcon,
+  CheckmarkIcon
+} from '@navikt/aksel-icons'
 import classNames from 'classnames'
 import { Labels } from 'declarations/app'
 import { Button, BodyLong } from '@navikt/ds-react'
@@ -97,8 +104,8 @@ const AddRemovePanel = <T extends any>({
           onClick={() => {
             onConfirmEdit!()
           }}
+          iconPosition="left" icon={<CheckmarkIcon aria-hidden />}
         >
-          <SuccessStroke />
           {labels?.ok ?? t('ui:save')}
         </Button>
         <HorizontalSeparatorDiv />
@@ -110,8 +117,8 @@ const AddRemovePanel = <T extends any>({
               onCancelEdit()
             }
           }}
+          iconPosition="left" icon={<ArrowUndoIcon aria-hidden />}
         >
-          <Cancel />
           {labels?.cancel ?? t('ui:cancel')}
         </Button>
       </InlineFlexDiv>
@@ -129,8 +136,8 @@ const AddRemovePanel = <T extends any>({
               onAddNew()
             }
           }}
+          iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
         >
-          <AddCircle />
           {labels?.add ?? t('ui:add')}
         </Button>
         <HorizontalSeparatorDiv />
@@ -142,8 +149,8 @@ const AddRemovePanel = <T extends any>({
               onCancelNew()
             }
           }}
+          iconPosition="left" icon={<ArrowUndoIcon aria-hidden />}
         >
-          <Cancel />
           {labels?.cancel ?? t('ui:cancel')}
         </Button>
       </InlineFlexDiv>
@@ -161,8 +168,8 @@ const AddRemovePanel = <T extends any>({
               onStartEdit(item!, index)
             }
           }}
+          iconPosition="left" icon={<PencilIcon aria-hidden />}
         >
-          <Edit />
           {labels?.edit ?? t('ui:edit')}
         </Button>
       )}
@@ -173,8 +180,8 @@ const AddRemovePanel = <T extends any>({
           onClick={() => {
             onCopy(item!, index)
           }}
+          iconPosition="left" icon={<FilesIcon aria-hidden />}
         >
-          <Copy/>
           {labels?.copy ?? t('ui:copy')}
         </Button>
       }
@@ -185,8 +192,8 @@ const AddRemovePanel = <T extends any>({
             size='small'
             variant='tertiary'
             onClick={() => setInDeleteMode(true)}
+            iconPosition="left" icon={<TrashIcon aria-hidden />}
           >
-            <Delete />
             {labels?.remove ?? t('ui:remove')}
           </Button>
         </>

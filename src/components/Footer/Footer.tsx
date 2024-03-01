@@ -3,11 +3,11 @@ import { toggleFooterOpen } from 'actions/ui'
 import classNames from 'classnames'
 import { Button, Tag, TextField, Select } from '@navikt/ds-react'
 import PT from 'prop-types'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Store } from 'redux'
 import styled from 'styled-components/macro'
-import { AddCircle, ErrorFilled } from '@navikt/ds-icons'
+import {PlusCircleIcon, XMarkOctagonFillIcon} from '@navikt/aksel-icons'
 
 export const FooterDiv = styled.footer`
   flex-shrink: 0;
@@ -187,8 +187,8 @@ const Footer: React.FC<FooterProps> = ({
               variant='tertiary'
               data-testid='c-footer--add-button-id'
               onClick={onSetParam}
+              iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
             >
-              <AddCircle />
             </Button>
             <Button
               size='small'
@@ -217,7 +217,7 @@ const Footer: React.FC<FooterProps> = ({
                   data-testid='c-footer--remove-button'
                   onClick={() => onUnsetParam(param)}
                 >
-                  <ErrorFilled />
+                  <XMarkOctagonFillIcon fontSize="1.5rem" />
                 </Button>
               </ParamDiv>
             )

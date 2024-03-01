@@ -24,7 +24,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
 import Table, { RenderOptions } from '@navikt/tabell'
 import md5 from 'md5'
-import { Delete, SightFilled } from '@navikt/ds-icons'
+import { TrashIcon, EyeWithPupilFillIcon } from '@navikt/aksel-icons'
 
 const ButtonsDiv = styled.div`
   display: flex;
@@ -143,7 +143,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             className='c-tablesorter--preview-button'
             onClick={() => onPreviewItem(item as JoarkBrowserItem)}
           >
-            {spinner ? <Loader /> : <SightFilled />}
+            {spinner ? <Loader /> : <EyeWithPupilFillIcon fontSize="1.5rem" />}
           </Button>
         )}
 
@@ -157,7 +157,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
               handleDelete(item as JoarkBrowserItem, context?.existingItems)
             }}
           >
-            <Delete />
+            <TrashIcon fontSize="1.5rem" />
           </Button>
         )}
       </ButtonsDiv>

@@ -1,4 +1,4 @@
-import { ExternalLink } from '@navikt/ds-icons'
+import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { Link } from '@navikt/ds-react'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { RinaUrl } from 'declarations/app.d'
@@ -53,7 +53,7 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
           >
             {t('ui:goToRina')}
             <HorizontalSeparatorDiv size='0.5' />
-            <ExternalLink />
+            <ExternalLinkIcon fontSize="1.5rem" />
           </Link>
           )
         : (

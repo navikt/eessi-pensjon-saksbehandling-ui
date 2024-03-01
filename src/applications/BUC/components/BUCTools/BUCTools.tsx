@@ -2,7 +2,7 @@ import { getTagList, saveBucsInfo } from 'actions/buc'
 import {dateSorter, sedFilter} from 'applications/BUC/components/BUCUtils/BUCUtils'
 import P5000 from 'applications/P5000/P5000'
 import P4000 from "applications/P4000/P4000";
-import { NextFilled } from '@navikt/ds-icons'
+import { ChevronRightIcon } from '@navikt/aksel-icons'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import { AllowedLocaleString, BUCMode, Loading } from 'declarations/app.d'
 import {
@@ -21,7 +21,6 @@ import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
 import { Detail, BodyLong, Heading, Button, Panel, Textarea, Tabs } from '@navikt/ds-react'
 import {
-  HorizontalSeparatorDiv,
   slideInFromRight,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
@@ -223,10 +222,9 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 data-testid='a_buc_c_buctools--P5000-button-id'
                 disabled={!hasP5000s()}
                 onClick={onGettingP5000Click}
+                iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
               >
                 {t('buc:form-seeP5000s')}
-                <HorizontalSeparatorDiv size='0.3' />
-                <NextFilled />
               </Button>
             </FlexDiv>
           </P5000Div>
@@ -242,11 +240,9 @@ const BUCTools: React.FC<BUCToolsProps> = ({
                 data-testid='a_buc_c_buctools--P4000-button-id'
                 disabled={!hasP4000s()}
                 onClick={onGettingP4000Click}
+                iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
               >
                 {t('buc:form-seeP4000s')}
-
-                <HorizontalSeparatorDiv size='0.3' />
-                <NextFilled />
               </Button>
             </FlexDiv>
           </P4000Div>

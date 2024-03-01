@@ -1,4 +1,4 @@
-import { People } from '@navikt/ds-icons'
+import { PersonIcon } from '@navikt/aksel-icons'
 import { Alert, BodyLong, Button, Heading, Loader, Radio, RadioGroup, TextField } from '@navikt/ds-react'
 import {
   createReplySed,
@@ -1042,7 +1042,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <FlexDiv
                 data-testid='a_buc_c_sedstart--avdod-div-id'
               >
-                <People />
+                <PersonIcon fontSize="1.5rem" />
                 <HorizontalSeparatorDiv />
                 <label className='navds-text-field--label navds-label'>
                   {t('buc:form-avdod')}:

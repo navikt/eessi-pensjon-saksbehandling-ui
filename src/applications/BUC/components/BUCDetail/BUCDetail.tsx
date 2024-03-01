@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next'
 import {useDispatch, useSelector} from 'react-redux'
 import styled from 'styled-components/macro'
 import { useState } from 'react'
-import {Copy, CopyFilled} from "@navikt/ds-icons";
+import {FilesIcon , FilesFillIcon} from "@navikt/aksel-icons";
 import {copyToClipboard} from "../../../../actions/app";
 
 const Dd = styled.dd`
@@ -52,14 +52,14 @@ const DtTwoColumn = styled.dt`
   }
 `
 
-const CopyWithMargin = styled(Copy)`
+const CopyWithMargin = styled(FilesIcon)`
   position: relative;
   top: 2px;
   left: 5px;
   cursor: pointer;
 `
 
-const CopyFilledWithMargin = styled(CopyFilled)`
+const CopyFilledWithMargin = styled(FilesFillIcon)`
   position: relative;
   top: 2px;
   left: 5px;
@@ -224,7 +224,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                         dispatch(copyToClipboard(buc.internationalId ? buc.internationalId : ""))
                       }}
                     >
-                      {hover ? <CopyFilledWithMargin/> : <CopyWithMargin/>}
+                      {hover ? <CopyFilledWithMargin fontSize="1.5rem"/> : <CopyWithMargin fontSize="1.5rem"/>}
                     </Link>
                   </DdTwoColumn>
                 </>

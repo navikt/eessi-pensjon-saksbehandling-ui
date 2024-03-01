@@ -12,7 +12,7 @@ import _ from 'lodash'
 import {buttonLogger} from 'metrics/loggers'
 import moment from 'moment'
 import { Alert, Detail, BodyLong, Button, Panel } from '@navikt/ds-react'
-import {NextFilled, Expand, Collapse, Attachment} from '@navikt/ds-icons'
+import {ChevronRightIcon, ChevronDownIcon, ChevronUpIcon, PaperclipIcon} from '@navikt/aksel-icons'
 import {
   HorizontalSeparatorDiv,
   PileDiv,
@@ -248,7 +248,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               <SEDListAttachmentsDiv
                 data-testid='a_buc_c_sedheader--actions-attachments'
               >
-                <Attachment/>
+                <PaperclipIcon fontSize="1.5rem" />
               </SEDListAttachmentsDiv>
             </Tooltip>
           )}
@@ -285,16 +285,14 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                     behavior: 'smooth'
                   })
                 }}
+              iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
               >
                 {P5000Draft
                   ? t('p5000:rediger')
                   : sed.status === 'sent'
                     ? t('p5000:updating')
                     : t('p5000:registrert')}
-                <HorizontalSeparatorDiv size='0.3' />
-                <NextFilled />
               </Button>
-              <VerticalSeparatorDiv />
             </>
           )}
           </PileDiv>
@@ -319,10 +317,9 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                     behavior: 'smooth'
                   })
                 }}
+                iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
               >
                 Oppdater P2000
-                <HorizontalSeparatorDiv size='0.3' />
-                <NextFilled />
               </Button>
               <VerticalSeparatorDiv />
             </>
@@ -330,8 +327,8 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           {sedCanHaveAttachments(sed) && toggleOpen &&
             <ExpandDiv>
               <Button variant="tertiary" onClick={() => toggleOpen(!toggleState)}>
-                {!toggleState && <Expand/>}
-                {toggleState && <Collapse/>}
+                {!toggleState && <ChevronDownIcon fontSize="1.5rem" />}
+                {toggleState && <ChevronUpIcon fontSize="1.5rem" />}
               </Button>
             </ExpandDiv>
           }
