@@ -1,6 +1,6 @@
 import {useDatepicker} from "@navikt/ds-react/esm/date/hooks/useDatepicker";
 import React, {useEffect} from "react";
-import {UNSAFE_DatePicker as DatePicker} from "@navikt/ds-react/esm/date";
+import {DatePicker} from "@navikt/ds-react/esm/date";
 
 export interface DateFieldProps {
   id: string
