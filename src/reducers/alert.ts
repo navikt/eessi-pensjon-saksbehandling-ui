@@ -214,11 +214,6 @@ const alertReducer = (state: AlertState = initialAlertState, action: AnyAction) 
       dealWithBanner = true
       break
 
-    case types.PAGE_NOTIFICATION_SET_SUCCESS:
-      bannerMessage = i18n.t('message:alert-updatedPageNotification', { type: (action as ActionWithPayload).payload.type })
-      dealWithBanner = true
-      break
-
     case types.BUC_CREATE_SED_SUCCESS:
     case types.BUC_CREATE_REPLY_SED_SUCCESS:
     case types.GJENNY_CREATE_SED_SUCCESS:

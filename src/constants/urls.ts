@@ -72,11 +72,6 @@ export const P5000_PUT_URL = SED_URL + '/put/%(caseId)s/%(sedId)s'
 export const BUC_GET_P6000_URL = SED_URL + '/getP6000/%(rinaCaseId)s'
 export const BUC_GET_P6000PDF_URL = SED_URL + '/get/%(rinaCaseId)s/%(documentId)s/pdf'
 
-// Page Notification
-export const API_PAGENOTIFICATION_GET_URL = API_URL + '/storage/get/EP___PAGE___NOTIFICATION'
-export const API_PAGENOTIFICATION_POST_URL = API_URL + '/storage/EP___PAGE___NOTIFICATION'
-export const API_PAGENOTIFICATION_DELETE_URL = API_URL + '/storage/EP___PAGE___NOTIFICATION'
-
 //GjennyController
 export const GJENNY_GET_BUCSLIST_GJENLEVENDE_URL = GJENNY_URL + '/rinasaker/%(aktoerId)s'
 export const GJENNY_GET_BUCSLIST_FOR_AVDOD_URL = GJENNY_URL + '/rinasaker/%(aktoerId)s/avdodfnr/%(avdodFnr)s'
