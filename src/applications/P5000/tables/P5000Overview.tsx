@@ -11,7 +11,6 @@ import Table, {
   RenderOptions,
   Sort
 } from '@navikt/tabell'
-import Tooltip from '@navikt/tooltip'
 import { informasjonOmBeregning, ordning, relevantForYtelse, typePeriode } from 'applications/P5000/P5000.labels'
 import { P5000ForS3 } from 'applications/P5000/utils/pesysUtils'
 import { HorizontalLineSeparator } from 'components/StyledComponents'
@@ -36,6 +35,7 @@ import { useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
 import { convertP5000SEDToP5000ListRows, mergeP5000ListRows } from 'applications/P5000/utils/conversion'
 import P5000OverviewControls from './P5000OverviewControls'
+import PopoverCustomized from "components/Tooltip/PopoverCustomized";
 
 export interface P5000OverviewSelector {
   featureToggles: FeatureToggles
@@ -158,7 +158,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   )
 
   const renderType = ({ value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
-    <Tooltip
+    <PopoverCustomized
       label={(
         <div style={{ maxWidth: '300px' }}>
           {value ? _.get(typePeriode, value) : ''}
@@ -168,11 +168,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       <BodyLong>
         {value}
       </BodyLong>
-    </Tooltip>
+    </PopoverCustomized>
   )
 
   const renderYtelse = ({ value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
-    <Tooltip
+    <PopoverCustomized
       label={(
         <div style={{ maxWidth: '300px' }}>
           {value ? _.get(relevantForYtelse, value) : ''}
@@ -182,11 +182,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       <BodyLong>
         {value}
       </BodyLong>
-    </Tooltip>
+    </PopoverCustomized>
   )
 
   const renderBeregning = ({ value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
-    <Tooltip
+    <PopoverCustomized
       label={(
         <div style={{ maxWidth: '300px' }}>
           {value ? _.get(informasjonOmBeregning, value) : ''}
@@ -196,11 +196,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       <BodyLong>
         {value}
       </BodyLong>
-    </Tooltip>
+    </PopoverCustomized>
   )
 
   const renderOrdning = ({ value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
-    <Tooltip
+    <PopoverCustomized
       label={(
         <div style={{ maxWidth: '300px' }}>
           {value ? _.get(ordning, value) : ''}
@@ -210,7 +210,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       <BodyLong>
         {value}
       </BodyLong>
-    </Tooltip>
+    </PopoverCustomized>
   )
 
   const renderCell = ({ value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => (

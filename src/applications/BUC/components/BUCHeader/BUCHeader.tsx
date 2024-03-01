@@ -16,11 +16,11 @@ import _ from 'lodash'
 import { linkLogger } from 'metrics/loggers'
 import moment from 'moment'
 import { LinkPanel, BodyLong, Link, Heading, Tag } from '@navikt/ds-react'
-import Tooltip from '@navikt/tooltip'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
+import PopoverCustomized from "components/Tooltip/PopoverCustomized";
 
 const FlexRow = styled(Row)`
   width: 100%;
@@ -242,7 +242,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               />
             )}
             {numberOfSeds && (
-              <Tooltip
+              <PopoverCustomized
                 label={(
                   <span>{t('buc:form-youhaveXseds', { seds: numberOfSeds })}</span>
                 )}
@@ -253,7 +253,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 >
                   {numberOfSeds}
                 </NumberOfSedsDiv>
-              </Tooltip>
+              </PopoverCustomized>
             )}
           </IconsDiv>
           <LabelsDiv>

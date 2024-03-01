@@ -1,5 +1,4 @@
 import { PersonIcon, HouseIcon, CalendarIcon, GlobeIcon, PersonRectangleIcon, HeartIcon } from '@navikt/aksel-icons'
-import Tooltip from '@navikt/tooltip'
 import PostalCodes from 'components/PostalCodes/PostalCodes'
 import { AllowedLocaleStringPropType } from 'declarations/app.pt'
 import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
@@ -12,6 +11,7 @@ import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/macro'
 import { HorizontalLineSeparator } from 'components/StyledComponents'
+import PopoverCustomized from "components/Tooltip/PopoverCustomized";
 
 const Element = styled.div`
   display: flex;
@@ -77,9 +77,9 @@ const PersonBody: React.FC<PersonBodyProps> = ({
   ): Array<JSX.Element | string> => {
     if (value) {
       address.push((
-        <Tooltip label={<span>{label}</span>} key={"tooltip-" + + label + value}>
+        <PopoverCustomized label={<span>{label}</span>} key={"tooltip-" + + label + value}>
           <span key={value}>{value}</span>
-        </Tooltip>
+        </PopoverCustomized>
       ))
       address.push(separator)
     }

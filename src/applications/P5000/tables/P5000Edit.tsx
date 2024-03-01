@@ -36,7 +36,6 @@ import {
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
 import PT from 'prop-types'
-import Tooltip from '@navikt/tooltip'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -44,6 +43,7 @@ import Table, { NewRowValues, RenderEditableOptions, RenderOptions, ItemErrors, 
 import dateDiff, { DateDiff } from 'utils/dateDiff'
 import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows, sortItems } from 'applications/P5000/utils/conversion'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
+import PopoverCustomized from "components/Tooltip/PopoverCustomized";
 
 const moment = extendMoment(Moment)
 
@@ -537,7 +537,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderYtelse = ({ value } : RenderOptions<P5000ListRow, P5000TableContext, string>) => {
     return (
-      <Tooltip
+      <PopoverCustomized
         label={(
           <div style={{ maxWidth: '300px' }}>
             {_.get(relevantForYtelse, value)}
@@ -547,7 +547,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         <BodyLong>
           {value}
         </BodyLong>
-      </Tooltip>
+      </PopoverCustomized>
     )
   }
 
@@ -568,7 +568,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       }
     }
     return (
-      <Tooltip
+      <PopoverCustomized
         label={(
           <div style={{ maxWidth: '300px' }}>
             {_.get(relevantForYtelse, valueToShow!)}
@@ -578,7 +578,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         <BodyLong>
           {valueToShow}
         </BodyLong>
-      </Tooltip>
+      </PopoverCustomized>
     )
   }
 
@@ -589,7 +589,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderOrdning = ({ value } : RenderOptions<P5000ListRow, P5000TableContext, string>) => {
     return (
-      <Tooltip
+      <PopoverCustomized
         label={(
           <div style={{ maxWidth: '300px' }}>
             {_.get(ordning, value)}
@@ -599,12 +599,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         <BodyLong>
           {value}
         </BodyLong>
-      </Tooltip>
+      </PopoverCustomized>
     )
   }
 
   const renderOrdningEdit = ({ value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => (
-    <Tooltip
+    <PopoverCustomized
       label={(
         <div style={{ maxWidth: '300px' }}>
           {value ? _.get(ordning, value) : ''}
@@ -614,7 +614,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       <BodyLong>
         {value}
       </BodyLong>
-    </Tooltip>
+    </PopoverCustomized>
   )
 
   const renderStatus = ({ value }: RenderOptions<P5000ListRow, P5000TableContext, string>) => (
@@ -627,7 +627,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderBeregning = ({ value } : RenderOptions<P5000ListRow, P5000TableContext, string>) => {
     return (
-      <Tooltip
+      <PopoverCustomized
         label={(
           <div style={{ maxWidth: '300px' }}>
             {_.get(informasjonOmBeregning, value)}
@@ -637,7 +637,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         <BodyLong>
           {value}
         </BodyLong>
-      </Tooltip>
+      </PopoverCustomized>
     )
   }
 
