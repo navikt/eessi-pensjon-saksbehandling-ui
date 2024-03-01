@@ -20,10 +20,10 @@ import {
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
 import PT from 'prop-types'
-import Tooltip from '@navikt/tooltip'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
+import PopoverCustomized from "components/Tooltip/PopoverCustomized";
 
 const SEDListActionsDiv = styled.div`
   flex: 2;
@@ -181,7 +181,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             {sed.type}{sedLabel ? ' - ' + sedLabel : ''}
           </Detail>
           <SEDListStatusItemDiv>
-            <Tooltip
+            <PopoverCustomized
               label={(
                 <BodyLong>
                   {t('ui:firstVersion')}: &nbsp;
@@ -195,7 +195,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 data-testid='a_buc_c_sedheader--status-id'
                 status={sed.type === 'P5000' && P5000Draft ? 'active' : sed.status}
               />
-            </Tooltip>
+            </PopoverCustomized>
             <HorizontalSeparatorDiv date-size='0.5' />
             <SEDVersion>
               <BodyLong
@@ -237,7 +237,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           data-testid='a_buc_c_sedheader--actions-id'
         >
           {!_.isEmpty(sed.attachments) && (
-            <Tooltip
+            <PopoverCustomized
               label={(
                 <span>
                   {t('buc:form-youHaveXAttachmentsInSed',
@@ -250,7 +250,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               >
                 <PaperclipIcon fontSize="1.5rem" />
               </SEDListAttachmentsDiv>
-            </Tooltip>
+            </PopoverCustomized>
           )}
           {(!_.isEmpty(followUpSeds) && sed.status === 'received') && (
             <Button
