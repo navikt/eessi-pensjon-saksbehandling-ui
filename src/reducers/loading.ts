@@ -8,7 +8,6 @@ export interface LoadingState {
 export const initialLoadingState: LoadingState = {
   creatingBUC: false,
   creatingSed: false,
-  deletingPageNotification: false,
   generatingPDF: false,
   gettingBucsList: false,
   gettingBucs: false,
@@ -38,7 +37,6 @@ export const initialLoadingState: LoadingState = {
   loadingJoarkPreviewFile: false,
   rinaUrl: false,
   savingBucsInfo: false,
-  sendingPageNotification: false,
   sendingP5000info: false,
   gettingP5000FromS3: false,
   sendingP5000ToS3: false,
@@ -479,36 +477,6 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
       return {
         ...state,
         loadingJoarkList: false
-      }
-
-    case types.PAGE_NOTIFICATION_SET_REQUEST:
-
-      return {
-        ...state,
-        sendingPageNotification: true
-      }
-
-    case types.PAGE_NOTIFICATION_SET_SUCCESS:
-    case types.PAGE_NOTIFICATION_SET_FAILURE:
-
-      return {
-        ...state,
-        sendingPageNotification: false
-      }
-
-    case types.PAGE_NOTIFICATION_DELETE_REQUEST:
-
-      return {
-        ...state,
-        deletingPageNotification: true
-      }
-
-    case types.PAGE_NOTIFICATION_DELETE_SUCCESS:
-    case types.PAGE_NOTIFICATION_DELETE_FAILURE:
-
-      return {
-        ...state,
-        deletingPageNotification: false
       }
 
     case types.PERSON_UFT_REQUEST:

@@ -1,5 +1,5 @@
 import {  screen, render } from '@testing-library/react'
-import { BUCMode, FeatureToggles } from 'declarations/app.d'
+import { BUCMode } from 'declarations/app.d'
 
 import { stageSelector } from 'setupTests'
 import { IndexPage, IndexPageProps, IndexPageSelector } from './IndexPage'
@@ -7,10 +7,6 @@ import { IndexPage, IndexPageProps, IndexPageSelector } from './IndexPage'
 const defaultSelector: IndexPageSelector = {
   mode: 'buclist' as BUCMode,
   username: 'mockUsername',
-  message: 'messaage',
-  featureToggles: {} as FeatureToggles,
-  byline: 'byline',
-  show: false
 }
 
 jest.mock('components/TopContainer/TopContainer', () => {
