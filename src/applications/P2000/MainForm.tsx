@@ -39,7 +39,7 @@ const RightDiv = styled.div`
   flex: 3;
   align-self: stretch;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   width: 780px;
 `
 const RightActiveDiv = styled.div`
@@ -51,6 +51,7 @@ const RightActiveDiv = styled.div`
   border-bottom-right-radius: 4px;
   height: 100%;
   margin-left: -1px;
+  overflow: visible;
 `
 const NameAndOptionsDiv = styled(PileDiv)`
  &.selected {
