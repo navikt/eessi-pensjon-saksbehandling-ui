@@ -18,8 +18,6 @@ const useValidation = <ValidationData extends any>(
   const [_validation, setValidation] = useState<Validation>(initialValue)
 
   const resetValidation = (key: string | undefined = undefined): void => {
-    console.log(key)
-    console.log(_validation)
     if (key === undefined) {
       setValidation({})
     } else {

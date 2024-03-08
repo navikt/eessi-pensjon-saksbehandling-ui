@@ -642,6 +642,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const renderBeregningEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
+    if (options.values && !_.isNil(options.values.type)) {
+      if ((options.values.type === '41' || options.values.type === '50') && options.value !== '000') {
+        options.setValues({ beregning: '000' })
+      }
+    }
+
     return (
       <Select
         noMarginTop
@@ -660,6 +666,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const renderBeregningAdd = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
+    if (options.values && !_.isNil(options.values.type)) {
+      if ((options.values.type === '41' || options.values.type === '50') && options.value !== '000') {
+        options.setValues({ beregning: '000' })
+      }
+    }
+
     return (
       <Select
         noMarginTop
