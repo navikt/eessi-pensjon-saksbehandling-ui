@@ -1,10 +1,9 @@
-import { Accordion, Heading } from '@navikt/ds-react'
-import { FlexCenterDiv, HorizontalSeparatorDiv, VerticalSeparatorDiv } from '@navikt/hoykontrast'
+import {Heading, Panel} from '@navikt/ds-react'
+import {FlexCenterDiv, HorizontalSeparatorDiv, VerticalSeparatorDiv} from '@navikt/hoykontrast'
 import { saveEntries } from 'actions/localStorage'
 import { getP5000FromS3, getSed, resetSentP5000info } from 'actions/p5000'
 import { getWorkingCopy, updateP5000WorkingCopies } from 'applications/P5000/utils/entriesUtils'
 import P5000Controls from 'applications/P5000/P5000Controls'
-import P5000DragAndDropContext from 'applications/P5000/components/P5000DragAndDropContext'
 import { SpinnerDiv } from 'components/StyledComponents'
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { BUCMode, LocalStorageEntriesMap, FeatureToggles, LocalStorageEntry } from 'declarations/app'
@@ -15,8 +14,6 @@ import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import P5000Draggable from 'applications/P5000/components/P5000Draggable'
-import P5000Droppable from 'applications/P5000/components/P5000Droppable'
 import P5000Edit from 'applications/P5000/tables/P5000Edit'
 import P5000Overview from 'applications/P5000/tables/P5000Overview'
 import P5000SedLabel from 'applications/P5000/components/P5000SedLabel'
@@ -61,8 +58,6 @@ const P5000: React.FC<P5000Props> = ({
   const dispatch = useDispatch()
   const { aktoerId, p5000sFromRinaMap, p5000FromS3, storageEntries }: P5000Selector = useSelector<State, P5000Selector>(mapState)
 
-  /* for drag & drop placeholder */
-  const [placeholderProps, setPlaceholderProps] = useState<any>({})
   /* which seds should be visible */
   const [_activeSeds, _setActiveSeds] = useState<Seds>([])
   /* are we fetching P5000s from RINA */
@@ -78,13 +73,14 @@ const P5000: React.FC<P5000Props> = ({
   /* Generate a report on SEDs with empty membership, should be a warning */
   const [_emptyPeriodReport, _setEmptyPeriodReport] = useState<EmptyPeriodsReport>({})
   /* cached renders of tables - order may change with the drag&drop */
-  const [_tables, _setTables] = useState<Array<TableData>>(() => ([{
-    id: 'P5000Edit', activeSeds: [], p5000WorkingCopies: []
-  }, {
-    id: 'P5000Sum', activeSeds: [], p5000WorkingCopies: []
-  }, {
-    id: 'P5000Overview', activeSeds: [], p5000WorkingCopies: []
-  }]))
+  const [_tables, _setTables] = useState<Array<TableData>>(() => (
+    [
+      {id: 'P5000Edit', activeSeds: [], p5000WorkingCopies: []},
+      {id: 'P5000Sum', activeSeds: [], p5000WorkingCopies: []},
+      {id: 'P5000Overview', activeSeds: [], p5000WorkingCopies: []}
+    ]
+  ))
+
   /* working copies from all P5000s for this BUC
    * fill it initially with the info from local storage, then let's update the state to keep latest
    * working copy fresh when tables change, and use local storage for initial load / backup when token expires
@@ -302,38 +298,27 @@ const P5000: React.FC<P5000Props> = ({
         onBackClick={onBackClick}
       />
       <VerticalSeparatorDiv size='2' />
-      <P5000DragAndDropContext
-        tables={_tables}
-        setTables={_setTables}
-        setPlaceholderProps={setPlaceholderProps}
-      >
-        <P5000Droppable placeholderProps={placeholderProps}>
-          {_tables.map((table: any, index: number): JSX.Element => {
-            if ((table.id === 'P5000Edit' && !_.isNil(mainSed)) ||
-              ((table.id === 'P5000Sum') && !_.isNil(mainSed)) ||
-              (table.id === 'P5000Overview')
-            ) {
-              return (
-                <div key={table.id}>
-                  <P5000Draggable
-                    tableId={table.id}
-                    index={index}
-                    header={(renderTableHeader(table.id))}
-                    body={(
-                      <Accordion.Content>
-                        {renderTableContent(table)}
-                      </Accordion.Content>
-                    )}
-                  />
+      <>
+        {_tables.map((table: any, index: number): JSX.Element => {
+          if ((table.id === 'P5000Edit' && !_.isNil(mainSed)) ||
+            ((table.id === 'P5000Sum') && !_.isNil(mainSed)) ||
+            (table.id === 'P5000Overview')
+          ) {
+            return (
+              <div key={table.id}>
+                <Panel border>
+                  {renderTableHeader(table.id)}
                   <VerticalSeparatorDiv size='2' />
-                </div>
-              )
-            } else {
-              return <div key={"table-empty-" + index}/>
-            }
-          })}
-        </P5000Droppable>
-      </P5000DragAndDropContext>
+                  {renderTableContent(table)}
+                </Panel>
+                <VerticalSeparatorDiv size='2' />
+              </div>
+            )
+          } else {
+            return <div key={"table-empty-" + index}/>
+          }
+        })}
+      </>
     </div>
   )
 }
