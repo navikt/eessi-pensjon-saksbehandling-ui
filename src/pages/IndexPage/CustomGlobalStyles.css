@@ -5,3 +5,8 @@
 .navds-accordion__item--open>.navds-accordion__header {
   background-color: var(--a-surface-action-subtle);
 }
+
+/* Fix P5000 tables breaking on smaller screensizes */
+.tabell thead th button{
+  display:grid !important;
+}
