@@ -179,7 +179,6 @@ export const TopContainer: React.FC<TopContainerProps> = ({
             />
             {modal !== undefined && (
               <Modal
-                appElementId='main'
                 modal={modal}
                 open={!_.isNil(modal)}
                 onModalClose={handleModalClose}

@@ -13,7 +13,6 @@ const P5000HelpModal = ({
     <Modal
       open={open}
       modal={{
-        closeButton: true,
         modalTitle: t('p5000:saved-working-copy') + ' ' + t('ui:hva-betyr-det'),
         modalContent: (
           <div style={{ maxWidth: '800px' }}>

@@ -386,7 +386,6 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         appElementId='p5000Edit'
         onModalClose={modalClose}
         modal={{
-          closeButton: false,
           modalContent: (
             <div>
               {_.isNull(sentP5000info) && (

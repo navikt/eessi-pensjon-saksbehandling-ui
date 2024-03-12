@@ -72,7 +72,6 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
         open={!_.isNil(P6000PDF)}
         onModalClose={handleResetP6000}
         modal={{
-          closeButton: true,
           modalContent: (
             <div style={{ cursor: 'pointer' }}>
               <File

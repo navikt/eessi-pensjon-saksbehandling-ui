@@ -317,7 +317,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         return setModal(undefined)
       }
       setModal({
-        closeButton: true,
         modalContent: (
           <div
             style={{ cursor: 'pointer' }}

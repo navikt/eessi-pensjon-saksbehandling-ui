@@ -174,7 +174,6 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
       <Modal
         open={_modal}
         modal={{
-          closeButton: true,
           modalTitle: t('ui:websocket-log'),
           modalContent: (
             <div style={{ maxWidth: '800px' }}>
