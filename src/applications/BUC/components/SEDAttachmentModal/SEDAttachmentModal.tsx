@@ -58,7 +58,6 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
       open={open}
       icon={<Document />}
       modal={{
-        closeButton: true,
         modalContent: (
           <>
             {alertMessage && alertVariant === 'error' && (

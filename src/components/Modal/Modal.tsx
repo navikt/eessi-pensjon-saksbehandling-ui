@@ -4,7 +4,6 @@ import { Button, Modal, Heading } from '@navikt/ds-react'
 import { ModalContent } from 'declarations/components'
 import { ModalContentPropType } from 'declarations/components.pt'
 import _ from 'lodash'
-import ReactModal from 'react-modal'
 import PT from 'prop-types'
 import React from 'react'
 
@@ -51,24 +50,21 @@ export interface ModalProps {
 }
 
 const ModalFC: React.FC<ModalProps> = ({
-  appElementId = 'body',
   className,
   icon = undefined,
   onModalClose = () => {},
   open,
   modal
 }: ModalProps): JSX.Element => {
-  if (typeof (window) !== 'undefined') {
-    ReactModal.setAppElement(document.getElementById(appElementId) ?? 'body')
-  }
 
   return (
     <Modal
       className={className}
       open={open}
       onClose={onModalClose}
+      header={{ heading: "" }}
     >
-      <Modal.Content>
+      <Modal.Body>
         {icon && (
           <IconDiv>{icon}</IconDiv>
         )}
@@ -117,7 +113,7 @@ const ModalFC: React.FC<ModalProps> = ({
             })}
           </ModalButtons>
         )}
-      </Modal.Content>
+      </Modal.Body>
     </Modal>
 
   )

@@ -246,7 +246,6 @@ ui-fss.g56[id="c4"] {
     icon={<Document />}
     modal={
       Object {
-        "closeButton": true,
         "modalButtons": Array [
           Object {
             "main": true,
@@ -291,7 +290,6 @@ ui-fss.g56[id="c4"] {
     <Styled(Modal)
       isOpen={true}
       onRequestClose={[Function]}
-      overlayClassName="modal__overlay"
     >
       <Modal
         ariaHideApp={true}
@@ -301,9 +299,7 @@ ui-fss.g56[id="c4"] {
         contentElement={[Function]}
         isOpen={true}
         onRequestClose={[Function]}
-        overlayClassName="modal__overlay"
         overlayElement={[Function]}
-        parentSelector={[Function]}
         portalClassName="ReactModalPortal"
         preventScroll={false}
         role="dialog"
@@ -691,10 +687,8 @@ ui-fss.g56[id="c4"] {
             }
             isOpen={true}
             onRequestClose={[Function]}
-            overlayClassName="modal__overlay"
             overlayElement={[Function]}
             parentSelector={[Function]}
-            portalClassName="ReactModalPortal"
             preventScroll={false}
             role="dialog"
             shouldCloseOnEsc={true}
