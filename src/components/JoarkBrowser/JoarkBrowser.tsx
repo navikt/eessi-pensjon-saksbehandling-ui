@@ -311,40 +311,44 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   }, [])
 
   useEffect(() => {
-    if (!equalFiles(previewFile, _previewFile)) {
-      setPreviewFile(previewFile)
-      if (!previewFile) {
-        return setModal(undefined)
-      }
-      setModal({
-        modalContent: (
-          <div
-            style={{ cursor: 'pointer' }}
-          >
-            <File
-              file={previewFile}
-              width={600}
-              height={800}
-              tema='simple'
-              viewOnePage={false}
-              onContentClick={handleModalClose}
-            />
-          </div>
-        )
-      })
-      if (_.isFunction(onPreviewFile)) {
-        onPreviewFile(previewFile)
+    if(mode !== "select"){
+      if (!equalFiles(previewFile, _previewFile)) {
+        setPreviewFile(previewFile)
+        if (!previewFile) {
+          return setModal(undefined)
+        }
+        setModal({
+          modalContent: (
+            <div
+              style={{ cursor: 'pointer' }}
+            >
+              <File
+                file={previewFile}
+                width={600}
+                height={800}
+                tema='simple'
+                viewOnePage={false}
+                onContentClick={handleModalClose}
+              />
+            </div>
+          )
+        })
+        if (_.isFunction(onPreviewFile)) {
+          onPreviewFile(previewFile)
+        }
       }
     }
-  }, [handleModalClose, onPreviewFile, previewFile, _previewFile])
+  }, [mode, handleModalClose, onPreviewFile, previewFile, _previewFile])
 
   return (
     <div data-testid='c-joarkBrowser'>
-      <Modal
-        open={!_.isNil(_modal)}
-        modal={_modal}
-        onModalClose={handleModalClose}
-      />
+      {mode !== "select" &&
+        <Modal
+          open={!_.isNil(_modal)}
+          modal={_modal}
+          onModalClose={handleModalClose}
+        />
+      }
       <Table
         <JoarkBrowserItem, JoarkBrowserContext>
         id={'joarkbrowser-' + tableId}

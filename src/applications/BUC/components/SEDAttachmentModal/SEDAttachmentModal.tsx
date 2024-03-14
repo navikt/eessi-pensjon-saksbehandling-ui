@@ -2,14 +2,15 @@ import Document from 'assets/icons/document'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import Modal from 'components/Modal/Modal'
 import { AlertVariant } from 'declarations/components'
-import { JoarkBrowserItems } from 'declarations/joark'
+import {JoarkBrowserItems, JoarkBrowserItemWithContent} from 'declarations/joark'
 import { JoarkBrowserItemsFileType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
 import PT from 'prop-types'
-import { useState } from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { Alert } from '@navikt/ds-react'
+import File from "@navikt/forhandsvisningsfil";
 
 export interface SEDAttachmentModalProps {
   onFinishedSelection: (jbi: JoarkBrowserItems) => void
@@ -24,21 +25,24 @@ export interface SEDAttachmentModalSelector {
   alertMessage: JSX.Element | string | undefined
   alertVariant: AlertVariant | undefined
   error: any | undefined
+  previewFile: JoarkBrowserItemWithContent | undefined
 }
 
 const mapState = (state: State): SEDAttachmentModalSelector => ({
   alertVariant: state.alert.stripeStatus as AlertVariant,
   alertMessage: state.alert.stripeMessage,
   alertType: state.alert.type,
-  error: state.alert.error
+  error: state.alert.error,
+  previewFile: state.joark.previewFile
 })
 
 const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
   onFinishedSelection, open, onModalClose, sedAttachments, tableId
 }: SEDAttachmentModalProps): JSX.Element => {
   const { t } = useTranslation()
-  const { alertVariant, alertMessage } = useSelector<State, SEDAttachmentModalSelector>(mapState)
+  const { alertVariant, alertMessage, previewFile } = useSelector<State, SEDAttachmentModalSelector>(mapState)
   const [_items, setItems] = useState<JoarkBrowserItems>(sedAttachments)
+  const [_preview, setPreview] = useState<any | undefined>(undefined)
 
   const onRowSelectChange = (items: JoarkBrowserItems): void => {
     setItems(items)
@@ -46,19 +50,50 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
 
   const onAddAttachmentsButtonClick = (): void => {
     onFinishedSelection(_items)
-    onModalClose()
+    modalClose()
   }
 
   const onCancelButtonClick = (): void => {
+    modalClose()
+  }
+
+  const modalClose = (): void => {
+    setPreview(undefined)
     onModalClose()
   }
+
+  const handleModalClose = useCallback(() => {
+    setPreview(undefined)
+  }, [setPreview])
+
+
+  useEffect(() => {
+    if (!previewFile) {
+      return setPreview(undefined)
+    }
+    setPreview(
+      <div
+        style={{ cursor: 'pointer' }}
+      >
+        <File
+          file={previewFile}
+          width={600}
+          height={800}
+          tema='simple'
+          viewOnePage={false}
+          onContentClick={handleModalClose}
+        />
+      </div>
+    )
+  }, [previewFile])
 
   return (
     <Modal
       open={open}
-      icon={<Document />}
+      icon={!_preview ? <Document /> : undefined}
       modal={{
         modalContent: (
+          _preview ? _preview :
           <>
             {alertMessage && alertVariant === 'error' && (
               <Alert
@@ -77,16 +112,16 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
             />
           </>
         ),
-        modalButtons: [{
+        modalButtons: !_preview ? [{
           main: true,
           text: t('buc:form-addSelectedAttachments'),
           onClick: onAddAttachmentsButtonClick
         }, {
           text: t('ui:cancel'),
           onClick: onCancelButtonClick
-        }]
+        }] : []
       }}
-      onModalClose={onModalClose}
+      onModalClose={modalClose}
     />
   )
 }
