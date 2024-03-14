@@ -63,6 +63,7 @@ const ModalFC: React.FC<ModalProps> = ({
       open={open}
       onClose={onModalClose}
       header={{ heading: "" }}
+      portal={true}
     >
       <Modal.Body>
         {icon && (
