@@ -340,11 +340,13 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 
   return (
     <div data-testid='c-joarkBrowser'>
-      <Modal
-        open={!_.isNil(_modal)}
-        modal={_modal}
-        onModalClose={handleModalClose}
-      />
+      {mode === "view" &&
+        <Modal
+          open={!_.isNil(_modal)}
+          modal={_modal}
+          onModalClose={handleModalClose}
+        />
+      }
       <Table
         <JoarkBrowserItem, JoarkBrowserContext>
         id={'joarkbrowser-' + tableId}
