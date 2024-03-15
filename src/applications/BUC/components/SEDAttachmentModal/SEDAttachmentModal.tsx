@@ -6,11 +6,12 @@ import {JoarkBrowserItems, JoarkBrowserItemWithContent} from 'declarations/joark
 import { JoarkBrowserItemsFileType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
 import PT from 'prop-types'
-import {useCallback, useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { Alert } from '@navikt/ds-react'
 import File from "@navikt/forhandsvisningsfil";
+import {setJoarkItemPreview} from "../../../../actions/joark";
 
 export interface SEDAttachmentModalProps {
   onFinishedSelection: (jbi: JoarkBrowserItems) => void
@@ -40,6 +41,7 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
   onFinishedSelection, open, onModalClose, sedAttachments, tableId
 }: SEDAttachmentModalProps): JSX.Element => {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
   const { alertVariant, alertMessage, previewFile } = useSelector<State, SEDAttachmentModalSelector>(mapState)
   const [_items, setItems] = useState<JoarkBrowserItems>(sedAttachments)
   const [_preview, setPreview] = useState<any | undefined>(undefined)
@@ -50,22 +52,21 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
 
   const onAddAttachmentsButtonClick = (): void => {
     onFinishedSelection(_items)
-    modalClose()
+    resetPreviewAndCloseModal()
   }
 
   const onCancelButtonClick = (): void => {
-    modalClose()
+    resetPreviewAndCloseModal()
   }
 
-  const modalClose = (): void => {
-    setPreview(undefined)
+  const resetPreviewAndCloseModal = (): void => {
+    resetPreview()
     onModalClose()
   }
 
-  const handleModalClose = useCallback(() => {
-    setPreview(undefined)
-  }, [setPreview])
-
+  const resetPreview = (): void => {
+    dispatch(setJoarkItemPreview(undefined))
+  }
 
   useEffect(() => {
     if (!previewFile) {
@@ -73,7 +74,7 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
     }
     setPreview(
       <div
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: 'pointer'}}
       >
         <File
           file={previewFile}
@@ -81,7 +82,7 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
           height={800}
           tema='simple'
           viewOnePage={false}
-          onContentClick={handleModalClose}
+          onContentClick={resetPreview}
         />
       </div>
     )
@@ -119,9 +120,12 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
         }, {
           text: t('ui:cancel'),
           onClick: onCancelButtonClick
-        }] : []
+        }] : [{
+          text: 'Lukk dokument',
+          onClick: resetPreview
+        }]
       }}
-      onModalClose={modalClose}
+      onModalClose={resetPreviewAndCloseModal}
     />
   )
 }
