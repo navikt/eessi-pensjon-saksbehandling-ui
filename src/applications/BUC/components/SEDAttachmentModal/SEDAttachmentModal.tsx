@@ -74,7 +74,7 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
     }
     setPreview(
       <div
-        style={{ cursor: 'pointer', backgroundColor: "red"}}
+        style={{ cursor: 'pointer'}}
       >
         <File
           file={previewFile}

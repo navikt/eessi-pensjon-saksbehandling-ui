@@ -80,6 +80,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   const [_clickedPreviewItem, setClickedPreviewItem] = useState<JoarkBrowserItem | undefined>(undefined)
   const [_items, setItems] = useState<JoarkBrowserItems | undefined>(undefined)
   const [_modal, setModal] = useState<ModalContent | undefined>(undefined)
+  const [_modalInViewMode, setModalInViewMode] = useState<boolean>(false)
   const [_previewFile, setPreviewFile] = useState<JoarkBrowserItemWithContent | undefined>(undefined)
   const [_tableKey, setTableKey] = useState<string>('')
 
@@ -106,11 +107,15 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   }
 
   const handleModalClose = useCallback(() => {
+    setModalInViewMode(false)
     dispatch(setJoarkItemPreview(undefined))
   }, [dispatch])
 
   const onPreviewItem = (clickedItem: JoarkBrowserItem): void => {
     setClickedPreviewItem(clickedItem)
+    if(mode === "view"){
+      setModalInViewMode(true)
+    }
     dispatch(getJoarkItemPreview(clickedItem))
   }
 
@@ -311,7 +316,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   }, [])
 
   useEffect(() => {
-    if(mode !== "select"){
+    if(mode !== "select" && _modalInViewMode){
       if (!equalFiles(previewFile, _previewFile)) {
         setPreviewFile(previewFile)
         if (!previewFile) {
