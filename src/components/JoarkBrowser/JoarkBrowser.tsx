@@ -80,6 +80,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   const [_clickedPreviewItem, setClickedPreviewItem] = useState<JoarkBrowserItem | undefined>(undefined)
   const [_items, setItems] = useState<JoarkBrowserItems | undefined>(undefined)
   const [_modal, setModal] = useState<ModalContent | undefined>(undefined)
+  const [_modalInViewMode, setModalInViewMode] = useState<boolean>(false)
   const [_previewFile, setPreviewFile] = useState<JoarkBrowserItemWithContent | undefined>(undefined)
   const [_tableKey, setTableKey] = useState<string>('')
 
@@ -106,11 +107,15 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   }
 
   const handleModalClose = useCallback(() => {
+    setModalInViewMode(false)
     dispatch(setJoarkItemPreview(undefined))
   }, [dispatch])
 
   const onPreviewItem = (clickedItem: JoarkBrowserItem): void => {
     setClickedPreviewItem(clickedItem)
+    if(mode === "view"){
+      setModalInViewMode(true)
+    }
     dispatch(getJoarkItemPreview(clickedItem))
   }
 
@@ -311,41 +316,44 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   }, [])
 
   useEffect(() => {
-    if (!equalFiles(previewFile, _previewFile)) {
-      setPreviewFile(previewFile)
-      if (!previewFile) {
-        return setModal(undefined)
-      }
-      setModal({
-        closeButton: true,
-        modalContent: (
-          <div
-            style={{ cursor: 'pointer' }}
-          >
-            <File
-              file={previewFile}
-              width={600}
-              height={800}
-              tema='simple'
-              viewOnePage={false}
-              onContentClick={handleModalClose}
-            />
-          </div>
-        )
-      })
-      if (_.isFunction(onPreviewFile)) {
-        onPreviewFile(previewFile)
+    if(mode !== "select" && _modalInViewMode){
+      if (!equalFiles(previewFile, _previewFile)) {
+        setPreviewFile(previewFile)
+        if (!previewFile) {
+          return setModal(undefined)
+        }
+        setModal({
+          modalContent: (
+            <div
+              style={{ cursor: 'pointer' }}
+            >
+              <File
+                file={previewFile}
+                width={600}
+                height={800}
+                tema='simple'
+                viewOnePage={false}
+                onContentClick={handleModalClose}
+              />
+            </div>
+          )
+        })
+        if (_.isFunction(onPreviewFile)) {
+          onPreviewFile(previewFile)
+        }
       }
     }
-  }, [handleModalClose, onPreviewFile, previewFile, _previewFile])
+  }, [mode, handleModalClose, onPreviewFile, previewFile, _previewFile])
 
   return (
     <div data-testid='c-joarkBrowser'>
-      <Modal
-        open={!_.isNil(_modal)}
-        modal={_modal}
-        onModalClose={handleModalClose}
-      />
+      {mode !== "select" &&
+        <Modal
+          open={!_.isNil(_modal)}
+          modal={_modal}
+          onModalClose={handleModalClose}
+        />
+      }
       <Table
         <JoarkBrowserItem, JoarkBrowserContext>
         id={'joarkbrowser-' + tableId}

@@ -4,7 +4,6 @@ import { Button, Modal, Heading } from '@navikt/ds-react'
 import { ModalContent } from 'declarations/components'
 import { ModalContentPropType } from 'declarations/components.pt'
 import _ from 'lodash'
-import ReactModal from 'react-modal'
 import PT from 'prop-types'
 import React from 'react'
 
@@ -22,7 +21,7 @@ const ModalButtons = styled.div`
 const ButtonMargin = styled.div`
   margin-right: 1rem;
   margin-top: 0.5rem;
-  margin-botton: 0.5rem;
+  margin-bottom: 0.5rem;
 `
 const IconDiv = styled.div`
   z-index: 40000;
@@ -51,24 +50,22 @@ export interface ModalProps {
 }
 
 const ModalFC: React.FC<ModalProps> = ({
-  appElementId = 'body',
   className,
   icon = undefined,
   onModalClose = () => {},
   open,
   modal
 }: ModalProps): JSX.Element => {
-  if (typeof (window) !== 'undefined') {
-    ReactModal.setAppElement(document.getElementById(appElementId) ?? 'body')
-  }
 
   return (
     <Modal
       className={className}
       open={open}
       onClose={onModalClose}
+      header={{ heading: "" }}
+      portal={true}
     >
-      <Modal.Content>
+      <Modal.Body>
         {icon && (
           <IconDiv>{icon}</IconDiv>
         )}
@@ -97,7 +94,7 @@ const ModalFC: React.FC<ModalProps> = ({
               const handleClick = _.isFunction(button.onClick)
                 ? () => {
                   button.onClick!()
-                  onModalClose()
+                  // onModalClose()
                   }
                 : onModalClose
 
@@ -117,7 +114,7 @@ const ModalFC: React.FC<ModalProps> = ({
             })}
           </ModalButtons>
         )}
-      </Modal.Content>
+      </Modal.Body>
     </Modal>
 
   )

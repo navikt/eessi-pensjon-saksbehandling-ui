@@ -123,6 +123,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
     .map((e: string | number) => ({ label: '[' + e + '] ' + _.get(ytelseType, e), value: '' + e })))
 
   const modalClose = () => {
+    resetP5000()
     _setShowModal(false)
     // modal leaves this class on body, stops scrolling. Hack to resume scrolling
     document.getElementById('root')?.classList.remove('ReactModal__Body__open')
@@ -386,7 +387,6 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         appElementId='p5000Edit'
         onModalClose={modalClose}
         modal={{
-          closeButton: false,
           modalContent: (
             <div>
               {_.isNull(sentP5000info) && (
@@ -401,7 +401,6 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                     <Button
                       variant='primary'
                       onClick={() => {
-                        resetP5000()
                         modalClose()
                       }}
                     >OK
@@ -421,7 +420,6 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                     <Button
                       variant='primary'
                       onClick={() => {
-                        resetP5000()
                         modalClose()
                         setTimeout(onBackClick, 200)
                       }}
