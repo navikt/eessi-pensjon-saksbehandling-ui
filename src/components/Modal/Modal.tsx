@@ -21,7 +21,7 @@ const ModalButtons = styled.div`
 const ButtonMargin = styled.div`
   margin-right: 1rem;
   margin-top: 0.5rem;
-  margin-botton: 0.5rem;
+  margin-bottom: 0.5rem;
 `
 const IconDiv = styled.div`
   z-index: 40000;
