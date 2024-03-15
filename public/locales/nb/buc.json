@@ -100,6 +100,7 @@
   "form-chooseSed"                    : "Velg SED",
   "form-chooseSubjectArea"            : "Velg fagområde",
   "form-chosenInstitutions"           : "Valgte mottakerinstitusjoner",
+  "form-closePreview"                 : "Lukk forhåndsvisning",
   "form-createCaseinRINA"             : "Opprett sak i RINA",
   "form-createNewCase"                : "Start ny BUC",
   "form-dateP5000"                    : "Dato: {{date}}",

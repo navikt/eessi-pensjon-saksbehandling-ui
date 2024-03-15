@@ -94,7 +94,7 @@ const ModalFC: React.FC<ModalProps> = ({
               const handleClick = _.isFunction(button.onClick)
                 ? () => {
                   button.onClick!()
-                  onModalClose()
+                  // onModalClose()
                   }
                 : onModalClose
 

@@ -121,7 +121,8 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
           text: t('ui:cancel'),
           onClick: onCancelButtonClick
         }] : [{
-          text: 'Lukk dokument',
+          main: true,
+          text: t('buc:form-closePreview'),
           onClick: resetPreview
         }]
       }}
