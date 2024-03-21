@@ -343,7 +343,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         }
       }
     }
-  }, [mode, handleModalClose, onPreviewFile, previewFile, _previewFile])
+  }, [mode, _modalInViewMode, handleModalClose, onPreviewFile, previewFile, _previewFile])
 
   return (
     <div data-testid='c-joarkBrowser'>
