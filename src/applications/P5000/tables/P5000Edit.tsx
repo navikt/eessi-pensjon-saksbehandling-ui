@@ -1,6 +1,7 @@
 import {
   BodyLong,
-  Tag
+  Tag,
+  SortState
 } from '@navikt/ds-react'
 import {
   informasjonOmBeregning,
@@ -39,7 +40,7 @@ import PT from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import Table, { NewRowValues, RenderEditableOptions, RenderOptions, ItemErrors, Sort } from '@navikt/tabell'
+import Table, { NewRowValues, RenderEditableOptions, RenderOptions, ItemErrors } from '@navikt/tabell'
 import dateDiff, { DateDiff } from 'utils/dateDiff'
 import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows, sortItems } from 'applications/P5000/utils/conversion'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
@@ -91,7 +92,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       ? p5000WorkingCopy?.content?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
       : p5000sFromRinaMap?.[mainSed.id]?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
   ))
-  const [_tableSort, _setTableSort] = useState<Sort>(() => ({ column: '', order: 'none' }))
+  const [_tableSort, _setTableSort] = useState<SortState>(() => ({ orderBy: '', direction: 'none' }))
 
   const [_forsikringEllerBosetningsperioder, _setForsikringEllerBosetningsperioder] = useState<string | null | undefined>(() =>
     !_.isNil(p5000WorkingCopy)
@@ -582,7 +583,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const onColumnSort = (sort: Sort) => {
+  const onColumnSort = (sort: SortState) => {
     standardLogger('buc.view.tools.P5000.edit.sort', { sort })
     _setTableSort(sort)
   }

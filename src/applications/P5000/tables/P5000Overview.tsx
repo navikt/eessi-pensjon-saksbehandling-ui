@@ -1,4 +1,4 @@
-import { BodyLong, Tabs, Tag } from '@navikt/ds-react'
+import { BodyLong, Tabs, Tag, SortState } from '@navikt/ds-react'
 import { StarIcon } from '@navikt/aksel-icons';
 import { FlexCenterDiv, HiddenDiv, HorizontalSeparatorDiv, PileCenterDiv, VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import CountryData from '@navikt/land-verktoy'
@@ -8,8 +8,7 @@ import Table, {
   ColumnAlign,
   ItemErrors,
   RenderEditableOptions,
-  RenderOptions,
-  Sort
+  RenderOptions
 } from '@navikt/tabell'
 import { informasjonOmBeregning, ordning, relevantForYtelse, typePeriode } from 'applications/P5000/P5000.labels'
 import { P5000ForS3 } from 'applications/P5000/utils/pesysUtils'
@@ -72,7 +71,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [mergePeriodBeregnings, setMergePeriodBeregnings] = useState<Array<string> | undefined>(undefined)
   const [useGermanRules, setUseGermanRules] = useState<boolean>(true)
   const [_activeTab, setActiveTab] = useState<string>('oversikt')
-  const [_tableSort, _setTableSort] = useState<Sort>(() => ({ column: '', order: 'none' }))
+  const [_tableSort, _setTableSort] = useState<SortState>(() => ({ orderBy: '', direction: 'none' }))
   const [items]: [P5000ListRows, P5000SourceStatus] = convertP5000SEDToP5000ListRows({
     seds,
     p5000sFromRinaMap,
