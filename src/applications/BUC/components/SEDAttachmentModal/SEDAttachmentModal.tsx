@@ -52,20 +52,23 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
 
   const onAddAttachmentsButtonClick = (): void => {
     onFinishedSelection(_items)
-    resetPreviewAndCloseModal()
-  }
-
-  const onCancelButtonClick = (): void => {
-    resetPreviewAndCloseModal()
-  }
-
-  const resetPreviewAndCloseModal = (): void => {
-    resetPreview()
+    resetPreviewAndReturnTrue()
     onModalClose()
   }
 
-  const resetPreview = (): void => {
+  const onCancelButtonClick = (): void => {
+    resetPreviewAndReturnTrue()
+    onModalClose()
+  }
+
+  const resetPreviewAndReturnTrue = (): boolean => {
+    resetPreview()
+    return true
+  }
+
+  const resetPreview = (): boolean => {
     dispatch(setJoarkItemPreview(undefined))
+    return false
   }
 
   useEffect(() => {
@@ -120,13 +123,10 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
         }, {
           text: t('ui:cancel'),
           onClick: onCancelButtonClick
-        }] : [{
-          main: true,
-          text: t('buc:form-closePreview'),
-          onClick: resetPreview
-        }]
+        }] : []
       }}
-      onModalClose={resetPreviewAndCloseModal}
+      onModalClose={onModalClose}
+      onBeforeClose={_preview ? resetPreview : resetPreviewAndReturnTrue}
     />
   )
 }

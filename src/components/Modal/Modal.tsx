@@ -45,6 +45,7 @@ export interface ModalProps {
   className?: string
   icon?: JSX.Element | undefined
   onModalClose?: () => void
+  onBeforeClose?: () => boolean
   open: boolean,
   modal: ModalContent | undefined
 }
@@ -53,6 +54,7 @@ const ModalFC: React.FC<ModalProps> = ({
   className,
   icon = undefined,
   onModalClose = () => {},
+  onBeforeClose = () => true,
   open,
   modal
 }: ModalProps): JSX.Element => {
@@ -62,6 +64,7 @@ const ModalFC: React.FC<ModalProps> = ({
       className={className}
       open={open}
       onClose={onModalClose}
+      onBeforeClose={onBeforeClose}
       header={{ heading: "" }}
       portal={true}
     >
