@@ -7,6 +7,19 @@
 }
 
 /* Fix P5000 tables breaking on smaller screensizes */
-.tabell thead th button{
+.tabell thead th button {
   display:grid !important;
 }
+
+.navds-table__sort-button {
+  width: inherit !important;
+}
+
+/* These styles can maybe be moved to the Tabell dependency */
+/*.tabell thead th {
+  border-bottom: 1px solid rgba(0, 0, 0, .55);
+}
+
+thead th.noborder {
+  border-bottom: none !important;
+}*/
