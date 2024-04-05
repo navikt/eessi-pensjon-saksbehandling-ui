@@ -11,7 +11,6 @@ import BUCIndex from 'applications/BUC'
 import {GJENNY, PESYS} from "../../constants/constants";
 import BUCIndexGjenny from "../../applications/BUC/BUCIndexGjenny";
 import "./CustomGlobalStyles.css";
-import "./LegacyDssStyles.css";
 
 export interface IndexPageProps {
   username?: string
