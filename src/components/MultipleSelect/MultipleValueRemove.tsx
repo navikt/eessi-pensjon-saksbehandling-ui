@@ -18,7 +18,7 @@ const MultipleValueRemove = (props: any) => {
       style={{}}
       data-testid='c-multipleselect-multiplevalueremove'
     >
-      <XMarkOctagonFillIcon fontSize="1.5rem" style={{ visibility }} />
+      <XMarkOctagonFillIcon style={{ visibility }} />
     </FlexDiv>
 
   )
