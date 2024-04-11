@@ -217,7 +217,7 @@ const Footer: React.FC<FooterProps> = ({
                   data-testid='c-footer--remove-button'
                   onClick={() => onUnsetParam(param)}
                 >
-                  <XMarkOctagonFillIcon fontSize="1.5rem" />
+                  <XMarkOctagonFillIcon />
                 </Button>
               </ParamDiv>
             )

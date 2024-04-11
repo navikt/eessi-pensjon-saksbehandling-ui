@@ -1,5 +1,5 @@
 import {ChevronLeftIcon} from '@navikt/aksel-icons';
-import {BodyLong, Button, Heading, Loader, Panel, Select} from '@navikt/ds-react'
+import {BodyLong, Button, Heading, Loader, Panel, Select, SortState} from '@navikt/ds-react'
 import {BUCMode} from 'declarations/app'
 import {Buc, Sed} from 'declarations/buc'
 import {
@@ -23,7 +23,7 @@ import {
   P4000PeriodObject
 } from "../../declarations/p4000";
 import {State} from "../../declarations/reducers";
-import Table, {Column, RenderOptions, Sort} from "@navikt/tabell";
+import Table, {Column, RenderOptions} from "@navikt/tabell";
 import _ from "lodash";
 import CountryData, {AllowedLocaleString} from "@navikt/land-verktoy";
 import moment from "moment";
@@ -73,7 +73,7 @@ const P4000: React.FC<P4000Props> = ({
   const componentRef = useRef(null)
   const countryInstance = CountryData.getCountryInstance('nb')
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
-  const [_tableSort, _setTableSort] = useState<Sort>(() => ({ column: '', order: 'none' }))
+  const [_tableSort, _setTableSort] = useState<SortState>(() => ({ orderBy: '', direction: 'none' }))
   const [itemsPerPage, setItemsPerPage] = useState<number>(30)
   const {p4000, locale, gettingP4000}: P4000Selector = useSelector<State, P4000Selector>(mapState)
 

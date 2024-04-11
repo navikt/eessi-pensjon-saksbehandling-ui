@@ -191,7 +191,7 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
       />
       {_status === 'CONNECTED' && (<CheckmarkCircleFillIcon fontSize="1.5rem" color='green' onClick={onIconClick} />)}
       {(_status === 'NOTCONNECTED' || _status === 'ERROR') && (
-        <XMarkOctagonFillIcon fontSize="1.5rem" style={{ color: '#A13A28' }} onClick={onIconClick} />
+        <XMarkOctagonFillIcon style={{ color: '#A13A28' }} onClick={onIconClick} />
         )}
       {(_status === 'CONNECTING' || _status === 'RECEIVING') && (<LinkIcon fontSize="1.5rem" onClick={onIconClick}/>)}
 

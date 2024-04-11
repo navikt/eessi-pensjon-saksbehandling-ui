@@ -1,4 +1,4 @@
-import { Alert, BodyLong, Button, HelpText, Loader, Tag } from '@navikt/ds-react'
+import { Alert, BodyLong, Button, HelpText, Loader, Tag, SortState } from '@navikt/ds-react'
 import { typePeriode } from 'applications/P5000/P5000.labels'
 import Select from 'components/Select/Select'
 import { HorizontalLineSeparator } from 'components/StyledComponents'
@@ -24,7 +24,7 @@ import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
-import Table, { RenderEditableOptions, Column as TableColumn, RenderOptions, Sort } from '@navikt/tabell'
+import Table, { RenderEditableOptions, Column as TableColumn, RenderOptions } from '@navikt/tabell'
 import { convertFromP5000SumRowsIntoP5000SED, convertP5000SEDToP5000SumRows } from 'applications/P5000/utils/conversion'
 
 export interface P5000SumProps {
@@ -48,7 +48,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   const [_itemsPerPage] = useState<number>(30)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
   const [renderPrintTable, _setRenderPrintTable] = useState<boolean>(false)
-  const [_tableSort, _setTableSort] = useState<Sort>({ column: '', order: 'none' })
+  const [_tableSort, _setTableSort] = useState<SortState>({ orderBy: '', direction: 'none' })
 
   const [typeOptions] = useState<Array<Option>>(() => Object.keys(typePeriode)
     .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)

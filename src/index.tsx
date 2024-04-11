@@ -17,7 +17,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import 'regenerator-runtime/runtime'
 import { unregister } from 'registerServiceWorker'
 import i18n from './i18n'
-import 'nav-frontend-tabell-style/dist/main.css'
 
 import store from './store'
 import {GJENNY, PESYS} from "./constants/constants";

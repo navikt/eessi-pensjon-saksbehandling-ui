@@ -233,7 +233,7 @@ const MainForm = <T extends PSED>({
               {!isValidated
                 ? null
                 : validationHasErrors
-                  ? <XMarkOctagonFillIcon fontSize="1.5rem" color='red' />
+                  ? <XMarkOctagonFillIcon color='red' />
                   : <CheckmarkCircleFillIcon fontSize="1.5rem" color='green' />
               }
               <>
