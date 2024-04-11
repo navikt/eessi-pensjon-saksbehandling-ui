@@ -18,3 +18,7 @@
 .navds-table__sort-button {
   width: inherit !important;
 }
+
+div[class$="multi-value__remove"]:hover {
+  background-color: transparent !important;
+}
