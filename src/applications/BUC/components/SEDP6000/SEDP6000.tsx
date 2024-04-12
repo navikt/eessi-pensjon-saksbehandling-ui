@@ -87,7 +87,6 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
                 width={1000}
                 tema='simple'
                 viewOnePage={false}
-                onContentClick={handleResetP6000}
               />
             </div>
           )
