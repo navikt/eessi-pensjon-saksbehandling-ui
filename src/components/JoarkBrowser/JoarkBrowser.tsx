@@ -38,7 +38,7 @@ const ButtonsDiv = styled.div`
 const SelectDiv = styled.div`
   width: 9rem;
   div.navds-select__container {
-    width: 4.5rem;
+    width: 5rem;
   }
 `
 
@@ -90,7 +90,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   const [_modalInViewMode, setModalInViewMode] = useState<boolean>(false)
   const [_previewFile, setPreviewFile] = useState<JoarkBrowserItemWithContent | undefined>(undefined)
   const [_tableKey, setTableKey] = useState<string>('')
-  const [itemsPerPage, setItemsPerPage] = useState<number>(10)
+  const [_itemsPerPage, setItemsPerPage] = useState<number>(10)
 
   const context: JoarkBrowserContext = {
     existingItems,
@@ -371,7 +371,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           id='itemsPerPage'
           label={t('ui:itemsPerPage')}
           onChange={itemsPerPageChanged}
-          value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
+          value={_itemsPerPage === 9999 ? 'all' : '' + _itemsPerPage}
           size="small"
         >
           <option value='7'>7</option>
@@ -390,7 +390,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         labels={{
           type: t('ui:attachments').toLowerCase()
         }}
-        itemsPerPage={itemsPerPage}
+        itemsPerPage={_itemsPerPage}
         animatable={false}
         searchable={mode === 'select'}
         selectable={mode === 'select'}
