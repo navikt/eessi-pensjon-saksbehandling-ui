@@ -1,4 +1,3 @@
-import Document from 'assets/icons/document'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import Modal from 'components/Modal/Modal'
 import { AlertVariant } from 'declarations/components'
@@ -94,7 +93,6 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
   return (
     <Modal
       open={open}
-      icon={!_preview ? <Document /> : undefined}
       modal={{
         modalContent: (
           _preview ? _preview :
