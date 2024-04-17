@@ -16,7 +16,7 @@ import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
 import File from '@navikt/forhandsvisningsfil'
 import _ from 'lodash'
-import { Button, Loader, Label } from '@navikt/ds-react'
+import { Button, Loader, Label, Select } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -33,6 +33,13 @@ const ButtonsDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-wrap: nowrap;
+`
+
+const SelectDiv = styled.div`
+  width: 9rem;
+  div.navds-select__container {
+    width: 4.5rem;
+  }
 `
 
 export interface JoarkBrowserSelector {
@@ -83,6 +90,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   const [_modalInViewMode, setModalInViewMode] = useState<boolean>(false)
   const [_previewFile, setPreviewFile] = useState<JoarkBrowserItemWithContent | undefined>(undefined)
   const [_tableKey, setTableKey] = useState<string>('')
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10)
 
   const context: JoarkBrowserContext = {
     existingItems,
@@ -296,6 +304,10 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     return items
   }
 
+  const itemsPerPageChanged = (e: any): void => {
+    setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
+  }
+
   // this will update when we get updated existingItems
   useEffect(() => {
     let items: JoarkBrowserItems = []
@@ -354,6 +366,21 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           onModalClose={handleModalClose}
         />
       }
+      <SelectDiv>
+        <Select
+          id='itemsPerPage'
+          label={t('ui:itemsPerPage')}
+          onChange={itemsPerPageChanged}
+          value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
+          size="small"
+        >
+          <option value='7'>7</option>
+          <option value='10'>10</option>
+          <option value='15'>15</option>
+          <option value='20'>20</option>
+          <option value='all'>{t('ui:all')}</option>
+        </Select>
+      </SelectDiv>
       <Table
         <JoarkBrowserItem, JoarkBrowserContext>
         id={'joarkbrowser-' + tableId}
@@ -363,7 +390,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         labels={{
           type: t('ui:attachments').toLowerCase()
         }}
-        itemsPerPage={20}
+        itemsPerPage={itemsPerPage}
         animatable={false}
         searchable={mode === 'select'}
         selectable={mode === 'select'}
@@ -393,6 +420,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           }
         ]}
         onRowSelectChange={onRowSelectChange}
+        size={'small'}
       />
     </div>
   )
