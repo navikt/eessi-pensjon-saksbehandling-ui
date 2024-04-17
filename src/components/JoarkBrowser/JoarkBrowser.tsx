@@ -36,9 +36,11 @@ const ButtonsDiv = styled.div`
 `
 
 const SelectDiv = styled.div`
+  margin-left: 0.5rem;
+  margin-bottom: 0.4rem;
   width: 9rem;
   div.navds-select__container {
-    width: 5rem;
+    width: 4.5rem;
   }
 `
 
