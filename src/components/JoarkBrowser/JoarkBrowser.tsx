@@ -367,21 +367,23 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           onModalClose={handleModalClose}
         />
       }
-      <SelectDiv>
-        <Select
-          id='itemsPerPage'
-          label={t('ui:itemsPerPage')}
-          onChange={itemsPerPageChanged}
-          value={_itemsPerPage === 9999 ? 'all' : '' + _itemsPerPage}
-          size="small"
-        >
-          <option value='7'>7</option>
-          <option value='10'>10</option>
-          <option value='15'>15</option>
-          <option value='20'>20</option>
-          <option value='all'>{t('ui:all')}</option>
-        </Select>
-      </SelectDiv>
+      {mode === "select" &&
+        <SelectDiv>
+          <Select
+            id='itemsPerPage'
+            label={t('ui:itemsPerPage')}
+            onChange={itemsPerPageChanged}
+            value={_itemsPerPage === 9999 ? 'all' : '' + _itemsPerPage}
+            size="small"
+          >
+            <option value='7'>7</option>
+            <option value='10'>10</option>
+            <option value='15'>15</option>
+            <option value='20'>20</option>
+            <option value='all'>{t('ui:all')}</option>
+          </Select>
+        </SelectDiv>
+      }
       <Table
         <JoarkBrowserItem, JoarkBrowserContext>
         id={'joarkbrowser-' + tableId}
