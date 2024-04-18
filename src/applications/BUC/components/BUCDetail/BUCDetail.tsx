@@ -273,7 +273,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
 BUCDetail.propTypes = {
   buc: BucPropType.isRequired,
   className: PT.string,
-  personAvdods: PT.any.isRequired
+  personAvdods: PT.any
 }
 
 export default BUCDetail

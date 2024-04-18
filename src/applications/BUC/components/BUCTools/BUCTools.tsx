@@ -61,7 +61,7 @@ export const TextArea = styled(Textarea)`
 export interface BUCToolsProps {
   aktoerId: string
   buc: Buc
-  bucInfo: BucInfo
+  bucInfo?: BucInfo
   className?: string
   initialTab?: string
   onTagChange?: (tagList: Tags) => void
@@ -288,7 +288,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
 BUCTools.propTypes = {
   aktoerId: PT.string.isRequired,
   buc: BucPropType.isRequired,
-  bucInfo: BucInfoPropType.isRequired,
+  bucInfo: BucInfoPropType,
   className: PT.string,
   initialTab: PT.string,
   onTagChange: PT.func
