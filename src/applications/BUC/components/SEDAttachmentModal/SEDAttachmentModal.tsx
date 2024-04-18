@@ -84,7 +84,6 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
           height={800}
           tema='simple'
           viewOnePage={false}
-          onContentClick={resetPreview}
         />
       </div>
     )

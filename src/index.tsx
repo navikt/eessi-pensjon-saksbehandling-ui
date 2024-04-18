@@ -8,6 +8,7 @@ import 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/nb'
 import '@navikt/ds-css'
+import 'react-pdf/dist/esm/Page/TextLayer.css';
 import Pages from 'pages'
 import { Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
