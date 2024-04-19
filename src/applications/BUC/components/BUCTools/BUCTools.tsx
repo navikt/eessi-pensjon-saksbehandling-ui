@@ -15,7 +15,6 @@ import {
   Tags,
   ValidBuc
 } from 'declarations/buc'
-import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'metrics/loggers'
@@ -25,7 +24,6 @@ import {
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
 
-import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -283,15 +281,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       </Tabs>
     </BUCToolsPanel>
   )
-}
-
-BUCTools.propTypes = {
-  aktoerId: PT.string.isRequired,
-  buc: BucPropType.isRequired,
-  bucInfo: BucInfoPropType,
-  className: PT.string,
-  initialTab: PT.string,
-  onTagChange: PT.func
 }
 
 export default BUCTools

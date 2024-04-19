@@ -7,14 +7,12 @@ import InstitutionList from 'applications/BUC/components/InstitutionList/Institu
 import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 import { AllowedLocaleString, RinaUrl } from 'declarations/app.d'
 import { Buc, Institutions, ValidBuc } from 'declarations/buc'
-import { BucPropType } from 'declarations/buc.pt'
 import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
 import { State } from 'declarations/reducers'
 import _ from 'lodash'
 import { linkLogger } from 'metrics/loggers'
 import moment from 'moment'
 import { Alert, Panel, Accordion, Link, Label, BodyLong, Heading } from '@navikt/ds-react'
-import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import {useDispatch, useSelector} from 'react-redux'
 import styled from 'styled-components/macro'
@@ -82,7 +80,7 @@ const Properties = styled.dl`
 export interface BUCDetailProps {
   buc: Buc
   className ?: string
-  personAvdods: PersonAvdods | undefined
+  personAvdods?: PersonAvdods
 }
 
 export interface BUCDetailSelector {
@@ -268,12 +266,6 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
       </Accordion>
     </Panel>
   )
-}
-
-BUCDetail.propTypes = {
-  buc: BucPropType.isRequired,
-  className: PT.string,
-  personAvdods: PT.any
 }
 
 export default BUCDetail
