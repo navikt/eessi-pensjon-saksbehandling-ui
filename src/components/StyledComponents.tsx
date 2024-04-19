@@ -33,7 +33,7 @@ export const WithErrorPanel = styled(Panel)`
   border: none;
   &.error {
     margin: -4px;
-    border: 4px solid var(--navds-error-summary-color-border) !important;
+    border: 4px solid var(--a-border-danger) !important;
   }
 `
 
@@ -48,7 +48,7 @@ export const RepeatableRow = styled(PaddedHorizontallyDiv)`
     background-color: rgba(255, 0, 0, 0.2);
   };
   &:hover:not(.new):not(.error) {
-    background-color: var(--navds-global-color-gray-100);
+    background-color: var(--a-gray-100);
   }
   &:not(:hover) .control-buttons {
     position: absolute;
@@ -59,10 +59,10 @@ export const RepeatableRow = styled(PaddedHorizontallyDiv)`
 export const RepeatableRowAlternateColors = styled(RepeatableRow)`
   border: 1px solid transparent;
   &:nth-child(even){
-    background-color: var(--navds-global-color-gray-300);
+    background-color: var(--a-gray-300);
   }
    &:hover:not(.new):not(.error) {
-    background-color: var(--navds-global-color-gray-100);
+    background-color: var(--a-gray-100);
     border: 1px solid #000000;
   }
 `
@@ -74,7 +74,7 @@ export const RepeatableRowNoHorizontalPadding = styled(RepeatableRow)`
 `
 
 export const Hr = styled.div`
-   background: var(--navds-panel-color-border);
+   background: var(--a-border-default);
    width: 100%;
    height: 1px;
 `
@@ -87,8 +87,8 @@ export const SpacedHr = styled(Hr)`
 export const HorizontalRadioGroup = styled(RadioGroup)`
   > .navds-radio-buttons {
     display: flex;
-    gap: var(--navds-spacing-4);
-    margin-bottom: var(--navds-spacing-2)
+    gap: var(--a-spacing-4);
+    margin-bottom: var(--a-spacing-2)
   }
 `
 
