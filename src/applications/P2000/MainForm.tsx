@@ -77,6 +77,7 @@ const NameDiv = styled.div`
   &:hover {
    color: var(--a-text-on-inverted);
    background-color: var(--a-surface-action-hover);
+   margin-right: -1px;
   }
 `
 const NameLabelDiv = styled(FlexCenterDiv)`
