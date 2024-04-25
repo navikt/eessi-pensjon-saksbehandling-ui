@@ -1,16 +1,8 @@
 import React, {useState} from "react";
 import {Inntekt} from "../../../declarations/p2000";
 import _ from "lodash";
-import {BodyLong, Button, Select} from "@navikt/ds-react";
-import {
-  AlignStartRow,
-  Column, AlignEndColumn,
-} from "@navikt/hoykontrast";
+import {BodyLong, Select, Table} from "@navikt/ds-react";
 import {getIdx} from "../../../utils/namespace";
-import classNames from "classnames";
-//import {hasNamespaceWithErrors} from "../../../utils/validation";
-import {RepeatableRowNoHorizontalPadding} from "../../../components/StyledComponents";
-import InntektRow from "./InntektRow";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {resetValidation, setValidation} from "../../../actions/validation";
 import {useDispatch} from "react-redux";
@@ -24,10 +16,9 @@ import {validateInntekt, ValidationInntektProps} from "./validation";
 import performValidation from "../../../utils/performValidation";
 import CountrySelect from "@navikt/landvelger";
 import {Currency} from "@navikt/land-verktoy";
-import {PlusCircleIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import DateField from "../DateField/DateField";
-import {dateToString} from "../../../utils/utils";
+import {dateToString, formatDate} from "../../../utils/utils";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -39,6 +30,8 @@ export interface InntektProps {
   parentIndex: number
   parentEditMode: boolean
   parentNamespace: string
+  newInntektForm: boolean
+  setNewInntektForm: (b:boolean) => void
 }
 
 const InntektRows: React.FC<InntektProps> = ({
@@ -46,7 +39,9 @@ const InntektRows: React.FC<InntektProps> = ({
   setInntekt,
   parentIndex,
   parentEditMode,
-  parentNamespace
+  parentNamespace,
+  newInntektForm,
+  setNewInntektForm
 }: InntektProps): JSX.Element => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -58,7 +53,6 @@ const InntektRows: React.FC<InntektProps> = ({
   const [_editInntekt, _setEditInntekt] = useState<Inntekt | undefined>(undefined)
   const [_newInntekt, _setNewInntekt] = useState<Inntekt | undefined>(undefined)
   const [_editIndex, _setEditIndex] = useState<number | undefined>(undefined)
-  const [_newForm, _setNewForm] = useState<boolean>(false)
 
   const onStartEdit = (inntekt: Inntekt, index: number) => {
     if (_editIndex !== undefined) {
@@ -93,7 +87,7 @@ const InntektRows: React.FC<InntektProps> = ({
 
   const onCloseNew = () => {
     _setNewInntekt(undefined)
-    _setNewForm(false)
+    setNewInntektForm(false)
     _resetValidation()
   }
 
@@ -159,103 +153,131 @@ const InntektRows: React.FC<InntektProps> = ({
     {value:'99', label: t('p2000:form-betalingshyppighet-annet')}
   ]
 
+  const betalingshyppighetMap:any = {
+    '01': t('p2000:form-betalingshyppighet-aarlig'),
+    '02': t('p2000:form-betalingshyppighet-kvartalsvis'),
+    '03': t('p2000:form-betalingshyppighet-maanedlig-12'),
+    '04': t('p2000:form-betalingshyppighet-maanedlig-13'),
+    '05': t('p2000:form-betalingshyppighet-maanedlig-14'),
+    '06': t('p2000:form-betalingshyppighet-ukentlig'),
+    '99': t('p2000:form-betalingshyppighet-annet')
+  }
+
   const renderRow = (inntekt: Inntekt | null, index: number) => {
     const _namespace = namespace + getIdx(index)
     const _v: Validation = index < 0 ? _validation : validation
     const inEditMode = index < 0 || _editIndex === index
     const _inntekt = index < 0 ? _newInntekt : (inEditMode ? _editInntekt : inntekt)
-
     return (
-      <RepeatableRowNoHorizontalPadding
-        id={'repeatablerow-' + _namespace}
-        key={index}
-        className={classNames({
-          new: index < 0,
-        })}
-      >
-        <AlignStartRow>
-          <Column flex="2">
-            {inEditMode && parentEditMode
-              ? (
-                <AlignStartRow>
-                  <Column>
-                    <Input
-                      error={_v[_namespace + '-beloep']?.feilmelding}
-                      namespace={_namespace}
-                      id='inntekt-beloep'
-                      label={t('p2000:form-arbeidsforhold-inntekt-belop')}
-                      hideLabel={index > 0}
-                      onChanged={(e) => setBelop(e, index)}
-                      value={_inntekt?.beloep ?? ''}
-                    />
-                  </Column>
-                  <Column>
-                    <CountrySelect
-                      error={_v[_namespace + '-valuta']?.feilmelding}
-                      placeholder="Velg valuta"
-                      namespace={_namespace}
-                      id='inntekt-valuta'
-                      label={t('p2000:form-arbeidsforhold-inntekt-valuta')}
-                      hideLabel={index > 0}
-                      type='currency'
-                      sort="noeuFirst"
-                      onChanged={(e:any) => setInntektProperty("valuta", e.target.value, index)}
-                      onOptionSelected={(valuta: Currency) => setInntektProperty("valuta", valuta.value, index)}
-                      values={_inntekt?.valuta ?? ''}
-                    />
-                  </Column>
-                  <Column>
-                    <DateField
-                      id='inntekt-beloeputbetaltsiden'
-                      label={t('p2000:form-arbeidsforhold-inntekt-belop-siden')}
-                      hideLabel={index > 0}
-                      index={index}
-                      error={_v[_namespace + '-beloeputbetaltsiden']?.feilmelding}
-                      namespace={_namespace}
-                      onChanged={(e) => setInntektProperty("beloeputbetaltsiden", dateToString(e)!, index)}
-                      defaultDate={_inntekt?.beloeputbetaltsiden}
-                    />
-                  </Column>
-                  <Column>
-                    <Select
-                      error={_v[_namespace + '-betalingshyppighetinntekt']?.feilmelding}
-                      id='inntekt-betalingshyppighetinntekt'
-                      label={t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet')}
-                      hideLabel={index > 0}
-                      onChange={(e) => setInntektProperty("betalingshyppighetinntekt", e.target.value, index)}
-                      value={_inntekt?.betalingshyppighetinntekt ?? ''}
-                    >
-                      <option value=''>Velg</option>
-                      {betalingshyppighetOptions.map((option) => {
-                        return(<option value={option.value}>{option.label}</option>)
-                      })}
-                    </Select>
-                  </Column>
-                </AlignStartRow>
-              )
-              : (
-                <InntektRow inntekt={_inntekt} index={index}/>
-              )
-            }
-          </Column>
-          <AlignEndColumn>
-            {parentEditMode &&
-              <AddRemovePanel<Inntekt>
-                item={inntekt}
-                marginTop={index < 0}
-                index={index}
-                inEditMode={inEditMode}
-                onRemove={onRemove}
-                onAddNew={onAddNew}
-                onCancelNew={onCloseNew}
-                onStartEdit={onStartEdit}
-                onConfirmEdit={onSaveEdit}
-                onCancelEdit={() => onCloseEdit(_namespace)}
-              />
-            }
-          </AlignEndColumn>
-        </AlignStartRow>
-      </RepeatableRowNoHorizontalPadding>
+      <>
+        {inEditMode && parentEditMode
+          ? (
+              <Table.Row>
+                <Table.DataCell width={"10%"}>
+                  <Input
+                    error={_v[_namespace + '-beloep']?.feilmelding}
+                    namespace={_namespace}
+                    id='inntekt-beloep'
+                    label={t('p2000:form-arbeidsforhold-inntekt-belop')}
+                    hideLabel={true}
+                    onChanged={(e) => setBelop(e, index)}
+                    value={_inntekt?.beloep ?? ''}
+                  />
+                </Table.DataCell>
+                <Table.DataCell width={"20%"}>
+                  <CountrySelect
+                    error={_v[_namespace + '-valuta']?.feilmelding}
+                    placeholder="Velg valuta"
+                    namespace={_namespace}
+                    id='inntekt-valuta'
+                    label={t('p2000:form-arbeidsforhold-inntekt-valuta')}
+                    hideLabel={true}
+                    type='currency'
+                    sort="noeuFirst"
+                    onChanged={(e:any) => setInntektProperty("valuta", e.target.value, index)}
+                    onOptionSelected={(valuta: Currency) => setInntektProperty("valuta", valuta.value, index)}
+                    values={_inntekt?.valuta ?? ''}
+                  />
+                </Table.DataCell>
+                <Table.DataCell width={"20%"}>
+                  <DateField
+                    id='inntekt-beloeputbetaltsiden'
+                    label={t('p2000:form-arbeidsforhold-inntekt-belop-siden')}
+                    hideLabel={true}
+                    index={index}
+                    error={_v[_namespace + '-beloeputbetaltsiden']?.feilmelding}
+                    namespace={_namespace}
+                    onChanged={(e) => setInntektProperty("beloeputbetaltsiden", dateToString(e)!, index)}
+                    defaultDate={_inntekt?.beloeputbetaltsiden}
+                  />
+                </Table.DataCell>
+                <Table.DataCell width={"20%"}>
+                  <Select
+                    error={_v[_namespace + '-betalingshyppighetinntekt']?.feilmelding}
+                    id='inntekt-betalingshyppighetinntekt'
+                    label={t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet')}
+                    hideLabel={true}
+                    onChange={(e) => setInntektProperty("betalingshyppighetinntekt", e.target.value, index)}
+                    value={_inntekt?.betalingshyppighetinntekt ?? ''}
+                  >
+                    <option value=''>Velg</option>
+                    {betalingshyppighetOptions.map((option) => {
+                      return(<option value={option.value}>{option.label}</option>)
+                    })}
+                  </Select>
+                </Table.DataCell>
+                <Table.DataCell width={"20%"}>
+                  <AddRemovePanel<Inntekt>
+                    item={inntekt}
+                    marginTop={index < 0}
+                    index={index}
+                    inEditMode={inEditMode}
+                    onRemove={onRemove}
+                    onAddNew={onAddNew}
+                    onCancelNew={onCloseNew}
+                    onStartEdit={onStartEdit}
+                    onConfirmEdit={onSaveEdit}
+                    onCancelEdit={() => onCloseEdit(_namespace)}
+                    alwaysVisible={true}
+                  />
+                </Table.DataCell>
+              </Table.Row>
+            )
+          : (
+            <Table.Row>
+              <Table.DataCell align="right" width={"10%"}>
+                {inntekt?.beloep}
+              </Table.DataCell>
+              <Table.DataCell width={"10%"}>
+                {inntekt?.valuta}
+              </Table.DataCell>
+              <Table.DataCell width={"20%"}>
+                {formatDate(inntekt?.beloeputbetaltsiden as string)}
+              </Table.DataCell>
+              <Table.DataCell width={"40%"}>
+                {inntekt?.betalingshyppighetinntekt ? betalingshyppighetMap[inntekt?.betalingshyppighetinntekt] : ''}
+              </Table.DataCell>
+              <Table.DataCell width={"20%"}>
+                {parentEditMode &&
+                  <AddRemovePanel<Inntekt>
+                    item={inntekt}
+                    marginTop={index < 0}
+                    index={index}
+                    inEditMode={inEditMode}
+                    onRemove={onRemove}
+                    onAddNew={onAddNew}
+                    onCancelNew={onCloseNew}
+                    onStartEdit={onStartEdit}
+                    onConfirmEdit={onSaveEdit}
+                    onCancelEdit={() => onCloseEdit(_namespace)}
+                    alwaysVisible={true}
+                  />
+                }
+              </Table.DataCell>
+            </Table.Row>
+          )
+        }
+      </>
     )
   }
 
@@ -273,20 +295,7 @@ const InntektRows: React.FC<InntektProps> = ({
           </>
         )
       }
-      {parentEditMode && _newForm
-        ? renderRow(null, -1)
-        : parentEditMode && (
-          <>
-            <Button
-              variant='tertiary'
-              onClick={() => _setNewForm(true)}
-              iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
-            >
-              {t('ui:add-new-x', { x: t('p2000:form-arbeidsforhold-inntekt')?.toLowerCase() })}
-            </Button>
-          </>
-        )}
-
+      {parentEditMode && newInntektForm && renderRow(null, -1)}
     </>
   )
 }

@@ -67,6 +67,14 @@ export const RepeatableRowAlternateColors = styled(RepeatableRow)`
   }
 `
 
+export const RepeatableRowNoBackground = styled(RepeatableRow)`
+  border: 1px solid transparent;
+   &:hover:not(.new):not(.error) {
+   background-color: var(--a-bg-default);
+    border: 1px solid #000000;
+  }
+`
+
 
 export const RepeatableRowNoHorizontalPadding = styled(RepeatableRow)`
   padding-left:0;

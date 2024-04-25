@@ -1,4 +1,4 @@
-import {BodyLong, Button, Heading, Label, Select} from "@navikt/ds-react";
+import {BodyLong, Button, Heading, Label, Select, Table} from "@navikt/ds-react";
 import {
   VerticalSeparatorDiv,
   PaddedDiv,
@@ -25,7 +25,7 @@ import {
 } from "./validation";
 import {getIdx} from "../../../utils/namespace";
 import {Validation} from "../../../declarations/app";
-import {RepeatableRow} from "../../../components/StyledComponents";
+import {RepeatableRowNoBackground} from "../../../components/StyledComponents";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "../../../utils/validation";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
@@ -59,6 +59,8 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
 
   const [_editIndex, _setEditIndex] = useState<number | undefined>(undefined)
   const [_newForm, _setNewForm] = useState<boolean>(false)
+  const [_newInntektForm, _setNewInntektForm] = useState<boolean>(false)
+
 
 
   useUnmount(() => {
@@ -83,12 +85,14 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
   const onCloseEdit = (namespace: string) => {
     _setEditArbeidsforhold(undefined)
     _setEditIndex(undefined)
+    _setNewInntektForm(false)
     dispatch(resetValidation(namespace))
   }
 
   const onCloseNew = () => {
     _setNewArbeidsforhold(undefined)
     _setNewForm(false)
+    _setNewInntektForm(false)
     _resetValidation()
   }
 
@@ -116,6 +120,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
     } else {
       dispatch(setValidation(clonedValidation))
     }
+    _setNewInntektForm(false)
   }
 
   const onRemove = (removedArbeidsforhold: Arbeidsforhold) => {
@@ -189,7 +194,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
     const inEditMode = index < 0 || _editIndex === index
     const _arbeidsforhold = index < 0 ? _newArbeidsforhold : (inEditMode ? _editArbeidsforhold : arbeidsforhold)
     return (
-      <RepeatableRow
+      <RepeatableRowNoBackground
         id={'repeatablerow-' + _namespace}
         key={index}
         className={classNames({
@@ -247,18 +252,41 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
           </AlignEndColumn>
         </AlignStartRow>
         <AlignStartRow>
-          <Column flex="2">
-            {inEditMode
-              ? (
-                <InntektRows parentEditMode={true} setInntekt={setInntekt} parentIndex={index} inntekt={_arbeidsforhold?.inntekt} parentNamespace={_namespace}/>
-              )
-              : (
-                <InntektRows parentEditMode={false} setInntekt={setInntekt} parentIndex={index} inntekt={_arbeidsforhold?.inntekt} parentNamespace={_namespace}/>
-              )
-            }
-          </Column>
+          <Table zebraStripes={true}>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell scope="col">Beløp</Table.HeaderCell>
+                <Table.HeaderCell scope="col">Valuta</Table.HeaderCell>
+                <Table.HeaderCell scope="col">Beløp siden</Table.HeaderCell>
+                <Table.HeaderCell scope="col">Betalingshyppighet</Table.HeaderCell>
+                <Table.HeaderCell scope="col"></Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {inEditMode
+                ? (
+                  <InntektRows parentEditMode={true} newInntektForm={_newInntektForm} setNewInntektForm={_setNewInntektForm} setInntekt={setInntekt} parentIndex={index} inntekt={_arbeidsforhold?.inntekt} parentNamespace={_namespace}/>
+                )
+                : (
+                  <InntektRows parentEditMode={false} newInntektForm={false} setNewInntektForm={_setNewInntektForm} setInntekt={setInntekt} parentIndex={index} inntekt={_arbeidsforhold?.inntekt} parentNamespace={_namespace}/>
+                )
+              }
+            </Table.Body>
+          </Table>
         </AlignStartRow>
-      </RepeatableRow>
+        <AlignStartRow>
+          {inEditMode && !_newInntektForm &&
+            <Button
+              variant='tertiary'
+              onClick={() => _setNewInntektForm(true)}
+              iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
+            >
+              {t('ui:add-new-x', { x: t('p2000:form-arbeidsforhold-inntekt')?.toLowerCase() })}
+            </Button>
+          }
+        </AlignStartRow>
+        <VerticalSeparatorDiv/>
+      </RepeatableRowNoBackground>
     )
   }
 

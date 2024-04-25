@@ -30,6 +30,7 @@ export interface AddRemovePanelProps<T> {
   onCancelEdit?: () => void
   onCancelNew?: () => void
   onRemove: (item: T) => void
+  alwaysVisible?: boolean
 }
 
 const InlineFlexDiv = styled.div`
@@ -58,7 +59,8 @@ const AddRemovePanel = <T extends any>({
   onRemove,
   onAddNew,
   onCopy,
-  onCancelNew
+  onCancelNew,
+  alwaysVisible = false
 }: AddRemovePanelProps<T>): JSX.Element | null => {
   const { t } = useTranslation()
 
@@ -158,7 +160,7 @@ const AddRemovePanel = <T extends any>({
   }
 
   return (
-    <InlineFlexDiv className={classNames('control-buttons', 'noMargin')}>
+    <InlineFlexDiv className={classNames(alwaysVisible ? '' : 'control-buttons', 'noMargin')}>
       {allowEdit && (
         <Button
           size='small'
