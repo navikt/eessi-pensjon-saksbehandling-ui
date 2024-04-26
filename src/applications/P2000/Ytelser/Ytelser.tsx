@@ -4,7 +4,7 @@ import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../../store";
-import {BodyLong, Button, Heading, Label, Radio, Select, Tag} from "@navikt/ds-react";
+import {BodyLong, Button, Heading, Label, Radio, Select, Table, Tag} from "@navikt/ds-react";
 import {
   VerticalSeparatorDiv,
   PaddedDiv,
@@ -57,6 +57,7 @@ const Ytelser: React.FC<MainFormProps> = ({
   const [_editIndex, _setEditIndex] = useState<number | undefined>(undefined)
 
   const [_newForm, _setNewForm] = useState<boolean>(false)
+  const [_newBeloepForm, _setNewBeloepForm] = useState<boolean>(false)
 
   useUnmount(() => {
     const clonedvalidation = _.cloneDeep(validation)
@@ -111,12 +112,14 @@ const Ytelser: React.FC<MainFormProps> = ({
   const onCloseNew = () => {
     _setNewYtelse(undefined)
     _setNewForm(false)
+    _setNewBeloepForm(false)
     _resetValidation()
   }
 
   const onCloseEdit = (namespace: string) => {
     _setEditYtelse(undefined)
     _setEditIndex(undefined)
+    _setNewBeloepForm(false)
     dispatch(resetValidation(namespace))
   }
 
@@ -165,6 +168,7 @@ const Ytelser: React.FC<MainFormProps> = ({
     } else {
       dispatch(setValidation(clonedValidation))
     }
+    _setNewBeloepForm(false)
   }
 
   const ytelseOptions = [
@@ -320,7 +324,35 @@ const Ytelser: React.FC<MainFormProps> = ({
             </Column>
           </AlignStartRow>
           <VerticalSeparatorDiv/>
-          <BeloepRows beloep={_ytelse?.beloep} setBeloep={setBeloep} parentIndex={index} parentEditMode={true} parentNamespace={_namespace}/>
+          <AlignStartRow>
+            <Table zebraStripes={true}>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell scope="col">Beløp</Table.HeaderCell>
+                  <Table.HeaderCell scope="col">Valuta</Table.HeaderCell>
+                  <Table.HeaderCell scope="col">Beløp siden</Table.HeaderCell>
+                  <Table.HeaderCell scope="col" colSpan={2}>Betalingshyppighet</Table.HeaderCell>
+                  <Table.HeaderCell scope="col"></Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                <BeloepRows beloep={_ytelse?.beloep} setBeloep={setBeloep} parentIndex={index} parentEditMode={true} newBeloepForm={_newBeloepForm} setNewBeloepForm={_setNewBeloepForm} parentNamespace={_namespace}/>
+              </Table.Body>
+            </Table>
+          </AlignStartRow>
+          <VerticalSeparatorDiv/>
+          <AlignStartRow>
+            {inEditMode && !_newBeloepForm &&
+              <Button
+                variant='tertiary'
+                onClick={() => _setNewBeloepForm(true)}
+                iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
+              >
+                {t('ui:add-new-x', { x: t('p2000:form-ytelse-beloep')?.toLowerCase() })}
+              </Button>
+            }
+          </AlignStartRow>
+          <VerticalSeparatorDiv/>
           <AlignStartRow>
             <Column>
               <HorizontalRadioGroup
@@ -409,7 +441,22 @@ const Ytelser: React.FC<MainFormProps> = ({
             </Column>
           </AlignStartRow>
           <VerticalSeparatorDiv/>
-          <BeloepRows parentEditMode={false} setBeloep={setBeloep} parentIndex={index} beloep={_ytelse?.beloep} parentNamespace={_namespace}/>
+          <AlignStartRow>
+            <Table zebraStripes={true}>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell scope="col">Beløp</Table.HeaderCell>
+                  <Table.HeaderCell scope="col">Valuta</Table.HeaderCell>
+                  <Table.HeaderCell scope="col">Beløp siden</Table.HeaderCell>
+                  <Table.HeaderCell scope="col" colSpan={2}>Betalingshyppighet</Table.HeaderCell>
+                  <Table.HeaderCell scope="col"></Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                <BeloepRows parentEditMode={false} newBeloepForm={false} setNewBeloepForm={_setNewBeloepForm} setBeloep={setBeloep} parentIndex={index} beloep={_ytelse?.beloep} parentNamespace={_namespace}/>
+              </Table.Body>
+            </Table>
+          </AlignStartRow>
           <VerticalSeparatorDiv/>
           <AlignStartRow>
             <Column flex={5}>
