@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Inntekt} from "../../../declarations/p2000";
 import _ from "lodash";
-import {BodyLong, Select, Table} from "@navikt/ds-react";
+import {Select, Table} from "@navikt/ds-react";
 import {getIdx} from "../../../utils/namespace";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {resetValidation, setValidation} from "../../../actions/validation";
@@ -19,6 +19,12 @@ import {Currency} from "@navikt/land-verktoy";
 import {useTranslation} from "react-i18next";
 import DateField from "../DateField/DateField";
 import {dateToString, formatDate} from "../../../utils/utils";
+import styled from "styled-components";
+
+
+const TopAlignedCell = styled(Table.DataCell)`
+  vertical-align: top;
+`
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -173,7 +179,7 @@ const InntektRows: React.FC<InntektProps> = ({
         {inEditMode && parentEditMode
           ? (
               <Table.Row>
-                <Table.DataCell width={"10%"}>
+                <TopAlignedCell width={"10%"}>
                   <Input
                     error={_v[_namespace + '-beloep']?.feilmelding}
                     namespace={_namespace}
@@ -183,8 +189,8 @@ const InntektRows: React.FC<InntektProps> = ({
                     onChanged={(e) => setBelop(e, index)}
                     value={_inntekt?.beloep ?? ''}
                   />
-                </Table.DataCell>
-                <Table.DataCell width={"20%"}>
+                </TopAlignedCell>
+                <TopAlignedCell width={"20%"}>
                   <CountrySelect
                     error={_v[_namespace + '-valuta']?.feilmelding}
                     placeholder="Velg valuta"
@@ -198,8 +204,8 @@ const InntektRows: React.FC<InntektProps> = ({
                     onOptionSelected={(valuta: Currency) => setInntektProperty("valuta", valuta.value, index)}
                     values={_inntekt?.valuta ?? ''}
                   />
-                </Table.DataCell>
-                <Table.DataCell width={"20%"}>
+                </TopAlignedCell>
+                <TopAlignedCell width={"20%"}>
                   <DateField
                     id='inntekt-beloeputbetaltsiden'
                     label={t('p2000:form-arbeidsforhold-inntekt-belop-siden')}
@@ -210,8 +216,8 @@ const InntektRows: React.FC<InntektProps> = ({
                     onChanged={(e) => setInntektProperty("beloeputbetaltsiden", dateToString(e)!, index)}
                     defaultDate={_inntekt?.beloeputbetaltsiden}
                   />
-                </Table.DataCell>
-                <Table.DataCell width={"20%"}>
+                </TopAlignedCell>
+                <TopAlignedCell width={"20%"}>
                   <Select
                     error={_v[_namespace + '-betalingshyppighetinntekt']?.feilmelding}
                     id='inntekt-betalingshyppighetinntekt'
@@ -225,11 +231,11 @@ const InntektRows: React.FC<InntektProps> = ({
                       return(<option value={option.value}>{option.label}</option>)
                     })}
                   </Select>
-                </Table.DataCell>
-                <Table.DataCell width={"20%"}>
+                </TopAlignedCell>
+                <TopAlignedCell width={"20%"}>
                   <AddRemovePanel<Inntekt>
+                    noMargin={true}
                     item={inntekt}
-                    marginTop={index < 0}
                     index={index}
                     inEditMode={inEditMode}
                     onRemove={onRemove}
@@ -240,7 +246,7 @@ const InntektRows: React.FC<InntektProps> = ({
                     onCancelEdit={() => onCloseEdit(_namespace)}
                     alwaysVisible={true}
                   />
-                </Table.DataCell>
+                </TopAlignedCell>
               </Table.Row>
             )
           : (
@@ -260,8 +266,8 @@ const InntektRows: React.FC<InntektProps> = ({
               <Table.DataCell width={"20%"}>
                 {parentEditMode &&
                   <AddRemovePanel<Inntekt>
+                    noMargin={true}
                     item={inntekt}
-                    marginTop={index < 0}
                     index={index}
                     inEditMode={inEditMode}
                     onRemove={onRemove}
@@ -283,11 +289,13 @@ const InntektRows: React.FC<InntektProps> = ({
 
   return (
     <>
-      {_.isEmpty(inntekt)
+      {_.isEmpty(inntekt) && !newInntektForm
         ? (
-          <BodyLong>
-            Ingen inntekter
-          </BodyLong>
+          <Table.Row>
+            <Table.DataCell colSpan={5}>
+              Ingen inntekter
+            </Table.DataCell>
+          </Table.Row>
         )
         : (
           <>

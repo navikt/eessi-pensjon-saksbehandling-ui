@@ -274,6 +274,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
             </Table.Body>
           </Table>
         </AlignStartRow>
+        <VerticalSeparatorDiv/>
         <AlignStartRow>
           {inEditMode && !_newInntektForm &&
             <Button
