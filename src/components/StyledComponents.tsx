@@ -61,17 +61,20 @@ export const RepeatableRowAlternateColors = styled(RepeatableRow)`
   &:nth-child(even){
     background-color: var(--a-gray-300);
   }
-   &:hover:not(.new):not(.error) {
+  &:hover:not(.new):not(.error) {
     background-color: var(--a-gray-100);
     border: 1px solid #000000;
   }
 `
 
 export const RepeatableRowNoBackground = styled(RepeatableRow)`
-  border: 1px solid transparent;
-   &:hover:not(.new):not(.error) {
-   background-color: var(--a-bg-default);
+  border: 1px solid #000000;
+  &:hover:not(.new):not(.error) {
+    background-color: var(--a-gray-200);
     border: 1px solid #000000;
+  }
+  &.selected {
+    background-color: var(--a-gray-200);
   }
 `
 

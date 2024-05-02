@@ -20,7 +20,7 @@ import {getIdx} from "../../../utils/namespace";
 import {Validation} from "../../../declarations/app";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "../../../utils/validation";
-import {RepeatableRowAlternateColors, HorizontalRadioGroup} from "../../../components/StyledComponents";
+import {RepeatableRowNoBackground, HorizontalRadioGroup} from "../../../components/StyledComponents";
 import useValidation from "../../../hooks/useValidation";
 import {validateYtelse, validateYtelser, ValidationYtelseProps, ValidationYtelserProps} from "./validation";
 import {resetValidation, setValidation} from "../../../actions/validation";
@@ -228,261 +228,268 @@ const Ytelser: React.FC<MainFormProps> = ({
 
     if(inEditMode){
       return (
-        <RepeatableRowAlternateColors
-          id={'repeatablerow-' + _namespace}
-          key={index}
-          className={classNames({
-            new: index < 0,
-            error: hasNamespaceWithErrors(_v, _namespace),
-          })}
-        >
-          <VerticalSeparatorDiv size='0.5' />
-          <AlignStartRow>
-            <Column flex="3">
-              <Select
-                error={_v[_namespace + '-ytelse']?.feilmelding}
-                id={_namespace + '-ytelse'}
-                label={t('p2000:form-ytelse')}
-                onChange={(e) => setYtelseProperty("ytelse", e.target.value, index)}
-                value={(_ytelse?.ytelse)  ?? ''}
-              >
-                <option value=''>Velg</option>
-                {ytelseOptions.map((option) => {
-                  return(<option value={option.value}>{option.label}</option>)
-                })}
-              </Select>
-            </Column>
-            <Column flex="2">
-              {_ytelse?.ytelse === "99" &&
-                <Input
-                  error={_v[_namespace + '-annenytelse']?.feilmelding}
+        <>
+          <RepeatableRowNoBackground
+            id={'repeatablerow-' + _namespace}
+            key={index}
+            className={classNames({
+              new: index < 0,
+              error: hasNamespaceWithErrors(_v, _namespace),
+              selected: true
+            })}
+          >
+            <VerticalSeparatorDiv size='0.5' />
+            <AlignStartRow>
+              <Column flex="3">
+                <Select
+                  error={_v[_namespace + '-ytelse']?.feilmelding}
+                  id={_namespace + '-ytelse'}
+                  label={t('p2000:form-ytelse')}
+                  onChange={(e) => setYtelseProperty("ytelse", e.target.value, index)}
+                  value={(_ytelse?.ytelse)  ?? ''}
+                >
+                  <option value=''>Velg</option>
+                  {ytelseOptions.map((option) => {
+                    return(<option value={option.value}>{option.label}</option>)
+                  })}
+                </Select>
+              </Column>
+              <Column flex="2">
+                {_ytelse?.ytelse === "99" &&
+                  <Input
+                    error={_v[_namespace + '-annenytelse']?.feilmelding}
+                    namespace={_namespace}
+                    id={_namespace + '-annenytelse'}
+                    label={t('p2000:form-ytelse-annen-ytelse')}
+                    onChanged={(e) => setYtelseProperty("annenytelse", e, index)}
+                    value={ytelse?.annenytelse ?? ''}
+                  />
+                }
+              </Column>
+              <Column>
+                {addremovepanel}
+              </Column>
+            </AlignStartRow>
+            <VerticalSeparatorDiv/>
+            <AlignStartRow>
+              <Column>
+                <HorizontalRadioGroup
+                  error={_v[_namespace + '-status']?.feilmelding}
+                  id={_namespace + "-status"}
+                  legend={t('p2000:form-ytelse-status')}
+                  onChange={(e: any) => setYtelseProperty("status", e, index)}
+                  value={_ytelse?.status}
+                >
+                  {statusOptions.map((option) => {
+                    return(<Radio value={option.value}>{option.label}</Radio>)
+                  })}
+                </HorizontalRadioGroup>
+              </Column>
+            </AlignStartRow>
+            <VerticalSeparatorDiv/>
+            <AlignStartRow>
+              <Column flex="1">
+                <DateField
+                  id={_namespace + '-startdatoutbetaling'}
+                  label={t('p2000:form-ytelse-startdato-utbetaling')}
+                  index={index}
+                  error={_v[_namespace + '-startdatoutbetaling']?.feilmelding}
                   namespace={_namespace}
-                  id={_namespace + '-annenytelse'}
-                  label={t('p2000:form-ytelse-annen-ytelse')}
-                  onChanged={(e) => setYtelseProperty("annenytelse", e, index)}
-                  value={ytelse?.annenytelse ?? ''}
+                  onChanged={(e) => setYtelseProperty("startdatoutbetaling", dateToString(e)!, index)}
+                  defaultDate={_ytelse?.startdatoutbetaling}
                 />
+              </Column>
+              <Column flex="2">
+                <DateField
+                  id={_namespace + '-sluttdatoutbetaling'}
+                  label={t('p2000:form-ytelse-sluttdato-utbetaling')}
+                  index={index}
+                  error={_v[_namespace + '-sluttdatoutbetaling']?.feilmelding}
+                  namespace={_namespace}
+                  onChanged={(e) => setYtelseProperty("sluttdatoutbetaling", dateToString(e)!, index)}
+                  defaultDate={_ytelse?.sluttdatoutbetaling}
+                />
+              </Column>
+            </AlignStartRow>
+            <VerticalSeparatorDiv/>
+            <AlignStartRow>
+              <Column>
+                <DateField
+                  id={_namespace + '-startdatoretttilytelse'}
+                  label={t('p2000:form-ytelse-startdato-rett-til-ytelser')}
+                  index={index}
+                  error={_v[_namespace + '-startdatoretttilytelse']?.feilmelding}
+                  namespace={_namespace}
+                  onChanged={(e) => setYtelseProperty("startdatoretttilytelse", dateToString(e)!, index)}
+                  defaultDate={_ytelse?.startdatoretttilytelse}
+                />
+              </Column>
+            </AlignStartRow>
+            <VerticalSeparatorDiv/>
+            <AlignStartRow>
+              <Table zebraStripes={true}>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell scope="col">Beløp</Table.HeaderCell>
+                    <Table.HeaderCell scope="col">Valuta</Table.HeaderCell>
+                    <Table.HeaderCell scope="col">Beløp siden</Table.HeaderCell>
+                    <Table.HeaderCell scope="col" colSpan={2}>Betalingshyppighet</Table.HeaderCell>
+                    <Table.HeaderCell scope="col"></Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  <BeloepRows beloep={_ytelse?.beloep} setBeloep={setBeloep} parentIndex={index} parentEditMode={true} newBeloepForm={_newBeloepForm} setNewBeloepForm={_setNewBeloepForm} parentNamespace={_namespace}/>
+                </Table.Body>
+              </Table>
+            </AlignStartRow>
+            <VerticalSeparatorDiv/>
+            <AlignStartRow>
+              {inEditMode && !_newBeloepForm &&
+                <Button
+                  variant='tertiary'
+                  onClick={() => _setNewBeloepForm(true)}
+                  iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
+                >
+                  {t('ui:add-new-x', { x: t('p2000:form-ytelse-beloep')?.toLowerCase() })}
+                </Button>
               }
-            </Column>
-            <Column>
-              {addremovepanel}
-            </Column>
-          </AlignStartRow>
+            </AlignStartRow>
+            <VerticalSeparatorDiv/>
+            <AlignStartRow>
+              <Column>
+                <HorizontalRadioGroup
+                  error={_v[_namespace + '-mottasbasertpaa']?.feilmelding}
+                  id={_namespace + "-mottasbasertpaa"}
+                  legend={t('p2000:form-ytelse-mottas-basert-paa')}
+                  onChange={(e: any) => setYtelseProperty("mottasbasertpaa", e, index)}
+                  value={_ytelse?.mottasbasertpaa}
+                >
+                  <Radio value="botid">Botid</Radio>
+                  <Radio value="arbeid">Arbeid</Radio>
+                </HorizontalRadioGroup>
+              </Column>
+            </AlignStartRow>
+            <VerticalSeparatorDiv/>
+            <AlignStartRow>
+              <Column>
+                <Input
+                  error={_v[_namespace + '-totalbruttobeloepbostedsbasert']?.feilmelding}
+                  namespace={_namespace}
+                  id={_namespace + '-totalbruttobeloepbostedsbasert'}
+                  label={t('p2000:form-ytelse-bruttobeloep-bostedsbasert')}
+                  onChanged={(e) => setYtelseProperty("totalbruttobeloepbostedsbasert", e, index)}
+                  value={_ytelse?.totalbruttobeloepbostedsbasert ?? ''}
+                />
+              </Column>
+              <Column>
+                <Input
+                  error={_v[_namespace + '-totalbruttobeloeparbeidsbasert']?.feilmelding}
+                  namespace={_namespace}
+                  id={_namespace + '-totalbruttobeloeparbeidsbasert'}
+                  label={t('p2000:form-ytelse-bruttobeloep-arbeidsrelatert')}
+                  onChanged={(e) => setYtelseProperty("totalbruttobeloeparbeidsbasert", e, index)}
+                  value={_ytelse?.totalbruttobeloeparbeidsbasert ?? ''}
+                />
+              </Column>
+            </AlignStartRow>
+
+          </RepeatableRowNoBackground>
           <VerticalSeparatorDiv/>
-          <AlignStartRow>
-            <Column>
-              <HorizontalRadioGroup
-                error={_v[_namespace + '-status']?.feilmelding}
-                id={_namespace + "-status"}
-                legend={t('p2000:form-ytelse-status')}
-                onChange={(e: any) => setYtelseProperty("status", e, index)}
-                value={_ytelse?.status}
-              >
-                {statusOptions.map((option) => {
-                  return(<Radio value={option.value}>{option.label}</Radio>)
-                })}
-              </HorizontalRadioGroup>
-            </Column>
-          </AlignStartRow>
-          <VerticalSeparatorDiv/>
-          <AlignStartRow>
-            <Column flex="1">
-              <DateField
-                id={_namespace + '-startdatoutbetaling'}
-                label={t('p2000:form-ytelse-startdato-utbetaling')}
-                index={index}
-                error={_v[_namespace + '-startdatoutbetaling']?.feilmelding}
-                namespace={_namespace}
-                onChanged={(e) => setYtelseProperty("startdatoutbetaling", dateToString(e)!, index)}
-                defaultDate={_ytelse?.startdatoutbetaling}
-              />
-            </Column>
-            <Column flex="2">
-              <DateField
-                id={_namespace + '-sluttdatoutbetaling'}
-                label={t('p2000:form-ytelse-sluttdato-utbetaling')}
-                index={index}
-                error={_v[_namespace + '-sluttdatoutbetaling']?.feilmelding}
-                namespace={_namespace}
-                onChanged={(e) => setYtelseProperty("sluttdatoutbetaling", dateToString(e)!, index)}
-                defaultDate={_ytelse?.sluttdatoutbetaling}
-              />
-            </Column>
-          </AlignStartRow>
-          <VerticalSeparatorDiv/>
-          <AlignStartRow>
-            <Column>
-              <DateField
-                id={_namespace + '-startdatoretttilytelse'}
-                label={t('p2000:form-ytelse-startdato-rett-til-ytelser')}
-                index={index}
-                error={_v[_namespace + '-startdatoretttilytelse']?.feilmelding}
-                namespace={_namespace}
-                onChanged={(e) => setYtelseProperty("startdatoretttilytelse", dateToString(e)!, index)}
-                defaultDate={_ytelse?.startdatoretttilytelse}
-              />
-            </Column>
-          </AlignStartRow>
-          <VerticalSeparatorDiv/>
-          <AlignStartRow>
-            <Table zebraStripes={true}>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell scope="col">Beløp</Table.HeaderCell>
-                  <Table.HeaderCell scope="col">Valuta</Table.HeaderCell>
-                  <Table.HeaderCell scope="col">Beløp siden</Table.HeaderCell>
-                  <Table.HeaderCell scope="col" colSpan={2}>Betalingshyppighet</Table.HeaderCell>
-                  <Table.HeaderCell scope="col"></Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                <BeloepRows beloep={_ytelse?.beloep} setBeloep={setBeloep} parentIndex={index} parentEditMode={true} newBeloepForm={_newBeloepForm} setNewBeloepForm={_setNewBeloepForm} parentNamespace={_namespace}/>
-              </Table.Body>
-            </Table>
-          </AlignStartRow>
-          <VerticalSeparatorDiv/>
-          <AlignStartRow>
-            {inEditMode && !_newBeloepForm &&
-              <Button
-                variant='tertiary'
-                onClick={() => _setNewBeloepForm(true)}
-                iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
-              >
-                {t('ui:add-new-x', { x: t('p2000:form-ytelse-beloep')?.toLowerCase() })}
-              </Button>
-            }
-          </AlignStartRow>
-          <VerticalSeparatorDiv/>
-          <AlignStartRow>
-            <Column>
-              <HorizontalRadioGroup
-                error={_v[_namespace + '-mottasbasertpaa']?.feilmelding}
-                id={_namespace + "-mottasbasertpaa"}
-                legend={t('p2000:form-ytelse-mottas-basert-paa')}
-                onChange={(e: any) => setYtelseProperty("mottasbasertpaa", e, index)}
-                value={_ytelse?.mottasbasertpaa}
-              >
-                <Radio value="botid">Botid</Radio>
-                <Radio value="arbeid">Arbeid</Radio>
-              </HorizontalRadioGroup>
-            </Column>
-          </AlignStartRow>
-          <VerticalSeparatorDiv/>
-          <AlignStartRow>
-            <Column>
-              <Input
-                error={_v[_namespace + '-totalbruttobeloepbostedsbasert']?.feilmelding}
-                namespace={_namespace}
-                id={_namespace + '-totalbruttobeloepbostedsbasert'}
-                label={t('p2000:form-ytelse-bruttobeloep-bostedsbasert')}
-                onChanged={(e) => setYtelseProperty("totalbruttobeloepbostedsbasert", e, index)}
-                value={_ytelse?.totalbruttobeloepbostedsbasert ?? ''}
-              />
-            </Column>
-            <Column>
-              <Input
-                error={_v[_namespace + '-totalbruttobeloeparbeidsbasert']?.feilmelding}
-                namespace={_namespace}
-                id={_namespace + '-totalbruttobeloeparbeidsbasert'}
-                label={t('p2000:form-ytelse-bruttobeloep-arbeidsrelatert')}
-                onChanged={(e) => setYtelseProperty("totalbruttobeloeparbeidsbasert", e, index)}
-                value={_ytelse?.totalbruttobeloeparbeidsbasert ?? ''}
-              />
-            </Column>
-          </AlignStartRow>
-          <VerticalSeparatorDiv/>
-        </RepeatableRowAlternateColors>
+        </>
       )
     } else {
       return (
-        <RepeatableRowAlternateColors
-          id={'repeatablerow-' + _namespace}
-          key={index}
-          className={classNames({
-            new: index < 0,
-            error: hasNamespaceWithErrors(_v, _namespace)
-          })}
-        >
-          <VerticalSeparatorDiv size='0.5' />
-          <AlignStartRow>
-            <Column flex="5">
-              <Label>{t('p2000:form-ytelse')}</Label>
-              <HorizontalSeparatorDiv size='1.0' />
-              <Tag size='small' variant='info'>{getStatusLabel(_ytelse?.status)}</Tag>
-              <BodyLong>
-                {_ytelse?.ytelse === '99' ? _ytelse.annenytelse : getYtelseLabel(_ytelse?.ytelse)}
-              </BodyLong>
-            </Column>
-            <Column>
-              {addremovepanel}
-            </Column>
-          </AlignStartRow>
+        <>
+          <RepeatableRowNoBackground
+            id={'repeatablerow-' + _namespace}
+            key={index}
+            className={classNames({
+              new: index < 0,
+              error: hasNamespaceWithErrors(_v, _namespace)
+            })}
+          >
+            <VerticalSeparatorDiv size='0.5' />
+            <AlignStartRow>
+              <Column flex="5">
+                <Label>{t('p2000:form-ytelse')}</Label>
+                <HorizontalSeparatorDiv size='1.0' />
+                <Tag size='small' variant='info'>{getStatusLabel(_ytelse?.status)}</Tag>
+                <BodyLong>
+                  {_ytelse?.ytelse === '99' ? _ytelse.annenytelse : getYtelseLabel(_ytelse?.ytelse)}
+                </BodyLong>
+              </Column>
+              <Column>
+                {addremovepanel}
+              </Column>
+            </AlignStartRow>
+            <VerticalSeparatorDiv/>
+            <AlignStartRow>
+              <Column>
+                <Label>{t('p2000:form-ytelse-startdato-utbetaling')}</Label>
+                <BodyLong>
+                  {formatDate(_ytelse?.startdatoutbetaling as string)}
+                </BodyLong>
+              </Column>
+              <Column>
+                <Label>{t('p2000:form-ytelse-sluttdato-utbetaling')}</Label>
+                <BodyLong>
+                  {formatDate(_ytelse?.sluttdatoutbetaling as string)}
+                </BodyLong>
+              </Column>
+            </AlignStartRow>
+            <AlignStartRow>
+              <Column flex={5}>
+                <Label>{t('p2000:form-ytelse-startdato-rett-til-ytelser')}</Label>
+                <BodyLong>
+                  {formatDate(_ytelse?.startdatoretttilytelse as string)}
+                </BodyLong>
+              </Column>
+            </AlignStartRow>
+            <VerticalSeparatorDiv/>
+            <AlignStartRow>
+              <Table zebraStripes={true}>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell scope="col">Beløp</Table.HeaderCell>
+                    <Table.HeaderCell scope="col">Valuta</Table.HeaderCell>
+                    <Table.HeaderCell scope="col">Beløp siden</Table.HeaderCell>
+                    <Table.HeaderCell scope="col" colSpan={2}>Betalingshyppighet</Table.HeaderCell>
+                    <Table.HeaderCell scope="col"></Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  <BeloepRows parentEditMode={false} newBeloepForm={false} setNewBeloepForm={_setNewBeloepForm} setBeloep={setBeloep} parentIndex={index} beloep={_ytelse?.beloep} parentNamespace={_namespace}/>
+                </Table.Body>
+              </Table>
+            </AlignStartRow>
+            <VerticalSeparatorDiv/>
+            <AlignStartRow>
+              <Column flex={5}>
+                <Label>{t('p2000:form-ytelse-mottas-basert-paa')}</Label>
+                <BodyLong>
+                  {_ytelse?.mottasbasertpaa ? _ytelse?.mottasbasertpaa.charAt(0).toUpperCase() + _ytelse?.mottasbasertpaa.slice(1) : ''}
+                </BodyLong>
+              </Column>
+            </AlignStartRow>
+            <VerticalSeparatorDiv/>
+            <AlignStartRow>
+              <Column>
+                <Label>{t('p2000:form-ytelse-bruttobeloep-bostedsbasert')}</Label>
+                <BodyLong>
+                  {_ytelse?.totalbruttobeloepbostedsbasert}
+                </BodyLong>
+              </Column>
+              <Column>
+                <Label>{t('p2000:form-ytelse-bruttobeloep-arbeidsrelatert')}</Label>
+                <BodyLong>
+                  {_ytelse?.totalbruttobeloeparbeidsbasert}
+                </BodyLong>
+              </Column>
+            </AlignStartRow>
+            <VerticalSeparatorDiv/>
+          </RepeatableRowNoBackground>
           <VerticalSeparatorDiv/>
-          <AlignStartRow>
-            <Column>
-              <Label>{t('p2000:form-ytelse-startdato-utbetaling')}</Label>
-              <BodyLong>
-                {formatDate(_ytelse?.startdatoutbetaling as string)}
-              </BodyLong>
-            </Column>
-            <Column>
-              <Label>{t('p2000:form-ytelse-sluttdato-utbetaling')}</Label>
-              <BodyLong>
-                {formatDate(_ytelse?.sluttdatoutbetaling as string)}
-              </BodyLong>
-            </Column>
-          </AlignStartRow>
-          <AlignStartRow>
-            <Column flex={5}>
-              <Label>{t('p2000:form-ytelse-startdato-rett-til-ytelser')}</Label>
-              <BodyLong>
-                {formatDate(_ytelse?.startdatoretttilytelse as string)}
-              </BodyLong>
-            </Column>
-          </AlignStartRow>
-          <VerticalSeparatorDiv/>
-          <AlignStartRow>
-            <Table zebraStripes={true}>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell scope="col">Beløp</Table.HeaderCell>
-                  <Table.HeaderCell scope="col">Valuta</Table.HeaderCell>
-                  <Table.HeaderCell scope="col">Beløp siden</Table.HeaderCell>
-                  <Table.HeaderCell scope="col" colSpan={2}>Betalingshyppighet</Table.HeaderCell>
-                  <Table.HeaderCell scope="col"></Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                <BeloepRows parentEditMode={false} newBeloepForm={false} setNewBeloepForm={_setNewBeloepForm} setBeloep={setBeloep} parentIndex={index} beloep={_ytelse?.beloep} parentNamespace={_namespace}/>
-              </Table.Body>
-            </Table>
-          </AlignStartRow>
-          <VerticalSeparatorDiv/>
-          <AlignStartRow>
-            <Column flex={5}>
-              <Label>{t('p2000:form-ytelse-mottas-basert-paa')}</Label>
-              <BodyLong>
-                {_ytelse?.mottasbasertpaa ? _ytelse?.mottasbasertpaa.charAt(0).toUpperCase() + _ytelse?.mottasbasertpaa.slice(1) : ''}
-              </BodyLong>
-            </Column>
-          </AlignStartRow>
-          <VerticalSeparatorDiv/>
-          <AlignStartRow>
-            <Column>
-              <Label>{t('p2000:form-ytelse-bruttobeloep-bostedsbasert')}</Label>
-              <BodyLong>
-                {_ytelse?.totalbruttobeloepbostedsbasert}
-              </BodyLong>
-            </Column>
-            <Column>
-              <Label>{t('p2000:form-ytelse-bruttobeloep-arbeidsrelatert')}</Label>
-              <BodyLong>
-                {_ytelse?.totalbruttobeloeparbeidsbasert}
-              </BodyLong>
-            </Column>
-          </AlignStartRow>
-          <VerticalSeparatorDiv/>
-        </RepeatableRowAlternateColors>
+        </>
       )
     }
   }
