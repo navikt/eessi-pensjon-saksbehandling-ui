@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {Buc, Sed} from "../../declarations/buc";
 import {BUCMode, Validation} from "../../declarations/app";
-import {Button, Heading, Loader} from "@navikt/ds-react";
+import {Button, Loader} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {getSed, saveSed, setPSED, updatePSED} from "actions/buc";
 import {resetValidation, setValidation} from 'actions/validation'
@@ -22,6 +22,7 @@ import Yrkesaktivitet from "./Yrkesaktivitet/Yrkesaktivitet";
 import Ytelser from "./Ytelser/Ytelser";
 import Ektefelle from "./Ektefelle/Ektefelle";
 import InformasjonOmBetaling from "./InformasjonOmBetaling/InformasjonOmBetaling";
+import SakInfo from "./SakInfo/SakInfo";
 
 export interface P2000Selector {
   currentPSED: P2000SED
@@ -96,7 +97,9 @@ const P2000: React.FC<P2000Props> = ({
           </span>
         </Button>
       </div>
-      <Heading size={"medium"}>P2000</Heading>
+      <VerticalSeparatorDiv/>
+      <SakInfo PSED={currentPSED}/>
+      <VerticalSeparatorDiv/>
       <MainForm
         forms={[
           { label: "Forsikret person", value: 'forsikretperson', component: ForsikretPerson},

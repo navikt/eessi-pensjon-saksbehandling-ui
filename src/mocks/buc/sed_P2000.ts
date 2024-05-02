@@ -7,6 +7,12 @@ export default {
         "institusjonsnavn": "NAV ACCEPTANCE TEST 07",
         "saksnummer": "22958426",
         "land": "NO"
+      },
+      {
+        "institusjonsid": "NO:NAVAT09",
+        "institusjonsnavn": "NAV ACCEPTANCE TEST 09",
+        "saksnummer": "23928321",
+        "land": "SE"
       }
     ],
     "bruker": {
