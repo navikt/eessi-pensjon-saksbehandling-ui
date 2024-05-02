@@ -68,13 +68,14 @@ export const RepeatableRowAlternateColors = styled(RepeatableRow)`
 `
 
 export const RepeatableRowNoBackground = styled(RepeatableRow)`
-  border: 1px solid #000000;
+  border: 1px solid var(--a-border-default);
   &:hover:not(.new):not(.error) {
     background-color: var(--a-gray-200);
-    border: 1px solid #000000;
+    border: 1px solid var(--a-border-strong);
   }
   &.selected {
     background-color: var(--a-gray-200);
+    border: 1px solid var(--a-border-strong);
   }
 `
 
