@@ -105,7 +105,7 @@ const Verge: React.FC<MainFormProps> = ({
           <Column></Column>
         </AlignStartRow>
         <VerticalSeparatorDiv/>
-        <Heading size="small">{t('p2000-form-adresse')}</Heading>
+        <Heading size="small">{t('p2000:form-adresse')}</Heading>
         <VerticalSeparatorDiv/>
         <Adresse PSED={PSED} updatePSED={updatePSED} parentNamespace={namespace} parentTarget={target}/>
         <VerticalSeparatorDiv/>
