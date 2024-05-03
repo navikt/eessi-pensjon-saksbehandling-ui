@@ -57,6 +57,10 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
     dispatch(updatePSED(`${target}.konto.kontonr`, kontonr))
   }
 
+  const setBankNavn = (navn: string) => {
+    dispatch(updatePSED(`${target}.navn`, navn))
+  }
+
   const sepaIkkeSepaChange = (e: string) => {
     _setSepaIkkeSepa(e)
     if(e === "sepa"){
@@ -180,7 +184,7 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
                   namespace={namespace}
                   id='bank-navn'
                   label={t('p2000:form-bank-navn')}
-                  onChanged={setKontonr}
+                  onChanged={setBankNavn}
                   value={(bank?.navn) ?? ''}
                 />
               </Column>
