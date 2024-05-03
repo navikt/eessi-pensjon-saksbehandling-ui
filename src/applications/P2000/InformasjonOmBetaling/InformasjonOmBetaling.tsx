@@ -9,6 +9,7 @@ import {useAppSelector} from "../../../store";
 import {Bank} from "../../../declarations/p2000";
 import _ from "lodash";
 import Input from "../../../components/Forms/Input";
+import Adresse from "../Adresse/Adresse";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -169,8 +170,26 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
               />
             </Column>
           }
-
         </AlignStartRow>
+        {_sepaIkkeSepa === "ikkesepa" &&
+          <>
+            <AlignStartRow>
+              <Column>
+                <Input
+                  error={validation[namespace + '-navn']?.feilmelding}
+                  namespace={namespace}
+                  id='bank-navn'
+                  label={t('p2000:form-bank-navn')}
+                  onChanged={setKontonr}
+                  value={(bank?.navn) ?? ''}
+                />
+              </Column>
+              <Column/>
+            </AlignStartRow>
+            <VerticalSeparatorDiv/>
+            <Adresse PSED={PSED} updatePSED={updatePSED} parentNamespace={namespace} parentTarget={target}/>
+          </>
+        }
       </PaddedDiv>
     </>
   )

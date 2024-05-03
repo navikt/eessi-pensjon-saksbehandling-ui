@@ -24,7 +24,7 @@ const SakInfo: React.FC<SakInfoProps<any>> = ({
       <HStack gap="16" align="center">
         <VStack>
           <Heading level="1" size="medium">P2000</Heading>
-          {eessiSak.map(() => {
+          {eessiSak?.map(() => {
             return(
               <>
                 <Detail>&nbsp;</Detail>
@@ -36,7 +36,7 @@ const SakInfo: React.FC<SakInfoProps<any>> = ({
         </VStack>
         <VStack>
           <Heading size="xsmall">Lokale saksnumre</Heading>
-          {eessiSak.map((sak) => {
+          {eessiSak?.map((sak) => {
             return(
               <>
                 <Detail>Land: {sak.land}</Detail>
@@ -48,7 +48,7 @@ const SakInfo: React.FC<SakInfoProps<any>> = ({
         </VStack>
         <VStack>
           <Heading size="xsmall">Institusjon</Heading>
-          {eessiSak.map((sak) => {
+          {eessiSak?.map((sak) => {
             return(
               <>
                 <Detail>Institusjonens ID: {sak.institusjonsid}</Detail>

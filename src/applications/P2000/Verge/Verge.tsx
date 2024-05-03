@@ -6,7 +6,6 @@ import _ from "lodash";
 import {AlignStartRow, Column, VerticalSeparatorDiv, PaddedDiv} from '@navikt/hoykontrast'
 import {Heading} from "@navikt/ds-react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
-import CountrySelect from "@navikt/landvelger";
 import Telefon from "../Telefon/Telefon";
 import Epost from "../Epost/Epost";
 import {State} from "../../../declarations/reducers";
@@ -15,8 +14,8 @@ import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
 import {validateVerge, ValidationVergeProps} from "./validation";
 import {setValidation} from "../../../actions/validation";
-import {Country} from "@navikt/land-verktoy";
 import {useTranslation} from "react-i18next";
+import Adresse from "../Adresse/Adresse";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -56,26 +55,6 @@ const Verge: React.FC<MainFormProps> = ({
 
   const setVergemaalMandat = (mandat: string) => {
     dispatch(updatePSED(`${target}.vergemaal.mandat`, mandat))
-  }
-
-  const setGate = (gate: string) => {
-    dispatch(updatePSED(`${target}.adresse.gate`, gate))
-  }
-
-  const setPostnummer = (postnummer: string) => {
-    dispatch(updatePSED(`${target}.adresse.postnummer`, postnummer))
-  }
-
-  const setBy = (by: string) => {
-    dispatch(updatePSED(`${target}.adresse.by`, by))
-  }
-
-  const setRegion = (region: string) => {
-    dispatch(updatePSED(`${target}.adresse.region`, region))
-  }
-
-  const setLand = (land: string) => {
-    dispatch(updatePSED(`${target}.adresse.land`, land))
   }
 
   return (
@@ -128,67 +107,7 @@ const Verge: React.FC<MainFormProps> = ({
         <VerticalSeparatorDiv/>
         <Heading size="small">{t('p2000-form-adresse')}</Heading>
         <VerticalSeparatorDiv/>
-        <AlignStartRow>
-          <Column>
-            <Input
-              error={validation[namespace + '-adresse-gate']?.feilmelding}
-              namespace={namespace}
-              id='adresse-gate'
-              label={t('p2000:form-adresse-gate')}
-              onChanged={setGate}
-              value={(verge?.adresse?.gate)  ?? ''}
-            />
-          </Column>
-        </AlignStartRow>
-        <VerticalSeparatorDiv/>
-        <AlignStartRow>
-          <Column>
-            <Input
-              error={validation[namespace + '-adresse-postnummer']?.feilmelding}
-              namespace={namespace}
-              id='adresse-postnummer'
-              label={t('p2000:form-adresse-postnummer')}
-              onChanged={setPostnummer}
-              value={(verge?.adresse?.postnummer) ?? ''}
-            />
-          </Column>
-          <Column>
-            <Input
-              error={validation[namespace + '-adresse-by']?.feilmelding}
-              namespace={namespace}
-              id='adresse-by'
-              label="By"
-              onChanged={setBy}
-              value={(verge?.adresse?.by)  ?? ''}
-            />
-          </Column>
-        </AlignStartRow>
-        <VerticalSeparatorDiv/>
-        <AlignStartRow>
-          <Column>
-            <Input
-              error={validation[namespace + '-adresse-region']?.feilmelding}
-              namespace={namespace}
-              id='adresse-region'
-              label={t('p2000:form-adresse-region')}
-              onChanged={setRegion}
-              value={(verge?.adresse?.region)  ?? ''}
-            />
-          </Column>
-        </AlignStartRow>
-        <VerticalSeparatorDiv/>
-        <AlignStartRow>
-          <Column>
-            <CountrySelect
-              error={validation[namespace + '-adresse-land']?.feilmelding}
-              id={namespace + '-' + 'adresse-land'}
-              label={t('p2000:form-adresse-land')}
-              flags={true}
-              onOptionSelected={(land: Country) => setLand(land.value)}
-              values={(verge?.adresse?.land) ?? ''}
-            />
-          </Column>
-        </AlignStartRow>
+        <Adresse PSED={PSED} updatePSED={updatePSED} parentNamespace={namespace} parentTarget={target}/>
         <VerticalSeparatorDiv/>
         <Telefon PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/>
         <VerticalSeparatorDiv/>
