@@ -23,13 +23,15 @@ export interface AdresseProps {
   parentNamespace: string
   parentTarget: string
   updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
+  usePostKode?: boolean
 }
 
 const Adresse: React.FC<AdresseProps> = ({
   PSED,
   parentNamespace,
   parentTarget,
-  updatePSED
+  updatePSED,
+  usePostKode = false
 }: AdresseProps): JSX.Element => {
   const { t } = useTranslation()
   const { validation } = useAppSelector(mapState)
@@ -43,7 +45,8 @@ const Adresse: React.FC<AdresseProps> = ({
   }
 
   const setPostnummer = (postnummer: string) => {
-    dispatch(updatePSED(`${target}.postnummer`, postnummer))
+    const targetField = usePostKode ? "postkode" : "postnummer"
+    dispatch(updatePSED(`${target}.${targetField}`, postnummer))
   }
 
   const setBy = (by: string) => {

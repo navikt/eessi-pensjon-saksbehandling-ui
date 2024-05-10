@@ -191,7 +191,7 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
               <Column/>
             </AlignStartRow>
             <VerticalSeparatorDiv/>
-            <Adresse PSED={PSED} updatePSED={updatePSED} parentNamespace={namespace} parentTarget={target}/>
+            <Adresse usePostKode={true} PSED={PSED} updatePSED={updatePSED} parentNamespace={namespace} parentTarget={target}/>
           </>
         }
       </PaddedDiv>

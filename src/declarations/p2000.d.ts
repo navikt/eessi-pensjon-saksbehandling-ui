@@ -97,6 +97,7 @@ export interface Adresse {
   gate : string
   bygning : string | null
   by : string | null
+  postkode : string | null,
   postnummer : string | null,
   region : string | null,
   land : string
