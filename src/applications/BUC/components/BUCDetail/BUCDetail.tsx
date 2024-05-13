@@ -2,20 +2,20 @@ import {
   bucsThatSupportAvdod,
   getBucTypeLabel,
   renderAvdodName
-} from 'applications/BUC/components/BUCUtils/BUCUtils'
-import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { AllowedLocaleString, RinaUrl } from 'declarations/app.d'
-import { Buc, Institutions, ValidBuc } from 'declarations/buc'
-import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
-import { State } from 'declarations/reducers'
+} from 'src/applications/BUC/components/BUCUtils/BUCUtils'
+import InstitutionList from 'src/applications/BUC/components/InstitutionList/InstitutionList'
+import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
+import { AllowedLocaleString, RinaUrl } from 'src/declarations/app.d'
+import { Buc, Institutions, ValidBuc } from 'src/declarations/buc'
+import { PersonAvdod, PersonAvdods } from 'src/declarations/person.d'
+import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { linkLogger } from 'metrics/loggers'
+import { linkLogger } from 'src/metrics/loggers'
 import moment from 'moment'
 import { Alert, Panel, Accordion, Link, Label, BodyLong, Heading } from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
 import {useDispatch, useSelector} from 'react-redux'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import { useState } from 'react'
 import {FilesIcon , FilesFillIcon} from "@navikt/aksel-icons";
 import {copyToClipboard} from "../../../../actions/app";

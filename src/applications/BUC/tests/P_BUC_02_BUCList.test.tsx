@@ -1,12 +1,12 @@
 import BUCList, {
   BUCListProps,
   BUCListSelector
-} from 'applications/BUC/pages/BUCList/BUCList'
-import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
+} from 'src/applications/BUC/pages/BUCList/BUCList'
+import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'src/constants/constants'
 import { render, screen } from '@testing-library/react'
-import personAvdod from 'mocks/person/personAvdod'
-import mockBucsInfo from 'mocks/buc/bucsInfo'
-import { stageSelector } from 'setupTests'
+import personAvdod from 'src/mocks/person/personAvdod'
+import mockBucsInfo from 'src/mocks/buc/bucsInfo'
+import { stageSelector } from 'src/setupTests'
 import {BucLenkePanel, BUCListDiv} from "../CommonBucComponents";
 
 jest.mock('applications/BUC/components/BUCFooter/BUCFooter', () => () => <div className='mock-bucfooter' />)

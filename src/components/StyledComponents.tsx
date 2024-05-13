@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import {Panel, RadioGroup} from '@navikt/ds-react'
 import { PaddedHorizontallyDiv } from '@navikt/hoykontrast'
 

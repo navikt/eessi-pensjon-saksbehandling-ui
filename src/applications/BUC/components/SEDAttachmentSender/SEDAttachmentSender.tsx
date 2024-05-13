@@ -1,17 +1,17 @@
 import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
-import { IS_TEST } from 'constants/environment'
-import { SavingAttachmentsJob, SEDAttachmentPayload, SEDAttachmentPayloadWithFile } from 'declarations/buc'
-import { SEDAttachmentPayloadPropType } from 'declarations/buc.pt'
-import { JoarkBrowserItem } from 'declarations/joark'
-import { State } from 'declarations/reducers'
+import { IS_TEST } from 'src/constants/environment'
+import { SavingAttachmentsJob, SEDAttachmentPayload, SEDAttachmentPayloadWithFile } from 'src/declarations/buc'
+import { SEDAttachmentPayloadPropType } from 'src/declarations/buc.pt'
+import { JoarkBrowserItem } from 'src/declarations/joark'
+import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import { Button } from '@navikt/ds-react'
-import ProgressBar, {ProgressBarStatus} from "components/ProgressBar/ProgressBar";
+import ProgressBar, {ProgressBarStatus} from "src/components/ProgressBar/ProgressBar";
 
 const SEDAttachmentSenderDiv = styled.div`
   display: flex;

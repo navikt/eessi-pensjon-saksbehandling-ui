@@ -1,4 +1,4 @@
-import * as types from 'constants/actionTypes'
+import * as types from 'src/constants/actionTypes'
 import { ActionWithPayload } from '@navikt/fetch'
 import { Action, ActionCreator } from 'redux'
 

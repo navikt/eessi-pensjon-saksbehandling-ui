@@ -1,6 +1,6 @@
 import React from "react";
 import { PileDiv } from '@navikt/hoykontrast'
-import ErrorLabel from 'components/Forms/ErrorLabel'
+import ErrorLabel from 'src/components/Forms/ErrorLabel'
 
 
 export interface FormTextProps {

@@ -10,11 +10,11 @@ import Table, {
   RenderEditableOptions,
   RenderOptions
 } from '@navikt/tabell'
-import { informasjonOmBeregning, ordning, relevantForYtelse, typePeriode } from 'applications/P5000/P5000.labels'
-import { P5000ForS3 } from 'applications/P5000/utils/pesysUtils'
-import { HorizontalLineSeparator } from 'components/StyledComponents'
-import { FeatureToggles, LocalStorageEntry } from 'declarations/app'
-import { Seds } from 'declarations/buc'
+import { informasjonOmBeregning, ordning, relevantForYtelse, typePeriode } from 'src/applications/P5000/P5000.labels'
+import { P5000ForS3 } from 'src/applications/P5000/utils/pesysUtils'
+import { HorizontalLineSeparator } from 'src/components/StyledComponents'
+import { FeatureToggles, LocalStorageEntry } from 'src/declarations/app'
+import { Seds } from 'src/declarations/buc'
 import {
   P5000sFromRinaMap,
   P5000ListRow,
@@ -22,19 +22,19 @@ import {
   P5000SourceStatus,
   P5000ListRows,
   P5000TableContext
-} from 'declarations/p5000'
-import { State } from 'declarations/reducers'
+} from 'src/declarations/p5000'
+import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { standardLogger } from 'metrics/loggers'
+import { standardLogger } from 'src/metrics/loggers'
 import moment from 'moment'
 import PT from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components/macro'
-import { convertP5000SEDToP5000ListRows, mergeP5000ListRows } from 'applications/P5000/utils/conversion'
+import styled from 'styled-components'
+import { convertP5000SEDToP5000ListRows, mergeP5000ListRows } from 'src/applications/P5000/utils/conversion'
 import P5000OverviewControls from './P5000OverviewControls'
-import PopoverCustomized from "components/Tooltip/PopoverCustomized";
+import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 
 export interface P5000OverviewSelector {
   featureToggles: FeatureToggles

@@ -1,15 +1,17 @@
-import { P5000ForS3 } from 'applications/P5000/utils/pesysUtils'
-import * as types from 'constants/actionTypes'
-import * as storage from 'constants/storage'
-import * as urls from 'constants/urls'
-import { Sed } from 'declarations/buc'
-import { P5000SED } from 'declarations/p5000'
+import { P5000ForS3 } from 'src/applications/P5000/utils/pesysUtils'
+import * as types from 'src/constants/actionTypes'
+import * as storage from 'src/constants/storage'
+import * as urls from 'src/constants/urls'
+import { Sed } from 'src/declarations/buc'
+import { P5000SED } from 'src/declarations/p5000'
 import { ActionWithPayload, call } from '@navikt/fetch'
-import mockP5000 from 'mocks/buc/sedP5000'
-import mockP5000FromS3 from 'mocks/p5000/fromS3'
+import mockP5000 from 'src/mocks/buc/sedP5000'
+import mockP5000FromS3 from 'src/mocks/p5000/fromS3'
 import { Action, ActionCreator } from 'redux'
 
-const sprintf = require('sprintf-js').sprintf
+//const sprintf = require('sprintf-js').sprintf
+// @ts-ignore
+import { sprintf } from 'sprintf-js';
 
 export const setGjpBpWarning = (payload: any) => ({
   type: types.P5000_GJPBPWARNING_SET,

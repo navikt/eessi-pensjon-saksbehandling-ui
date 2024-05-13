@@ -1,4 +1,4 @@
-import { stageSelector } from 'setupTests'
+import { stageSelector } from 'src/setupTests'
 import InstitutionList, { InstitutionListProps } from './InstitutionList'
 import { render, screen } from '@testing-library/react'
 

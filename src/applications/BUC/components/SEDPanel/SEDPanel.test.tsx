@@ -1,8 +1,8 @@
-import SEDBody from 'applications/BUC/components/SEDBody/SEDBody'
-import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
-import { Buc, Sed } from 'declarations/buc'
+import SEDBody from 'src/applications/BUC/components/SEDBody/SEDBody'
+import SEDHeader from 'src/applications/BUC/components/SEDHeader/SEDHeader'
+import { Buc, Sed } from 'src/declarations/buc'
 import { render } from '@testing-library/react'
-import mockBucs from 'mocks/buc/bucs'
+import mockBucs from 'src/mocks/buc/bucs'
 import SEDPanel, { SEDPanelDiv, SEDPanelContainer, SEDPanelProps } from './SEDPanel'
 import { Accordion } from '@navikt/ds-react'
 

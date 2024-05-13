@@ -2,12 +2,12 @@ import {Heading, Radio, RadioGroup} from "@navikt/ds-react";
 import {VerticalSeparatorDiv, PaddedDiv, AlignStartRow, Column} from "@navikt/hoykontrast";
 import React from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
-import {Ektefelle as P2000Ektefelle} from "declarations/p2000";
+import {Ektefelle as P2000Ektefelle} from "src/declarations/p2000";
 import _ from "lodash";
-import {State} from "declarations/reducers";
+import {State} from "src/declarations/reducers";
 import {useDispatch} from "react-redux";
-import {useAppSelector} from "store";
-import {setValidation} from "actions/validation";
+import {useAppSelector} from "src/store";
+import {setValidation} from "src/actions/validation";
 import UtenlandskePin from "../UtenlandskePin/UtenlandskePin";
 import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
@@ -35,7 +35,7 @@ const Ektefelle: React.FC<MainFormProps> = ({
   const namespace = `${parentNamespace}-ektefelle`
   const target = 'nav.ektefelle'
   const ektefelle:  P2000Ektefelle | undefined = _.get(PSED, target)
-  
+
   useUnmount(() => {
     const clonedvalidation = _.cloneDeep(validation)
     performValidation<ValidationEktefelleProps>(

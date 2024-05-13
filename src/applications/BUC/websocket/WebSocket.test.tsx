@@ -1,4 +1,4 @@
-import { fetchBuc } from 'actions/buc'
+import { fetchBuc } from 'src/actions/buc'
 import { render, screen } from '@testing-library/react'
 import { Server, WebSocket } from 'mock-socket'
 import { act } from 'react-dom/test-utils'

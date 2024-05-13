@@ -1,9 +1,9 @@
-import { resetSavingAttachmentJob, resetSedAttachments } from 'actions/buc'
-import { Buc } from 'declarations/buc'
+import { resetSavingAttachmentJob, resetSedAttachments } from 'src/actions/buc'
+import { Buc } from 'src/declarations/buc'
 import { render, screen } from '@testing-library/react'
 import _ from 'lodash'
-import mockBucs from 'mocks/buc/bucs'
-import { stageSelector } from 'setupTests'
+import mockBucs from 'src/mocks/buc/bucs'
+import { stageSelector } from 'src/setupTests'
 import SEDBody, { SEDBodyDiv, SEDBodyProps } from './SEDBody'
 
 const defaultSelector = {

@@ -1,4 +1,4 @@
-import { JoarkBrowserItems } from 'declarations/joark'
+import { JoarkBrowserItems } from 'src/declarations/joark'
 
 export default [{
   key: '1',

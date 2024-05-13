@@ -1,9 +1,9 @@
-import {AllowedLocaleString, FeatureToggles, Loading, Option, PesysContext} from 'declarations/app.d';
+import {AllowedLocaleString, FeatureToggles, Loading, Option, PesysContext} from 'src/declarations/app.d';
 import React from "react";
 import BUCStart from "./BUCStart";
-import {State} from "declarations/reducers";
+import {State} from "src/declarations/reducers";
 import {useSelector} from "react-redux";
-import {GJENNY} from "constants/constants";
+import {GJENNY} from "src/constants/constants";
 import {
   Buc,
   BUCOptions,
@@ -12,8 +12,8 @@ import {
   SakTypeValue,
   SubjectAreaRawList,
   TagRawList
-} from "declarations/buc";
-import {PersonAvdods, PersonPDL} from "declarations/person";
+} from "src/declarations/buc";
+import {PersonAvdods, PersonPDL} from "src/declarations/person";
 import BUCStartGjenny from "./BUCStartGjenny";
 
 export interface BUCStartIndexProps {

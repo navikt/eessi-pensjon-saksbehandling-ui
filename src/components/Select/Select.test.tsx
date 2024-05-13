@@ -1,5 +1,5 @@
 import { screen, render } from '@testing-library/react'
-import Select from 'components/Select/Select'
+import Select from 'src/components/Select/Select'
 
 describe('components/Select/Select', () => {
   const initialMockProps = {

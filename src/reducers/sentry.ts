@@ -1,4 +1,4 @@
-import * as types from 'constants/actionTypes'
+import * as types from 'src/constants/actionTypes'
 import * as Sentry from '@sentry/browser'
 import { AnyAction } from 'redux'
 export interface SentryState {

@@ -1,4 +1,4 @@
-import MultipleValueLabel from 'components/MultipleSelect/MultipleValueLabel'
+import MultipleValueLabel from 'src/components/MultipleSelect/MultipleValueLabel'
 import { screen, render } from '@testing-library/react'
 
 describe('components/MultipleSelect/MultipleValueLabel', () => {

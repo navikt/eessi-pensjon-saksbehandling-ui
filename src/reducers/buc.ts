@@ -1,7 +1,7 @@
-import {bucsThatSupportAvdod, getFnr} from 'applications/BUC/components/BUCUtils/BUCUtils'
-import * as types from 'constants/actionTypes'
-import {VEDTAKSKONTEKST} from 'constants/constants'
-import { BUCMode, RinaUrl } from 'declarations/app.d'
+import {bucsThatSupportAvdod, getFnr} from 'src/applications/BUC/components/BUCUtils/BUCUtils'
+import * as types from 'src/constants/actionTypes'
+import {VEDTAKSKONTEKST} from 'src/constants/constants'
+import { BUCMode, RinaUrl } from 'src/declarations/app.d'
 import {
   Buc,
   Bucs,
@@ -22,15 +22,15 @@ import {
   ValidBuc,
   P6000,
   BucListItem,
-} from 'declarations/buc'
-import {PSED} from "declarations/app.d";
-import { JoarkBrowserItem, JoarkBrowserItems, JoarkPreview } from 'declarations/joark'
+} from 'src/declarations/buc'
+import {PSED} from "src/declarations/app.d";
+import { JoarkBrowserItem, JoarkBrowserItems, JoarkPreview } from 'src/declarations/joark'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
 import md5 from 'md5'
-import { standardLogger } from 'metrics/loggers'
+import { standardLogger } from 'src/metrics/loggers'
 import { AnyAction } from 'redux'
-import { P5000sFromRinaMap } from 'declarations/p5000'
+import { P5000sFromRinaMap } from 'src/declarations/p5000'
 import {P4000SED} from "../declarations/p4000"
 
 export interface BucState {
@@ -813,6 +813,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
     }
     case types.BUC_GET_SED_SUCCESS: {
+      console.log("Logging fra reducer buc ")
       return {
         ...state,
         PSED: (action as ActionWithPayload).payload

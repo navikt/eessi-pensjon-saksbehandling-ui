@@ -10,10 +10,10 @@ import {
 import React, {useState} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import _ from "lodash";
-import {State} from "declarations/reducers";
+import {State} from "src/declarations/reducers";
 import {useDispatch} from "react-redux";
-import {useAppSelector} from "store";
-import {resetValidation, setValidation} from "actions/validation";
+import {useAppSelector} from "src/store";
+import {resetValidation, setValidation} from "src/actions/validation";
 import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
 import {Arbeidsforhold, Inntekt} from "../../../declarations/p2000";

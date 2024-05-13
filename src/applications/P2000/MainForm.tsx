@@ -14,12 +14,12 @@ import {
   PileDiv
 } from '@navikt/hoykontrast'
 
-import {PSED, Validation} from "declarations/app.d";
+import {PSED, Validation} from "src/declarations/app.d";
 import classNames from 'classnames'
-import { WithErrorPanel } from 'components/StyledComponents'
-import { Option } from 'declarations/app'
-import { ErrorElement } from 'declarations/app.d'
-import { UpdateSedPayload } from 'declarations/types'
+import { WithErrorPanel } from 'src/components/StyledComponents'
+import { Option } from 'src/declarations/app'
+import { ErrorElement } from 'src/declarations/app.d'
+import { UpdateSedPayload } from 'src/declarations/types'
 import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'

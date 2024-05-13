@@ -1,7 +1,7 @@
 import { PersonIcon, HouseIcon, CalendarIcon, GlobeIcon, PersonRectangleIcon, HeartIcon } from '@navikt/aksel-icons'
-import PostalCodes from 'components/PostalCodes/PostalCodes'
-import { AllowedLocaleStringPropType } from 'declarations/app.pt'
-import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
+import PostalCodes from 'src/components/PostalCodes/PostalCodes'
+import { AllowedLocaleStringPropType } from 'src/declarations/app.pt'
+import { PersonAvdod, PersonAvdods } from 'src/declarations/person.d'
 import CountryData from '@navikt/land-verktoy'
 import _ from 'lodash'
 import moment from 'moment'
@@ -9,9 +9,9 @@ import { BodyLong, Detail } from '@navikt/ds-react'
 import { Column, HorizontalSeparatorDiv, HorizontalSeparatorSpan, Row } from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components/macro'
-import { HorizontalLineSeparator } from 'components/StyledComponents'
-import PopoverCustomized from "components/Tooltip/PopoverCustomized";
+import styled from 'styled-components'
+import { HorizontalLineSeparator } from 'src/components/StyledComponents'
+import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 
 const Element = styled.div`
   display: flex;

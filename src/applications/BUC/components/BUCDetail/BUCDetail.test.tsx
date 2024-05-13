@@ -1,10 +1,10 @@
-import { Buc } from 'declarations/buc'
-import { PersonAvdods } from 'declarations/person.d'
+import { Buc } from 'src/declarations/buc'
+import { PersonAvdods } from 'src/declarations/person.d'
 import { render, screen } from '@testing-library/react'
-import personAvdod from 'mocks/person/personAvdod'
-import mockBucs from 'mocks/buc/bucs'
+import personAvdod from 'src/mocks/person/personAvdod'
+import mockBucs from 'src/mocks/buc/bucs'
 import moment from 'moment'
-import { stageSelector } from 'setupTests'
+import { stageSelector } from 'src/setupTests'
 import BUCDetail, { BUCDetailProps, BUCDetailSelector } from './BUCDetail'
 
 const defaultSelector: BUCDetailSelector = {

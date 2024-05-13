@@ -1,9 +1,9 @@
-import { SavingAttachmentsJob } from 'declarations/buc'
+import { SavingAttachmentsJob } from 'src/declarations/buc'
 import { render, screen } from '@testing-library/react'
-import { stageSelector } from 'setupTests'
+import { stageSelector } from 'src/setupTests'
 import SEDAttachmentSender, { SEDAttachmentSenderProps } from './SEDAttachmentSender'
-import joarkBrowserItems from 'mocks/joark/items'
-import ProgressBar from "components/ProgressBar/ProgressBar";
+import joarkBrowserItems from 'src/mocks/joark/items'
+import ProgressBar from "src/components/ProgressBar/ProgressBar";
 
 const defaultSelector = {
   savingAttachmentsJob: {

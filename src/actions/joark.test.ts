@@ -1,9 +1,9 @@
-import * as joarkActions from 'actions/joark'
-import * as types from 'constants/actionTypes'
-import * as urls from 'constants/urls'
+import * as joarkActions from 'src/actions/joark'
+import * as types from 'src/constants/actionTypes'
+import * as urls from 'src/constants/urls'
 import { call as originalCall } from '@navikt/fetch'
-import mockPreview from 'mocks/joark/preview'
-import mockItems from 'mocks/joark/items'
+import mockPreview from 'src/mocks/joark/preview'
+import mockItems from 'src/mocks/joark/items'
 
 const sprintf = require('sprintf-js').sprintf
 jest.mock('@navikt/fetch', () => ({

@@ -11,7 +11,7 @@ import Input from "../../../components/Forms/Input";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "../../../declarations/types";
-import {PSED, Validation} from "declarations/app";
+import {PSED, Validation} from "src/declarations/app";
 import useValidation from "../../../hooks/useValidation";
 import {validateEpost, ValidationEpostProps} from "./validation";
 import {resetValidation, setValidation} from "../../../actions/validation";

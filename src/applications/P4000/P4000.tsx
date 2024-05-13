@@ -1,7 +1,7 @@
 import {ChevronLeftIcon} from '@navikt/aksel-icons';
 import {BodyLong, Button, Heading, Loader, Panel, Select, SortState} from '@navikt/ds-react'
-import {BUCMode} from 'declarations/app'
-import {Buc, Sed} from 'declarations/buc'
+import {BUCMode} from 'src/declarations/app'
+import {Buc, Sed} from 'src/declarations/buc'
 import {
   AlignEndRow,
   Column as ColumnDiv,

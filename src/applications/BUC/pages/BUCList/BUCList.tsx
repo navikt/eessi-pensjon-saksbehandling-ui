@@ -1,14 +1,14 @@
 import {
   setCurrentBuc
-} from 'actions/buc'
-import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
-import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
-import BUCStartIndex from 'applications/BUC/components/BUCStart/BUCStartIndex'
-import { bucFilter, bucSorter, pbuc02filter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+} from 'src/actions/buc'
+import BUCFooter from 'src/applications/BUC/components/BUCFooter/BUCFooter'
+import BUCHeader from 'src/applications/BUC/components/BUCHeader/BUCHeader'
+import BUCStartIndex from 'src/applications/BUC/components/BUCStart/BUCStartIndex'
+import { bucFilter, bucSorter, pbuc02filter } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
 import classNames from 'classnames'
-import { HorizontalLineSeparator } from 'components/StyledComponents'
+import { HorizontalLineSeparator } from 'src/components/StyledComponents'
 import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
-import { AllowedLocaleString, BUCMode, PesysContext } from 'declarations/app.d'
+import { AllowedLocaleString, BUCMode, PesysContext } from 'src/declarations/app.d'
 import {
   Buc,
   BucInfo,
@@ -17,11 +17,11 @@ import {
   BucsInfo,
   SakTypeMap,
   SakTypeValue
-} from 'declarations/buc.d'
-import { PersonAvdods } from 'declarations/person.d'
-import { State } from 'declarations/reducers'
+} from 'src/declarations/buc.d'
+import { PersonAvdods } from 'src/declarations/person.d'
+import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'metrics/loggers'
+import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'src/metrics/loggers'
 import { Alert, BodyLong, Heading, Button} from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
@@ -36,9 +36,9 @@ import {
   BUCStartDiv,
   ProgressBarDiv
 } from "../../CommonBucComponents";
-import {BRUKERKONTEKST} from "constants/constants";
+import {BRUKERKONTEKST} from "src/constants/constants";
 import AvdodFnrSearch from "./AvdodFnrSearch";
-import ProgressBar from "components/ProgressBar/ProgressBar";
+import ProgressBar from "src/components/ProgressBar/ProgressBar";
 
 export interface BUCListProps {
   initialBucNew?: boolean

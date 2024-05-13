@@ -1,4 +1,4 @@
-import { Option } from 'declarations/app.d'
+import { Option } from 'src/declarations/app.d'
 import MultipleSelect, { MultipleSelectProps } from './MultipleSelect'
 import {screen, render, fireEvent} from '@testing-library/react'
 

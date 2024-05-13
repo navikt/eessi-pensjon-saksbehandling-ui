@@ -1,6 +1,6 @@
-import {Validation} from "declarations/app";
-import { checkIfNotEmpty } from 'utils/validation'
-import {Email} from "declarations/p2000";
+import {Validation} from "src/declarations/app";
+import { checkIfNotEmpty } from 'src/utils/validation'
+import {Email} from "src/declarations/p2000";
 import {getIdx} from "../../../utils/namespace";
 
 export interface ValidationEpostProps {

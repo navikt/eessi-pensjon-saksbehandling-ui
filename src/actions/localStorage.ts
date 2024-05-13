@@ -1,5 +1,5 @@
-import * as types from 'constants/actionTypes'
-import { LocalStorageEntry, PSED } from 'declarations/app.d'
+import * as types from 'src/constants/actionTypes'
+import { LocalStorageEntry, PSED } from 'src/declarations/app.d'
 import { ActionWithPayload } from '@navikt/fetch'
 import { Action } from 'redux'
 

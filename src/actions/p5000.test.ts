@@ -1,10 +1,10 @@
-import * as p5000Actions from 'actions/p5000'
-import * as types from 'constants/actionTypes'
-import * as urls from 'constants/urls'
-import { Sed } from 'declarations/buc'
-import { P5000SED } from 'declarations/p5000'
+import * as p5000Actions from 'src/actions/p5000'
+import * as types from 'src/constants/actionTypes'
+import * as urls from 'src/constants/urls'
+import { Sed } from 'src/declarations/buc'
+import { P5000SED } from 'src/declarations/p5000'
 import { call as originalCall } from '@navikt/fetch'
-import mockSedP5000 from 'mocks/buc/sed_P5000_small1'
+import mockSedP5000 from 'src/mocks/buc/sed_P5000_small1'
 
 const sprintf = require('sprintf-js').sprintf
 jest.mock('@navikt/fetch', () => ({

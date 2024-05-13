@@ -1,6 +1,6 @@
-import {Validation} from "declarations/app";
-import { checkIfNotEmpty } from 'utils/validation'
-import {Verge} from "declarations/p2000";
+import {Validation} from "src/declarations/app";
+import { checkIfNotEmpty } from 'src/utils/validation'
+import {Verge} from "src/declarations/p2000";
 
 
 export interface ValidationVergeProps {

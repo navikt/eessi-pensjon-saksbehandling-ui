@@ -1,5 +1,5 @@
-import * as types from 'constants/actionTypes'
-import { JoarkBrowserItemWithContent, JoarkPoster } from 'declarations/joark'
+import * as types from 'src/constants/actionTypes'
+import { JoarkBrowserItemWithContent, JoarkPoster } from 'src/declarations/joark'
 import { AnyAction } from 'redux'
 
 export interface JoarkState {

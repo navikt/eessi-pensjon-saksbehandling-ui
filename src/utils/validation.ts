@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { ErrorElement, Validation } from 'declarations/app'
+import { ErrorElement, Validation } from 'src/declarations/app'
 import i18n from "i18next";
 
 export interface ValidateParams {

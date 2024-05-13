@@ -1,9 +1,9 @@
-import * as types from 'constants/actionTypes'
-import { Feature, FeatureToggles, Params, PesysContext } from 'declarations/app.d'
-import { SakTypeKey, SakTypeMap } from 'declarations/buc.d'
+import * as types from 'src/constants/actionTypes'
+import { Feature, FeatureToggles, Params, PesysContext } from 'src/declarations/app.d'
+import { SakTypeKey, SakTypeMap } from 'src/declarations/buc.d'
 import _ from 'lodash'
 import { AnyAction } from 'redux'
-import {BRUKERKONTEKST, GJENNY, KRAVKONTEKST, VEDTAKSKONTEKST} from "constants/constants";
+import {BRUKERKONTEKST, GJENNY, KRAVKONTEKST, VEDTAKSKONTEKST} from "src/constants/constants";
 
 export interface AppState {
   featureToggles: FeatureToggles

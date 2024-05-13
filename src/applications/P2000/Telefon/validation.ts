@@ -1,6 +1,6 @@
-import {Validation} from "declarations/app";
-import { checkIfNotEmpty } from 'utils/validation'
-import {Telefon} from "declarations/p2000";
+import {Validation} from "src/declarations/app";
+import { checkIfNotEmpty } from 'src/utils/validation'
+import {Telefon} from "src/declarations/p2000";
 import {getIdx} from "../../../utils/namespace";
 
 export interface ValidationTelefonProps {

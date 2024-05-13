@@ -1,12 +1,12 @@
 import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
-import * as routes from 'constants/routes'
+import * as routes from 'src/constants/routes'
 import PT from 'prop-types'
 import { ExclamationmarkTriangleIcon, PersonSuitFillIcon } from '@navikt/aksel-icons'
 import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
-import NavLogoTransparent from 'assets/images/NavLogoTransparent'
+import NavLogoTransparent from 'src/assets/images/NavLogoTransparent'
 import { Loader, Heading } from '@navikt/ds-react'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import {GJENNY} from "../../constants/constants";
 
 export interface HeaderProps {

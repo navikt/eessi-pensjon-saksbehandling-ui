@@ -1,4 +1,4 @@
-import { amplitudeLogger } from 'metrics/amplitude'
+import { amplitudeLogger } from 'src/metrics/amplitude'
 
 export const linkLogger = (event: any, values?: object) => {
   const target = event.target.tagName !== 'A' ? event.target.parentNode : event.target

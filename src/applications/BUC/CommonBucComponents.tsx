@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import {LinkPanel, Panel} from "@navikt/ds-react";
 import {animationClose, animationOpen, slideInFromLeft} from "@navikt/hoykontrast";
 

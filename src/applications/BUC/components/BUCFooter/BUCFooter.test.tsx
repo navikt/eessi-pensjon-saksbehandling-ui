@@ -1,5 +1,5 @@
 
-import { stageSelector } from 'setupTests'
+import { stageSelector } from 'src/setupTests'
 import BUCFooter, { BUCFooterProps, BUCFooterSelector } from './BUCFooter'
 import { render, screen } from '@testing-library/react'
 

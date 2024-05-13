@@ -1,8 +1,8 @@
-import { setStatusParam, unsetStatusParam } from 'actions/app'
-import { toggleFooterOpen } from 'actions/ui'
+import { setStatusParam, unsetStatusParam } from 'src/actions/app'
+import { toggleFooterOpen } from 'src/actions/ui'
 import { screen, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { stageSelector } from 'setupTests'
+import { stageSelector } from 'src/setupTests'
 import Footer, { FooterProps } from './Footer'
 
 jest.mock('actions/ui', () => ({

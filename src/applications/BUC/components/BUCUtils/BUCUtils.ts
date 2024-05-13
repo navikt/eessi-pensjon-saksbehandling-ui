@@ -1,10 +1,10 @@
-import * as constants from 'constants/constants'
-import { JoarkBrowserItem } from 'declarations/joark.d'
-import { AllowedLocaleString, Option, PesysContext, T } from 'declarations/app.d'
-import { PersonAvdod, PersonAvdods, PersonPDL } from 'declarations/person.d'
+import * as constants from 'src/constants/constants'
+import { JoarkBrowserItem } from 'src/declarations/joark.d'
+import { AllowedLocaleString, Option, PesysContext, T } from 'src/declarations/app.d'
+import { PersonAvdod, PersonAvdods, PersonPDL } from 'src/declarations/person.d'
 import CountryData, { Country, CountryFilter } from '@navikt/land-verktoy'
 import _ from 'lodash'
-import {Buc, JoarkBuc, Sed} from 'declarations/buc'
+import {Buc, JoarkBuc, Sed} from 'src/declarations/buc'
 import moment from 'moment'
 
 interface getBucTypeLabelProps {

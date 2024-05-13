@@ -1,7 +1,7 @@
-import { clearData } from 'actions/app'
-import * as routes from 'constants/routes'
+import { clearData } from 'src/actions/app'
+import * as routes from 'src/constants/routes'
 import { screen, render } from '@testing-library/react'
-import { stageSelector } from 'setupTests'
+import { stageSelector } from 'src/setupTests'
 import Header, { HeaderProps } from './Header'
 
 jest.mock('actions/app', () => ({

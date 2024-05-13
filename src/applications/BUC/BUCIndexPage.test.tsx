@@ -5,15 +5,15 @@ import {
   getRinaUrl,
   getSakType,
   setMode
-} from 'actions/buc'
-import { BUCIndexPage, BUCIndexPageSelector, ContainerDiv, WindowDiv } from 'applications/BUC/BUCIndexPage'
-import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
-import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
-import { Buc } from 'declarations/buc'
+} from 'src/actions/buc'
+import { BUCIndexPage, BUCIndexPageSelector, ContainerDiv, WindowDiv } from 'src/applications/BUC/BUCIndexPage'
+import BUCEmpty from 'src/applications/BUC/pages/BUCEmpty/BUCEmpty'
+import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'src/constants/constants'
+import { Buc } from 'src/declarations/buc'
 import { render, screen } from '@testing-library/react'
 import _ from 'lodash'
-import mockBucs from 'mocks/buc/bucs'
-import { stageSelector } from 'setupTests'
+import mockBucs from 'src/mocks/buc/bucs'
+import { stageSelector } from 'src/setupTests'
 
 jest.mock('applications/BUC/components/BUCDetail/BUCDetail', () => () => (<div className='a-buc-bucdetail' />))
 

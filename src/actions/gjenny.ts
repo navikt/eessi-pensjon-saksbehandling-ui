@@ -1,8 +1,8 @@
 import {ActionWithPayload, call} from "@navikt/fetch";
 import {Buc, BUCOptions, Bucs, NewBucPayload, NewSedPayload, Sed} from "../declarations/buc";
 import * as urls from "../constants/urls";
-import mockBucsGjenlevende from 'mocks/buc/bucsListGjenlevende'
-import mockBucsAvdod from 'mocks/buc/bucsListAvdod'
+import mockBucsGjenlevende from 'src/mocks/buc/bucsListGjenlevende'
+import mockBucsAvdod from 'src/mocks/buc/bucsListAvdod'
 import * as types from "../constants/actionTypes";
 import mockBucOptionsGjenny from "../mocks/gjenny/bucOptionsGjenny";
 import mockCreateSed from "../mocks/buc/createSed";
@@ -10,7 +10,9 @@ import {Action} from "redux";
 import mockCreateBuc from "../mocks/buc/createBuc";
 import {P5000SED} from "../declarations/p5000";
 
-const sprintf = require('sprintf-js').sprintf
+//const sprintf = require('sprintf-js').sprintf
+// @ts-ignore
+import { sprintf } from 'sprintf-js';
 
 export const fetchBucsListForGjenlevende = (
   aktoerId: string

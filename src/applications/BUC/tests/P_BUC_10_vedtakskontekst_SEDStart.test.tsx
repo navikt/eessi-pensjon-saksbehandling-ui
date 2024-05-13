@@ -1,10 +1,10 @@
-import { SEDStart, SEDStartProps, SEDStartSelector } from 'applications/BUC/components/SEDStart/SEDStart'
-import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
-import { Bucs, SakTypeMap } from 'declarations/buc.d'
+import { SEDStart, SEDStartProps, SEDStartSelector } from 'src/applications/BUC/components/SEDStart/SEDStart'
+import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'src/constants/constants'
+import { Bucs, SakTypeMap } from 'src/declarations/buc.d'
 import { render, screen } from '@testing-library/react'
-import mockFeatureToggles from 'mocks/app/featureToggles'
-import { stageSelector } from 'setupTests'
-import mockPersonAvdods from 'mocks/person/personAvdod'
+import mockFeatureToggles from 'src/mocks/app/featureToggles'
+import { stageSelector } from 'src/setupTests'
+import mockPersonAvdods from 'src/mocks/person/personAvdod'
 
 jest.mock('actions/buc', () => ({
   createReplySed: jest.fn(),

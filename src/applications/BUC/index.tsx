@@ -1,5 +1,5 @@
-import {PesysContext, RinaUrl} from 'declarations/app.d'
-import { State } from 'declarations/reducers'
+import {PesysContext, RinaUrl} from 'src/declarations/app.d'
+import { State } from 'src/declarations/reducers'
 import {useDispatch, useSelector} from 'react-redux'
 import BUCIndexPage from "./BUCIndexPage";
 import BUCEmpty from "./pages/BUCEmpty/BUCEmpty";

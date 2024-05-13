@@ -1,4 +1,4 @@
-import { AllowedLocaleString } from 'declarations/app.d'
+import { AllowedLocaleString } from 'src/declarations/app.d'
 import PT from 'prop-types'
 
 export const AllowedLocaleStringPropType = PT.oneOf<AllowedLocaleString>(['en', 'nb'])

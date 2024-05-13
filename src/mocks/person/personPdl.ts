@@ -1,4 +1,4 @@
-import { Familierelasjonsrolle, IdentGruppe, KjoennType, Sivilstandstype } from 'declarations/person'
+import { Familierelasjonsrolle, IdentGruppe, KjoennType, Sivilstandstype } from 'src/declarations/person'
 
 export default {
   identer: [

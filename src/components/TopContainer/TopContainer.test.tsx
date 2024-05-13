@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react'
-import { alertClear } from 'actions/alert'
-import { closeModal } from 'actions/ui'
-import { ModalContent } from 'declarations/components'
+import { alertClear } from 'src/actions/alert'
+import { closeModal } from 'src/actions/ui'
+import { ModalContent } from 'src/declarations/components'
 
 import { TopContainer, TopContainerProps, TopContainerSelector } from './TopContainer'
-import { stageSelector } from 'setupTests'
+import { stageSelector } from 'src/setupTests'
 
 /* jest.mock('use-error-boundary', () => ({
   --esModule: true, // this property makes it work

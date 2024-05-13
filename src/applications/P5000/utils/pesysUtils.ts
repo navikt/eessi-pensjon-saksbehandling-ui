@@ -1,4 +1,4 @@
-import { P5000ListRows } from 'declarations/p5000'
+import { P5000ListRows } from 'src/declarations/p5000'
 import _ from 'lodash'
 import moment from 'moment'
 

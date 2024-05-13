@@ -5,21 +5,21 @@ import {
   fetchBucsList,
   fetchBucsListWithVedtakId,
   startBucsFetch
-} from 'actions/buc'
-import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
-import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
-import BUCList from 'applications/BUC/pages/BUCList/BUCList'
+} from 'src/actions/buc'
+import BUCEdit from 'src/applications/BUC/pages/BUCEdit/BUCEdit'
+import BUCEmpty from 'src/applications/BUC/pages/BUCEmpty/BUCEmpty'
+import BUCList from 'src/applications/BUC/pages/BUCList/BUCList'
 import classNames from 'classnames'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { BUCMode, PesysContext } from 'declarations/app.d'
-import { BucListItem, Bucs } from 'declarations/buc'
-import { State } from 'declarations/reducers'
+import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
+import { BUCMode, PesysContext } from 'src/declarations/app.d'
+import { BucListItem, Bucs } from 'src/declarations/buc'
+import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { timeDiffLogger } from 'metrics/loggers'
+import { timeDiffLogger } from 'src/metrics/loggers'
 import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import {VEDTAKSKONTEKST} from "../../constants/constants";
 
 const transition = 500

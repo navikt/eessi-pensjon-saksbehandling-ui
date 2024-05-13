@@ -1,4 +1,4 @@
-import { LocalStorageEntry } from 'declarations/app'
+import { LocalStorageEntry } from 'src/declarations/app'
 import {
   P5000ListRow,
   P5000ListRows,
@@ -9,13 +9,13 @@ import {
   P5000UpdatePayload,
   SedSender
   , P5000sFromRinaMap
-} from 'declarations/p5000'
-import { Seds } from 'declarations/buc'
+} from 'src/declarations/p5000'
+import { Seds } from 'src/declarations/buc'
 import _ from 'lodash'
 import moment from 'moment'
-import i18n from 'i18n'
-import { sumDates, writeDateDiff } from 'utils/dateDecimal'
-import dateDiff, { DateDiff, FormattedDateDiff } from 'utils/dateDiff'
+import i18n from 'src/i18n'
+import { sumDates, writeDateDiff } from 'src/utils/dateDecimal'
+import dateDiff, { DateDiff, FormattedDateDiff } from 'src/utils/dateDiff'
 import {
   generateKeyForListRow, getNewLand, getSedSender, listItemtoPeriod, mergeToExistingPeriod,
   periodToListItem, sumItemtoPeriod

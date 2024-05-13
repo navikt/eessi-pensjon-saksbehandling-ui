@@ -1,13 +1,13 @@
-import PersonPanel from 'applications/PersonPanel/PersonPanel'
-import ContextBanner from 'components/ContextBanner/ContextBanner'
-import TopContainer from 'components/TopContainer/TopContainer'
-import { BUCMode } from 'declarations/app'
-import { State } from 'declarations/reducers'
-import { timeLogger } from 'metrics/loggers'
+import PersonPanel from 'src/applications/PersonPanel/PersonPanel'
+import ContextBanner from 'src/components/ContextBanner/ContextBanner'
+import TopContainer from 'src/components/TopContainer/TopContainer'
+import { BUCMode } from 'src/declarations/app'
+import { State } from 'src/declarations/reducers'
+import { timeLogger } from 'src/metrics/loggers'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import {PaddedDiv, VerticalSeparatorDiv } from '@navikt/hoykontrast'
-import BUCIndex from 'applications/BUC'
+import BUCIndex from 'src/applications/BUC'
 import {GJENNY, PESYS} from "../../constants/constants";
 import BUCIndexGjenny from "../../applications/BUC/BUCIndexGjenny";
 import "./CustomGlobalStyles.css";

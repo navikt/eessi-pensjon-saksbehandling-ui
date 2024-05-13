@@ -1,4 +1,4 @@
-import dateDecimal, { isFloat, getFloatValues, writeFloat, sumValues, sumDates } from 'utils/dateDecimal'
+import dateDecimal, { isFloat, getFloatValues, writeFloat, sumValues, sumDates } from 'src/utils/dateDecimal'
 
 describe('utils/dateDecimal', () => {
   it('isFloat', () => {

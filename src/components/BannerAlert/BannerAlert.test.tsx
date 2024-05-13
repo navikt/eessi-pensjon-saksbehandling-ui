@@ -1,4 +1,4 @@
-import { AlertVariant } from 'declarations/components'
+import { AlertVariant } from 'src/declarations/components'
 import { screen, render } from '@testing-library/react'
 import BannerAlert, { BannerAlertProps } from './BannerAlert'
 

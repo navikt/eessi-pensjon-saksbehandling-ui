@@ -1,21 +1,21 @@
-import { setStatusParam } from 'actions/app'
-import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
-import MonitorPNG from 'assets/images/artwork/dataskjerm.png'
-import CupPNG from 'assets/images/artwork/kop.png'
-import MousePNG from 'assets/images/artwork/NAVmusematte.png'
-import MapPNG from 'assets/images/artwork/saksstatus.png'
+import { setStatusParam } from 'src/actions/app'
+import BUCFooter from 'src/applications/BUC/components/BUCFooter/BUCFooter'
+import MonitorPNG from 'src/assets/images/artwork/dataskjerm.png'
+import CupPNG from 'src/assets/images/artwork/kop.png'
+import MousePNG from 'src/assets/images/artwork/NAVmusematte.png'
+import MapPNG from 'src/assets/images/artwork/saksstatus.png'
 import {
   HorizontalSeparatorDiv,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
-import { State } from 'declarations/reducers'
-import { RinaUrl } from 'declarations/app.d'
-import { standardLogger } from 'metrics/loggers'
+import { State } from 'src/declarations/reducers'
+import { RinaUrl } from 'src/declarations/app.d'
+import { standardLogger } from 'src/metrics/loggers'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import { Button, TextField } from '@navikt/ds-react'
 
 export const BUCEmptyDiv = styled.div`

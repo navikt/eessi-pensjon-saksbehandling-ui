@@ -1,7 +1,7 @@
-import { getUserInfo, setStatusParam } from 'actions/app'
+import { getUserInfo, setStatusParam } from 'src/actions/app'
 import { render } from '@testing-library/react'
 import {BrowserRouter, MemoryRouter, Route, Routes} from 'react-router-dom'
-import { stageSelector } from 'setupTests'
+import { stageSelector } from 'src/setupTests'
 import RequireAuth, { RequireAuthSelector } from './RequireAuth'
 
 jest.mock('actions/app', () => ({

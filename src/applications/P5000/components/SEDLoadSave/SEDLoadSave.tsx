@@ -1,18 +1,18 @@
 import { BodyLong, Panel } from '@navikt/ds-react'
-import { saveEntries } from 'actions/localStorage'
-import { updateP5000WorkingCopies } from 'applications/P5000/utils/entriesUtils'
-import { ytelseType } from 'applications/P5000/P5000.labels'
-import { LocalStorageEntry, LocalStorageEntriesMap, Option } from 'declarations/app'
-import { Buc } from 'declarations/buc'
-import { P5000SED } from 'declarations/p5000'
-import { State } from 'declarations/reducers'
+import { saveEntries } from 'src/actions/localStorage'
+import { updateP5000WorkingCopies } from 'src/applications/P5000/utils/entriesUtils'
+import { ytelseType } from 'src/applications/P5000/P5000.labels'
+import { LocalStorageEntry, LocalStorageEntriesMap, Option } from 'src/declarations/app'
+import { Buc } from 'src/declarations/buc'
+import { P5000SED } from 'src/declarations/p5000'
+import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { FlexBaseDiv, HorizontalSeparatorDiv, PileDiv } from '@navikt/hoykontrast'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components/macro'
-import AddRemovePanel from "components/AddRemovePanel/AddRemovePanel";
+import styled from 'styled-components'
+import AddRemovePanel from "src/components/AddRemovePanel/AddRemovePanel";
 
 const MyPanel = styled(Panel)`
   background: var(--a-surface-subtle);

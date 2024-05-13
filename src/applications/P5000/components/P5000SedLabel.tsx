@@ -1,10 +1,10 @@
 import { ExclamationmarkTriangleIcon } from '@navikt/aksel-icons'
 import Flag from '@navikt/flagg-ikoner'
 import { FlexCenterDiv, HorizontalSeparatorDiv } from '@navikt/hoykontrast'
-import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
-import { getSedSender } from 'applications/P5000/utils/conversionUtils'
-import { SeparatorSpan } from 'components/StyledComponents'
-import { SedSender } from 'declarations/p5000'
+import SEDStatus from 'src/applications/BUC/components/SEDStatus/SEDStatus'
+import { getSedSender } from 'src/applications/P5000/utils/conversionUtils'
+import { SeparatorSpan } from 'src/components/StyledComponents'
+import { SedSender } from 'src/declarations/p5000'
 import { useTranslation } from 'react-i18next'
 
 const P5000SedLabel = ({

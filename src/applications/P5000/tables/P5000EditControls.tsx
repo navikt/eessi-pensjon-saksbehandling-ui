@@ -7,32 +7,35 @@ import {
   PileCenterDiv,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
-import { resetSentP5000info, sendP5000toRina, setGjpBpWarning } from 'actions/p5000'
-import {getGjpBp, getUFT, setGjpBp} from 'actions/person'
-import { listItemtoPeriod } from 'applications/P5000/utils/conversionUtils'
-import { ytelseType } from 'applications/P5000/P5000.labels'
-import P5000HelpModal from 'applications/P5000/components/P5000HelpModal'
-import Modal from 'components/Modal/Modal'
-import Select from 'components/Select/Select'
-import { OneLineSpan } from 'components/StyledComponents'
-import * as constants from 'constants/constants'
-import { LocalStorageEntry, Option, Validation } from 'declarations/app'
-import { SakTypeMap, SakTypeValue } from 'declarations/buc.d'
-import { P5000sFromRinaMap } from 'declarations/p5000.d'
-import { P5000ListRow, P5000ListRows, P5000Period, P5000SED, P5000UpdatePayload } from 'declarations/p5000'
-import { State } from 'declarations/reducers'
+import { resetSentP5000info, sendP5000toRina, setGjpBpWarning } from 'src/actions/p5000'
+import {getGjpBp, getUFT, setGjpBp} from 'src/actions/person'
+import { listItemtoPeriod } from 'src/applications/P5000/utils/conversionUtils'
+import { ytelseType } from 'src/applications/P5000/P5000.labels'
+import P5000HelpModal from 'src/applications/P5000/components/P5000HelpModal'
+import Modal from 'src/components/Modal/Modal'
+import Select from 'src/components/Select/Select'
+import { OneLineSpan } from 'src/components/StyledComponents'
+import * as constants from 'src/constants/constants'
+import { LocalStorageEntry, Option, Validation } from 'src/declarations/app'
+import { SakTypeMap, SakTypeValue } from 'src/declarations/buc.d'
+import { P5000sFromRinaMap } from 'src/declarations/p5000.d'
+import { P5000ListRow, P5000ListRows, P5000Period, P5000SED, P5000UpdatePayload } from 'src/declarations/p5000'
+import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { standardLogger } from 'metrics/loggers'
-import { extendMoment } from 'moment-range'
+import { standardLogger } from 'src/metrics/loggers'
+// import { extendMoment } from 'moment-range'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
-import dateDiff, { FormattedDateDiff } from 'utils/dateDiff'
-import * as Moment from 'moment'
-import {GJENNY, VEDTAKSKONTEKST} from "constants/constants";
+import dateDiff, { FormattedDateDiff } from 'src/utils/dateDiff'
+// import * as Moment from 'moment'
+import {GJENNY, VEDTAKSKONTEKST} from "src/constants/constants";
 import {sendP5000toRinaGjenny} from "../../../actions/gjenny";
-const moment = extendMoment(Moment)
+// const moment = extendMoment(Moment)
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat"
+dayjs.extend(customParseFormat)
 
 export interface P5000EditControlsSelector {
   gettingUft: boolean
@@ -228,8 +231,8 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
       setRequestingGjpBp(false)
       let newItems: P5000ListRows = _.cloneDeep(items)
 
-      const sluttdato = moment(gjpbp).toDate()
-      const startdato = moment(gjpbp).set('date', 1).toDate() // 'day' sets day of week. 'date' sets day of the month.
+      const sluttdato = dayjs(gjpbp).toDate()
+      const startdato = dayjs(gjpbp).set('date', 1).toDate() // 'day' sets day of week. 'date' sets day of the month.
 
       const diff: FormattedDateDiff = dateDiff(startdato, sluttdato)
 
@@ -243,12 +246,12 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
 
       // we are adding a period from the 1st day of the month of that person's death, to the day before death
       // as in dødsfallet = 08.08.1978 => periode 01.08.1978 - 07.08.1978
-      const fixedSluttdato = moment(gjpbp).subtract(1, 'd').toDate()
+      const fixedSluttdato = dayjs(gjpbp).subtract(1, 'd').toDate()
 
       // check if we do not have such period
       const foundPeriod = _.find(newItems, item => {
-        return moment(item.startdato).isSame(startdato, 'day') &&
-          moment(item.sluttdato).isSame(fixedSluttdato, 'day') &&
+        return dayjs(item.startdato).isSame(startdato, 'day') &&
+          dayjs(item.sluttdato).isSame(fixedSluttdato, 'day') &&
           item.type === '30'
       })
 
@@ -291,27 +294,30 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
       let newItems: P5000ListRows = _.cloneDeep(items)
       newItems = newItems.map(item => {
         const newItem = _.cloneDeep(item)
-        newItem.selected = moment(item.startdato).isSameOrAfter(uforetidspunkt)
-        newItem.flag = moment(item.startdato).isSameOrAfter(uforetidspunkt)
+        //newItem.selected = moment(item.startdato).isSameOrAfter(uforetidspunkt)
+        newItem.selected = dayjs(item.startdato).isSame(uforetidspunkt, 'day') || dayjs(item.startdato).isAfter(uforetidspunkt, 'day');
+
+        newItem.flag = dayjs(item.startdato).isSame(uforetidspunkt, 'day')|| dayjs(item.startdato).isAfter(uforetidspunkt, 'day');
+
         return newItem
       })
 
       // check if we do not have such period
       const foundUforetidpunktPeriod = _.find(newItems, item => {
-        return moment(item.startdato).isSame(uforetidspunkt, 'day') &&
-          moment(item.sluttdato).isSame(moment(virkningstidspunkt).subtract(1, 'day'), 'day') && // compare sluttdato with today, but just year/month/day
+        return dayjs(item.startdato).isSame(uforetidspunkt, 'day') &&
+          dayjs(item.sluttdato).isSame(dayjs(virkningstidspunkt).subtract(1, 'day'), 'day') && // compare sluttdato with today, but just year/month/day
           item.type === '41'
       })
       // check if we do not have such period
       const foundVirkningstidspunktPeriod = _.find(newItems, item => {
-        return moment(item.startdato).isSame(virkningstidspunkt) &&
-          moment(item.sluttdato).isSame(new Date(), 'day') && // compare sluttdato with today, but just year/month/day
+        return dayjs(item.startdato).isSame(virkningstidspunkt) &&
+          dayjs(item.sluttdato).isSame(new Date(), 'day') && // compare sluttdato with today, but just year/month/day
           item.type === '50'
       })
 
       if (!foundUforetidpunktPeriod && !foundVirkningstidspunktPeriod) {
         const startdatoUforetidspunkt: Date = uforetidspunkt
-        const sluttdatoUforetidspunkt: Date = moment(virkningstidspunkt).subtract(1, 'day').toDate()
+        const sluttdatoUforetidspunkt: Date = dayjs(virkningstidspunkt).subtract(1, 'day').toDate()
         const diffUforetidspunkt: FormattedDateDiff = dateDiff(startdatoUforetidspunkt, sluttdatoUforetidspunkt)
 
         const startdatoVirkningstidspunkt: Date = virkningstidspunkt

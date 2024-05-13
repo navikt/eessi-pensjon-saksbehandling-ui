@@ -1,5 +1,5 @@
 import loadingReducer, { initialLoadingState } from './loading'
-import * as types from 'constants/actionTypes'
+import * as types from 'src/constants/actionTypes'
 
 describe('reducers/loading', () => {
   const simulate = (type: string, param: string, initialBool: boolean) => {

@@ -1,10 +1,10 @@
 import { ActionWithPayload, call } from '@navikt/fetch'
 import { CountryFilter } from '@navikt/land-verktoy'
-import * as types from 'constants/actionTypes'
-import * as storage from 'constants/storage'
-import tagsList from 'constants/tagsList'
-import * as urls from 'constants/urls'
-import { BUCMode, FeatureToggles, PesysContext } from 'declarations/app.d'
+import * as types from 'src/constants/actionTypes'
+import * as storage from 'src/constants/storage'
+import tagsList from 'src/constants/tagsList'
+import * as urls from 'src/constants/urls'
+import { BUCMode, FeatureToggles, PesysContext } from 'src/declarations/app.d'
 import {
   Buc,
   BUCOptions,
@@ -22,31 +22,33 @@ import {
   SEDRawList,
   TagRawList,
   ValidBuc
-} from 'declarations/buc'
-import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
+} from 'src/declarations/buc'
+import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark'
 import _ from 'lodash'
-import { mockBuc } from 'mocks/buc/buc'
-import mockBucOptions from 'mocks/buc/bucOptions'
-import mockBucsInfo from 'mocks/buc/bucsInfo'
-import mockBucsInfoList from 'mocks/buc/bucsInfoList'
-import mockBucs from 'mocks/buc/bucsList'
-import mockBucsWithVedtak from 'mocks/buc/bucsListWithVedtak'
-import mockCreateBuc from 'mocks/buc/createBuc'
-import mockCreateSed from 'mocks/buc/createSed'
-import mockInstitutions from 'mocks/buc/institutions'
-import mockKravDato from 'mocks/buc/kravDato'
-import mockP6000 from 'mocks/buc/p6000'
-import mockP4000 from 'mocks/buc/p4000'
-import mockSed from  'mocks/buc/sed'
-import mockP6000pdf from 'mocks/buc/p6000pdf'
-import mockRinaUrl from 'mocks/buc/rinaUrl'
-import mockSakType from 'mocks/buc/sakType'
-import mockSedList from 'mocks/buc/sedList'
+import { mockBuc } from 'src/mocks/buc/buc'
+import mockBucOptions from 'src/mocks/buc/bucOptions'
+import mockBucsInfo from 'src/mocks/buc/bucsInfo'
+import mockBucsInfoList from 'src/mocks/buc/bucsInfoList'
+import mockBucs from 'src/mocks/buc/bucsList'
+import mockBucsWithVedtak from 'src/mocks/buc/bucsListWithVedtak'
+import mockCreateBuc from 'src/mocks/buc/createBuc'
+import mockCreateSed from 'src/mocks/buc/createSed'
+import mockInstitutions from 'src/mocks/buc/institutions'
+import mockKravDato from 'src/mocks/buc/kravDato'
+import mockP6000 from 'src/mocks/buc/p6000'
+import mockP4000 from 'src/mocks/buc/p4000'
+import mockSed from  'src/mocks/buc/sed'
+import mockP6000pdf from 'src/mocks/buc/p6000pdf'
+import mockRinaUrl from 'src/mocks/buc/rinaUrl'
+import mockSakType from 'src/mocks/buc/sakType'
+import mockSedList from 'src/mocks/buc/sedList'
 import { Action, ActionCreator } from 'redux'
 import {UpdateSedPayload} from "../declarations/types";
-import {PSED} from "declarations/app.d";
+import {PSED} from "src/declarations/app.d";
 
-const sprintf = require('sprintf-js').sprintf
+//const sprintf = require('sprintf-js').sprintf
+// @ts-ignore
+import { sprintf } from 'sprintf-js';
 
 export const cleanNewlyCreatedBuc: ActionCreator<Action> = (): Action => ({
   type: types.BUC_NEWLYCREATEDBUC_RESET

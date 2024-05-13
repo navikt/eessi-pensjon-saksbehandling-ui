@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import joarkBrowserItems from 'mocks/joark/items'
-import { stageSelector } from 'setupTests'
+import joarkBrowserItems from 'src/mocks/joark/items'
+import { stageSelector } from 'src/setupTests'
 import SEDAttachmentModal, { SEDAttachmentModalProps } from './SEDAttachmentModal'
 
 jest.mock('components/JoarkBrowser/JoarkBrowser', () => {

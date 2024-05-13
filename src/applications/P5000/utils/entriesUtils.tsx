@@ -1,5 +1,5 @@
-import { LocalStorageEntry, PSED } from 'declarations/app'
-import { P5000SED } from 'declarations/p5000'
+import { LocalStorageEntry, PSED } from 'src/declarations/app'
+import { P5000SED } from 'src/declarations/p5000'
 import _ from 'lodash'
 
 export const getWorkingCopy = <T extends PSED>(entries: Array<LocalStorageEntry<T>>, sedId: string) =>

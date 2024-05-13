@@ -1,14 +1,14 @@
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { Link } from '@navikt/ds-react'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { RinaUrl } from 'declarations/app.d'
-import { State } from 'declarations/reducers'
-import { linkLogger } from 'metrics/loggers'
+import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
+import { RinaUrl } from 'src/declarations/app.d'
+import { State } from 'src/declarations/reducers'
+import { linkLogger } from 'src/metrics/loggers'
 import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 
 export const BUCFooterDiv = styled.div`
   display: flex;

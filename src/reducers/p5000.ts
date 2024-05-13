@@ -1,6 +1,6 @@
-import { generateKeyForListRow } from 'applications/P5000/utils/conversionUtils'
-import * as types from 'constants/actionTypes'
-import { P5000sFromRinaMap, P5000Period, P5000ListRows } from 'declarations/p5000'
+import { generateKeyForListRow } from 'src/applications/P5000/utils/conversionUtils'
+import * as types from 'src/constants/actionTypes'
+import { P5000sFromRinaMap, P5000Period, P5000ListRows } from 'src/declarations/p5000'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
 import { AnyAction } from 'redux'
@@ -112,6 +112,7 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: AnyAction):
     }
 
     case types.P5000_PESYS_GET_SUCCESS: {
+      console.log("Fra p5000 reducer")
       return {
         ...state,
         p5000sFromS3: (action as ActionWithPayload).payload

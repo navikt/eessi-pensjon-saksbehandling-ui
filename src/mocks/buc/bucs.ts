@@ -1,4 +1,4 @@
-import { Direction, SakTypeValue } from 'declarations/buc'
+import { Direction, SakTypeValue } from 'src/declarations/buc'
 import _ from 'lodash'
 
 const later = new Date(1970, 0, 1).getTime()

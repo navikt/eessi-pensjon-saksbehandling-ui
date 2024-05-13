@@ -1,4 +1,4 @@
-import { sortItems } from 'applications/P5000/utils/conversion'
+import { sortItems } from 'src/applications/P5000/utils/conversion'
 //import { P5000ListRow } from 'declarations/p5000'
 
 describe('applications/P5000/utils/conversion', () => {

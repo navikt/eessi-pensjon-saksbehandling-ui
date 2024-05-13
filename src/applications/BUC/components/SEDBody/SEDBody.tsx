@@ -3,11 +3,11 @@ import {
   resetSavingAttachmentJob,
   resetSedAttachments,
   sendAttachmentToSed
-} from 'actions/buc'
-import { sedAttachmentSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import SEDAttachmentModal from 'applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
-import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
-import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
+} from 'src/actions/buc'
+import { sedAttachmentSorter } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
+import SEDAttachmentModal from 'src/applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
+import SEDAttachmentSender from 'src/applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
+import JoarkBrowser from 'src/components/JoarkBrowser/JoarkBrowser'
 import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import {
   Buc,
@@ -17,18 +17,18 @@ import {
   SEDAttachmentPayload,
   SEDAttachmentPayloadWithFile,
   SEDAttachments
-} from 'declarations/buc'
-import { BucPropType, SedPropType } from 'declarations/buc.pt'
-import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
-import { State } from 'declarations/reducers'
+} from 'src/declarations/buc'
+import { BucPropType, SedPropType } from 'src/declarations/buc.pt'
+import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark'
+import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { standardLogger } from 'metrics/loggers'
+import { standardLogger } from 'src/metrics/loggers'
 import { Heading, Loader, Button } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 
 export const SEDAttachmentSenderDiv = styled.div`
    margin-top: 1rem;

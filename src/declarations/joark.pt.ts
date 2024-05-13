@@ -1,4 +1,4 @@
-import { JoarkBrowserType } from 'components/JoarkBrowser/JoarkBrowser'
+import { JoarkBrowserType } from 'src/components/JoarkBrowser/JoarkBrowser'
 import PT from 'prop-types'
 
 export const JoarkFileVariantPropType = PT.shape({

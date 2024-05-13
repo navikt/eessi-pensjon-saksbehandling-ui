@@ -1,15 +1,15 @@
-import {getUserInfo, setContext, setStatusParam} from 'actions/app'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import * as constants from 'constants/constants'
-import * as routes from 'constants/routes'
-import {SakTypeKey, SakTypeMap} from 'declarations/buc.d'
-import { Params } from 'declarations/app'
-import { State } from 'declarations/reducers'
+import {getUserInfo, setContext, setStatusParam} from 'src/actions/app'
+import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
+import * as constants from 'src/constants/constants'
+import * as routes from 'src/constants/routes'
+import {SakTypeKey, SakTypeMap} from 'src/declarations/buc.d'
+import { Params } from 'src/declarations/app'
+import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, useLocation } from 'react-router-dom'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 
 
 const RouteDiv = styled.div`

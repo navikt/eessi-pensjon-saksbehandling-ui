@@ -1,5 +1,5 @@
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 
 const FlexDiv = styled.div`
   display: flex;

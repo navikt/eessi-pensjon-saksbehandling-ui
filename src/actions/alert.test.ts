@@ -1,5 +1,5 @@
-import * as alertActions from 'actions/alert'
-import * as types from 'constants/actionTypes'
+import * as alertActions from 'src/actions/alert'
+import * as types from 'src/constants/actionTypes'
 
 describe('actions/alert', () => {
   it('alertClear()', () => {

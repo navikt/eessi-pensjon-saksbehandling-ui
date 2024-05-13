@@ -1,10 +1,10 @@
-import { getTagList, saveBucsInfo } from 'actions/buc'
-import {dateSorter, sedFilter} from 'applications/BUC/components/BUCUtils/BUCUtils'
-import P5000 from 'applications/P5000/P5000'
-import P4000 from "applications/P4000/P4000";
+import { getTagList, saveBucsInfo } from 'src/actions/buc'
+import {dateSorter, sedFilter} from 'src/applications/BUC/components/BUCUtils/BUCUtils'
+import P5000 from 'src/applications/P5000/P5000'
+import P4000 from "src/applications/P4000/P4000";
 import { ChevronRightIcon } from '@navikt/aksel-icons'
-import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import { AllowedLocaleString, BUCMode, Loading } from 'declarations/app.d'
+import MultipleSelect from 'src/components/MultipleSelect/MultipleSelect'
+import { AllowedLocaleString, BUCMode, Loading } from 'src/declarations/app.d'
 import {
   Buc,
   BucInfo,
@@ -14,10 +14,10 @@ import {
   TagRawList,
   Tags,
   ValidBuc
-} from 'declarations/buc'
-import { State } from 'declarations/reducers'
+} from 'src/declarations/buc'
+import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { buttonLogger, standardLogger } from 'metrics/loggers'
+import { buttonLogger, standardLogger } from 'src/metrics/loggers'
 import { Detail, BodyLong, Heading, Button, Panel, Textarea, Tabs } from '@navikt/ds-react'
 import {
   slideInFromRight,
@@ -27,8 +27,8 @@ import {
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components/macro'
-import { P5000sFromRinaMap } from 'declarations/p5000'
+import styled from 'styled-components'
+import { P5000sFromRinaMap } from 'src/declarations/p5000'
 
 const BUCToolsPanel = styled(Panel)`
   opacity: 0;

@@ -1,11 +1,11 @@
-import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
+import MultipleSelect from 'src/components/MultipleSelect/MultipleSelect'
 import { TextField, Panel } from '@navikt/ds-react'
-import { Option } from 'declarations/app'
-import { standardLogger } from 'metrics/loggers'
+import { Option } from 'src/declarations/app'
+import { standardLogger } from 'src/metrics/loggers'
 import PT from 'prop-types'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 
 const SEDSearchPanel = styled(Panel)`
   display: flex !important;

@@ -1,5 +1,5 @@
-import * as types from 'constants/actionTypes'
-import { Validation} from 'declarations/app'
+import * as types from 'src/constants/actionTypes'
+import { Validation} from 'src/declarations/app'
 import { ActionWithPayload } from '@navikt/fetch'
 import { ActionCreator } from 'redux'
 

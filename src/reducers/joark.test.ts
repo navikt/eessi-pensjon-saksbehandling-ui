@@ -1,5 +1,5 @@
-import * as types from 'constants/actionTypes'
-import mockJoarkRaw from 'mocks/joark/joark'
+import * as types from 'src/constants/actionTypes'
+import mockJoarkRaw from 'src/mocks/joark/joark'
 import joarkReducer, { initialJoarkState } from './joark'
 
 describe('reducers/joark', () => {

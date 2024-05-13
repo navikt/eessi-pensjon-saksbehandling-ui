@@ -1,4 +1,4 @@
-import { Option } from 'declarations/app'
+import { Option } from 'src/declarations/app'
 import { render, screen } from '@testing-library/react'
 import MultipleOption, { MultipleOptionProps } from './MultipleOption'
 
