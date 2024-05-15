@@ -8,7 +8,7 @@ import mockPersonAvdod from 'src/mocks/person/personAvdod'
 import mockUFT from 'src/mocks/person/uft'
 import mockGJPBP from 'src/mocks/person/gjpbp'
 import {Action} from "redux";
-//const sprintf = require('sprintf-js').sprintf
+
 // @ts-ignore
 import { sprintf } from 'sprintf-js';
 

@@ -9,6 +9,7 @@ import { ActionWithPayload, call } from '@navikt/fetch'
 import mockSEDP5000_small from 'src/mocks/buc/sed_P5000_small2'
 import mockP5000FromS3 from 'src/mocks/p5000/fromS3'
 import { Action, ActionCreator } from 'redux'
+
 // @ts-ignore
 import { sprintf } from 'sprintf-js';
 

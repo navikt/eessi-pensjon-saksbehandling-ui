@@ -10,7 +10,6 @@ import {Action} from "redux";
 import mockCreateBuc from "../mocks/buc/createBuc";
 import {P5000SED} from "../declarations/p5000";
 
-//const sprintf = require('sprintf-js').sprintf
 // @ts-ignore
 import { sprintf } from 'sprintf-js';
 

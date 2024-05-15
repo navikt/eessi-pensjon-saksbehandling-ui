@@ -6,7 +6,7 @@ import mockUser from 'src/mocks/app/user'
 import { Action } from 'redux'
 import mockAktoerId from "../mocks/app/aktoerId";
 import mockAvdodAktoerId from "../mocks/app/avdodAktoerId";
-//const sprintf = require('sprintf-js').sprintf
+
 // @ts-ignore
 import { sprintf } from 'sprintf-js';
 

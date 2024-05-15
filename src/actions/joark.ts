@@ -6,7 +6,6 @@ import mockJoark from 'src/mocks/joark/joark'
 import mockPreview from 'src/mocks/joark/preview'
 import { ActionCreator } from 'redux'
 
-//const sprintf = require('sprintf-js').sprintf
 // @ts-ignore
 import { sprintf } from 'sprintf-js';
 
