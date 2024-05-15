@@ -112,7 +112,6 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: AnyAction):
     }
 
     case types.P5000_PESYS_GET_SUCCESS: {
-      console.log("Fra p5000 reducer")
       return {
         ...state,
         p5000sFromS3: (action as ActionWithPayload).payload

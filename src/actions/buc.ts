@@ -35,18 +35,17 @@ import mockCreateBuc from 'src/mocks/buc/createBuc'
 import mockCreateSed from 'src/mocks/buc/createSed'
 import mockInstitutions from 'src/mocks/buc/institutions'
 import mockKravDato from 'src/mocks/buc/kravDato'
+import mockP2000 from 'src/mocks/buc/sed_P2000'
 import mockP6000 from 'src/mocks/buc/p6000'
 import mockP4000 from 'src/mocks/buc/p4000'
-import mockSed from  'src/mocks/buc/sed'
 import mockP6000pdf from 'src/mocks/buc/p6000pdf'
+//import mockSed from  'src/mocks/buc/sed'
 import mockRinaUrl from 'src/mocks/buc/rinaUrl'
 import mockSakType from 'src/mocks/buc/sakType'
 import mockSedList from 'src/mocks/buc/sedList'
 import { Action, ActionCreator } from 'redux'
 import {UpdateSedPayload} from "../declarations/types";
 import {PSED} from "src/declarations/app.d";
-
-//const sprintf = require('sprintf-js').sprintf
 // @ts-ignore
 import { sprintf } from 'sprintf-js';
 
@@ -320,7 +319,8 @@ export const getSed = (
   return call({
     url: sprintf(urls.BUC_GET_SED_URL, { caseId, sedId: sed.id }),
     cascadeFailureError: true,
-    expectedPayload: mockSed(sed.type),
+    //expectedPayload: mockSed(sed.type),
+    expectedPayload: mockP2000,
     context: {
       sedId: sed.id
     },

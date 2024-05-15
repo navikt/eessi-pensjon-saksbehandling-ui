@@ -813,7 +813,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
     }
     case types.BUC_GET_SED_SUCCESS: {
-      console.log("Logging fra reducer buc ")
       return {
         ...state,
         PSED: (action as ActionWithPayload).payload

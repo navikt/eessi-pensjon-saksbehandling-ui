@@ -11,18 +11,17 @@ export default (sed: Sed, type: string = 'small') => {
   let sedNr
   if (seds[sed.id]) sedNr = seds[sed.id]
   if (sedNr === undefined && sed.lastUpdate) sedNr = sed.lastUpdate % 3 + 1
+
 /*  const m = require('mocks/buc/sed_P5000_' + type + '' + sedNr)
   return m.default*/
 
   let m;
-  //import('./sed_P5000_' + type + '' + sedNr + '.ts')
   import(`./sed_P5000_${type}${sedNr}.ts`)
     .then(module => {
-      m = module.default; // Adjust this line based on the exported value of the module
+      m = module.default;
       return m;
     })
     .catch(error => {
       console.error('Failed to load module:', error);
     });
-
 }

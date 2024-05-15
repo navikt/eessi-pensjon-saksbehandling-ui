@@ -5,11 +5,10 @@ import * as urls from 'src/constants/urls'
 import { Sed } from 'src/declarations/buc'
 import { P5000SED } from 'src/declarations/p5000'
 import { ActionWithPayload, call } from '@navikt/fetch'
-import mockP5000 from 'src/mocks/buc/sedP5000'
+//import mockP5000 from 'src/mocks/buc/sedP5000'
+import mockSEDP5000_small from 'src/mocks/buc/sed_P5000_small2'
 import mockP5000FromS3 from 'src/mocks/p5000/fromS3'
 import { Action, ActionCreator } from 'redux'
-
-//const sprintf = require('sprintf-js').sprintf
 // @ts-ignore
 import { sprintf } from 'sprintf-js';
 
@@ -25,7 +24,8 @@ export const getSed = (
     url: sprintf(urls.P5000_GET_URL, { caseId, sedId: sed.id }),
     cascadeFailureError: true,
     context: sed,
-    expectedPayload: mockP5000(sed, 'small'),
+    //expectedPayload: mockP5000(sed, 'small'),
+    expectedPayload: mockSEDP5000_small,
     type: {
       request: types.P5000_GET_REQUEST,
       success: types.P5000_GET_SUCCESS,
