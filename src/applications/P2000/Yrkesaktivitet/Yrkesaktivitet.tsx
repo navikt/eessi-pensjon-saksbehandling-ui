@@ -1,4 +1,4 @@
-import {BodyLong, Button, Heading, Label, Select} from "@navikt/ds-react";
+import {BodyLong, Button, Heading, Label, Select, Table} from "@navikt/ds-react";
 import {
   VerticalSeparatorDiv,
   PaddedDiv,
@@ -25,7 +25,7 @@ import {
 } from "./validation";
 import {getIdx} from "../../../utils/namespace";
 import {Validation} from "../../../declarations/app";
-import {RepeatableRow} from "../../../components/StyledComponents";
+import {RepeatableRowNoBackground} from "../../../components/StyledComponents";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "../../../utils/validation";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
@@ -59,6 +59,8 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
 
   const [_editIndex, _setEditIndex] = useState<number | undefined>(undefined)
   const [_newForm, _setNewForm] = useState<boolean>(false)
+  const [_newInntektForm, _setNewInntektForm] = useState<boolean>(false)
+
 
 
   useUnmount(() => {
@@ -83,12 +85,14 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
   const onCloseEdit = (namespace: string) => {
     _setEditArbeidsforhold(undefined)
     _setEditIndex(undefined)
+    _setNewInntektForm(false)
     dispatch(resetValidation(namespace))
   }
 
   const onCloseNew = () => {
     _setNewArbeidsforhold(undefined)
     _setNewForm(false)
+    _setNewInntektForm(false)
     _resetValidation()
   }
 
@@ -116,6 +120,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
     } else {
       dispatch(setValidation(clonedValidation))
     }
+    _setNewInntektForm(false)
   }
 
   const onRemove = (removedArbeidsforhold: Arbeidsforhold) => {
@@ -189,76 +194,104 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
     const inEditMode = index < 0 || _editIndex === index
     const _arbeidsforhold = index < 0 ? _newArbeidsforhold : (inEditMode ? _editArbeidsforhold : arbeidsforhold)
     return (
-      <RepeatableRow
-        id={'repeatablerow-' + _namespace}
-        key={index}
-        className={classNames({
-          new: index < 0,
-          error: hasNamespaceWithErrors(_v, _namespace)
-        })}
-      >
-        <VerticalSeparatorDiv size='0.5' />
-        <AlignStartRow>
-          <Column flex="2">
-            {inEditMode
-              ?
-              (
-                <PileDiv>
-                  <Select
-                    error={_v[_namespace + '-yrkesaktivitet']?.feilmelding}
-                    id='yrkesaktivitet'
-                    label="Yrkesaktivitet"
-                    onChange={(e) => setYrkeType(e.target.value, index)}
-                    value={(_arbeidsforhold?.type)  ?? ''}
-                  >
-                    <option value=''>Velg</option>
-                    {yrkeOptions.map((option) => {
-                      return(<option value={option.value}>{option.label}</option>)
-                    })}
-                  </Select>
-                </PileDiv>
-              )
-              :
-              (
-                <>
-                  <Label>
-                    {t('p2000:yrkesaktivitet')}
-                  </Label>
-                  <BodyLong>
-                    {getYrkeLabel(_arbeidsforhold?.type)}
-                  </BodyLong>
-                </>
-              )
+      <>
+        <RepeatableRowNoBackground
+          id={'repeatablerow-' + _namespace}
+          key={index}
+          className={classNames({
+            new: index < 0,
+            error: hasNamespaceWithErrors(_v, _namespace),
+            selected: inEditMode
+          })}
+        >
+          <VerticalSeparatorDiv size='0.5' />
+          <AlignStartRow>
+            <Column flex="2">
+              {inEditMode
+                ?
+                (
+                  <PileDiv>
+                    <Select
+                      error={_v[_namespace + '-yrkesaktivitet']?.feilmelding}
+                      id='yrkesaktivitet'
+                      label="Yrkesaktivitet"
+                      onChange={(e) => setYrkeType(e.target.value, index)}
+                      value={(_arbeidsforhold?.type)  ?? ''}
+                    >
+                      <option value=''>Velg</option>
+                      {yrkeOptions.map((option) => {
+                        return(<option value={option.value}>{option.label}</option>)
+                      })}
+                    </Select>
+                  </PileDiv>
+                )
+                :
+                (
+                  <>
+                    <Label>
+                      {t('p2000:yrkesaktivitet')}
+                    </Label>
+                    <BodyLong>
+                      {getYrkeLabel(_arbeidsforhold?.type)}
+                    </BodyLong>
+                  </>
+                )
+              }
+            </Column>
+            <AlignEndColumn>
+              <AddRemovePanel<Arbeidsforhold>
+                item={arbeidsforhold}
+                marginTop={index < 0}
+                index={index}
+                inEditMode={inEditMode}
+                onRemove={onRemove}
+                onAddNew={onAddNew}
+                onCancelNew={onCloseNew}
+                onStartEdit={onStartEdit}
+                onConfirmEdit={onSaveEdit}
+                onCancelEdit={() => onCloseEdit(_namespace)}
+              />
+            </AlignEndColumn>
+          </AlignStartRow>
+          <AlignStartRow>
+            <Table zebraStripes={true}>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell scope="col">Beløp</Table.HeaderCell>
+                  <Table.HeaderCell scope="col">Valuta</Table.HeaderCell>
+                  <Table.HeaderCell scope="col">Beløp siden</Table.HeaderCell>
+                  <Table.HeaderCell scope="col">Betalingshyppighet</Table.HeaderCell>
+                  <Table.HeaderCell scope="col"></Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                {inEditMode
+                  ? (
+                    <InntektRows parentEditMode={true} newInntektForm={_newInntektForm} setNewInntektForm={_setNewInntektForm} setInntekt={setInntekt} parentIndex={index} inntekt={_arbeidsforhold?.inntekt} parentNamespace={_namespace}/>
+                  )
+                  : (
+                    <InntektRows parentEditMode={false} newInntektForm={false} setNewInntektForm={_setNewInntektForm} setInntekt={setInntekt} parentIndex={index} inntekt={_arbeidsforhold?.inntekt} parentNamespace={_namespace}/>
+                  )
+                }
+              </Table.Body>
+            </Table>
+          </AlignStartRow>
+          <VerticalSeparatorDiv/>
+          <AlignStartRow>
+            {inEditMode && !_newInntektForm &&
+              <Button
+                variant='tertiary'
+                onClick={() => _setNewInntektForm(true)}
+                iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
+              >
+                {t('ui:add-new-x', { x: t('p2000:form-arbeidsforhold-inntekt')?.toLowerCase() })}
+              </Button>
             }
-          </Column>
-          <AlignEndColumn>
-            <AddRemovePanel<Arbeidsforhold>
-              item={arbeidsforhold}
-              marginTop={index < 0}
-              index={index}
-              inEditMode={inEditMode}
-              onRemove={onRemove}
-              onAddNew={onAddNew}
-              onCancelNew={onCloseNew}
-              onStartEdit={onStartEdit}
-              onConfirmEdit={onSaveEdit}
-              onCancelEdit={() => onCloseEdit(_namespace)}
-            />
-          </AlignEndColumn>
-        </AlignStartRow>
-        <AlignStartRow>
-          <Column flex="2">
-            {inEditMode
-              ? (
-                <InntektRows parentEditMode={true} setInntekt={setInntekt} parentIndex={index} inntekt={_arbeidsforhold?.inntekt} parentNamespace={_namespace}/>
-              )
-              : (
-                <InntektRows parentEditMode={false} setInntekt={setInntekt} parentIndex={index} inntekt={_arbeidsforhold?.inntekt} parentNamespace={_namespace}/>
-              )
-            }
-          </Column>
-        </AlignStartRow>
-      </RepeatableRow>
+          </AlignStartRow>
+          <VerticalSeparatorDiv/>
+        </RepeatableRowNoBackground>
+        <VerticalSeparatorDiv/>
+      </>
     )
   }
 

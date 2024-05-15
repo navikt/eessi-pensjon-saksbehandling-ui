@@ -1,7 +1,6 @@
 import { alertClear, alertFailure } from 'src/actions/alert'
 import { closeModal, setWidthSize } from 'src/actions/ui'
 import BannerAlert from 'src/components/BannerAlert/BannerAlert'
-import Footer from 'src/components/Footer/Footer'
 import Header from 'src/components/Header/Header'
 import Modal from 'src/components/Modal/Modal'
 import { Params, WidthSize } from 'src/declarations/app.d'
@@ -15,7 +14,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import ReactResizeDetector from 'react-resize-detector'
 import styled, { createGlobalStyle } from 'styled-components'
 import { ErrorBoundary } from 'react-error-boundary'
-import { IS_PRODUCTION } from 'src/constants/environment'
 
 const Main = styled.main`
   flex: 1 1 auto;
@@ -40,6 +38,7 @@ const GlobalStyle = createGlobalStyle`
     flex-direction: column;
     min-height: 100vh;
     height: 100vh;
+    background-color: var(--a-bg-subtle);
   }
   pre {
     font-family: 'Source Sans Pro', Arial, sans-serif;
@@ -111,8 +110,8 @@ export const TopContainer: React.FC<TopContainerProps> = ({
   className, children, indexType = "PESYS"
 }: TopContainerProps): JSX.Element => {
   const {
-    bannerStatus, bannerMessage, error, footerOpen,
-    gettingUserInfo, isLoggingOut, modal, params, size, username
+    bannerStatus, bannerMessage, error,
+    gettingUserInfo, isLoggingOut, modal, size, username
   } = useSelector(mapState)
   const dispatch = useDispatch()
 
@@ -193,13 +192,6 @@ export const TopContainer: React.FC<TopContainerProps> = ({
             >
               {children}
             </Main>
-            {!IS_PRODUCTION && (
-              <Footer
-                params={params}
-                footerOpen={footerOpen}
-                key="topContainer-footer"
-              />
-            )}
           </ReactResizeDetector>
         </ErrorBoundary>
       </TopContainerDiv>

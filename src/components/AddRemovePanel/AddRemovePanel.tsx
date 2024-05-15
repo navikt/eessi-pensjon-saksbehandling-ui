@@ -20,6 +20,7 @@ export interface AddRemovePanelProps<T> {
   index: number
   labels?: Labels
   marginTop?: boolean
+  noMargin?: boolean
   allowEdit?: boolean
   allowDelete?: boolean
   onAddNew?: () => void
@@ -30,6 +31,7 @@ export interface AddRemovePanelProps<T> {
   onCancelEdit?: () => void
   onCancelNew?: () => void
   onRemove: (item: T) => void
+  alwaysVisible?: boolean
 }
 
 const InlineFlexDiv = styled.div`
@@ -51,6 +53,7 @@ const AddRemovePanel = <T extends any>({
   allowEdit = true,
   allowDelete = true,
   marginTop = undefined,
+  noMargin = undefined,
   inEditMode = false,
   onStartEdit,
   onConfirmEdit,
@@ -58,7 +61,8 @@ const AddRemovePanel = <T extends any>({
   onRemove,
   onAddNew,
   onCopy,
-  onCancelNew
+  onCancelNew,
+  alwaysVisible = false
 }: AddRemovePanelProps<T>): JSX.Element | null => {
   const { t } = useTranslation()
 
@@ -70,7 +74,7 @@ const AddRemovePanel = <T extends any>({
 
   if (candidateForDeletion) {
     return (
-      <InlineFlexDiv className={classNames('slideInFromRight', { marginTop })}>
+      <InlineFlexDiv className={classNames('slideInFromRight', { marginTop }, { noMargin })}>
         <BodyLong style={{ whiteSpace: 'nowrap' }}>
           {labels?.areYouSure ?? t('ui:are-you-sure')}
         </BodyLong>
@@ -96,7 +100,7 @@ const AddRemovePanel = <T extends any>({
 
   if (candidateForEdition) {
     return (
-      <InlineFlexDiv className={classNames({ marginTop })}>
+      <InlineFlexDiv className={classNames({ marginTop }, { noMargin })}>
         <HorizontalSeparatorDiv />
         <Button
           size='small'
@@ -127,7 +131,7 @@ const AddRemovePanel = <T extends any>({
 
   if (isNew) {
     return (
-      <InlineFlexDiv className={classNames({ marginTop })}>
+      <InlineFlexDiv className={classNames({ marginTop }, { noMargin })}>
         <Button
           size='small'
           variant='tertiary'
@@ -158,7 +162,7 @@ const AddRemovePanel = <T extends any>({
   }
 
   return (
-    <InlineFlexDiv className={classNames('control-buttons', 'noMargin')}>
+    <InlineFlexDiv className={classNames(alwaysVisible ? '' : 'control-buttons', 'noMargin')}>
       {allowEdit && (
         <Button
           size='small'

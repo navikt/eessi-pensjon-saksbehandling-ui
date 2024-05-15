@@ -46,16 +46,17 @@ const RightActiveDiv = styled.div`
   border-width: 1px;
   border-style: solid;
   border-color: var(--a-border-strong);
+  border-left: 1px solid var(--a-bg-default);
   background-color: var(--a-bg-default);
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
   height: 100%;
-  margin-left: -1px;
+  margin-left: 0px;
   overflow: visible;
 `
 const NameAndOptionsDiv = styled(PileDiv)`
  &.selected {
-   border-right: 1px solid var(--navds-panel-color-background);
+   border-right: 1px solid var(--a-bg-default);
    background-image: linear-gradient(to right, var(--a-bg-subtle), var(--a-bg-default));
  }
  background-color: var(--a-bg-default);
@@ -76,6 +77,7 @@ const NameDiv = styled.div`
   &:hover {
    color: var(--a-text-on-inverted);
    background-color: var(--a-surface-action-hover);
+   margin-right: -1px;
   }
 `
 const NameLabelDiv = styled(FlexCenterDiv)`

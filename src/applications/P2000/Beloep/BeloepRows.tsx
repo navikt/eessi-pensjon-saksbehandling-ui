@@ -1,16 +1,8 @@
 import React, {useState} from "react";
-import {Beloep} from "../../../declarations/p2000";
+import {Beloep, Inntekt} from "../../../declarations/p2000";
 import _ from "lodash";
-import {BodyLong, Button, Select} from "@navikt/ds-react";
-import {
-  AlignStartRow,
-  Column, AlignEndColumn,
-} from "@navikt/hoykontrast";
+import {Select, Table} from "@navikt/ds-react";
 import {getIdx} from "../../../utils/namespace";
-import classNames from "classnames";
-//import {hasNamespaceWithErrors} from "../../../utils/validation";
-import {RepeatableRowNoHorizontalPadding} from "../../../components/StyledComponents";
-import BeloepRow from "./BeloepRow";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {resetValidation, setValidation} from "../../../actions/validation";
 import {useDispatch} from "react-redux";
@@ -24,12 +16,14 @@ import {validateBeloep, ValidationBeloepProps} from "./validation";
 import performValidation from "../../../utils/performValidation";
 import CountrySelect from "@navikt/landvelger";
 import {Currency} from "@navikt/land-verktoy";
-import {PlusCircleIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import DateField from "../DateField/DateField";
-import {dateToString} from "../../../utils/utils";
-import ErrorLabel from "../../../components/Forms/ErrorLabel";
+import {dateToString, formatDate} from "../../../utils/utils";
+import styled from "styled-components";
 
+const TopAlignedCell = styled(Table.DataCell)`
+  vertical-align: top;
+`
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
 })
@@ -40,6 +34,8 @@ export interface BeloepProps {
   parentIndex: number
   parentEditMode: boolean
   parentNamespace: string
+  newBeloepForm: boolean
+  setNewBeloepForm: (b:boolean) => void
 }
 
 const BeloepRows: React.FC<BeloepProps> = ({
@@ -47,7 +43,9 @@ const BeloepRows: React.FC<BeloepProps> = ({
   setBeloep,
   parentIndex,
   parentEditMode,
-  parentNamespace
+  parentNamespace,
+  newBeloepForm,
+  setNewBeloepForm
 }: BeloepProps): JSX.Element => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -59,7 +57,6 @@ const BeloepRows: React.FC<BeloepProps> = ({
   const [_editBeloep, _setEditBeloep] = useState<Beloep | undefined>(undefined)
   const [_newBeloep, _setNewBeloep] = useState<Beloep | undefined>(undefined)
   const [_editIndex, _setEditIndex] = useState<number | undefined>(undefined)
-  const [_newForm, _setNewForm] = useState<boolean>(false)
 
   const onStartEdit = (beloep: Beloep, index: number) => {
     if (_editIndex !== undefined) {
@@ -95,7 +92,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
 
   const onCloseNew = () => {
     _setNewBeloep(undefined)
-    _setNewForm(false)
+    setNewBeloepForm(false)
     _resetValidation()
   }
 
@@ -162,6 +159,16 @@ const BeloepRows: React.FC<BeloepProps> = ({
     {value:'99', label: t('p2000:form-betalingshyppighet-annet-ytelse')}
   ]
 
+  const betalingshyppighetMap:any = {
+    '01': t('p2000:form-betalingshyppighet-aarlig'),
+    '02': t('p2000:form-betalingshyppighet-kvartalsvis'),
+    '03': t('p2000:form-betalingshyppighet-maanedlig-12'),
+    '04': t('p2000:form-betalingshyppighet-maanedlig-13'),
+    '05': t('p2000:form-betalingshyppighet-maanedlig-14'),
+    '06': t('p2000:form-betalingshyppighet-ukentlig'),
+    '99': t('p2000:form-betalingshyppighet-annet')
+  }
+
   const renderRow = (beloep: Beloep | null, index: number) => {
     const _namespace = namespace + getIdx(index)
     const _v: Validation = index < 0 ? _validation : validation
@@ -169,100 +176,80 @@ const BeloepRows: React.FC<BeloepProps> = ({
     const _beloep = index < 0 ? _newBeloep : (inEditMode ? _editBeloep : beloep)
 
     return (
-      <RepeatableRowNoHorizontalPadding
-        id={'repeatablerow-' + _namespace}
-        key={index}
-        className={classNames({
-          new: index < 0,
-        })}
-      >
-        <AlignStartRow>
-          <Column flex="2">
-            {inEditMode && parentEditMode
-              ? (
-                <>
-                  <AlignStartRow>
-                    <Column>
-                      <Input
-                        error={_v[_namespace + '-beloep']?.feilmelding}
-                        namespace={_namespace}
-                        id='beloep-beloep'
-                        label={t('p2000:form-ytelse-beloep-beloep')}
-                        hideLabel={index > 0}
-                        onChanged={(e) => setBelop(e, index)}
-                        value={_beloep?.beloep ?? ''}
-                      />
-                    </Column>
-                    <Column>
-                      <CountrySelect
-                        error={_v[_namespace + '-valuta']?.feilmelding}
-                        placeholder="Velg valuta"
-                        namespace={_namespace}
-                        id='beloep-valuta'
-                        label={t('p2000:form-ytelse-beloep-valuta')}
-                        hideLabel={index > 0}
-                        type='currency'
-                        sort="noeuFirst"
-                        onChanged={(e:any) => setBeloepProperty("valuta", e.target.value, index)}
-                        onOptionSelected={(valuta: Currency) => setBeloepProperty("valuta", valuta.value, index)}
-                        values={_beloep?.valuta ?? ''}
-                      />
-                    </Column>
-                    <Column>
-                      <DateField
-                        id='beloep-gjeldendesiden'
-                        label={t('p2000:form-ytelse-beloep-beloep-siden')}
-                        hideLabel={index > 0}
-                        index={index}
-                        error={_v[_namespace + '-gjeldendesiden']?.feilmelding}
-                        namespace={_namespace}
-                        onChanged={(e) => setBeloepProperty("gjeldendesiden", dateToString(e)!, index)}
-                        defaultDate={_beloep?.gjeldendesiden}
-                      />
-                    </Column>
-                    <Column>
-                      <Select
-                        error={_v[_namespace + '-betalingshyppighetytelse']?.feilmelding}
-                        id='beloep-betalingshyppighetytelse'
-                        label={t('p2000:form-ytelse-beloep-betalingshyppighet')}
-                        hideLabel={index > 0}
-                        onChange={(e) => setBeloepProperty("betalingshyppighetytelse", e.target.value, index)}
-                        value={_beloep?.betalingshyppighetytelse ?? ''}
-                      >
-                        <option value=''>Velg</option>
-                        {betalingshyppighetOptions.map((option) => {
-                          return(<option value={option.value}>{option.label}</option>)
-                        })}
-                      </Select>
-                    </Column>
-                    <Column>
-                      {_beloep?.betalingshyppighetytelse === "99" &&
-                        <Input
-                          error={_v[_namespace + '-annenbetalingshyppighetytelse']?.feilmelding}
-                          namespace={_namespace}
-                          id='beloep-annenbetalingshyppighetytelse'
-                          label={t('p2000:form-ytelse-beloep-annenbetalingshyppighetytelse')}
-                          hideLabel={index > 0}
-                          onChanged={(e) => setBeloepProperty("annenbetalingshyppighetytelse", e, index)}
-                          value={_beloep?.annenbetalingshyppighetytelse ?? ''}
-                        />
-                      }
-                    </Column>
-
-                  </AlignStartRow>
-                  <ErrorLabel error={_v[_namespace + '-beloepArray']?.feilmelding}/>
-                </>
-              )
-              : (
-                <BeloepRow beloep={_beloep} index={index}/>
-              )
-            }
-          </Column>
-          <AlignEndColumn>
-            {parentEditMode &&
-              <AddRemovePanel<Beloep>
+      <>
+      {inEditMode && parentEditMode
+        ? (
+          <Table.Row>
+            <TopAlignedCell width={"10%"}>
+              <Input
+                error={_v[_namespace + '-beloep']?.feilmelding}
+                namespace={_namespace}
+                id='beloep-beloep'
+                label={t('p2000:form-ytelse-beloep-beloep')}
+                hideLabel={true}
+                onChanged={(e) => setBelop(e, index)}
+                value={_beloep?.beloep ?? ''}
+              />
+            </TopAlignedCell>
+            <TopAlignedCell width={"10%"}>
+              <CountrySelect
+                error={_v[_namespace + '-valuta']?.feilmelding}
+                placeholder="Velg valuta"
+                namespace={_namespace}
+                id='beloep-valuta'
+                label={t('p2000:form-ytelse-beloep-valuta')}
+                hideLabel={true}
+                type='currency'
+                sort="noeuFirst"
+                onChanged={(e:any) => setBeloepProperty("valuta", e.target.value, index)}
+                onOptionSelected={(valuta: Currency) => setBeloepProperty("valuta", valuta.value, index)}
+                values={_beloep?.valuta ?? ''}
+              />
+            </TopAlignedCell>
+            <TopAlignedCell width={"20%"}>
+              <DateField
+                id='beloep-gjeldendesiden'
+                label={t('p2000:form-ytelse-beloep-beloep-siden')}
+                hideLabel={true}
+                index={index}
+                error={_v[_namespace + '-gjeldendesiden']?.feilmelding}
+                namespace={_namespace}
+                onChanged={(e) => setBeloepProperty("gjeldendesiden", dateToString(e)!, index)}
+                defaultDate={_beloep?.gjeldendesiden}
+              />
+            </TopAlignedCell>
+            <TopAlignedCell width={"20%"}>
+              <Select
+                error={_v[_namespace + '-betalingshyppighetytelse']?.feilmelding}
+                id='beloep-betalingshyppighetytelse'
+                label={t('p2000:form-ytelse-beloep-betalingshyppighet')}
+                hideLabel={true}
+                onChange={(e) => setBeloepProperty("betalingshyppighetytelse", e.target.value, index)}
+                value={_beloep?.betalingshyppighetytelse ?? ''}
+              >
+                <option value=''>Velg</option>
+                {betalingshyppighetOptions.map((option) => {
+                  return(<option value={option.value}>{option.label}</option>)
+                })}
+              </Select>
+            </TopAlignedCell>
+            <TopAlignedCell width={"20%"}>
+              {_beloep?.betalingshyppighetytelse === "99" &&
+                <Input
+                  error={_v[_namespace + '-annenbetalingshyppighetytelse']?.feilmelding}
+                  namespace={_namespace}
+                  id='beloep-annenbetalingshyppighetytelse'
+                  label={t('p2000:form-ytelse-beloep-annenbetalingshyppighetytelse')}
+                  hideLabel={true}
+                  onChanged={(e) => setBeloepProperty("annenbetalingshyppighetytelse", e, index)}
+                  value={_beloep?.annenbetalingshyppighetytelse ?? ''}
+                />
+              }
+            </TopAlignedCell>
+            <TopAlignedCell width={"20%"}>
+              <AddRemovePanel<Inntekt>
                 item={beloep}
-                marginTop={index < 0}
+                noMargin={true}
                 index={index}
                 inEditMode={inEditMode}
                 onRemove={onRemove}
@@ -272,20 +259,61 @@ const BeloepRows: React.FC<BeloepProps> = ({
                 onConfirmEdit={onSaveEdit}
                 onCancelEdit={() => onCloseEdit(_namespace)}
               />
-            }
-          </AlignEndColumn>
-        </AlignStartRow>
-      </RepeatableRowNoHorizontalPadding>
+            </TopAlignedCell>
+          </Table.Row>
+        )
+        : (
+          <Table.Row>
+            <Table.DataCell width={"10%"}>
+              {beloep?.beloep}
+            </Table.DataCell>
+            <Table.DataCell width={"10%"}>
+              {beloep?.valuta}
+            </Table.DataCell>
+            <Table.DataCell width={"20%"}>
+              {formatDate(beloep?.gjeldendesiden as string)}
+            </Table.DataCell>
+            <Table.DataCell width={"40%"} colSpan={2}>
+              {beloep?.betalingshyppighetytelse ?
+                beloep?.betalingshyppighetytelse === "99" ?
+                  beloep?.annenbetalingshyppighetytelse :
+                  betalingshyppighetMap[beloep?.betalingshyppighetytelse]
+                : ''
+              }
+            </Table.DataCell>
+            <Table.DataCell width={"20%"}>
+              {parentEditMode &&
+                <AddRemovePanel<Inntekt>
+                  noMargin={true}
+                  item={beloep}
+                  index={index}
+                  inEditMode={inEditMode}
+                  onRemove={onRemove}
+                  onAddNew={onAddNew}
+                  onCancelNew={onCloseNew}
+                  onStartEdit={onStartEdit}
+                  onConfirmEdit={onSaveEdit}
+                  onCancelEdit={() => onCloseEdit(_namespace)}
+                  alwaysVisible={true}
+                />
+              }
+            </Table.DataCell>
+          </Table.Row>
+        )
+      }
+      </>
     )
   }
 
   return (
     <>
-      {_.isEmpty(beloep)
+      {_.isEmpty(beloep) && !newBeloepForm
         ? (
-          <BodyLong>
-            Ingen beløp
-          </BodyLong>
+          <Table.Row>
+            <Table.DataCell colSpan={5}>
+              Ingen beløp
+            </Table.DataCell>
+          </Table.Row>
         )
         : (
           <>
@@ -293,20 +321,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
           </>
         )
       }
-      {parentEditMode && _newForm
-        ? renderRow(null, -1)
-        : parentEditMode && (
-          <>
-            <Button
-              variant='tertiary'
-              onClick={() => _setNewForm(true)}
-              iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
-            >
-              {t('ui:add-new-x', { x: t('p2000:form-ytelse-beloep')?.toLowerCase() })}
-            </Button>
-          </>
-        )}
-
+      {parentEditMode && newBeloepForm && renderRow(null, -1)}
     </>
   )
 }

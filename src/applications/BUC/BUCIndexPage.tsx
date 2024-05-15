@@ -106,7 +106,7 @@ const AnimatableDiv = styled.div`
 export const ContainerDiv = styled.div`
   width: 100%;
   display: block;
-  overflow: hidden;
+  overflow: visible;
 `
 const WaitingPanelDiv = styled.div`
   flex: 1;
@@ -119,7 +119,7 @@ const WaitingPanelDiv = styled.div`
 export const WindowDiv = styled.div`
   width: 300%;
   display: flex;
-  overflow: hidden;
+  overflow: visible;
 `
 
 export interface BUCIndexPageSelector {
