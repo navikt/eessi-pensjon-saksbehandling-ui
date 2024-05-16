@@ -84,7 +84,7 @@ const Adresse: React.FC<AdresseProps> = ({
             id='adresse-postnummer'
             label={t('p2000:form-adresse-postnummer')}
             onChanged={setPostnummer}
-            value={(adresse?.postnummer) ?? ''}
+            value={(usePostKode ? adresse?.postkode: adresse?.postnummer) ?? ''}
           />
         </Column>
         <Column>
