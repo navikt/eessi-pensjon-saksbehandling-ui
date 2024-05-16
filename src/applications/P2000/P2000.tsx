@@ -107,7 +107,7 @@ const P2000: React.FC<P2000Props> = ({
           { label: "Ytelser", value: 'ytelser', component: Ytelser},
           { label: "Ektefelle", value: 'ektefelle', component: Ektefelle},
           { label: "Verge", value: 'verge', component: Verge},
-          { label: "Informasjon om betaling", value: 'informasjon-om-betaling', component: InformasjonOmBetaling}
+          { label: "Informasjon om betaling", value: 'informasjonombetaling', component: InformasjonOmBetaling}
         ]}
         PSED={currentPSED}
         setPSED={setPSED}

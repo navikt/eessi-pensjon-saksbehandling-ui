@@ -10,6 +10,10 @@ import {Bank} from "../../../declarations/p2000";
 import _ from "lodash";
 import Input from "../../../components/Forms/Input";
 import Adresse from "../Adresse/Adresse";
+import useUnmount from "../../../hooks/useUnmount";
+import performValidation from "../../../utils/performValidation";
+import {setValidation} from "../../../actions/validation";
+import {validateBank, ValidationBankProps} from "./validation";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -25,7 +29,7 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { validation } = useAppSelector(mapState)
-  const namespace = `${parentNamespace}-bruker-bank`
+  const namespace = `${parentNamespace}-informasjonombetaling`
   const target = 'nav.bruker.bank'
   const bank: Bank | undefined = _.get(PSED, target)
 
@@ -79,6 +83,17 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
       _setSepaIkkeSepa("ikkesepa")
     }
   }, [bank])
+
+  useUnmount(() => {
+    const clonedvalidation = _.cloneDeep(validation)
+    performValidation<ValidationBankProps>(
+      clonedvalidation, namespace, validateBank, {
+        bank,
+        sepaIkkeSepa: _sepaIkkeSepa
+      }, true
+    )
+    dispatch(setValidation(clonedvalidation))
+  })
 
   return (
     <>
