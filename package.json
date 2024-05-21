@@ -6,10 +6,10 @@
   "scripts": {
     "npx": "npx npm-force-resolutions",
     "postbuild": "export GIT_VERSION=`git describe --always` && sed -i -- \"s/%GIT_VERSION%/$GIT_VERSION/g\" build/index.html",
-    "build": "tsc  && vite build",
+    "build": "tsc && cross-env NODE_OPTIONS=--max-old-space-size=8192 vite build",
     "lint": "standardx './src/**/*.ts' './src/**/*.tsx'",
     "lint:fix": "standardx './src/**/*.ts' './src/**/*.tsx' --fix",
-    "start": "vite",
+    "start": "cross-env NODE_OPTIONS=--max-old-space-size=4096 vite",
     "test": "cross-env NODE_OPTIONS=--max-old-space-size=4096 NODE_ENV=test react-scripts test",
     "test:clear": "cross-env NODE_ENV=test react-scripts test --clearCache",
     "test:ci": "cross-env NODE_OPTIONS=--max-old-space-size=4096 NODE_ENV=test react-scripts test --watchAll=false --forceExit --updateSnapshot",
