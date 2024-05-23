@@ -257,5 +257,6 @@
       "src/widgets/*.{ts,tsx}",
       "src/widgets/**/*.{ts,tsx}"
     ]
-  }
+  },
+  "type": "module"
 }
