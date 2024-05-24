@@ -30,7 +30,7 @@ const DateField: React.FC<DateFieldProps> = ({
   });
 
   useEffect(() => {
-    defaultDate ? setSelected(new Date(defaultDate)) : setSelected(new Date())
+    defaultDate ? setSelected(new Date(defaultDate)) : setSelected(undefined)
   }, [])
 
   return (
