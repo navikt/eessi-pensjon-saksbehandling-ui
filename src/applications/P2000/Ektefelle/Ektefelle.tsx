@@ -74,9 +74,9 @@ const Ektefelle: React.FC<MainFormProps> = ({
               onChange={(e: any) => setType(e)}
               value={ektefelle?.type}
             >
-              <Radio value="01">Ektefelle</Radio>
-              <Radio value="02">Partner i registrert partnerskap</Radio>
-              <Radio value="03">Samboer</Radio>
+              <Radio value="ektefelle">Ektefelle</Radio>
+              <Radio value="part_i_et_registrert_partnerskap">Partner i registrert partnerskap</Radio>
+              <Radio value="samboer">Samboer</Radio>
             </RadioGroup>
           </Column>
         </AlignStartRow>
