@@ -17,6 +17,8 @@ import {useDispatch} from "react-redux";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import classNames from "classnames";
 import {RepeatableRowNoBackground} from "../../../components/StyledComponents";
+import UtenlandskePin from "../UtenlandskePin/UtenlandskePin";
+import Foedested from "../Foedested/Foedested";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -138,6 +140,34 @@ const Barn: React.FC<MainFormProps> = ({
     })
   }
 
+  const setBarnFoedested = (property: string, value: string | null | undefined, index: number) => {
+    if (index < 0) {
+      _setNewBarn({
+        ..._newBarn,
+        person: {
+          ..._newBarn?.person,
+          foedested: {
+            ..._newBarn?.person.foedested,
+            [property]: value
+          }
+        }
+      })
+      return
+    }
+    _setEditBarn({
+      ..._editBarn,
+      person: {
+        ..._editBarn?.person,
+        foedested: {
+          ..._editBarn?.person.foedested,
+          [property]: value
+        }
+      }
+    })
+  }
+
+
+
 
 
   const renderRow = (barn: P2000Barn | null, index: number) => {
@@ -175,6 +205,10 @@ const Barn: React.FC<MainFormProps> = ({
           {inEditMode &&
             <>
               <PersonOpplysninger setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index}/>
+              <VerticalSeparatorDiv/>
+              <UtenlandskePin setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={namespace} parentIndex={index}/>
+              <VerticalSeparatorDiv/>
+              <Foedested setPersonOpplysninger={setBarnFoedested} person={_barn?.person} parentNamespace={namespace} parentIndex={index}/>
             </>
           }
           {!inEditMode &&

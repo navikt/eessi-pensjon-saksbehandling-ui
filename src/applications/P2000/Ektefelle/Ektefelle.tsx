@@ -14,6 +14,7 @@ import performValidation from "../../../utils/performValidation";
 import {validateEktefelle, ValidationEktefelleProps} from "./validation";
 import {useTranslation} from "react-i18next";
 import PersonOpplysninger from "../PersonOpplysninger/PersonOpplysninger";
+import Foedested from "../Foedested/Foedested";
 
 
 const mapState = (state: State): MainFormSelector => ({
@@ -52,6 +53,11 @@ const Ektefelle: React.FC<MainFormProps> = ({
     dispatch(updatePSED(`${target}.person.${property}`, value))
   }
 
+  const setEktefelleFoedested = (property: string, value: string) => {
+    dispatch(updatePSED(`${target}.person.foedested.${property}`, value))
+  }
+
+
   return (
     <>
       <PaddedDiv>
@@ -82,6 +88,8 @@ const Ektefelle: React.FC<MainFormProps> = ({
           parentTarget={target}
           updatePSED={updatePSED}
         />
+        <VerticalSeparatorDiv/>
+        <Foedested setPersonOpplysninger={setEktefelleFoedested} person={ektefelle?.person} parentNamespace={namespace}/>
         <VerticalSeparatorDiv/>
       </PaddedDiv>
     </>

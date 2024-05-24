@@ -46,10 +46,10 @@ export interface Person {
   fornavn?: string
   kjoenn?: string
   foedested?: {
-    by : string | null
-    land : string | null
-    region : string | null
-  } | null,
+    by?: string | null | undefined
+    land?: string | null | undefined
+    region?: string | null | undefined
+  } | null | undefined,
   foedselsdato?: string
   doedsdato?: string
   sivilstand?: Array<Sivilstand>,
