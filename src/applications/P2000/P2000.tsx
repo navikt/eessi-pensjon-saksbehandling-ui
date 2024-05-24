@@ -21,6 +21,7 @@ import ForsikretPerson from "./ForsikretPerson/ForsikretPerson";
 import Yrkesaktivitet from "./Yrkesaktivitet/Yrkesaktivitet";
 import Ytelser from "./Ytelser/Ytelser";
 import Ektefelle from "./Ektefelle/Ektefelle";
+import Barn from "./Barn/Barn";
 import InformasjonOmBetaling from "./InformasjonOmBetaling/InformasjonOmBetaling";
 import SakInfo from "./SakInfo/SakInfo";
 
@@ -106,6 +107,7 @@ const P2000: React.FC<P2000Props> = ({
           { label: "Yrkesaktivitet", value: 'yrkesaktivitet', component: Yrkesaktivitet},
           { label: "Ytelser", value: 'ytelser', component: Ytelser},
           { label: "Ektefelle", value: 'ektefelle', component: Ektefelle},
+          { label: "Barn", value: 'barn', component: Barn},
           { label: "Verge", value: 'verge', component: Verge},
           { label: "Informasjon om betaling", value: 'informasjonombetaling', component: InformasjonOmBetaling}
         ]}
