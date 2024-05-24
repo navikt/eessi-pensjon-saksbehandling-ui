@@ -35,8 +35,6 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
 
   const [_sepaIkkeSepa, _setSepaIkkeSepa] = useState<string>()
 
-  console.log(validation, t)
-
   const setInnehaverRolle = (rolle: string) => {
     dispatch(updatePSED(`${target}.konto.innehaver.rolle`, rolle))
   }

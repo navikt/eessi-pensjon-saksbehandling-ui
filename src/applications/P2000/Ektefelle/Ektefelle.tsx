@@ -13,10 +13,8 @@ import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
 import {validateEktefelle, ValidationEktefelleProps} from "./validation";
 import {useTranslation} from "react-i18next";
-import Input from "../../../components/Forms/Input";
-import DateField from "../DateField/DateField";
-import {dateToString} from "../../../utils/utils";
-import {HorizontalRadioGroup} from "../../../components/StyledComponents";
+import PersonOpplysninger from "../PersonOpplysninger/PersonOpplysninger";
+
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -35,7 +33,7 @@ const Ektefelle: React.FC<MainFormProps> = ({
   const namespace = `${parentNamespace}-ektefelle`
   const target = 'nav.ektefelle'
   const ektefelle:  P2000Ektefelle | undefined = _.get(PSED, target)
-  
+
   useUnmount(() => {
     const clonedvalidation = _.cloneDeep(validation)
     performValidation<ValidationEktefelleProps>(
@@ -50,25 +48,9 @@ const Ektefelle: React.FC<MainFormProps> = ({
     dispatch(updatePSED(`${target}.type`, type))
   }
 
-  const setEtternavn = (etternavn: string) => {
-    dispatch(updatePSED(`${target}.person.etternavn`, etternavn))
+  const setEktefellePersonalia = (property: string, value: string) => {
+    dispatch(updatePSED(`${target}.person.${property}`, value))
   }
-
-  const setFornavn = (fornavn: string) => {
-    dispatch(updatePSED(`${target}.person.fornavn`, fornavn))
-  }
-
-  const setFoedselsDato = (foedselsdato: Date | undefined) => {
-    if(foedselsdato){
-      const dateString = dateToString(foedselsdato)
-      dispatch(updatePSED(`${target}.person.foedselsdato`, dateString))
-    }
-  }
-
-  const setKjoenn = (kjoenn: string) => {
-    dispatch(updatePSED(`${target}.person.kjoenn`, kjoenn))
-  }
-
 
   return (
     <>
@@ -92,55 +74,7 @@ const Ektefelle: React.FC<MainFormProps> = ({
             </RadioGroup>
           </Column>
         </AlignStartRow>
-        <AlignStartRow>
-          <Column>
-            <Input
-              error={validation[namespace + '-person-etternavn']?.feilmelding}
-              namespace={namespace}
-              id='person-etternavn'
-              label={t('p2000:form-person-etternavn')}
-              onChanged={setEtternavn}
-              value={(ektefelle?.person?.etternavn) ?? ''}
-            />
-          </Column>
-          <Column>
-            <Input
-              error={validation[namespace + '-person-fornavn']?.feilmelding}
-              namespace={namespace}
-              id='person-fornavn'
-              label={t('p2000:form-person-fornavn')}
-              onChanged={setFornavn}
-              value={(ektefelle?.person?.fornavn)  ?? ''}
-            />
-          </Column>
-        </AlignStartRow>
-        <VerticalSeparatorDiv/>
-        <AlignStartRow>
-          <Column>
-            <DateField
-              id='person-foedselsdato'
-              index={0}
-              label={t('p2000:form-person-foedselsdato')}
-              error={validation[namespace + '-person-foedselsdato']?.feilmelding}
-              namespace={namespace}
-              onChanged={(e) => setFoedselsDato(e)}
-              defaultDate={ektefelle?.person.foedselsdato}
-            />
-          </Column>
-          <Column>
-            <HorizontalRadioGroup
-              error={validation[namespace + '-person-kjoenn']?.feilmelding}
-              id={namespace + "-person-kjoenn"}
-              legend={t('p2000:form-person-kjoenn')}
-              onChange={(e: any) => setKjoenn(e)}
-              value={ektefelle?.person.kjoenn}
-            >
-              <Radio value="M">Mann</Radio>
-              <Radio value="K">Kvinne</Radio>
-              <Radio value="">Ukjent</Radio>
-            </HorizontalRadioGroup>
-          </Column>
-        </AlignStartRow>
+        <PersonOpplysninger setPersonOpplysninger={setEktefellePersonalia} person={ektefelle?.person} parentNamespace={namespace}/>
         <VerticalSeparatorDiv/>
         <UtenlandskePin
           PSED={PSED}
