@@ -743,7 +743,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const renderDateCell = ({ value }: RenderOptions<P5000ListRow, P5000TableContext, string>) => (
-    <BodyLong>{_.isDate(value) ? dayjs(value,'DD.MM.YYYY').toString() : value}</BodyLong>
+    <BodyLong>{_.isDate(value) ? dayjs(value).format('DD.MM.YYYY') : value}</BodyLong>
   )
 
   function generateDateRange(startDate: any, endDate: any) {
