@@ -29,8 +29,6 @@ import { State } from 'src/declarations/reducers'
 import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
 import { standardLogger } from 'src/metrics/loggers'
-/*import * as Moment from 'moment'
-import { extendMoment } from 'moment-range'*/
 import {
   HiddenDiv,
   PileCenterDiv,
@@ -48,8 +46,6 @@ import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 import dayjs, {Dayjs} from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat"
 dayjs.extend(customParseFormat)
-
-// const moment = extendMoment(Moment)
 
 export interface P5000EditSelector {
   sentP5000info: any
@@ -169,7 +165,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       return undefined
     }
     if (_.isDate(s)) {
-      return dayjs(s,'DD.MM.YYYY').toString()
+      return dayjs(s).format('DD.MM.YYYY')
     }
     const r = s.match('^(\\d{2})(\\d{2})(\\d{2})$')
     if (r !== null) {
@@ -771,7 +767,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       if (startdato.isAfter(sluttdato)) {
         errors.sluttdato = t('message:validation-endDateBeforeStartDate')
       }
-      //const range = Dayjs.range(startdato, sluttdato)
 
       const range = generateDateRange(startdato, sluttdato)
 
@@ -784,7 +779,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           const thisRange = generateDateRange(dayjs(otherItem.startdato), dayjs(otherItem.sluttdato))
           if (item.type === otherItem.type && rangesOverlap(range[0],range[1], thisRange[0], thisRange[1])) {
             errors.startdato = t('message:validation-overlapDate', {
-              perioder: dayjs(otherItem.startdato,'DD.MM.YYYY') + '/' + dayjs(otherItem.sluttdato,'DD.MM.YYYY')
+              perioder: dayjs(otherItem.startdato).format('DD.MM.YYYY') + '/' + dayjs(otherItem.sluttdato).format('DD.MM.YYYY')
             })
             break
           }
