@@ -8,7 +8,7 @@ import { Issuer } from 'openid-client'
 import * as jose from 'jose';
 import timeout from 'connect-timeout';
 
-import app from 'express'
+const app = express();
 app.use(timeout('60s'));
 app.disable("x-powered-by");
 
