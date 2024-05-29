@@ -5,7 +5,7 @@ import winston from 'winston'
 import fetch from 'cross-fetch'
 import { URLSearchParams } from 'url'
 import { Issuer } from 'openid-client'
-import jose from 'jose'
+import * as jose from 'jose';
 import timeout from 'connect-timeout';
 
 import app from 'express'
