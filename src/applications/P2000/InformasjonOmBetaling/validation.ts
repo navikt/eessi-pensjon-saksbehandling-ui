@@ -1,6 +1,6 @@
-import {Validation} from "declarations/app";
-import {addError, checkIfNotEmpty} from 'utils/validation'
-import {Bank  } from "declarations/p2000";
+import {Validation} from "src/declarations/app";
+import {addError, checkIfNotEmpty} from 'src/utils/validation'
+import {Bank  } from "src/declarations/p2000";
 import _ from 'lodash'
 
 export interface ValidationBankProps {

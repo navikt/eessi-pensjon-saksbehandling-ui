@@ -1,15 +1,15 @@
-import {State} from "declarations/reducers";
+import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {useAppSelector} from "store";
+import {useAppSelector} from "src/store";
 import {AlignStartRow, Column, VerticalSeparatorDiv} from "@navikt/hoykontrast";
-import Input from "components/Forms/Input";
+import Input from "src/components/Forms/Input";
 import DateField from "../DateField/DateField";
-import {HorizontalRadioGroup} from "components/StyledComponents";
+import {HorizontalRadioGroup} from "src/components/StyledComponents";
 import {Radio} from "@navikt/ds-react";
-import {Person} from "declarations/p2000";
-import {dateToString} from "utils/utils";
+import {Person} from "src/declarations/p2000";
+import {dateToString} from "src/utils/utils";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
