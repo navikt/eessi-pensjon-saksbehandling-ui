@@ -40,18 +40,24 @@ const mapState = (state: State): MainFormSelector => ({
 
 export interface UtenlandskPinProps {
   limit?: number
-  PSED: PSED | null | undefined
+  PSED?: PSED | null | undefined
   parentNamespace: string
-  parentTarget: string
-  updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
+  parentTarget?: string
+  parentIndex?: number
+  updatePSED?: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
+  setPersonOpplysninger?: any
+  person?: Person | undefined
 }
 
 const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
   limit = 99,
   parentNamespace,
   parentTarget,
+  parentIndex,
   PSED,
-  updatePSED
+  updatePSED,
+  setPersonOpplysninger,
+  person
 }: UtenlandskPinProps): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
@@ -59,8 +65,8 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
   const namespace = `${parentNamespace}-pin`
   const target = `${parentTarget}.person.pin`
 
-  const person:  Person | undefined = _.get(PSED, `${parentTarget}.person`)
-  const utenlandskePINs: Array<PIN> = _.filter(person?.pin, p => p.land !== 'NO')
+  const _person:  Person | undefined = person ? person : _.get(PSED, `${parentTarget}.person`)
+  const utenlandskePINs: Array<PIN> = _.filter(_person?.pin, p => p.land !== 'NO')
 
   const countryData = CountryData.getCountryInstance('nb')
   const landUtenNorge = CountryFilter.RINA_ACCEPTED({ useUK: true })?.filter((it: string) => it !== 'NO')
@@ -78,11 +84,17 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
     if (_.isNil(pins)) {
       pins = []
     }
-    const norskPin: PIN | undefined = person ? _.find(person.pin, p => p.land === 'NO') : undefined
+    const norskPin: PIN | undefined = _person ? _.find(_person.pin, p => p.land === 'NO') : undefined
     if (!_.isEmpty(norskPin)) {
       pins.unshift(norskPin!)
     }
-    dispatch(updatePSED(`${target}`, pins))
+
+    if(setPersonOpplysninger){
+      setPersonOpplysninger("pin", pins, parentIndex)
+    } else if (updatePSED) {
+      dispatch(updatePSED(`${target}`, pins))
+    }
+
     dispatch(resetValidation(namespace))
   }
 

@@ -13,10 +13,9 @@ import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
 import {validateEktefelle, ValidationEktefelleProps} from "./validation";
 import {useTranslation} from "react-i18next";
-import Input from "../../../components/Forms/Input";
-import DateField from "../DateField/DateField";
-import {dateToString} from "../../../utils/utils";
-import {HorizontalRadioGroup} from "../../../components/StyledComponents";
+import PersonOpplysninger from "../PersonOpplysninger/PersonOpplysninger";
+import Foedested from "../Foedested/Foedested";
+
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -50,23 +49,12 @@ const Ektefelle: React.FC<MainFormProps> = ({
     dispatch(updatePSED(`${target}.type`, type))
   }
 
-  const setEtternavn = (etternavn: string) => {
-    dispatch(updatePSED(`${target}.person.etternavn`, etternavn))
+  const setEktefellePersonalia = (property: string, value: string) => {
+    dispatch(updatePSED(`${target}.person.${property}`, value))
   }
 
-  const setFornavn = (fornavn: string) => {
-    dispatch(updatePSED(`${target}.person.fornavn`, fornavn))
-  }
-
-  const setFoedselsDato = (foedselsdato: Date | undefined) => {
-    if(foedselsdato){
-      const dateString = dateToString(foedselsdato)
-      dispatch(updatePSED(`${target}.person.foedselsdato`, dateString))
-    }
-  }
-
-  const setKjoenn = (kjoenn: string) => {
-    dispatch(updatePSED(`${target}.person.kjoenn`, kjoenn))
+  const setEktefelleFoedested = (property: string, value: string) => {
+    dispatch(updatePSED(`${target}.person.foedested.${property}`, value))
   }
 
 
@@ -86,61 +74,13 @@ const Ektefelle: React.FC<MainFormProps> = ({
               onChange={(e: any) => setType(e)}
               value={ektefelle?.type}
             >
-              <Radio value="01">Ektefelle</Radio>
-              <Radio value="02">Partner i registrert partnerskap</Radio>
-              <Radio value="03">Samboer</Radio>
+              <Radio value="ektefelle">Ektefelle</Radio>
+              <Radio value="part_i_et_registrert_partnerskap">Partner i registrert partnerskap</Radio>
+              <Radio value="samboer">Samboer</Radio>
             </RadioGroup>
           </Column>
         </AlignStartRow>
-        <AlignStartRow>
-          <Column>
-            <Input
-              error={validation[namespace + '-person-etternavn']?.feilmelding}
-              namespace={namespace}
-              id='person-etternavn'
-              label={t('p2000:form-person-etternavn')}
-              onChanged={setEtternavn}
-              value={(ektefelle?.person?.etternavn) ?? ''}
-            />
-          </Column>
-          <Column>
-            <Input
-              error={validation[namespace + '-person-fornavn']?.feilmelding}
-              namespace={namespace}
-              id='person-fornavn'
-              label={t('p2000:form-person-fornavn')}
-              onChanged={setFornavn}
-              value={(ektefelle?.person?.fornavn)  ?? ''}
-            />
-          </Column>
-        </AlignStartRow>
-        <VerticalSeparatorDiv/>
-        <AlignStartRow>
-          <Column>
-            <DateField
-              id='person-foedselsdato'
-              index={0}
-              label={t('p2000:form-person-foedselsdato')}
-              error={validation[namespace + '-person-foedselsdato']?.feilmelding}
-              namespace={namespace}
-              onChanged={(e) => setFoedselsDato(e)}
-              defaultDate={ektefelle?.person.foedselsdato}
-            />
-          </Column>
-          <Column>
-            <HorizontalRadioGroup
-              error={validation[namespace + '-person-kjoenn']?.feilmelding}
-              id={namespace + "-person-kjoenn"}
-              legend={t('p2000:form-person-kjoenn')}
-              onChange={(e: any) => setKjoenn(e)}
-              value={ektefelle?.person.kjoenn}
-            >
-              <Radio value="M">Mann</Radio>
-              <Radio value="K">Kvinne</Radio>
-              <Radio value="">Ukjent</Radio>
-            </HorizontalRadioGroup>
-          </Column>
-        </AlignStartRow>
+        <PersonOpplysninger setPersonOpplysninger={setEktefellePersonalia} person={ektefelle?.person} parentNamespace={namespace}/>
         <VerticalSeparatorDiv/>
         <UtenlandskePin
           PSED={PSED}
@@ -148,6 +88,8 @@ const Ektefelle: React.FC<MainFormProps> = ({
           parentTarget={target}
           updatePSED={updatePSED}
         />
+        <VerticalSeparatorDiv/>
+        <Foedested setPersonOpplysninger={setEktefelleFoedested} person={ektefelle?.person} parentNamespace={namespace}/>
         <VerticalSeparatorDiv/>
       </PaddedDiv>
     </>

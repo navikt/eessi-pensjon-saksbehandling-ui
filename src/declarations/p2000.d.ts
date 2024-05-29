@@ -42,14 +42,16 @@ export interface Person {
   pin? : Array<PIN>,
   statsborgerskap?: Array<Statsborgerskap>
   etternavn?: string
+  etternavnvedfoedsel?: string
   fornavn?: string
   kjoenn?: string
   foedested?: {
-    by : string | null
-    land : string | null
-    region : string | null
-  } | null,
+    by?: string | null | undefined
+    land?: string | null | undefined
+    region?: string | null | undefined
+  } | null | undefined,
   foedselsdato?: string
+  doedsdato?: string
   sivilstand?: Array<Sivilstand>,
   relasjontilavdod?: string | null,
   rolle?: string | null,
@@ -60,8 +62,12 @@ export interface Person {
 }
 
 export interface Bruker {
-  mor : string | null
-  far : string | null
+  far?: {
+    person: Person
+  },
+  mor?: {
+    person: Person
+  }
   person : Person,
   adresse : Adresse | null,
   bank : Bank | null
@@ -76,6 +82,18 @@ export interface Ektefelle {
   mor?: {
     person: Person
   }
+}
+
+export interface Barn {
+  person: Person
+  far?: {
+    person: Person
+  },
+  mor?: {
+    person: Person
+  }
+  relasjontilbruker?: string
+  opplysningeromannetbarn?: string
 }
 
 export interface Verge {
@@ -178,7 +196,7 @@ export interface P2000SED {
     bruker : Bruker,
     verge : Verge | null,
     krav : null,
-    barn : null,
+    barn : Barn,
     ektefelle: Ektefelle,
   },
   pensjon : {

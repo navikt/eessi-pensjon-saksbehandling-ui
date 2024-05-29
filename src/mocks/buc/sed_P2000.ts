@@ -80,7 +80,14 @@ export default {
       "bank": null
     },
     "ektefelle": null,
-    "barn": null,
+    "barn": [
+      {
+        "person": {
+          "fornavn": "BARN",
+          "etternavn": "BARNSEN"
+        }
+      }
+    ],
     "verge": {
       "person": {
         "pin": null,
