@@ -1,5 +1,5 @@
 import {AlignEndColumn, AlignStartRow, Column, PaddedDiv, VerticalSeparatorDiv} from "@navikt/hoykontrast";
-import {BodyLong, Button, Heading} from "@navikt/ds-react";
+import {BodyLong, Button, Heading, Select} from "@navikt/ds-react";
 import _ from "lodash";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useState} from "react";
@@ -20,6 +20,8 @@ import {RepeatableRowNoBackground} from "../../../components/StyledComponents";
 import UtenlandskePin from "../UtenlandskePin/UtenlandskePin";
 import Foedested from "../Foedested/Foedested";
 import Statsborgerskap from "../Statsborgerskap/Statsborgerskap";
+import DateField from "../DateField/DateField";
+import {dateToString} from "../../../utils/utils";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -148,7 +150,7 @@ const Barn: React.FC<MainFormProps> = ({
         person: {
           ..._newBarn?.person,
           foedested: {
-            ..._newBarn?.person.foedested,
+            ..._newBarn?.person?.foedested,
             [property]: value
           }
         }
@@ -160,14 +162,26 @@ const Barn: React.FC<MainFormProps> = ({
       person: {
         ..._editBarn?.person,
         foedested: {
-          ..._editBarn?.person.foedested,
+          ..._editBarn?.person?.foedested,
           [property]: value
         }
       }
     })
   }
 
-
+  const setRelasjon = (relasjon: string, index: number) => {
+    if (index < 0) {
+      _setNewBarn({
+        ..._newBarn,
+        relasjontilbruker: relasjon
+      })
+      return
+    }
+    _setEditBarn({
+      ..._editBarn,
+      relasjontilbruker: relasjon
+    })
+  }
 
 
 
@@ -196,6 +210,46 @@ const Barn: React.FC<MainFormProps> = ({
               <Foedested setPersonOpplysninger={setBarnFoedested} person={_barn?.person} parentNamespace={_namespace} parentIndex={index}/>
               <VerticalSeparatorDiv/>
               <Statsborgerskap setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index}/>
+              <VerticalSeparatorDiv/>
+              <Heading size='small'>
+                Relasjon
+              </Heading>
+              <VerticalSeparatorDiv/>
+              <AlignStartRow>
+                <Column>
+                  <Select
+                    error={validation[namespace + '-relasjontilbruker']?.feilmelding}
+                    id='barn-relasjontilbruker'
+                    label={t('p2000:form-barn-relasjontilbruker')}
+                    onChange={(e) => setRelasjon(e.target.value, index)}
+                    value={(_barn?.relasjontilbruker) ?? ''}
+                  >
+                    <option value=''>Velg</option>
+                    <option value='eget_barn'>Eget barn</option>
+                    <option value='adoptivbarn'>Adoptivbarn</option>
+                    <option value='fosterbarn'>Fosterbarn</option>
+                  </Select>
+                </Column>
+              </AlignStartRow>
+              <VerticalSeparatorDiv/>
+              <Heading size='small'>
+                Dødsdato
+              </Heading>
+              <VerticalSeparatorDiv/>
+              <AlignStartRow>
+                <Column>
+                  <DateField
+                    id='person-doedssdato'
+                    index={0}
+                    label={t('p2000:form-person-doedsdato')}
+                    error={validation[namespace + '-doedssdato']?.feilmelding}
+                    namespace={namespace}
+                    onChanged={(v) => setBarnPersonalia("doedsdato", dateToString(v), index)}
+                    defaultDate={_barn?.person?.doedsdato ?? ''}
+                  />
+                </Column>
+              </AlignStartRow>
+              <VerticalSeparatorDiv/>
               <AlignEndColumn>
                 <AddRemovePanel<P2000Barn>
                   item={barn}
