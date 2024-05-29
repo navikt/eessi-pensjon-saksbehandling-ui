@@ -1,14 +1,14 @@
-const express = require('express')
-const path = require('path')
-const { createProxyMiddleware } = require('http-proxy-middleware')
-const winston = require("winston");
-const fetch = require("cross-fetch");
-const { URLSearchParams } = require("url");
-const { Issuer } = require("openid-client");
-const jose = require("jose");
-const timeout = require('connect-timeout');
+import express from 'express'
+import path from 'path'
+import { createProxyMiddleware } from 'http-proxy-middleware'
+import winston from 'winston'
+import fetch from 'cross-fetch'
+import { URLSearchParams } from 'url'
+import { Issuer } from 'openid-client'
+import jose from 'jose'
+import timeout from 'connect-timeout';
 
-const app = express();
+import app from 'express'
 app.use(timeout('60s'));
 app.disable("x-powered-by");
 
