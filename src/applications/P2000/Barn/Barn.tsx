@@ -186,29 +186,29 @@ const Barn: React.FC<MainFormProps> = ({
             selected: inEditMode
           })}
         >
-          <AlignStartRow>
-            <AlignEndColumn>
-              <AddRemovePanel<P2000Barn>
-                item={barn}
-                marginTop={index < 0}
-                index={index}
-                inEditMode={inEditMode}
-                onRemove={onRemove}
-                onAddNew={onAddNew}
-                onCancelNew={onCloseNew}
-                onStartEdit={onStartEdit}
-                onConfirmEdit={onSaveEdit}
-                onCancelEdit={() => onCloseEdit(_namespace)}
-              />
-            </AlignEndColumn>
-          </AlignStartRow>
           {inEditMode &&
             <>
               <PersonOpplysninger setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index}/>
               <VerticalSeparatorDiv/>
-              <UtenlandskePin setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={namespace} parentIndex={index}/>
+              <UtenlandskePin setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index}/>
               <VerticalSeparatorDiv/>
-              <Foedested setPersonOpplysninger={setBarnFoedested} person={_barn?.person} parentNamespace={namespace} parentIndex={index}/>
+              <Foedested setPersonOpplysninger={setBarnFoedested} person={_barn?.person} parentNamespace={_namespace} parentIndex={index}/>
+              <VerticalSeparatorDiv/>
+              {/*<Statsborgerskap setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index}/>*/}
+              <AlignEndColumn>
+                <AddRemovePanel<P2000Barn>
+                  item={barn}
+                  marginTop={index < 0}
+                  index={index}
+                  inEditMode={inEditMode}
+                  onRemove={onRemove}
+                  onAddNew={onAddNew}
+                  onCancelNew={onCloseNew}
+                  onStartEdit={onStartEdit}
+                  onConfirmEdit={onSaveEdit}
+                  onCancelEdit={() => onCloseEdit(_namespace)}
+                />
+              </AlignEndColumn>
             </>
           }
           {!inEditMode &&
@@ -216,6 +216,20 @@ const Barn: React.FC<MainFormProps> = ({
               <Column>
                 {_barn?.person?.etternavn} {_barn?.person?.fornavn}
               </Column>
+              <AlignEndColumn>
+                <AddRemovePanel<P2000Barn>
+                  item={barn}
+                  marginTop={index < 0}
+                  index={index}
+                  inEditMode={inEditMode}
+                  onRemove={onRemove}
+                  onAddNew={onAddNew}
+                  onCancelNew={onCloseNew}
+                  onStartEdit={onStartEdit}
+                  onConfirmEdit={onSaveEdit}
+                  onCancelEdit={() => onCloseEdit(_namespace)}
+                />
+              </AlignEndColumn>
             </AlignStartRow>
           }
           <VerticalSeparatorDiv/>

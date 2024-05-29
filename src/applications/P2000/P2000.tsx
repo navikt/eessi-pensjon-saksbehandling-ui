@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {Buc, Sed} from "../../declarations/buc";
 import {BUCMode, Validation} from "../../declarations/app";
-import {Button, Loader} from "@navikt/ds-react";
+import {Box, Button, Loader} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {getSed, saveSed, setPSED, updatePSED} from "actions/buc";
 import {resetValidation, setValidation} from 'actions/validation'
@@ -119,13 +119,23 @@ const P2000: React.FC<P2000Props> = ({
       <VerticalSeparatorDiv/>
       <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
       <VerticalSeparatorDiv/>
-      <Button
-        variant='primary'
-        onClick={onSaveSed}
-        loading={savingSed}
+      <Box
+        as="header"
+        borderWidth="1"
+        borderRadius="medium"
+        borderColor="border-default"
+        background="bg-default"
+        padding="4"
       >
-        Lagre i RINA
-      </Button>
+        <Button
+          variant='primary'
+          onClick={onSaveSed}
+          loading={savingSed}
+        >
+          Lagre i RINA
+        </Button>
+
+      </Box>
     </>
   )
 }
