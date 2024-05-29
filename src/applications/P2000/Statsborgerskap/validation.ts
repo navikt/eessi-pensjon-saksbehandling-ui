@@ -1,0 +1,73 @@
+import {Statsborgerskap} from "../../../declarations/p2000";
+import { Validation} from 'declarations/app'
+import { getIdx } from 'utils/namespace'
+import { checkIfDuplicate, checkIfNotEmpty, checkIfNotGB, checkIfValidLand } from 'utils/validation'
+
+export interface ValidationStatsborgerskapProps {
+  statsborgerskap: Statsborgerskap | null | undefined
+  statsborgerskapArray: Array<Statsborgerskap> | undefined
+  index ?: number
+}
+
+export interface ValidationStatsborgerskapArrayProps {
+  statsborgerskapArray: Array<Statsborgerskap> | undefined
+}
+
+export const validateStatsborgerskap = (
+  v: Validation,
+  namespace: string | undefined,
+  {
+    statsborgerskap,
+    statsborgerskapArray,
+    index
+  }: ValidationStatsborgerskapProps
+): boolean => {
+  const hasErrors: Array<boolean> = []
+  const idx = getIdx(index)
+
+  hasErrors.push(checkIfNotEmpty(v, {
+    needle: statsborgerskap?.land,
+    id: namespace + idx + '-land',
+    message: 'validation:noLand'
+  }))
+
+  hasErrors.push(checkIfValidLand(v, {
+    needle: statsborgerskap?.land,
+    id: namespace + idx + '-land',
+    message: 'validation:invalidLand'
+  }))
+
+  hasErrors.push(checkIfNotGB(v, {
+    needle: statsborgerskap?.land,
+    id: namespace + idx + '-land',
+    message: 'validation:invalidLand'
+  }))
+
+  hasErrors.push(checkIfDuplicate(v, {
+    needle: statsborgerskap?.land,
+    haystack: statsborgerskapArray,
+    matchFn: (_statsborgerskap: Statsborgerskap) => _statsborgerskap.land === statsborgerskap?.land,
+    index,
+    id: namespace + idx + '-land',
+    message: 'validation:duplicateLand',
+  }))
+
+  return hasErrors.find(value => value) !== undefined
+}
+
+export const validateStatsborgerskapArray = (
+  v: Validation,
+  namespace: string,
+  {
+    statsborgerskapArray,
+  }: ValidationStatsborgerskapArrayProps
+): boolean => {
+  const hasErrors: Array<boolean> = statsborgerskapArray?.map((statsborgerskap: Statsborgerskap, index: number) => {
+    return validateStatsborgerskap(v, namespace, {
+      index,
+      statsborgerskap,
+      statsborgerskapArray,
+    })
+  }) ?? []
+  return hasErrors.find(value => value) !== undefined
+}

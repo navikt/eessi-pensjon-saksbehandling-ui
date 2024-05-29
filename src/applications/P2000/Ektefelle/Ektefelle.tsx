@@ -15,6 +15,7 @@ import {validateEktefelle, ValidationEktefelleProps} from "./validation";
 import {useTranslation} from "react-i18next";
 import PersonOpplysninger from "../PersonOpplysninger/PersonOpplysninger";
 import Foedested from "../Foedested/Foedested";
+import Statsborgerskap from "../Statsborgerskap/Statsborgerskap";
 
 
 const mapState = (state: State): MainFormSelector => ({
@@ -90,6 +91,8 @@ const Ektefelle: React.FC<MainFormProps> = ({
         />
         <VerticalSeparatorDiv/>
         <Foedested setPersonOpplysninger={setEktefelleFoedested} person={ektefelle?.person} parentNamespace={namespace}/>
+        <VerticalSeparatorDiv/>
+        <Statsborgerskap parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED} person={ektefelle?.person}/>
         <VerticalSeparatorDiv/>
       </PaddedDiv>
     </>

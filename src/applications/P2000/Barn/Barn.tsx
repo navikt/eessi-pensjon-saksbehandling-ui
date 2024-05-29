@@ -19,6 +19,7 @@ import classNames from "classnames";
 import {RepeatableRowNoBackground} from "../../../components/StyledComponents";
 import UtenlandskePin from "../UtenlandskePin/UtenlandskePin";
 import Foedested from "../Foedested/Foedested";
+import Statsborgerskap from "../Statsborgerskap/Statsborgerskap";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -194,7 +195,7 @@ const Barn: React.FC<MainFormProps> = ({
               <VerticalSeparatorDiv/>
               <Foedested setPersonOpplysninger={setBarnFoedested} person={_barn?.person} parentNamespace={_namespace} parentIndex={index}/>
               <VerticalSeparatorDiv/>
-              {/*<Statsborgerskap setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index}/>*/}
+              <Statsborgerskap setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index}/>
               <AlignEndColumn>
                 <AddRemovePanel<P2000Barn>
                   item={barn}
