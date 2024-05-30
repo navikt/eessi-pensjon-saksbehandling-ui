@@ -21,7 +21,8 @@ import UtenlandskePin from "../UtenlandskePin/UtenlandskePin";
 import Foedested from "../Foedested/Foedested";
 import Statsborgerskap from "../Statsborgerskap/Statsborgerskap";
 import DateField from "../DateField/DateField";
-import {dateToString} from "../../../utils/utils";
+import {dateToString, formatDate} from "../../../utils/utils";
+import FormText from "../../../components/Forms/FormText";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -183,7 +184,16 @@ const Barn: React.FC<MainFormProps> = ({
     })
   }
 
+  const relasjonOptions = [
+    {value:'eget_barn', label: "Eget barn"},
+    {value:'adoptivbarn', label: "Adoptivbarn"},
+    {value:'fosterbarn', label: "Fosterbarn"}
+  ]
 
+  const getRelasjonLabel = (relasjon: string | undefined | null) => {
+    const selectedRelasjon = relasjonOptions.find((r) => r.value === relasjon)
+    return selectedRelasjon ? selectedRelasjon.label : relasjon
+  }
 
   const renderRow = (barn: P2000Barn | null, index: number) => {
     const _namespace = namespace + getIdx(index)
@@ -201,34 +211,44 @@ const Barn: React.FC<MainFormProps> = ({
             selected: inEditMode
           })}
         >
-          {inEditMode &&
             <>
-              <PersonOpplysninger setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index}/>
+              <PersonOpplysninger setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
               <VerticalSeparatorDiv/>
-              <UtenlandskePin setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index}/>
+              <UtenlandskePin setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
               <VerticalSeparatorDiv/>
-              <Foedested setPersonOpplysninger={setBarnFoedested} person={_barn?.person} parentNamespace={_namespace} parentIndex={index}/>
+              <Foedested setPersonOpplysninger={setBarnFoedested} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
               <VerticalSeparatorDiv/>
-              <Statsborgerskap setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index}/>
+              <Statsborgerskap setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
               <VerticalSeparatorDiv/>
               <Heading size='small'>
-                Relasjon
+                {t('p2000:form-barn-relasjontilbruker')}
               </Heading>
               <VerticalSeparatorDiv/>
               <AlignStartRow>
                 <Column>
-                  <Select
-                    error={validation[namespace + '-relasjontilbruker']?.feilmelding}
-                    id='barn-relasjontilbruker'
-                    label={t('p2000:form-barn-relasjontilbruker')}
-                    onChange={(e) => setRelasjon(e.target.value, index)}
-                    value={(_barn?.relasjontilbruker) ?? ''}
-                  >
-                    <option value=''>Velg</option>
-                    <option value='eget_barn'>Eget barn</option>
-                    <option value='adoptivbarn'>Adoptivbarn</option>
-                    <option value='fosterbarn'>Fosterbarn</option>
-                  </Select>
+                  {inEditMode &&
+                    <Select
+                      error={validation[namespace + '-relasjontilbruker']?.feilmelding}
+                      id='barn-relasjontilbruker'
+                      label={t('p2000:form-barn-relasjontilbruker')}
+                      hideLabel={true}
+                      onChange={(e) => setRelasjon(e.target.value, index)}
+                      value={(_barn?.relasjontilbruker) ?? ''}
+                    >
+                      <option value=''>Velg</option>
+                      {relasjonOptions.map((option) => {
+                        return(<option value={option.value}>{option.label}</option>)
+                      })}
+                    </Select>
+                  }
+                  {!inEditMode &&
+                    <FormText
+                      error={validation[namespace + '-relasjontilbruker']?.feilmelding}
+                      id='barn-relasjontilbruker'
+                    >
+                      <BodyLong>{getRelasjonLabel(_barn?.relasjontilbruker)}</BodyLong>
+                    </FormText>
+                  }
                 </Column>
               </AlignStartRow>
               <VerticalSeparatorDiv/>
@@ -238,15 +258,26 @@ const Barn: React.FC<MainFormProps> = ({
               <VerticalSeparatorDiv/>
               <AlignStartRow>
                 <Column>
-                  <DateField
-                    id='person-doedssdato'
-                    index={0}
-                    label={t('p2000:form-person-doedsdato')}
-                    error={validation[namespace + '-doedssdato']?.feilmelding}
-                    namespace={namespace}
-                    onChanged={(v) => setBarnPersonalia("doedsdato", dateToString(v), index)}
-                    defaultDate={_barn?.person?.doedsdato ?? ''}
-                  />
+                  {inEditMode &&
+                    <DateField
+                      hideLabel={true}
+                      id='person-doedssdato'
+                      index={0}
+                      label={t('p2000:form-person-doedsdato')}
+                      error={validation[namespace + '-doedssdato']?.feilmelding}
+                      namespace={namespace}
+                      onChanged={(v) => setBarnPersonalia("doedsdato", dateToString(v), index)}
+                      defaultDate={_barn?.person?.doedsdato ?? ''}
+                    />
+                  }
+                  {!inEditMode &&
+                    <FormText
+                      error={validation[namespace + '-doedssdato']?.feilmelding}
+                      id='person-doedssdato'
+                    >
+                      <BodyLong>{formatDate(_barn?.person?.doedsdato)}</BodyLong>
+                    </FormText>
+                  }
                 </Column>
               </AlignStartRow>
               <VerticalSeparatorDiv/>
@@ -256,6 +287,7 @@ const Barn: React.FC<MainFormProps> = ({
                   marginTop={index < 0}
                   index={index}
                   inEditMode={inEditMode}
+                  alwaysVisible={true}
                   onRemove={onRemove}
                   onAddNew={onAddNew}
                   onCancelNew={onCloseNew}
@@ -265,28 +297,6 @@ const Barn: React.FC<MainFormProps> = ({
                 />
               </AlignEndColumn>
             </>
-          }
-          {!inEditMode &&
-            <AlignStartRow>
-              <Column>
-                {_barn?.person?.etternavn} {_barn?.person?.fornavn}
-              </Column>
-              <AlignEndColumn>
-                <AddRemovePanel<P2000Barn>
-                  item={barn}
-                  marginTop={index < 0}
-                  index={index}
-                  inEditMode={inEditMode}
-                  onRemove={onRemove}
-                  onAddNew={onAddNew}
-                  onCancelNew={onCloseNew}
-                  onStartEdit={onStartEdit}
-                  onConfirmEdit={onSaveEdit}
-                  onCancelEdit={() => onCloseEdit(_namespace)}
-                />
-              </AlignEndColumn>
-            </AlignStartRow>
-          }
           <VerticalSeparatorDiv/>
         </RepeatableRowNoBackground>
       </>

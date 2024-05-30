@@ -7,9 +7,10 @@ import {AlignStartRow, Column, VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import Input from "components/Forms/Input";
 import DateField from "../DateField/DateField";
 import {HorizontalRadioGroup} from "components/StyledComponents";
-import {Radio} from "@navikt/ds-react";
+import {BodyLong, Label, Radio} from "@navikt/ds-react";
 import {Person} from "declarations/p2000";
-import {dateToString} from "utils/utils";
+import {dateToString, formatDate} from "utils/utils";
+import FormText from "../../../components/Forms/FormText";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -18,6 +19,7 @@ const mapState = (state: State): MainFormSelector => ({
 export interface PersonOpplysningerProps {
   parentNamespace: string
   parentIndex?: number
+  parentEditMode?:boolean
   person: Person | undefined,
   setPersonOpplysninger: any
 }
@@ -25,6 +27,7 @@ export interface PersonOpplysningerProps {
 const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
   parentNamespace,
   parentIndex,
+  parentEditMode = true,
   person,
   setPersonOpplysninger
 }: PersonOpplysningerProps): JSX.Element => {
@@ -32,58 +35,121 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
   const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-person`
 
+  const getKjoenn = (kjoenn: any) => {
+    if(kjoenn === "M") return "Mann"
+    if(kjoenn === "K") return "Kvinne"
+    return "Ukjent"
+  }
+
   return(
-    <>
-      <AlignStartRow>
-        <Column>
-          <Input
-            error={validation[namespace + '-etternavn']?.feilmelding}
-            namespace={namespace}
-            id='person-etternavn'
-            label={t('p2000:form-person-etternavn')}
-            onChanged={(v) => setPersonOpplysninger("etternavn", v, parentIndex)}
-            value={(person?.etternavn) ?? ''}
-          />
-        </Column>
-        <Column>
-          <Input
-            error={validation[namespace + '-fornavn']?.feilmelding}
-            namespace={namespace}
-            id='person-fornavn'
-            label={t('p2000:form-person-fornavn')}
-            onChanged={(v) => setPersonOpplysninger("fornavn", v, parentIndex)}
-            value={(person?.fornavn)  ?? ''}
-          />
-        </Column>
-      </AlignStartRow>
-      <VerticalSeparatorDiv/>
-      <AlignStartRow>
-        <Column>
-          <DateField
-            id='person-foedselsdato'
-            index={0}
-            label={t('p2000:form-person-foedselsdato')}
-            error={validation[namespace + '-foedselsdato']?.feilmelding}
-            namespace={namespace}
-            onChanged={(v) => setPersonOpplysninger("foedselsdato", dateToString(v), parentIndex)}
-            defaultDate={person?.foedselsdato ?? ''}
-          />
-        </Column>
-        <Column>
-          <HorizontalRadioGroup
-            error={validation[namespace + '-kjoenn']?.feilmelding}
-            id={namespace + "-person-kjoenn"}
-            legend={t('p2000:form-person-kjoenn')}
-            onChange={(v) => setPersonOpplysninger("kjoenn", v, parentIndex)}
-            value={person?.kjoenn}
-          >
-            <Radio value="M">Mann</Radio>
-            <Radio value="K">Kvinne</Radio>
-            <Radio value="">Ukjent</Radio>
-          </HorizontalRadioGroup>
-        </Column>
-      </AlignStartRow>
-    </>
+      <>
+        {parentEditMode &&
+          <>
+            <AlignStartRow>
+              <Column>
+                <Input
+                  error={validation[namespace + '-etternavn']?.feilmelding}
+                  namespace={namespace}
+                  id='person-etternavn'
+                  label={t('p2000:form-person-etternavn')}
+                  onChanged={(v) => setPersonOpplysninger("etternavn", v, parentIndex)}
+                  value={(person?.etternavn) ?? ''}
+                />
+              </Column>
+              <Column>
+                <Input
+                  error={validation[namespace + '-fornavn']?.feilmelding}
+                  namespace={namespace}
+                  id='person-fornavn'
+                  label={t('p2000:form-person-fornavn')}
+                  onChanged={(v) => setPersonOpplysninger("fornavn", v, parentIndex)}
+                  value={(person?.fornavn)  ?? ''}
+                />
+              </Column>
+            </AlignStartRow>
+            <VerticalSeparatorDiv/>
+            <AlignStartRow>
+              <Column>
+                <DateField
+                  id='person-foedselsdato'
+                  index={0}
+                  label={t('p2000:form-person-foedselsdato')}
+                  error={validation[namespace + '-foedselsdato']?.feilmelding}
+                  namespace={namespace}
+                  onChanged={(v) => setPersonOpplysninger("foedselsdato", dateToString(v), parentIndex)}
+                  defaultDate={person?.foedselsdato ?? ''}
+                />
+              </Column>
+              <Column>
+                <HorizontalRadioGroup
+                  error={validation[namespace + '-kjoenn']?.feilmelding}
+                  id={namespace + "-person-kjoenn"}
+                  legend={t('p2000:form-person-kjoenn')}
+                  onChange={(v) => setPersonOpplysninger("kjoenn", v, parentIndex)}
+                  value={person?.kjoenn}
+                >
+                  <Radio value="M">Mann</Radio>
+                  <Radio value="K">Kvinne</Radio>
+                  <Radio value="">Ukjent</Radio>
+                </HorizontalRadioGroup>
+              </Column>
+            </AlignStartRow>
+          </>
+        }
+        {!parentEditMode &&
+          <>
+            <AlignStartRow>
+              <Column>
+                <FormText
+                  error={validation[namespace + '-etternavn']?.feilmelding}
+                  id='person-etternavn'
+                >
+                  <Label>
+                    {t('p2000:form-person-etternavn')}
+                  </Label>
+                  <BodyLong>{person?.etternavn}</BodyLong>
+                </FormText>
+              </Column>
+              <Column>
+                <FormText
+                  error={validation[namespace + '-fornavn']?.feilmelding}
+                  id='person-fornavn'
+                >
+                  <Label>
+                    {t('p2000:form-person-fornavn')}
+                  </Label>
+                  <BodyLong>{person?.fornavn}</BodyLong>
+                </FormText>
+              </Column>
+            </AlignStartRow>
+            <VerticalSeparatorDiv/>
+            <AlignStartRow>
+              <Column>
+                <FormText
+                  id='person-foedselsdato'
+                  error={validation[namespace + '-foedselsdato']?.feilmelding}
+                >
+                  <Label>
+                    {t('p2000:form-person-foedselsdato')}
+                  </Label>
+                  <BodyLong>{formatDate(person?.foedselsdato)}</BodyLong>
+                </FormText>
+              </Column>
+              <Column>
+                <FormText
+                  error={validation[namespace + '-kjoenn']?.feilmelding}
+                  id={namespace + "-person-kjoenn"}
+                >
+                  <Label>
+                    {t('p2000:form-person-kjoenn')}
+                  </Label>
+                  <BodyLong>{getKjoenn(person?.kjoenn)}</BodyLong>
+                </FormText>
+              </Column>
+            </AlignStartRow>
+          </>
+        }
+      </>
   )
 }
 

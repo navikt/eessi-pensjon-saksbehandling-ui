@@ -45,6 +45,7 @@ export interface StatsborgerskapProps {
   parentNamespace: string
   parentTarget?: string
   parentIndex?: number
+  parentEditMode?: boolean
   updatePSED?: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
   setPersonOpplysninger?: any
   person?: Person | undefined
@@ -55,6 +56,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
   parentNamespace,
   parentTarget,
   parentIndex,
+  parentEditMode = true,
   updatePSED,
   setPersonOpplysninger,
   person
@@ -212,20 +214,22 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
                 </FormText>
                 )}
           </Column>
-          <AlignEndColumn>
-            <AddRemovePanel<P2000Statsborgerskap>
-              item={statsborgerskap}
-              marginTop={index < 0}
-              index={index}
-              inEditMode={inEditMode}
-              onRemove={onRemove}
-              onAddNew={onAddNew}
-              onCancelNew={onCloseNew}
-              onStartEdit={onStartEdit}
-              onConfirmEdit={onSaveEdit}
-              onCancelEdit={() => onCloseEdit(_namespace)}
-            />
-          </AlignEndColumn>
+            <AlignEndColumn>
+              {parentEditMode &&
+                <AddRemovePanel<P2000Statsborgerskap>
+                  item={statsborgerskap}
+                  marginTop={index < 0}
+                  index={index}
+                  inEditMode={inEditMode}
+                  onRemove={onRemove}
+                  onAddNew={onAddNew}
+                  onCancelNew={onCloseNew}
+                  onStartEdit={onStartEdit}
+                  onConfirmEdit={onSaveEdit}
+                  onCancelEdit={() => onCloseEdit(_namespace)}
+                />
+              }
+            </AlignEndColumn>
         </AlignStartRow>
         <VerticalSeparatorDiv size='0.5' />
       </RepeatableRow>
@@ -264,7 +268,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
         ? renderRow(null, -1)
         : (
           <>
-            {(statsborgerskap?.length ?? 0) < limit && (
+            {(statsborgerskap?.length ?? 0) < limit && parentEditMode && (
               <Button
                 variant='tertiary'
                 onClick={() => _setNewForm(true)}
