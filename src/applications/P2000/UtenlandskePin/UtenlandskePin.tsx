@@ -289,7 +289,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
       {_.isEmpty(utenlandskePINs)
         ? (
           <BodyLong>
-            {t('message:warning-no-utenlandskepin')}
+            <em>{t('message:warning-no-utenlandskepin')}</em>
           </BodyLong>
           )
         : (

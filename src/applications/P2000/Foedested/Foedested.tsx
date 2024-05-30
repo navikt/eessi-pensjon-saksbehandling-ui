@@ -79,43 +79,48 @@ const Foedested: React.FC<FoedestedProps> = ({
         }
         {!parentEditMode &&
           <>
-            <Column>
-              <FormText
-                id={"person-foedested-by"}
-                error={validation[namespace + '-by']?.feilmelding}
-              >
-                <Label>
-                  {t('p2000:form-person-foedested-by')}
-                </Label>
-                <BodyLong>{person?.foedested?.by}</BodyLong>
-              </FormText>
-            </Column>
-            <Column>
-              <FormText
-                id={"person-foedested-region"}
-                error={validation[namespace + '-region']?.feilmelding}
-              >
-                <Label>
-                  {t('p2000:form-person-foedested-region')}
-                </Label>
-                <BodyLong>{person?.foedested?.region}</BodyLong>
-              </FormText>
-            </Column>
-            <Column>
-              <FormText
-                id={"person-foedested-land"}
-                error={validation[namespace + '-land']?.feilmelding}
-              >
-                <Label>
-                  {t('p2000:form-person-foedested-land')}
-                </Label>
-                <FlexCenterDiv>
-                  <Flag size='S' country={person?.foedested?.land!} />
-                  <HorizontalSeparatorDiv />
-                  {countryData.findByValue(person?.foedested?.land)?.label ?? person?.foedested?.land}
-                </FlexCenterDiv>
-              </FormText>
-            </Column>
+            {!person?.foedested?.by && !person?.foedested?.region && !person?.foedested?.land && <Column><em>Ingen fødested registrert</em></Column>}
+            {(person?.foedested?.by || person?.foedested?.region || person?.foedested?.land) &&
+              <>
+                <Column>
+                  <FormText
+                    id={"person-foedested-by"}
+                    error={validation[namespace + '-by']?.feilmelding}
+                  >
+                    <Label>
+                      {t('p2000:form-person-foedested-by')}
+                    </Label>
+                    <BodyLong>{person?.foedested?.by}</BodyLong>
+                  </FormText>
+                </Column>
+                <Column>
+                  <FormText
+                    id={"person-foedested-region"}
+                    error={validation[namespace + '-region']?.feilmelding}
+                  >
+                    <Label>
+                      {t('p2000:form-person-foedested-region')}
+                    </Label>
+                    <BodyLong>{person?.foedested?.region}</BodyLong>
+                  </FormText>
+                </Column>
+                <Column>
+                  <FormText
+                    id={"person-foedested-land"}
+                    error={validation[namespace + '-land']?.feilmelding}
+                  >
+                    <Label>
+                      {t('p2000:form-person-foedested-land')}
+                    </Label>
+                    <FlexCenterDiv>
+                      {person?.foedested?.land && <Flag size='S' country={person?.foedested?.land!} />}
+                      <HorizontalSeparatorDiv />
+                      {countryData.findByValue(person?.foedested?.land)?.label ?? person?.foedested?.land}
+                    </FlexCenterDiv>
+                  </FormText>
+                </Column>
+              </>
+            }
           </>
         }
       </AlignStartRow>

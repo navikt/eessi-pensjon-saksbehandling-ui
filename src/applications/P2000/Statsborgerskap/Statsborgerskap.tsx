@@ -243,7 +243,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
       {_.isEmpty(statsborgerskap)
         ? (
           <BodyLong>
-            {t('message:warning-no-statsborgerskap')}
+            <em>{t('message:warning-no-statsborgerskap')}</em>
           </BodyLong>
           )
         : (

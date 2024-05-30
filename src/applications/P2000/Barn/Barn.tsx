@@ -246,7 +246,8 @@ const Barn: React.FC<MainFormProps> = ({
                       error={validation[namespace + '-relasjontilbruker']?.feilmelding}
                       id='barn-relasjontilbruker'
                     >
-                      <BodyLong>{getRelasjonLabel(_barn?.relasjontilbruker)}</BodyLong>
+                      {_barn?.relasjontilbruker && <BodyLong>{getRelasjonLabel(_barn?.relasjontilbruker)}</BodyLong>}
+                      {!_barn?.relasjontilbruker && <em>Ingen relasjon registrert</em>}
                     </FormText>
                   }
                 </Column>
@@ -275,7 +276,8 @@ const Barn: React.FC<MainFormProps> = ({
                       error={validation[namespace + '-doedssdato']?.feilmelding}
                       id='person-doedssdato'
                     >
-                      <BodyLong>{formatDate(_barn?.person?.doedsdato)}</BodyLong>
+                      {_barn?.person?.doedsdato &&<BodyLong>{formatDate(_barn?.person?.doedsdato)}</BodyLong>}
+                      {!_barn?.person?.doedsdato && <em>Ingen dødsdato registrert</em>}
                     </FormText>
                   }
                 </Column>
@@ -299,6 +301,7 @@ const Barn: React.FC<MainFormProps> = ({
             </>
           <VerticalSeparatorDiv/>
         </RepeatableRowNoBackground>
+        <VerticalSeparatorDiv/>
       </>
     )
   }
