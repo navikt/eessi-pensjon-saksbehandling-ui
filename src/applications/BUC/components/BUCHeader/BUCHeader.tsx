@@ -109,12 +109,15 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   const generateFlagItems = (): FlagItems => {
     const institutionList: InstitutionListMap<string> = {}
     buc.deltakere!.forEach((institution: Institution) => {
+      // Used for simulating sending to/from Norway to/from DK/FI (Q2-->Q1/Q1-->Q2)
+      /*
       if (institution.country === 'NO' && institution.institution === 'NO:NAVAT06') {
         institution.country = 'DK'
       }
       if (institution.country === 'NO' && institution.institution === 'NO:NAVAT08') {
         institution.country = 'FI'
       }
+      */
       if (Object.prototype.hasOwnProperty.call(institutionList, institution.country)) {
         institutionList[institution.country].push(institution.institution)
       } else {

@@ -283,8 +283,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   // BEGIN QUESTIONS
 
   // norway as case owner (except some mock institutions that should simulate foreign institutions)
-  const isNorwayCaseOwner = (): boolean => _buc?.creator?.country === 'NO' &&
-    (_buc?.creator?.institution !== 'NO:NAVAT06' && _buc?.creator?.institution !== 'NO:NAVAT08')
+  const isNorwayCaseOwner = (): boolean => _buc?.creator?.country === 'NO'
+    // Used for simulating sending to/from Norway to/from DK/FI (Q2-->Q1/Q1-->Q2)
+    //&& (_buc?.creator?.institution !== 'NO:NAVAT06' && _buc?.creator?.institution !== 'NO:NAVAT08')
 
   const hasNoValidationErrors = (validation: Validation): boolean => _.find(validation, (it) => (it !== undefined)) === undefined
 

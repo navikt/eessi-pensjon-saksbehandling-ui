@@ -56,12 +56,15 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
     institutions.forEach(item => {
       const institution: string = item.institution
       let country: string = item.country
+      // Used for simulating sending to/from Norway to/from DK/FI (Q2-->Q1/Q1-->Q2)
+      /*
       if (country === 'NO' && institution === 'NO:NAVAT06') {
         country = 'DK'
       }
       if (country === 'NO' && institution === 'NO:NAVAT08') {
         country = 'FI'
       }
+      */
       if (Object.prototype.hasOwnProperty.call(institutionList, country)) {
         institutionList[country].push(institution)
       } else {
