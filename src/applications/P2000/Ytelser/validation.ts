@@ -34,7 +34,7 @@ export const validateYtelse = (
     id: namespace + idx + '-status',
     message: 'validation:missing-p2000-ytelse-status'
   }))
-  
+
   return hasErrors.find(value => value) !== undefined
 }
 

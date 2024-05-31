@@ -34,6 +34,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
   const { t } = useTranslation()
   const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-person`
+  console.log(namespace)
 
   const getKjoenn = (kjoenn: any) => {
     if(kjoenn === "M") return "Mann"
@@ -51,7 +52,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
                 <Input
                   error={validation[namespace + '-etternavn']?.feilmelding}
                   namespace={namespace}
-                  id='person-etternavn'
+                  id='etternavn'
                   label={t('p2000:form-person-etternavn')}
                   onChanged={(v) => setPersonOpplysninger("etternavn", v, parentIndex)}
                   value={(person?.etternavn) ?? ''}
@@ -61,7 +62,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
                 <Input
                   error={validation[namespace + '-fornavn']?.feilmelding}
                   namespace={namespace}
-                  id='person-fornavn'
+                  id='fornavn'
                   label={t('p2000:form-person-fornavn')}
                   onChanged={(v) => setPersonOpplysninger("fornavn", v, parentIndex)}
                   value={(person?.fornavn)  ?? ''}
@@ -72,7 +73,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
             <AlignStartRow>
               <Column>
                 <DateField
-                  id='person-foedselsdato'
+                  id='foedselsdato'
                   index={0}
                   label={t('p2000:form-person-foedselsdato')}
                   error={validation[namespace + '-foedselsdato']?.feilmelding}
@@ -84,7 +85,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
               <Column>
                 <HorizontalRadioGroup
                   error={validation[namespace + '-kjoenn']?.feilmelding}
-                  id={namespace + "-person-kjoenn"}
+                  id={namespace + "-kjoenn"}
                   legend={t('p2000:form-person-kjoenn')}
                   onChange={(v) => setPersonOpplysninger("kjoenn", v, parentIndex)}
                   value={person?.kjoenn}
@@ -103,7 +104,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
               <Column>
                 <FormText
                   error={validation[namespace + '-etternavn']?.feilmelding}
-                  id='person-etternavn'
+                  id={namespace + '-etternavn'}
                 >
                   <Label>
                     {t('p2000:form-person-etternavn')}
@@ -114,7 +115,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
               <Column>
                 <FormText
                   error={validation[namespace + '-fornavn']?.feilmelding}
-                  id='person-fornavn'
+                  id={namespace + '-fornavn'}
                 >
                   <Label>
                     {t('p2000:form-person-fornavn')}
@@ -127,7 +128,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
             <AlignStartRow>
               <Column>
                 <FormText
-                  id='person-foedselsdato'
+                  id={namespace + '-foedselsdato'}
                   error={validation[namespace + '-foedselsdato']?.feilmelding}
                 >
                   <Label>
@@ -139,7 +140,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
               <Column>
                 <FormText
                   error={validation[namespace + '-kjoenn']?.feilmelding}
-                  id={namespace + "-person-kjoenn"}
+                  id={namespace + "-kjoenn"}
                 >
                   <Label>
                     {t('p2000:form-person-kjoenn')}

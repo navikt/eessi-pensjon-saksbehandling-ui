@@ -23,6 +23,12 @@ import Statsborgerskap from "../Statsborgerskap/Statsborgerskap";
 import DateField from "../DateField/DateField";
 import {dateToString, formatDate} from "../../../utils/utils";
 import FormText from "../../../components/Forms/FormText";
+import useValidation from "../../../hooks/useValidation";
+import {hasNamespaceWithErrors} from "../../../utils/validation";
+import {validateBarn, validateBarnArray, ValidationBarnArrayProps, ValidationBarnProps} from "./validation";
+import performValidation from "../../../utils/performValidation";
+import {Validation} from "../../../declarations/app";
+import useUnmount from "../../../hooks/useUnmount";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -47,6 +53,17 @@ const Barn: React.FC<MainFormProps> = ({
   const [_editIndex, _setEditIndex] = useState<number | undefined>(undefined)
   const [_newForm, _setNewForm] = useState<boolean>(false)
 
+  const [_validation, _resetValidation, _performValidation] = useValidation<ValidationBarnProps>(validateBarn, namespace)
+
+  useUnmount(() => {
+    const clonedvalidation = _.cloneDeep(validation)
+    performValidation<ValidationBarnArrayProps>(
+      clonedvalidation, namespace, validateBarnArray, {
+        barnArray: barn
+      }, true
+    )
+    dispatch(setValidation(clonedvalidation))
+  })
 
   const setBarn = (newBarnArray: Array<P2000Barn>) => {
     let barnArray: Array<P2000Barn> | undefined = _.cloneDeep(newBarnArray)
@@ -66,7 +83,7 @@ const Barn: React.FC<MainFormProps> = ({
   const onCloseNew = () => {
     _setNewBarn(undefined)
     _setNewForm(false)
-    //_resetValidation()
+    _resetValidation()
   }
 
   const onStartEdit = (barn: P2000Barn, index: number) => {
@@ -80,14 +97,11 @@ const Barn: React.FC<MainFormProps> = ({
 
   const onSaveEdit = () => {
     const clonedValidation = _.cloneDeep(validation)
-/*
     const hasErrors = performValidation<ValidationBarnProps>(
       clonedValidation, namespace, validateBarn, {
         barn: _editBarn,
         index: _editIndex,
       })
-*/
-    const hasErrors = false;
 
     if (_editIndex !== undefined && !!_editBarn && !hasErrors) {
       const newBarnArray: Array<P2000Barn> = _.cloneDeep(barn) as Array<P2000Barn>
@@ -106,13 +120,10 @@ const Barn: React.FC<MainFormProps> = ({
   }
 
   const onAddNew = () => {
-/*
     const valid: boolean = _performValidation({
       barn: _newBarn,
     })
-*/
 
-    const valid = true
     if (!!_newBarn && valid) {
       let newBarnArray: Array<P2000Barn> = _.cloneDeep(barn) as Array<P2000Barn>
       if (_.isNil(newBarnArray)) {
@@ -197,9 +208,10 @@ const Barn: React.FC<MainFormProps> = ({
 
   const renderRow = (barn: P2000Barn | null, index: number) => {
     const _namespace = namespace + getIdx(index)
-    //const _v: Validation = index < 0 ? _validation : validation
+    const _v: Validation = index < 0 ? _validation : validation
     const inEditMode = index < 0 || _editIndex === index
     const _barn = index < 0 ? _newBarn : (inEditMode ? _editBarn : barn)
+
     return (
       <>
         <RepeatableRowNoBackground
@@ -207,7 +219,7 @@ const Barn: React.FC<MainFormProps> = ({
           key={index}
           className={classNames({
             new: index < 0,
-            error: false, //hasNamespaceWithErrors(_v, _namespace),
+            error: hasNamespaceWithErrors(_v, _namespace),
             selected: inEditMode
           })}
         >
