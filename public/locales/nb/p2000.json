@@ -21,6 +21,9 @@
   "form-bank-navn": "Bankens navn",
   "form-barn": "Barn",
   "form-barn-relasjontilbruker": "Relasjon til forsikret person",
+  "form-barn-relasjon-eget-barn": "Eget barn",
+  "form-barn-relasjon-adoptivbarn": "Adoptivbarn",
+  "form-barn-relasjon-fosterbarn": "Forsterbarn",
   "form-betalingshyppighet-aarlig": "Årlig",
   "form-betalingshyppighet-kvartalsvis": "Kvartalsvis",
   "form-betalingshyppighet-maanedlig-12": "Månedlig 12/år",
@@ -106,8 +109,10 @@
   "form-ytelse-ytelse-pensjonslignende-ytelse-som-utbetales-under-obligatorisk-trafikkforsikring-ansvarsforsikring": "Pensjonslignende ytelse som utbetales under obligatorisk trafikkforsikring (ansvarsforsikring)",
   "form-ytelse-ytelse-annen-andre-ytelser": "Annen/andre ytelse(r)",
   "form-verge-vergemaal-mandat": "Årsak til vergemål, representasjon",
+  "form-velg": "Velg",
 
   "ingen-arbeidsforhold": "Ingen arbeidsforhold",
   "ingen-ytelser": "Ingen Ytelser",
+  "ingen-x-registrert": "Ingen {{x}} registrert",
   "yrkesaktivitet": "Yrkesaktivitet"
 }

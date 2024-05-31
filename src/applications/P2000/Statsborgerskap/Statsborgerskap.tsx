@@ -207,7 +207,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
                   id={_namespace + '-land'}
                 >
                   <FlexCenterDiv>
-                    <Flag size='S' country={_statsborgerskap?.land!} />
+                    {_statsborgerskap?.land && <Flag size='S' country={_statsborgerskap?.land!} />}
                     <HorizontalSeparatorDiv />
                     {countryData.findByValue(_statsborgerskap?.land)?.label ?? _statsborgerskap?.land}
                   </FlexCenterDiv>

@@ -185,9 +185,9 @@ const Barn: React.FC<MainFormProps> = ({
   }
 
   const relasjonOptions = [
-    {value:'eget_barn', label: "Eget barn"},
-    {value:'adoptivbarn', label: "Adoptivbarn"},
-    {value:'fosterbarn', label: "Fosterbarn"}
+    {value:'eget_barn', label: t('p2000:form-barn-relasjon-eget-barn')},
+    {value:'adoptivbarn', label: t('p2000:form-barn-relasjon-adoptivbarn')},
+    {value:'fosterbarn', label: t('p2000:form-barn-relasjon-fosterbarn')}
   ]
 
   const getRelasjonLabel = (relasjon: string | undefined | null) => {
@@ -212,6 +212,7 @@ const Barn: React.FC<MainFormProps> = ({
           })}
         >
             <>
+              <VerticalSeparatorDiv/>
               <PersonOpplysninger setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
               <VerticalSeparatorDiv/>
               <UtenlandskePin setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
@@ -235,7 +236,7 @@ const Barn: React.FC<MainFormProps> = ({
                       onChange={(e) => setRelasjon(e.target.value, index)}
                       value={(_barn?.relasjontilbruker) ?? ''}
                     >
-                      <option value=''>Velg</option>
+                      <option value=''>{t('p2000:form-velg')}</option>
                       {relasjonOptions.map((option) => {
                         return(<option value={option.value}>{option.label}</option>)
                       })}
@@ -247,7 +248,7 @@ const Barn: React.FC<MainFormProps> = ({
                       id='barn-relasjontilbruker'
                     >
                       {_barn?.relasjontilbruker && <BodyLong>{getRelasjonLabel(_barn?.relasjontilbruker)}</BodyLong>}
-                      {!_barn?.relasjontilbruker && <em>Ingen relasjon registrert</em>}
+                      {!_barn?.relasjontilbruker && <em>{t('p2000:ingen-x-registrert', {x: 'relasjon'})}</em>}
                     </FormText>
                   }
                 </Column>
@@ -277,7 +278,7 @@ const Barn: React.FC<MainFormProps> = ({
                       id='person-doedssdato'
                     >
                       {_barn?.person?.doedsdato &&<BodyLong>{formatDate(_barn?.person?.doedsdato)}</BodyLong>}
-                      {!_barn?.person?.doedsdato && <em>Ingen dødsdato registrert</em>}
+                      {!_barn?.person?.doedsdato && <em>{t('p2000:ingen-x-registrert', {x: 'dødsdato'})}</em>}
                     </FormText>
                   }
                 </Column>
@@ -339,8 +340,6 @@ const Barn: React.FC<MainFormProps> = ({
               </Button>
             </AlignEndColumn>
           )}
-
-
       </PaddedDiv>
     </>
   )

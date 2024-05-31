@@ -38,7 +38,8 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
   const getKjoenn = (kjoenn: any) => {
     if(kjoenn === "M") return "Mann"
     if(kjoenn === "K") return "Kvinne"
-    return "Ukjent"
+    if(kjoenn === "") return "Ukjent"
+    return undefined
   }
 
   return(
