@@ -34,15 +34,7 @@ export const validateYtelse = (
     id: namespace + idx + '-status',
     message: 'validation:missing-p2000-ytelse-status'
   }))
-
-  hasErrors.push(checkIfNotEmpty(v, {
-    needle: ytelse?.mottasbasertpaa,
-    id: namespace + idx + '-mottasbasertpaa',
-    message: 'validation:missing-p2000-ytelse-mottasbasertpaa'
-  }))
-
-
-
+  
   return hasErrors.find(value => value) !== undefined
 }
 
