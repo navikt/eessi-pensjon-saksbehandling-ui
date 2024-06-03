@@ -24,17 +24,17 @@ spec:
         - host: pensjon-utland.intern.nav.no
 
   env:
-    - name: NAV_TRUSTSTORE_KEYSTOREALIAS
+    - name: VITE_NAV_TRUSTSTORE_KEYSTOREALIAS
       value: na
-    - name: EESSI_PENSJON_WEBSOCKETURL
+    - name: VITE_EESSI_PENSJON_WEBSOCKETURL
       value: {{eessi_pensjon_websocket_url}}
-    - name: EESSI_PENSJON_FRONTEND_API_URL
+    - name: VITE_EESSI_PENSJON_FRONTEND_API_URL
       value: {{eessi_pensjon_frontend_api_url}}
-    - name: EESSI_PENSJON_FAGMODUL_URL
+    - name: VITE_EESSI_PENSJON_FAGMODUL_URL
       value: {{eessi_pensjon_fagmodul_url}}
-    - name: EESSI_PENSJON_FRONTEND_API_TOKEN_SCOPE
+    - name: VITE_EESSI_PENSJON_FRONTEND_API_TOKEN_SCOPE
       value: {{eessi_pensjon_frontend_api_token_scope}}
-    - name: EESSI_PENSJON_FAGMODUL_TOKEN_SCOPE
+    - name: VITE_EESSI_PENSJON_FAGMODUL_TOKEN_SCOPE
       value: {{eessi_pensjon_fagmodul_token_scope}}
   image: {{ image }}
   ingresses:

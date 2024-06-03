@@ -13,9 +13,9 @@ app.use(timeout('60s'));
 app.disable("x-powered-by");
 
 const azureAdConfig = {
-  clientId: import.meta.env.AZURE_APP_CLIENT_ID,
-  clientSecret: import.meta.env.AZURE_APP_CLIENT_SECRET,
-  tokenEndpoint: import.meta.env.AZURE_OPENID_CONFIG_TOKEN_ENDPOINT
+  clientId: import.meta.env.VITE_AZURE_APP_CLIENT_ID,
+  clientSecret: import.meta.env.VITE_AZURE_APP_CLIENT_SECRET,
+  tokenEndpoint: import.meta.env.VITE_AZURE_OPENID_CONFIG_TOKEN_ENDPOINT
 };
 
 let _issuer
@@ -52,7 +52,7 @@ async function validerToken(token) {
 
 async function jwks() {
   if (typeof _remoteJWKSet === "undefined") {
-    _remoteJWKSet = jose.createRemoteJWKSet(new URL(import.meta.env.AZURE_OPENID_CONFIG_JWKS_URI));
+    _remoteJWKSet = jose.createRemoteJWKSet(new URL(import.meta.env.VITE_AZURE_OPENID_CONFIG_JWKS_URI));
   }
 
   return _remoteJWKSet;
@@ -60,9 +60,9 @@ async function jwks() {
 
 async function issuer() {
   if (typeof _issuer === "undefined") {
-    if (!import.meta.env.AZURE_APP_WELL_KNOWN_URL)
+    if (!import.meta.env.VITE_AZURE_APP_WELL_KNOWN_URL)
       throw new Error(`Miljøvariabelen "AZURE_APP_WELL_KNOWN_URL" må være satt`);
-    _issuer = await Issuer.discover(import.meta.env.AZURE_APP_WELL_KNOWN_URL);
+    _issuer = await Issuer.discover(import.meta.env.VITE_AZURE_APP_WELL_KNOWN_URL);
   }
   return _issuer;
 }
@@ -201,7 +201,7 @@ const apiProxy = function (target, pathRewrite) {
 }
 
 const socketProxy = createProxyMiddleware({
-  target: import.meta.env.EESSI_PENSJON_WEBSOCKETURL + ':8080-*****/bucUpdate',
+  target: import.meta.env.VITE_EESSI_PENSJON_WEBSOCKETURL + ':8080-*****/bucUpdate',
   ws: true
 })
 
@@ -235,14 +235,14 @@ app.get(["/oauth2/login"], async (req, res) => {
 
 app.use('/frontend',
   timedOut,
-  apiAuth(import.meta.env.EESSI_PENSJON_FRONTEND_API_TOKEN_SCOPE),
-  apiProxy(import.meta.env.EESSI_PENSJON_FRONTEND_API_URL,{ '^/frontend/' : '/' })
+  apiAuth(import.meta.env.VITE_EESSI_PENSJON_FRONTEND_API_TOKEN_SCOPE),
+  apiProxy(import.meta.env.VITE_EESSI_PENSJON_FRONTEND_API_URL,{ '^/frontend/' : '/' })
 )
 
 app.use('/fagmodul',
   timedOut,
-  apiAuth(import.meta.env.EESSI_PENSJON_FAGMODUL_TOKEN_SCOPE),
-  apiProxy(import.meta.env.EESSI_PENSJON_FAGMODUL_URL,{ '^/fagmodul/' : '/' })
+  apiAuth(import.meta.env.VITE_EESSI_PENSJON_FAGMODUL_TOKEN_SCOPE),
+  apiProxy(import.meta.env.VITE_EESSI_PENSJON_FAGMODUL_URL,{ '^/fagmodul/' : '/' })
 )
 
 app.use('/websocket', socketProxy)
