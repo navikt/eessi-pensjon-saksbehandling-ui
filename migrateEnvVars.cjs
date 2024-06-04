@@ -26,6 +26,6 @@ const newEnvVars = oldEnvVars.map((oldEnvVarName) => {
   return `${viteVarName}=${value}`;
 }).join('\n');
 
-fs.writeFileSync(path.join(__dirname, '.env'), newEnvVars);
+fs.writeFileSync(path.join('/tmp/', '.env'), newEnvVars);
 
 console.log('Vite environment variables created');
