@@ -200,6 +200,11 @@ const apiProxy = function (target, pathRewrite) {
   })
 }
 
+const socketProxy = createProxyMiddleware({
+  target: import.meta.env.VITE_EESSI_PENSJON_WEBSOCKETURL + ':8080-*****/bucUpdate',
+  ws: true
+})
+
 const timedOut = function (req, res, next) {
   if (!req.timedout) {
     next()
@@ -239,6 +244,8 @@ app.use('/fagmodul',
   apiAuth(import.meta.env.VITE_EESSI_PENSJON_FAGMODUL_TOKEN_SCOPE),
   apiProxy(import.meta.env.VITE_EESSI_PENSJON_FAGMODUL_URL,{ '^/fagmodul/' : '/' })
 )
+
+app.use('/websocket', socketProxy)
 
 app.use('*', mainPageAuth, express.static(path.join(__dirname, "build")));
 
