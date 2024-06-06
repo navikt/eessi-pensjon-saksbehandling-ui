@@ -6,7 +6,6 @@ import { ModalContentPropType } from 'declarations/components.pt'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
-
 import styled from 'styled-components/macro'
 
 const ModalText = styled.div`
@@ -47,6 +46,7 @@ export interface ModalProps {
   onModalClose?: () => void
   onBeforeClose?: () => boolean
   open: boolean,
+  header?: string
   modal: ModalContent | undefined
 }
 
@@ -56,6 +56,7 @@ const ModalFC: React.FC<ModalProps> = ({
   onModalClose = () => {},
   onBeforeClose = () => true,
   open,
+  header,
   modal
 }: ModalProps): JSX.Element => {
 
@@ -65,7 +66,7 @@ const ModalFC: React.FC<ModalProps> = ({
       open={open}
       onClose={onModalClose}
       onBeforeClose={onBeforeClose}
-      header={{ heading: "" }}
+      header={{ heading: header ? header : "" }}
       portal={true}
     >
       <Modal.Body>
