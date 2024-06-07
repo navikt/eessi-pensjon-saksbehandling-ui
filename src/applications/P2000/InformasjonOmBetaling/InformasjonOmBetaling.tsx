@@ -68,6 +68,8 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
     if(e === "sepa"){
       dispatch(updatePSED(`${target}.konto.ikkesepa`, undefined))
       dispatch(updatePSED(`${target}.konto.kontonr`, undefined))
+      dispatch(updatePSED(`${target}.navn`, undefined))
+      dispatch(updatePSED(`${target}.adresse`, undefined))
     } else {
       dispatch(updatePSED(`${target}.konto.sepa`, undefined))
     }

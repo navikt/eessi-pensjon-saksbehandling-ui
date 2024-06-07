@@ -85,7 +85,7 @@ export interface Ektefelle {
 }
 
 export interface Barn {
-  person: Person
+  person?: Person
   far?: {
     person: Person
   },

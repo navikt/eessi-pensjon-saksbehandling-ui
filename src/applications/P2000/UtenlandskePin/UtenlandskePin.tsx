@@ -44,6 +44,7 @@ export interface UtenlandskPinProps {
   parentNamespace: string
   parentTarget?: string
   parentIndex?: number
+  parentEditMode?: boolean
   updatePSED?: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
   setPersonOpplysninger?: any
   person?: Person | undefined
@@ -54,6 +55,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
   parentNamespace,
   parentTarget,
   parentIndex,
+  parentEditMode = true,
   PSED,
   updatePSED,
   setPersonOpplysninger,
@@ -258,20 +260,22 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
                 </FormText>
                 )}
           </Column>
-          <AlignEndColumn>
-            <AddRemovePanel<PIN>
-              item={pin}
-              marginTop={index < 0}
-              index={index}
-              inEditMode={inEditMode}
-              onRemove={onRemove}
-              onAddNew={onAddNew}
-              onCancelNew={onCloseNew}
-              onStartEdit={onStartEdit}
-              onConfirmEdit={onSaveEdit}
-              onCancelEdit={() => onCloseEdit(_namespace)}
-            />
-          </AlignEndColumn>
+            <AlignEndColumn>
+              {parentEditMode &&
+                <AddRemovePanel<PIN>
+                  item={pin}
+                  marginTop={index < 0}
+                  index={index}
+                  inEditMode={inEditMode}
+                  onRemove={onRemove}
+                  onAddNew={onAddNew}
+                  onCancelNew={onCloseNew}
+                  onStartEdit={onStartEdit}
+                  onConfirmEdit={onSaveEdit}
+                  onCancelEdit={() => onCloseEdit(_namespace)}
+                />
+              }
+            </AlignEndColumn>
         </AlignStartRow>
         <VerticalSeparatorDiv size='0.5' />
       </RepeatableRow>
@@ -285,7 +289,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
       {_.isEmpty(utenlandskePINs)
         ? (
           <BodyLong>
-            {t('message:warning-no-utenlandskepin')}
+            <em>{t('message:warning-no-utenlandskepin')}</em>
           </BodyLong>
           )
         : (
@@ -315,7 +319,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
         ? renderRow(null, -1)
         : (
           <>
-            {(utenlandskePINs?.length ?? 0) < limit && (
+            {(utenlandskePINs?.length ?? 0) < limit && parentEditMode && (
               <Button
                 variant='tertiary'
                 onClick={() => _setNewForm(true)}

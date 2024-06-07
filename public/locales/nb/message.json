@@ -65,8 +65,10 @@
   "loading-gettingSEDs"           : "Laster SED-er...",
   "loading-gettingUserInfo"       : "Laster brukers informasjon...",
   "loading-institution"           : "Laster mottager...",
+  "loading-lagrer-sed"            : "Lagrer SED...",
   "loading-p6000"                 : "Laster P6000s...",
   "loading-savingBucInfo"         : "Lagring BUC info...",
+  "loading-sed-lagret"            : "SED lagret",
   "loading-sendingSEDattachments" : "Sender SED vedlegg...",
   "loading-sendingXofY"           : "Sender {{current}} av {{total}}",
   "loading-sendingSed"            : "Sender SED...",
@@ -110,5 +112,6 @@
   "warning-nododsfallPeriod"    : "Dødsdato er den 1. Ingen periode blir lagt til",
   "warning-periodsDoNotMatch"   : "Perioder med flagg foran betyr at periodesum er mindre enn registrert periode. For eksempel er det registrert 01.04.2020- 31.03.2021, men bare 5 måneder. Du må da ta hensyn til dette i beregningen av utenlandsk trygdetid.",
   "warning-periodDoNotMatch"    : "OBS! Periodesum er mindre enn registrert periode",
-  "warning-no-utenlandskepin"   : "Ingen utenlandske PIN registrert"
+  "warning-no-utenlandskepin"   : "Ingen utenlandske PIN registrert",
+  "warning-no-statsborgerskap"   : "Ingen statsborgerskap registrert"
 }

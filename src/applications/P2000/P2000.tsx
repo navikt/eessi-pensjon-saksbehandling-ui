@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {Buc, Sed} from "../../declarations/buc";
@@ -24,6 +24,7 @@ import Ektefelle from "./Ektefelle/Ektefelle";
 import Barn from "./Barn/Barn";
 import InformasjonOmBetaling from "./InformasjonOmBetaling/InformasjonOmBetaling";
 import SakInfo from "./SakInfo/SakInfo";
+import SaveSEDModal from "./SaveSEDModal";
 
 export interface P2000Selector {
   currentPSED: P2000SED
@@ -55,6 +56,8 @@ const P2000: React.FC<P2000Props> = ({
   const { currentPSED, gettingSed, savingSed, validation }: P2000Selector = useSelector<State, P2000Selector>(mapState)
   const namespace = "p2000"
 
+  const [_viewSaveSedModal, setViewSaveSedModal] = useState<boolean>(false)
+
   useEffect(() => {
     if(sed){
       dispatch(getSed(buc.caseId!, sed))
@@ -75,6 +78,7 @@ const P2000: React.FC<P2000Props> = ({
     })
     dispatch(setValidation(clonedValidation))
     if (!hasErrors) {
+      setViewSaveSedModal(true)
       dispatch(saveSed(buc.caseId!, sed!.id, sed!.type, currentPSED))
     }
   }
@@ -87,6 +91,13 @@ const P2000: React.FC<P2000Props> = ({
 
   return (
     <>
+      <SaveSEDModal
+        open={_viewSaveSedModal}
+        onModalClose={() => {
+          //dispatch(alertReset())
+          setViewSaveSedModal(false)
+        }}
+      />
       <div style={{ display: 'inline-block' }}>
         <Button
           variant='secondary'
@@ -132,7 +143,7 @@ const P2000: React.FC<P2000Props> = ({
           onClick={onSaveSed}
           loading={savingSed}
         >
-          Lagre i RINA
+          {t('ui:save-sed')}
         </Button>
 
       </Box>
