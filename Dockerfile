@@ -13,7 +13,7 @@ COPY build build/
 
 ##CMD ["node", "./migrateEnvVars.mjs"]
 ENTRYPOINT ["node", "migrateEnvVars.mjs"]
-COPY /app/tmp/.env .env
+#COPY /app/tmp/.env .env
 CMD ["node", "./server.mjs"]
 
 EXPOSE 8080

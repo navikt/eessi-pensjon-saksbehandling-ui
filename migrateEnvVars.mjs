@@ -42,6 +42,6 @@ const newEnvVars = oldEnvVars.map((oldEnvVarName) => {
 
 console.log(__dirname)
 
-fs.writeFileSync(path.join('/tmp/', '.env'), newEnvVars);
+fs.writeFileSync(path.join(__dirname, '.env'), newEnvVars);
 
 console.log('Vite environment variables created');
