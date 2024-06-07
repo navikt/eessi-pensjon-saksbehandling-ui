@@ -5,6 +5,8 @@ metadata:
   namespace: eessipensjon
   labels:
     team: eessipensjon
+  annotations:
+    nais.io/read-only-file-system: "false"
 spec:
   azure:
     sidecar:
