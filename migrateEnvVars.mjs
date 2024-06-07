@@ -8,6 +8,8 @@ const __dirname = path.dirname(__filename)
 
 console.log("Start of Migratefile")
 
+console.log("New text")
+
 const oldEnvVars = [
   'AZURE_APP_CLIENT_ID',
   'AZURE_APP_CLIENT_SECRET',
