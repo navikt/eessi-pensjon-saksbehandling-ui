@@ -1,5 +1,10 @@
 import fs from 'fs'
 import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+
+const __dirname = path.dirname(__filename)
 
 console.log("Start of Migratefile")
 
@@ -32,6 +37,8 @@ const newEnvVars = oldEnvVars.map((oldEnvVarName) => {
   }
   return `${viteVarName}=${value}`;
 }).join('\n');
+
+console.log(__dirname)
 
 fs.writeFileSync(path.join(__dirname, '.env'), newEnvVars);
 
