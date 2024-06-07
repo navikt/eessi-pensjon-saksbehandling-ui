@@ -7,7 +7,8 @@ COPY package.json .
 COPY package-lock.json .
 COPY node_modules/ node_modules/
 COPY migrateEnvVars.cjs .
-ENTRYPOINT ["node", "migrateEnvVars.cjs"]
+#ENTRYPOINT ["node", "migrateEnvVars.cjs"]
+CMD ["node", "./migrateEnvVars.cjs"]
 COPY server.mjs server.mjs
 COPY build build/
 
