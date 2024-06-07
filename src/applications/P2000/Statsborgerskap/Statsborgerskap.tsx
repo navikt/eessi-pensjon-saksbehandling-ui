@@ -12,28 +12,28 @@ import {
 } from '@navikt/hoykontrast'
 import CountryData, { Country, CountryFilter } from '@navikt/land-verktoy'
 import CountrySelect from '@navikt/landvelger'
-import { resetValidation, setValidation } from 'actions/validation'
+import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
-import AddRemovePanel from 'components/AddRemovePanel/AddRemovePanel'
-import FormText from 'components/Forms/FormText'
-import { RepeatableRow } from 'components/StyledComponents'
-import useValidation from 'hooks/useValidation'
+import AddRemovePanel from 'src/components/AddRemovePanel/AddRemovePanel'
+import FormText from 'src/components/Forms/FormText'
+import { RepeatableRow } from 'src/components/StyledComponents'
+import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {useAppDispatch, useAppSelector} from 'store'
-import { getIdx } from 'utils/namespace'
-import performValidation from 'utils/performValidation'
-import { hasNamespaceWithErrors } from 'utils/validation'
+import {useAppDispatch, useAppSelector} from 'src/store'
+import { getIdx } from 'src/utils/namespace'
+import performValidation from 'src/utils/performValidation'
+import { hasNamespaceWithErrors } from 'src/utils/validation'
 import {
   validateStatsborgerskap,
   ValidationStatsborgerskapProps,
 } from './validation'
-import {Person, Statsborgerskap as P2000Statsborgerskap} from "declarations/p2000";
+import {Person, Statsborgerskap as P2000Statsborgerskap} from "src/declarations/p2000";
 import {ActionWithPayload} from "@navikt/fetch";
-import {UpdateSedPayload} from "declarations/types";
-import {Validation} from "declarations/app";
-import {State} from "declarations/reducers";
+import {UpdateSedPayload} from "src/declarations/types";
+import {Validation} from "src/declarations/app";
+import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 
 const mapState = (state: State): MainFormSelector => ({

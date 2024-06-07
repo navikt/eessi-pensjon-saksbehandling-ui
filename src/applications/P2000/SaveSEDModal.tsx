@@ -1,9 +1,9 @@
-import { State } from 'declarations/reducers'
-import {useAppSelector} from 'store'
+import { State } from 'src/declarations/reducers'
+import {useAppSelector} from 'src/store'
 import {useTranslation} from "react-i18next";
-import Modal from "components/Modal/Modal";
+import Modal from "src/components/Modal/Modal";
 import styled from "styled-components";
-import * as types from 'constants/actionTypes'
+import * as types from 'src/constants/actionTypes'
 import {Alert, Button, Loader} from "@navikt/ds-react";
 import {
   FlexCenterSpacedDiv,
