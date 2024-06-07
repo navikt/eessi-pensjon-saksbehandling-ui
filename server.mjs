@@ -8,6 +8,8 @@ import { Issuer } from 'openid-client'
 import * as jose from 'jose';
 import timeout from 'connect-timeout';
 
+console.log("Start of serverfile")
+
 const app = express();
 app.use(timeout('60s'));
 app.disable("x-powered-by");
@@ -22,6 +24,7 @@ let _issuer
 let _remoteJWKSet
 
 const onBehalfOf = function(scope, assertion) {
+  console.log("Start of onBehalfOf")
   const params = new URLSearchParams();
   params.append("grant_type", "urn:ietf:params:oauth:grant-type:jwt-bearer");
   params.append("client_id", azureAdConfig.clientId);
@@ -29,6 +32,7 @@ const onBehalfOf = function(scope, assertion) {
   params.append("scope", scope);
   params.append("assertion", assertion);
   params.append("requested_token_use", "on_behalf_of");
+  console.log("onBehalfOf before return")
   return fetch(azureAdConfig.tokenEndpoint, {
     body: params,
     method: "POST"

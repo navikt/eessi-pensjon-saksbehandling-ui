@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+console.log("Start of Migratefile")
+
 const oldEnvVars = [
   'AZURE_APP_CLIENT_ID',
   'AZURE_APP_CLIENT_SECRET',
@@ -24,6 +26,7 @@ const oldEnvVars = [
 const newEnvVars = oldEnvVars.map((oldEnvVarName) => {
   const viteVarName = `VITE_${oldEnvVarName}`;
   const value = process.env[oldEnvVarName];
+  console.log("oldEnvVarName" + oldEnvVarName)
   if (value === undefined) {
     throw new Error(`Environment variable ${oldEnvVarName} is not set`);
   }
