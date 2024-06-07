@@ -6,12 +6,13 @@ WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
 COPY node_modules/ node_modules/
-COPY migrateEnvVars.mjs .
+COPY migrateEnvVars.mjs migrateEnvVars.mjs
 #ENTRYPOINT ["node", "migrateEnvVars.mjs"]
-CMD ["node", "./migrateEnvVars.mjs"]
+
 COPY server.mjs server.mjs
 COPY build build/
 
+CMD ["node", "./migrateEnvVars.mjs"]
 CMD ["node", "./server.mjs"]
 
 EXPOSE 8080
