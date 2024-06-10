@@ -33,7 +33,7 @@ const oldEnvVars = [
 const newEnvVars = oldEnvVars.map((oldEnvVarName) => {
   const viteVarName = `VITE_${oldEnvVarName}`;
   const value = process.env[oldEnvVarName];
-  console.log("oldEnvVarName" + oldEnvVarName)
+  console.log("oldEnvVarName " + oldEnvVarName)
   if (value === undefined) {
     throw new Error(`Environment variable ${oldEnvVarName} is not set`);
   }
@@ -43,5 +43,7 @@ const newEnvVars = oldEnvVars.map((oldEnvVarName) => {
 console.log(__dirname)
 
 fs.writeFileSync(path.join('/tmp/', '.env'), newEnvVars);
+
+console.log("New Vite environment variables: " + newEnvVars)
 
 console.log('Vite environment variables created');
