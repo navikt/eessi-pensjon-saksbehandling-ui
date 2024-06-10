@@ -6,6 +6,7 @@ WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
 COPY node_modules/ node_modules/
+COPY entrypoint.sh entrypoint.sh
 COPY migrateEnvVars.mjs migrateEnvVars.mjs
 COPY server.mjs server.mjs
 COPY build build/
