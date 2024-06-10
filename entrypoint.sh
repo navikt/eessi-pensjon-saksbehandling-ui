@@ -1,5 +1,5 @@
 #!/bin/sh
 
-node migrateEnvVars.cjs
+node migrateEnvVars.mjs
 
 exec node ./server.mjs
