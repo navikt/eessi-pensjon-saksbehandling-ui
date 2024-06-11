@@ -8,6 +8,8 @@ import { Issuer } from 'openid-client'
 import * as jose from 'jose';
 import timeout from 'connect-timeout';
 
+import { fileURLToPath } from 'url';
+
 console.log("Start of serverfile")
 
 const app = express();
@@ -217,6 +219,11 @@ const timedOut = function (req, res, next) {
     logger.warning('request for original url timed out!')
   }
 }
+
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+const __dirname = path.dirname(__filename); // get the name of the directory
+
+console.log(__dirname);
 
 app.get('/test', (req, res) => res.send('hello world'));
 
