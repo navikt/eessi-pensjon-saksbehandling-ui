@@ -20,14 +20,14 @@ app.use(timeout('60s'));
 app.disable("x-powered-by");
 
 const azureAdConfig = {
-  clientId: process.env.VITE_AZURE_APP_CLIENT_ID,
-  clientSecret: process.env.VITE_AZURE_APP_CLIENT_SECRET,
-  tokenEndpoint: process.env.VITE_AZURE_OPENID_CONFIG_TOKEN_ENDPOINT
+  clientId: process.env.AZURE_APP_CLIENT_ID,
+  clientSecret: process.env.AZURE_APP_CLIENT_SECRET,
+  tokenEndpoint: process.env.AZURE_OPENID_CONFIG_TOKEN_ENDPOINT
 };
 
-console.log("process.env.VITE_AZURE_APP_CLIENT_ID" + process.env.VITE_AZURE_APP_CLIENT_ID)
-console.log("process.env.VITE_AZURE_APP_CLIENT_SECRET" + process.env.VITE_AZURE_APP_CLIENT_SECRET)
-console.log("process.env.VITE_AZURE_OPENID_CONFIG_TOKEN_ENDPOINT" + process.env.VITE_AZURE_OPENID_CONFIG_TOKEN_ENDPOINT)
+console.log("process.env.VITE_AZURE_APP_CLIENT_ID" + process.env.AZURE_APP_CLIENT_ID)
+console.log("process.env.VITE_AZURE_APP_CLIENT_SECRET" + process.env.AZURE_APP_CLIENT_SECRET)
+console.log("process.env.VITE_AZURE_OPENID_CONFIG_TOKEN_ENDPOINT" + process.env.AZURE_OPENID_CONFIG_TOKEN_ENDPOINT)
 
 let _issuer
 let _remoteJWKSet
@@ -64,9 +64,9 @@ async function validerToken(token) {
 }
 
 async function jwks() {
-  console.log("VITE_AZURE_OPENID_CONFIG_JWKS_URI: " + process.env.VITE_AZURE_OPENID_CONFIG_JWKS_URI)
+  console.log("VITE_AZURE_OPENID_CONFIG_JWKS_URI: " + process.env.AZURE_OPENID_CONFIG_JWKS_URI)
   if (typeof _remoteJWKSet === "undefined") {
-    _remoteJWKSet = jose.createRemoteJWKSet(new URL(process.env.VITE_AZURE_OPENID_CONFIG_JWKS_URI));
+    _remoteJWKSet = jose.createRemoteJWKSet(new URL(process.env.AZURE_OPENID_CONFIG_JWKS_URI));
   }
 
   return _remoteJWKSet;
@@ -74,9 +74,9 @@ async function jwks() {
 
 async function issuer() {
   if (typeof _issuer === "undefined") {
-    if (!process.env.VITE_AZURE_APP_WELL_KNOWN_URL)
+    if (!process.env.AZURE_APP_WELL_KNOWN_URL)
       throw new Error(`Miljøvariabelen "AZURE_APP_WELL_KNOWN_URL" må være satt`);
-    _issuer = await Issuer.discover(process.env.VITE_AZURE_APP_WELL_KNOWN_URL);
+    _issuer = await Issuer.discover(process.env.AZURE_APP_WELL_KNOWN_URL);
   }
   return _issuer;
 }
