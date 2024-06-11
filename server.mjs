@@ -12,6 +12,9 @@ import { fileURLToPath } from 'url';
 
 console.log("Start of serverfile")
 
+console.log('All environment variables available for server script via process:', process.env);
+console.log('All environment variables available for server script via import.meta:', import.meta.env);
+
 const app = express();
 app.use(timeout('60s'));
 app.disable("x-powered-by");
