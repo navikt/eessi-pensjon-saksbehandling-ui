@@ -57,7 +57,7 @@ async function validerToken(token) {
 }
 
 async function jwks() {
-  console.log("VITE_AZURE_OPENID_CONFIG_JWKS_URI: " + VITE_AZURE_OPENID_CONFIG_JWKS_URI)
+  console.log("VITE_AZURE_OPENID_CONFIG_JWKS_URI: " + process.env.VITE_AZURE_OPENID_CONFIG_JWKS_URI)
   if (typeof _remoteJWKSet === "undefined") {
     _remoteJWKSet = jose.createRemoteJWKSet(new URL(process.env.VITE_AZURE_OPENID_CONFIG_JWKS_URI));
   }
