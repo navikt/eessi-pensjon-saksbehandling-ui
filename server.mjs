@@ -22,6 +22,10 @@ const azureAdConfig = {
   tokenEndpoint: process.env.VITE_AZURE_OPENID_CONFIG_TOKEN_ENDPOINT
 };
 
+console.log("process.env.VITE_AZURE_APP_CLIENT_ID" + process.env.VITE_AZURE_APP_CLIENT_ID)
+console.log("process.env.VITE_AZURE_APP_CLIENT_SECRET" + process.env.VITE_AZURE_APP_CLIENT_SECRET)
+console.log("process.env.VITE_AZURE_OPENID_CONFIG_TOKEN_ENDPOINT" + process.env.VITE_AZURE_OPENID_CONFIG_TOKEN_ENDPOINT)
+
 let _issuer
 let _remoteJWKSet
 
@@ -212,6 +216,8 @@ const socketProxy = createProxyMiddleware({
   ws: true
 })
 
+console.log("process.env.VITE_EESSI_PENSJON_WEBSOCKETURL: " + process.env.VITE_EESSI_PENSJON_WEBSOCKETURL)
+
 const timedOut = function (req, res, next) {
   if (!req.timedout) {
     next()
@@ -250,6 +256,9 @@ app.use('/frontend',
   apiAuth(process.env.VITE_EESSI_PENSJON_FRONTEND_API_TOKEN_SCOPE),
   apiProxy(process.env.VITE_EESSI_PENSJON_FRONTEND_API_URL,{ '^/frontend/' : '/' })
 )
+
+console.log("process.env.VITE_EESSI_PENSJON_FRONTEND_API_TOKEN_SCOPE: " + process.env.VITE_EESSI_PENSJON_FRONTEND_API_TOKEN_SCOPE)
+console.log("process.env.VITE_EESSI_PENSJON_FRONTEND_API_URL: " + process.env.VITE_EESSI_PENSJON_FRONTEND_API_URL)
 
 app.use('/fagmodul',
   timedOut,
