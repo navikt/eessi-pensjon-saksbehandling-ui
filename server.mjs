@@ -12,10 +12,8 @@ import { fileURLToPath } from 'url';
 
 console.log("Start of serverfile")
 
-console.log('All environment variables available for server script via process:', process.env);
-console.log('All environment variables available for server script via import.meta:', import.meta.env);
-
 const app = express();
+console.log("Start of app section")
 app.use(timeout('60s'));
 app.disable("x-powered-by");
 
@@ -24,10 +22,6 @@ const azureAdConfig = {
   clientSecret: process.env.AZURE_APP_CLIENT_SECRET,
   tokenEndpoint: process.env.AZURE_OPENID_CONFIG_TOKEN_ENDPOINT
 };
-
-console.log("process.env.VITE_AZURE_APP_CLIENT_ID" + process.env.AZURE_APP_CLIENT_ID)
-console.log("process.env.VITE_AZURE_APP_CLIENT_SECRET" + process.env.AZURE_APP_CLIENT_SECRET)
-console.log("process.env.VITE_AZURE_OPENID_CONFIG_TOKEN_ENDPOINT" + process.env.AZURE_OPENID_CONFIG_TOKEN_ENDPOINT)
 
 let _issuer
 let _remoteJWKSet
@@ -58,14 +52,16 @@ const logger = winston.createLogger({
 });
 
 async function validerToken(token) {
+  console.log("Start of validerToken")
   return jose.jwtVerify(token, await jwks(), {
     issuer: (await issuer()).metadata.issuer,
   });
 }
 
 async function jwks() {
-  console.log("VITE_AZURE_OPENID_CONFIG_JWKS_URI: " + process.env.AZURE_OPENID_CONFIG_JWKS_URI)
+  console.log("VITE_AZURE_OPENID_CONFIG_JWKS_URI: " + process.env.AZURE_OPENID_CONFIG_JWKS_URI);
   if (typeof _remoteJWKSet === "undefined") {
+    console.log("insided jwks() undefined if")
     _remoteJWKSet = jose.createRemoteJWKSet(new URL(process.env.AZURE_OPENID_CONFIG_JWKS_URI));
   }
 
@@ -73,6 +69,7 @@ async function jwks() {
 }
 
 async function issuer() {
+  console.log("inside issuer")
   if (typeof _issuer === "undefined") {
     if (!process.env.AZURE_APP_WELL_KNOWN_URL)
       throw new Error(`Miljøvariabelen "AZURE_APP_WELL_KNOWN_URL" må være satt`);
@@ -82,6 +79,7 @@ async function issuer() {
 }
 
 const validateAuthorization = async (authorization) => {
+  console.log("inside validateAuthorization")
   try {
     const token = authorization.split(" ")[1];
     const JWTVerifyResult = await validerToken(token);
@@ -93,6 +91,7 @@ const validateAuthorization = async (authorization) => {
 }
 
 const mainPageAuth = async function(req, res, next) {
+  console.log("inside mainPageAuth")
   const {sakId, aktoerId, vedtakId, kravId, saksNr, sakType, avdodFnr} = req.query
   const newPath =
     (aktoerId !== undefined && aktoerId !== '' ? aktoerId : '-') + '/' +
@@ -106,15 +105,18 @@ const mainPageAuth = async function(req, res, next) {
 
   const loginPath = '/oauth2/login?redirect=/callback/' + newPath + gjenny
   logger.debug('mainPageAuth: loginPath = ' + loginPath)
+  console.log("mainPageAuth: loginPath = " + loginPath)
   const {authorization} = req.headers
 
   // Not logged in - log in with wonderwall
   if (!authorization) {
     logger.debug ('mainPageAuth: no auth, redirect to login ' + loginPath)
+    console.log("mainPageAuth: no auth, redirect to login" + loginPath)
     res.redirect(loginPath)
   } else {
     // Validate token and continue to app
     if(await validateAuthorization(authorization)) {
+      console.log("Inside validateAuthorization")
       next();
     } else {
       logger.debug('mainPageAuth: auth Invalid, 302 to login ' + loginPath)
@@ -124,6 +126,7 @@ const mainPageAuth = async function(req, res, next) {
 }
 
 const handleCallback = (req, res) => {
+  console.log("Inside handleCallback")
   let paths = req.originalUrl.split('/')
   // /callback/123/456/789/012/Uføretrygd/ => ['', 'callback', '123', '456', '789', '012', 'Uføretrygd']
   let aktoerId = (paths[2] === '-' ? '' : paths[2])
@@ -135,16 +138,20 @@ const handleCallback = (req, res) => {
 
   let redirectPath = "/"
   if(aktoerId !== "" && sakId !== ""){
+    console.log("Under redirectPath if condition 1")
     redirectPath = '/?aktoerId=' +  aktoerId  + '&sakId=' + sakId
   }
 
   if(aktoerId !== "" && sakId !== "" && sakType !== ""){
+    console.log("Under redirectPath if condition 2")
     redirectPath = redirectPath + "&sakType=" + sakType
   }
   if(aktoerId !== "" && sakId !== "" && kravId !== ""){
+    console.log("Under redirectPath if condition 3")
     redirectPath = redirectPath + "&kravId=" + kravId
   }
   if(aktoerId !== "" && sakId !== "" && vedtakId !== ""){
+    console.log("Under redirectPath if condition 4")
     redirectPath = redirectPath + "&vedtakId=" + vedtakId
   }
 
@@ -159,14 +166,17 @@ const handleCallback = (req, res) => {
 
   //logger.debug('handleCallback: redirecting to ' + redirectPath)
   logger.debug('handleCallback: redirecting to redirect path')
+  console.log('handleCallback: redirecting to ' + redirectPath)
   res.redirect(redirectPath)
 }
 
 // require token
 const apiAuth = function (scope) {
+  console.log("Inside apiAuth")
   return async function (req, res, next) {
     if (!req.headers.authorization) {
       logger.debug('redirecting to /oauth2/login')
+      console.log('redirecting to /oauth2/login')
       res.redirect("/oauth2/login");
     } else {
       try {
@@ -178,9 +188,11 @@ const apiAuth = function (scope) {
         const body = await response.json();
         //logger.debug('apiAuth: got ' + body.access_token)
         if (response.ok) {
+          console.log('response is ok')
           res.locals.on_behalf_of_authorization = "Bearer " + body.access_token;
           next();
         } else {
+          console.log("Error fetching on behalf of token. Status code " + response.status)
           logger.error(
             "Error fetching on behalf of token. Status code " + response.status
           );
@@ -189,6 +201,7 @@ const apiAuth = function (scope) {
           res.redirect("/oauth2/login");
         }
       } catch (error) {
+        console.log("Error message " + error.message)
         logger.error(error.message);
         res.redirect("/oauth2/login");
       }
@@ -198,6 +211,7 @@ const apiAuth = function (scope) {
 
 const apiProxy = function (target, pathRewrite) {
   //logger.debug('On apiProxy, with target ' + target)
+  console.log("Inside apiProxy")
   return createProxyMiddleware( {
     target: target,
     logLevel: 'silent',
@@ -233,7 +247,8 @@ const timedOut = function (req, res, next) {
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
 
-console.log(__dirname);
+console.log("__filename: " + __filename);
+console.log("__dirname: " + __dirname);
 
 app.get('/test', (req, res) => res.send('hello world'));
 
@@ -248,6 +263,7 @@ app.use('/locales', express.static(path.join(__dirname, "build", "locales")));
 app.use('/favicon', express.static(path.join(__dirname, "build", "favicon")));
 
 app.get(["/oauth2/login"], async (req, res) => {
+  console.log("Inside app.get oauth2")
   logger.error("Wonderwall must handle /oauth2/login")
   res.status(502).send({
     message: "Wonderwall must handle /oauth2/login",
@@ -273,7 +289,12 @@ app.use('/websocket', socketProxy)
 
 app.use('*', mainPageAuth, express.static(path.join(__dirname, "build")));
 
+console.log("Before app.listen at the end of the file")
+
 // start express server on port 8080
 app.listen(8080, () => {
   logger.info("eessi-pensjon-saksbehandling-ui started on port 8080");
+  console.log("eessi-pensjon-saksbehandling-ui started on port 8080")
 });
+
+console.log("The end of the file")
