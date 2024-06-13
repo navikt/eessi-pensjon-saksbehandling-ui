@@ -256,7 +256,7 @@ app.get('/callback/*', handleCallback);
 
 app.get('/internal/isAlive|isReady|metrics', (req, res) => res.sendStatus(200));
 
-app.use('/static', express.static(path.join(__dirname, "build", "assets")));
+app.use('/assets', express.static(path.join(__dirname, "build", "assets")));
 
 app.use('/static', express.static(path.join(__dirname, "build", "static")));
 
