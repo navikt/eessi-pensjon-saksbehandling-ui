@@ -10,8 +10,6 @@ import timeout from 'connect-timeout';
 
 import { fileURLToPath } from 'url';
 
-console.log("Start of serverfile")
-
 const app = express();
 console.log("Start of app section")
 app.use(timeout('60s'));
