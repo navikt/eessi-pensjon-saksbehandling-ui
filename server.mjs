@@ -256,6 +256,8 @@ app.get('/internal/isAlive|isReady|metrics', (req, res) => res.sendStatus(200));
 
 app.use('/assets', express.static(path.join(__dirname, "build", "assets")));
 
+app.use('/assets/index.css', express.static(path.join(__dirname, '../build', 'assets', 'index.css')));
+
 app.use('/static', express.static(path.join(__dirname, "build", "static")));
 
 app.use('/locales', express.static(path.join(__dirname, "build", "locales")));
