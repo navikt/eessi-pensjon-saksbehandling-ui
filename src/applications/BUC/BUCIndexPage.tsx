@@ -28,14 +28,14 @@ const timeout = 501
 const AnimatableDiv = styled.div`
   flex: 1;
   background: inherit;
-  &.animate {
+/*  &.animate {
     will-change: transform, opacity;
     pointer-events: none;
     * {
       pointer-events: none;
     }
     transition: transform ${transition}ms ease-in-out;
-  }
+  }*/
 
   &.left {
     transform: translateX(0%);
