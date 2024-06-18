@@ -3,10 +3,10 @@ import react from '@vitejs/plugin-react'
 import viteTsconfigPaths from 'vite-tsconfig-paths'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import legacy from '@vitejs/plugin-legacy'
-import * as dotenv from 'dotenv';
+/*import * as dotenv from 'dotenv';
 import * as path from 'path';
 
-dotenv.config({ path: path.resolve('/tmp/.env') });
+dotenv.config({ path: path.resolve('/tmp/.env') });*/
 
 export default defineConfig({
   base: "/",
