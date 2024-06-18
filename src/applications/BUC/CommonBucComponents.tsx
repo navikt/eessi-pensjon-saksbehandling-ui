@@ -46,9 +46,9 @@ export const BadBucDiv = styled.div`
   }
 `
 export const BucLenkePanel = styled(LinkPanel)`
-  transform: translateX(-20px);
+/*  transform: translateX(-20px);
   opacity: 0;
-  animation: ${slideInFromLeft} 0.2s forwards;
+  animation: ${slideInFromLeft} 0.2s forwards;*/
   background: var(--a-surface-default);
   margin-bottom: 1rem;
   .navds-link-panel__content {
