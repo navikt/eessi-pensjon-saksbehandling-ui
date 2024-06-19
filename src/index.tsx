@@ -23,20 +23,12 @@ import i18n from './i18n'
 import store from './store'
 import {GJENNY, PESYS} from "./constants/constants";
 
-console.log("The content of NODE_ENV: " + import.meta.env.NODE_ENV)
-console.log("IS_PRODUCTION was set to: " + IS_PRODUCTION)
-
-console.log("VITE_EESSI_PENSJON_FRONTEND_API_URL loaded with process.env: " + process.env.VITE_EESSI_PENSJON_FRONTEND_API_URL)
-console.log("VITE_EESSI_PENSJON_FRONTEND_API_URL loaded with import.meta.env: " + import.meta.env.VITE_EESSI_PENSJON_FRONTEND_API_URL)
-
 if (!IS_PRODUCTION) {
 
   // const axe = require('@axe-core/react')
   // axe(React, ReactDOM, 1000, {})
-  console.log("Inside if (!IS_PRODUCTION) " + IS_PRODUCTION)
 
 } else {
-  console.log("Inside else (!IS_PRODUCTION) " + IS_PRODUCTION)
   Sentry.init()
   Amplitude.init()
 }
