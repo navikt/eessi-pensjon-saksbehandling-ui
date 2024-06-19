@@ -5,6 +5,7 @@ export interface DateFieldProps {
   id: string
   index: number
   label: string
+  description?: string
   hideLabel?: boolean
   error: string | null | undefined
   namespace: string
@@ -17,6 +18,7 @@ const DateField: React.FC<DateFieldProps> = ({
   id,
   index,
   label,
+  description,
   hideLabel,
   namespace,
   error,
@@ -26,7 +28,7 @@ const DateField: React.FC<DateFieldProps> = ({
 
   const { datepickerProps, inputProps, setSelected } = useDatepicker({
     onDateChange: (v) => {onChanged(v)},
-    defaultSelected: defaultDate ? new Date(defaultDate) : new Date()
+    defaultSelected: defaultDate ? new Date(defaultDate) : new Date(),
   });
 
   useEffect(() => {
@@ -35,7 +37,7 @@ const DateField: React.FC<DateFieldProps> = ({
 
   return (
     <DatePicker {...datepickerProps}>
-      <DatePicker.Input {...inputProps} label={label} hideLabel={hideLabel} id={namespace + '-' + id} error={error} key={namespace + '-' + id + '-' + index}/>
+      <DatePicker.Input {...inputProps} label={label} description={description} hideLabel={hideLabel} id={namespace + '-' + id} error={error} key={namespace + '-' + id + '-' + index}/>
     </DatePicker>
   )
 }

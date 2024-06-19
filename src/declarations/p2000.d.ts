@@ -182,6 +182,32 @@ export interface SEPA{
   swift: string | null
 }
 
+export interface Utsettelse {
+  land?: string
+  institusjonsid?: string
+  institusjonsnavn?: string
+  tildato?: string
+}
+
+export interface Pensjon {
+  utsettelse: Array<Utsettelse>
+  ytelser: Array<Ytelse>
+  ytterligeinformasjon: string
+  bruker: {
+    arbeidsforhold: Array<Arbeidsforhold>
+  }
+  etterspurtedokumenter: string
+  vedtak: Array<{
+    mottaker: Array<string>
+    trekkgrunnlag: Array<string>
+  }>
+  vedlegg: Array<string>
+  institusjonennaaikkesoektompensjon: Array<string>
+  vedleggandre: string
+  forespurtstartdato: string
+  angitidligstdato: string
+}
+
 export interface P2000SED {
   sed: string
   sedGVer: string
@@ -199,27 +225,5 @@ export interface P2000SED {
     barn : Barn,
     ektefelle: Ektefelle,
   },
-  pensjon : {
-    utsettelse: Array<{
-      land: string
-      institusjonsid: string
-      institusjonsnavn: string
-      tildato: string
-    }>
-    ytelser: Array<Ytelse>
-    ytterligeinformasjon: string
-    bruker: {
-      arbeidsforhold: Array<Arbeidsforhold>
-    }
-    etterspurtedokumenter: string
-    vedtak: Array<{
-      mottaker: Array<string>
-      trekkgrunnlag: Array<string>
-    }>
-    vedlegg: Array<string>
-    institusjonennaaikkesoektompensjon: Array<string>
-    vedleggandre: string
-    forespurtstartdato: string
-    angitidligstdato: string
-  }
+  pensjon : Pensjon
 }
