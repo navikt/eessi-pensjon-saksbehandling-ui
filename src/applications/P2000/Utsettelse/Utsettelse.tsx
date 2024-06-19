@@ -24,7 +24,7 @@ import CountryData, {Country, CountryFilter} from "@navikt/land-verktoy";
 import CountrySelect from "@navikt/landvelger";
 import Input from "../../../components/Forms/Input";
 import DateField from "../DateField/DateField";
-import {dateToString} from "../../../utils/utils";
+import {dateToString, formatDate} from "../../../utils/utils";
 import FormText from "../../../components/Forms/FormText";
 import Flag from "@navikt/flagg-ikoner";
 
@@ -220,7 +220,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
                     <Label hidden={index>0}>
                       {t('p2000:form-diverse-utsettelse-tildato')}
                     </Label>
-                    <BodyLong>{_utsettelse?.tildato}</BodyLong>
+                    <BodyLong>{formatDate(_utsettelse?.tildato)}</BodyLong>
                   </FormText>
                 </Column>
               </>
