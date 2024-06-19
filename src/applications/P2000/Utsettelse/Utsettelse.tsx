@@ -4,21 +4,21 @@ import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
-import {getIdx} from "utils/namespace";
-import {RepeatableRow} from "components/StyledComponents";
-import AddRemovePanel from "components/AddRemovePanel/AddRemovePanel";
+import {getIdx} from "src/utils/namespace";
+import {RepeatableRow} from "src/components/StyledComponents";
+import AddRemovePanel from "src/components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
-import {UpdateSedPayload} from "declarations/types";
-import {PSED, Validation} from "declarations/app";
-import useValidation from "hooks/useValidation";
+import {UpdateSedPayload} from "src/declarations/types";
+import {PSED, Validation} from "src/declarations/app";
+import useValidation from "src/hooks/useValidation";
 
-import { resetValidation, setValidation } from 'actions/validation'
-import performValidation from 'utils/performValidation'
-import {State} from "declarations/reducers";
+import { resetValidation, setValidation } from 'src/actions/validation'
+import performValidation from 'src/utils/performValidation'
+import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
-import {useAppSelector} from "store";
+import {useAppSelector} from "src/store";
 import {useTranslation} from "react-i18next";
-import {Utsettelse as P2000UUtsettelse} from "declarations/p2000";
+import {Utsettelse as P2000UUtsettelse} from "src/declarations/p2000";
 import {validateUtsettelse, ValidationUtsettelseProps} from "./validation";
 import CountryData, {Country, CountryFilter} from "@navikt/land-verktoy";
 import CountrySelect from "@navikt/landvelger";
