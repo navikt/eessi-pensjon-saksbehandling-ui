@@ -25,6 +25,7 @@ import Barn from "./Barn/Barn";
 import InformasjonOmBetaling from "./InformasjonOmBetaling/InformasjonOmBetaling";
 import SakInfo from "./SakInfo/SakInfo";
 import SaveSEDModal from "./SaveSEDModal";
+import Diverse from "./Diverse/Diverse";
 
 export interface P2000Selector {
   currentPSED: P2000SED
@@ -120,7 +121,8 @@ const P2000: React.FC<P2000Props> = ({
           { label: "Ektefelle", value: 'ektefelle', component: Ektefelle},
           { label: "Barn", value: 'barn', component: Barn},
           { label: "Verge", value: 'verge', component: Verge},
-          { label: "Informasjon om betaling", value: 'informasjonombetaling', component: InformasjonOmBetaling}
+          { label: "Informasjon om betaling", value: 'informasjonombetaling', component: InformasjonOmBetaling},
+          { label: "Diverse", value: 'diverse', component: Diverse}
         ]}
         PSED={currentPSED}
         setPSED={setPSED}
