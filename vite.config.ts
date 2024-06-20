@@ -1,17 +1,12 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import viteTsconfigPaths from 'vite-tsconfig-paths'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
-import legacy from '@vitejs/plugin-legacy'
 
 export default defineConfig({
   base: "/",
   plugins: [
     react(),
-    legacy({
-      targets: ['defaults', 'not IE 11'],
-    }),
-    viteTsconfigPaths(), nodePolyfills()
+    viteTsconfigPaths()
   ],
   server: {
     open: true,
