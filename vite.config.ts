@@ -6,20 +6,13 @@ import legacy from '@vitejs/plugin-legacy'
 
 export default defineConfig({
   base: "/",
-  plugins: [react(
-/*    {
-    jsxRuntime: 'classic', // Add this line
-    include: /\.(jsx|tsx)$/,
-    babel: {
-      babelrc: false,
-      configFile: false,
-    },
-  }*/
-  ),
+  plugins: [
+    react(),
     legacy({
       targets: ['defaults', 'not IE 11'],
     }),
-    viteTsconfigPaths(), nodePolyfills()],
+    viteTsconfigPaths(), nodePolyfills()
+  ],
   server: {
     open: true,
     port: 3000,

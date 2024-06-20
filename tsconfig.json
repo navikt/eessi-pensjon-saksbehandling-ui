@@ -33,6 +33,5 @@
   ],
   "exclude": [
     "**/*.snap"
-  ]/*,
-  "references": [{ "path": "./tsconfig.node.json" }],*/
+  ]
 }
