@@ -116,9 +116,9 @@ const Diverse: React.FC<MainFormProps> = ({
               value={pensjon?.trekkgrunnlag ? pensjon?.trekkgrunnlag : [""]}
               onChange={(v) => setMottakerTrekkgrunnlag('trekkgrunnlag', v)}
             >
-              <Checkbox value="01">987/2009: Art. 72 (1)</Checkbox>
-              <Checkbox value="02">987/2009: Art. 72 (2)</Checkbox>
-              <Checkbox value="03">987/2009: Art. 72 (3)</Checkbox>
+              <Checkbox value="987_2009_Art_72_1">987/2009: Art. 72 (1)</Checkbox>
+              <Checkbox value="987_2009_Art_72_2">987/2009: Art. 72 (2)</Checkbox>
+              <Checkbox value="987_2009_Art_72_3">987/2009: Art. 72 (3)</Checkbox>
             </CheckboxGroup>
           </Column>
         </AlignStartRow>
