@@ -1,4 +1,4 @@
-import {Heading, Radio} from "@navikt/ds-react";
+import {Checkbox, CheckboxGroup, Heading, Radio} from "@navikt/ds-react";
 import {VerticalSeparatorDiv, PaddedDiv, AlignStartRow, Column} from "@navikt/hoykontrast";
 import React from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
@@ -45,8 +45,12 @@ const Diverse: React.FC<MainFormProps> = ({
     dispatch(setValidation(clonedvalidation))
   })
 
-  const setPensjonProperty = (property: string, value: string | undefined) => {
-    dispatch(updatePSED(`${target}.${property}`, value))
+  const setPensjonProperty = (property: string, value: string | string [] | undefined) => {
+    if(value && value.length > 0){
+      dispatch(updatePSED(`${target}.${property}`, value))
+    } else {
+      dispatch(updatePSED(`${target}.${property}`, null))
+    }
   }
 
   return (
@@ -86,6 +90,35 @@ const Diverse: React.FC<MainFormProps> = ({
         <VerticalSeparatorDiv/>
         <Utsettelse PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/>
         <VerticalSeparatorDiv/>
+        <AlignStartRow>
+          <Column>
+              <CheckboxGroup
+                legend={t('p2000:form-diverse-pensjon-mottaker')}
+                error={validation[namespace + '-mottaker']?.feilmelding}
+                id={namespace + "-mottaker"}
+                value={pensjon?.mottaker ? pensjon?.mottaker : undefined}
+                onChange={(v: string[]) => setPensjonProperty("mottaker", v)}
+              >
+                <Checkbox value="forsikret_person">Forsikret person</Checkbox>
+                <Checkbox value="representant_eller_verge">Representant/verge</Checkbox>
+              </CheckboxGroup>
+          </Column>
+          <Column>
+            <CheckboxGroup
+              error={validation[namespace + '-trekkgrunnlag']?.feilmelding}
+              id={namespace + "-trekkgrunnlag"}
+              legend={t('p2000:form-diverse-pensjon-trekkgrunnlag')}
+              value={pensjon?.trekkgrunnlag ? pensjon?.trekkgrunnlag : undefined}
+              onChange={(v: string[]) => setPensjonProperty("trekkgrunnlag", v)}
+            >
+              <Checkbox value="987_2009_Art_72_1">987/2009: Art. 72 (1)</Checkbox>
+              <Checkbox value="987_2009_Art_72_2">987/2009: Art. 72 (2)</Checkbox>
+              <Checkbox value="987_2009_Art_72_3">987/2009: Art. 72 (3)</Checkbox>
+            </CheckboxGroup>
+          </Column>
+        </AlignStartRow>
+        <VerticalSeparatorDiv/>
+
       </PaddedDiv>
     </>
   )
