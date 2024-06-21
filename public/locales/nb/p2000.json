@@ -32,6 +32,8 @@
   "form-betalingshyppighet-ukentlig": "Ukentlig",
   "form-betalingshyppighet-annet": "Annet - legg direkte inn i RINA",
   "form-betalingshyppighet-annet-ytelse": "Annet",
+  "form-diverse-institusjon": "Institusjon",
+  "form-diverse-institusjonennaaikkesoektompensjon": "Institusjon der det ennå ikke er søkt om pensjon (kun P5000 trengs)",
   "form-diverse-pensjon-forespurtstartdato": "Startdato for pensjonsutbetaling",
   "form-diverse-pensjon-forespurtstartdato-description": "Som den forsikrede har anmodet om hos kontaktinstitusjonen",
   "form-diverse-pensjon-angitidligstdato": "Startdato for pensjonen ønskes tidligst mulig?",

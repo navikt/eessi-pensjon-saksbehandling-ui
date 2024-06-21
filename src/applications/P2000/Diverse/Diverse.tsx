@@ -16,6 +16,7 @@ import {useTranslation} from "react-i18next";
 import {P2000SED, Pensjon} from "declarations/p2000";
 import {HorizontalRadioGroup} from "../../../components/StyledComponents";
 import Utsettelse from "../Utsettelse/Utsettelse";
+import Institusjon from "../Institusjon/Institusjon";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -123,7 +124,8 @@ const Diverse: React.FC<MainFormProps> = ({
           </Column>
         </AlignStartRow>
         <VerticalSeparatorDiv/>
-
+        <Institusjon PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/>
+        <VerticalSeparatorDiv/>
       </PaddedDiv>
     </>
   )
