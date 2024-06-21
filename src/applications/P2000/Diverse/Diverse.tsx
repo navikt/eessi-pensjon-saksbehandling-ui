@@ -45,11 +45,16 @@ const Diverse: React.FC<MainFormProps> = ({
     dispatch(setValidation(clonedvalidation))
   })
 
-  const setPensjonProperty = (property: string, value: string | string [] | undefined) => {
-    if(value && value.length > 0){
-      dispatch(updatePSED(`${target}.${property}`, value))
+  const setPensjonProperty = (property: string, value: string | undefined) => {
+    dispatch(updatePSED(`${target}.${property}`, value))
+  }
+
+  const setMottakerTrekkgrunnlag = (prop: string, value: string[]) => {
+    if(value && value.some(v => v!=="")){
+      const filteredValue = value.filter(v => v!=="")
+      dispatch(updatePSED(`${target}.${prop}`, filteredValue))
     } else {
-      dispatch(updatePSED(`${target}.${property}`, null))
+      dispatch(updatePSED(`${target}.${prop}`, null))
     }
   }
 
@@ -96,8 +101,8 @@ const Diverse: React.FC<MainFormProps> = ({
                 legend={t('p2000:form-diverse-pensjon-mottaker')}
                 error={validation[namespace + '-mottaker']?.feilmelding}
                 id={namespace + "-mottaker"}
-                value={pensjon?.mottaker ? pensjon?.mottaker : undefined}
-                onChange={(v: string[]) => setPensjonProperty("mottaker", v)}
+                value={pensjon?.mottaker ? pensjon?.mottaker : [""]}
+                onChange={(v) => setMottakerTrekkgrunnlag('mottaker', v)}
               >
                 <Checkbox value="forsikret_person">Forsikret person</Checkbox>
                 <Checkbox value="representant_eller_verge">Representant/verge</Checkbox>
@@ -108,12 +113,12 @@ const Diverse: React.FC<MainFormProps> = ({
               error={validation[namespace + '-trekkgrunnlag']?.feilmelding}
               id={namespace + "-trekkgrunnlag"}
               legend={t('p2000:form-diverse-pensjon-trekkgrunnlag')}
-              value={pensjon?.trekkgrunnlag ? pensjon?.trekkgrunnlag : undefined}
-              onChange={(v: string[]) => setPensjonProperty("trekkgrunnlag", v)}
+              value={pensjon?.trekkgrunnlag ? pensjon?.trekkgrunnlag : [""]}
+              onChange={(v) => setMottakerTrekkgrunnlag('trekkgrunnlag', v)}
             >
-              <Checkbox value="987_2009_Art_72_1">987/2009: Art. 72 (1)</Checkbox>
-              <Checkbox value="987_2009_Art_72_2">987/2009: Art. 72 (2)</Checkbox>
-              <Checkbox value="987_2009_Art_72_3">987/2009: Art. 72 (3)</Checkbox>
+              <Checkbox value="01">987/2009: Art. 72 (1)</Checkbox>
+              <Checkbox value="02">987/2009: Art. 72 (2)</Checkbox>
+              <Checkbox value="03">987/2009: Art. 72 (3)</Checkbox>
             </CheckboxGroup>
           </Column>
         </AlignStartRow>
