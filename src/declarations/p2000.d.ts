@@ -197,10 +197,8 @@ export interface Pensjon {
     arbeidsforhold: Array<Arbeidsforhold>
   }
   etterspurtedokumenter: string
-  vedtak: Array<{
-    mottaker: Array<string>
-    trekkgrunnlag: Array<string>
-  }>
+  mottaker: Array<string>
+  trekkgrunnlag: Array<string>
   vedlegg: Array<string>
   institusjonennaaikkesoektompensjon: Array<string>
   vedleggandre: string
