@@ -3,7 +3,7 @@ import * as uiActions from 'src/actions/ui'
 import { ModalContent } from 'src/declarations/components'
 import { AllowedLocaleString } from 'src/declarations/app.d'
 import i18n from 'src/i18n'
-jest.mock('i18n', () => ({
+jest.mock('src/i18n', () => ({
   changeLanguage: jest.fn()
 }))
 
