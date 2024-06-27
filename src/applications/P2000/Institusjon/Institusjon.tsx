@@ -171,7 +171,7 @@ const Institusjon: React.FC<InstitusjonProps> = ({
 
   return (
     <>
-      <Heading size="small">{t('p2000:form-diverse-institusjonennaaikkesoektompensjon')}</Heading>
+      <Heading size="xsmall">{t('p2000:form-diverse-institusjonennaaikkesoektompensjon')}</Heading>
       <AlignStartRow>
         <Column>
           {institusjoner?.map(renderInstitusjon)}

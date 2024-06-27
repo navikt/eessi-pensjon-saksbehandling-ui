@@ -248,7 +248,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
 
   return (
     <>
-      <Heading size="small">{t('p2000:form-diverse-utsettelse')}</Heading>
+      <Heading size="xsmall">{t('p2000:form-diverse-utsettelse')}</Heading>
       <AlignStartRow>
         <Column>
           {utsettelseArray?.map(renderUtsettelse)}
