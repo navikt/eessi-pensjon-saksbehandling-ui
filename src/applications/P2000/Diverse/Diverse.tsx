@@ -18,6 +18,7 @@ import {HorizontalRadioGroup} from "../../../components/StyledComponents";
 import Utsettelse from "../Utsettelse/Utsettelse";
 import Institusjon from "../Institusjon/Institusjon";
 import Input from "../../../components/Forms/Input";
+import TextArea from "../../../components/Forms/TextArea";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -163,10 +164,38 @@ const Diverse: React.FC<MainFormProps> = ({
                   value={pensjon?.vedleggandre ?? ''}
                 />
               </Column>
+              <Column/>
             </AlignStartRow>
             <VerticalSeparatorDiv/>
           </>
         }
+        <AlignStartRow>
+          <Column>
+            <TextArea
+              error={validation[namespace + '-etterspurtedokumenter']?.feilmelding}
+              namespace={namespace}
+              id='etterspurtedokumenter'
+              label={t('p2000:form-diverse-pensjon-etterspurtedokumenter')}
+              onChanged={(v) => setPensjonProperty('etterspurtedokumenter', v)}
+              value={pensjon?.etterspurtedokumenter ?? ''}
+              maxLength={255}
+            />
+          </Column>
+        </AlignStartRow>
+        <VerticalSeparatorDiv/>
+        <AlignStartRow>
+          <Column>
+            <TextArea
+              error={validation[namespace + '-ytterligeinformasjon']?.feilmelding}
+              namespace={namespace}
+              id='ytterligeinformasjon'
+              label={t('p2000:form-diverse-pensjon-ytterligeinformasjon')}
+              onChanged={(v) => setPensjonProperty('ytterligeinformasjon', v)}
+              value={pensjon?.ytterligeinformasjon ?? ''}
+              maxLength={500}
+            />
+          </Column>
+        </AlignStartRow>
       </PaddedDiv>
     </>
   )
