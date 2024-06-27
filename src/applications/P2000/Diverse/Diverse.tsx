@@ -17,7 +17,6 @@ import {P2000SED, Pensjon} from "declarations/p2000";
 import {HorizontalRadioGroup} from "../../../components/StyledComponents";
 import Utsettelse from "../Utsettelse/Utsettelse";
 import Institusjon from "../Institusjon/Institusjon";
-import Input from "../../../components/Forms/Input";
 import TextArea from "../../../components/Forms/TextArea";
 
 const mapState = (state: State): MainFormSelector => ({
@@ -154,17 +153,16 @@ const Diverse: React.FC<MainFormProps> = ({
           <>
             <AlignStartRow>
               <Column>
-                <Input
+                <TextArea
                   error={validation[namespace + '-vedleggandre']?.feilmelding}
                   namespace={namespace}
                   id='vedleggandre'
                   label={t('p2000:form-diverse-pensjon-vedleggandre')}
-                  hideLabel={true}
                   onChanged={(v) => setPensjonProperty('vedleggandre', v)}
                   value={pensjon?.vedleggandre ?? ''}
+                  maxLength={255}
                 />
               </Column>
-              <Column/>
             </AlignStartRow>
             <VerticalSeparatorDiv/>
           </>
