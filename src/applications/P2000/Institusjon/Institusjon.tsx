@@ -173,9 +173,18 @@ const Institusjon: React.FC<InstitusjonProps> = ({
     <>
       <Heading size="xsmall">{t('p2000:form-diverse-institusjonennaaikkesoektompensjon')}</Heading>
       <AlignStartRow>
+      {_.isEmpty(institusjoner)
+        ? (
+          <Column>
+            <em>{t('message:warning-no-institusjonennaaikkesoektompensjon')}</em>
+          </Column>
+        )
+        : (
         <Column>
           {institusjoner?.map(renderInstitusjon)}
         </Column>
+        )
+      }
       </AlignStartRow>
       {_newInstitusjonForm
         ? renderInstitusjon(null, -1)

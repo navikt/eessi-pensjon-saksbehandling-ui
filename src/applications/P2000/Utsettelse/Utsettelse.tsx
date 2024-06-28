@@ -250,9 +250,18 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
     <>
       <Heading size="xsmall">{t('p2000:form-diverse-utsettelse')}</Heading>
       <AlignStartRow>
-        <Column>
-          {utsettelseArray?.map(renderUtsettelse)}
-        </Column>
+        {_.isEmpty(utsettelseArray)
+          ? (
+            <Column>
+              <em>{t('message:warning-no-utsettelse')}</em>
+            </Column>
+          )
+          : (
+            <Column>
+              {utsettelseArray?.map(renderUtsettelse)}
+            </Column>
+          )
+        }
       </AlignStartRow>
       {_newUtsettelseForm
         ? renderUtsettelse(null, -1)
