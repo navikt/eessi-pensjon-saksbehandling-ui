@@ -151,7 +151,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
                     error={_v[_namespace + '-land']?.feilmelding}
                     flagWave
                     id={_namespace + '-land'}
-                    includeList={CountryFilter.EEA({ useUK: true, useEL: true })}
+                    includeList={CountryFilter.EEA({})}
                     label={t('p2000:form-diverse-utsettelse-land')}
                     hideLabel={index>0}
                     menuPortalTarget={document.body}
