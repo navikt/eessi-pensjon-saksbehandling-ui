@@ -3,6 +3,7 @@ import {P2000SED} from "../../declarations/p2000";
 import _ from "lodash";
 import performValidation from "../../utils/performValidation";
 import {ValidationVergeProps, validateVerge} from "./Verge/validation";
+import {validateDiverse, ValidationDiverseProps} from "./Diverse/validation";
 
 
 export interface ValidationP2000Props {
@@ -24,6 +25,10 @@ export const validateP2000 = (
       verge: P2000SED.nav.verge
     }, true))
   }
+
+  hasErrors.push(performValidation<ValidationDiverseProps>(v, `p2000-diverse-pensjon`, validateDiverse, {
+    pensjon: P2000SED.pensjon
+  }, true))
 
   return hasErrors.find(value => value) !== undefined
 }
