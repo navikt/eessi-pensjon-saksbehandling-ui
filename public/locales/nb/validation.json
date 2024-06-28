@@ -6,11 +6,14 @@
   "missing-p2000-arbeidsforhold-inntekt-beloeputbetaltsiden": "Mangler beløp siden",
   "missing-p2000-arbeidsforhold-inntekt-betalingshyppighetinntekt": "Mangler betalingshyppighet",
   "missing-p2000-arbeidsforhold-yrkesaktivitet": "Mangler yrkesaktivitet",
+  "missing-p2000-pensjon-vedleggandre": "Mangler andre vedlegg",
   "missing-p2000-ytelse-beloep-beloep":  "Mangler beløp",
   "missing-p2000-ytelse-beloep-valuta": "Mangler valuta",
   "missing-p2000-ytelse-beloep-gjeldendesiden":  "Mangler beløp siden",
   "missing-p2000-ytelse-beloep-betalingshyppighetytelse": "Mangler betalingshyppighet",
   "missing-p2000-ytelse-ytelse": "Mangler ytelse",
   "missing-p2000-ytelse-status": "Mangler status",
-  "missing-p2000-ytelse-mottasbasertpaa": "Mangler hva pensjonen mottas basert på"
+  "missing-p2000-ytelse-mottasbasertpaa": "Mangler hva pensjonen mottas basert på",
+
+  "textOverX": "Tekststørrelse over {{x}} tegn"
 }

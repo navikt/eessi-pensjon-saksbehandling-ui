@@ -41,7 +41,7 @@ const Diverse: React.FC<MainFormProps> = ({
     const clonedvalidation = _.cloneDeep(validation)
     performValidation<ValidationDiverseProps>(
       clonedvalidation, namespace, validateDiverse, {
-
+        pensjon
       }, true
     )
     dispatch(setValidation(clonedvalidation))

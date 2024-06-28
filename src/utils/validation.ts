@@ -12,9 +12,23 @@ export interface ValidateValueParams extends ValidateParams {
   needle: any
 }
 
+export interface ValidateLengthParams extends ValidateValueParams {
+  max: number
+}
+
 export const checkIfNotEmpty = (v: Validation, { needle, id, message, extra }: ValidateValueParams): boolean => {
   if (_.isEmpty(_.isString(needle) ? needle.trim() : needle)) {
     return addError(v, { id, message, extra })
+  }
+  return false
+}
+
+export const checkLength = (v: Validation, {
+  needle, max = 500, id, message, extra
+}: ValidateLengthParams): boolean => {
+  if (!_.isEmpty(needle?.trim()) && needle?.trim().length > max) {
+    const newExtra = { ...extra, x: max }
+    return addError(v, { id, message, extra: newExtra })
   }
   return false
 }
