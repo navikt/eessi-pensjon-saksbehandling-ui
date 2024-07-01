@@ -1,6 +1,6 @@
-import {Validation} from "declarations/app";
+import {Validation} from "src/declarations/app";
 import _ from "lodash";
-import {checkIfNotEmpty, checkLength} from "utils/validation";
+import {checkIfNotEmpty, checkLength} from "src/utils/validation";
 import {Pensjon} from "../../../declarations/p2000";
 
 export interface ValidationDiverseProps {
