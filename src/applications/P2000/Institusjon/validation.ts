@@ -21,7 +21,7 @@ export const validateInstitusjon = (
   hasErrors.push(checkIfNotEmpty(v, {
     needle: institusjon,
     id: namespace + idx,
-    message: 'validation:missing-p2000-diverse-institusjonennaaikkesoektompensjon'
+    message: 'validation:missing-p2000-pensjon-institusjonennaaikkesoektompensjon'
   }))
 
   return hasErrors.find(value => value) !== undefined

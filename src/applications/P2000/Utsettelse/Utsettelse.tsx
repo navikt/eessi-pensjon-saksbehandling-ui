@@ -151,7 +151,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
                     error={_v[_namespace + '-land']?.feilmelding}
                     flagWave
                     id={_namespace + '-land'}
-                    includeList={CountryFilter.EEA({ useUK: true, useEL: true })}
+                    includeList={CountryFilter.EEA({})}
                     label={t('p2000:form-diverse-utsettelse-land')}
                     hideLabel={index>0}
                     menuPortalTarget={document.body}
@@ -248,11 +248,20 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
 
   return (
     <>
-      <Heading size="small">{t('p2000:form-diverse-utsettelse')}</Heading>
+      <Heading size="xsmall">{t('p2000:form-diverse-utsettelse')}</Heading>
       <AlignStartRow>
-        <Column>
-          {utsettelseArray?.map(renderUtsettelse)}
-        </Column>
+        {_.isEmpty(utsettelseArray)
+          ? (
+            <Column>
+              <em>{t('message:warning-no-utsettelse')}</em>
+            </Column>
+          )
+          : (
+            <Column>
+              {utsettelseArray?.map(renderUtsettelse)}
+            </Column>
+          )
+        }
       </AlignStartRow>
       {_newUtsettelseForm
         ? renderUtsettelse(null, -1)
