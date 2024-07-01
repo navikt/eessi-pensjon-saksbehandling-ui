@@ -5,6 +5,14 @@ import SEDAttachmentSender, { SEDAttachmentSenderProps } from './SEDAttachmentSe
 import joarkBrowserItems from 'src/mocks/joark/items'
 import ProgressBar from "src/components/ProgressBar/ProgressBar";
 
+jest.mock('src/constants/environment.ts', () => {
+  return {
+    IS_DEVELOPMENT: 'development',
+    IS_PRODUCTION: 'production',
+    IS_TEST: 'test'
+  };
+})
+
 const defaultSelector = {
   savingAttachmentsJob: {
     total: joarkBrowserItems,

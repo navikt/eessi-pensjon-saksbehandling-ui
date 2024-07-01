@@ -14,7 +14,15 @@ import BUCTools, { BUCToolsProps } from './BUCTools'
 import allTags from 'src/constants/tagsList'
 import { P5000sFromRinaMap } from 'src/declarations/p5000'
 
-jest.mock('actions/buc', () => ({
+jest.mock('src/constants/environment.ts', () => {
+  return {
+    IS_DEVELOPMENT: 'development',
+    IS_PRODUCTION: 'production',
+    IS_TEST: 'test'
+  };
+})
+
+jest.mock('src/actions/buc', () => ({
   getSed: jest.fn(),
   getTagList: jest.fn(),
   saveBucsInfo: jest.fn()

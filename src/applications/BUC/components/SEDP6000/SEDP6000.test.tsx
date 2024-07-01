@@ -10,16 +10,16 @@ const defaultSelector: SEDP6000Selector = {
   P6000PDF: undefined
 }
 
-jest.mock('actions/buc', () => ({
+jest.mock('src/actions/buc', () => ({
   getSedP6000PDF: jest.fn(),
   resetSedP6000PDF: jest.fn()
 }))
 
-jest.mock('components/Modal/Modal', () => (props: any) => (
+jest.mock('src/components/Modal/Modal', () => (props: any) => (
   <div className='mock-c-modal' tabIndex={0} role='button' onKeyPress={props.onModalClose} onClick={props.onModalClose}>{props.children}</div>
 ))
 
-describe('applications/BUC/components/SEDP6000/SEDP6000', () => {
+describe('src/applications/BUC/components/SEDP6000/SEDP6000', () => {
   let wrapper: any
   const initialMockProps: SEDP6000Props = {
     feil: undefined,

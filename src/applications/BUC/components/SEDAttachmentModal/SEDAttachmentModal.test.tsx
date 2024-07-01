@@ -3,7 +3,15 @@ import joarkBrowserItems from 'src/mocks/joark/items'
 import { stageSelector } from 'src/setupTests'
 import SEDAttachmentModal, { SEDAttachmentModalProps } from './SEDAttachmentModal'
 
-jest.mock('components/JoarkBrowser/JoarkBrowser', () => {
+jest.mock('src/constants/environment.ts', () => {
+  return {
+    IS_DEVELOPMENT: 'development',
+    IS_PRODUCTION: 'production',
+    IS_TEST: 'test'
+  };
+})
+
+jest.mock('src/components/JoarkBrowser/JoarkBrowser', () => {
   return () => <div data-testid='mock-joarkbrowser' />
 })
 

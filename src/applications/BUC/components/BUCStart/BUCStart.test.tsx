@@ -16,7 +16,7 @@ import { stageSelector } from 'src/setupTests'
 import BUCStart, { BUCStartProps } from './BUCStart'
 import React from 'react'
 
-jest.mock('actions/buc', () => ({
+jest.mock('src/actions/buc', () => ({
   cleanNewlyCreatedBuc: jest.fn(),
   createBuc: jest.fn(),
   getBucOptions: jest.fn(),
@@ -105,7 +105,7 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
   })
 
   it('UseEffect: set avdod if we have one, and _buc selected on P_BUC_02', () => {
-    jest.useFakeTimers()
+    jest.useFakeTimers({ legacyFakeTimers: true })
     const mockUseState = jest.fn()
     const useStateSpy = jest.spyOn(React, 'useState').mockImplementation(() => {
       return [undefined, mockUseState]

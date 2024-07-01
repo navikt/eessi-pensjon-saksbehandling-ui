@@ -16,7 +16,15 @@ import mockItems from 'src/mocks/joark/items'
 import { stageSelector } from 'src/setupTests'
 import { SEDStart, SEDStartDiv, SEDStartProps, SEDStartSelector } from './SEDStart'
 
-jest.mock('actions/buc', () => ({
+jest.mock('src/constants/environment.ts', () => {
+  return {
+    IS_DEVELOPMENT: 'development',
+    IS_PRODUCTION: 'production',
+    IS_TEST: 'test'
+  };
+})
+
+jest.mock('src/actions/buc', () => ({
   createReplySed: jest.fn(),
   createSavingAttachmentJob: jest.fn(),
   createSed: jest.fn(),
