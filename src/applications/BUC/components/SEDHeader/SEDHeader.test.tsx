@@ -9,6 +9,14 @@ import _ from 'lodash'
 import { stageSelector } from 'src/setupTests'
 import mockFeatureToggles from 'src/mocks/app/featureToggles'
 
+jest.mock('src/constants/environment.ts', () => {
+  return {
+    IS_DEVELOPMENT: 'development',
+    IS_PRODUCTION: 'production',
+    IS_TEST: 'test'
+  };
+})
+
 const defaultSelector: SEDListSelector = {
   locale: 'nb',
   featureToggles: mockFeatureToggles,

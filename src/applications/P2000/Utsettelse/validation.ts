@@ -1,5 +1,5 @@
-import {Validation} from "declarations/app";
-import {Utsettelse} from "declarations/p2000";
+import {Validation} from "src/declarations/app";
+import {Utsettelse} from "src/declarations/p2000";
 import {getIdx} from "../../../utils/namespace";
 import {checkIfNotEmpty} from "../../../utils/validation";
 

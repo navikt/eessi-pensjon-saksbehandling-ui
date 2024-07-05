@@ -21,7 +21,7 @@ module.exports = {
     '^.+\\.(jpg|jpeg|png|gif|svg|css|less)$': 'identity-obj-proxy'
   },
   setupFilesAfterEnv: [
-    "@testing-library/jest-dom/extend-expect"
+    '<rootDir>/src/setupTests.ts'
   ],
   coverageThreshold: {
     'global': {
