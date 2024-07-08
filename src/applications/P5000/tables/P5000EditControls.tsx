@@ -23,16 +23,13 @@ import { P5000ListRow, P5000ListRows, P5000Period, P5000SED, P5000UpdatePayload 
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { standardLogger } from 'src/metrics/loggers'
-// import { extendMoment } from 'moment-range'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import dateDiff, { FormattedDateDiff } from 'src/utils/dateDiff'
-// import * as Moment from 'moment'
 import {GJENNY, VEDTAKSKONTEKST} from "src/constants/constants";
 import {sendP5000toRinaGjenny} from "../../../actions/gjenny";
-// const moment = extendMoment(Moment)
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat"
 dayjs.extend(customParseFormat)
@@ -294,7 +291,6 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
       let newItems: P5000ListRows = _.cloneDeep(items)
       newItems = newItems.map(item => {
         const newItem = _.cloneDeep(item)
-        //newItem.selected = moment(item.startdato).isSameOrAfter(uforetidspunkt)
         newItem.selected = dayjs(item.startdato).isSame(uforetidspunkt, 'day') || dayjs(item.startdato).isAfter(uforetidspunkt, 'day');
 
         newItem.flag = dayjs(item.startdato).isSame(uforetidspunkt, 'day')|| dayjs(item.startdato).isAfter(uforetidspunkt, 'day');

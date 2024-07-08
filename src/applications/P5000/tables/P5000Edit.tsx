@@ -742,9 +742,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     <BodyLong>{_.isDate(value) ? dayjs(value).format('DD.MM.YYYY') : value}</BodyLong>
   )
 
-  function rangesOverlap(startDateRange1: any, endDateRange1: any,
-                         startDateRange2: any, endDateRange2: any) {
-    return startDateRange1.isSameOrBefore(endDateRange2) && endDateRange1.isSameOrAfter(startDateRange2);
+  function rangesOverlap(startDateRange1: Dayjs, endDateRange1: Dayjs,
+                         startDateRange2: Dayjs, endDateRange2: Dayjs) {
+    return (startDateRange1.isSame(endDateRange2, 'day') || startDateRange1.isBefore(endDateRange2, 'day')) &&
+      (endDateRange1.isSame(startDateRange2, 'day') || endDateRange1.isAfter(startDateRange2, 'day'));
   }
 
   const beforeRowEdited = (item: P5000ListRow, context: P5000TableContext | undefined): ItemErrors | undefined => {
@@ -763,7 +764,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           if (item.key === otherItem.key) {
             continue
           }
-          if (item.type === otherItem.type && rangesOverlap(startdato,sluttdato, otherItem.startdato, otherItem.sluttdato)) {
+          const thisStartdato = dayjs(otherItem.startdato)
+          const thisSluttdato = dayjs(otherItem.sluttdato)
+          if (item.type === otherItem.type && rangesOverlap(startdato,sluttdato, thisStartdato, thisSluttdato)) {
             errors.startdato = t('message:validation-overlapDate', {
               perioder: dayjs(otherItem.startdato).format('DD.MM.YYYY') + '/' + dayjs(otherItem.sluttdato).format('DD.MM.YYYY')
             })
@@ -799,7 +802,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
       for (let i = 0; i < context.items.length; i++) {
         const item: P5000ListRow = context.items[i]
-        if (item.type === typeValue && rangesOverlap(startdato, sluttdato, item.startdato, item.sluttdato)) {
+
+        const thisStartdato = dayjs(item.startdato)
+        const thisSluttdato = dayjs(item.sluttdato)
+
+        if (item.type === typeValue && rangesOverlap(startdato, sluttdato, thisStartdato, thisSluttdato)) {
           errors.startdato = t('message:validation-overlapDate', {
             perioder: dayjs(item.startdato).format('DD.MM.YYYY') + '/' + dayjs(item.sluttdato).format('DD.MM.YYYY')
           })
