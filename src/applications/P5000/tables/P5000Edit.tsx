@@ -60,6 +60,12 @@ export interface P5000EditProps {
   updateWorkingCopy: (newSed: P5000SED | undefined, sedId: string) => void
 }
 
+export const rangesOverlap = (startDateRange1: Dayjs, endDateRange1: Dayjs,
+                       startDateRange2: Dayjs, endDateRange2: Dayjs) => {
+  return (startDateRange1.isSame(endDateRange2, 'day') || startDateRange1.isBefore(endDateRange2, 'day')) &&
+    (endDateRange1.isSame(startDateRange2, 'day') || endDateRange1.isAfter(startDateRange2, 'day'));
+}
+
 const mapState = (state: State): any => ({
   sentP5000info: state.p5000.sentP5000info
 })
@@ -741,12 +747,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderDateCell = ({ value }: RenderOptions<P5000ListRow, P5000TableContext, string>) => (
     <BodyLong>{_.isDate(value) ? dayjs(value).format('DD.MM.YYYY') : value}</BodyLong>
   )
-
-  function rangesOverlap(startDateRange1: Dayjs, endDateRange1: Dayjs,
-                         startDateRange2: Dayjs, endDateRange2: Dayjs) {
-    return (startDateRange1.isSame(endDateRange2, 'day') || startDateRange1.isBefore(endDateRange2, 'day')) &&
-      (endDateRange1.isSame(startDateRange2, 'day') || endDateRange1.isAfter(startDateRange2, 'day'));
-  }
 
   const beforeRowEdited = (item: P5000ListRow, context: P5000TableContext | undefined): ItemErrors | undefined => {
     const errors: ItemErrors = {}
