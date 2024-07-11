@@ -144,7 +144,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
       {!_.isNil(p5000FromS3) && (
         <AlignEndRow style={{ width: '100%' }}>
           <Column>
-            <BodyLong>{t('message:alert-p5000sFromS3', { x: p5000FromS3.length })}</BodyLong>
+            <BodyLong>{t('message:alert-p5000sFromS3', { x: items.length })}</BodyLong>
           </Column>
         </AlignEndRow>
       )}
