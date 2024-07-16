@@ -36,7 +36,11 @@ export default {
             variantformat: 'DUMMY',
             filnavn: '09873539824762.pdf'
           }]
-        }]
+        }],
+        relevanteDatoer: [{
+          dato: '2019-01-08T14:42:24',
+          datotype: 'DATO_JOURNALFOERT'
+        }],
       }, {
         tilleggsopplysninger: [],
         journalpostId: '2',

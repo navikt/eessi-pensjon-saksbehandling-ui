@@ -10,7 +10,8 @@ import {
   JoarkDoc,
   JoarkFileVariant,
   JoarkPoster,
-  JoarkType
+  JoarkType,
+  RelevantDato
 } from 'declarations/joark'
 import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
 import { State } from 'declarations/reducers'
@@ -206,6 +207,15 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     list.forEach((post: JoarkPoster) => {
       let multipleDocuments: boolean = false
 
+    const getFirstRelevantDatoOrDatoOpprettet = (arr?: Array<RelevantDato>) =>
+    { return arr != null && arr.length > 0 ?
+      arr[0].dato : post.datoOpprettet; };
+
+    const journalfoerteDatoer = _.filter(post.relevanteDatoer,
+        (relevantDato: RelevantDato) => relevantDato.datotype === 'DATO_JOURNALFOERT')
+
+    const dateString = getFirstRelevantDatoOrDatoOpprettet(journalfoerteDatoer);
+
       if (post.dokumenter.length > 1) {
         multipleDocuments = true
         items.push({
@@ -218,7 +228,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 
           title: post.tittel,
           tema: post.tema,
-          date: new Date(Date.parse(post.datoOpprettet)),
+          date: new Date(Date.parse(dateString)),
 
           disabled: false,
           hasSubrows: true
