@@ -261,7 +261,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 
           title: doc.tittel || '-',
           tema: post.tema,
-          date: new Date(Date.parse(post.datoOpprettet)),
+          date: new Date(Date.parse(dateString)),
 
           selected,
           disabled,

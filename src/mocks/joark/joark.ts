@@ -68,7 +68,11 @@ export default {
             filnavn: null,
             variantformat: 'ARKIV'
           }]
-        }]
+        }],
+        relevanteDatoer: [{
+          dato: '2009-01-08T14:42:24',
+          datotype: 'DATO_JOURNALFOERT'
+        }],
       }, {
         tilleggsopplysninger: [],
         journalpostId: '472209027',
@@ -85,7 +89,11 @@ export default {
             filnavn: null,
             variantformat: 'PRODUKSJON'
           }]
-        }]
+        }],
+        relevanteDatoer: [{
+          dato: '2006-05-06T14:42:24',
+          datotype: 'DATO_EKSPEDERT'
+        }],
       }, {
         tilleggsopplysninger: [],
         journalpostId: '471560632',
@@ -102,7 +110,11 @@ export default {
             filnavn: null,
             variantformat: 'PRODUKSJON'
           }]
-        }]
+        }],
+        relevanteDatoer: [{
+          dato: '2012-12-12T14:42:24',
+          datotype: 'DATO_JOURNALFOERT'
+        }],
       }, {
         tilleggsopplysninger: [],
         journalpostId: '471423183',
@@ -130,7 +142,11 @@ export default {
             filnavn: 'Svar via nav.no',
             variantformat: 'ARKIV'
           }]
-        }]
+        }],
+        relevanteDatoer: [{
+          dato: '2011-09-17T14:42:24',
+          datotype: 'DATO_JOURNALFOERT'
+        }],
       }, {
         tilleggsopplysninger: [],
         journalpostId: '471364195',
