@@ -18,6 +18,12 @@ export interface JoarkPoster {
   datoOpprettet: string
   tilleggsopplysninger?: Array<any> | null
   dokumenter: Array<JoarkDoc>
+  relevanteDatoer?: Array<RelevantDato>
+}
+
+export interface RelevantDato {
+  dato: string
+  datotype: string
 }
 
 export type JoarkType = 'joark'
