@@ -2,7 +2,7 @@ import { AlertVariant } from 'src/declarations/components'
 import { screen, render } from '@testing-library/react'
 import BannerAlert, { BannerAlertProps } from './BannerAlert'
 
-describe('components/Alert/Alert', () => {
+describe('src/components/Alert/Alert', () => {
   const initialMockProps: BannerAlertProps = {
     variant: 'error',
     message: 'mockErrorMessage',

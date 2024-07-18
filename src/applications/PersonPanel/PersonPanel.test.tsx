@@ -7,12 +7,12 @@ import personAvdod from 'src/mocks/person/personAvdod'
 import { stageSelector } from 'src/setupTests'
 import { PersonPanel, PersonPanelSelector } from './PersonPanel'
 
-jest.mock('actions/app', () => ({
+jest.mock('src/actions/app', () => ({
   getPersonInfo: jest.fn(),
   getPersonAvdodInfo: jest.fn()
 }))
 
-describe('applications/PersonPanel/PersonPanel', () => {
+describe('src/applications/PersonPanel/PersonPanel', () => {
   let wrapper: any
 
   const defaultSelector: PersonPanelSelector = {

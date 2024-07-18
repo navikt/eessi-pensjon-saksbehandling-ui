@@ -5,14 +5,14 @@ import userEvent from '@testing-library/user-event'
 import { stageSelector } from 'src/setupTests'
 import Footer, { FooterProps } from './Footer'
 
-jest.mock('actions/ui', () => ({
+jest.mock('src/actions/ui', () => ({
   toggleFooterOpen: jest.fn()
 }))
-jest.mock('actions/app', () => ({
+jest.mock('src/actions/app', () => ({
   setStatusParam: jest.fn(),
   unsetStatusParam: jest.fn()
 }))
-describe('components/Footer', () => {
+describe('src/components/Footer', () => {
   const initialMockProps: FooterProps = {
     footerOpen: true,
     params: {}

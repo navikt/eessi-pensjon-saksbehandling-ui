@@ -36,16 +36,16 @@ const defaultSelector: TopContainerSelector = {
   username: 'mockUsername'
 }
 
-jest.mock('actions/alert', () => ({
+jest.mock('src/actions/alert', () => ({
   alertClear: jest.fn(),
   alertFailure: jest.fn()
 }))
 
-jest.mock('actions/ui', () => ({
+jest.mock('src/actions/ui', () => ({
   closeModal: jest.fn(),
 }))
 
-describe('components/TopContainer', () => {
+describe('src/components/TopContainer', () => {
   let wrapper: any
 
   const initialMockProps: TopContainerProps = {

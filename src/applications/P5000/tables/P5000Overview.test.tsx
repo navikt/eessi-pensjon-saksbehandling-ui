@@ -15,6 +15,14 @@ const defaultSelector: P5000OverviewSelector = {
   featureToggles: mockFeatureToggles
 }
 
+jest.mock('src/constants/environment.ts', () => {
+  return {
+    IS_DEVELOPMENT: 'development',
+    IS_PRODUCTION: 'production',
+    IS_TEST: 'test'
+  };
+})
+
 jest.mock('md5', () => (value: any) => value)
 describe('applications/BUC/components/P5000/P5000', () => {
   let wrapper: any

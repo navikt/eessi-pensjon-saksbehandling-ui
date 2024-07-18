@@ -4,7 +4,7 @@ import { screen, render } from '@testing-library/react'
 import { stageSelector } from 'src/setupTests'
 import Header, { HeaderProps } from './Header'
 
-jest.mock('actions/app', () => ({
+jest.mock('src/actions/app', () => ({
   clearData: jest.fn()
 }))
 
@@ -14,7 +14,7 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockHistoryPush,
 }));
 
-describe('components/Header/Header', () => {
+describe('src/components/Header/Header', () => {
   const initialMockProps: HeaderProps = {
     username: 'testUser'
   }

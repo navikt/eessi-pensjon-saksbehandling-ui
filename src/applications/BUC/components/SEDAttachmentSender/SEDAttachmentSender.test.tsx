@@ -22,7 +22,7 @@ const defaultSelector = {
   }
 }
 
-describe('applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender', () => {
+describe('src/applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender', () => {
   let wrapper: any
   const initialMockProps: SEDAttachmentSenderProps = {
     attachmentsError: false,

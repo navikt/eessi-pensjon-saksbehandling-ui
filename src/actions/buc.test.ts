@@ -17,7 +17,7 @@ jest.mock('@navikt/fetch', () => ({
 const call = originalCall as jest.Mock<typeof originalCall>
 const sprintf = require('sprintf-js').sprintf
 
-describe('actions/buc', () => {
+describe('src/actions/buc', () => {
   afterEach(() => {
     call.mockReset()
   })

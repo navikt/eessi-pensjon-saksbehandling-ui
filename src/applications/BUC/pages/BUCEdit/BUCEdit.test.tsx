@@ -13,15 +13,23 @@ import mockBucs from 'src/mocks/buc/bucs'
 import { stageSelector } from 'src/setupTests'
 import BUCEdit, { BUCEditDiv, BUCEditProps } from './BUCEdit'
 
-jest.mock('actions/buc', () => ({
+jest.mock('src/constants/environment.ts', () => {
+  return {
+    IS_DEVELOPMENT: 'development',
+    IS_PRODUCTION: 'production',
+    IS_TEST: 'test'
+  };
+})
+
+jest.mock('src/actions/buc', () => ({
   resetNewSed: jest.fn(),
   setCurrentBuc: jest.fn(),
   setFollowUpSeds: jest.fn()
 }))
-jest.mock('applications/BUC/components/SEDStart/SEDStart', () => {
+jest.mock('src/applications/BUC/components/SEDStart/SEDStart', () => {
   return () => <div className='mock-sedstart' />
 })
-jest.mock('applications/BUC/components/BUCTools/BUCTools', () => {
+jest.mock('src/applications/BUC/components/BUCTools/BUCTools', () => {
   return () => <div className='mock-buctools' />
 })
 
@@ -41,7 +49,7 @@ const defaultSelector = {
   featureToggles: {}
 }
 
-describe('applications/BUC/components/BUCEdit/BUCEdit', () => {
+describe('src/applications/BUC/components/BUCEdit/BUCEdit', () => {
   let wrapper: any
 
   const initialMockProps: BUCEditProps = {
