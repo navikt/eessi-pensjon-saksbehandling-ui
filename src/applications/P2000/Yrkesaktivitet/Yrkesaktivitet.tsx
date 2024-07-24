@@ -305,7 +305,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
         {_.isEmpty(arbeidsforholdArray)
           ? (
             <BodyLong>
-              {t('p2000:ingen-arbeidsforhold')}
+              <em>{t('p2000:ingen-x-registrert', {x: 'arbeidsforhold'})}</em>
             </BodyLong>
           )
           : (

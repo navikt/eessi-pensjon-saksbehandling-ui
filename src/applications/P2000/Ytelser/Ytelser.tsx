@@ -504,7 +504,7 @@ const Ytelser: React.FC<MainFormProps> = ({
         {_.isEmpty(ytelser)
           ? (
             <BodyLong>
-              {t('p2000:ingen-ytelser')}
+              <em>{t('p2000:ingen-x-registrert', {x: 'ytelser'})}</em>
             </BodyLong>
           )
           : (
