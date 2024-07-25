@@ -318,7 +318,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
         {_newForm
           ? renderRow(null, -1)
           : (
-            <AlignEndColumn>
+            <AlignStartRow>
               <Button
                 variant='tertiary'
                 onClick={() => _setNewForm(true)}
@@ -326,7 +326,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
               >
                 {t('ui:add-new-x', { x: t('p2000:form-arbeidsforhold')?.toLowerCase() })}
               </Button>
-            </AlignEndColumn>
+            </AlignStartRow>
           )}
 
       </PaddedDiv>

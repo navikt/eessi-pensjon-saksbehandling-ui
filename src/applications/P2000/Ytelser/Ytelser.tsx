@@ -9,7 +9,6 @@ import {
   VerticalSeparatorDiv,
   PaddedDiv,
   Column,
-  AlignEndColumn,
   AlignStartRow,
   HorizontalSeparatorDiv
 } from "@navikt/hoykontrast";
@@ -517,7 +516,7 @@ const Ytelser: React.FC<MainFormProps> = ({
         {_newForm
           ? renderRow(null, -1)
           : (
-            <AlignEndColumn>
+            <AlignStartRow>
               <Button
                 variant='tertiary'
                 onClick={() => _setNewForm(true)}
@@ -525,7 +524,7 @@ const Ytelser: React.FC<MainFormProps> = ({
               >
                 {t('ui:add-new-x', { x: t('p2000:form-ytelse')?.toLowerCase() })}
               </Button>
-            </AlignEndColumn>
+            </AlignStartRow>
           )}
 
 
