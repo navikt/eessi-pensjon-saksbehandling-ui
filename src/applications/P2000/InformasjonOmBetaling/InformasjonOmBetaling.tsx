@@ -66,19 +66,21 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
   const sepaIkkeSepaChange = (e: string) => {
     _setSepaIkkeSepa(e)
     if(e === "sepa"){
+      dispatch(updatePSED(`${target}.konto.sepa`, {}))
       dispatch(updatePSED(`${target}.konto.ikkesepa`, undefined))
       dispatch(updatePSED(`${target}.konto.kontonr`, undefined))
       dispatch(updatePSED(`${target}.navn`, undefined))
       dispatch(updatePSED(`${target}.adresse`, undefined))
     } else {
+      dispatch(updatePSED(`${target}.konto.ikkesepa`, {}))
       dispatch(updatePSED(`${target}.konto.sepa`, undefined))
     }
   }
 
   useEffect(() => {
-    if(bank?.konto?.sepa?.iban || bank?.konto?.sepa?.swift){
+    if(bank?.konto?.sepa){
       _setSepaIkkeSepa("sepa")
-    } else if(bank?.konto?.kontonr ||bank?.konto?.ikkesepa?.swift){
+    } else if(bank?.konto?.kontonr || bank?.konto?.ikkesepa){
       _setSepaIkkeSepa("ikkesepa")
     }
   }, [bank])
