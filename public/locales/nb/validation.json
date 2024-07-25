@@ -1,11 +1,21 @@
 {
   "duplicateLand": "Land allerede lagt til",
   "duplicate-p2000-ytelse-beloep": "Duplikat beløp",
+
+  "invalid-p2000-bank-konto-ikkesepa-swift": "Ugyldig BIC/SWIFT",
+  "invalid-p2000-bank-konto-sepa-iban": "Ugyldig IBAN",
+  "invalid-p2000-bank-konto-sepa-swift": "Ugyldig BIC/SWIFT",
+
   "missing-p2000-arbeidsforhold-inntekt-belop": "Mangler beløp",
   "missing-p2000-arbeidsforhold-inntekt-valuta": "Mangler valuta",
   "missing-p2000-arbeidsforhold-inntekt-beloeputbetaltsiden": "Mangler beløp siden",
   "missing-p2000-arbeidsforhold-inntekt-betalingshyppighetinntekt": "Mangler betalingshyppighet",
   "missing-p2000-arbeidsforhold-yrkesaktivitet": "Mangler yrkesaktivitet",
+  "missing-p2000-bank-konto-kontonr": "Mangler kontonummer",
+  "missing-p2000-bank-konto-ikkesepa-swift": "Mangler BIC/SWIFT",
+
+  "missing-p2000-bank-konto-sepa-iban": "Mangler IBAN",
+  "missing-p2000-bank-konto-sepa-swift": "Mangler BIC/SWIFT",
   "missing-p2000-pensjon-vedleggandre": "Mangler andre vedlegg",
   "missing-p2000-pensjon-utsettelse-land": "Mangler land",
   "missing-p2000-pensjon-utsettelse-institusjonsnavn": "Mangler institusjonsnavn",
