@@ -179,6 +179,7 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
                     label={t('p2000:form-familiestatus-status')}
                     onChange={(e) => setSivilstandStatus(e.target.value, index)}
                     value={(_sivilstand?.status)  ?? ''}
+                    hideLabel={true}
                   >
                     <option value=''>Velg</option>
                     {sivilstandStatusOptions.map((option) => {
@@ -191,6 +192,7 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
                     id='fraDato'
                     index={index}
                     label={t('p2000:form-familiestatus-fradato')}
+                    hideLabel={true}
                     error={_v[_namespace + '-fradato']?.feilmelding}
                     namespace={_namespace}
                     onChanged={(e) => setSivilstandFraDato(e, index)}
