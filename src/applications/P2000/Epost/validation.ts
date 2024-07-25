@@ -22,7 +22,7 @@ export const validateEpost = (
   hasErrors.push(checkIfNotEmpty(v, {
     needle: epost?.adresse,
     id: namespace + idx + '-adresse',
-    message: 'validation:missing-p2000-verge-epost-adresse'
+    message: 'validation:missing-p2000-epost-adresse'
   }))
 
   return hasErrors.find(value => value) !== undefined

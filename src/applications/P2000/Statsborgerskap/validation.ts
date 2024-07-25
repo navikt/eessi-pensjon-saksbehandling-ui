@@ -28,19 +28,19 @@ export const validateStatsborgerskap = (
   hasErrors.push(checkIfNotEmpty(v, {
     needle: statsborgerskap?.land,
     id: namespace + idx + '-land',
-    message: 'validation:noLand'
+    message: 'validation:missing-p2000-statsborgerskap-land'
   }))
 
   hasErrors.push(checkIfValidLand(v, {
     needle: statsborgerskap?.land,
     id: namespace + idx + '-land',
-    message: 'validation:invalidLand'
+    message: 'validation:invalid-p2000-statsborgerskap-land'
   }))
 
   hasErrors.push(checkIfNotGB(v, {
     needle: statsborgerskap?.land,
     id: namespace + idx + '-land',
-    message: 'validation:invalidLand'
+    message: 'validation:invalid-p2000-statsborgerskap-land'
   }))
 
   hasErrors.push(checkIfDuplicate(v, {
@@ -49,7 +49,7 @@ export const validateStatsborgerskap = (
     matchFn: (_statsborgerskap: Statsborgerskap) => _statsborgerskap.land === statsborgerskap?.land,
     index,
     id: namespace + idx + '-land',
-    message: 'validation:duplicateLand',
+    message: 'validation:duplicate-p2000-statsborgerskap-land',
   }))
 
   return hasErrors.find(value => value) !== undefined

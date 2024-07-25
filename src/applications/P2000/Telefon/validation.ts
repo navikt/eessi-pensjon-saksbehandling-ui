@@ -22,13 +22,13 @@ export const validateTelefon = (
   hasErrors.push(checkIfNotEmpty(v, {
     needle: telefon?.nummer,
     id: namespace + idx + '-nummer',
-    message: 'validation:missing-p2000-verge-telefon-nummer'
+    message: 'validation:missing-p2000-telefon-nummer'
   }))
 
   hasErrors.push(checkIfNotEmpty(v, {
     needle: telefon?.type,
     id: namespace + idx +  '-type',
-    message: 'validation:missing-p2000-verge-telefon-type'
+    message: 'validation:missing-p2000-telefon-type'
   }))
 
   return hasErrors.find(value => value) !== undefined
