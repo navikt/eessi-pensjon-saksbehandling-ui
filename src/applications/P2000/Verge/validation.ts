@@ -3,7 +3,7 @@ import { checkIfNotEmpty } from 'utils/validation'
 import {Verge} from "declarations/p2000";
 
 export interface ValidationVergeProps {
-  verge: Verge | undefined
+  verge: Verge
 }
 
 export const validateVerge = (

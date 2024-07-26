@@ -1,41 +1,41 @@
 export interface Beloep {
-  annenbetalingshyppighetytelse?: string | null
-  gjeldendesiden?: string | null
-  beloep?: string | null
-  valuta?: string | null
-  betalingshyppighetytelse?: string | null
+  annenbetalingshyppighetytelse?: string
+  gjeldendesiden?: string
+  beloep?: string
+  valuta?: string
+  betalingshyppighetytelse?: string
 }
 
 export interface Ytelse {
-  status?: string | null
-  totalbruttobeloeparbeidsbasert?: string | null
-  startdatoutbetaling?: string | null
-  beloep?: Array<Beloep> | null
-  sluttdatoutbetaling?: string | null
-  annenytelse?: string | null
-  totalbruttobeloepbostedsbasert?: string | null
+  status?: string
+  totalbruttobeloeparbeidsbasert?: string
+  startdatoutbetaling?: string
+  beloep?: Array<Beloep>
+  sluttdatoutbetaling?: string
+  annenytelse?: string
+  totalbruttobeloepbostedsbasert?: string
   institusjon?: {
-    saksnummer?: string | null
-    land?: string | null
-    pin?: string | null
-    institusjonsnavn?: string | null
-    sektor?: string | null
-    institusjonsid?: string | null
+    saksnummer?: string
+    land?: string
+    pin?: string
+    institusjonsnavn?: string
+    sektor?: string
+    institusjonsid?: string
   },
-  mottasbasertpaa?: string | null
-  startdatoretttilytelse?: string | null
-  ytelse?: string | null
-  sluttdatoUtbetaling?: string | null
+  mottasbasertpaa?: string
+  startdatoretttilytelse?: string
+  ytelse?: string
+  sluttdatoUtbetaling?: string
 }
 
 export interface Arbeidsforhold {
-  yrke?: string | null
-  planlagtpensjoneringsdato?: string | null
-  inntekt?: Array<Inntekt> | null
-  type?: string | null
-  arbeidstimerperuke?: string | null
-  sluttdato?: string | null
-  planlagtstartdato?: string | null
+  yrke?: string
+  planlagtpensjoneringsdato?: string
+  inntekt?: Array<Inntekt>
+  type?: string
+  arbeidstimerperuke?: string
+  sluttdato?: string
+  planlagtstartdato?: string
 }
 
 export interface Person {
@@ -46,18 +46,18 @@ export interface Person {
   fornavn?: string
   kjoenn?: string
   foedested?: {
-    by?: string | null | undefined
-    land?: string | null | undefined
-    region?: string | null | undefined
-  } | null | undefined,
+    by?: string
+    land?: string
+    region?: string
+  },
   foedselsdato?: string
   doedsdato?: string
-  sivilstand?: Array<Sivilstand>,
-  relasjontilavdod?: string | null,
-  rolle?: string | null,
+  sivilstand?: Array<Sivilstand>
+  relasjontilavdod?: string
+  rolle?: string
   kontakt?: {
-    telefon: Array<Telefon> | null,
-    email: Array<Email> | null
+    telefon: Array<Telefon>
+    email: Array<Email>
   }
 }
 
@@ -68,9 +68,9 @@ export interface Bruker {
   mor?: {
     person: Person
   }
-  person : Person,
-  adresse : Adresse | null,
-  bank : Bank | null
+  person : Person
+  adresse?: Adresse
+  bank?: Bank
 }
 
 export interface Ektefelle {
@@ -97,41 +97,34 @@ export interface Barn {
 }
 
 export interface Verge {
-  person: {
-    kontakt: {
-      telefon: Array<Telefon> | null
-      email: Array<Email> | null
-    },
-    fornavn: string
-    etternavn: string
+  person: Person,
+  vergemaal?: {
+    mandat?: string
   },
-  vergemaal: {
-    mandat: string | null
-  } | null,
-  adresse: Adresse | null
+  adresse?: Adresse
 }
 
 export interface Adresse {
   gate : string
-  bygning : string | null
-  by : string | null
-  postkode : string | null,
-  postnummer : string | null,
-  region : string | null,
-  land : string
-  kontaktpersonadresse : string | null,
-  datoforadresseendring : string | null,
-  postadresse : string | null,
-  startdato : string | null
+  bygning?: string
+  by?: string
+  postkode?: string
+  postnummer?: string
+  region?: string
+  land: string
+  kontaktpersonadresse?: string
+  datoforadresseendring?: string
+  postadresse?: string
+  startdato?: string
 }
 
 export interface Telefon {
-  nummer: string | null
-  type: string | null
+  nummer: string
+  type: string
 }
 
 export interface Email {
-  adresse: string | null
+  adresse: string
 }
 
 export interface Statsborgerskap {
@@ -147,39 +140,39 @@ export interface PIN {
 }
 
 export interface Sivilstand {
-  status: string | null
+  status: string
   fradato: string
 }
 
 export interface Inntekt {
-  beloep?: string | null,
-  valuta?: string | null,
-  beloeputbetaltsiden?: string | null,
-  betalingshyppighetinntekt?: string | null,
-  annenbetalingshyppighetinntekt?: string | null
+  beloep?: string
+  valuta?: string
+  beloeputbetaltsiden?: string
+  betalingshyppighetinntekt?: string
+  annenbetalingshyppighetinntekt?: string
 }
 
 export interface Bank {
-  navn: string | null,
+  navn?: string
   konto: {
     kontonr: string
     innehaver: Innehaver
-    sepa: SEPA
-    ikkesepa: {
-      swift: string | null
+    sepa?: SEPA
+    ikkesepa?: {
+      swift: string
     }
   },
   adresse: Adresse
 }
 
 export interface Innehaver{
-  navn: string | null
-  rolle: string | null
+  navn?: string
+  rolle?: string
 }
 
 export interface SEPA{
-  iban: string | null
-  swift: string | null
+  iban: string
+  swift: string
 }
 
 export interface Utsettelse {
@@ -190,20 +183,20 @@ export interface Utsettelse {
 }
 
 export interface Pensjon {
-  utsettelse: Array<Utsettelse>
-  ytelser: Array<Ytelse>
-  ytterligeinformasjon: string
-  bruker: {
+  utsettelse?: Array<Utsettelse>
+  ytelser?: Array<Ytelse>
+  ytterligeinformasjon?: string
+  bruker?: {
     arbeidsforhold: Array<Arbeidsforhold>
   }
-  etterspurtedokumenter: string
-  mottaker: Array<string>
-  trekkgrunnlag: Array<string>
-  vedlegg: Array<string>
-  institusjonennaaikkesoektompensjon: Array<string>
-  vedleggandre: string
-  forespurtstartdato: string
-  angitidligstdato: string
+  etterspurtedokumenter?: string
+  mottaker?: Array<string>
+  trekkgrunnlag?: Array<string>
+  vedlegg?: Array<string>
+  institusjonennaaikkesoektompensjon?: Array<string>
+  vedleggandre?: string
+  forespurtstartdato?: string
+  angitidligstdato?: string
 }
 
 export interface P2000SED {
@@ -212,13 +205,13 @@ export interface P2000SED {
   sedVer: string
   nav: {
     eessisak: Array<{
-      institusjonsid : string | null
-      institusjonsnavn : string | null
-      saksnummer : string | null
-      land : string | null
+      institusjonsid?: string
+      institusjonsnavn?: string
+      saksnummer?: string
+      land?: string
     }>
     bruker : Bruker,
-    verge : Verge | null,
+    verge : Verge,
     krav : null,
     barn : Barn,
     ektefelle: Ektefelle,

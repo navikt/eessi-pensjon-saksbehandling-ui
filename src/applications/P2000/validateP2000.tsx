@@ -1,6 +1,5 @@
 import {Validation} from "../../declarations/app";
 import {P2000SED} from "../../declarations/p2000";
-import _ from "lodash";
 import performValidation from "../../utils/performValidation";
 import {ValidationVergeProps, validateVerge} from "./Verge/validation";
 import {validateDiverse, ValidationDiverseProps} from "./Diverse/validation";
@@ -20,11 +19,9 @@ export const validateP2000 = (
 ): boolean => {
   const hasErrors: Array<boolean> = []
 
-  if (!_.isEmpty(P2000SED.nav.verge)) {
-    hasErrors.push(performValidation<ValidationVergeProps>(v, `p2000-verge`, validateVerge, {
-      verge: P2000SED.nav.verge
-    }, true))
-  }
+  hasErrors.push(performValidation<ValidationVergeProps>(v, `p2000-verge`, validateVerge, {
+    verge: P2000SED.nav.verge
+  }, true))
 
   hasErrors.push(performValidation<ValidationDiverseProps>(v, `p2000-diverse-pensjon`, validateDiverse, {
     pensjon: P2000SED.pensjon
