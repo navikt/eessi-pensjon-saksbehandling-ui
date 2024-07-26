@@ -34,7 +34,6 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
   const { t } = useTranslation()
   const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-person`
-  console.log(namespace)
 
   const getKjoenn = (kjoenn: any) => {
     if(kjoenn === "M") return "Mann"

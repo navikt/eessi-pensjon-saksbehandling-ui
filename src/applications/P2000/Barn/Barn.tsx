@@ -211,9 +211,8 @@ const Barn: React.FC<MainFormProps> = ({
     const _v: Validation = index < 0 ? _validation : validation
     const inEditMode = index < 0 || _editIndex === index
     const _barn = index < 0 ? _newBarn : (inEditMode ? _editBarn : barn)
-
     return (
-      <Fragment key={_namespace}>
+      <Fragment key={"barn-" + index}>
         <RepeatableRowNoBackground
           id={'repeatablerow-' + _namespace}
           key={index}
@@ -250,7 +249,7 @@ const Barn: React.FC<MainFormProps> = ({
                     >
                       <option value=''>{t('p2000:form-velg')}</option>
                       {relasjonOptions.map((option) => {
-                        return(<option value={option.value}>{option.label}</option>)
+                        return(<option key={option.value} value={option.value}>{option.label}</option>)
                       })}
                     </Select>
                   }

@@ -220,7 +220,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
                     >
                       <option value=''>Velg</option>
                       {yrkeOptions.map((option) => {
-                        return(<option value={option.value}>{option.label}</option>)
+                        return(<option key={option.value} value={option.value}>{option.label}</option>)
                       })}
                     </Select>
                   </PileDiv>

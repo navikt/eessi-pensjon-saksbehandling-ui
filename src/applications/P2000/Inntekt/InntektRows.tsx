@@ -226,9 +226,9 @@ const InntektRows: React.FC<InntektProps> = ({
                     onChange={(e) => setInntektProperty("betalingshyppighetinntekt", e.target.value, index)}
                     value={_inntekt?.betalingshyppighetinntekt ?? ''}
                   >
-                    <option value=''>Velg</option>
+                    <option  value=''>Velg</option>
                     {betalingshyppighetOptions.map((option) => {
-                      return(<option value={option.value}>{option.label}</option>)
+                      return(<option key={option.value} value={option.value}>{option.label}</option>)
                     })}
                   </Select>
                 </TopAlignedCell>

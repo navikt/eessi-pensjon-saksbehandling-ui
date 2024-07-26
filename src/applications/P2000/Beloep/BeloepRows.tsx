@@ -176,7 +176,8 @@ const BeloepRows: React.FC<BeloepProps> = ({
     const _beloep = index < 0 ? _newBeloep : (inEditMode ? _editBeloep : beloep)
 
     return (
-      <Fragment key={_namespace}>
+      <Fragment key={_namespace
+      }>
       {inEditMode && parentEditMode
         ? (
           <Table.Row>
@@ -229,7 +230,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
               >
                 <option value=''>Velg</option>
                 {betalingshyppighetOptions.map((option) => {
-                  return(<option value={option.value}>{option.label}</option>)
+                  return(<option key={option.value} value={option.value}>{option.label}</option>)
                 })}
               </Select>
             </TopAlignedCell>

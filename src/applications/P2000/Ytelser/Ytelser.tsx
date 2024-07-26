@@ -249,7 +249,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                 >
                   <option value=''>Velg</option>
                   {ytelseOptions.map((option) => {
-                    return(<option value={option.value}>{option.label}</option>)
+                    return(<option key={option.value} value={option.value}>{option.label}</option>)
                   })}
                 </Select>
               </Column>
@@ -280,7 +280,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                   value={_ytelse?.status}
                 >
                   {statusOptions.map((option) => {
-                    return(<Radio value={option.value}>{option.label}</Radio>)
+                    return(<Radio key={option.value} value={option.value}>{option.label}</Radio>)
                   })}
                 </HorizontalRadioGroup>
               </Column>

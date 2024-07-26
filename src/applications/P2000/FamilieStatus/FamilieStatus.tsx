@@ -183,7 +183,7 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
                   >
                     <option value=''>Velg</option>
                     {sivilstandStatusOptions.map((option) => {
-                      return(<option value={option.value}>{option.label}</option>)
+                      return(<option key={option.value} value={option.value}>{option.label}</option>)
                     })}
                   </Select>
                 </Column>
