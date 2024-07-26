@@ -149,7 +149,7 @@ const Telefon: React.FC<TelefonProps> = ({
     const inEditMode = index < 0 || _editTelefonIndex === index
     const _telefon = index < 0 ? _newTelefon : (inEditMode ? _editTelefon : telefon)
     return(
-      <RepeatableRow>
+      <RepeatableRow key={_namespace}>
         <AlignStartRow>
           {inEditMode
             ? (

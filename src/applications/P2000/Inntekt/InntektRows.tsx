@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import {Inntekt} from "../../../declarations/p2000";
 import _ from "lodash";
 import {Select, Table} from "@navikt/ds-react";
@@ -175,7 +175,7 @@ const InntektRows: React.FC<InntektProps> = ({
     const inEditMode = index < 0 || _editIndex === index
     const _inntekt = index < 0 ? _newInntekt : (inEditMode ? _editInntekt : inntekt)
     return (
-      <>
+      <Fragment key={_namespace}>
         {inEditMode && parentEditMode
           ? (
               <Table.Row>
@@ -283,7 +283,7 @@ const InntektRows: React.FC<InntektProps> = ({
             </Table.Row>
           )
         }
-      </>
+      </Fragment>
     )
   }
 

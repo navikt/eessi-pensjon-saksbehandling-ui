@@ -132,7 +132,7 @@ const Epost: React.FC<EpostProps> = ({
     const inEditMode = index < 0 || _editEpostIndex === index
     const _epost = index < 0 ? _newEpost : (inEditMode ? _editEpost : epost)
     return(
-      <RepeatableRow>
+      <RepeatableRow key={_namespace}>
         <AlignStartRow>
           {inEditMode
             ? (

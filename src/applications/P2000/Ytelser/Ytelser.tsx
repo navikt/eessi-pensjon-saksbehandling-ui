@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import {State} from "../../../declarations/reducers";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
@@ -227,7 +227,7 @@ const Ytelser: React.FC<MainFormProps> = ({
 
     if(inEditMode){
       return (
-        <>
+        <Fragment key={_namespace}>
           <RepeatableRowNoBackground
             id={'repeatablerow-' + _namespace}
             key={index}
@@ -394,11 +394,11 @@ const Ytelser: React.FC<MainFormProps> = ({
 
           </RepeatableRowNoBackground>
           <VerticalSeparatorDiv/>
-        </>
+        </Fragment>
       )
     } else {
       return (
-        <>
+        <Fragment key={_namespace}>
           <RepeatableRowNoBackground
             id={'repeatablerow-' + _namespace}
             key={index}
@@ -488,7 +488,7 @@ const Ytelser: React.FC<MainFormProps> = ({
             <VerticalSeparatorDiv/>
           </RepeatableRowNoBackground>
           <VerticalSeparatorDiv/>
-        </>
+        </Fragment>
       )
     }
   }

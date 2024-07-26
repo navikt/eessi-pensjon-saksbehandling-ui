@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import {Beloep, Inntekt} from "../../../declarations/p2000";
 import _ from "lodash";
 import {Select, Table} from "@navikt/ds-react";
@@ -176,7 +176,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
     const _beloep = index < 0 ? _newBeloep : (inEditMode ? _editBeloep : beloep)
 
     return (
-      <>
+      <Fragment key={_namespace}>
       {inEditMode && parentEditMode
         ? (
           <Table.Row>
@@ -301,7 +301,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
           </Table.Row>
         )
       }
-      </>
+      </Fragment>
     )
   }
 

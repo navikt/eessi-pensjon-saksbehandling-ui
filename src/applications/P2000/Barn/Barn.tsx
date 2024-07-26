@@ -2,7 +2,7 @@ import {AlignEndColumn, AlignStartRow, Column, PaddedDiv, VerticalSeparatorDiv} 
 import {BodyLong, Button, Heading, Select} from "@navikt/ds-react";
 import _ from "lodash";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
 
@@ -213,7 +213,7 @@ const Barn: React.FC<MainFormProps> = ({
     const _barn = index < 0 ? _newBarn : (inEditMode ? _editBarn : barn)
 
     return (
-      <>
+      <Fragment key={_namespace}>
         <RepeatableRowNoBackground
           id={'repeatablerow-' + _namespace}
           key={index}
@@ -315,7 +315,7 @@ const Barn: React.FC<MainFormProps> = ({
           <VerticalSeparatorDiv/>
         </RepeatableRowNoBackground>
         <VerticalSeparatorDiv/>
-      </>
+      </Fragment>
     )
   }
 

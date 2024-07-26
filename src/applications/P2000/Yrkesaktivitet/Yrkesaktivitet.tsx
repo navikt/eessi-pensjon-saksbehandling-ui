@@ -7,7 +7,7 @@ import {
   AlignEndColumn,
   PileDiv
 } from "@navikt/hoykontrast";
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import _ from "lodash";
 import {State} from "declarations/reducers";
@@ -194,7 +194,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
     const inEditMode = index < 0 || _editIndex === index
     const _arbeidsforhold = index < 0 ? _newArbeidsforhold : (inEditMode ? _editArbeidsforhold : arbeidsforhold)
     return (
-      <>
+      <Fragment key={_namespace}>
         <RepeatableRowNoBackground
           id={'repeatablerow-' + _namespace}
           key={index}
@@ -291,7 +291,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
           <VerticalSeparatorDiv/>
         </RepeatableRowNoBackground>
         <VerticalSeparatorDiv/>
-      </>
+      </Fragment>
     )
   }
 
