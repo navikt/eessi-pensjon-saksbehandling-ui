@@ -193,7 +193,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
                   error={_v[_namespace + '-land']?.feilmelding}
                   flagWave
                   id={_namespace + '-land'}
-                  includeList={CountryFilter.RINA_ACCEPTED({ useUK: true })}
+                  includeList={CountryFilter.STANDARD({ useUK: true })}
                   hideLabel={index >= 0}
                   label={t('p2000:form-utenlandske-pin-land')}
                   menuPortalTarget={document.body}
