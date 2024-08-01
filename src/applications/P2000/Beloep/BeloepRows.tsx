@@ -312,7 +312,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
         ? (
           <Table.Row>
             <Table.DataCell colSpan={5}>
-              Ingen beløp
+              <em>Ingen beløp</em>
             </Table.DataCell>
           </Table.Row>
         )

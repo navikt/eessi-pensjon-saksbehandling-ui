@@ -426,21 +426,22 @@ const Ytelser: React.FC<MainFormProps> = ({
               <Column>
                 <Label>{t('p2000:form-ytelse-startdato-utbetaling')}</Label>
                 <BodyLong>
-                  {formatDate(_ytelse?.startdatoutbetaling as string)}
+                  {_ytelse?.startdatoutbetaling ? formatDate(_ytelse?.startdatoutbetaling as string) : <em>Ingen dato oppgitt</em>}
                 </BodyLong>
               </Column>
               <Column>
                 <Label>{t('p2000:form-ytelse-sluttdato-utbetaling')}</Label>
                 <BodyLong>
-                  {formatDate(_ytelse?.sluttdatoutbetaling as string)}
+                  {_ytelse?.sluttdatoutbetaling ? formatDate(_ytelse?.sluttdatoutbetaling as string) : <em>Ingen dato oppgitt</em>}
                 </BodyLong>
               </Column>
             </AlignStartRow>
+            <VerticalSeparatorDiv/>
             <AlignStartRow>
               <Column flex={5}>
                 <Label>{t('p2000:form-ytelse-startdato-rett-til-ytelser')}</Label>
                 <BodyLong>
-                  {formatDate(_ytelse?.startdatoretttilytelse as string)}
+                  {_ytelse?.startdatoretttilytelse ? formatDate(_ytelse?.startdatoretttilytelse as string) : <em>Ingen dato oppgitt</em>}
                 </BodyLong>
               </Column>
             </AlignStartRow>
@@ -462,28 +463,34 @@ const Ytelser: React.FC<MainFormProps> = ({
               </Table>
             </AlignStartRow>
             <VerticalSeparatorDiv/>
-            <AlignStartRow>
-              <Column flex={5}>
-                <Label>{t('p2000:form-ytelse-mottas-basert-paa')}</Label>
-                <BodyLong>
-                  {_ytelse?.mottasbasertpaa ? _ytelse?.mottasbasertpaa.charAt(0).toUpperCase() + _ytelse?.mottasbasertpaa.slice(1) : ''}
-                </BodyLong>
-              </Column>
-            </AlignStartRow>
+            {_ytelse?.mottasbasertpaa &&
+              <AlignStartRow>
+                <Column flex={5}>
+                  <Label>{t('p2000:form-ytelse-mottas-basert-paa')}</Label>
+                  <BodyLong>
+                    {_ytelse?.mottasbasertpaa ? _ytelse?.mottasbasertpaa.charAt(0).toUpperCase() + _ytelse?.mottasbasertpaa.slice(1) : ''}
+                  </BodyLong>
+                </Column>
+              </AlignStartRow>
+            }
             <VerticalSeparatorDiv/>
             <AlignStartRow>
-              <Column>
-                <Label>{t('p2000:form-ytelse-bruttobeloep-bostedsbasert')}</Label>
-                <BodyLong>
-                  {_ytelse?.totalbruttobeloepbostedsbasert}
-                </BodyLong>
-              </Column>
-              <Column>
-                <Label>{t('p2000:form-ytelse-bruttobeloep-arbeidsrelatert')}</Label>
-                <BodyLong>
-                  {_ytelse?.totalbruttobeloeparbeidsbasert}
-                </BodyLong>
-              </Column>
+              {_ytelse?.totalbruttobeloepbostedsbasert &&
+                <Column>
+                  <Label>{t('p2000:form-ytelse-bruttobeloep-bostedsbasert')}</Label>
+                  <BodyLong>
+                    {_ytelse?.totalbruttobeloepbostedsbasert}
+                  </BodyLong>
+                </Column>
+              }
+              {_ytelse?.totalbruttobeloeparbeidsbasert &&
+                <Column>
+                  <Label>{t('p2000:form-ytelse-bruttobeloep-arbeidsrelatert')}</Label>
+                  <BodyLong>
+                    {_ytelse?.totalbruttobeloeparbeidsbasert}
+                  </BodyLong>
+                </Column>
+              }
             </AlignStartRow>
             <VerticalSeparatorDiv/>
           </RepeatableRowNoBackground>
