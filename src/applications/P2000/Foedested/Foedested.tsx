@@ -48,7 +48,7 @@ const Foedested: React.FC<FoedestedProps> = ({
               <Input
                 error={validation[namespace + '-by']?.feilmelding}
                 namespace={namespace}
-                id='person-foedested-by'
+                id='by'
                 label={t('p2000:form-person-foedested-by')}
                 onChanged={(v) => setPersonOpplysninger("by", v, parentIndex)}
                 value={(person?.foedested?.by) ?? ''}
@@ -58,7 +58,7 @@ const Foedested: React.FC<FoedestedProps> = ({
               <Input
                 error={validation[namespace + '-region']?.feilmelding}
                 namespace={namespace}
-                id='person-foedested-region'
+                id='region'
                 label={t('p2000:form-person-foedested-region')}
                 onChanged={(v) => setPersonOpplysninger("region", v, parentIndex)}
                 value={(person?.foedested?.region)  ?? ''}
@@ -67,7 +67,7 @@ const Foedested: React.FC<FoedestedProps> = ({
             <Column>
               <CountrySelect
                 error={validation[namespace + '-land']?.feilmelding}
-                id="person-foedested-land"
+                id="land"
                 includeList={CountryFilter.STANDARD({})}
                 label={t('p2000:form-person-foedested-land')}
                 menuPortalTarget={document.body}

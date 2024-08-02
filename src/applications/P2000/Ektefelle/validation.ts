@@ -1,6 +1,9 @@
 import {Validation} from "declarations/app";
 import {Ektefelle} from "../../../declarations/p2000";
 import {checkIfNotEmpty} from "../../../utils/validation";
+import _ from "lodash";
+import performValidation from "../../../utils/performValidation";
+import {validateFoedested, ValidationFoedestedProps} from "../Foedested/validation";
 
 
 
@@ -41,6 +44,12 @@ export const validateEktefelle = (
       id: namespace + '-person-kjoenn',
       message: 'validation:missing-p2000-person-kjoenn'
     }))
+  }
+
+  if(!_.isEmpty(ektefelle?.person.foedested)){
+    hasErrors.push(performValidation<ValidationFoedestedProps>(v, namespace + '-person-foedested', validateFoedested, {
+      foedested: ektefelle?.person.foedested
+    }, true))
   }
 
   return hasErrors.find(value => value) !== undefined

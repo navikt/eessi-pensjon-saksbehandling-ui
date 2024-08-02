@@ -38,6 +38,12 @@ export interface Arbeidsforhold {
   planlagtstartdato?: string
 }
 
+export interface Foedested {
+  by?: string
+  land?: string
+  region?: string
+}
+
 export interface Person {
   pin? : Array<PIN>,
   statsborgerskap?: Array<Statsborgerskap>
@@ -45,11 +51,7 @@ export interface Person {
   etternavnvedfoedsel?: string
   fornavn?: string
   kjoenn?: string
-  foedested?: {
-    by?: string
-    land?: string
-    region?: string
-  },
+  foedested?: Foedested,
   foedselsdato?: string
   doedsdato?: string
   sivilstand?: Array<Sivilstand>
