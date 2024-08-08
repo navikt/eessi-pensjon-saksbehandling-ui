@@ -66,9 +66,9 @@ const Adresse: React.FC<AdresseProps> = ({
       <AlignStartRow>
         <Column>
           <Input
-            error={validation[namespace + '-adresse-gate']?.feilmelding}
+            error={validation[namespace + '-gate']?.feilmelding}
             namespace={namespace}
-            id='adresse-gate'
+            id='gate'
             label={t('p2000:form-adresse-gate')}
             onChanged={setGate}
             value={(adresse?.gate)  ?? ''}
@@ -79,9 +79,9 @@ const Adresse: React.FC<AdresseProps> = ({
       <AlignStartRow>
         <Column>
           <Input
-            error={validation[namespace + '-adresse-postnummer']?.feilmelding}
+            error={validation[namespace + '-postnummer']?.feilmelding}
             namespace={namespace}
-            id='adresse-postnummer'
+            id='postnummer'
             label={t('p2000:form-adresse-postnummer')}
             onChanged={setPostnummer}
             value={(usePostKode ? adresse?.postkode: adresse?.postnummer) ?? ''}
@@ -89,9 +89,9 @@ const Adresse: React.FC<AdresseProps> = ({
         </Column>
         <Column>
           <Input
-            error={validation[namespace + '-adresse-by']?.feilmelding}
+            error={validation[namespace + '-by']?.feilmelding}
             namespace={namespace}
-            id='adresse-by'
+            id='by'
             label="By"
             onChanged={setBy}
             value={(adresse?.by)  ?? ''}
@@ -102,9 +102,9 @@ const Adresse: React.FC<AdresseProps> = ({
       <AlignStartRow>
         <Column>
           <Input
-            error={validation[namespace + '-adresse-region']?.feilmelding}
+            error={validation[namespace + '-region']?.feilmelding}
             namespace={namespace}
-            id='adresse-region'
+            id='region'
             label={t('p2000:form-adresse-region')}
             onChanged={setRegion}
             value={(adresse?.region)  ?? ''}
@@ -115,8 +115,8 @@ const Adresse: React.FC<AdresseProps> = ({
       <AlignStartRow>
         <Column>
           <CountrySelect
-            error={validation[namespace + '-adresse-land']?.feilmelding}
-            id={namespace + '-' + 'adresse-land'}
+            error={validation[namespace + '-land']?.feilmelding}
+            id={namespace + '-land'}
             label={t('p2000:form-adresse-land')}
             flags={true}
             onOptionSelected={(land: Country) => setLand(land.value)}
