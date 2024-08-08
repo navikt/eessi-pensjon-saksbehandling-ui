@@ -11,6 +11,7 @@ import CountryData, {Country, CountryFilter} from "@navikt/land-verktoy";
 import CountrySelect from "@navikt/landvelger";
 import FormText from "../../../components/Forms/FormText";
 import Flag from "@navikt/flagg-ikoner";
+import {Validation} from "../../../declarations/app";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -22,6 +23,7 @@ export interface FoedestedProps {
   parentEditMode?: boolean
   person: Person | undefined,
   setPersonOpplysninger: any
+  parentValidation?: Validation
 }
 
 const Foedested: React.FC<FoedestedProps> = ({
@@ -29,11 +31,14 @@ const Foedested: React.FC<FoedestedProps> = ({
   parentIndex,
   parentEditMode = true,
   person,
-  setPersonOpplysninger
+  setPersonOpplysninger,
+  parentValidation
 }: FoedestedProps): JSX.Element => {
   const { t } = useTranslation()
   const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-person-foedested`
+
+  const v:Validation = parentValidation ? parentValidation : validation
 
   const countryData = CountryData.getCountryInstance('nb')
 
@@ -46,7 +51,7 @@ const Foedested: React.FC<FoedestedProps> = ({
           <>
             <Column>
               <Input
-                error={validation[namespace + '-by']?.feilmelding}
+                error={v[namespace + '-by']?.feilmelding}
                 namespace={namespace}
                 id='by'
                 label={t('p2000:form-person-foedested-by')}
@@ -56,7 +61,7 @@ const Foedested: React.FC<FoedestedProps> = ({
             </Column>
             <Column>
               <Input
-                error={validation[namespace + '-region']?.feilmelding}
+                error={v[namespace + '-region']?.feilmelding}
                 namespace={namespace}
                 id='region'
                 label={t('p2000:form-person-foedested-region')}
@@ -66,7 +71,7 @@ const Foedested: React.FC<FoedestedProps> = ({
             </Column>
             <Column>
               <CountrySelect
-                error={validation[namespace + '-land']?.feilmelding}
+                error={v[namespace + '-land']?.feilmelding}
                 id="land"
                 includeList={CountryFilter.STANDARD({})}
                 label={t('p2000:form-person-foedested-land')}
@@ -85,7 +90,7 @@ const Foedested: React.FC<FoedestedProps> = ({
                 <Column>
                   <FormText
                     id={"person-foedested-by"}
-                    error={validation[namespace + '-by']?.feilmelding}
+                    error={v[namespace + '-by']?.feilmelding}
                   >
                     <Label>
                       {t('p2000:form-person-foedested-by')}
@@ -96,7 +101,7 @@ const Foedested: React.FC<FoedestedProps> = ({
                 <Column>
                   <FormText
                     id={"person-foedested-region"}
-                    error={validation[namespace + '-region']?.feilmelding}
+                    error={v[namespace + '-region']?.feilmelding}
                   >
                     <Label>
                       {t('p2000:form-person-foedested-region')}
@@ -107,7 +112,7 @@ const Foedested: React.FC<FoedestedProps> = ({
                 <Column>
                   <FormText
                     id={"person-foedested-land"}
-                    error={validation[namespace + '-land']?.feilmelding}
+                    error={v[namespace + '-land']?.feilmelding}
                   >
                     <Label>
                       {t('p2000:form-person-foedested-land')}
