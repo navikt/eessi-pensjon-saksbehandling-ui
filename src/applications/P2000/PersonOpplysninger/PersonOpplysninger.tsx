@@ -11,6 +11,7 @@ import {BodyLong, Label, Radio} from "@navikt/ds-react";
 import {Person} from "declarations/p2000";
 import {dateToString, formatDate} from "utils/utils";
 import FormText from "../../../components/Forms/FormText";
+import {Validation} from "../../../declarations/app";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -22,6 +23,7 @@ export interface PersonOpplysningerProps {
   parentEditMode?:boolean
   person: Person | undefined,
   setPersonOpplysninger: any
+  parentValidation?: Validation
 }
 
 const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
@@ -29,11 +31,14 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
   parentIndex,
   parentEditMode = true,
   person,
-  setPersonOpplysninger
+  setPersonOpplysninger,
+  parentValidation
 }: PersonOpplysningerProps): JSX.Element => {
   const { t } = useTranslation()
   const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-person`
+
+  const v:Validation = parentValidation ? parentValidation : validation
 
   const getKjoenn = (kjoenn: any) => {
     if(kjoenn === "M") return "Mann"
@@ -49,7 +54,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
             <AlignStartRow>
               <Column>
                 <Input
-                  error={validation[namespace + '-etternavn']?.feilmelding}
+                  error={v[namespace + '-etternavn']?.feilmelding}
                   namespace={namespace}
                   id='etternavn'
                   label={t('p2000:form-person-etternavn')}
@@ -59,7 +64,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
               </Column>
               <Column>
                 <Input
-                  error={validation[namespace + '-fornavn']?.feilmelding}
+                  error={v[namespace + '-fornavn']?.feilmelding}
                   namespace={namespace}
                   id='fornavn'
                   label={t('p2000:form-person-fornavn')}
@@ -75,7 +80,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
                   id='foedselsdato'
                   index={0}
                   label={t('p2000:form-person-foedselsdato')}
-                  error={validation[namespace + '-foedselsdato']?.feilmelding}
+                  error={v[namespace + '-foedselsdato']?.feilmelding}
                   namespace={namespace}
                   onChanged={(v) => setPersonOpplysninger("foedselsdato", dateToString(v), parentIndex)}
                   defaultDate={person?.foedselsdato ?? ''}
@@ -83,7 +88,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
               </Column>
               <Column>
                 <HorizontalRadioGroup
-                  error={validation[namespace + '-kjoenn']?.feilmelding}
+                  error={v[namespace + '-kjoenn']?.feilmelding}
                   id={namespace + "-kjoenn"}
                   legend={t('p2000:form-person-kjoenn')}
                   onChange={(v) => setPersonOpplysninger("kjoenn", v, parentIndex)}
@@ -102,7 +107,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
             <AlignStartRow>
               <Column>
                 <FormText
-                  error={validation[namespace + '-etternavn']?.feilmelding}
+                  error={v[namespace + '-etternavn']?.feilmelding}
                   id={namespace + '-etternavn'}
                 >
                   <Label>
@@ -113,7 +118,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
               </Column>
               <Column>
                 <FormText
-                  error={validation[namespace + '-fornavn']?.feilmelding}
+                  error={v[namespace + '-fornavn']?.feilmelding}
                   id={namespace + '-fornavn'}
                 >
                   <Label>
@@ -128,7 +133,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
               <Column>
                 <FormText
                   id={namespace + '-foedselsdato'}
-                  error={validation[namespace + '-foedselsdato']?.feilmelding}
+                  error={v[namespace + '-foedselsdato']?.feilmelding}
                 >
                   <Label>
                     {t('p2000:form-person-foedselsdato')}
@@ -138,7 +143,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
               </Column>
               <Column>
                 <FormText
-                  error={validation[namespace + '-kjoenn']?.feilmelding}
+                  error={v[namespace + '-kjoenn']?.feilmelding}
                   id={namespace + "-kjoenn"}
                 >
                   <Label>
