@@ -328,7 +328,7 @@ const Barn: React.FC<MainFormProps> = ({
         {_.isEmpty(barn)
           ? (
             <BodyLong>
-              {t('p2000:ingen-barn')}
+              <em>{t('p2000:ingen-x-registrert', {x: 'barn'})}</em>
             </BodyLong>
           )
           : (
