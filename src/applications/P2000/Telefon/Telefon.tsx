@@ -209,9 +209,18 @@ const Telefon: React.FC<TelefonProps> = ({
     <>
       <Heading size="small">{t('p2000:form-telefon')}</Heading>
       <AlignStartRow>
-        <Column>
-          {telefonnumre?.map(renderTelefon)}
-        </Column>
+        {_.isEmpty(telefonnumre)
+          ? (
+            <Column>
+              <em>{t('p2000:ingen-x-registrert', {x: 'telefon'})}</em>
+            </Column>
+          )
+          : (
+            <Column>
+              {telefonnumre?.map(renderTelefon)}
+            </Column>
+          )
+        }
       </AlignStartRow>
       {_newTelefonForm
         ? renderTelefon(null, -1)
