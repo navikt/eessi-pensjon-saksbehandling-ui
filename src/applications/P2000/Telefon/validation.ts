@@ -1,5 +1,5 @@
 import {Validation} from "declarations/app";
-import { checkIfNotEmpty } from 'utils/validation'
+import {checkIfNotEmpty, checkIfNotTelephoneNumber} from 'utils/validation'
 import {Telefon} from "declarations/p2000";
 import {getIdx} from "../../../utils/namespace";
 
@@ -23,6 +23,12 @@ export const validateTelefon = (
     needle: telefon?.nummer,
     id: namespace + idx + '-nummer',
     message: 'validation:missing-p2000-telefon-nummer'
+  }))
+
+  hasErrors.push(checkIfNotTelephoneNumber(v, {
+    needle: telefon?.nummer,
+    id: namespace + idx + '-nummer',
+    message: 'validation:invalid-p2000-telefon-nummer'
   }))
 
   hasErrors.push(checkIfNotEmpty(v, {
