@@ -6,6 +6,7 @@
   "invalid-p2000-bank-konto-ikkesepa-swift": "Ugyldig BIC/SWIFT",
   "invalid-p2000-bank-konto-sepa-iban": "Ugyldig IBAN",
   "invalid-p2000-bank-konto-sepa-swift": "Ugyldig BIC/SWIFT",
+  "invalid-p2000-epost-adresse": "Ugyldig epost",
   "invalid-p2000-statsborgerskap-land": "Ugyldig land",
   "invalid-p2000-utenlandskepin-land": "Ugyldig land",
 

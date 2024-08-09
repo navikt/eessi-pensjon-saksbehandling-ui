@@ -52,6 +52,16 @@ export const checkIfDuplicate = (v: Validation, {
   return false
 }
 
+export const checkIfNotEmail = (v: Validation, { needle, id, message, extra }: ValidateValueParams
+): boolean => {
+  const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+  if (!_.isEmpty(needle) && !(needle!.match(emailPattern))) {
+    return addError(v, { id, message, extra })
+  }
+  return false
+}
+
 export const checkIfValidLand = (v: Validation, {
   needle,
   id,
