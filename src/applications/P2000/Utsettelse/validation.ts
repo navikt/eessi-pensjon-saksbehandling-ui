@@ -24,13 +24,7 @@ export const validateUtsettelse = (
     id: namespace + idx + '-land',
     message: 'validation:missing-p2000-pensjon-utsettelse-land',
   }))
-
-  hasErrors.push(checkIfNotEmpty(v, {
-    needle: utsettelse?.institusjonsnavn,
-    id: namespace + idx + '-institusjonsnavn',
-    message: 'validation:missing-p2000-pensjon-utsettelse-institusjonsnavn',
-  }))
-
+  
   hasErrors.push(checkIfNotEmpty(v, {
     needle: utsettelse?.tildato,
     id: namespace + idx + '-tildato',
