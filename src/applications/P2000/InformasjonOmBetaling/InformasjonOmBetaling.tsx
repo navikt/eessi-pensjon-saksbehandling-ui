@@ -12,8 +12,15 @@ import Input from "../../../components/Forms/Input";
 import Adresse from "../Adresse/Adresse";
 import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
-import {setValidation} from "../../../actions/validation";
-import {validateBank, ValidationBankProps} from "./validation";
+import {resetValidation, setValidation} from "../../../actions/validation";
+import {
+  validateBank,
+  validateIban,
+  validateSwift,
+  ValidationBankProps,
+  ValidationIbanProps,
+  ValidationSwiftProps
+} from "./validation";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -44,27 +51,69 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
   }
 
   const setSepaIban = (iban: string) => {
-    dispatch(updatePSED(`${target}.konto.sepa.iban`, iban))
+    const clonedvalidation = _.cloneDeep(validation)
+    const hasErrors = performValidation<ValidationIbanProps>(
+      clonedvalidation, namespace + '-konto-sepa-iban', validateIban, {
+        iban
+      })
+
+    if (!hasErrors){
+      dispatch(updatePSED(`${target}.konto.sepa.iban`, iban))
+      dispatch(resetValidation(namespace + '-konto-sepa-iban'))
+    } else {
+      dispatch(setValidation(clonedvalidation))
+    }
   }
 
   const setSepaSwift = (swift: string) => {
-    dispatch(updatePSED(`${target}.konto.sepa.swift`, swift))
+    const clonedvalidation = _.cloneDeep(validation)
+    const hasErrors = performValidation<ValidationSwiftProps>(
+      clonedvalidation, namespace + '-konto-sepa-swift', validateSwift, {
+        swift
+      })
+
+    if (!hasErrors){
+      dispatch(updatePSED(`${target}.konto.sepa.swift`, swift))
+      dispatch(resetValidation(namespace + '-konto-sepa-swift'))
+    } else {
+      dispatch(setValidation(clonedvalidation))
+    }
   }
 
   const setIkkeSepaSwift = (swift: string) => {
-    dispatch(updatePSED(`${target}.konto.ikkesepa.swift`, swift))
+    const clonedvalidation = _.cloneDeep(validation)
+    const hasErrors = performValidation<ValidationSwiftProps>(
+      clonedvalidation, namespace + '-konto-ikkesepa-swift', validateSwift, {
+        swift
+      })
+
+    if (!hasErrors){
+      dispatch(updatePSED(`${target}.konto.ikkesepa.swift`, swift))
+      dispatch(resetValidation(namespace + '-konto-ikkesepa-swift'))
+    } else {
+      dispatch(setValidation(clonedvalidation))
+    }
   }
 
   const setKontonr = (kontonr: string) => {
     dispatch(updatePSED(`${target}.konto.kontonr`, kontonr))
+    if (validation[namespace + '-konto-kontonr']) {
+      dispatch(resetValidation(namespace + '-konto-kontonr'))
+    }
   }
 
   const setBankNavn = (navn: string) => {
     dispatch(updatePSED(`${target}.navn`, navn))
+    if (validation[namespace + '-bank-navn']) {
+      dispatch(resetValidation(namespace + '-bank-navn'))
+    }
   }
 
   const sepaIkkeSepaChange = (e: string) => {
     _setSepaIkkeSepa(e)
+    dispatch(resetValidation(namespace + '-konto'))
+    dispatch(resetValidation(namespace + '-bank'))
+
     if(e === "sepa"){
       dispatch(updatePSED(`${target}.konto.sepa`, {}))
       dispatch(updatePSED(`${target}.konto.ikkesepa`, undefined))
@@ -144,7 +193,6 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
               legend={t('p2000:form-bank-konto-sepa-ikkesepa')}
               onChange={(e: any) => sepaIkkeSepaChange(e)}
               value={(_sepaIkkeSepa) ?? ''}
-
             >
               <Radio value="sepa">SEPA-konto</Radio>
               <Radio value="ikkesepa">Ikke SEPA-konto</Radio>
@@ -196,7 +244,7 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
             <AlignStartRow>
               <Column>
                 <Input
-                  error={validation[namespace + '-navn']?.feilmelding}
+                  error={validation[namespace + '-bank-navn']?.feilmelding}
                   namespace={namespace}
                   id='bank-navn'
                   label={t('p2000:form-bank-navn')}
@@ -207,7 +255,7 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
               <Column/>
             </AlignStartRow>
             <VerticalSeparatorDiv/>
-            <Adresse usePostKode={true} PSED={PSED} updatePSED={updatePSED} parentNamespace={namespace} parentTarget={target}/>
+            <Adresse usePostKode={true} PSED={PSED} updatePSED={updatePSED} parentNamespace={namespace + '-bank'} parentTarget={target}/>
           </>
         }
       </PaddedDiv>

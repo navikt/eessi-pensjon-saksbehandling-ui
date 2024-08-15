@@ -55,8 +55,7 @@ export const checkIfDuplicate = (v: Validation, {
 export const checkIfNotEmail = (v: Validation, {
   needle, id, message, extra
 }: ValidateValueParams): boolean => {
-  const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-
+  const emailPattern = /([\w\-\.]+)@(([\w]+\.)+)([a-zA-Z]{2,15})/
   if (!_.isEmpty(needle) && !(needle!.match(emailPattern))) {
     return addError(v, { id, message, extra })
   }
@@ -66,9 +65,31 @@ export const checkIfNotEmail = (v: Validation, {
 export const checkIfNotTelephoneNumber = (v: Validation, {
   needle, id, message, extra
 }: ValidateValueParams): boolean => {
-  const telephoneNumberPattern = /^\+?\d[\d\s()]*$/
+  const telephoneNumberPattern = /^((\+|[0]{2})?[0-9]{1,3}[\. \-]?([0-9]{1,3}[\- \.]?)([0-9][\- \.]?){5,10}[0-9])$/
 
   if (!_.isEmpty(needle) && !(needle!.match(telephoneNumberPattern))) {
+    return addError(v, { id, message, extra })
+  }
+  return false
+}
+
+export const checkIfValidSwift = (v: Validation, {
+  needle, id, message, extra
+}: ValidateValueParams): boolean => {
+  const swiftPattern = /([a-zA-Z]){4}([a-zA-Z]){2}([0-9a-zA-Z]){2}([0-9a-zA-Z]{3})?/
+
+  if (!_.isEmpty(needle) && !(needle!.match(swiftPattern))) {
+    return addError(v, { id, message, extra })
+  }
+  return false
+}
+
+export const checkIfValidIban = (v: Validation, {
+  needle, id, message, extra
+}: ValidateValueParams): boolean => {
+  const ibanPattern = /^[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[a-zA-Z0-9]{7}([a-zA-Z0-9]?){0,16}/
+
+  if (!_.isEmpty(needle) && !(needle!.match(ibanPattern))) {
     return addError(v, { id, message, extra })
   }
   return false

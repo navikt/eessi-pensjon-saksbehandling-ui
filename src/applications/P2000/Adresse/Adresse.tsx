@@ -13,6 +13,7 @@ import {useDispatch} from "react-redux";
 import {State} from "declarations/reducers";
 import {Adresse as P2000Adresse} from "declarations/p2000";
 import _ from "lodash";
+import {resetValidation} from "../../../actions/validation";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -42,23 +43,38 @@ const Adresse: React.FC<AdresseProps> = ({
 
   const setGate = (gate: string) => {
     dispatch(updatePSED(`${target}.gate`, gate))
+    if (validation[namespace + '-gate']) {
+      dispatch(resetValidation(namespace + '-gate'))
+    }
   }
 
   const setPostnummer = (postnummer: string) => {
     const targetField = usePostKode ? "postkode" : "postnummer"
     dispatch(updatePSED(`${target}.${targetField}`, postnummer))
+    if (validation[namespace + '-postnummer']) {
+      dispatch(resetValidation(namespace + '-postnummer'))
+    }
   }
 
   const setBy = (by: string) => {
     dispatch(updatePSED(`${target}.by`, by))
+    if (validation[namespace + '-by']) {
+      dispatch(resetValidation(namespace + '-by'))
+    }
   }
 
   const setRegion = (region: string) => {
     dispatch(updatePSED(`${target}.region`, region))
+    if (validation[namespace + '-region']) {
+      dispatch(resetValidation(namespace + '-region'))
+    }
   }
 
   const setLand = (land: string) => {
     dispatch(updatePSED(`${target}.land`, land))
+    if (validation[namespace + '-land']) {
+      dispatch(resetValidation(namespace + '-land'))
+    }
   }
 
   return (
