@@ -15,8 +15,6 @@ export const validatePerson = (
 ): boolean => {
   const hasErrors: Array<boolean> = []
 
-  console.log(namespace)
-
   hasErrors.push(checkIfNotEmpty(v, {
     needle: person?.etternavn,
     id: namespace + '-person-etternavn',

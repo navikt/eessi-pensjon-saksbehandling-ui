@@ -1,7 +1,7 @@
 import {PIN} from "../../../declarations/p2000";
 import { Validation} from 'declarations/app'
 import { getIdx } from 'utils/namespace'
-import { checkIfDuplicate, checkIfNotEmpty, checkIfNotGB, checkIfValidLand } from 'utils/validation'
+import {checkIfDuplicate, checkIfNotEmpty, checkIfNotGB, checkIfValidLand, checkLength} from 'utils/validation'
 
 export interface ValidationUtenlandskPINProps {
   pin: PIN | null | undefined
@@ -29,6 +29,13 @@ export const validateUtenlandskPIN = (
     needle: pin?.identifikator,
     id: namespace + idx + '-identifikator',
     message: 'validation:missing-p2000-utenlandskepin-id'
+  }))
+
+  hasErrors.push(checkLength(v, {
+    needle: pin?.identifikator,
+    id: namespace + idx + '-identifikator',
+    max: 65,
+    message: 'validation:textOverX'
   }))
 
   hasErrors.push(checkIfNotEmpty(v, {
