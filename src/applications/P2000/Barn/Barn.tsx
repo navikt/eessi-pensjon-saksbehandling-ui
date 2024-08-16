@@ -136,6 +136,7 @@ const Barn: React.FC<MainFormProps> = ({
   }
 
   const setBarnPersonalia = (property: string, value: string | undefined, index: number) => {
+    const idx = getIdx(index)
     if (index < 0) {
       _setNewBarn({
           ..._newBarn,
@@ -144,6 +145,11 @@ const Barn: React.FC<MainFormProps> = ({
           [property]: value
         }
       })
+
+      if(_validation[namespace + '-person-' + property]){
+        _resetValidation(namespace + '-person-' + property)
+      }
+
       return
     }
     _setEditBarn({
@@ -153,6 +159,11 @@ const Barn: React.FC<MainFormProps> = ({
         [property]: value
       }
     })
+
+    if(validation[namespace + idx + '-person-' + property]){
+      dispatch(resetValidation(namespace + idx + '-person-' + property))
+    }
+
   }
 
   const setBarnFoedested = (property: string, value: string | null | undefined, index: number) => {
