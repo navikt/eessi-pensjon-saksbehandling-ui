@@ -48,6 +48,9 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
 
   const setInnehaverNavn = (navn: string) => {
     dispatch(updatePSED(`${target}.konto.innehaver.navn`, navn))
+    if(validation[namespace + '-konto-innehaver-navn']){
+      dispatch(resetValidation(namespace + '-konto-innehaver-navn'))
+    }
   }
 
   const setSepaIban = (iban: string) => {

@@ -1,7 +1,9 @@
 import {Validation} from "declarations/app";
-import {checkIfNotEmpty, checkIfValidIban, checkIfValidSwift} from 'utils/validation'
+import {checkIfNotEmpty, checkIfValidIban, checkIfValidSwift, checkLength} from 'utils/validation'
 import {Bank  } from "declarations/p2000";
 import _ from 'lodash'
+import performValidation from "../../../utils/performValidation";
+import {validateAdresse, ValidationAdresseProps} from "../Adresse/validation";
 
 export interface ValidationBankProps {
   bank: Bank | undefined
@@ -25,6 +27,13 @@ export const validateBank = (
   }: ValidationBankProps
 ): boolean => {
   const hasErrors: Array<boolean> = []
+
+  hasErrors.push(checkLength(v, {
+    needle: bank?.konto?.innehaver?.navn,
+    id: namespace + '-konto-innehaver-navn',
+    max: 255,
+    message: 'validation:textOverX'
+  }))
 
   if(sepaIkkeSepa === "sepa"){
     hasErrors.push(checkIfNotEmpty(v, {
@@ -68,29 +77,10 @@ export const validateBank = (
       message: 'validation:missing-p2000-bank-navn'
     }))
 
-    hasErrors.push(checkIfNotEmpty(v, {
-      needle: bank?.adresse?.gate,
-      id: namespace + '-bank-adresse-gate',
-      message: 'validation:missing-p2000-bank-adresse-gate'
-    }))
-
-    hasErrors.push(checkIfNotEmpty(v, {
-      needle: bank?.adresse?.postkode,
-      id: namespace + '-bank-adresse-postnummer',
-      message: 'validation:missing-p2000-bank-adresse-postnummer'
-    }))
-
-    hasErrors.push(checkIfNotEmpty(v, {
-      needle: bank?.adresse?.by,
-      id: namespace + '-bank-adresse-by',
-      message: 'validation:missing-p2000-bank-adresse-by'
-    }))
-
-    hasErrors.push(checkIfNotEmpty(v, {
-      needle: bank?.adresse?.land,
-      id: namespace + '-bank-adresse-land',
-      message: 'validation:missing-p2000-bank-adresse-land'
-    }))
+    hasErrors.push(performValidation<ValidationAdresseProps>(v, namespace + '-bank', validateAdresse, {
+      adresse: bank?.adresse,
+      usePostKode: true
+    }, true))
 
     if (!_.isEmpty(bank?.konto?.ikkesepa?.swift)){
       validateSwift(v, namespace + '-konto-ikkesepa', {swift: bank?.konto?.ikkesepa?.swift})
