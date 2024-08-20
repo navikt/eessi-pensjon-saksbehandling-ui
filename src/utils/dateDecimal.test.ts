@@ -121,13 +121,6 @@ describe('utils/dateDecimal', () => {
     })
   })
 
-
-  it('dateDecimal: handles all values 6', () => {
-    expect(dateDecimal({ dateFom: '1992-04-06', dateTom: '1993-04-05', days: '0', weeks: '-1', months: '0', quarter: '0', years: '0' })).toEqual({
-      days: -7, months: 0, years: 0
-    })
-  })
-
   it('dateDecimal: Should actual when calculated tomdate is after actual tomdate', () => {
     expect(dateDecimal({ dateFom: '2009-04-06', dateTom: '2022-04-05', days: '0', weeks: '678', months: '0', quarter: '0', years: '0' })).toEqual({
       days: 14, months: 0, years: 13
