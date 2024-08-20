@@ -1,6 +1,6 @@
-import {Validation} from "declarations/app";
-import {checkIfNotEmpty, checkLength} from 'utils/validation'
-import {Adresse} from "declarations/p2000";
+import {Validation} from "src/declarations/app";
+import {checkIfNotEmpty, checkLength} from 'src/utils/validation'
+import {Adresse} from "src/declarations/p2000";
 
 export interface ValidationAdresseProps {
   adresse?: Adresse
