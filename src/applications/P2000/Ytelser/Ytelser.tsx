@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import {State} from "../../../declarations/reducers";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
@@ -9,7 +9,6 @@ import {
   VerticalSeparatorDiv,
   PaddedDiv,
   Column,
-  AlignEndColumn,
   AlignStartRow,
   HorizontalSeparatorDiv
 } from "@navikt/hoykontrast";
@@ -228,7 +227,7 @@ const Ytelser: React.FC<MainFormProps> = ({
 
     if(inEditMode){
       return (
-        <>
+        <Fragment key={_namespace}>
           <RepeatableRowNoBackground
             id={'repeatablerow-' + _namespace}
             key={index}
@@ -250,7 +249,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                 >
                   <option value=''>Velg</option>
                   {ytelseOptions.map((option) => {
-                    return(<option value={option.value}>{option.label}</option>)
+                    return(<option key={option.value} value={option.value}>{option.label}</option>)
                   })}
                 </Select>
               </Column>
@@ -281,7 +280,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                   value={_ytelse?.status}
                 >
                   {statusOptions.map((option) => {
-                    return(<Radio value={option.value}>{option.label}</Radio>)
+                    return(<Radio key={option.value} value={option.value}>{option.label}</Radio>)
                   })}
                 </HorizontalRadioGroup>
               </Column>
@@ -395,11 +394,11 @@ const Ytelser: React.FC<MainFormProps> = ({
 
           </RepeatableRowNoBackground>
           <VerticalSeparatorDiv/>
-        </>
+        </Fragment>
       )
     } else {
       return (
-        <>
+        <Fragment key={_namespace}>
           <RepeatableRowNoBackground
             id={'repeatablerow-' + _namespace}
             key={index}
@@ -427,21 +426,22 @@ const Ytelser: React.FC<MainFormProps> = ({
               <Column>
                 <Label>{t('p2000:form-ytelse-startdato-utbetaling')}</Label>
                 <BodyLong>
-                  {formatDate(_ytelse?.startdatoutbetaling as string)}
+                  {_ytelse?.startdatoutbetaling ? formatDate(_ytelse?.startdatoutbetaling as string) : <em>Ingen dato oppgitt</em>}
                 </BodyLong>
               </Column>
               <Column>
                 <Label>{t('p2000:form-ytelse-sluttdato-utbetaling')}</Label>
                 <BodyLong>
-                  {formatDate(_ytelse?.sluttdatoutbetaling as string)}
+                  {_ytelse?.sluttdatoutbetaling ? formatDate(_ytelse?.sluttdatoutbetaling as string) : <em>Ingen dato oppgitt</em>}
                 </BodyLong>
               </Column>
             </AlignStartRow>
+            <VerticalSeparatorDiv/>
             <AlignStartRow>
               <Column flex={5}>
                 <Label>{t('p2000:form-ytelse-startdato-rett-til-ytelser')}</Label>
                 <BodyLong>
-                  {formatDate(_ytelse?.startdatoretttilytelse as string)}
+                  {_ytelse?.startdatoretttilytelse ? formatDate(_ytelse?.startdatoretttilytelse as string) : <em>Ingen dato oppgitt</em>}
                 </BodyLong>
               </Column>
             </AlignStartRow>
@@ -463,33 +463,39 @@ const Ytelser: React.FC<MainFormProps> = ({
               </Table>
             </AlignStartRow>
             <VerticalSeparatorDiv/>
-            <AlignStartRow>
-              <Column flex={5}>
-                <Label>{t('p2000:form-ytelse-mottas-basert-paa')}</Label>
-                <BodyLong>
-                  {_ytelse?.mottasbasertpaa ? _ytelse?.mottasbasertpaa.charAt(0).toUpperCase() + _ytelse?.mottasbasertpaa.slice(1) : ''}
-                </BodyLong>
-              </Column>
-            </AlignStartRow>
+            {_ytelse?.mottasbasertpaa &&
+              <AlignStartRow>
+                <Column flex={5}>
+                  <Label>{t('p2000:form-ytelse-mottas-basert-paa')}</Label>
+                  <BodyLong>
+                    {_ytelse?.mottasbasertpaa ? _ytelse?.mottasbasertpaa.charAt(0).toUpperCase() + _ytelse?.mottasbasertpaa.slice(1) : ''}
+                  </BodyLong>
+                </Column>
+              </AlignStartRow>
+            }
             <VerticalSeparatorDiv/>
             <AlignStartRow>
-              <Column>
-                <Label>{t('p2000:form-ytelse-bruttobeloep-bostedsbasert')}</Label>
-                <BodyLong>
-                  {_ytelse?.totalbruttobeloepbostedsbasert}
-                </BodyLong>
-              </Column>
-              <Column>
-                <Label>{t('p2000:form-ytelse-bruttobeloep-arbeidsrelatert')}</Label>
-                <BodyLong>
-                  {_ytelse?.totalbruttobeloeparbeidsbasert}
-                </BodyLong>
-              </Column>
+              {_ytelse?.totalbruttobeloepbostedsbasert &&
+                <Column>
+                  <Label>{t('p2000:form-ytelse-bruttobeloep-bostedsbasert')}</Label>
+                  <BodyLong>
+                    {_ytelse?.totalbruttobeloepbostedsbasert}
+                  </BodyLong>
+                </Column>
+              }
+              {_ytelse?.totalbruttobeloeparbeidsbasert &&
+                <Column>
+                  <Label>{t('p2000:form-ytelse-bruttobeloep-arbeidsrelatert')}</Label>
+                  <BodyLong>
+                    {_ytelse?.totalbruttobeloeparbeidsbasert}
+                  </BodyLong>
+                </Column>
+              }
             </AlignStartRow>
             <VerticalSeparatorDiv/>
           </RepeatableRowNoBackground>
           <VerticalSeparatorDiv/>
-        </>
+        </Fragment>
       )
     }
   }
@@ -504,7 +510,7 @@ const Ytelser: React.FC<MainFormProps> = ({
         {_.isEmpty(ytelser)
           ? (
             <BodyLong>
-              {t('p2000:ingen-ytelser')}
+              <em>{t('p2000:ingen-x-registrert', {x: 'ytelser'})}</em>
             </BodyLong>
           )
           : (
@@ -517,7 +523,7 @@ const Ytelser: React.FC<MainFormProps> = ({
         {_newForm
           ? renderRow(null, -1)
           : (
-            <AlignEndColumn>
+            <AlignStartRow>
               <Button
                 variant='tertiary'
                 onClick={() => _setNewForm(true)}
@@ -525,7 +531,7 @@ const Ytelser: React.FC<MainFormProps> = ({
               >
                 {t('ui:add-new-x', { x: t('p2000:form-ytelse')?.toLowerCase() })}
               </Button>
-            </AlignEndColumn>
+            </AlignStartRow>
           )}
 
 

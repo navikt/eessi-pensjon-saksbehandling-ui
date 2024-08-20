@@ -2,7 +2,7 @@ import {AlignEndColumn, AlignStartRow, Column, PaddedDiv, VerticalSeparatorDiv} 
 import {BodyLong, Button, Heading, Select} from "@navikt/ds-react";
 import _ from "lodash";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
 
@@ -136,6 +136,7 @@ const Barn: React.FC<MainFormProps> = ({
   }
 
   const setBarnPersonalia = (property: string, value: string | undefined, index: number) => {
+    const idx = getIdx(index)
     if (index < 0) {
       _setNewBarn({
           ..._newBarn,
@@ -144,6 +145,11 @@ const Barn: React.FC<MainFormProps> = ({
           [property]: value
         }
       })
+
+      if(_validation[namespace + '-person-' + property]){
+        _resetValidation(namespace + '-person-' + property)
+      }
+
       return
     }
     _setEditBarn({
@@ -153,6 +159,11 @@ const Barn: React.FC<MainFormProps> = ({
         [property]: value
       }
     })
+
+    if(validation[namespace + idx + '-person-' + property]){
+      dispatch(resetValidation(namespace + idx + '-person-' + property))
+    }
+
   }
 
   const setBarnFoedested = (property: string, value: string | null | undefined, index: number) => {
@@ -211,9 +222,8 @@ const Barn: React.FC<MainFormProps> = ({
     const _v: Validation = index < 0 ? _validation : validation
     const inEditMode = index < 0 || _editIndex === index
     const _barn = index < 0 ? _newBarn : (inEditMode ? _editBarn : barn)
-
     return (
-      <>
+      <Fragment key={"barn-" + index}>
         <RepeatableRowNoBackground
           id={'repeatablerow-' + _namespace}
           key={index}
@@ -225,11 +235,11 @@ const Barn: React.FC<MainFormProps> = ({
         >
             <>
               <VerticalSeparatorDiv/>
-              <PersonOpplysninger setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
+              <PersonOpplysninger setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode} parentValidation={_v}/>
               <VerticalSeparatorDiv/>
               <UtenlandskePin setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
               <VerticalSeparatorDiv/>
-              <Foedested setPersonOpplysninger={setBarnFoedested} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
+              <Foedested setPersonOpplysninger={setBarnFoedested} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode} parentValidation={_v}/>
               <VerticalSeparatorDiv/>
               <Statsborgerskap setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
               <VerticalSeparatorDiv/>
@@ -250,7 +260,7 @@ const Barn: React.FC<MainFormProps> = ({
                     >
                       <option value=''>{t('p2000:form-velg')}</option>
                       {relasjonOptions.map((option) => {
-                        return(<option value={option.value}>{option.label}</option>)
+                        return(<option key={option.value} value={option.value}>{option.label}</option>)
                       })}
                     </Select>
                   }
@@ -315,7 +325,7 @@ const Barn: React.FC<MainFormProps> = ({
           <VerticalSeparatorDiv/>
         </RepeatableRowNoBackground>
         <VerticalSeparatorDiv/>
-      </>
+      </Fragment>
     )
   }
 
@@ -329,7 +339,7 @@ const Barn: React.FC<MainFormProps> = ({
         {_.isEmpty(barn)
           ? (
             <BodyLong>
-              {t('p2000:ingen-barn')}
+              <em>{t('p2000:ingen-x-registrert', {x: 'barn'})}</em>
             </BodyLong>
           )
           : (
@@ -342,7 +352,7 @@ const Barn: React.FC<MainFormProps> = ({
         {_newForm
           ? renderRow(null, -1)
           : (
-            <AlignEndColumn>
+            <AlignStartRow>
               <Button
                 variant='tertiary'
                 onClick={() => _setNewForm(true)}
@@ -350,7 +360,7 @@ const Barn: React.FC<MainFormProps> = ({
               >
                 {t('ui:add-new-x', { x: t('p2000:form-barn')?.toLowerCase() })}
               </Button>
-            </AlignEndColumn>
+            </AlignStartRow>
           )}
       </PaddedDiv>
     </>

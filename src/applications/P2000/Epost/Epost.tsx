@@ -132,7 +132,7 @@ const Epost: React.FC<EpostProps> = ({
     const inEditMode = index < 0 || _editEpostIndex === index
     const _epost = index < 0 ? _newEpost : (inEditMode ? _editEpost : epost)
     return(
-      <RepeatableRow>
+      <RepeatableRow key={_namespace}>
         <AlignStartRow>
           {inEditMode
             ? (
@@ -179,9 +179,18 @@ const Epost: React.FC<EpostProps> = ({
     <>
       <Heading size="small">{t('p2000:form-epost')}</Heading>
       <AlignStartRow>
-        <Column>
-          {epostAdresser?.map(renderEpost)}
-        </Column>
+        {_.isEmpty(epostAdresser)
+          ? (
+            <Column>
+              <em>{t('p2000:ingen-x-registrert', {x: 'epost'})}</em>
+            </Column>
+          )
+          : (
+            <Column>
+              {epostAdresser?.map(renderEpost)}
+            </Column>
+          )
+        }
       </AlignStartRow>
       {_newEpostForm
         ? renderEpost(null, -1)

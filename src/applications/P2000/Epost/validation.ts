@@ -1,5 +1,5 @@
 import {Validation} from "src/declarations/app";
-import { checkIfNotEmpty } from 'src/utils/validation'
+import {checkIfNotEmail, checkIfNotEmpty} from 'src/utils/validation'
 import {Email} from "src/declarations/p2000";
 import {getIdx} from "../../../utils/namespace";
 
@@ -22,7 +22,13 @@ export const validateEpost = (
   hasErrors.push(checkIfNotEmpty(v, {
     needle: epost?.adresse,
     id: namespace + idx + '-adresse',
-    message: 'validation:missing-p2000-verge-epost-adresse'
+    message: 'validation:missing-p2000-epost-adresse'
+  }))
+
+  hasErrors.push(checkIfNotEmail(v, {
+    needle: epost?.adresse,
+    id: namespace + idx + '-adresse',
+    message: 'validation:invalid-p2000-epost-adresse'
   }))
 
   return hasErrors.find(value => value) !== undefined

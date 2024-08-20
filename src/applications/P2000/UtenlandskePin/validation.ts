@@ -1,7 +1,7 @@
 import {PIN} from "../../../declarations/p2000";
 import { Validation} from 'src/declarations/app'
 import { getIdx } from 'src/utils/namespace'
-import { checkIfDuplicate, checkIfNotEmpty, checkIfNotGB, checkIfValidLand } from 'src/utils/validation'
+import {checkIfDuplicate, checkIfNotEmpty, checkIfNotGB, checkIfValidLand, checkLength} from 'src/utils/validation'
 
 export interface ValidationUtenlandskPINProps {
   pin: PIN | null | undefined
@@ -28,25 +28,32 @@ export const validateUtenlandskPIN = (
   hasErrors.push(checkIfNotEmpty(v, {
     needle: pin?.identifikator,
     id: namespace + idx + '-identifikator',
-    message: 'validation:noId'
+    message: 'validation:missing-p2000-utenlandskepin-id'
+  }))
+
+  hasErrors.push(checkLength(v, {
+    needle: pin?.identifikator,
+    id: namespace + idx + '-identifikator',
+    max: 65,
+    message: 'validation:textOverX'
   }))
 
   hasErrors.push(checkIfNotEmpty(v, {
     needle: pin?.land,
     id: namespace + idx + '-land',
-    message: 'validation:noLand'
+    message: 'validation:missing-p2000-utenlandskepin-land'
   }))
 
   hasErrors.push(checkIfValidLand(v, {
     needle: pin?.land,
     id: namespace + idx + '-land',
-    message: 'validation:invalidLand'
+    message: 'validation:invalid-p2000-utenlandskepin-land'
   }))
 
   hasErrors.push(checkIfNotGB(v, {
     needle: pin?.land,
     id: namespace + idx + '-land',
-    message: 'validation:invalidLand'
+    message: 'validation:invalid-p2000-utenlandskepin-land'
   }))
 
   hasErrors.push(checkIfDuplicate(v, {
@@ -55,7 +62,7 @@ export const validateUtenlandskPIN = (
     matchFn: (_pin: PIN) => _pin.land === pin?.land,
     index,
     id: namespace + idx + '-land',
-    message: 'validation:duplicateLand',
+    message: 'validation:duplicate-p2000-utenlandskepin-land',
   }))
 
   return hasErrors.find(value => value) !== undefined

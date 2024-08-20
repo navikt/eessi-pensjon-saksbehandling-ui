@@ -1,5 +1,5 @@
 import {Validation} from "src/declarations/app";
-import { checkIfNotEmpty } from 'src/utils/validation'
+import {checkIfNotEmpty, checkLength} from 'src/utils/validation'
 import {getIdx} from "../../../utils/namespace";
 
 export interface ValidationInstitusjonProps {
@@ -22,6 +22,13 @@ export const validateInstitusjon = (
     needle: institusjon,
     id: namespace + idx,
     message: 'validation:missing-p2000-pensjon-institusjonennaaikkesoektompensjon'
+  }))
+
+  hasErrors.push(checkLength(v, {
+    needle: institusjon,
+    id: namespace + idx,
+    max: 155,
+    message: 'validation:textOverX'
   }))
 
   return hasErrors.find(value => value) !== undefined

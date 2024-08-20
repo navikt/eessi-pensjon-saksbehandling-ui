@@ -13,9 +13,10 @@ import {useAppSelector} from "../../../store";
 import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
 import {validateVerge, ValidationVergeProps} from "./validation";
-import {setValidation} from "../../../actions/validation";
+import {resetValidation, setValidation} from "../../../actions/validation";
 import {useTranslation} from "react-i18next";
 import Adresse from "../Adresse/Adresse";
+import TextArea from "../../../components/Forms/TextArea";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -33,7 +34,7 @@ const Verge: React.FC<MainFormProps> = ({
   const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-verge`
   const target = 'nav.verge'
-  const verge: P2000Verge | undefined = _.get(PSED, target)
+  const verge: P2000Verge = _.get(PSED, target)
 
   useUnmount(() => {
     const clonedvalidation = _.cloneDeep(validation)
@@ -47,14 +48,23 @@ const Verge: React.FC<MainFormProps> = ({
 
   const setEtternavn = (etternavn: string) => {
     dispatch(updatePSED(`${target}.person.etternavn`, etternavn))
+    if(validation[namespace + '-person-etternavn']){
+      dispatch(resetValidation(namespace + '-person-etternavn'))
+    }
   }
 
   const setFornavn = (fornavn: string) => {
     dispatch(updatePSED(`${target}.person.fornavn`, fornavn))
+    if(validation[namespace + '-person-fornavn']){
+      dispatch(resetValidation(namespace + '-person-fornavn'))
+    }
   }
 
   const setVergemaalMandat = (mandat: string) => {
     dispatch(updatePSED(`${target}.vergemaal.mandat`, mandat))
+    if(validation[namespace + '-vergemaal-mandat']){
+      dispatch(resetValidation(namespace + '-vergemaal-mandat'))
+    }
   }
 
   return (
@@ -93,16 +103,16 @@ const Verge: React.FC<MainFormProps> = ({
         <VerticalSeparatorDiv/>
         <AlignStartRow>
           <Column>
-            <Input
+            <TextArea
               error={validation[namespace + '-vergemaal-mandat']?.feilmelding}
               namespace={namespace}
               id='vergemaal-mandat'
               label={t('p2000:form-verge-vergemaal-mandat')}
               onChanged={setVergemaalMandat}
               value={(verge?.vergemaal?.mandat)  ?? ''}
+              maxLength={255}
             />
           </Column>
-          <Column></Column>
         </AlignStartRow>
         <VerticalSeparatorDiv/>
         <Heading size="small">{t('p2000:form-adresse')}</Heading>

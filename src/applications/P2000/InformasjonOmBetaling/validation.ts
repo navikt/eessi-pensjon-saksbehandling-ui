@@ -1,11 +1,21 @@
 import {Validation} from "src/declarations/app";
-import {addError, checkIfNotEmpty} from 'src/utils/validation'
+import {checkIfNotEmpty, checkIfValidIban, checkIfValidSwift, checkLength} from 'src/utils/validation'
 import {Bank  } from "src/declarations/p2000";
 import _ from 'lodash'
+import performValidation from "../../../utils/performValidation";
+import {validateAdresse, ValidationAdresseProps} from "../Adresse/validation";
 
 export interface ValidationBankProps {
   bank: Bank | undefined
   sepaIkkeSepa: string | undefined
+}
+
+export interface ValidationSwiftProps {
+  swift: string | undefined
+}
+
+export interface ValidationIbanProps {
+  iban: string | undefined
 }
 
 export const validateBank = (
@@ -17,6 +27,13 @@ export const validateBank = (
   }: ValidationBankProps
 ): boolean => {
   const hasErrors: Array<boolean> = []
+
+  hasErrors.push(checkLength(v, {
+    needle: bank?.konto?.innehaver?.navn,
+    id: namespace + '-konto-innehaver-navn',
+    max: 255,
+    message: 'validation:textOverX'
+  }))
 
   if(sepaIkkeSepa === "sepa"){
     hasErrors.push(checkIfNotEmpty(v, {
@@ -31,18 +48,13 @@ export const validateBank = (
       message: 'validation:missing-p2000-bank-konto-sepa-swift'
     }))
 
-    if (!_.isEmpty(bank?.konto?.sepa?.iban) && !bank?.konto?.sepa?.iban?.trim().match(/^[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[a-zA-Z0-9]{7}([a-zA-Z0-9]?){0,16}/)) {
-      hasErrors.push(addError(v, {
-        id: namespace + '-konto-sepa-iban',
-        message: 'validation:invalid-p2000-bank-konto-sepa-iban'
-      }))
+
+    if (!_.isEmpty(bank?.konto?.sepa?.iban)){
+      validateIban(v, namespace + '-konto-sepa', {iban: bank?.konto?.sepa?.iban})
     }
 
-    if (!_.isEmpty(bank?.konto?.sepa?.swift) && !bank?.konto?.sepa?.swift?.trim().match(/([a-zA-Z]){4}([a-zA-Z]){2}([0-9a-zA-Z]){2}([0-9a-zA-Z]{3})?/)) {
-      hasErrors.push(addError(v, {
-        id: namespace + '-konto-sepa-swift',
-        message: 'validation:invalid-p2000-bank-konto-sepa-swift'
-      }))
+    if (!_.isEmpty(bank?.konto?.sepa?.swift)){
+      validateSwift(v, namespace + '-konto-sepa', {swift: bank?.konto?.sepa?.swift})
     }
   }
 
@@ -59,13 +71,60 @@ export const validateBank = (
       message: 'validation:missing-p2000-bank-konto-ikkesepa-swift'
     }))
 
-    if (!_.isEmpty(bank?.konto?.ikkesepa?.swift) && !bank?.konto?.ikkesepa?.swift?.trim().match(/([a-zA-Z]){4}([a-zA-Z]){2}([0-9a-zA-Z]){2}([0-9a-zA-Z]{3})?/)) {
-      hasErrors.push(addError(v, {
-        id: namespace + '-konto-ikkesepa-swift',
-        message: 'validation:invalid-p2000-bank-konto-ikkesepa-swift'
-      }))
+    hasErrors.push(checkIfNotEmpty(v, {
+      needle: bank?.navn,
+      id: namespace + '-bank-navn',
+      message: 'validation:missing-p2000-bank-navn'
+    }))
+
+    hasErrors.push(performValidation<ValidationAdresseProps>(v, namespace + '-bank', validateAdresse, {
+      adresse: bank?.adresse,
+      usePostKode: true
+    }, true))
+
+    if (!_.isEmpty(bank?.konto?.ikkesepa?.swift)){
+      validateSwift(v, namespace + '-konto-ikkesepa', {swift: bank?.konto?.ikkesepa?.swift})
     }
   }
 
   return hasErrors.find(value => value) !== undefined
 }
+
+export const validateSwift = (
+  v: Validation,
+  namespace: string,
+  {
+    swift
+  }: ValidationSwiftProps
+): boolean => {
+  const hasErrors: Array<boolean> = []
+
+  hasErrors.push(checkIfValidSwift(v,{
+      needle: swift,
+      id: namespace,
+      message: 'validation:invalid-p2000-bank-konto-ikkesepa-swift'
+    })
+  )
+
+  return hasErrors.find(value => value) !== undefined
+}
+
+export const validateIban = (
+  v: Validation,
+  namespace: string,
+  {
+    iban
+  }: ValidationIbanProps
+): boolean => {
+  const hasErrors: Array<boolean> = []
+
+  hasErrors.push(checkIfValidIban(v,{
+      needle: iban,
+      id: namespace,
+      message: 'validation:invalid-p2000-bank-konto-sepa-iban'
+    })
+  )
+
+  return hasErrors.find(value => value) !== undefined
+}
+

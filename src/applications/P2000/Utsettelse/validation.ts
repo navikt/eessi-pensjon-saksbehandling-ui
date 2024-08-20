@@ -1,7 +1,7 @@
 import {Validation} from "src/declarations/app";
 import {Utsettelse} from "src/declarations/p2000";
 import {getIdx} from "../../../utils/namespace";
-import {checkIfNotEmpty} from "../../../utils/validation";
+import {checkIfNotEmpty, checkLength} from "../../../utils/validation";
 
 export interface ValidationUtsettelseProps {
   utsettelse: Utsettelse | undefined
@@ -26,15 +26,16 @@ export const validateUtsettelse = (
   }))
 
   hasErrors.push(checkIfNotEmpty(v, {
-    needle: utsettelse?.institusjonsnavn,
-    id: namespace + idx + '-institusjonsnavn',
-    message: 'validation:missing-p2000-pensjon-utsettelse-institusjonsnavn',
-  }))
-
-  hasErrors.push(checkIfNotEmpty(v, {
     needle: utsettelse?.tildato,
     id: namespace + idx + '-tildato',
     message: 'validation:missing-p2000-pensjon-utsettelse-tildato',
+  }))
+
+  hasErrors.push(checkLength(v, {
+    needle: utsettelse?.institusjonsnavn,
+    id: namespace + idx + '-institusjonsnavn',
+    max: 155,
+    message: 'validation:textOverX'
   }))
 
   return hasErrors.find(value => value) !== undefined

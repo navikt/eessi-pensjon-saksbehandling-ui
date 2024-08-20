@@ -7,7 +7,7 @@ import {
   AlignEndColumn,
   PileDiv
 } from "@navikt/hoykontrast";
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import _ from "lodash";
 import {State} from "src/declarations/reducers";
@@ -194,7 +194,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
     const inEditMode = index < 0 || _editIndex === index
     const _arbeidsforhold = index < 0 ? _newArbeidsforhold : (inEditMode ? _editArbeidsforhold : arbeidsforhold)
     return (
-      <>
+      <Fragment key={_namespace}>
         <RepeatableRowNoBackground
           id={'repeatablerow-' + _namespace}
           key={index}
@@ -220,7 +220,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
                     >
                       <option value=''>Velg</option>
                       {yrkeOptions.map((option) => {
-                        return(<option value={option.value}>{option.label}</option>)
+                        return(<option key={option.value} value={option.value}>{option.label}</option>)
                       })}
                     </Select>
                   </PileDiv>
@@ -291,7 +291,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
           <VerticalSeparatorDiv/>
         </RepeatableRowNoBackground>
         <VerticalSeparatorDiv/>
-      </>
+      </Fragment>
     )
   }
 
@@ -305,7 +305,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
         {_.isEmpty(arbeidsforholdArray)
           ? (
             <BodyLong>
-              {t('p2000:ingen-arbeidsforhold')}
+              <em>{t('p2000:ingen-x-registrert', {x: 'arbeidsforhold'})}</em>
             </BodyLong>
           )
           : (
@@ -318,7 +318,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
         {_newForm
           ? renderRow(null, -1)
           : (
-            <AlignEndColumn>
+            <AlignStartRow>
               <Button
                 variant='tertiary'
                 onClick={() => _setNewForm(true)}
@@ -326,7 +326,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
               >
                 {t('ui:add-new-x', { x: t('p2000:form-arbeidsforhold')?.toLowerCase() })}
               </Button>
-            </AlignEndColumn>
+            </AlignStartRow>
           )}
 
       </PaddedDiv>

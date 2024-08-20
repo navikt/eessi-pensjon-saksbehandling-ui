@@ -13,6 +13,7 @@ import {useDispatch} from "react-redux";
 import {State} from "src/declarations/reducers";
 import {Adresse as P2000Adresse} from "src/declarations/p2000";
 import _ from "lodash";
+import {resetValidation} from "../../../actions/validation";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -42,23 +43,38 @@ const Adresse: React.FC<AdresseProps> = ({
 
   const setGate = (gate: string) => {
     dispatch(updatePSED(`${target}.gate`, gate))
+    if (validation[namespace + '-gate']) {
+      dispatch(resetValidation(namespace + '-gate'))
+    }
   }
 
   const setPostnummer = (postnummer: string) => {
     const targetField = usePostKode ? "postkode" : "postnummer"
     dispatch(updatePSED(`${target}.${targetField}`, postnummer))
+    if (validation[namespace + '-postnummer']) {
+      dispatch(resetValidation(namespace + '-postnummer'))
+    }
   }
 
   const setBy = (by: string) => {
     dispatch(updatePSED(`${target}.by`, by))
+    if (validation[namespace + '-by']) {
+      dispatch(resetValidation(namespace + '-by'))
+    }
   }
 
   const setRegion = (region: string) => {
     dispatch(updatePSED(`${target}.region`, region))
+    if (validation[namespace + '-region']) {
+      dispatch(resetValidation(namespace + '-region'))
+    }
   }
 
   const setLand = (land: string) => {
     dispatch(updatePSED(`${target}.land`, land))
+    if (validation[namespace + '-land']) {
+      dispatch(resetValidation(namespace + '-land'))
+    }
   }
 
   return (
@@ -66,9 +82,9 @@ const Adresse: React.FC<AdresseProps> = ({
       <AlignStartRow>
         <Column>
           <Input
-            error={validation[namespace + '-adresse-gate']?.feilmelding}
+            error={validation[namespace + '-gate']?.feilmelding}
             namespace={namespace}
-            id='adresse-gate'
+            id='gate'
             label={t('p2000:form-adresse-gate')}
             onChanged={setGate}
             value={(adresse?.gate)  ?? ''}
@@ -79,9 +95,9 @@ const Adresse: React.FC<AdresseProps> = ({
       <AlignStartRow>
         <Column>
           <Input
-            error={validation[namespace + '-adresse-postnummer']?.feilmelding}
+            error={validation[namespace + '-postnummer']?.feilmelding}
             namespace={namespace}
-            id='adresse-postnummer'
+            id='postnummer'
             label={t('p2000:form-adresse-postnummer')}
             onChanged={setPostnummer}
             value={(usePostKode ? adresse?.postkode: adresse?.postnummer) ?? ''}
@@ -89,9 +105,9 @@ const Adresse: React.FC<AdresseProps> = ({
         </Column>
         <Column>
           <Input
-            error={validation[namespace + '-adresse-by']?.feilmelding}
+            error={validation[namespace + '-by']?.feilmelding}
             namespace={namespace}
-            id='adresse-by'
+            id='by'
             label="By"
             onChanged={setBy}
             value={(adresse?.by)  ?? ''}
@@ -102,9 +118,9 @@ const Adresse: React.FC<AdresseProps> = ({
       <AlignStartRow>
         <Column>
           <Input
-            error={validation[namespace + '-adresse-region']?.feilmelding}
+            error={validation[namespace + '-region']?.feilmelding}
             namespace={namespace}
-            id='adresse-region'
+            id='region'
             label={t('p2000:form-adresse-region')}
             onChanged={setRegion}
             value={(adresse?.region)  ?? ''}
@@ -115,8 +131,8 @@ const Adresse: React.FC<AdresseProps> = ({
       <AlignStartRow>
         <Column>
           <CountrySelect
-            error={validation[namespace + '-adresse-land']?.feilmelding}
-            id={namespace + '-' + 'adresse-land'}
+            error={validation[namespace + '-land']?.feilmelding}
+            id={namespace + '-land'}
             label={t('p2000:form-adresse-land')}
             flags={true}
             onOptionSelected={(land: Country) => setLand(land.value)}

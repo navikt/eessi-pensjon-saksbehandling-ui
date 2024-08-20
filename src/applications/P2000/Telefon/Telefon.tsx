@@ -149,7 +149,7 @@ const Telefon: React.FC<TelefonProps> = ({
     const inEditMode = index < 0 || _editTelefonIndex === index
     const _telefon = index < 0 ? _newTelefon : (inEditMode ? _editTelefon : telefon)
     return(
-      <RepeatableRow>
+      <RepeatableRow key={_namespace}>
         <AlignStartRow>
           {inEditMode
             ? (
@@ -209,9 +209,18 @@ const Telefon: React.FC<TelefonProps> = ({
     <>
       <Heading size="small">{t('p2000:form-telefon')}</Heading>
       <AlignStartRow>
-        <Column>
-          {telefonnumre?.map(renderTelefon)}
-        </Column>
+        {_.isEmpty(telefonnumre)
+          ? (
+            <Column>
+              <em>{t('p2000:ingen-x-registrert', {x: 'telefon'})}</em>
+            </Column>
+          )
+          : (
+            <Column>
+              {telefonnumre?.map(renderTelefon)}
+            </Column>
+          )
+        }
       </AlignStartRow>
       {_newTelefonForm
         ? renderTelefon(null, -1)

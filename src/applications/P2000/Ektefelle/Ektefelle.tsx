@@ -6,8 +6,8 @@ import {Ektefelle as P2000Ektefelle} from "src/declarations/p2000";
 import _ from "lodash";
 import {State} from "src/declarations/reducers";
 import {useDispatch} from "react-redux";
+import {resetValidation, setValidation} from "src/actions/validation";
 import {useAppSelector} from "src/store";
-import {setValidation} from "src/actions/validation";
 import UtenlandskePin from "../UtenlandskePin/UtenlandskePin";
 import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
@@ -52,6 +52,9 @@ const Ektefelle: React.FC<MainFormProps> = ({
 
   const setEktefellePersonalia = (property: string, value: string) => {
     dispatch(updatePSED(`${target}.person.${property}`, value))
+    if(validation[namespace + '-person-' + property]){
+      dispatch(resetValidation(namespace + '-person-' + property))
+    }
   }
 
   const setEktefelleFoedested = (property: string, value: string) => {

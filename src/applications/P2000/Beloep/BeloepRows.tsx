@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import {Beloep, Inntekt} from "../../../declarations/p2000";
 import _ from "lodash";
 import {Select, Table} from "@navikt/ds-react";
@@ -176,7 +176,8 @@ const BeloepRows: React.FC<BeloepProps> = ({
     const _beloep = index < 0 ? _newBeloep : (inEditMode ? _editBeloep : beloep)
 
     return (
-      <>
+      <Fragment key={_namespace
+      }>
       {inEditMode && parentEditMode
         ? (
           <Table.Row>
@@ -229,7 +230,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
               >
                 <option value=''>Velg</option>
                 {betalingshyppighetOptions.map((option) => {
-                  return(<option value={option.value}>{option.label}</option>)
+                  return(<option key={option.value} value={option.value}>{option.label}</option>)
                 })}
               </Select>
             </TopAlignedCell>
@@ -301,7 +302,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
           </Table.Row>
         )
       }
-      </>
+      </Fragment>
     )
   }
 
@@ -311,7 +312,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
         ? (
           <Table.Row>
             <Table.DataCell colSpan={5}>
-              Ingen beløp
+              <em>Ingen beløp</em>
             </Table.DataCell>
           </Table.Row>
         )

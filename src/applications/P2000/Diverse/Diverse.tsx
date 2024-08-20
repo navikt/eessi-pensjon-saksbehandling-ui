@@ -149,7 +149,7 @@ const Diverse: React.FC<MainFormProps> = ({
           <Column/>
         </AlignStartRow>
         <VerticalSeparatorDiv/>
-        {pensjon.vedlegg?.some(v => v==="annet") &&
+        {pensjon?.vedlegg?.some(v => v==="annet") &&
           <>
             <AlignStartRow>
               <Column>

@@ -1,5 +1,9 @@
 import {Validation} from "src/declarations/app";
 import {Ektefelle} from "../../../declarations/p2000";
+import _ from "lodash";
+import performValidation from "../../../utils/performValidation";
+import {validateFoedested, ValidationFoedestedProps} from "../Foedested/validation";
+import {validatePerson, ValidationPersonProps} from "../PersonOpplysninger/validation";
 
 
 
@@ -16,8 +20,17 @@ export const validateEktefelle = (
 ): boolean => {
   const hasErrors: Array<boolean> = []
 
-  console.log(v, namespace, ektefelle
-  )
+  if(ektefelle?.type){
+    hasErrors.push(performValidation<ValidationPersonProps>(v, namespace, validatePerson, {
+      person: ektefelle?.person
+    }, true))
+  }
+
+  if(!_.isEmpty(ektefelle?.person.foedested)){
+    hasErrors.push(performValidation<ValidationFoedestedProps>(v, namespace + '-person-foedested', validateFoedested, {
+      foedested: ektefelle?.person.foedested
+    }, true))
+  }
 
   return hasErrors.find(value => value) !== undefined
 }

@@ -1,0 +1,61 @@
+import {Foedested} from 'declarations/p2000'
+import {Validation} from "declarations/app";
+import {checkIfNotEmpty, checkIfValidLand, checkLength} from 'utils/validation'
+import _ from "lodash";
+
+export interface ValidationFoedestedProps {
+  foedested: Foedested | null | undefined,
+}
+
+export const validateFoedested = (
+  v: Validation,
+  namespace: string,
+  {
+    foedested,
+  }: ValidationFoedestedProps
+): boolean => {
+  const hasErrors: Array<boolean> = []
+
+  const emptyFoedsted: boolean = (
+    _.isEmpty(foedested?.by?.trim()) &&
+    _.isEmpty(foedested?.region?.trim()) &&
+    _.isEmpty(foedested?.land?.trim())
+  )
+
+  if(!_.isEmpty(foedested) && !emptyFoedsted){
+    hasErrors.push(checkIfNotEmpty(v, {
+      needle: foedested?.by,
+      id: namespace + '-by',
+      message: 'validation:missing-p2000-person-foedested-by',
+    }))
+
+    hasErrors.push(checkIfNotEmpty(v, {
+      needle: foedested?.land,
+      id: namespace + '-land',
+      message: 'validation:missing-p2000-person-foedested-land',
+    }))
+
+    hasErrors.push(checkIfValidLand(v, {
+      needle: foedested?.land,
+      id: namespace + '-land',
+      message: 'validation:invalidLand'
+    }))
+
+    hasErrors.push(checkLength(v, {
+      needle: foedested?.by,
+      id: namespace + '-by',
+      max: 65,
+      message: 'validation:textOverX'
+    }))
+
+    hasErrors.push(checkLength(v, {
+      needle: foedested?.region,
+      id: namespace + '-region',
+      max: 65,
+      message: 'validation:textOverX'
+    }))
+
+  }
+
+  return hasErrors.find(value => value) !== undefined
+}

@@ -24,37 +24,37 @@ const SakInfo: React.FC<SakInfoProps<any>> = ({
       <HStack gap="16" align="center">
         <VStack>
           <Heading level="1" size="medium">P2000</Heading>
-          {eessiSak?.map(() => {
+          {eessiSak?.map((s, index) => {
             return(
-              <>
+              <div key={s.sakId + "-" + index}>
                 <Detail>&nbsp;</Detail>
                 <Detail>&nbsp;</Detail>
                 <VerticalSeparatorDiv/>
-              </>
+              </div>
             )
           })}
         </VStack>
         <VStack>
           <Heading size="xsmall">Lokale saksnumre</Heading>
-          {eessiSak?.map((sak) => {
+          {eessiSak?.map((sak, index) => {
             return(
-              <>
+              <div key={"lokal-" + index}>
                 <Detail>Land: {sak.land}</Detail>
                 <Detail>Saksnummer: {sak.saksnummer}</Detail>
                 <VerticalSeparatorDiv/>
-              </>
+              </div>
             )
           })}
         </VStack>
         <VStack>
           <Heading size="xsmall">Institusjon</Heading>
-          {eessiSak?.map((sak) => {
+          {eessiSak?.map((sak, index) => {
             return(
-              <>
+              <div key={"institusjon-" + index}>
                 <Detail>Institusjonens ID: {sak.institusjonsid}</Detail>
                 <Detail>Institusjonens navn: {sak.institusjonsnavn}</Detail>
                 <VerticalSeparatorDiv/>
-              </>
+              </div>
             )
           })}
         </VStack>

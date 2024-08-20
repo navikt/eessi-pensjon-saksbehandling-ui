@@ -1,9 +1,12 @@
 import {Validation} from "src/declarations/app";
-import { checkIfNotEmpty } from 'src/utils/validation'
+import {checkIfNotEmpty, checkLength} from 'src/utils/validation'
 import {Verge} from "src/declarations/p2000";
+import _ from "lodash";
+import performValidation from "../../../utils/performValidation";
+import {validateAdresse, ValidationAdresseProps} from "../Adresse/validation";
 
 export interface ValidationVergeProps {
-  verge: Verge | undefined
+  verge: Verge
 }
 
 export const validateVerge = (
@@ -15,11 +18,42 @@ export const validateVerge = (
 ): boolean => {
   const hasErrors: Array<boolean> = []
 
-  if(namespace === "DUMMY"){
+  if(!_.isEmpty(verge?.person?.etternavn) || !_.isEmpty(verge?.person?.fornavn)){
     hasErrors.push(checkIfNotEmpty(v, {
       needle: verge?.person?.etternavn,
       id: namespace + '-person-etternavn',
       message: 'validation:missing-p2000-verge-person-etternavn'
+    }))
+
+    hasErrors.push(checkIfNotEmpty(v, {
+      needle: verge?.person?.fornavn,
+      id: namespace + '-person-fornavn',
+      message: 'validation:missing-p2000-verge-person-fornavn'
+    }))
+
+    hasErrors.push(performValidation<ValidationAdresseProps>(v, namespace, validateAdresse, {
+      adresse: verge?.adresse
+    }, true))
+
+    hasErrors.push(checkLength(v, {
+      needle: verge?.person?.etternavn,
+      id: namespace + '-person-etternavn',
+      max: 155,
+      message: 'validation:textOverX'
+    }))
+
+    hasErrors.push(checkLength(v, {
+      needle: verge?.person?.fornavn,
+      id: namespace + '-person-fornavn',
+      max: 155,
+      message: 'validation:textOverX'
+    }))
+
+    hasErrors.push(checkLength(v, {
+      needle: verge?.vergemaal?.mandat,
+      id: namespace + '-vergemaal-mandat',
+      max: 255,
+      message: 'validation:textOverX'
     }))
   }
 
