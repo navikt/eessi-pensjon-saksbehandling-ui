@@ -995,7 +995,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           })}
       </Heading>
       <HorizontalLineSeparator />
-      {!vedtakId && _sed === 'P5000' && pesysContext !== GJENNY && (
+      {_buc?.type === 'P_BUC_06' && !vedtakId && _sed === 'P5000' && pesysContext !== GJENNY && (
         <FullWidthDiv>
           <AlertDiv>
             <Alert variant='warning'>
@@ -1013,7 +1013,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           </AlertDiv>
         </FullWidthDiv>
       )}
-      {!vedtakId && _sed === 'P7000' && pesysContext !== GJENNY && (
+      {_buc?.type === 'P_BUC_06' && !vedtakId && _sed === 'P7000' && pesysContext !== GJENNY && (
         <FullWidthDiv>
           <AlertDiv>
             <Alert variant='warning'>
@@ -1022,7 +1022,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           </AlertDiv>
         </FullWidthDiv>
       )}
-      {!vedtakId && _sed === 'P10000' && pesysContext !== GJENNY && (
+      {_buc?.type === 'P_BUC_06' && !vedtakId && _sed === 'P10000' && pesysContext !== GJENNY && (
         <FullWidthDiv>
           <AlertDiv>
             <Alert variant='warning'>
