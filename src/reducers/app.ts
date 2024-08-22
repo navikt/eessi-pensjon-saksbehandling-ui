@@ -1,5 +1,5 @@
 import * as types from 'src/constants/actionTypes'
-import { Feature, FeatureToggles, Params, PesysContext } from 'src/declarations/app.d'
+import {CountryCodes, Feature, FeatureToggles, Params, PesysContext} from 'src/declarations/app.d'
 import { SakTypeKey, SakTypeMap } from 'src/declarations/buc.d'
 import _ from 'lodash'
 import { AnyAction } from 'redux'
@@ -12,6 +12,7 @@ export interface AppState {
   pesysContext: PesysContext | undefined
   username: string | undefined
   userRole: string | undefined
+  countryCodes: CountryCodes | undefined
 }
 
 const initialFeatureToggles: FeatureToggles = {
@@ -27,7 +28,8 @@ export const initialAppState: AppState = {
   params: {},
   pesysContext: undefined,
   username: undefined,
-  userRole: undefined
+  userRole: undefined,
+  countryCodes: undefined
 }
 
 const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
@@ -119,6 +121,13 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
         username: action.payload.subject,
         userRole: action.payload.subject === '12345678910' ? 'SAKSBEHANDLER' : action.payload.role,
         loggedIn: true
+      }
+    }
+
+    case types.GET_COUNTRYCODES_SUCCESS: {
+      return {
+        ...state,
+        countryCodes: action.payload
       }
     }
 

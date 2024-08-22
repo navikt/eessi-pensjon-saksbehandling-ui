@@ -18,6 +18,9 @@ const PER_URL = FAGMODUL_API_URL + '/person'
 const SAF_URL = FAGMODUL_API_URL + '/saf'
 const STG_URL = FRONTEND_API_URL + '/api/storage'
 
+//Landkoder
+export const COUNTRYCODES_URL = FAGMODUL_API_URL + '/landkoder/rina?format=iso2'
+
 // EuxController
 export const EUX_COUNTRIES_FOR_BUC_URL = EUX_URL + '/countries/%(bucType)s'
 export const EUX_RINA_URL = EUX_URL + '/rinaurl'

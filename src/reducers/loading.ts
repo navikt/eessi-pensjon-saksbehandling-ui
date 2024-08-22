@@ -16,6 +16,7 @@ export const initialLoadingState: LoadingState = {
   gettingBucOptions: false,
   gettingBucsInfo: false,
   gettingCountryList: false,
+  gettingCountryCodes: false,
   gettingKravDato: false,
   gettingInstitutionList: false,
   gettingPersonInfo: false,
@@ -537,6 +538,21 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
       return {
         ...state,
         savingSed: false
+      }
+
+    case types.GET_COUNTRYCODES_REQUEST:
+
+      return {
+        ...state,
+        gettingCountryCodes: true
+      }
+
+    case types.GET_COUNTRYCODES_SUCCESS:
+    case types.GET_COUNTRYCODES_FAILURE:
+
+      return {
+        ...state,
+        gettingCountryCodes: false
       }
 
     default:

@@ -1,9 +1,9 @@
-import {getUserInfo, setContext, setStatusParam} from 'src/actions/app'
+import {getCountryCodeLists, getUserInfo, setContext, setStatusParam} from 'src/actions/app'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import * as constants from 'src/constants/constants'
 import * as routes from 'src/constants/routes'
 import {SakTypeKey, SakTypeMap} from 'src/declarations/buc.d'
-import { Params } from 'src/declarations/app'
+import {CountryCodes, Params} from 'src/declarations/app'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
@@ -24,16 +24,20 @@ const RouteDiv = styled.div`
 export interface RequireAuthSelector {
   loggedIn: boolean | undefined
   userRole: string | undefined
+  countryCodes: CountryCodes | undefined
   gettingUserInfo: boolean
   isLoggingIn: boolean
+  gettingCountryCodes: boolean
 }
 
 const mapState = (state: State): RequireAuthSelector => ({
   /* istanbul ignore next */
   userRole: state.app.userRole,
   loggedIn: state.app.loggedIn,
+  countryCodes: state.app.countryCodes,
   gettingUserInfo: state.loading.gettingUserInfo,
-  isLoggingIn: state.loading.isLoggingIn
+  isLoggingIn: state.loading.isLoggingIn,
+  gettingCountryCodes: state.loading.gettingCountryCodes
 })
 
 const paramAliases: {[k: string]: string} = {
@@ -46,7 +50,7 @@ const paramAliases: {[k: string]: string} = {
 
 const RequireAuth: React.FC<any> = (props) => {
   const {context} = props
-  const { loggedIn, userRole, gettingUserInfo, isLoggingIn } = useSelector<State, RequireAuthSelector>(mapState)
+  const { loggedIn, userRole, countryCodes, gettingUserInfo, gettingCountryCodes, isLoggingIn } = useSelector<State, RequireAuthSelector>(mapState)
   const dispatch = useDispatch()
   const location = useLocation()
 
@@ -85,6 +89,9 @@ const RequireAuth: React.FC<any> = (props) => {
   useEffect(() => {
     if (loggedIn === undefined && !gettingUserInfo) {
       dispatch(getUserInfo())
+    }
+    if(countryCodes === undefined && !gettingCountryCodes){
+      dispatch(getCountryCodeLists())
     }
   }, [])
 
