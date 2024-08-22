@@ -13,13 +13,14 @@ const SED_URL = FAGMODUL_API_URL + '/sed'
 const BUC_URL = FAGMODUL_API_URL + '/buc'
 const EUX_URL = FAGMODUL_API_URL + '/eux'
 const GJENNY_URL = FAGMODUL_API_URL + '/gjenny'
+const LANDKODER_URL = FAGMODUL_API_URL + '/landkoder'
 const PEN_URL = FAGMODUL_API_URL + '/pensjon'
 const PER_URL = FAGMODUL_API_URL + '/person'
 const SAF_URL = FAGMODUL_API_URL + '/saf'
 const STG_URL = FRONTEND_API_URL + '/api/storage'
 
 //Landkoder
-export const COUNTRYCODES_URL = '/landkoder/rina'
+export const COUNTRYCODES_URL = LANDKODER_URL + '/rina?format=iso2'
 
 // EuxController
 export const EUX_COUNTRIES_FOR_BUC_URL = EUX_URL + '/countries/%(bucType)s'
