@@ -2,8 +2,8 @@ import {Validation} from "declarations/app";
 import {checkIfNotEmpty, checkLength} from 'utils/validation'
 import {Verge} from "declarations/p2000";
 import _ from "lodash";
-import performValidation from "../../../utils/performValidation";
 import {validateAdresse, ValidationAdresseProps} from "../Adresse/validation";
+import performValidation from "../../../utils/performValidation";
 
 export interface ValidationVergeProps {
   verge: Verge
@@ -19,6 +19,10 @@ export const validateVerge = (
   const hasErrors: Array<boolean> = []
 
   if(!_.isEmpty(verge?.person?.etternavn) || !_.isEmpty(verge?.person?.fornavn)){
+    hasErrors.push(performValidation<ValidationAdresseProps>(v, namespace, validateAdresse, {
+      adresse: verge?.adresse
+    }, true))
+
     hasErrors.push(checkIfNotEmpty(v, {
       needle: verge?.person?.etternavn,
       id: namespace + '-person-etternavn',
@@ -30,10 +34,6 @@ export const validateVerge = (
       id: namespace + '-person-fornavn',
       message: 'validation:missing-p2000-verge-person-fornavn'
     }))
-
-    hasErrors.push(performValidation<ValidationAdresseProps>(v, namespace, validateAdresse, {
-      adresse: verge?.adresse
-    }, true))
 
     hasErrors.push(checkLength(v, {
       needle: verge?.person?.etternavn,
@@ -56,6 +56,7 @@ export const validateVerge = (
       message: 'validation:textOverX'
     }))
   }
+
 
   return hasErrors.find(value => value) !== undefined
 }
