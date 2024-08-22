@@ -19,7 +19,7 @@ const SAF_URL = FAGMODUL_API_URL + '/saf'
 const STG_URL = FRONTEND_API_URL + '/api/storage'
 
 //Landkoder
-export const COUNTRYCODES_URL = FAGMODUL_API_URL + '/landkoder/rina?format=iso2'
+export const COUNTRYCODES_URL = '/landkoder/rina?format=iso2'
 
 // EuxController
 export const EUX_COUNTRIES_FOR_BUC_URL = EUX_URL + '/countries/%(bucType)s'
