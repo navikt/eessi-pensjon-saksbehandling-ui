@@ -1,5 +1,5 @@
-import {ErrorElement, Validation} from 'declarations/app'
-import { filterAllWithNamespace } from 'utils/validation'
+import {ErrorElement, Validation} from 'src/declarations/app'
+import { filterAllWithNamespace } from 'src/utils/validation'
 
 const performValidation = <ValidationData extends any>(
   validation: Validation,

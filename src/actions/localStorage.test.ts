@@ -1,8 +1,8 @@
-import * as localStorageActions from 'actions/localStorage'
-import * as types from 'constants/actionTypes'
-import { LocalStorageEntry } from 'declarations/app'
-import { P5000SED } from 'declarations/p5000'
-import mockSed from 'mocks/buc/sed_P5000_small1'
+import * as localStorageActions from 'src/actions/localStorage'
+import * as types from 'src/constants/actionTypes'
+import { LocalStorageEntry } from 'src/declarations/app'
+import { P5000SED } from 'src/declarations/p5000'
+import mockSed from 'src/mocks/buc/sed_P5000_small1'
 describe('actions/localStorage', () => {
   const entries: Array<LocalStorageEntry<P5000SED>> = [{
     sedId: 'sedId',

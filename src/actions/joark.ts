@@ -1,12 +1,13 @@
-import { JoarkBrowserItem, JoarkBrowserItemWithContent, JoarkList, JoarkPreview } from 'declarations/joark.d'
-import * as types from 'constants/actionTypes'
-import * as urls from 'constants/urls'
+import { JoarkBrowserItem, JoarkBrowserItemWithContent, JoarkList, JoarkPreview } from 'src/declarations/joark.d'
+import * as types from 'src/constants/actionTypes'
+import * as urls from 'src/constants/urls'
 import { call, ActionWithPayload } from '@navikt/fetch'
-import mockJoark from 'mocks/joark/joark'
-import mockPreview from 'mocks/joark/preview'
+import mockJoark from 'src/mocks/joark/joark'
+import mockPreview from 'src/mocks/joark/preview'
 import { ActionCreator } from 'redux'
 
-const sprintf = require('sprintf-js').sprintf
+// @ts-ignore
+import { sprintf } from 'sprintf-js';
 
 export const listJoarkItems = (
   userId: string

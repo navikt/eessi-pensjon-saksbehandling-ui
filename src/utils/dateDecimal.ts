@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { DateDiff, FormattedDateDiff } from 'utils/dateDiff'
+import { DateDiff, FormattedDateDiff } from 'src/utils/dateDiff'
 import dayjs, {Dayjs} from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat"
 dayjs.extend(customParseFormat)

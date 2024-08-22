@@ -1,15 +1,15 @@
 import { Accordion, Panel } from '@navikt/ds-react'
-import {getPersonAvdodInfo, getPersonInfo} from 'actions/person'
-import { AllowedLocaleString, FeatureToggles, PesysContext } from 'declarations/app.d'
-import { PersonPDL } from 'declarations/person'
-import { PersonAvdods } from 'declarations/person.d'
-import { State } from 'declarations/reducers'
-import { timeDiffLogger } from 'metrics/loggers'
+import {getPersonAvdodInfo, getPersonInfo} from 'src/actions/person'
+import { AllowedLocaleString, FeatureToggles, PesysContext } from 'src/declarations/app.d'
+import { PersonPDL } from 'src/declarations/person'
+import { PersonAvdods } from 'src/declarations/person.d'
+import { State } from 'src/declarations/reducers'
+import { timeDiffLogger } from 'src/metrics/loggers'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PersonBody from './PersonBody'
 import PersonTitle from './PersonTitle'
-import {GJENNY, VEDTAKSKONTEKST} from "constants/constants";
+import {GJENNY, VEDTAKSKONTEKST} from "src/constants/constants";
 
 export interface PersonPanelSelector {
   aktoerId: string | null | undefined

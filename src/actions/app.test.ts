@@ -1,7 +1,7 @@
-import * as appActions from 'actions/app'
-import * as types from 'constants/actionTypes'
-import * as urls from 'constants/urls'
-import { ParamPayload } from 'declarations/app'
+import * as appActions from 'src/actions/app'
+import * as types from 'src/constants/actionTypes'
+import * as urls from 'src/constants/urls'
+import { ParamPayload } from 'src/declarations/app'
 import { ActionWithPayload, call as originalCall } from '@navikt/fetch'
 import { Action } from 'redux'
 

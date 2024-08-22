@@ -1,24 +1,32 @@
-import { resetSavingAttachmentJob, resetSedAttachments } from 'actions/buc'
-import { Buc } from 'declarations/buc'
+import { resetSavingAttachmentJob, resetSedAttachments } from 'src/actions/buc'
+import { Buc } from 'src/declarations/buc'
 import { render, screen } from '@testing-library/react'
 import _ from 'lodash'
-import mockBucs from 'mocks/buc/bucs'
-import { stageSelector } from 'setupTests'
+import mockBucs from 'src/mocks/buc/bucs'
+import { stageSelector } from 'src/setupTests'
 import SEDBody, { SEDBodyDiv, SEDBodyProps } from './SEDBody'
 
 const defaultSelector = {
   attachmentsError: false
 }
 
-jest.mock('actions/buc', () => ({
+jest.mock('src/constants/environment.ts', () => {
+  return {
+    IS_DEVELOPMENT: 'development',
+    IS_PRODUCTION: 'production',
+    IS_TEST: 'test'
+  };
+})
+
+jest.mock('src/actions/buc', () => ({
   createSavingAttachmentJob: jest.fn(),
   resetSavingAttachmentJob: jest.fn(),
   resetSedAttachments: jest.fn(),
   sendAttachmentToSed: jest.fn()
 }))
 
-jest.mock('applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal', () => {
-  const joarkBrowserItems = require('mocks/joark/items').default
+jest.mock('src/applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal', () => {
+  const joarkBrowserItems = require('src/mocks/joark/items').default
   return (props: any) => (
     <div data-testid='mock-sedattachmentmodal'>
       <button id='onFinishedSelection' onClick={() => props.onFinishedSelection(joarkBrowserItems)}>click</button>
@@ -26,7 +34,7 @@ jest.mock('applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal', (
   )
 })
 
-jest.mock('components/JoarkBrowser/JoarkBrowser', () => () => (
+jest.mock('src/components/JoarkBrowser/JoarkBrowser', () => () => (
   <div data-testid='mock-joarkbrowser' />
 ))
 

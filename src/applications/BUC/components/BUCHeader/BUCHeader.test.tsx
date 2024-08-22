@@ -1,10 +1,10 @@
-import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import { Buc, BucsInfo } from 'declarations/buc'
+import { sedFilter } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
+import { Buc, BucsInfo } from 'src/declarations/buc'
 import { render, screen, fireEvent } from '@testing-library/react'
-import mockBucs from 'mocks/buc/bucs'
-import mockBucsInfo from 'mocks/buc/bucsInfo'
+import mockBucs from 'src/mocks/buc/bucs'
+import mockBucsInfo from 'src/mocks/buc/bucsInfo'
 import moment from 'moment'
-import { stageSelector } from 'setupTests'
+import { stageSelector } from 'src/setupTests'
 import BUCHeader, { BUCHeaderProps, BUCHeaderSelector } from './BUCHeader'
 
 const defaultSelector: BUCHeaderSelector = {

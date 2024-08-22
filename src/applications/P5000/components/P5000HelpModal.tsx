@@ -1,9 +1,9 @@
-import Modal from 'components/Modal/Modal'
+import Modal from 'src/components/Modal/Modal'
 import { ChevronRightIcon , TrashIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button } from '@navikt/ds-react'
 import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import { useTranslation } from 'react-i18next'
-import P5000HelpPNG from 'assets/images/p5000help.png'
+import P5000HelpPNG from 'src/assets/images/p5000help.png'
 
 const P5000HelpModal = ({
   open, onClose

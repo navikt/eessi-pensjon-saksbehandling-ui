@@ -1,13 +1,21 @@
 import SEDHeader, {
   SEDHeaderProps,
   SEDListSelector
-} from 'applications/BUC/components/SEDHeader/SEDHeader'
-import { Buc, Bucs, Sed } from 'declarations/buc'
+} from 'src/applications/BUC/components/SEDHeader/SEDHeader'
+import { Buc, Bucs, Sed } from 'src/declarations/buc'
 import {screen, render, fireEvent} from '@testing-library/react'
-import mockBucs from 'mocks/buc/bucs'
+import mockBucs from 'src/mocks/buc/bucs'
 import _ from 'lodash'
-import { stageSelector } from 'setupTests'
-import mockFeatureToggles from 'mocks/app/featureToggles'
+import { stageSelector } from 'src/setupTests'
+import mockFeatureToggles from 'src/mocks/app/featureToggles'
+
+jest.mock('src/constants/environment.ts', () => {
+  return {
+    IS_DEVELOPMENT: 'development',
+    IS_PRODUCTION: 'production',
+    IS_TEST: 'test'
+  };
+})
 
 const defaultSelector: SEDListSelector = {
   locale: 'nb',

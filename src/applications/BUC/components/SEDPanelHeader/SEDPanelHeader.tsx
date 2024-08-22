@@ -1,6 +1,6 @@
 import { Label } from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 
 const ActionsDiv = styled.div`
   flex: 2;

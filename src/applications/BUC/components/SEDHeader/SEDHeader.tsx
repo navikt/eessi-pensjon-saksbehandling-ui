@@ -1,15 +1,15 @@
-import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
-import P5000 from 'applications/P5000/P5000'
-import P2000 from 'applications/P2000/P2000'
-import SEDLoadSave from 'applications/P5000/components/SEDLoadSave/SEDLoadSave'
-import { AllowedLocaleString, LocalStorageEntriesMap, BUCMode, FeatureToggles, LocalStorageEntry } from 'declarations/app.d'
-import { Buc, Institutions, Participant, Sed } from 'declarations/buc'
-import { BucPropType, SedPropType } from 'declarations/buc.pt'
-import { State } from 'declarations/reducers'
+import { getBucTypeLabel } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
+import InstitutionList from 'src/applications/BUC/components/InstitutionList/InstitutionList'
+import SEDStatus from 'src/applications/BUC/components/SEDStatus/SEDStatus'
+import P5000 from 'src/applications/P5000/P5000'
+import P2000 from 'src/applications/P2000/P2000'
+import SEDLoadSave from 'src/applications/P5000/components/SEDLoadSave/SEDLoadSave'
+import { AllowedLocaleString, LocalStorageEntriesMap, BUCMode, FeatureToggles, LocalStorageEntry } from 'src/declarations/app.d'
+import { Buc, Institutions, Participant, Sed } from 'src/declarations/buc'
+import { BucPropType, SedPropType } from 'src/declarations/buc.pt'
+import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import {buttonLogger} from 'metrics/loggers'
+import {buttonLogger} from 'src/metrics/loggers'
 import moment from 'moment'
 import { Alert, Detail, BodyLong, Button, Panel } from '@navikt/ds-react'
 import {ChevronRightIcon, ChevronDownIcon, ChevronUpIcon, PaperclipIcon} from '@navikt/aksel-icons'
@@ -22,8 +22,8 @@ import {
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components/macro'
-import PopoverCustomized from "components/Tooltip/PopoverCustomized";
+import styled from 'styled-components'
+import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 
 const SEDListActionsDiv = styled.div`
   flex: 2;

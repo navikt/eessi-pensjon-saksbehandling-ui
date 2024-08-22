@@ -10,10 +10,10 @@ import {RepeatableRow} from "../../../components/StyledComponents";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "../../../declarations/types";
-import {PSED, Validation} from "declarations/app";
+import {PSED, Validation} from "src/declarations/app";
 import useValidation from "../../../hooks/useValidation";
-import { resetValidation, setValidation } from 'actions/validation'
-import performValidation from 'utils/performValidation'
+import { resetValidation, setValidation } from 'src/actions/validation'
+import performValidation from 'src/utils/performValidation'
 import {State} from "../../../declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 import {useAppSelector} from "../../../store";

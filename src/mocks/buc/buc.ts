@@ -1,6 +1,6 @@
-import { Institution } from 'declarations/buc'
+import { Institution } from 'src/declarations/buc'
 import _ from 'lodash'
-import mockBucs from 'mocks/buc/bucs'
+import mockBucs from 'src/mocks/buc/bucs'
 
 export const mockBuc = (rinaCaseId: string) => _.find(mockBucs(), buc => buc.caseId === rinaCaseId)
 

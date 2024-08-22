@@ -1,5 +1,5 @@
-import * as types from 'constants/actionTypes'
-import appReducer, { initialAppState } from 'reducers/app'
+import * as types from 'src/constants/actionTypes'
+import appReducer, { initialAppState } from 'src/reducers/app'
 
 describe('reducers/person', () => {
   it('PERSON_PDL_SUCCESS', () => {

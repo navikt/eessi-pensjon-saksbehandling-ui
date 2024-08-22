@@ -1,11 +1,11 @@
-import {State} from "declarations/reducers";
+import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {useAppSelector} from "store";
+import {useAppSelector} from "src/store";
 import {AlignStartRow, Column, FlexCenterDiv, HorizontalSeparatorDiv, VerticalSeparatorDiv} from "@navikt/hoykontrast";
-import Input from "components/Forms/Input";
-import {Person} from "declarations/p2000";
+import Input from "src/components/Forms/Input";
+import {Person} from "src/declarations/p2000";
 import {BodyLong, Heading, Label} from "@navikt/ds-react";
 import CountryData, {Country, CountryFilter} from "@navikt/land-verktoy";
 import CountrySelect from "@navikt/landvelger";

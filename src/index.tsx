@@ -1,37 +1,40 @@
 
-import RequireAuth from 'components/RequireAuth/RequireAuth'
-import { IS_PRODUCTION } from 'constants/environment'
+import RequireAuth from 'src/components/RequireAuth/RequireAuth'
+import { IS_PRODUCTION } from 'src/constants/environment'
 import 'core-js/stable'
-import * as Amplitude from 'metrics/amplitude'
-import * as Sentry from 'metrics/sentry'
+import * as Amplitude from 'src/metrics/amplitude'
+import * as Sentry from 'src/metrics/sentry'
 import 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/nb'
 import '@navikt/ds-css'
 import 'react-pdf/dist/esm/Page/TextLayer.css';
-import Pages from 'pages'
+import Pages from 'src/pages'
 import { Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import 'regenerator-runtime/runtime'
-import { unregister } from 'registerServiceWorker'
+// @ts-ignore
+import { unregister } from 'src/registerServiceWorker'
 import i18n from './i18n'
 
 import store from './store'
 import {GJENNY, PESYS} from "./constants/constants";
 
 if (!IS_PRODUCTION) {
+
   // const axe = require('@axe-core/react')
   // axe(React, ReactDOM, 1000, {})
+
 } else {
   Sentry.init()
   Amplitude.init()
 }
 
-const container = document.getElementById('root')
-const root = createRoot(container!)
+const container = document.getElementById('root') as HTMLElement
+const root = createRoot(container)
 root.render(
   <I18nextProvider i18n={i18n}>
     <Provider store={store}>

@@ -1,25 +1,25 @@
-import { getSedP6000PDF, resetSedP6000PDF } from 'actions/buc'
+import { getSedP6000PDF, resetSedP6000PDF } from 'src/actions/buc'
 import { render } from '@testing-library/react'
-import { stageSelector } from 'setupTests'
+import { stageSelector } from 'src/setupTests'
 import SEDP6000, { SEDP6000Props, SEDP6000Selector } from './SEDP6000'
-import mockP6000s from 'mocks/buc/p6000'
-import mockP6000PDF from 'mocks/buc/p6000pdf'
+import mockP6000s from 'src/mocks/buc/p6000'
+import mockP6000PDF from 'src/mocks/buc/p6000pdf'
 
 const defaultSelector: SEDP6000Selector = {
   gettingP6000PDF: false,
   P6000PDF: undefined
 }
 
-jest.mock('actions/buc', () => ({
+jest.mock('src/actions/buc', () => ({
   getSedP6000PDF: jest.fn(),
   resetSedP6000PDF: jest.fn()
 }))
 
-jest.mock('components/Modal/Modal', () => (props: any) => (
+jest.mock('src/components/Modal/Modal', () => (props: any) => (
   <div className='mock-c-modal' tabIndex={0} role='button' onKeyPress={props.onModalClose} onClick={props.onModalClose}>{props.children}</div>
 ))
 
-describe('applications/BUC/components/SEDP6000/SEDP6000', () => {
+describe('src/applications/BUC/components/SEDP6000/SEDP6000', () => {
   let wrapper: any
   const initialMockProps: SEDP6000Props = {
     feil: undefined,

@@ -1,16 +1,16 @@
 import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { BUCMode, PesysContext } from 'declarations/app.d'
-import { SakTypeMap, SakTypeValue } from 'declarations/buc.d'
-import { PersonPDL } from 'declarations/person.d'
-import { State } from 'declarations/reducers'
-import { linkLogger, standardLogger } from 'metrics/loggers'
+import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
+import { BUCMode, PesysContext } from 'src/declarations/app.d'
+import { SakTypeMap, SakTypeValue } from 'src/declarations/buc.d'
+import { PersonPDL } from 'src/declarations/person.d'
+import { State } from 'src/declarations/reducers'
+import { linkLogger, standardLogger } from 'src/metrics/loggers'
 import { ChevronRightIcon, ExternalLinkIcon } from '@navikt/aksel-icons'
 import { Link } from '@navikt/ds-react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 
 export const DivWithLinks = styled.div`
   padding: 0.5rem 2rem;

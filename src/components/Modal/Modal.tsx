@@ -1,12 +1,13 @@
 // @ts-nocheck
 import classNames from 'classnames'
 import { Button, Modal, Heading } from '@navikt/ds-react'
-import { ModalContent } from 'declarations/components'
-import { ModalContentPropType } from 'declarations/components.pt'
+import { ModalContent } from 'src/declarations/components'
+import { ModalContentPropType } from 'src/declarations/components.pt'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
-import styled from 'styled-components/macro'
+
+import styled from 'styled-components'
 
 const ModalText = styled.div`
   margin: 1.5rem;

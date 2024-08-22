@@ -1,6 +1,6 @@
-import {Validation} from "declarations/app";
-import {checkIfNotEmpty, checkIfValidIban, checkIfValidSwift, checkLength} from 'utils/validation'
-import {Bank  } from "declarations/p2000";
+import {Validation} from "src/declarations/app";
+import {checkIfNotEmpty, checkIfValidIban, checkIfValidSwift, checkLength} from 'src/utils/validation'
+import {Bank  } from "src/declarations/p2000";
 import _ from 'lodash'
 import performValidation from "../../../utils/performValidation";
 import {validateAdresse, ValidationAdresseProps} from "../Adresse/validation";

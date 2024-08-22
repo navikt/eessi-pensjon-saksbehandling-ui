@@ -1,12 +1,12 @@
 /* global WebSocket */
 
-import { alertSuccess } from 'actions/alert'
-import { fetchBuc } from 'actions/buc'
+import { alertSuccess } from 'src/actions/alert'
+import { fetchBuc } from 'src/actions/buc'
 import { CheckmarkCircleFillIcon, LinkIcon, XMarkOctagonFillIcon } from '@navikt/aksel-icons'
 import classNames from 'classnames'
-import Modal from 'components/Modal/Modal'
-import { IS_TEST } from 'constants/environment'
-import { WEBSOCKET_URL } from 'constants/urls'
+import Modal from 'src/components/Modal/Modal'
+import { IS_TEST } from 'src/constants/environment'
+import { WEBSOCKET_URL } from 'src/constants/urls'
 import _ from 'lodash'
 import { BodyLong } from '@navikt/ds-react'
 import { rotating, VerticalSeparatorDiv } from '@navikt/hoykontrast'
@@ -14,9 +14,9 @@ import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components/macro'
-import { State } from 'declarations/reducers'
-import { BucListItem } from 'declarations/buc'
+import styled from 'styled-components'
+import { State } from 'src/declarations/reducers'
+import { BucListItem } from 'src/declarations/buc'
 
 export interface BucWebSocketProps {
   fnr: string | undefined

@@ -1,6 +1,6 @@
 import { BodyLong } from '@navikt/ds-react'
 import { components } from 'react-select'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 
 const FlexDiv = styled.div`
   display: flex;

@@ -1,20 +1,20 @@
-import SEDBody from 'applications/BUC/components/SEDBody/SEDBody'
-import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
-import { Buc, Sed } from 'declarations/buc'
+import SEDBody from 'src/applications/BUC/components/SEDBody/SEDBody'
+import SEDHeader from 'src/applications/BUC/components/SEDHeader/SEDHeader'
+import { Buc, Sed } from 'src/declarations/buc'
 import { render } from '@testing-library/react'
-import mockBucs from 'mocks/buc/bucs'
+import mockBucs from 'src/mocks/buc/bucs'
 import SEDPanel, { SEDPanelDiv, SEDPanelContainer, SEDPanelProps } from './SEDPanel'
 import { Accordion } from '@navikt/ds-react'
 
-jest.mock('applications/BUC/components/SEDHeader/SEDHeader', () => ({ children }: any) => (
+jest.mock('src/applications/BUC/components/SEDHeader/SEDHeader', () => ({ children }: any) => (
   <div data-testid='mock-SEDHeader'>{children}</div>
 ))
 
-jest.mock('applications/BUC/components/SEDBody/SEDBody', () => ({ children }: any) => (
+jest.mock('src/applications/BUC/components/SEDBody/SEDBody', () => ({ children }: any) => (
   <div data-testid='mock-SEDBody'>{children}</div>
 ))
 
-describe('applications/BUC/components/SEDPanel/SEDPanel', () => {
+describe('src/applications/BUC/components/SEDPanel/SEDPanel', () => {
   let wrapper: any
   const buc: Buc = mockBucs()[0]
   const sed: Sed = buc.seds![0]

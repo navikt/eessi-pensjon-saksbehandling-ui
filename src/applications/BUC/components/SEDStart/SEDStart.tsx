@@ -14,7 +14,7 @@ import {
   resetSedAttachments,
   sendAttachmentToSed,
   setSedList
-} from 'actions/buc'
+} from 'src/actions/buc'
 import {
   bucsThatSupportAvdod,
   getBucTypeLabel,
@@ -22,20 +22,20 @@ import {
   renderAvdodName,
   sedAttachmentSorter,
   sedFilter
-} from 'applications/BUC/components/BUCUtils/BUCUtils'
-import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import SEDAttachmentModal from 'applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
-import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
-import SEDP6000 from 'applications/BUC/components/SEDP6000/SEDP6000'
-import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
-import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import Select from 'components/Select/Select'
-import { HorizontalLineSeparator } from 'components/StyledComponents'
-import ValidationBox from 'components/ValidationBox/ValidationBox'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import * as constants from 'constants/constants'
-import {GJENNY, VEDTAKSKONTEKST} from 'constants/constants'
-import { IS_TEST } from 'constants/environment'
+} from 'src/applications/BUC/components/BUCUtils/BUCUtils'
+import InstitutionList from 'src/applications/BUC/components/InstitutionList/InstitutionList'
+import SEDAttachmentModal from 'src/applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
+import SEDAttachmentSender from 'src/applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
+import SEDP6000 from 'src/applications/BUC/components/SEDP6000/SEDP6000'
+import JoarkBrowser from 'src/components/JoarkBrowser/JoarkBrowser'
+import MultipleSelect from 'src/components/MultipleSelect/MultipleSelect'
+import Select from 'src/components/Select/Select'
+import { HorizontalLineSeparator } from 'src/components/StyledComponents'
+import ValidationBox from 'src/components/ValidationBox/ValidationBox'
+import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
+import * as constants from 'src/constants/constants'
+import {GJENNY, VEDTAKSKONTEKST} from 'src/constants/constants'
+import { IS_TEST } from 'src/constants/environment'
 import {
   AllowedLocaleString,
   ErrorElement,
@@ -44,8 +44,8 @@ import {
   Option,
   PesysContext,
   Validation
-} from 'declarations/app.d'
-import {KravOmValue, P6000, SakTypeKey} from 'declarations/buc'
+} from 'src/declarations/app.d'
+import {KravOmValue, P6000, SakTypeKey} from 'src/declarations/buc'
 import {
   AvdodOrSokerValue,
   Buc,
@@ -68,17 +68,17 @@ import {
   SEDRawList,
   SedsWithAttachmentsMap,
   ValidBuc
-} from 'declarations/buc.d'
-import { BucsPropType, SedPropType } from 'declarations/buc.pt'
-import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark'
-import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
+} from 'src/declarations/buc.d'
+import { BucsPropType, SedPropType } from 'src/declarations/buc.pt'
+import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark'
+import { JoarkBrowserItemFileType } from 'src/declarations/joark.pt'
 
-import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
-import { State } from 'declarations/reducers'
+import { PersonAvdod, PersonAvdods } from 'src/declarations/person.d'
+import { State } from 'src/declarations/reducers'
 import CountryData, { Country, CountryList } from '@navikt/land-verktoy'
 import CountrySelect from '@navikt/landvelger'
 import _ from 'lodash'
-import { buttonLogger, standardLogger } from 'metrics/loggers'
+import { buttonLogger, standardLogger } from 'src/metrics/loggers'
 import moment from 'moment'
 
 import { Column, HorizontalSeparatorDiv, Row, VerticalSeparatorDiv } from '@navikt/hoykontrast'
@@ -87,8 +87,8 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { GroupBase } from 'react-select'
-import styled from 'styled-components/macro'
-import {createReplySedGjenny, createSedGjenny} from "actions/gjenny";
+import styled from 'styled-components'
+import {createReplySedGjenny, createSedGjenny} from "src/actions/gjenny";
 
 const AlertDiv = styled.div`
   display: flex;

@@ -1,5 +1,5 @@
-import LoadingImage from 'components/Loading/LoadingImage'
-import LoadingText from 'components/Loading/LoadingText'
+import LoadingImage from 'src/components/Loading/LoadingImage'
+import LoadingText from 'src/components/Loading/LoadingText'
 import {screen, render} from '@testing-library/react'
 
 describe('components/Loading/LoadingImage', () => {

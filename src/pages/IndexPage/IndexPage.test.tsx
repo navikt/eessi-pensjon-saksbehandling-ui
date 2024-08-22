@@ -1,7 +1,7 @@
 import {  screen, render } from '@testing-library/react'
-import { BUCMode } from 'declarations/app.d'
+import { BUCMode } from 'src/declarations/app.d'
 
-import { stageSelector } from 'setupTests'
+import { stageSelector } from 'src/setupTests'
 import { IndexPage, IndexPageProps, IndexPageSelector } from './IndexPage'
 
 const defaultSelector: IndexPageSelector = {

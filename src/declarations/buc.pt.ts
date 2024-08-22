@@ -1,5 +1,5 @@
-import { Direction, SakTypeValue } from 'declarations/buc'
-import { JoarkFilePropType } from 'declarations/joark.pt'
+import { Direction, SakTypeValue } from 'src/declarations/buc'
+import { JoarkFilePropType } from 'src/declarations/joark.pt'
 import PT from 'prop-types'
 
 export const AddressPropType = PT.shape({

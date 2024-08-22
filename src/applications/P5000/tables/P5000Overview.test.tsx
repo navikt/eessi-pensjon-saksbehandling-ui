@@ -1,19 +1,27 @@
 
-import { Sed, Seds } from 'declarations/buc'
-import { P5000sFromRinaMap } from 'declarations/p5000'
+import { Sed, Seds } from 'src/declarations/buc'
+import { P5000sFromRinaMap } from 'src/declarations/p5000'
 import { render } from '@testing-library/react'
 import _ from 'lodash'
-import mockBucs from 'mocks/buc/bucs'
-import mockFeatureToggles from 'mocks/app/featureToggles'
-import mockP50001 from 'mocks/buc/sed_P5000_small1'
-import mockP50002 from 'mocks/buc/sed_P5000_small2'
-import { stageSelector } from 'setupTests'
+import mockBucs from 'src/mocks/buc/bucs'
+import mockFeatureToggles from 'src/mocks/app/featureToggles'
+import mockP50001 from 'src/mocks/buc/sed_P5000_small1'
+import mockP50002 from 'src/mocks/buc/sed_P5000_small2'
+import { stageSelector } from 'src/setupTests'
 import Table from '@navikt/tabell'
 import P5000Overview, { P5000OverviewProps, P5000OverviewSelector } from './P5000Overview'
 
 const defaultSelector: P5000OverviewSelector = {
   featureToggles: mockFeatureToggles
 }
+
+jest.mock('src/constants/environment.ts', () => {
+  return {
+    IS_DEVELOPMENT: 'development',
+    IS_PRODUCTION: 'production',
+    IS_TEST: 'test'
+  };
+})
 
 jest.mock('md5', () => (value: any) => value)
 describe('applications/BUC/components/P5000/P5000', () => {

@@ -1,4 +1,4 @@
-import dateDiff from 'utils/dateDiff'
+import dateDiff from 'src/utils/dateDiff'
 
 describe('utils/dateDiff', () => {
   it('31 day month starting on 01 works like regneark with date strings', () => {

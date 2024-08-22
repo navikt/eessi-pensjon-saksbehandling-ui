@@ -5,13 +5,13 @@ import CountrySelect from "@navikt/landvelger";
 import {Country} from "@navikt/land-verktoy";
 import {MainFormSelector} from "../MainForm";
 import {ActionWithPayload} from "@navikt/fetch";
-import {UpdateSedPayload} from "declarations/types";
-import {PSED} from "declarations/app";
+import {UpdateSedPayload} from "src/declarations/types";
+import {PSED} from "src/declarations/app";
 import {useTranslation} from "react-i18next";
-import {useAppSelector} from "store";
+import {useAppSelector} from "src/store";
 import {useDispatch} from "react-redux";
-import {State} from "declarations/reducers";
-import {Adresse as P2000Adresse} from "declarations/p2000";
+import {State} from "src/declarations/reducers";
+import {Adresse as P2000Adresse} from "src/declarations/p2000";
 import _ from "lodash";
 import {resetValidation} from "../../../actions/validation";
 

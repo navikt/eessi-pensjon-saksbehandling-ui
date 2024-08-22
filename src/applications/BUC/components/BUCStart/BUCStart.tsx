@@ -7,19 +7,19 @@ import {
   getTagList,
   resetBuc,
   saveBucsInfo
-} from 'actions/buc'
-import { bucsThatSupportAvdod, getBucTypeLabel, valueSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import Select from 'components/Select/Select'
-import ValidationBox from 'components/ValidationBox/ValidationBox'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import * as constants from 'constants/constants'
+} from 'src/actions/buc'
+import { bucsThatSupportAvdod, getBucTypeLabel, valueSorter } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
+import MultipleSelect from 'src/components/MultipleSelect/MultipleSelect'
+import Select from 'src/components/Select/Select'
+import ValidationBox from 'src/components/ValidationBox/ValidationBox'
+import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
+import * as constants from 'src/constants/constants'
 import {
   ErrorElement,
   Option,
   PesysContext,
   Validation
-} from 'declarations/app.d'
+} from 'src/declarations/app.d'
 import {
   Buc,
   NewBucPayload,
@@ -28,18 +28,18 @@ import {
   SaveBucsInfoProps,
   Tag,
   Tags
-} from 'declarations/buc.d'
-import { PersonAvdod, PersonAvdods } from 'declarations/person.d'
-import { State } from 'declarations/reducers'
+} from 'src/declarations/buc.d'
+import { PersonAvdod, PersonAvdods } from 'src/declarations/person.d'
+import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { buttonLogger, standardLogger } from 'metrics/loggers'
+import { buttonLogger, standardLogger } from 'src/metrics/loggers'
 import moment from 'moment'
 import { Column, HorizontalSeparatorDiv, Row, VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import {BUCStartIndexProps, BUCStartSelector, mapBUCStartState} from "./BUCStartIndex";
 
 const FlexDiv = styled.div`

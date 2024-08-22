@@ -4,19 +4,27 @@ import {
   getSedList,
   resetSed,
   setSedList
-} from 'actions/buc'
-import { VEDTAKSKONTEKST } from 'constants/constants'
-import { Bucs, Sed } from 'declarations/buc'
+} from 'src/actions/buc'
+import { VEDTAKSKONTEKST } from 'src/constants/constants'
+import { Bucs, Sed } from 'src/declarations/buc'
 import { render, screen } from '@testing-library/react'
 import _ from 'lodash'
-import mockFeatureToggles from 'mocks/app/featureToggles'
-import personAvdod from 'mocks/person/personAvdod'
-import mockBucs from 'mocks/buc/bucs'
-import mockItems from 'mocks/joark/items'
-import { stageSelector } from 'setupTests'
+import mockFeatureToggles from 'src/mocks/app/featureToggles'
+import personAvdod from 'src/mocks/person/personAvdod'
+import mockBucs from 'src/mocks/buc/bucs'
+import mockItems from 'src/mocks/joark/items'
+import { stageSelector } from 'src/setupTests'
 import { SEDStart, SEDStartDiv, SEDStartProps, SEDStartSelector } from './SEDStart'
 
-jest.mock('actions/buc', () => ({
+jest.mock('src/constants/environment.ts', () => {
+  return {
+    IS_DEVELOPMENT: 'development',
+    IS_PRODUCTION: 'production',
+    IS_TEST: 'test'
+  };
+})
+
+jest.mock('src/actions/buc', () => ({
   createReplySed: jest.fn(),
   createSavingAttachmentJob: jest.fn(),
   createSed: jest.fn(),

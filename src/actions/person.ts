@@ -1,14 +1,16 @@
-import * as types from 'constants/actionTypes'
-import * as urls from 'constants/urls'
-import { PersonAvdods } from 'declarations/person'
+import * as types from 'src/constants/actionTypes'
+import * as urls from 'src/constants/urls'
+import { PersonAvdods } from 'src/declarations/person'
 import { ActionWithPayload, call } from '@navikt/fetch'
-import mockPerson from 'mocks/person/personPdl'
-import mockPersonAvdodAktoerId from 'mocks/person/personAvdodAktoerId'
-import mockPersonAvdod from 'mocks/person/personAvdod'
-import mockUFT from 'mocks/person/uft'
-import mockGJPBP from 'mocks/person/gjpbp'
+import mockPerson from 'src/mocks/person/personPdl'
+import mockPersonAvdodAktoerId from 'src/mocks/person/personAvdodAktoerId'
+import mockPersonAvdod from 'src/mocks/person/personAvdod'
+import mockUFT from 'src/mocks/person/uft'
+import mockGJPBP from 'src/mocks/person/gjpbp'
 import {Action} from "redux";
-const sprintf = require('sprintf-js').sprintf
+
+// @ts-ignore
+import { sprintf } from 'sprintf-js';
 
 export const getPersonAvdodInfo = (
   aktoerId: string,

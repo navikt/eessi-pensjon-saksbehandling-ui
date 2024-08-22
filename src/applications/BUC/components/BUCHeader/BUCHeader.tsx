@@ -2,25 +2,25 @@ import {
   countrySorter,
   getBucTypeLabel,
   sedFilter
-} from 'applications/BUC/components/BUCUtils/BUCUtils'
-import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import { WidthSize } from 'declarations/app'
+} from 'src/applications/BUC/components/BUCUtils/BUCUtils'
+import InstitutionList from 'src/applications/BUC/components/InstitutionList/InstitutionList'
+import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
+import { WidthSize } from 'src/declarations/app'
 import { HorizontalSeparatorDiv, Column, Row } from '@navikt/hoykontrast'
-import { AllowedLocaleString, RinaUrl } from 'declarations/app.d'
-import {Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames, JoarkBuc} from 'declarations/buc'
-import { BucInfoPropType, BucPropType } from 'declarations/buc.pt'
-import { State } from 'declarations/reducers'
+import { AllowedLocaleString, RinaUrl } from 'src/declarations/app.d'
+import {Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames, JoarkBuc} from 'src/declarations/buc'
+import { BucInfoPropType, BucPropType } from 'src/declarations/buc.pt'
+import { State } from 'src/declarations/reducers'
 import { FlagItems, FlagList } from '@navikt/flagg-ikoner'
 import _ from 'lodash'
-import { linkLogger } from 'metrics/loggers'
+import { linkLogger } from 'src/metrics/loggers'
 import moment from 'moment'
 import { LinkPanel, BodyLong, Link, Heading, Tag } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components/macro'
-import PopoverCustomized from "components/Tooltip/PopoverCustomized";
+import styled from 'styled-components'
+import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 
 const FlexRow = styled(Row)`
   width: 100%;

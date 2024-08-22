@@ -1,12 +1,14 @@
-const express = require('express')
-const path = require('path')
-const { createProxyMiddleware } = require('http-proxy-middleware')
-const winston = require("winston");
-const fetch = require("cross-fetch");
-const { URLSearchParams } = require("url");
-const { Issuer } = require("openid-client");
-const jose = require("jose");
-const timeout = require('connect-timeout');
+import express from 'express'
+import path from 'path'
+import { createProxyMiddleware } from 'http-proxy-middleware'
+import winston from 'winston'
+import fetch from 'cross-fetch'
+import { URLSearchParams } from 'url'
+import { Issuer } from 'openid-client'
+import * as jose from 'jose';
+import timeout from 'connect-timeout';
+
+import { fileURLToPath } from 'url';
 
 const app = express();
 app.use(timeout('60s'));
@@ -201,7 +203,7 @@ const apiProxy = function (target, pathRewrite) {
 }
 
 const socketProxy = createProxyMiddleware({
-  target: process.env.EESSI_PENSJON_WEBSOCKETURL + ':8080-*****/bucUpdate',
+  target: process.env.VITE_EESSI_PENSJON_WEBSOCKETURL + ':8080-*****/bucUpdate',
   ws: true
 })
 
@@ -214,11 +216,16 @@ const timedOut = function (req, res, next) {
   }
 }
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.get('/test', (req, res) => res.send('hello world'));
 
 app.get('/callback/*', handleCallback);
 
 app.get('/internal/isAlive|isReady|metrics', (req, res) => res.sendStatus(200));
+
+app.use('/assets', express.static(path.join(__dirname, "build", "assets")));
 
 app.use('/static', express.static(path.join(__dirname, "build", "static")));
 
@@ -235,14 +242,14 @@ app.get(["/oauth2/login"], async (req, res) => {
 
 app.use('/frontend',
   timedOut,
-  apiAuth(process.env.EESSI_PENSJON_FRONTEND_API_TOKEN_SCOPE),
-  apiProxy(process.env.EESSI_PENSJON_FRONTEND_API_URL,{ '^/frontend/' : '/' })
+  apiAuth(process.env.VITE_EESSI_PENSJON_FRONTEND_API_TOKEN_SCOPE),
+  apiProxy(process.env.VITE_EESSI_PENSJON_FRONTEND_API_URL,{ '^/frontend/' : '/' })
 )
 
 app.use('/fagmodul',
   timedOut,
-  apiAuth(process.env.EESSI_PENSJON_FAGMODUL_TOKEN_SCOPE),
-  apiProxy(process.env.EESSI_PENSJON_FAGMODUL_URL,{ '^/fagmodul/' : '/' })
+  apiAuth(process.env.VITE_EESSI_PENSJON_FAGMODUL_TOKEN_SCOPE),
+  apiProxy(process.env.VITE_EESSI_PENSJON_FAGMODUL_URL,{ '^/fagmodul/' : '/' })
 )
 
 app.use('/websocket', socketProxy)

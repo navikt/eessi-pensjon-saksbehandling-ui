@@ -1,7 +1,7 @@
-import { VEDTAKSKONTEKST } from 'constants/constants'
+import { VEDTAKSKONTEKST } from 'src/constants/constants'
 import { render, screen } from '@testing-library/react'
-import { stageSelector } from 'setupTests'
-import mockPerson from 'mocks/person/personPdl'
+import { stageSelector } from 'src/setupTests'
+import mockPerson from 'src/mocks/person/personPdl'
 import ContextBanner, { ContextBannerProps, ContextBannerSelector } from './ContextBanner'
 
 jest.mock('applications/BUC/websocket/WebSocket', () => ({ title, children }: any) => (

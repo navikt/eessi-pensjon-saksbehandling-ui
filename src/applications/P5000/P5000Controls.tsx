@@ -1,12 +1,12 @@
 import { ChevronLeftIcon } from '@navikt/aksel-icons';
 import { Alert, BodyLong, Button, Checkbox } from '@navikt/ds-react'
 import { Column, PileDiv, Row, VerticalSeparatorDiv } from '@navikt/hoykontrast'
-import { Sed } from 'declarations/buc'
-import { EmptyPeriodsReport } from 'declarations/p5000'
+import { Sed } from 'src/declarations/buc'
+import { EmptyPeriodsReport } from 'src/declarations/p5000'
 import _ from 'lodash'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import P5000SedLabel from 'applications/P5000/components/P5000SedLabel'
+import P5000SedLabel from 'src/applications/P5000/components/P5000SedLabel'
 
 const P5000Controls = ({
   onBackClick,

@@ -1,4 +1,4 @@
-import {Validation} from "declarations/app";
+import {Validation} from "src/declarations/app";
 import {Ytelse} from "../../../declarations/p2000";
 import {getIdx} from "../../../utils/namespace";
 import {checkIfNotEmpty} from "../../../utils/validation";

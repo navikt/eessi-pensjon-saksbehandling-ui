@@ -2,27 +2,27 @@ import { Alert, BodyLong, Button, Loader } from '@navikt/ds-react'
 import {
   cleanNewlyCreatedBuc,
   resetBuc
-} from 'actions/buc'
-import { bucsThatSupportAvdod, getBucTypeLabel, valueSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import Select from 'components/Select/Select'
-import ValidationBox from 'components/ValidationBox/ValidationBox'
+} from 'src/actions/buc'
+import { bucsThatSupportAvdod, getBucTypeLabel, valueSorter } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
+import Select from 'src/components/Select/Select'
+import ValidationBox from 'src/components/ValidationBox/ValidationBox'
 import {
   ErrorElement,
   Option,
   Validation
-} from 'declarations/app.d'
+} from 'src/declarations/app.d'
 import {
   NewBucPayload, SakTypeKey, SakTypeValueToKeyMap
-} from 'declarations/buc.d'
-import { PersonAvdod } from 'declarations/person.d'
-import { State } from 'declarations/reducers'
+} from 'src/declarations/buc.d'
+import { PersonAvdod } from 'src/declarations/person.d'
+import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { buttonLogger } from 'metrics/loggers'
+import { buttonLogger } from 'src/metrics/loggers'
 import { Column, HorizontalSeparatorDiv, Row, VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import {createBucGjenny, getBucOptionsGjenny} from "actions/gjenny";
+import {createBucGjenny, getBucOptionsGjenny} from "src/actions/gjenny";
 import {BUCStartIndexProps, BUCStartSelector, mapBUCStartState} from "./BUCStartIndex";
 
 const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({

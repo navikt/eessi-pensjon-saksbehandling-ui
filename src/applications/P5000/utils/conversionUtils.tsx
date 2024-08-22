@@ -1,11 +1,11 @@
 import CountryData from '@navikt/land-verktoy'
-import { Participant, Sed } from 'declarations/buc'
-import { P5000ListRow, P5000Period, P5000PeriodStatus, P5000SumRow, SedSender } from 'declarations/p5000'
-import i18n from 'i18n'
+import { Participant, Sed } from 'src/declarations/buc'
+import { P5000ListRow, P5000Period, P5000PeriodStatus, P5000SumRow, SedSender } from 'src/declarations/p5000'
+import i18n from 'src/i18n'
 import _ from 'lodash'
 import md5 from 'md5'
 import moment from 'moment'
-import dateDecimal, { sumDates, writeFloat } from 'utils/dateDecimal'
+import dateDecimal, { sumDates, writeFloat } from 'src/utils/dateDecimal'
 
 export const getNewLand = (period: P5000Period, sender: SedSender | undefined): string | undefined => {
   if (!_.isNil(period.land) && !_.isEmpty(period.land)) {

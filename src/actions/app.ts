@@ -1,12 +1,14 @@
-import * as types from 'constants/actionTypes'
-import * as urls from 'constants/urls'
-import {ContextPayload, ParamPayload} from 'declarations/app.d'
+import * as types from 'src/constants/actionTypes'
+import * as urls from 'src/constants/urls'
+import {ContextPayload, ParamPayload} from 'src/declarations/app.d'
 import { ActionWithPayload, call } from '@navikt/fetch'
-import mockUser from 'mocks/app/user'
+import mockUser from 'src/mocks/app/user'
 import { Action } from 'redux'
 import mockAktoerId from "../mocks/app/aktoerId";
 import mockAvdodAktoerId from "../mocks/app/avdodAktoerId";
-const sprintf = require('sprintf-js').sprintf
+
+// @ts-ignore
+import { sprintf } from 'sprintf-js';
 
 export const clearData = (): Action => ({
   type: types.APP_DATA_CLEAR

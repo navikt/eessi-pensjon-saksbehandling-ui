@@ -1,8 +1,8 @@
-import * as types from 'constants/actionTypes'
+import * as types from '../constants/actionTypes'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
 import { AnyAction } from 'redux'
-import { filterAllWithNamespace } from 'utils/validation'
+import { filterAllWithNamespace } from 'src/utils/validation'
 
 export interface ValidationState {
   status: any

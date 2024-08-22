@@ -1,15 +1,15 @@
-import * as bucActions from 'actions/buc'
-import { BUCMode, FeatureToggles } from 'declarations/app.d'
-import * as types from 'constants/actionTypes'
-import { VEDTAKSKONTEKST } from 'constants/constants'
-import * as storage from 'constants/storage'
-import tagsList from 'constants/tagsList'
-import * as urls from 'constants/urls'
-import { Buc, NewBucPayload, NewSedPayload, SakTypeValue, Sed, SEDAttachmentPayloadWithFile } from 'declarations/buc.d'
-import { JoarkBrowserItem } from 'declarations/joark'
+import * as bucActions from 'src/actions/buc'
+import { BUCMode, FeatureToggles } from 'src/declarations/app.d'
+import * as types from 'src/constants/actionTypes'
+import { VEDTAKSKONTEKST } from 'src/constants/constants'
+import * as storage from 'src/constants/storage'
+import tagsList from 'src/constants/tagsList'
+import * as urls from 'src/constants/urls'
+import { Buc, NewBucPayload, NewSedPayload, SakTypeValue, Sed, SEDAttachmentPayloadWithFile } from 'src/declarations/buc.d'
+import { JoarkBrowserItem } from 'src/declarations/joark'
 import { call as originalCall } from '@navikt/fetch'
 import _ from 'lodash'
-import mockItems from 'mocks/joark/items'
+import mockItems from 'src/mocks/joark/items'
 
 jest.mock('@navikt/fetch', () => ({
   call: jest.fn()
@@ -17,7 +17,7 @@ jest.mock('@navikt/fetch', () => ({
 const call = originalCall as jest.Mock<typeof originalCall>
 const sprintf = require('sprintf-js').sprintf
 
-describe('actions/buc', () => {
+describe('src/actions/buc', () => {
   afterEach(() => {
     call.mockReset()
   })

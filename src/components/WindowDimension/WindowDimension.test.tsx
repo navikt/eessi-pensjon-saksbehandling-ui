@@ -1,4 +1,4 @@
-import useWindowDimensions from 'components/WindowDimension/WindowDimension'
+import useWindowDimensions from 'src/components/WindowDimension/WindowDimension'
 import { render, cleanup, screen } from '@testing-library/react'
 
 describe('components/WindowDimension/WindowDimension', () => {

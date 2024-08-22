@@ -4,7 +4,7 @@ import {BadBucDiv, FlexDiv, HiddenDiv} from "../../CommonBucComponents";
 import {Accordion, Button, Heading, TextField} from "@navikt/ds-react";
 import {MagnifyingGlassIcon} from "@navikt/aksel-icons";
 import classNames from "classnames";
-import {fetchBucsListWithAvdodFnr} from "actions/buc";
+import {fetchBucsListWithAvdodFnr} from "src/actions/buc";
 import {State} from "../../../../declarations/reducers";
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";

@@ -1,6 +1,6 @@
 import { screen, render } from '@testing-library/react'
-import personAvdod from 'mocks/person/personAvdod'
-import mockPerson from 'mocks/person/personPdl'
+import personAvdod from 'src/mocks/person/personAvdod'
+import mockPerson from 'src/mocks/person/personPdl'
 import PersonBody, { PersonBodyProps } from './PersonBody'
 
 describe('applications/PersonPanel/PersonBody', () => {

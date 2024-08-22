@@ -1,16 +1,16 @@
-import {RinaUrl} from 'declarations/app.d'
-import { State } from 'declarations/reducers'
+import {RinaUrl} from 'src/declarations/app.d'
+import { State } from 'src/declarations/reducers'
 import {useDispatch, useSelector} from 'react-redux'
 import {useEffect, useState} from "react";
 import { getRinaUrl} from "../../actions/buc";
 import {loadAllEntries} from "../../actions/localStorage";
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import {Button, Select, TextField} from "@navikt/ds-react";
 import {VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import {useTranslation} from "react-i18next";
 import {getAktoerId, setContext, setStatusParam} from "../../actions/app";
 import BUCIndexPageGjenny from "./BUCIndexPageGjenny";
-import { SakTypeKey, SakTypeMap} from 'declarations/buc.d'
+import { SakTypeKey, SakTypeMap} from 'src/declarations/buc.d'
 import {GJENNY} from "../../constants/constants";
 import {clearPersonData, getPersonAvdodInfoFromAktoerId, getPersonInfo} from "../../actions/person";
 import {PersonAvdods, PersonPDL} from "../../declarations/person";

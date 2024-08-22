@@ -1,5 +1,5 @@
 import alertReducer, { initialAlertState } from './alert'
-import * as types from 'constants/actionTypes'
+import * as types from 'src/constants/actionTypes'
 
 describe('reducers/alert', () => {
   it('ALERT_CLIENT_CLEAR', () => {

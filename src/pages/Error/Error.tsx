@@ -1,12 +1,12 @@
-import EESSIPensjonVeileder from 'components/EESSIPensjonVeileder/EESSIPensjonVeileder'
-import TopContainer from 'components/TopContainer/TopContainer'
-import { standardLogger, timeLogger } from 'metrics/loggers'
+import EESSIPensjonVeileder from 'src/components/EESSIPensjonVeileder/EESSIPensjonVeileder'
+import TopContainer from 'src/components/TopContainer/TopContainer'
+import { standardLogger, timeLogger } from 'src/metrics/loggers'
 import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
 import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 
 const Description = styled.div`
   width: 80%;

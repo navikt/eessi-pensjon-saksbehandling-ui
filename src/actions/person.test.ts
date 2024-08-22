@@ -1,6 +1,6 @@
-import * as personActions from 'actions/person'
-import * as types from 'constants/actionTypes'
-import * as urls from 'constants/urls'
+import * as personActions from 'src/actions/person'
+import * as types from 'src/constants/actionTypes'
+import * as urls from 'src/constants/urls'
 import { call as originalCall } from '@navikt/fetch'
 
 jest.mock('@navikt/fetch', () => ({

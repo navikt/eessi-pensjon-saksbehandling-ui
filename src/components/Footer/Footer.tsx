@@ -1,12 +1,12 @@
-import { setStatusParam, unsetStatusParam } from 'actions/app'
-import { toggleFooterOpen } from 'actions/ui'
+import { setStatusParam, unsetStatusParam } from 'src/actions/app'
+import { toggleFooterOpen } from 'src/actions/ui'
 import classNames from 'classnames'
 import { Button, Tag, TextField, Select } from '@navikt/ds-react'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Store } from 'redux'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import {PlusCircleIcon, XMarkOctagonFillIcon} from '@navikt/aksel-icons'
 
 export const FooterDiv = styled.footer`

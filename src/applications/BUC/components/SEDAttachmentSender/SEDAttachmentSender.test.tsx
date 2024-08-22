@@ -1,9 +1,17 @@
-import { SavingAttachmentsJob } from 'declarations/buc'
+import { SavingAttachmentsJob } from 'src/declarations/buc'
 import { render, screen } from '@testing-library/react'
-import { stageSelector } from 'setupTests'
+import { stageSelector } from 'src/setupTests'
 import SEDAttachmentSender, { SEDAttachmentSenderProps } from './SEDAttachmentSender'
-import joarkBrowserItems from 'mocks/joark/items'
-import ProgressBar from "components/ProgressBar/ProgressBar";
+import joarkBrowserItems from 'src/mocks/joark/items'
+import ProgressBar from "src/components/ProgressBar/ProgressBar";
+
+jest.mock('src/constants/environment.ts', () => {
+  return {
+    IS_DEVELOPMENT: 'development',
+    IS_PRODUCTION: 'production',
+    IS_TEST: 'test'
+  };
+})
 
 const defaultSelector = {
   savingAttachmentsJob: {
@@ -14,7 +22,7 @@ const defaultSelector = {
   }
 }
 
-describe('applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender', () => {
+describe('src/applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender', () => {
   let wrapper: any
   const initialMockProps: SEDAttachmentSenderProps = {
     attachmentsError: false,

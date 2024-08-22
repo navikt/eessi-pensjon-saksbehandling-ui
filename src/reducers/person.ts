@@ -1,5 +1,5 @@
-import * as types from 'constants/actionTypes'
-import { PersonAvdods, PersonPDL } from 'declarations/person'
+import * as types from 'src/constants/actionTypes'
+import { PersonAvdods, PersonPDL } from 'src/declarations/person'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
 import moment from 'moment'

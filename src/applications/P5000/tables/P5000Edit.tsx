@@ -9,28 +9,26 @@ import {
   ordning,
   relevantForYtelse,
   typePeriode
-} from 'applications/P5000/P5000.labels'
-import P5000EditControls from 'applications/P5000/tables/P5000EditControls'
-import Input from 'components/Forms/Input'
-import Select from 'components/Select/Select'
-import { HorizontalLineSeparator } from 'components/StyledComponents'
-import { LocalStorageEntry, Option } from 'declarations/app.d'
-import { Sed } from 'declarations/buc.d'
-import { P5000sFromRinaMap } from 'declarations/p5000.d'
-import { SedPropType } from 'declarations/buc.pt'
+} from 'src/applications/P5000/P5000.labels'
+import P5000EditControls from 'src/applications/P5000/tables/P5000EditControls'
+import Input from 'src/components/Forms/Input'
+import Select from 'src/components/Select/Select'
+import { HorizontalLineSeparator } from 'src/components/StyledComponents'
+import { LocalStorageEntry, Option } from 'src/declarations/app.d'
+import { Sed } from 'src/declarations/buc.d'
+import { P5000sFromRinaMap } from 'src/declarations/p5000.d'
+import { SedPropType } from 'src/declarations/buc.pt'
 import {
   P5000ListRow,
   P5000ListRows,
   P5000SED,
   P5000TableContext,
   P5000UpdatePayload
-} from 'declarations/p5000'
-import { State } from 'declarations/reducers'
-import useValidation from 'hooks/useValidation'
+} from 'src/declarations/p5000'
+import { State } from 'src/declarations/reducers'
+import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
-import { standardLogger } from 'metrics/loggers'
-import * as Moment from 'moment'
-import { extendMoment } from 'moment-range'
+import { standardLogger } from 'src/metrics/loggers'
 import {
   HiddenDiv,
   PileCenterDiv,
@@ -41,12 +39,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import Table, { NewRowValues, RenderEditableOptions, RenderOptions, ItemErrors } from '@navikt/tabell'
-import dateDiff, { DateDiff } from 'utils/dateDiff'
-import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows, sortItems } from 'applications/P5000/utils/conversion'
+import dateDiff, { DateDiff } from 'src/utils/dateDiff'
+import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows, sortItems } from 'src/applications/P5000/utils/conversion'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
-import PopoverCustomized from "components/Tooltip/PopoverCustomized";
-
-const moment = extendMoment(Moment)
+import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
+import dayjs, {Dayjs} from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat"
+dayjs.extend(customParseFormat)
 
 export interface P5000EditSelector {
   sentP5000info: any
@@ -59,6 +58,12 @@ export interface P5000EditProps {
   p5000sFromRinaMap: P5000sFromRinaMap
   p5000WorkingCopy: LocalStorageEntry<P5000SED> | undefined
   updateWorkingCopy: (newSed: P5000SED | undefined, sedId: string) => void
+}
+
+export const rangesOverlap = (startDateRange1: Dayjs, endDateRange1: Dayjs,
+                       startDateRange2: Dayjs, endDateRange2: Dayjs) => {
+  return (startDateRange1.isSame(endDateRange2, 'day') || startDateRange1.isBefore(endDateRange2, 'day')) &&
+    (endDateRange1.isSame(startDateRange2, 'day') || endDateRange1.isAfter(startDateRange2, 'day'));
 }
 
 const mapState = (state: State): any => ({
@@ -166,7 +171,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       return undefined
     }
     if (_.isDate(s)) {
-      return moment(s).format('DD.MM.YYYY')
+      return dayjs(s).format('DD.MM.YYYY')
     }
     const r = s.match('^(\\d{2})(\\d{2})(\\d{2})$')
     if (r !== null) {
@@ -200,8 +205,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     if (!validSluttDato || !validStartDato) {
       return null
     }
-    const startdato: Moment.Moment | undefined = moment(validStartDato, 'DD.MM.YYYY')
-    const sluttdato: Moment.Moment | undefined = moment(validSluttDato, 'DD.MM.YYYY')
+    const startdato: Dayjs | undefined = dayjs(validStartDato, 'DD.MM.YYYY')
+    const sluttdato: Dayjs | undefined = dayjs(validSluttDato, 'DD.MM.YYYY')
 
     if (!startdato.isValid() || !sluttdato.isValid()) {
       return null
@@ -698,10 +703,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       return true
     }
     if (value.match('^(\\d{2}\\.\\d{2}\\.\\d{4})')) {
-      return moment(value, 'DD.MM.YYYY').isValid()
+      return dayjs(value, 'DD.MM.YYYY').isValid()
     }
     if (value.match('^\\d{6}')) {
-      return moment(dateTransform(value), 'DD.MM.YYYY').isValid()
+      return dayjs(dateTransform(value), 'DD.MM.YYYY').isValid()
     }
     return false
   }
@@ -740,19 +745,18 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const renderDateCell = ({ value }: RenderOptions<P5000ListRow, P5000TableContext, string>) => (
-    <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
+    <BodyLong>{_.isDate(value) ? dayjs(value).format('DD.MM.YYYY') : value}</BodyLong>
   )
 
   const beforeRowEdited = (item: P5000ListRow, context: P5000TableContext | undefined): ItemErrors | undefined => {
     const errors: ItemErrors = {}
-    const startdato = moment(dateTransform(item.startdato), 'DD.MM.YYYY')
-    const sluttdato = moment(dateTransform(item.sluttdato), 'DD.MM.YYYY')
+    const startdato = dayjs(dateTransform(item.startdato), 'DD.MM.YYYY')
+    const sluttdato = dayjs(dateTransform(item.sluttdato), 'DD.MM.YYYY')
 
     if (startdato.isValid() && sluttdato.isValid()) {
       if (startdato.isAfter(sluttdato)) {
         errors.sluttdato = t('message:validation-endDateBeforeStartDate')
       }
-      const range = moment.range(startdato, sluttdato)
 
       if (context?.items) {
         for (let i = 0; i < context.items.length; i++) {
@@ -760,10 +764,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           if (item.key === otherItem.key) {
             continue
           }
-          const thisRange = moment.range(moment(otherItem.startdato), moment(otherItem.sluttdato))
-          if (item.type === otherItem.type && range.overlaps(thisRange)) {
+          const thisStartdato = dayjs(otherItem.startdato)
+          const thisSluttdato = dayjs(otherItem.sluttdato)
+          if (item.type === otherItem.type && rangesOverlap(startdato,sluttdato, thisStartdato, thisSluttdato)) {
             errors.startdato = t('message:validation-overlapDate', {
-              perioder: moment(otherItem.startdato).format('DD.MM.YYYY') + '/' + moment(otherItem.sluttdato).format('DD.MM.YYYY')
+              perioder: dayjs(otherItem.startdato).format('DD.MM.YYYY') + '/' + dayjs(otherItem.sluttdato).format('DD.MM.YYYY')
             })
             break
           }
@@ -787,21 +792,23 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     const startdatovalue: string | undefined = newRowValues.startdato
     const sluttdatovalue: string | undefined = newRowValues.sluttdato
 
-    const startdato = moment(dateTransform(startdatovalue), 'DD.MM.YYYY')
-    const sluttdato = moment(dateTransform(sluttdatovalue), 'DD.MM.YYYY')
+    const startdato = dayjs(dateTransform(startdatovalue), 'DD.MM.YYYY')
+    const sluttdato = dayjs(dateTransform(sluttdatovalue), 'DD.MM.YYYY')
 
     if (startdato.isValid() && sluttdato.isValid()) {
       if (startdato.isAfter(sluttdato)) {
         errors.sluttdato = t('message:validation-endDateBeforeStartDate')
       }
-      const range = moment.range(startdato, sluttdato)
 
       for (let i = 0; i < context.items.length; i++) {
         const item: P5000ListRow = context.items[i]
-        const thisRange = moment.range(moment(item.startdato), moment(item.sluttdato))
-        if (item.type === typeValue && range.overlaps(thisRange)) {
+
+        const thisStartdato = dayjs(item.startdato)
+        const thisSluttdato = dayjs(item.sluttdato)
+
+        if (item.type === typeValue && rangesOverlap(startdato, sluttdato, thisStartdato, thisSluttdato)) {
           errors.startdato = t('message:validation-overlapDate', {
-            perioder: moment(item.startdato).format('DD.MM.YYYY') + '/' + moment(item.sluttdato).format('DD.MM.YYYY')
+            perioder: dayjs(item.startdato).format('DD.MM.YYYY') + '/' + dayjs(item.sluttdato).format('DD.MM.YYYY')
           })
           break
         }

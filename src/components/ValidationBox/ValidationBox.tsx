@@ -1,4 +1,4 @@
-import { Validation } from 'declarations/app'
+import { Validation } from 'src/declarations/app'
 import _ from 'lodash'
 import { BodyLong, ErrorSummary } from '@navikt/ds-react'
 import React from 'react'

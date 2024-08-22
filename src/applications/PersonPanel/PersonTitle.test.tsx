@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import PersonTitle, { PersonTitleProps, Title } from './PersonTitle'
 
-import mockPerson from 'mocks/person/personPdl'
+import mockPerson from 'src/mocks/person/personPdl'
 
 describe('applications/PersonPanel/PersonTitle', () => {
   let wrapper: any

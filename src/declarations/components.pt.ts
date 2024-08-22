@@ -1,4 +1,4 @@
-import { AlertVariant } from 'declarations/components.d'
+import { AlertVariant } from 'src/declarations/components.d'
 import PT from 'prop-types'
 
 export const AlertErrorPropType = PT.shape({

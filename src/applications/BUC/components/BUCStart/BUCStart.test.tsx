@@ -1,22 +1,22 @@
-import { createBuc, getBucOptions, getTagList, saveBucsInfo } from 'actions/buc'
-import * as constants from 'constants/constants'
-import { AllowedLocaleString } from 'declarations/app.d'
-import { BucsInfo } from 'declarations/buc'
+import { createBuc, getBucOptions, getTagList, saveBucsInfo } from 'src/actions/buc'
+import * as constants from 'src/constants/constants'
+import { AllowedLocaleString } from 'src/declarations/app.d'
+import { BucsInfo } from 'src/declarations/buc'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { within } from '@testing-library/dom'
 import _ from 'lodash'
-import mockFeatureToggles from 'mocks/app/featureToggles'
-import mockPerson from 'mocks/person/personPdl'
-import mockPersonAvdods from 'mocks/person/personAvdod'
-import mockBucOptions from 'mocks/buc/bucOptions'
-import mockBucs from 'mocks/buc/bucs'
-import mockBucsInfo from 'mocks/buc/bucsInfo'
-import mockTagsList from 'mocks/buc/tagsList'
-import { stageSelector } from 'setupTests'
+import mockFeatureToggles from 'src/mocks/app/featureToggles'
+import mockPerson from 'src/mocks/person/personPdl'
+import mockPersonAvdods from 'src/mocks/person/personAvdod'
+import mockBucOptions from 'src/mocks/buc/bucOptions'
+import mockBucs from 'src/mocks/buc/bucs'
+import mockBucsInfo from 'src/mocks/buc/bucsInfo'
+import mockTagsList from 'src/mocks/buc/tagsList'
+import { stageSelector } from 'src/setupTests'
 import BUCStart, { BUCStartProps } from './BUCStart'
 import React from 'react'
 
-jest.mock('actions/buc', () => ({
+jest.mock('src/actions/buc', () => ({
   cleanNewlyCreatedBuc: jest.fn(),
   createBuc: jest.fn(),
   getBucOptions: jest.fn(),
@@ -105,7 +105,7 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
   })
 
   it('UseEffect: set avdod if we have one, and _buc selected on P_BUC_02', () => {
-    jest.useFakeTimers()
+    jest.useFakeTimers({ legacyFakeTimers: true })
     const mockUseState = jest.fn()
     const useStateSpy = jest.spyOn(React, 'useState').mockImplementation(() => {
       return [undefined, mockUseState]

@@ -1,10 +1,10 @@
-import { getUserInfo, setStatusParam } from 'actions/app'
+import { getUserInfo, setStatusParam } from 'src/actions/app'
 import { render } from '@testing-library/react'
 import {BrowserRouter, MemoryRouter, Route, Routes} from 'react-router-dom'
-import { stageSelector } from 'setupTests'
+import { stageSelector } from 'src/setupTests'
 import RequireAuth, { RequireAuthSelector } from './RequireAuth'
 
-jest.mock('actions/app', () => ({
+jest.mock('src/actions/app', () => ({
   getUserInfo: jest.fn(),
   setStatusParam: jest.fn()
 }))
@@ -16,7 +16,7 @@ const defaultSelector: RequireAuthSelector = {
   isLoggingIn: false
 }
 
-describe('components/RequireAuth/RequireAuth', () => {
+describe('src/components/RequireAuth/RequireAuth', () => {
   const initialMockProps = {}
   beforeEach(() => {
     stageSelector(defaultSelector, {})

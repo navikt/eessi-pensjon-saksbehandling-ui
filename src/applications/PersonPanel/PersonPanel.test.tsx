@@ -1,18 +1,18 @@
 import { render, screen } from '@testing-library/react'
-import { getPersonAvdodInfo, getPersonInfo } from 'actions/person'
-import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'constants/constants'
+import { getPersonAvdodInfo, getPersonInfo } from 'src/actions/person'
+import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'src/constants/constants'
 
-import mockFeatureToggles from 'mocks/app/featureToggles'
-import personAvdod from 'mocks/person/personAvdod'
-import { stageSelector } from 'setupTests'
+import mockFeatureToggles from 'src/mocks/app/featureToggles'
+import personAvdod from 'src/mocks/person/personAvdod'
+import { stageSelector } from 'src/setupTests'
 import { PersonPanel, PersonPanelSelector } from './PersonPanel'
 
-jest.mock('actions/app', () => ({
+jest.mock('src/actions/app', () => ({
   getPersonInfo: jest.fn(),
   getPersonAvdodInfo: jest.fn()
 }))
 
-describe('applications/PersonPanel/PersonPanel', () => {
+describe('src/applications/PersonPanel/PersonPanel', () => {
   let wrapper: any
 
   const defaultSelector: PersonPanelSelector = {

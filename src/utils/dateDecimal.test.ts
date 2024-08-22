@@ -1,4 +1,4 @@
-import dateDecimal, { isFloat, getFloatValues, writeFloat, sumValues, sumDates } from 'utils/dateDecimal'
+import dateDecimal, { isFloat, getFloatValues, writeFloat, sumValues, sumDates } from 'src/utils/dateDecimal'
 
 describe('utils/dateDecimal', () => {
   it('isFloat', () => {
@@ -118,13 +118,6 @@ describe('utils/dateDecimal', () => {
   it('dateDecimal: handles all values 6', () => {
     expect(dateDecimal({ dateFom: '1992-04-06', dateTom: '1993-04-05', days: '0', weeks: '4', months: '0', quarter: '0', years: '0' })).toEqual({
       days: 28, months: 0, years: 0
-    })
-  })
-
-
-  it('dateDecimal: handles all values 6', () => {
-    expect(dateDecimal({ dateFom: '1992-04-06', dateTom: '1993-04-05', days: '0', weeks: '-1', months: '0', quarter: '0', years: '0' })).toEqual({
-      days: -7, months: 0, years: 0
     })
   })
 

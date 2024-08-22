@@ -1,5 +1,5 @@
-import { ErrorElement, Validation } from 'declarations/app'
-import { P5000SED } from 'declarations/p5000'
+import { ErrorElement, Validation } from 'src/declarations/app'
+import { P5000SED } from 'src/declarations/p5000'
 import _ from 'lodash'
 import i18n from "i18next";
 

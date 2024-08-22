@@ -1,9 +1,9 @@
-import * as types from 'constants/actionTypes'
-import * as uiActions from 'actions/ui'
-import { ModalContent } from 'declarations/components'
-import { AllowedLocaleString } from 'declarations/app.d'
-import i18n from 'i18n'
-jest.mock('i18n', () => ({
+import * as types from 'src/constants/actionTypes'
+import * as uiActions from 'src/actions/ui'
+import { ModalContent } from 'src/declarations/components'
+import { AllowedLocaleString } from 'src/declarations/app.d'
+import i18n from 'src/i18n'
+jest.mock('src/i18n', () => ({
   changeLanguage: jest.fn()
 }))
 

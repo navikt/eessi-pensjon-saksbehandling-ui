@@ -1,5 +1,5 @@
-import * as constants from 'constants/constants'
-import * as types from 'constants/actionTypes'
+import * as constants from 'src/constants/constants'
+import * as types from 'src/constants/actionTypes'
 import appReducer, { initialAppState } from './app'
 
 describe('reducers/app', () => {

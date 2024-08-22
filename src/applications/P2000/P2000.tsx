@@ -5,8 +5,8 @@ import {Buc, Sed} from "../../declarations/buc";
 import {BUCMode, Validation} from "../../declarations/app";
 import {Box, Button, Loader} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
-import {getSed, saveSed, setPSED, updatePSED} from "actions/buc";
-import {resetValidation, setValidation} from 'actions/validation'
+import {getSed, saveSed, setPSED, updatePSED} from "src/actions/buc";
+import {resetValidation, setValidation} from 'src/actions/validation'
 import { State } from "../../declarations/reducers";
 import {P2000SED} from "../../declarations/p2000";
 import { VerticalSeparatorDiv } from '@navikt/hoykontrast'

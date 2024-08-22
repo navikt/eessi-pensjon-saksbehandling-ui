@@ -1,5 +1,5 @@
-import {Validation} from "declarations/app";
-import {checkIfNotEmpty, checkLength} from 'utils/validation'
+import {Validation} from "src/declarations/app";
+import {checkIfNotEmpty, checkLength} from 'src/utils/validation'
 import {getIdx} from "../../../utils/namespace";
 
 export interface ValidationInstitusjonProps {

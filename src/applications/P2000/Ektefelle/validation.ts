@@ -1,4 +1,4 @@
-import {Validation} from "declarations/app";
+import {Validation} from "src/declarations/app";
 import {Ektefelle} from "../../../declarations/p2000";
 import _ from "lodash";
 import performValidation from "../../../utils/performValidation";

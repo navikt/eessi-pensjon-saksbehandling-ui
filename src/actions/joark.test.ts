@@ -1,14 +1,23 @@
-import * as joarkActions from 'actions/joark'
-import * as types from 'constants/actionTypes'
-import * as urls from 'constants/urls'
+import * as joarkActions from 'src/actions/joark'
+import * as types from 'src/constants/actionTypes'
+import * as urls from 'src/constants/urls'
 import { call as originalCall } from '@navikt/fetch'
-import mockPreview from 'mocks/joark/preview'
-import mockItems from 'mocks/joark/items'
+import mockPreview from 'src/mocks/joark/preview'
+import mockItems from 'src/mocks/joark/items'
 
 const sprintf = require('sprintf-js').sprintf
 jest.mock('@navikt/fetch', () => ({
   call: jest.fn()
 }))
+
+jest.mock('src/constants/environment.ts', () => {
+  return {
+    IS_DEVELOPMENT: 'development',
+    IS_PRODUCTION: 'production',
+    IS_TEST: 'test'
+  };
+})
+
 const call = originalCall as jest.Mock<typeof originalCall>
 
 describe('actions/joark', () => {
@@ -65,10 +74,10 @@ describe('actions/joark', () => {
 
   it('getMockedPayload() in localhost, non-test environment will use mocked values for local development', () => {
     jest.resetModules()
-    jest.mock('constants/environment', () => {
+    jest.mock('src/constants/environment', () => {
       return { IS_TEST: false }
     })
-    const newMockPreviewfile = require('mocks/joark/preview').default
+    const newMockPreviewfile = require('src/mocks/joark/preview').default
     const generatedResult = newMockPreviewfile()
     expect(generatedResult).toHaveProperty('fileName')
     expect(generatedResult).toHaveProperty('contentType', 'application/pdf')

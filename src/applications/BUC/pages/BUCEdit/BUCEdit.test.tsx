@@ -1,27 +1,35 @@
-import { setFollowUpSeds } from 'actions/buc'
-import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
-import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
-import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import SEDPanel from 'applications/BUC/components/SEDPanel/SEDPanel'
-import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
-import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
-import { BucsInfo, Tags } from 'declarations/buc'
+import { setFollowUpSeds } from 'src/actions/buc'
+import BUCDetail from 'src/applications/BUC/components/BUCDetail/BUCDetail'
+import BUCTools from 'src/applications/BUC/components/BUCTools/BUCTools'
+import { sedFilter } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
+import SEDPanel from 'src/applications/BUC/components/SEDPanel/SEDPanel'
+import SEDPanelHeader from 'src/applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
+import SEDSearch from 'src/applications/BUC/components/SEDSearch/SEDSearch'
+import { BucsInfo, Tags } from 'src/declarations/buc'
 import { render, screen } from '@testing-library/react'
 import _ from 'lodash'
-import personAvdod from 'mocks/person/personAvdod'
-import mockBucs from 'mocks/buc/bucs'
-import { stageSelector } from 'setupTests'
+import personAvdod from 'src/mocks/person/personAvdod'
+import mockBucs from 'src/mocks/buc/bucs'
+import { stageSelector } from 'src/setupTests'
 import BUCEdit, { BUCEditDiv, BUCEditProps } from './BUCEdit'
 
-jest.mock('actions/buc', () => ({
+jest.mock('src/constants/environment.ts', () => {
+  return {
+    IS_DEVELOPMENT: 'development',
+    IS_PRODUCTION: 'production',
+    IS_TEST: 'test'
+  };
+})
+
+jest.mock('src/actions/buc', () => ({
   resetNewSed: jest.fn(),
   setCurrentBuc: jest.fn(),
   setFollowUpSeds: jest.fn()
 }))
-jest.mock('applications/BUC/components/SEDStart/SEDStart', () => {
+jest.mock('src/applications/BUC/components/SEDStart/SEDStart', () => {
   return () => <div className='mock-sedstart' />
 })
-jest.mock('applications/BUC/components/BUCTools/BUCTools', () => {
+jest.mock('src/applications/BUC/components/BUCTools/BUCTools', () => {
   return () => <div className='mock-buctools' />
 })
 
@@ -41,7 +49,7 @@ const defaultSelector = {
   featureToggles: {}
 }
 
-describe('applications/BUC/components/BUCEdit/BUCEdit', () => {
+describe('src/applications/BUC/components/BUCEdit/BUCEdit', () => {
   let wrapper: any
 
   const initialMockProps: BUCEditProps = {

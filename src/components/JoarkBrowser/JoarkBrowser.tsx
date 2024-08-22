@@ -1,7 +1,7 @@
-import { getJoarkItemPreview, listJoarkItems, setJoarkItemPreview } from 'actions/joark'
-import Modal from 'components/Modal/Modal'
-import { SedNewType, SedType } from 'declarations/buc'
-import { ModalContent } from 'declarations/components'
+import { getJoarkItemPreview, listJoarkItems, setJoarkItemPreview } from 'src/actions/joark'
+import Modal from 'src/components/Modal/Modal'
+import { SedNewType, SedType } from 'src/declarations/buc'
+import { ModalContent } from 'src/declarations/components'
 import {
   JoarkBrowserContext,
   JoarkBrowserItem,
@@ -12,9 +12,9 @@ import {
   JoarkPoster,
   JoarkType,
   RelevantDato
-} from 'declarations/joark'
-import { JoarkBrowserItemFileType } from 'declarations/joark.pt'
-import { State } from 'declarations/reducers'
+} from 'src/declarations/joark'
+import { JoarkBrowserItemFileType } from 'src/declarations/joark.pt'
+import { State } from 'src/declarations/reducers'
 import File from '@navikt/forhandsvisningsfil'
 import _ from 'lodash'
 import { Button, Loader, Label, Select } from '@navikt/ds-react'
@@ -22,7 +22,7 @@ import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import Table, { RenderOptions } from '@navikt/tabell'
 import md5 from 'md5'
 import { TrashIcon, EyeWithPupilFillIcon } from '@navikt/aksel-icons'

@@ -1,7 +1,7 @@
-import * as types from 'constants/actionTypes'
-import { Buc, BucsInfo, Participant, Sed } from 'declarations/buc'
-import mockBucs from 'mocks/buc/bucs'
-import mockJoarkItems from 'mocks/joark/items'
+import * as types from 'src/constants/actionTypes'
+import { Buc, BucsInfo, Participant, Sed } from 'src/declarations/buc'
+import mockBucs from 'src/mocks/buc/bucs'
+import mockJoarkItems from 'src/mocks/joark/items'
 import bucReducer, { initialBucState } from './buc'
 
 const mockBuc: Buc = mockBucs()[0] as Buc

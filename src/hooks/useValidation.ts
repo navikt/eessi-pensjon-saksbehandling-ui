@@ -1,4 +1,4 @@
-import { Validation } from 'declarations/app.d'
+import { Validation } from 'src/declarations/app.d'
 import { useState } from 'react'
 
 const useValidation = <ValidationData extends any>(

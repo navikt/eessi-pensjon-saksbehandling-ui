@@ -7,7 +7,7 @@ import {
   CheckmarkIcon
 } from '@navikt/aksel-icons'
 import classNames from 'classnames'
-import { Labels } from 'declarations/app'
+import { Labels } from 'src/declarations/app'
 import { Button, BodyLong } from '@navikt/ds-react'
 import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import _ from 'lodash'

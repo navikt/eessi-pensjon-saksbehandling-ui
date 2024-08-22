@@ -1,4 +1,4 @@
-import {Validation} from "declarations/app";
+import {Validation} from "src/declarations/app";
 import {Person} from "../../../declarations/p2000";
 
 export interface ValidationForsikretPersonProps {

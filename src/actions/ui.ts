@@ -1,7 +1,7 @@
-import { AllowedLocaleString, WidthSize } from 'declarations/app.d'
-import { ModalContent } from 'declarations/components.d'
-import i18n from 'i18n'
-import * as types from 'constants/actionTypes'
+import { AllowedLocaleString, WidthSize } from 'src/declarations/app.d'
+import { ModalContent } from 'src/declarations/components.d'
+import i18n from 'src/i18n'
+import * as types from 'src/constants/actionTypes'
 import { ActionWithPayload } from '@navikt/fetch'
 import { Action, ActionCreator } from 'redux'
 

@@ -1,13 +1,13 @@
 import classNames from 'classnames'
-import MultipleValueLabel from 'components/MultipleSelect/MultipleValueLabel'
-import MultipleValueRemove from 'components/MultipleSelect/MultipleValueRemove'
+import MultipleValueLabel from 'src/components/MultipleSelect/MultipleValueLabel'
+import MultipleValueRemove from 'src/components/MultipleSelect/MultipleValueRemove'
 import _ from 'lodash'
 import PT from 'prop-types'
 import Select, { OptionsOrGroups, GroupBase, OnChangeValue, PropsValue } from 'react-select'
 import CreatableSelect from 'react-select/creatable'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import MultipleOption from './MultipleOption'
-import { Option } from 'declarations/app'
+import { Option } from 'src/declarations/app'
 
 const MultipleSelectDiv = styled.div`
   .skjemaelement--feilmelding {

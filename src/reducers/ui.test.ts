@@ -1,6 +1,6 @@
-import { WidthSize } from 'declarations/app'
+import { WidthSize } from 'src/declarations/app'
 import uiReducer, { initialUiState } from './ui'
-import * as types from 'constants/actionTypes'
+import * as types from 'src/constants/actionTypes'
 
 describe('reducers/ui', () => {
   it('UI_MODAL_SET', () => {

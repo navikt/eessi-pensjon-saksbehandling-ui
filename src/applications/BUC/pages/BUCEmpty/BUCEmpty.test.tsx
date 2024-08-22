@@ -1,6 +1,6 @@
-import { setStatusParam } from 'actions/app'
+import { setStatusParam } from 'src/actions/app'
 import { render, screen } from '@testing-library/react'
-import { stageSelector } from 'setupTests'
+import { stageSelector } from 'src/setupTests'
 import BUCEmpty, { BUCEmptyArtwork, BUCEmptyDiv, BUCEmptyProps } from './BUCEmpty'
 
 const defaultSelector = {

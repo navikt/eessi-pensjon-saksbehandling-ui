@@ -1,12 +1,12 @@
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons'
 import classNames from 'classnames'
 import { fadeIn } from '@navikt/hoykontrast'
-import { AlertError, AlertVariant } from 'declarations/components'
-import { AlertErrorPropType } from 'declarations/components.pt'
+import { AlertError, AlertVariant } from 'src/declarations/components'
+import { AlertErrorPropType } from 'src/declarations/components.pt'
 import _ from 'lodash'
 import { Alert } from '@navikt/ds-react'
 import PT from 'prop-types'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 
 export const BannerAlertDiv = styled(Alert)`
   opacity: 0;
