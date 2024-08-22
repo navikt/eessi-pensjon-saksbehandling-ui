@@ -59,6 +59,11 @@ export const validateBank = (
   }
 
   if(sepaIkkeSepa === "ikkesepa"){
+    hasErrors.push(performValidation<ValidationAdresseProps>(v, namespace + '-bank', validateAdresse, {
+      adresse: bank?.adresse,
+      usePostKode: true
+    }, true))
+
     hasErrors.push(checkIfNotEmpty(v, {
       needle: bank?.konto?.kontonr,
       id: namespace + '-konto-kontonr',
@@ -77,10 +82,6 @@ export const validateBank = (
       message: 'validation:missing-p2000-bank-navn'
     }))
 
-    hasErrors.push(performValidation<ValidationAdresseProps>(v, namespace + '-bank', validateAdresse, {
-      adresse: bank?.adresse,
-      usePostKode: true
-    }, true))
 
     if (!_.isEmpty(bank?.konto?.ikkesepa?.swift)){
       validateSwift(v, namespace + '-konto-ikkesepa', {swift: bank?.konto?.ikkesepa?.swift})
