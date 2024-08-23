@@ -10,7 +10,7 @@ import {
   PaddedHorizontallyDiv,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
-import CountryData, { Country, CountryFilter } from '@navikt/land-verktoy'
+import CountryData, { Country } from '@navikt/land-verktoy'
 import CountrySelect from '@navikt/landvelger'
 import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
@@ -32,12 +32,20 @@ import {
 import {Person, Statsborgerskap as P2000Statsborgerskap} from "src/declarations/p2000";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
-import {Validation} from "src/declarations/app";
+import {PSED, CountryCodes, Validation} from "src/declarations/app";
 import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
+})
+
+export interface CountryCodeSelector {
+  countryCodes: CountryCodes | undefined
+}
+
+const mapCounryCodeState = (state: State): CountryCodeSelector => ({
+  countryCodes: state.app.countryCodes
 })
 
 export interface StatsborgerskapProps {
@@ -46,6 +54,7 @@ export interface StatsborgerskapProps {
   parentTarget?: string
   parentIndex?: number
   parentEditMode?: boolean
+  PSED?: PSED | null | undefined
   updatePSED?: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
   setPersonOpplysninger?: any
   person?: Person | undefined
@@ -57,6 +66,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
   parentTarget,
   parentIndex,
   parentEditMode = true,
+  PSED,
   updatePSED,
   setPersonOpplysninger,
   person
@@ -64,8 +74,10 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const { validation } = useAppSelector(mapState)
+  const { countryCodes } = useAppSelector(mapCounryCodeState)
   const namespace = `${parentNamespace}-statsborgerskap`
   const target = `${parentTarget}.person.statsborgerskap`
+  const sedVersion = _.get(PSED, "sedVersion")
 
   const statsborgerskap: Array<P2000Statsborgerskap> | undefined = person?.statsborgerskap
 
@@ -77,6 +89,8 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
   const [_editIndex, _setEditIndex] = useState<number | undefined>(undefined)
   const [_newForm, _setNewForm] = useState<boolean>(false)
   const [_validation, _resetValidation, _performValidation] = useValidation<ValidationStatsborgerskapProps>(validateStatsborgerskap, namespace)
+
+  const countryCodesByVersion = countryCodes ? countryCodes[sedVersion as keyof CountryCodes] : undefined
 
   const setStatsborgerskap = (newStatsborgerskap: Array<P2000Statsborgerskap>) => {
     let statsborgerskap: Array<P2000Statsborgerskap> | undefined = _.cloneDeep(newStatsborgerskap)
@@ -193,7 +207,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
                   error={_v[_namespace + '-land']?.feilmelding}
                   flagWave
                   id={_namespace + '-land'}
-                  includeList={CountryFilter.STANDARD({ useUK: true })}
+                  includeList={countryCodesByVersion?.statsborgerskap}
                   hideLabel={index >= 0}
                   label={t('p2000:form-utenlandske-pin-land')}
                   menuPortalTarget={document.body}
