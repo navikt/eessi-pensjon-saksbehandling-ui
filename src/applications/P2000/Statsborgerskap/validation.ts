@@ -37,12 +37,6 @@ export const validateStatsborgerskap = (
     message: 'validation:invalid-p2000-statsborgerskap-land'
   }))
 
-  hasErrors.push(checkIfNotGB(v, {
-    needle: statsborgerskap?.land,
-    id: namespace + idx + '-land',
-    message: 'validation:invalid-p2000-statsborgerskap-land'
-  }))
-
   hasErrors.push(checkIfDuplicate(v, {
     needle: statsborgerskap?.land,
     haystack: statsborgerskapArray,
