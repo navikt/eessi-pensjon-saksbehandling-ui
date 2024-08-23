@@ -1,7 +1,7 @@
 import {Statsborgerskap} from "../../../declarations/p2000";
 import { Validation} from 'src/declarations/app'
 import { getIdx } from 'src/utils/namespace'
-import { checkIfDuplicate, checkIfNotEmpty, checkIfNotGB, checkIfValidLand } from 'src/utils/validation'
+import { checkIfDuplicate, checkIfNotEmpty, checkIfValidLand } from 'src/utils/validation'
 
 export interface ValidationStatsborgerskapProps {
   statsborgerskap: Statsborgerskap | null | undefined
