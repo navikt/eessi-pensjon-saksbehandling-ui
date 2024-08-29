@@ -1,5 +1,5 @@
-import {Validation} from "../../declarations/app";
-import {P2000SED} from "../../declarations/p2000";
+import {Validation} from "src/declarations/app";
+import {P2000SED} from "src/declarations/p2000";
 import performValidation from "../../utils/performValidation";
 import {ValidationVergeProps, validateVerge} from "./Verge/validation";
 import {validateDiverse, ValidationDiverseProps} from "./Diverse/validation";
