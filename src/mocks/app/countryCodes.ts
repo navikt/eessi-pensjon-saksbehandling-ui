@@ -3,12 +3,12 @@ export default {
     "euEftaLand": ["SE", "DK", "FI"],
     "verdensLand": ["NO", "SE", "DK", "FI"],
     "verdensLandHistorisk": ["NO", "SE", "DK", "FI"],
-    "statsborgerskap": ["NO", "SE", "DK", "FI"]
+    "statsborgerskap": ["NO", "SE", "DK", "FI", "IN"]
   },
   "v4.3": {
     "euEftaLand": ["SE", "DK", "FI"],
     "verdensLand": ["NO", "SE", "DK", "FI"],
     "verdensLandHistorisk": ["NO", "SE", "DK", "FI"],
-    "statsborgerskap": ["NO", "SE", "DK", "FI"]
+    "statsborgerskap": ["NO", "SE", "DK", "FI", "XK"]
   }
 }
