@@ -31,7 +31,8 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
   label,
   parentNamespace,
   PSED,
-  updatePSED
+  updatePSED,
+  countryCodes
 }: MainFormProps): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -258,7 +259,7 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
               <Column/>
             </AlignStartRow>
             <VerticalSeparatorDiv/>
-            <Adresse usePostKode={true} PSED={PSED} updatePSED={updatePSED} parentNamespace={namespace + '-bank'} parentTarget={target}/>
+            <Adresse usePostKode={true} PSED={PSED} updatePSED={updatePSED} countryCodes={countryCodes} parentNamespace={namespace + '-bank'} parentTarget={target}/>
           </>
         }
       </PaddedDiv>

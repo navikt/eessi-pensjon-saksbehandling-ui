@@ -26,7 +26,8 @@ const Verge: React.FC<MainFormProps> = ({
   label,
   parentNamespace,
   PSED,
-  updatePSED
+  updatePSED,
+  countryCodes
 }: MainFormProps): JSX.Element => {
 
   const dispatch = useDispatch()
@@ -117,7 +118,7 @@ const Verge: React.FC<MainFormProps> = ({
         <VerticalSeparatorDiv/>
         <Heading size="small">{t('p2000:form-adresse')}</Heading>
         <VerticalSeparatorDiv/>
-        <Adresse PSED={PSED} updatePSED={updatePSED} parentNamespace={namespace} parentTarget={target}/>
+        <Adresse PSED={PSED} updatePSED={updatePSED} countryCodes={countryCodes} parentNamespace={namespace} parentTarget={target}/>
         <VerticalSeparatorDiv/>
         <Telefon PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/>
         <VerticalSeparatorDiv/>

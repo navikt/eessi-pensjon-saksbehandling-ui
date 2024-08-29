@@ -6,7 +6,7 @@ import {Country} from "@navikt/land-verktoy";
 import {MainFormSelector} from "../MainForm";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
-import {PSED} from "src/declarations/app";
+import {CountryCodeLists, PSED} from "src/declarations/app";
 import {useTranslation} from "react-i18next";
 import {useAppSelector} from "src/store";
 import {useDispatch} from "react-redux";
@@ -25,6 +25,7 @@ export interface AdresseProps {
   parentTarget: string
   updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
   usePostKode?: boolean
+  countryCodes?: CountryCodeLists
 }
 
 const Adresse: React.FC<AdresseProps> = ({
@@ -32,7 +33,8 @@ const Adresse: React.FC<AdresseProps> = ({
   parentNamespace,
   parentTarget,
   updatePSED,
-  usePostKode = false
+  usePostKode = false,
+  countryCodes
 }: AdresseProps): JSX.Element => {
   const { t } = useTranslation()
   const { validation } = useAppSelector(mapState)
@@ -137,6 +139,7 @@ const Adresse: React.FC<AdresseProps> = ({
             flags={true}
             onOptionSelected={(land: Country) => setLand(land.value)}
             values={(adresse?.land) ?? ''}
+            includeList={countryCodes?.verdensLand}
           />
         </Column>
       </AlignStartRow>
