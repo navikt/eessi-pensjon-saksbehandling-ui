@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
-import {Buc, Sed} from "../../declarations/buc";
-import {BUCMode, Validation} from "../../declarations/app";
+import {Buc, Sed} from "src/declarations/buc";
+import {BUCMode, Validation} from "src/declarations/app";
 import {Box, Button, Loader} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {getSed, saveSed, setPSED, updatePSED} from "src/actions/buc";
 import {resetValidation, setValidation} from 'src/actions/validation'
-import { State } from "../../declarations/reducers";
-import {P2000SED} from "../../declarations/p2000";
+import { State } from "src/declarations/reducers";
+import {P2000SED} from "src/declarations/p2000";
 import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import _ from 'lodash'
 
@@ -128,6 +128,7 @@ const P2000: React.FC<P2000Props> = ({
         setPSED={setPSED}
         updatePSED={updatePSED}
         namespace={namespace}
+        sedVersion = {_.get(currentPSED, "sedVersion")}
       />
       <VerticalSeparatorDiv/>
       <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />

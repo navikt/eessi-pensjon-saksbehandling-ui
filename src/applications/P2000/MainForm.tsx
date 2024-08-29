@@ -116,6 +116,7 @@ export interface MainFormFCProps<T> {
   setPSED: (PSED: T) => ActionWithPayload<T>
   updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
   namespace: string
+  sedVersion: string
 }
 
 export interface MainFormProps {
@@ -127,6 +128,7 @@ export interface MainFormProps {
   setPSED: (PSED: PSED ) => ActionWithPayload<PSED>
   updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
   options ?: any
+  sedVersion: string
 }
 
 export interface MainFormSelector {
@@ -148,6 +150,7 @@ const MainForm = <T extends PSED>({
   setPSED,
   updatePSED,
   namespace,
+  sedVersion
 }: MainFormFCProps<T>) => {
   const { t } = useTranslation()
   const { validation }: any = useAppSelector(mapState)
@@ -174,6 +177,7 @@ const MainForm = <T extends PSED>({
           PSED={PSED}
           setPSED={setPSED}
           updatePSED={updatePSED}
+          sedVersion={sedVersion}
         />
       )
     }
