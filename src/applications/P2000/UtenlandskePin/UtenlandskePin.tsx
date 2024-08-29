@@ -10,7 +10,7 @@ import {
   PaddedHorizontallyDiv,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
-import CountryData, { Country, CountryFilter } from '@navikt/land-verktoy'
+import CountryData, { Country } from '@navikt/land-verktoy'
 import CountrySelect from '@navikt/landvelger'
 import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
@@ -27,11 +27,11 @@ import { getIdx } from 'src/utils/namespace'
 import performValidation from 'src/utils/performValidation'
 import { hasNamespaceWithErrors } from 'src/utils/validation'
 import {validateUtenlandskPIN, ValidationUtenlandskPINProps} from './validation'
-import {Person, PIN} from "../../../declarations/p2000";
+import {Person, PIN} from "src/declarations/p2000";
 import {ActionWithPayload} from "@navikt/fetch";
-import {UpdateSedPayload} from "../../../declarations/types";
-import {PSED, Validation} from "src/declarations/app";
-import {State} from "../../../declarations/reducers";
+import {UpdateSedPayload} from "src/declarations/types";
+import {CountryCodeLists, PSED, Validation} from "src/declarations/app";
+import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 
 const mapState = (state: State): MainFormSelector => ({
@@ -48,6 +48,7 @@ export interface UtenlandskPinProps {
   updatePSED?: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
   setPersonOpplysninger?: any
   person?: Person | undefined
+  countryCodes?: CountryCodeLists
 }
 
 const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
@@ -59,7 +60,8 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
   PSED,
   updatePSED,
   setPersonOpplysninger,
-  person
+  person,
+  countryCodes
 }: UtenlandskPinProps): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
@@ -71,7 +73,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
   const utenlandskePINs: Array<PIN> = _.filter(_person?.pin, p => p.land !== 'NO')
 
   const countryData = CountryData.getCountryInstance('nb')
-  const landUtenNorge = CountryFilter.RINA_ACCEPTED({ useUK: true })?.filter((it: string) => it !== 'NO')
+  const landUtenNorge = countryCodes?.euEftaLand.filter((it: string) => it !== 'NO')
   const getId = (p: PIN | null): string => p ? p.land + '-' + p.identifikator : 'new'
 
   const [_newPin, _setNewPin] = useState<PIN | undefined>(undefined)

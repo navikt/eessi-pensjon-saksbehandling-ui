@@ -24,7 +24,8 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
   label,
   parentNamespace,
   PSED,
-  updatePSED
+  updatePSED,
+  countryCodes
 }: MainFormProps): JSX.Element => {
 
   const dispatch = useDispatch()
@@ -55,6 +56,7 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
           parentNamespace={namespace}
           parentTarget={target}
           updatePSED={updatePSED}
+          countryCodes={countryCodes}
         />
         <VerticalSeparatorDiv/>
         <FamilieStatus

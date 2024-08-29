@@ -92,6 +92,7 @@ const Ektefelle: React.FC<MainFormProps> = ({
           parentNamespace={namespace}
           parentTarget={target}
           updatePSED={updatePSED}
+          countryCodes={countryCodes}
         />
         <VerticalSeparatorDiv/>
         <Foedested setPersonOpplysninger={setEktefelleFoedested} person={ektefelle?.person} countryCodes={countryCodes} parentNamespace={namespace}/>
