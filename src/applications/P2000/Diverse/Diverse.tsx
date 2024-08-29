@@ -27,7 +27,8 @@ const Diverse: React.FC<MainFormProps> = ({
   label,
   parentNamespace,
   PSED,
-  updatePSED
+  updatePSED,
+  countryCodes
 }: MainFormProps): JSX.Element => {
 
   const {t} = useTranslation()
@@ -99,7 +100,7 @@ const Diverse: React.FC<MainFormProps> = ({
           </Column>
         </AlignStartRow>
         <VerticalSeparatorDiv/>
-        <Utsettelse PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/>
+        <Utsettelse PSED={PSED} countryCodes={countryCodes} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/>
         <VerticalSeparatorDiv/>
         <AlignStartRow>
           <Column>

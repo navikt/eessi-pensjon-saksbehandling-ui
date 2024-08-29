@@ -9,7 +9,7 @@ import {RepeatableRow} from "src/components/StyledComponents";
 import AddRemovePanel from "src/components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
-import {PSED, Validation} from "src/declarations/app";
+import {CountryCodeLists, PSED, Validation} from "src/declarations/app";
 import useValidation from "src/hooks/useValidation";
 
 import { resetValidation, setValidation } from 'src/actions/validation'
@@ -20,7 +20,7 @@ import {useAppSelector} from "src/store";
 import {useTranslation} from "react-i18next";
 import {Utsettelse as P2000UUtsettelse} from "src/declarations/p2000";
 import {validateUtsettelse, ValidationUtsettelseProps} from "./validation";
-import CountryData, {Country, CountryFilter} from "@navikt/land-verktoy";
+import CountryData, {Country} from "@navikt/land-verktoy";
 import CountrySelect from "@navikt/landvelger";
 import Input from "../../../components/Forms/Input";
 import DateField from "../DateField/DateField";
@@ -37,13 +37,15 @@ export interface UtsettelseProps {
   parentNamespace: string
   parentTarget: string
   updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
+  countryCodes?: CountryCodeLists
 }
 
 const Utsettelse: React.FC<UtsettelseProps> = ({
   parentNamespace,
   parentTarget,
   PSED,
-  updatePSED
+  updatePSED,
+  countryCodes
 }: UtsettelseProps): JSX.Element => {
   const { t } = useTranslation()
   const { validation } = useAppSelector(mapState)
@@ -151,7 +153,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
                     error={_v[_namespace + '-land']?.feilmelding}
                     flagWave
                     id={_namespace + '-land'}
-                    includeList={CountryFilter.EEA({})}
+                    includeList={countryCodes?.euEftaLand}
                     label={t('p2000:form-diverse-utsettelse-land')}
                     hideLabel={index>0}
                     menuPortalTarget={document.body}
