@@ -6,28 +6,28 @@ import React, {Fragment, useState} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
 
-import {useAppSelector} from "../../../store";
+import {useAppSelector} from "src/store";
 import {Barn as P2000Barn} from "../../../declarations/p2000";
-import {getIdx} from "../../../utils/namespace";
+import {getIdx} from "src/utils/namespace";
 
-import {State} from "../../../declarations/reducers";
+import {State} from "src/declarations/reducers";
 import PersonOpplysninger from "../PersonOpplysninger/PersonOpplysninger";
-import {resetValidation, setValidation} from "../../../actions/validation";
+import {resetValidation, setValidation} from "src/actions/validation";
 import {useDispatch} from "react-redux";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import classNames from "classnames";
-import {RepeatableRowNoBackground} from "../../../components/StyledComponents";
+import {RepeatableRowNoBackground} from "src/components/StyledComponents";
 import UtenlandskePin from "../UtenlandskePin/UtenlandskePin";
 import Foedested from "../Foedested/Foedested";
 import Statsborgerskap from "../Statsborgerskap/Statsborgerskap";
 import DateField from "../DateField/DateField";
-import {dateToString, formatDate} from "../../../utils/utils";
+import {dateToString, formatDate} from "src/utils/utils";
 import FormText from "../../../components/Forms/FormText";
 import useValidation from "../../../hooks/useValidation";
-import {hasNamespaceWithErrors} from "../../../utils/validation";
+import {hasNamespaceWithErrors} from "src/utils/validation";
 import {validateBarn, validateBarnArray, ValidationBarnArrayProps, ValidationBarnProps} from "./validation";
 import performValidation from "../../../utils/performValidation";
-import {Validation} from "../../../declarations/app";
+import {Validation} from "src/declarations/app";
 import useUnmount from "../../../hooks/useUnmount";
 
 const mapState = (state: State): MainFormSelector => ({
@@ -38,7 +38,8 @@ const Barn: React.FC<MainFormProps> = ({
   label,
   parentNamespace,
   PSED,
-  updatePSED
+  updatePSED,
+  countryCodes
 }: MainFormProps): JSX.Element => {
 
   const {t} = useTranslation()
@@ -241,7 +242,7 @@ const Barn: React.FC<MainFormProps> = ({
               <VerticalSeparatorDiv/>
               <Foedested setPersonOpplysninger={setBarnFoedested} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode} parentValidation={_v}/>
               <VerticalSeparatorDiv/>
-              <Statsborgerskap setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
+              <Statsborgerskap setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} countryCodes={countryCodes} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
               <VerticalSeparatorDiv/>
               <Heading size='small'>
                 {t('p2000:form-barn-relasjontilbruker')}

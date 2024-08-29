@@ -13,7 +13,7 @@ import {useDispatch} from "react-redux";
 import {State} from "src/declarations/reducers";
 import {Adresse as P2000Adresse} from "src/declarations/p2000";
 import _ from "lodash";
-import {resetValidation} from "../../../actions/validation";
+import {resetValidation} from "src/actions/validation";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
