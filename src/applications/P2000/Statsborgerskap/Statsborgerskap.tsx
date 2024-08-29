@@ -32,7 +32,7 @@ import {
 import {Person, Statsborgerskap as P2000Statsborgerskap} from "src/declarations/p2000";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
-import {Validation} from "src/declarations/app";
+import {CountryCodeLists, Validation} from "src/declarations/app";
 import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 
@@ -46,7 +46,7 @@ export interface StatsborgerskapProps {
   parentTarget?: string
   parentIndex?: number
   parentEditMode?: boolean
-  countryCodes?: any
+  countryCodes?: CountryCodeLists
   updatePSED?: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
   setPersonOpplysninger?: any
   person?: Person | undefined

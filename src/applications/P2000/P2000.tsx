@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {Buc, Sed} from "src/declarations/buc";
-import {BUCMode, CountryCodes, Validation} from "src/declarations/app";
+import {BUCMode, CountryCodeLists, CountryCodes, Validation} from "src/declarations/app";
 import {Box, Button, Loader} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {getSed, saveSed, setPSED, updatePSED} from "src/actions/buc";
@@ -62,7 +62,7 @@ const P2000: React.FC<P2000Props> = ({
   const [_viewSaveSedModal, setViewSaveSedModal] = useState<boolean>(false)
 
   const sedVersion = _.get(currentPSED, "sedVersion")
-  const countryCodesByVersion = countryCodes ? countryCodes[sedVersion as keyof CountryCodes] : undefined
+  const countryCodesByVersion: CountryCodeLists | undefined = countryCodes ? countryCodes[sedVersion as keyof CountryCodes] : undefined
 
   useEffect(() => {
     if(sed){

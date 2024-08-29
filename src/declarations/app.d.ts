@@ -23,18 +23,15 @@ export type Feature =
 export type FeatureToggles = {[key in Feature]: boolean | number}
 
 export type CountryCodes = {
-  "v4.2": {
-    "euEftaLand": Array<string>
-    "verdensLand": Array<string>
-    "verdensLandHistorisk": Array<string>
-    "statsborgerskap": Array<string>
-  },
-  "v4.3": {
-    "euEftaLand": Array<string>
-    "verdensLand": Array<string>
-    "verdensLandHistorisk": Array<string>
-    "statsborgerskap": Array<string>
-  }
+  "v4.2": CountryCodeLists,
+  "v4.3": CountryCodeLists
+}
+
+export type CountryCodeLists = {
+  "euEftaLand": Array<string>
+  "verdensLand": Array<string>
+  "verdensLandHistorisk": Array<string>
+  "statsborgerskap": Array<string>
 }
 
 export type Labels = {[k in string]? : string}

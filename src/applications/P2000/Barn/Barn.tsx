@@ -240,7 +240,7 @@ const Barn: React.FC<MainFormProps> = ({
               <VerticalSeparatorDiv/>
               <UtenlandskePin setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
               <VerticalSeparatorDiv/>
-              <Foedested setPersonOpplysninger={setBarnFoedested} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode} parentValidation={_v}/>
+              <Foedested setPersonOpplysninger={setBarnFoedested} person={_barn?.person} countryCodes={countryCodes} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode} parentValidation={_v}/>
               <VerticalSeparatorDiv/>
               <Statsborgerskap setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} countryCodes={countryCodes} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
               <VerticalSeparatorDiv/>

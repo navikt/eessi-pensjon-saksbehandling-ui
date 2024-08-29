@@ -7,11 +7,11 @@ import {AlignStartRow, Column, FlexCenterDiv, HorizontalSeparatorDiv, VerticalSe
 import Input from "src/components/Forms/Input";
 import {Person} from "src/declarations/p2000";
 import {BodyLong, Heading, Label} from "@navikt/ds-react";
-import CountryData, {Country, CountryFilter} from "@navikt/land-verktoy";
+import CountryData, {Country} from "@navikt/land-verktoy";
 import CountrySelect from "@navikt/landvelger";
 import FormText from "../../../components/Forms/FormText";
 import Flag from "@navikt/flagg-ikoner";
-import {Validation} from "../../../declarations/app";
+import {CountryCodeLists, Validation} from "../../../declarations/app";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -22,6 +22,7 @@ export interface FoedestedProps {
   parentIndex?: number
   parentEditMode?: boolean
   person: Person | undefined,
+  countryCodes?: CountryCodeLists
   setPersonOpplysninger: any
   parentValidation?: Validation
 }
@@ -31,6 +32,7 @@ const Foedested: React.FC<FoedestedProps> = ({
   parentIndex,
   parentEditMode = true,
   person,
+  countryCodes,
   setPersonOpplysninger,
   parentValidation
 }: FoedestedProps): JSX.Element => {
@@ -73,7 +75,7 @@ const Foedested: React.FC<FoedestedProps> = ({
               <CountrySelect
                 error={v[namespace + '-land']?.feilmelding}
                 id="land"
-                includeList={CountryFilter.STANDARD({})}
+                includeList={countryCodes?.verdensLandHistorisk}
                 label={t('p2000:form-person-foedested-land')}
                 menuPortalTarget={document.body}
                 onOptionSelected={(v: Country) => setPersonOpplysninger("land", v.value, parentIndex)}
