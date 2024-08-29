@@ -1,7 +1,7 @@
 import {Validation} from "src/declarations/app";
 import _ from "lodash";
 import {checkIfNotEmpty, checkLength} from "src/utils/validation";
-import {Pensjon} from "../../../declarations/p2000";
+import {Pensjon} from "src/declarations/p2000";
 
 export interface ValidationDiverseProps {
   pensjon: Pensjon
@@ -16,7 +16,7 @@ export const validateDiverse = (
 ): boolean => {
   const hasErrors: Array<boolean> = []
 
-  if(pensjon.vedlegg?.some(v => v==="annet")){
+  if(pensjon?.vedlegg?.some(v => v==="annet")){
     hasErrors.push(checkIfNotEmpty(v, {
       needle: pensjon.vedleggandre,
       id: namespace + '-vedleggandre',
@@ -24,7 +24,7 @@ export const validateDiverse = (
     }))
   }
 
-  if (!_.isEmpty(pensjon.vedleggandre)) {
+  if (!_.isEmpty(pensjon?.vedleggandre)) {
     hasErrors.push(checkLength(v, {
       needle: pensjon.vedleggandre,
       max: 255,
@@ -33,7 +33,7 @@ export const validateDiverse = (
     }))
   }
 
-  if (!_.isEmpty(pensjon.etterspurtedokumenter)) {
+  if (!_.isEmpty(pensjon?.etterspurtedokumenter)) {
     hasErrors.push(checkLength(v, {
       needle: pensjon.etterspurtedokumenter,
       max: 255,
@@ -42,7 +42,7 @@ export const validateDiverse = (
     }))
   }
 
-  if (!_.isEmpty(pensjon.ytterligeinformasjon)) {
+  if (!_.isEmpty(pensjon?.ytterligeinformasjon)) {
     hasErrors.push(checkLength(v, {
       needle: pensjon.ytterligeinformasjon,
       max: 500,
