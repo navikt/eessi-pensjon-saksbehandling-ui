@@ -23,8 +23,8 @@ import { UpdateSedPayload } from 'src/declarations/types'
 import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import {useAppSelector} from "../../store";
-import {State} from "../../declarations/reducers";
+import {useAppSelector} from "src/store";
+import {State} from "src/declarations/reducers";
 
 const LeftDiv = styled.div`
   flex: 1;
