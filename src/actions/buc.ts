@@ -335,7 +335,6 @@ export const getSed = (
 export const saveSed = (
   caseId: string, sedId: string, sedType: string, payload: any
 ): Action => {
-  delete payload.sedVersion //Remove prop made up of sedGVer + sedVer
   return call({
     url: sprintf(urls.BUC_PUT_SED_URL, { caseId, sedId }),
     method: 'PUT',
