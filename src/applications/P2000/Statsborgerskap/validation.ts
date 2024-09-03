@@ -1,7 +1,7 @@
 import {Statsborgerskap} from "src/declarations/p2000";
 import { Validation} from 'src/declarations/app'
 import { getIdx } from 'src/utils/namespace'
-import { checkIfDuplicate, checkIfNotEmpty, checkIfValidLand } from 'src/utils/validation'
+import { checkIfDuplicate, checkIfNotEmpty } from 'src/utils/validation'
 
 export interface ValidationStatsborgerskapProps {
   statsborgerskap: Statsborgerskap | null | undefined
@@ -29,12 +29,6 @@ export const validateStatsborgerskap = (
     needle: statsborgerskap?.land,
     id: namespace + idx + '-land',
     message: 'validation:missing-p2000-statsborgerskap-land'
-  }))
-
-  hasErrors.push(checkIfValidLand(v, {
-    needle: statsborgerskap?.land,
-    id: namespace + idx + '-land',
-    message: 'validation:invalid-p2000-statsborgerskap-land'
   }))
 
   hasErrors.push(checkIfDuplicate(v, {

@@ -1,7 +1,7 @@
 import {PIN} from "../../../declarations/p2000";
 import { Validation} from 'src/declarations/app'
 import { getIdx } from 'src/utils/namespace'
-import {checkIfDuplicate, checkIfNotEmpty, checkIfNotGB, checkIfValidLand, checkLength} from 'src/utils/validation'
+import {checkIfDuplicate, checkIfNotEmpty, checkIfNotGB, checkLength} from 'src/utils/validation'
 
 export interface ValidationUtenlandskPINProps {
   pin: PIN | null | undefined
@@ -42,12 +42,6 @@ export const validateUtenlandskPIN = (
     needle: pin?.land,
     id: namespace + idx + '-land',
     message: 'validation:missing-p2000-utenlandskepin-land'
-  }))
-
-  hasErrors.push(checkIfValidLand(v, {
-    needle: pin?.land,
-    id: namespace + idx + '-land',
-    message: 'validation:invalid-p2000-utenlandskepin-land'
   }))
 
   hasErrors.push(checkIfNotGB(v, {

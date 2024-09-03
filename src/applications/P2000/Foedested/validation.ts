@@ -1,6 +1,6 @@
 import {Foedested} from 'src/declarations/p2000'
 import {Validation} from "src/declarations/app";
-import {checkIfNotEmpty, checkIfValidLand, checkLength} from 'src/utils/validation'
+import {checkIfNotEmpty, checkLength} from 'src/utils/validation'
 import _ from "lodash";
 
 export interface ValidationFoedestedProps {
@@ -33,12 +33,6 @@ export const validateFoedested = (
       needle: foedested?.land,
       id: namespace + '-land',
       message: 'validation:missing-p2000-person-foedested-land',
-    }))
-
-    hasErrors.push(checkIfValidLand(v, {
-      needle: foedested?.land,
-      id: namespace + '-land',
-      message: 'validation:invalidLand'
     }))
 
     hasErrors.push(checkLength(v, {
