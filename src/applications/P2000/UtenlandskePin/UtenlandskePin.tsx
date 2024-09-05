@@ -223,9 +223,8 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
                   hideLabel={index >= 0}
                   label={t('p2000:form-utenlandske-pin-land')}
                   menuPortalTarget={document.body}
-                  onOptionSelected={(e: Country) => setUtenlandskeLand(e.value3, index)}
+                  onOptionSelected={(e: Country) => setUtenlandskeLand(e.value, index)}
                   values={_pin?.land}
-                  useAlpha3Value={true}
                 />
                 )
               : (

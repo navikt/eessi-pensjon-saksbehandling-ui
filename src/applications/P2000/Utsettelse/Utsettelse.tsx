@@ -157,9 +157,8 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
                     label={t('p2000:form-diverse-utsettelse-land')}
                     hideLabel={index>0}
                     menuPortalTarget={document.body}
-                    onOptionSelected={(e: Country) => setUtsettelseProp('land', e.value3, index)}
+                    onOptionSelected={(e: Country) => setUtsettelseProp('land', e.value, index)}
                     values={_utsettelse?.land}
-                    useAlpha3Value={true}
                   />
                 </Column>
                 <Column>

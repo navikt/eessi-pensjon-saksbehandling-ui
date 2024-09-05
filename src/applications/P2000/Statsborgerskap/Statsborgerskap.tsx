@@ -199,9 +199,8 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
                   hideLabel={index >= 0}
                   label={t('p2000:form-utenlandske-pin-land')}
                   menuPortalTarget={document.body}
-                  onOptionSelected={(e: Country) => setStatsborgerskapLand(e.value3, index)}
+                  onOptionSelected={(e: Country) => setStatsborgerskapLand(e.value, index)}
                   values={_statsborgerskap?.land}
-                  useAlpha3Value={true}
                 />
                 )
               : (
