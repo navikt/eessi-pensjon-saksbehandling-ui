@@ -78,7 +78,7 @@ const Foedested: React.FC<FoedestedProps> = ({
                 includeList={countryCodes?.verdensLandHistorisk}
                 label={t('p2000:form-person-foedested-land')}
                 menuPortalTarget={document.body}
-                onOptionSelected={(v: Country) => setPersonOpplysninger("land", v.value, parentIndex)}
+                onOptionSelected={(v: Country) => setPersonOpplysninger("land", v.value3, parentIndex)}
                 values={(person?.foedested?.land)  ?? ''}
                 useAlpha3Value={true}
               />

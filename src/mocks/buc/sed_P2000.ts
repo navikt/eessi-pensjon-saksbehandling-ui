@@ -6,7 +6,7 @@ export default {
         "institusjonsid": "NO:NAVAT07",
         "institusjonsnavn": "NAV ACCEPTANCE TEST 07",
         "saksnummer": "22958426",
-        "land": "NO"
+        "land": "NOR"
       },
       {
         "institusjonsid": "NO:NAVAT09",
@@ -25,7 +25,7 @@ export default {
             "institusjonsid": "NO:NAVAT07",
             "sektor": null,
             "identifikator": "16465444863",
-            "land": "NO",
+            "land": "NOR",
             "institusjon": null
           },
           {
@@ -52,7 +52,7 @@ export default {
         "kjoenn": "K",
         "foedested": {
           "by": "Unknown",
-          "land": "NO",
+          "land": "NOR",
           "region": null
         },
         "foedselsdato": "1954-06-16",
@@ -68,7 +68,7 @@ export default {
         "postnummer": "2660",
         "postkode": null,
         "region": null,
-        "land": "NO",
+        "land": "NOR",
         "kontaktpersonadresse": null,
         "datoforadresseendring": null,
         "postadresse": null,
@@ -129,7 +129,7 @@ export default {
         "postnummer": "0680",
         "postkode": null,
         "region": "Oslo",
-        "land": "NO",
+        "land": "NOR",
         "kontaktpersonadresse": null,
         "datoforadresseendring": null,
         "postadresse": null,
