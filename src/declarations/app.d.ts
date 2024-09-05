@@ -3,6 +3,7 @@ import { P4000SED } from 'declarations/p4000'
 import { P5000SED } from 'declarations/p5000'
 import { P2000SED } from "declarations/p2000";
 import { Sort } from '@navikt/tabell'
+import {SimpleCountry} from "@navikt/landvelger";
 
 export type AllowedLocaleString = 'en' | 'nb'
 
@@ -28,10 +29,10 @@ export type CountryCodes = {
 }
 
 export type CountryCodeLists = {
-  "euEftaLand": Array<string>
-  "verdensLand": Array<string>
-  "verdensLandHistorisk": Array<string>
-  "statsborgerskap": Array<string>
+  "euEftaLand": Array<SimpleCountry>
+  "verdensLand": Array<SimpleCountry>
+  "verdensLandHistorisk": Array<SimpleCountry>
+  "statsborgerskap": Array<SimpleCountry>
 }
 
 export type Labels = {[k in string]? : string}

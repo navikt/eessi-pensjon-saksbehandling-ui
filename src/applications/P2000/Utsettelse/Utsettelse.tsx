@@ -197,7 +197,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
                       {t('p2000:form-diverse-utsettelse-land')}
                     </Label>
                     <BodyLong>
-                      {_utsettelse?.land && <Flag size='S' country={_utsettelse?.land!} />}
+                      {_utsettelse?.land && <Flag size='S' country={countryData.findByValue(_utsettelse?.land) ? _utsettelse?.land : "XU"} />}
                       <HorizontalSeparatorDiv />
                       {countryData.findByValue(_utsettelse?.land)?.label ?? _utsettelse?.land}
                     </BodyLong>

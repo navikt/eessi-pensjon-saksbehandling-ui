@@ -120,7 +120,7 @@ const Foedested: React.FC<FoedestedProps> = ({
                       {t('p2000:form-person-foedested-land')}
                     </Label>
                     <FlexCenterDiv>
-                      {person?.foedested?.land && <Flag size='S' country={person?.foedested?.land!} />}
+                      {person?.foedested?.land && <Flag size='S' country={countryData.findByValue(person?.foedested?.land) ? person?.foedested?.land : "XU"} />}
                       <HorizontalSeparatorDiv />
                       {countryData.findByValue(person?.foedested?.land)?.label ?? person?.foedested?.land}
                     </FlexCenterDiv>

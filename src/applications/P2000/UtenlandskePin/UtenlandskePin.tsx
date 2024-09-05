@@ -11,7 +11,7 @@ import {
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
 import CountryData, { Country } from '@navikt/land-verktoy'
-import CountrySelect from '@navikt/landvelger'
+import CountrySelect, {SimpleCountry} from '@navikt/landvelger'
 import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
 import AddRemovePanel from 'src/components/AddRemovePanel/AddRemovePanel'
@@ -73,7 +73,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
   const utenlandskePINs: Array<PIN> = _.filter(_person?.pin, p => p.land !== 'NO')
 
   const countryData = CountryData.getCountryInstance('nb')
-  const landUtenNorge = countryCodes?.euEftaLand.filter((it: string) => it !== 'NO')
+  const landUtenNorge = countryCodes?.euEftaLand.filter((country: SimpleCountry) => country.landkode !== 'NO')
   const getId = (p: PIN | null): string => p ? p.land + '-' + p.identifikator : 'new'
 
   const [_newPin, _setNewPin] = useState<PIN | undefined>(undefined)
@@ -233,7 +233,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
                   id={_namespace + '-land'}
                 >
                   <FlexCenterDiv>
-                    <Flag size='S' country={_pin?.land!} />
+                    {_pin?.land && <Flag size='S' country={countryData.findByValue(_pin?.land) ? _pin?.land : "XU"} />}
                     <HorizontalSeparatorDiv />
                     {countryData.findByValue(_pin?.land)?.label ?? _pin?.land}
                   </FlexCenterDiv>
