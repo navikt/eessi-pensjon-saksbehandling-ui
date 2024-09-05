@@ -201,6 +201,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
                   menuPortalTarget={document.body}
                   onOptionSelected={(e: Country) => setStatsborgerskapLand(e.value, index)}
                   values={_statsborgerskap?.land}
+                  useAlpha3Value={true}
                 />
                 )
               : (

@@ -80,6 +80,7 @@ const Foedested: React.FC<FoedestedProps> = ({
                 menuPortalTarget={document.body}
                 onOptionSelected={(v: Country) => setPersonOpplysninger("land", v.value, parentIndex)}
                 values={(person?.foedested?.land)  ?? ''}
+                useAlpha3Value={true}
               />
             </Column>
           </>

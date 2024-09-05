@@ -159,6 +159,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
                     menuPortalTarget={document.body}
                     onOptionSelected={(e: Country) => setUtsettelseProp('land', e.value, index)}
                     values={_utsettelse?.land}
+                    useAlpha3Value={true}
                   />
                 </Column>
                 <Column>

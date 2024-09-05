@@ -13,12 +13,13 @@ export default {
       {landkode: "FI", landnavn: "Finland"},
     ],
     "verdensLandHistorisk": [
-      {landkode: "NO", landnavn: "Norge"},
-      {landkode: "SE", landnavn: "Sverige"},
-      {landkode: "DK", landnavn: "Danmark"},
-      {landkode: "FI", landnavn: "Finland"},
+      {landkode: "NOR", landnavn: "Norge"},
+      {landkode: "SWE", landnavn: "Sverige"},
+      {landkode: "DNK", landnavn: "Danmark"},
+      {landkode: "FIN", landnavn: "Finland"},
+      {landkode: "GBR", landnavn: "Storbritania"},
       {landkode: "YUCS", landnavn: "Jugoslavia"}
-     ],
+    ],
     "statsborgerskap": [
       {landkode: "NO", landnavn: "Norge"},
       {landkode: "SE", landnavn: "Sverige"},

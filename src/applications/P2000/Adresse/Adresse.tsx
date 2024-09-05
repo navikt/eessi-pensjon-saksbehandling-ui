@@ -140,6 +140,7 @@ const Adresse: React.FC<AdresseProps> = ({
             onOptionSelected={(land: Country) => setLand(land.value)}
             values={(adresse?.land) ?? ''}
             includeList={countryCodes?.verdensLand}
+            useAlpha3Value={true}
           />
         </Column>
       </AlignStartRow>

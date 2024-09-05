@@ -73,7 +73,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
   const utenlandskePINs: Array<PIN> = _.filter(_person?.pin, p => p.land !== 'NO')
 
   const countryData = CountryData.getCountryInstance('nb')
-  const landUtenNorge = countryCodes?.euEftaLand.filter((country: SimpleCountry) => country.landkode !== 'NO')
+  const landUtenNorge = countryCodes?.euEftaLand.filter((country: SimpleCountry) => country.landkode !== 'NOR')
   const getId = (p: PIN | null): string => p ? p.land + '-' + p.identifikator : 'new'
 
   const [_newPin, _setNewPin] = useState<PIN | undefined>(undefined)
@@ -225,6 +225,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
                   menuPortalTarget={document.body}
                   onOptionSelected={(e: Country) => setUtenlandskeLand(e.value, index)}
                   values={_pin?.land}
+                  useAlpha3Value={true}
                 />
                 )
               : (
