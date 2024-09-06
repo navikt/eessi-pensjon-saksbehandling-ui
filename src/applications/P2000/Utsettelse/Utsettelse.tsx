@@ -27,6 +27,8 @@ import DateField from "../DateField/DateField";
 import {dateToString, formatDate} from "src/utils/utils";
 import FormText from "../../../components/Forms/FormText";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
+import classNames from "classnames";
+import {hasNamespaceWithErrors} from "src/utils/validation";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -141,7 +143,13 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
     const _utsettelse = index < 0 ? _newUtsettelse : (inEditMode ? _editUtsettelse : utsettelse)
 
     return(
-      <RepeatableRow>
+      <RepeatableRow
+        id={'repeatablerow-' + _namespace}
+        className={classNames({
+          new: index < 0,
+          error: hasNamespaceWithErrors(_v, _namespace)
+        })}
+      >
         <AlignStartRow>
           {inEditMode
             ? (

@@ -77,6 +77,12 @@ export const RepeatableRowNoBackground = styled(RepeatableRow)`
     background-color: var(--a-gray-200);
     border: 1px solid var(--a-border-strong);
   }
+  &.new {
+    background-color: rgba(236, 243, 153, 0.5);
+  };
+  &.error {
+    background-color: rgba(255, 0, 0, 0.2);
+  };
 `
 
 

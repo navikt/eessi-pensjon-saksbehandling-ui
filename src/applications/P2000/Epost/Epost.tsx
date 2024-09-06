@@ -20,6 +20,8 @@ import {useAppSelector} from "../../../store";
 import {State} from "../../../declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
+import classNames from "classnames";
+import {hasNamespaceWithErrors} from "src/utils/validation";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -132,7 +134,14 @@ const Epost: React.FC<EpostProps> = ({
     const inEditMode = index < 0 || _editEpostIndex === index
     const _epost = index < 0 ? _newEpost : (inEditMode ? _editEpost : epost)
     return(
-      <RepeatableRow key={_namespace}>
+      <RepeatableRow
+        key={_namespace}
+        id={'repeatablerow-' + _namespace}
+        className={classNames({
+          new: index < 0,
+          error: hasNamespaceWithErrors(_v, _namespace)
+        })}
+      >
         <AlignStartRow>
           {inEditMode
             ? (

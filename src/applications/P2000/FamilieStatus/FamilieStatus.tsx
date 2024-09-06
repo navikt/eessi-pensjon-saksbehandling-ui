@@ -21,6 +21,8 @@ import {useTranslation} from "react-i18next";
 import {validateFamilieStatus, ValidationFamilieStatusProps} from "./validation";
 import DateField from "../DateField/DateField";
 import {dateToString, formatDate} from "../../../utils/utils";
+import classNames from "classnames";
+import {hasNamespaceWithErrors} from "src/utils/validation";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -167,7 +169,13 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
     const _sivilstand = index < 0 ? _newSivilstand : (inEditMode ? _editSivilstand : sivilstand)
 
     return(
-      <RepeatableRow>
+      <RepeatableRow
+        id={'repeatablerow-' + _namespace}
+        className={classNames({
+          new: index < 0,
+          error: hasNamespaceWithErrors(_v, _namespace)
+        })}
+      >
         <AlignStartRow>
           {inEditMode
             ? (

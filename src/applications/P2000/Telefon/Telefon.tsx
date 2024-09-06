@@ -20,6 +20,8 @@ import {State} from "../../../declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 import {useAppSelector} from "../../../store";
 import {useTranslation} from "react-i18next";
+import classNames from "classnames";
+import {hasNamespaceWithErrors} from "src/utils/validation";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -149,7 +151,14 @@ const Telefon: React.FC<TelefonProps> = ({
     const inEditMode = index < 0 || _editTelefonIndex === index
     const _telefon = index < 0 ? _newTelefon : (inEditMode ? _editTelefon : telefon)
     return(
-      <RepeatableRow key={_namespace}>
+      <RepeatableRow
+        key={_namespace}
+        id={'repeatablerow-' + _namespace}
+        className={classNames({
+          new: index < 0,
+          error: hasNamespaceWithErrors(_v, _namespace)
+        })}
+      >
         <AlignStartRow>
           {inEditMode
             ? (
