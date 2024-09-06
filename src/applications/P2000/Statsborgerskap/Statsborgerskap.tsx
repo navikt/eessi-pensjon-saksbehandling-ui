@@ -35,6 +35,7 @@ import {UpdateSedPayload} from "src/declarations/types";
 import {CountryCodeLists, Validation} from "src/declarations/app";
 import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
+import FlagPanel from "src/components/FlagPanel/FlagPanel";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -208,11 +209,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
                   error={_validation[_namespace + '-land']?.feilmelding}
                   id={_namespace + '-land'}
                 >
-                  <FlexCenterDiv>
-                    {_statsborgerskap?.land && <Flag size='S' country={countryData.findByValue(_statsborgerskap?.land) ? _statsborgerskap?.land : "XU"} />}
-                    <HorizontalSeparatorDiv />
-                    {countryData.findByValue(_statsborgerskap?.land)?.label ?? _statsborgerskap?.land}
-                  </FlexCenterDiv>
+                  <FlagPanel land={_statsborgerskap?.land}/>
                 </FormText>
                 )}
           </Column>

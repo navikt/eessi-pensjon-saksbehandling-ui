@@ -33,6 +33,7 @@ import {UpdateSedPayload} from "src/declarations/types";
 import {CountryCodeLists, PSED, Validation} from "src/declarations/app";
 import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
+import FlagPanel from "src/components/FlagPanel/FlagPanel";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -232,11 +233,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
                   error={_validation[_namespace + '-land']?.feilmelding}
                   id={_namespace + '-land'}
                 >
-                  <FlexCenterDiv>
-                    {_pin?.land && <Flag size='S' country={countryData.findByValue(_pin?.land) ? _pin?.land : "XU"} />}
-                    <HorizontalSeparatorDiv />
-                    {countryData.findByValue(_pin?.land)?.label ?? _pin?.land}
-                  </FlexCenterDiv>
+                  <FlagPanel land={_pin?.land}/>
                 </FormText>
                 )}
           </Column>

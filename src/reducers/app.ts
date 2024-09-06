@@ -1,5 +1,5 @@
 import * as types from 'src/constants/actionTypes'
-import {CountryCodes, Feature, FeatureToggles, Params, PesysContext} from 'src/declarations/app.d'
+import {CountryCodeLists, CountryCodes, Feature, FeatureToggles, Params, PesysContext} from 'src/declarations/app.d'
 import { SakTypeKey, SakTypeMap } from 'src/declarations/buc.d'
 import _ from 'lodash'
 import { AnyAction } from 'redux'
@@ -13,6 +13,7 @@ export interface AppState {
   username: string | undefined
   userRole: string | undefined
   countryCodes: CountryCodes | undefined
+  countryCodeMap: {string: string} | undefined
 }
 
 const initialFeatureToggles: FeatureToggles = {
@@ -29,7 +30,8 @@ export const initialAppState: AppState = {
   pesysContext: undefined,
   username: undefined,
   userRole: undefined,
-  countryCodes: undefined
+  countryCodes: undefined,
+  countryCodeMap: undefined
 }
 
 const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
@@ -125,9 +127,21 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
     }
 
     case types.GET_COUNTRYCODES_SUCCESS: {
+      let countryCodeMap = {}
+      const countryCodes: CountryCodes = action.payload
+      Object.keys(countryCodes).forEach(versionKey => {
+        Object.keys(countryCodes[versionKey as keyof CountryCodes]).forEach(landKey => {
+          countryCodes[versionKey as keyof CountryCodes][landKey as keyof CountryCodeLists].forEach(land => {
+            // @ts-ignore
+            countryCodeMap[land.landkode] = land.landnavn;
+          });
+        });
+      });
+
       return {
         ...state,
-        countryCodes: action.payload
+        countryCodes,
+        countryCodeMap
       }
     }
 

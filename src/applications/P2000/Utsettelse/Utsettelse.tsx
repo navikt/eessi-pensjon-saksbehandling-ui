@@ -27,6 +27,7 @@ import DateField from "../DateField/DateField";
 import {dateToString, formatDate} from "../../../utils/utils";
 import FormText from "../../../components/Forms/FormText";
 import Flag from "@navikt/flagg-ikoner";
+import FlagPanel from "src/components/FlagPanel/FlagPanel";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -196,11 +197,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
                     <Label hidden={index>0}>
                       {t('p2000:form-diverse-utsettelse-land')}
                     </Label>
-                    <BodyLong>
-                      {_utsettelse?.land && <Flag size='S' country={countryData.findByValue(_utsettelse?.land) ? _utsettelse?.land : "XU"} />}
-                      <HorizontalSeparatorDiv />
-                      {countryData.findByValue(_utsettelse?.land)?.label ?? _utsettelse?.land}
-                    </BodyLong>
+                    <FlagPanel land={_utsettelse?.land}/>
                   </FormText>
                 </Column>
                 <Column>
