@@ -1,5 +1,5 @@
 import {BodyLong, Button, Heading, Label} from "@navikt/ds-react";
-import {AlignEndColumn, AlignStartRow, Column, HorizontalSeparatorDiv} from "@navikt/hoykontrast";
+import {AlignEndColumn, AlignStartRow, Column} from "@navikt/hoykontrast";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
@@ -20,13 +20,12 @@ import {useAppSelector} from "src/store";
 import {useTranslation} from "react-i18next";
 import {Utsettelse as P2000UUtsettelse} from "src/declarations/p2000";
 import {validateUtsettelse, ValidationUtsettelseProps} from "./validation";
-import CountryData, {Country} from "@navikt/land-verktoy";
+import {Country} from "@navikt/land-verktoy";
 import CountrySelect from "@navikt/landvelger";
 import Input from "../../../components/Forms/Input";
 import DateField from "../DateField/DateField";
-import {dateToString, formatDate} from "../../../utils/utils";
+import {dateToString, formatDate} from "src/utils/utils";
 import FormText from "../../../components/Forms/FormText";
-import Flag from "@navikt/flagg-ikoner";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
 
 const mapState = (state: State): MainFormSelector => ({
@@ -54,7 +53,6 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
   const namespace = `${parentNamespace}-utsettelse`
   const target = `${parentTarget}.utsettelse`
   const utsettelseArray: Array<P2000UUtsettelse> | undefined = _.get(PSED, `${target}`)
-  const countryData = CountryData.getCountryInstance('nb')
 
   const [_newUtsettelse, _setNewUtsettelse] = useState<P2000UUtsettelse | undefined>(undefined)
   const [_editUtsettelse, _setEditUtsettelse] = useState<P2000UUtsettelse | undefined>(undefined)

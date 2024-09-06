@@ -1,16 +1,13 @@
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import {BodyLong, Button, Heading, Label} from '@navikt/ds-react'
-import Flag from '@navikt/flagg-ikoner'
 import {
   AlignEndColumn,
   AlignStartRow,
   Column,
-  FlexCenterDiv,
-  HorizontalSeparatorDiv,
   PaddedHorizontallyDiv,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
-import CountryData, { Country } from '@navikt/land-verktoy'
+import { Country } from '@navikt/land-verktoy'
 import CountrySelect from '@navikt/landvelger'
 import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
@@ -71,8 +68,6 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
   const target = `${parentTarget}.person.statsborgerskap`
 
   const statsborgerskap: Array<P2000Statsborgerskap> | undefined = person?.statsborgerskap
-
-  const countryData = CountryData.getCountryInstance('nb')
 
   const [_newStatsborgerskap, _setNewStatsborgerskap] = useState<P2000Statsborgerskap | undefined>(undefined)
   const [_editStatsborgerskap, _setEditStatsborgerskap] = useState<P2000Statsborgerskap | undefined>(undefined)

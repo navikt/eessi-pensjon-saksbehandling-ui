@@ -1,16 +1,13 @@
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import {BodyLong, Button, Heading, Label} from '@navikt/ds-react'
-import Flag from '@navikt/flagg-ikoner'
 import {
   AlignEndColumn,
   AlignStartRow,
   Column,
-  FlexCenterDiv,
-  HorizontalSeparatorDiv,
   PaddedHorizontallyDiv,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
-import CountryData, { Country } from '@navikt/land-verktoy'
+import { Country } from '@navikt/land-verktoy'
 import CountrySelect, {SimpleCountry} from '@navikt/landvelger'
 import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
@@ -73,7 +70,6 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
   const _person:  Person | undefined = person ? person : _.get(PSED, `${parentTarget}.person`)
   const utenlandskePINs: Array<PIN> = _.filter(_person?.pin, p => p.land !== 'NO')
 
-  const countryData = CountryData.getCountryInstance('nb')
   const landUtenNorge = countryCodes?.euEftaLand.filter((country: SimpleCountry) => country.landkode !== 'NOR')
   const getId = (p: PIN | null): string => p ? p.land + '-' + p.identifikator : 'new'
 
