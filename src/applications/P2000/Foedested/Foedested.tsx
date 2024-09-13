@@ -8,10 +8,10 @@ import Input from "src/components/Forms/Input";
 import {Person} from "src/declarations/p2000";
 import {BodyLong, Heading, Label} from "@navikt/ds-react";
 import {Country} from "@navikt/land-verktoy";
-import CountrySelect from "@navikt/landvelger";
 import FormText from "../../../components/Forms/FormText";
-import {CountryCodeLists, Validation} from "src/declarations/app";
+import {Validation} from "src/declarations/app";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
+import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -22,7 +22,6 @@ export interface FoedestedProps {
   parentIndex?: number
   parentEditMode?: boolean
   person: Person | undefined,
-  countryCodes?: CountryCodeLists
   setPersonOpplysninger: any
   parentValidation?: Validation
 }
@@ -32,7 +31,6 @@ const Foedested: React.FC<FoedestedProps> = ({
   parentIndex,
   parentEditMode = true,
   person,
-  countryCodes,
   setPersonOpplysninger,
   parentValidation
 }: FoedestedProps): JSX.Element => {
@@ -70,12 +68,11 @@ const Foedested: React.FC<FoedestedProps> = ({
               />
             </Column>
             <Column>
-              <CountrySelect
+              <CountryDropdown
                 error={v[namespace + '-land']?.feilmelding}
                 id="land"
-                includeList={countryCodes?.verdensLandHistorisk}
+                countryCodeListName="verdensLandHistorisk"
                 label={t('p2000:form-person-foedested-land')}
-                menuPortalTarget={document.body}
                 onOptionSelected={(v: Country) => setPersonOpplysninger("land", v.value, parentIndex)}
                 values={(person?.foedested?.land)  ?? ''}
               />

@@ -3,16 +3,16 @@ import {useDispatch} from "react-redux";
 import {useTranslation} from "react-i18next";
 import {Heading, Radio, RadioGroup} from "@navikt/ds-react";
 import {AlignStartRow, VerticalSeparatorDiv, PaddedDiv, Column} from "@navikt/hoykontrast";
-import {State} from "../../../declarations/reducers";
+import {State} from "src/declarations/reducers";
 import {MainFormProps, MainFormSelector} from "../MainForm";
-import {useAppSelector} from "../../../store";
-import {Bank} from "../../../declarations/p2000";
+import {useAppSelector} from "src/store";
+import {Bank} from "src/declarations/p2000";
 import _ from "lodash";
 import Input from "../../../components/Forms/Input";
 import Adresse from "../Adresse/Adresse";
 import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
-import {resetValidation, setValidation} from "../../../actions/validation";
+import {resetValidation, setValidation} from "src/actions/validation";
 import {
   validateBank,
   validateIban,
@@ -31,8 +31,7 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
   label,
   parentNamespace,
   PSED,
-  updatePSED,
-  countryCodes
+  updatePSED
 }: MainFormProps): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -259,7 +258,7 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
               <Column/>
             </AlignStartRow>
             <VerticalSeparatorDiv/>
-            <Adresse usePostKode={true} PSED={PSED} updatePSED={updatePSED} countryCodes={countryCodes} parentNamespace={namespace + '-bank'} parentTarget={target}/>
+            <Adresse usePostKode={true} PSED={PSED} updatePSED={updatePSED} parentNamespace={namespace + '-bank'} parentTarget={target}/>
           </>
         }
       </PaddedDiv>

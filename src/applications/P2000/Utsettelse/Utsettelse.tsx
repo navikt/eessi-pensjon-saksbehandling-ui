@@ -9,7 +9,7 @@ import {RepeatableRow} from "src/components/StyledComponents";
 import AddRemovePanel from "src/components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
-import {CountryCodeLists, PSED, Validation} from "src/declarations/app";
+import {PSED, Validation} from "src/declarations/app";
 import useValidation from "src/hooks/useValidation";
 
 import { resetValidation, setValidation } from 'src/actions/validation'
@@ -21,7 +21,6 @@ import {useTranslation} from "react-i18next";
 import {Utsettelse as P2000UUtsettelse} from "src/declarations/p2000";
 import {validateUtsettelse, ValidationUtsettelseProps} from "./validation";
 import {Country} from "@navikt/land-verktoy";
-import CountrySelect from "@navikt/landvelger";
 import Input from "../../../components/Forms/Input";
 import DateField from "../DateField/DateField";
 import {dateToString, formatDate} from "src/utils/utils";
@@ -29,6 +28,7 @@ import FormText from "../../../components/Forms/FormText";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
+import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -39,15 +39,13 @@ export interface UtsettelseProps {
   parentNamespace: string
   parentTarget: string
   updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
-  countryCodes?: CountryCodeLists
 }
 
 const Utsettelse: React.FC<UtsettelseProps> = ({
   parentNamespace,
   parentTarget,
   PSED,
-  updatePSED,
-  countryCodes
+  updatePSED
 }: UtsettelseProps): JSX.Element => {
   const { t } = useTranslation()
   const { validation } = useAppSelector(mapState)
@@ -155,15 +153,14 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
             ? (
               <>
                 <Column>
-                  <CountrySelect
+                  <CountryDropdown
                     closeMenuOnSelect
                     error={_v[_namespace + '-land']?.feilmelding}
                     flagWave
                     id={_namespace + '-land'}
-                    includeList={countryCodes?.euEftaLand}
+                    countryCodeListName="euEftaLand"
                     label={t('p2000:form-diverse-utsettelse-land')}
                     hideLabel={index>0}
-                    menuPortalTarget={document.body}
                     onOptionSelected={(e: Country) => setUtsettelseProp('land', e.value, index)}
                     values={_utsettelse?.land}
                   />

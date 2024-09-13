@@ -8,7 +8,6 @@ import {
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
 import { Country } from '@navikt/land-verktoy'
-import CountrySelect, {SimpleCountry} from '@navikt/landvelger'
 import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
 import AddRemovePanel from 'src/components/AddRemovePanel/AddRemovePanel'
@@ -27,10 +26,11 @@ import {validateUtenlandskPIN, ValidationUtenlandskPINProps} from './validation'
 import {Person, PIN} from "src/declarations/p2000";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
-import {CountryCodeLists, PSED, Validation} from "src/declarations/app";
+import {PSED, Validation} from "src/declarations/app";
 import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
+import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -46,7 +46,6 @@ export interface UtenlandskPinProps {
   updatePSED?: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
   setPersonOpplysninger?: any
   person?: Person | undefined
-  countryCodes?: CountryCodeLists
 }
 
 const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
@@ -59,7 +58,6 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
   updatePSED,
   setPersonOpplysninger,
   person,
-  countryCodes
 }: UtenlandskPinProps): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
@@ -70,7 +68,6 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
   const _person:  Person | undefined = person ? person : _.get(PSED, `${parentTarget}.person`)
   const utenlandskePINs: Array<PIN> = _.filter(_person?.pin, p => p.land !== 'NO')
 
-  const landUtenNorge = countryCodes?.euEftaLand.filter((country: SimpleCountry) => country.landkode !== 'NOR')
   const getId = (p: PIN | null): string => p ? p.land + '-' + p.identifikator : 'new'
 
   const [_newPin, _setNewPin] = useState<PIN | undefined>(undefined)
@@ -210,16 +207,16 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
           <Column>
             {inEditMode
               ? (
-                <CountrySelect
+                <CountryDropdown
                   closeMenuOnSelect
                   data-testid={_namespace + '-land'}
                   error={_v[_namespace + '-land']?.feilmelding}
                   flagWave
                   id={_namespace + '-land'}
-                  includeList={landUtenNorge}
+                  countryCodeListName="euEftaLand"
+                  excludeNorway={true}
                   hideLabel={index >= 0}
                   label={t('p2000:form-utenlandske-pin-land')}
-                  menuPortalTarget={document.body}
                   onOptionSelected={(e: Country) => setUtenlandskeLand(e.value, index)}
                   values={_pin?.land}
                 />

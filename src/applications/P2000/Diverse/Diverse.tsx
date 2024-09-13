@@ -14,7 +14,7 @@ import DateField from "../DateField/DateField";
 import {dateToString} from "src/utils/utils";
 import {useTranslation} from "react-i18next";
 import {P2000SED, Pensjon} from "src/declarations/p2000";
-import {HorizontalRadioGroup} from "../../../components/StyledComponents";
+import {HorizontalRadioGroup} from "src/components/StyledComponents";
 import Utsettelse from "../Utsettelse/Utsettelse";
 import Institusjon from "../Institusjon/Institusjon";
 import TextArea from "../../../components/Forms/TextArea";
@@ -27,8 +27,7 @@ const Diverse: React.FC<MainFormProps> = ({
   label,
   parentNamespace,
   PSED,
-  updatePSED,
-  countryCodes
+  updatePSED
 }: MainFormProps): JSX.Element => {
 
   const {t} = useTranslation()
@@ -100,7 +99,7 @@ const Diverse: React.FC<MainFormProps> = ({
           </Column>
         </AlignStartRow>
         <VerticalSeparatorDiv/>
-        <Utsettelse PSED={PSED} countryCodes={countryCodes} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/>
+        <Utsettelse PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/>
         <VerticalSeparatorDiv/>
         <AlignStartRow>
           <Column>

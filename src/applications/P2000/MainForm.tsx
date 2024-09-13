@@ -14,7 +14,7 @@ import {
   PileDiv
 } from '@navikt/hoykontrast'
 
-import {CountryCodeLists, PSED, Validation} from "src/declarations/app.d";
+import {PSED, Validation} from "src/declarations/app.d";
 import classNames from 'classnames'
 import { WithErrorPanel } from 'src/components/StyledComponents'
 import { Option } from 'src/declarations/app'
@@ -116,7 +116,6 @@ export interface MainFormFCProps<T> {
   setPSED: (PSED: T) => ActionWithPayload<T>
   updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
   namespace: string
-  countryCodes: CountryCodeLists | undefined
 }
 
 export interface MainFormProps {
@@ -128,7 +127,6 @@ export interface MainFormProps {
   setPSED: (PSED: PSED ) => ActionWithPayload<PSED>
   updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
   options ?: any
-  countryCodes: CountryCodeLists | undefined
 }
 
 export interface MainFormSelector {
@@ -149,8 +147,7 @@ const MainForm = <T extends PSED>({
   PSED,
   setPSED,
   updatePSED,
-  namespace,
-  countryCodes
+  namespace
 }: MainFormFCProps<T>) => {
   const { t } = useTranslation()
   const { validation }: any = useAppSelector(mapState)
@@ -177,7 +174,6 @@ const MainForm = <T extends PSED>({
           PSED={PSED}
           setPSED={setPSED}
           updatePSED={updatePSED}
-          countryCodes={countryCodes}
         />
       )
     }

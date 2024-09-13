@@ -8,12 +8,12 @@ import {Heading} from "@navikt/ds-react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import Telefon from "../Telefon/Telefon";
 import Epost from "../Epost/Epost";
-import {State} from "../../../declarations/reducers";
-import {useAppSelector} from "../../../store";
+import {State} from "src/declarations/reducers";
+import {useAppSelector} from "src/store";
 import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
 import {validateVerge, ValidationVergeProps} from "./validation";
-import {resetValidation, setValidation} from "../../../actions/validation";
+import {resetValidation, setValidation} from "src/actions/validation";
 import {useTranslation} from "react-i18next";
 import Adresse from "../Adresse/Adresse";
 import TextArea from "../../../components/Forms/TextArea";
@@ -27,7 +27,6 @@ const Verge: React.FC<MainFormProps> = ({
   parentNamespace,
   PSED,
   updatePSED,
-  countryCodes
 }: MainFormProps): JSX.Element => {
 
   const dispatch = useDispatch()
@@ -118,7 +117,7 @@ const Verge: React.FC<MainFormProps> = ({
         <VerticalSeparatorDiv/>
         <Heading size="small">{t('p2000:form-adresse')}</Heading>
         <VerticalSeparatorDiv/>
-        <Adresse PSED={PSED} updatePSED={updatePSED} countryCodes={countryCodes} parentNamespace={namespace} parentTarget={target}/>
+        <Adresse PSED={PSED} updatePSED={updatePSED} parentNamespace={namespace} parentTarget={target}/>
         <VerticalSeparatorDiv/>
         <Telefon PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/>
         <VerticalSeparatorDiv/>

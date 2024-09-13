@@ -1,12 +1,11 @@
 import React from "react";
 import {AlignStartRow, Column, VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import Input from "../../../components/Forms/Input";
-import CountrySelect from "@navikt/landvelger";
 import {Country} from "@navikt/land-verktoy";
 import {MainFormSelector} from "../MainForm";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
-import {CountryCodeLists, PSED} from "src/declarations/app";
+import {PSED} from "src/declarations/app";
 import {useTranslation} from "react-i18next";
 import {useAppSelector} from "src/store";
 import {useDispatch} from "react-redux";
@@ -14,6 +13,7 @@ import {State} from "src/declarations/reducers";
 import {Adresse as P2000Adresse} from "src/declarations/p2000";
 import _ from "lodash";
 import {resetValidation} from "src/actions/validation";
+import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -25,7 +25,6 @@ export interface AdresseProps {
   parentTarget: string
   updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
   usePostKode?: boolean
-  countryCodes?: CountryCodeLists
 }
 
 const Adresse: React.FC<AdresseProps> = ({
@@ -34,7 +33,6 @@ const Adresse: React.FC<AdresseProps> = ({
   parentTarget,
   updatePSED,
   usePostKode = false,
-  countryCodes
 }: AdresseProps): JSX.Element => {
   const { t } = useTranslation()
   const { validation } = useAppSelector(mapState)
@@ -132,14 +130,14 @@ const Adresse: React.FC<AdresseProps> = ({
       <VerticalSeparatorDiv/>
       <AlignStartRow>
         <Column>
-          <CountrySelect
+          <CountryDropdown
             error={validation[namespace + '-land']?.feilmelding}
             id={namespace + '-land'}
             label={t('p2000:form-adresse-land')}
             flags={true}
             onOptionSelected={(land: Country) => setLand(land.value)}
             values={(adresse?.land) ?? ''}
-            includeList={countryCodes?.verdensLand}
+            countryCodeListName="verdensLand"
           />
         </Column>
       </AlignStartRow>
