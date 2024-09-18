@@ -35,6 +35,11 @@ export type CountryCodeLists = {
   "statsborgerskap": Array<SimpleCountry>
 }
 
+export type SimpleCountry = {
+  landkode: string
+  landnavn: string
+}
+
 export type Labels = {[k in string]? : string}
 
 export type Loading = {[key: string]: boolean}

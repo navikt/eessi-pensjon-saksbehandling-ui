@@ -19,6 +19,8 @@ import {useAppSelector} from "../../../store";
 import {State} from "../../../declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
+import classNames from "classnames";
+import {hasNamespaceWithErrors} from "src/utils/validation";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -125,7 +127,13 @@ const Institusjon: React.FC<InstitusjonProps> = ({
     const inEditMode = index < 0 || _editInstitusjonIndex === index
     const _institusjon = index < 0 ? _newInstitusjon : (inEditMode ? _editInstitusjon : institusjon)
     return(
-      <RepeatableRow>
+      <RepeatableRow
+        id={'repeatablerow-' + _namespace}
+        className={classNames({
+          new: index < 0,
+          error: hasNamespaceWithErrors(_v, _namespace)
+        })}
+      >
         <AlignStartRow>
           {inEditMode
             ? (

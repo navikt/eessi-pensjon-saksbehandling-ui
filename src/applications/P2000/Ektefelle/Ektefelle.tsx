@@ -26,8 +26,7 @@ const Ektefelle: React.FC<MainFormProps> = ({
   label,
   parentNamespace,
   PSED,
-  updatePSED,
-  countryCodes
+  updatePSED
 }: MainFormProps): JSX.Element => {
 
   const {t} = useTranslation()
@@ -92,12 +91,11 @@ const Ektefelle: React.FC<MainFormProps> = ({
           parentNamespace={namespace}
           parentTarget={target}
           updatePSED={updatePSED}
-          countryCodes={countryCodes}
         />
         <VerticalSeparatorDiv/>
-        <Foedested setPersonOpplysninger={setEktefelleFoedested} person={ektefelle?.person} countryCodes={countryCodes} parentNamespace={namespace}/>
+        <Foedested setPersonOpplysninger={setEktefelleFoedested} person={ektefelle?.person} parentNamespace={namespace}/>
         <VerticalSeparatorDiv/>
-        <Statsborgerskap parentNamespace={namespace} parentTarget={target} countryCodes={countryCodes} updatePSED={updatePSED} person={ektefelle?.person}/>
+        <Statsborgerskap parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED} person={ektefelle?.person}/>
         <VerticalSeparatorDiv/>
       </PaddedDiv>
     </>

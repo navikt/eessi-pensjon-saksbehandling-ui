@@ -3,15 +3,15 @@ import {MainFormSelector} from "../MainForm";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {useAppSelector} from "src/store";
-import {AlignStartRow, Column, FlexCenterDiv, HorizontalSeparatorDiv, VerticalSeparatorDiv} from "@navikt/hoykontrast";
+import {AlignStartRow, Column, VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import Input from "src/components/Forms/Input";
 import {Person} from "src/declarations/p2000";
 import {BodyLong, Heading, Label} from "@navikt/ds-react";
-import CountryData, {Country} from "@navikt/land-verktoy";
-import CountrySelect from "@navikt/landvelger";
+import {Country} from "@navikt/land-verktoy";
 import FormText from "../../../components/Forms/FormText";
-import Flag from "@navikt/flagg-ikoner";
-import {CountryCodeLists, Validation} from "../../../declarations/app";
+import {Validation} from "src/declarations/app";
+import FlagPanel from "src/components/FlagPanel/FlagPanel";
+import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -22,7 +22,6 @@ export interface FoedestedProps {
   parentIndex?: number
   parentEditMode?: boolean
   person: Person | undefined,
-  countryCodes?: CountryCodeLists
   setPersonOpplysninger: any
   parentValidation?: Validation
 }
@@ -32,7 +31,6 @@ const Foedested: React.FC<FoedestedProps> = ({
   parentIndex,
   parentEditMode = true,
   person,
-  countryCodes,
   setPersonOpplysninger,
   parentValidation
 }: FoedestedProps): JSX.Element => {
@@ -41,8 +39,6 @@ const Foedested: React.FC<FoedestedProps> = ({
   const namespace = `${parentNamespace}-person-foedested`
 
   const v:Validation = parentValidation ? parentValidation : validation
-
-  const countryData = CountryData.getCountryInstance('nb')
 
   return(
     <>
@@ -72,12 +68,11 @@ const Foedested: React.FC<FoedestedProps> = ({
               />
             </Column>
             <Column>
-              <CountrySelect
+              <CountryDropdown
                 error={v[namespace + '-land']?.feilmelding}
                 id="land"
-                includeList={countryCodes?.verdensLandHistorisk}
+                countryCodeListName="verdensLandHistorisk"
                 label={t('p2000:form-person-foedested-land')}
-                menuPortalTarget={document.body}
                 onOptionSelected={(v: Country) => setPersonOpplysninger("land", v.value, parentIndex)}
                 values={(person?.foedested?.land)  ?? ''}
               />
@@ -119,11 +114,7 @@ const Foedested: React.FC<FoedestedProps> = ({
                     <Label>
                       {t('p2000:form-person-foedested-land')}
                     </Label>
-                    <FlexCenterDiv>
-                      {person?.foedested?.land && <Flag size='S' country={countryData.findByValue(person?.foedested?.land) ? person?.foedested?.land : "XU"} />}
-                      <HorizontalSeparatorDiv />
-                      {countryData.findByValue(person?.foedested?.land)?.label ?? person?.foedested?.land}
-                    </FlexCenterDiv>
+                    <FlagPanel land={person?.foedested?.land}/>
                   </FormText>
                 </Column>
               </>

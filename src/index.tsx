@@ -25,8 +25,8 @@ import {GJENNY, PESYS} from "./constants/constants";
 
 if (!IS_PRODUCTION) {
 
-  // const axe = require('@axe-core/react')
-  // axe(React, ReactDOM, 1000, {})
+  /* const axe = require('@axe-core/react')
+  axe(React, ReactDOM, 1000, {}) */
 
 } else {
   Sentry.init()

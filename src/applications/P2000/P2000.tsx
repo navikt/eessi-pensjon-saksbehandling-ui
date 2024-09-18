@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {Buc, Sed} from "src/declarations/buc";
-import {BUCMode, CountryCodeLists, CountryCodes, Validation} from "src/declarations/app";
+import {BUCMode, Validation} from "src/declarations/app";
 import {Box, Button, Loader} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {getSed, saveSed, setPSED, updatePSED} from "src/actions/buc";
@@ -32,7 +32,6 @@ export interface P2000Selector {
   savingSed: boolean
   gettingSed: boolean
   validation: Validation
-  countryCodes: CountryCodes
 }
 
 const mapState = (state: State): P2000Selector => ({
@@ -40,7 +39,6 @@ const mapState = (state: State): P2000Selector => ({
   savingSed: state.loading.savingSed,
   gettingSed: state.loading.gettingSed,
   validation: state.validation.status,
-  countryCodes: state.app.countryCodes
 })
 
 export interface P2000Props {
@@ -56,13 +54,10 @@ const P2000: React.FC<P2000Props> = ({
 }: P2000Props): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useDispatch()
-  const { currentPSED, gettingSed, savingSed, validation, countryCodes }: P2000Selector = useSelector<State, P2000Selector>(mapState)
+  const { currentPSED, gettingSed, savingSed, validation }: P2000Selector = useSelector<State, P2000Selector>(mapState)
   const namespace = "p2000"
 
   const [_viewSaveSedModal, setViewSaveSedModal] = useState<boolean>(false)
-
-  const sedVersion = _.get(currentPSED, "sedVersion")
-  const countryCodesByVersion: CountryCodeLists | undefined = countryCodes ? countryCodes[sedVersion as keyof CountryCodes] : undefined
 
   useEffect(() => {
     if(sed){
@@ -133,7 +128,6 @@ const P2000: React.FC<P2000Props> = ({
         setPSED={setPSED}
         updatePSED={updatePSED}
         namespace={namespace}
-        countryCodes={countryCodesByVersion}
       />
       <VerticalSeparatorDiv/>
       <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />

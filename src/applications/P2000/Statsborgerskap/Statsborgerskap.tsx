@@ -1,17 +1,13 @@
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import {BodyLong, Button, Heading, Label} from '@navikt/ds-react'
-import Flag from '@navikt/flagg-ikoner'
 import {
   AlignEndColumn,
   AlignStartRow,
   Column,
-  FlexCenterDiv,
-  HorizontalSeparatorDiv,
   PaddedHorizontallyDiv,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
-import CountryData, { Country } from '@navikt/land-verktoy'
-import CountrySelect from '@navikt/landvelger'
+import { Country } from '@navikt/land-verktoy'
 import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
 import AddRemovePanel from 'src/components/AddRemovePanel/AddRemovePanel'
@@ -32,9 +28,11 @@ import {
 import {Person, Statsborgerskap as P2000Statsborgerskap} from "src/declarations/p2000";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
-import {CountryCodeLists, Validation} from "src/declarations/app";
+import {Validation} from "src/declarations/app";
 import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
+import FlagPanel from "src/components/FlagPanel/FlagPanel";
+import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -46,7 +44,6 @@ export interface StatsborgerskapProps {
   parentTarget?: string
   parentIndex?: number
   parentEditMode?: boolean
-  countryCodes?: CountryCodeLists
   updatePSED?: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
   setPersonOpplysninger?: any
   person?: Person | undefined
@@ -58,7 +55,6 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
   parentTarget,
   parentIndex,
   parentEditMode = true,
-  countryCodes,
   updatePSED,
   setPersonOpplysninger,
   person
@@ -70,8 +66,6 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
   const target = `${parentTarget}.person.statsborgerskap`
 
   const statsborgerskap: Array<P2000Statsborgerskap> | undefined = person?.statsborgerskap
-
-  const countryData = CountryData.getCountryInstance('nb')
 
   const [_newStatsborgerskap, _setNewStatsborgerskap] = useState<P2000Statsborgerskap | undefined>(undefined)
   const [_editStatsborgerskap, _setEditStatsborgerskap] = useState<P2000Statsborgerskap | undefined>(undefined)
@@ -189,16 +183,15 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
           <Column>
             {inEditMode
               ? (
-                <CountrySelect
+                <CountryDropdown
                   closeMenuOnSelect
                   data-testid={_namespace + '-land'}
                   error={_v[_namespace + '-land']?.feilmelding}
                   flagWave
                   id={_namespace + '-land'}
-                  includeList={countryCodes?.statsborgerskap}
+                  countryCodeListName="statsborgerskap"
                   hideLabel={index >= 0}
                   label={t('p2000:form-utenlandske-pin-land')}
-                  menuPortalTarget={document.body}
                   onOptionSelected={(e: Country) => setStatsborgerskapLand(e.value, index)}
                   values={_statsborgerskap?.land}
                 />
@@ -208,11 +201,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
                   error={_validation[_namespace + '-land']?.feilmelding}
                   id={_namespace + '-land'}
                 >
-                  <FlexCenterDiv>
-                    {_statsborgerskap?.land && <Flag size='S' country={countryData.findByValue(_statsborgerskap?.land) ? _statsborgerskap?.land : "XU"} />}
-                    <HorizontalSeparatorDiv />
-                    {countryData.findByValue(_statsborgerskap?.land)?.label ?? _statsborgerskap?.land}
-                  </FlexCenterDiv>
+                  <FlagPanel land={_statsborgerskap?.land}/>
                 </FormText>
                 )}
           </Column>

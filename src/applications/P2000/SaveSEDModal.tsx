@@ -47,6 +47,7 @@ const SectionDiv = styled.div`
 interface SaveSEDSelector {
   alertMessage: JSX.Element | string | undefined
   bannerMessage: JSX.Element | string | undefined
+  bannerStatus: string | undefined
   alertType: string | undefined
   savingSed: boolean
 }
@@ -59,6 +60,7 @@ interface SaveSEDModalProps {
 const mapState = (state: State): SaveSEDSelector => ({
   alertMessage: state.alert.stripeMessage,
   bannerMessage: state.alert.bannerMessage,
+  bannerStatus: state.alert.bannerStatus,
   alertType: state.alert.type,
   savingSed: state.loading.savingSed,
 })
@@ -67,7 +69,7 @@ const SaveSEDModal: React.FC<SaveSEDModalProps> = ({
   onModalClose,
   open,
 }: SaveSEDModalProps): JSX.Element => {
-  const {alertMessage, bannerMessage, alertType, savingSed}: SaveSEDSelector = useAppSelector(mapState)
+  const {alertMessage, bannerStatus, alertType, savingSed}: SaveSEDSelector = useAppSelector(mapState)
   const { t } = useTranslation()
 
 
@@ -96,14 +98,7 @@ const SaveSEDModal: React.FC<SaveSEDModalProps> = ({
                 </FlexCenterSpacedDiv>
               </PileCenterDiv>
             )}
-            {bannerMessage && (
-              <>
-                <Alert variant='error'>
-                  {bannerMessage}
-                </Alert>
-                <VerticalSeparatorDiv size='2' />
-              </>
-            )}
+
             <MinimalContentDiv>
               <SectionDiv>
                 <PileDiv style={{ alignItems: 'flex-start' }}>
@@ -115,7 +110,7 @@ const SaveSEDModal: React.FC<SaveSEDModalProps> = ({
                         <span>{t('message:loading-lagrer-sed')}</span>
                       </FlexCenterSpacedDiv>
                     )}
-                    {!savingSed && (
+                    {!savingSed && bannerStatus !== 'error' && (
                       <FlexCenterSpacedDiv>
                         <CheckmarkCircleFillIcon color='green' />
                         <HorizontalSeparatorDiv size='0.5' />
@@ -127,7 +122,7 @@ const SaveSEDModal: React.FC<SaveSEDModalProps> = ({
                 </PileDiv>
               </SectionDiv>
               <SectionDiv>
-                {!savingSed && (
+                {!savingSed &&  bannerStatus !== 'error' && (
                   <FlexCenterSpacedDiv>
                     <Button
                       variant='secondary'

@@ -38,8 +38,7 @@ const Barn: React.FC<MainFormProps> = ({
   label,
   parentNamespace,
   PSED,
-  updatePSED,
-  countryCodes
+  updatePSED
 }: MainFormProps): JSX.Element => {
 
   const {t} = useTranslation()
@@ -238,11 +237,11 @@ const Barn: React.FC<MainFormProps> = ({
               <VerticalSeparatorDiv/>
               <PersonOpplysninger setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode} parentValidation={_v}/>
               <VerticalSeparatorDiv/>
-              <UtenlandskePin setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} countryCodes={countryCodes} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
+              <UtenlandskePin setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
               <VerticalSeparatorDiv/>
-              <Foedested setPersonOpplysninger={setBarnFoedested} person={_barn?.person} countryCodes={countryCodes} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode} parentValidation={_v}/>
+              <Foedested setPersonOpplysninger={setBarnFoedested} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode} parentValidation={_v}/>
               <VerticalSeparatorDiv/>
-              <Statsborgerskap setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} countryCodes={countryCodes} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
+              <Statsborgerskap setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
               <VerticalSeparatorDiv/>
               <Heading size='small'>
                 {t('p2000:form-barn-relasjontilbruker')}

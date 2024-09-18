@@ -1,5 +1,5 @@
 import {BodyLong, Button, Heading, Label} from "@navikt/ds-react";
-import {AlignEndColumn, AlignStartRow, Column, HorizontalSeparatorDiv} from "@navikt/hoykontrast";
+import {AlignEndColumn, AlignStartRow, Column} from "@navikt/hoykontrast";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
@@ -9,7 +9,7 @@ import {RepeatableRow} from "src/components/StyledComponents";
 import AddRemovePanel from "src/components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
-import {CountryCodeLists, PSED, Validation} from "src/declarations/app";
+import {PSED, Validation} from "src/declarations/app";
 import useValidation from "src/hooks/useValidation";
 
 import { resetValidation, setValidation } from 'src/actions/validation'
@@ -20,13 +20,15 @@ import {useAppSelector} from "src/store";
 import {useTranslation} from "react-i18next";
 import {Utsettelse as P2000UUtsettelse} from "src/declarations/p2000";
 import {validateUtsettelse, ValidationUtsettelseProps} from "./validation";
-import CountryData, {Country} from "@navikt/land-verktoy";
-import CountrySelect from "@navikt/landvelger";
+import {Country} from "@navikt/land-verktoy";
 import Input from "../../../components/Forms/Input";
 import DateField from "../DateField/DateField";
-import {dateToString, formatDate} from "../../../utils/utils";
+import {dateToString, formatDate} from "src/utils/utils";
 import FormText from "../../../components/Forms/FormText";
-import Flag from "@navikt/flagg-ikoner";
+import FlagPanel from "src/components/FlagPanel/FlagPanel";
+import classNames from "classnames";
+import {hasNamespaceWithErrors} from "src/utils/validation";
+import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -37,15 +39,13 @@ export interface UtsettelseProps {
   parentNamespace: string
   parentTarget: string
   updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
-  countryCodes?: CountryCodeLists
 }
 
 const Utsettelse: React.FC<UtsettelseProps> = ({
   parentNamespace,
   parentTarget,
   PSED,
-  updatePSED,
-  countryCodes
+  updatePSED
 }: UtsettelseProps): JSX.Element => {
   const { t } = useTranslation()
   const { validation } = useAppSelector(mapState)
@@ -53,7 +53,6 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
   const namespace = `${parentNamespace}-utsettelse`
   const target = `${parentTarget}.utsettelse`
   const utsettelseArray: Array<P2000UUtsettelse> | undefined = _.get(PSED, `${target}`)
-  const countryData = CountryData.getCountryInstance('nb')
 
   const [_newUtsettelse, _setNewUtsettelse] = useState<P2000UUtsettelse | undefined>(undefined)
   const [_editUtsettelse, _setEditUtsettelse] = useState<P2000UUtsettelse | undefined>(undefined)
@@ -142,21 +141,26 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
     const _utsettelse = index < 0 ? _newUtsettelse : (inEditMode ? _editUtsettelse : utsettelse)
 
     return(
-      <RepeatableRow>
+      <RepeatableRow
+        id={'repeatablerow-' + _namespace}
+        className={classNames({
+          new: index < 0,
+          error: hasNamespaceWithErrors(_v, _namespace)
+        })}
+      >
         <AlignStartRow>
           {inEditMode
             ? (
               <>
                 <Column>
-                  <CountrySelect
+                  <CountryDropdown
                     closeMenuOnSelect
                     error={_v[_namespace + '-land']?.feilmelding}
                     flagWave
                     id={_namespace + '-land'}
-                    includeList={countryCodes?.euEftaLand}
+                    countryCodeListName="euEftaLand"
                     label={t('p2000:form-diverse-utsettelse-land')}
                     hideLabel={index>0}
-                    menuPortalTarget={document.body}
                     onOptionSelected={(e: Country) => setUtsettelseProp('land', e.value, index)}
                     values={_utsettelse?.land}
                   />
@@ -196,11 +200,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
                     <Label hidden={index>0}>
                       {t('p2000:form-diverse-utsettelse-land')}
                     </Label>
-                    <BodyLong>
-                      {_utsettelse?.land && <Flag size='S' country={countryData.findByValue(_utsettelse?.land) ? _utsettelse?.land : "XU"} />}
-                      <HorizontalSeparatorDiv />
-                      {countryData.findByValue(_utsettelse?.land)?.label ?? _utsettelse?.land}
-                    </BodyLong>
+                    <FlagPanel land={_utsettelse?.land}/>
                   </FormText>
                 </Column>
                 <Column>
