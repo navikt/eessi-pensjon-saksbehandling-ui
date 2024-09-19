@@ -130,7 +130,7 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: AnyAction):
       const payload = (action as ActionWithPayload).payload
       const sedId = (action as ActionWithPayload).context.id
       fillWithKeys(payload, sedId)
-      newp5000FromRina[sedId] = payload
+      newp5000FromRina[sedId] = _.cloneDeep(payload)
       return {
         ...state,
         p5000sFromRinaMap: newp5000FromRina
