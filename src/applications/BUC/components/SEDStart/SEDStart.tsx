@@ -294,7 +294,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const avdodExists = (): boolean => (personAvdods ? personAvdods.length > 0 : false)
 
-  const sedNeedsVedtakId = ['P5000', 'P6000', 'P7000', 'P10000']
+  const sedNeedsVedtakId = ['P6000', 'P7000']
 
   const sedPrefillsCountriesAndInstitutions = ['P4000', 'P5000', 'P6000', 'P7000', 'P8000', 'P10000', 'H020', 'H070', 'H120', 'H121']
 
@@ -995,15 +995,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           })}
       </Heading>
       <HorizontalLineSeparator />
-      {_buc?.type === 'P_BUC_06' && !vedtakId && _sed === 'P5000' && pesysContext !== GJENNY && (
-        <FullWidthDiv>
-          <AlertDiv>
-            <Alert variant='warning'>
-              {t('message:alert-noVedtakId-for-p5000')}
-            </Alert>
-          </AlertDiv>
-        </FullWidthDiv>
-      )}
       {!vedtakId && _sed === 'P6000' && pesysContext !== GJENNY && (
         <FullWidthDiv>
           <AlertDiv>
@@ -1018,15 +1009,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           <AlertDiv>
             <Alert variant='warning'>
               {t('message:alert-noVedtakId-for-p7000')}
-            </Alert>
-          </AlertDiv>
-        </FullWidthDiv>
-      )}
-      {_buc?.type === 'P_BUC_06' && !vedtakId && _sed === 'P10000' && pesysContext !== GJENNY && (
-        <FullWidthDiv>
-          <AlertDiv>
-            <Alert variant='warning'>
-              {t('message:alert-noVedtakId-for-p10000')}
             </Alert>
           </AlertDiv>
         </FullWidthDiv>
