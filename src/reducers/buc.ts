@@ -854,6 +854,23 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
     }
 
+    case types.BUC_SED_DELETE_PROPERTY: {
+      let newPSED: PSED | null | undefined = _.cloneDeep(state.PSED)
+      if (!newPSED) {
+        newPSED = {} as PSED
+      }
+
+      _.unset(newPSED,
+        (action as ActionWithPayload).payload.needle
+      )
+
+      return {
+        ...state,
+        PSED: newPSED,
+        PSEDChanged: true
+      }
+    }
+
     default:
       return state
   }

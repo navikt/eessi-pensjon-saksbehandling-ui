@@ -368,6 +368,13 @@ export const updatePSED: ActionCreator<ActionWithPayload<UpdateSedPayload>> = (
   payload: { needle, value }
 })
 
+export const deletePSEDProp: ActionCreator<ActionWithPayload<UpdateSedPayload>> = (
+  needle: string
+): ActionWithPayload<UpdateSedPayload> => ({
+  type: types.BUC_SED_DELETE_PROPERTY,
+  payload: { needle }
+})
+
 export const getSedP4000 = (
   caseId: string, sed: Sed
 ): Action => {

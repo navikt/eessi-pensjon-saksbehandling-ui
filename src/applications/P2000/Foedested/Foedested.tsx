@@ -53,7 +53,7 @@ const Foedested: React.FC<FoedestedProps> = ({
                 namespace={namespace}
                 id='by'
                 label={t('p2000:form-person-foedested-by')}
-                onChanged={(v) => setPersonOpplysninger("by", v, parentIndex)}
+                onChanged={(v) => setPersonOpplysninger("by", v !== "" ? v : undefined, parentIndex)}
                 value={(person?.foedested?.by) ?? ''}
               />
             </Column>
@@ -63,7 +63,7 @@ const Foedested: React.FC<FoedestedProps> = ({
                 namespace={namespace}
                 id='region'
                 label={t('p2000:form-person-foedested-region')}
-                onChanged={(v) => setPersonOpplysninger("region", v, parentIndex)}
+                onChanged={(v) => setPersonOpplysninger("region", v !== "" ? v : undefined, parentIndex)}
                 value={(person?.foedested?.region)  ?? ''}
               />
             </Column>

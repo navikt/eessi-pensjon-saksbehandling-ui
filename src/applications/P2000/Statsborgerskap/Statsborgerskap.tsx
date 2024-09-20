@@ -76,8 +76,9 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
 
   const setStatsborgerskap = (newStatsborgerskap: Array<P2000Statsborgerskap>) => {
     let statsborgerskap: Array<P2000Statsborgerskap> | undefined = _.cloneDeep(newStatsborgerskap)
-    if (_.isNil(statsborgerskap)) {
-      statsborgerskap = []
+
+    if(statsborgerskap && statsborgerskap.length === 0){
+      statsborgerskap = undefined
     }
 
     if(setPersonOpplysninger){
@@ -172,6 +173,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
     const _statsborgerskap = index < 0 ? _newStatsborgerskap : (inEditMode ? _editStatsborgerskap : statsborgerskap)
     return (
       <RepeatableRow
+        key={'repeatablerow-' + _namespace + index}
         id={'repeatablerow-' + _namespace}
         className={classNames({
           new: index < 0,

@@ -27,7 +27,7 @@ const DateField: React.FC<DateFieldProps> = ({
 }: DateFieldProps): JSX.Element => {
 
   const { datepickerProps, inputProps, setSelected } = useDatepicker({
-    onDateChange: (v) => {onChanged(v)},
+    onDateChange: (v) => {v ? onChanged(v) : null },
     defaultSelected: defaultDate ? new Date(defaultDate) : new Date(),
   });
 

@@ -25,6 +25,7 @@
   "missing-p2000-bank-konto-sepa-iban": "Mangler IBAN",
   "missing-p2000-bank-konto-sepa-swift": "Mangler BIC/SWIFT",
   "missing-p2000-bank-navn": "Mangler navn",
+  "missing-p2000-ektefelle-type": "Mangler type",
   "missing-p2000-epost-adresse": "Mangler epost",
   "missing-p2000-forsikret-person-sivilstand-fradato": "Mangler fra dato",
   "missing-p2000-forsikret-person-sivilstand-status": "Mangler status",

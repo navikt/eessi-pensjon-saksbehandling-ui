@@ -1,6 +1,6 @@
-import {Validation} from "declarations/app";
-import {Person} from "../../../declarations/p2000";
-import {checkIfNotEmpty, checkLength} from "../../../utils/validation";
+import {Validation} from "src/declarations/app";
+import {Person} from "src/declarations/p2000";
+import {checkIfNotEmpty, checkLength} from "src/utils/validation";
 
 export interface ValidationPersonProps {
   person: Person | undefined

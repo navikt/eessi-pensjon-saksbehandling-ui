@@ -1,6 +1,6 @@
 import {Heading, Radio, RadioGroup} from "@navikt/ds-react";
 import {VerticalSeparatorDiv, PaddedDiv, AlignStartRow, Column} from "@navikt/hoykontrast";
-import React from "react";
+import React, {useEffect} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {Ektefelle as P2000Ektefelle} from "src/declarations/p2000";
 import _ from "lodash";
@@ -14,8 +14,9 @@ import performValidation from "../../../utils/performValidation";
 import {validateEktefelle, ValidationEktefelleProps} from "./validation";
 import {useTranslation} from "react-i18next";
 import PersonOpplysninger from "../PersonOpplysninger/PersonOpplysninger";
-import Foedested from "../Foedested/Foedested";
+import FoedestedFC from "../Foedested/Foedested";
 import Statsborgerskap from "../Statsborgerskap/Statsborgerskap";
+import {deletePSEDProp} from "src/actions/buc";
 
 
 const mapState = (state: State): MainFormSelector => ({
@@ -58,9 +59,21 @@ const Ektefelle: React.FC<MainFormProps> = ({
   }
 
   const setEktefelleFoedested = (property: string, value: string) => {
-    dispatch(updatePSED(`${target}.person.foedested.${property}`, value))
+    if(value === undefined){
+      dispatch(deletePSEDProp(`${target}.person.foedested.${property}`))
+    } else {
+      dispatch(updatePSED(`${target}.person.foedested.${property}`, value))
+    }
   }
 
+  useEffect(() => {
+    if(ektefelle?.person?.foedested && _.isEmpty(ektefelle?.person?.foedested)){
+      dispatch(deletePSEDProp(`${target}.person.foedested`))
+    }
+    if(ektefelle?.person?.pin && _.isEmpty(ektefelle?.person?.pin)){
+      dispatch(deletePSEDProp(`${target}.person.pin`))
+    }
+  }, [ektefelle])
 
   return (
     <>
@@ -76,7 +89,7 @@ const Ektefelle: React.FC<MainFormProps> = ({
               id={namespace + "-type"}
               legend={t('p2000:form-ektefelle-type')}
               onChange={(e: any) => setType(e)}
-              value={ektefelle?.type}
+              value={ektefelle?.type ?? ''}
             >
               <Radio value="ektefelle">Ektefelle</Radio>
               <Radio value="part_i_et_registrert_partnerskap">Partner i registrert partnerskap</Radio>
@@ -93,7 +106,7 @@ const Ektefelle: React.FC<MainFormProps> = ({
           updatePSED={updatePSED}
         />
         <VerticalSeparatorDiv/>
-        <Foedested setPersonOpplysninger={setEktefelleFoedested} person={ektefelle?.person} parentNamespace={namespace}/>
+        <FoedestedFC setPersonOpplysninger={setEktefelleFoedested} person={ektefelle?.person} parentNamespace={namespace}/>
         <VerticalSeparatorDiv/>
         <Statsborgerskap parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED} person={ektefelle?.person}/>
         <VerticalSeparatorDiv/>
