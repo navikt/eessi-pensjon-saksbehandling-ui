@@ -1,7 +1,8 @@
 import {Validation} from "src/declarations/app";
-import {Ytelse} from "../../../declarations/p2000";
-import {getIdx} from "../../../utils/namespace";
-import {checkIfNotEmpty} from "../../../utils/validation";
+import {Ytelse} from "src/declarations/p2000";
+import {getIdx} from "src/utils/namespace";
+import {checkIfNotEmpty} from "src/utils/validation";
+import performValidation from "src/utils/performValidation";
 
 export interface ValidationYtelserProps {
   ytelser: Array<Ytelse> | undefined
@@ -47,7 +48,12 @@ export const validateYtelser = (
 ): boolean => {
   const hasErrors: Array<boolean> = []
 
-  console.log(v, namespace, ytelser)
+  ytelser?.forEach((ytelse, index) => {
+    hasErrors.push(performValidation<ValidationYtelseProps>(v, namespace, validateYtelse, {
+      ytelse: ytelse,
+      index: index
+    }, true))
+  })
 
   return hasErrors.find(value => value) !== undefined
 }

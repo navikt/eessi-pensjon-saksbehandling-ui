@@ -1,9 +1,9 @@
 import React, {Fragment, useState} from "react";
-import {State} from "../../../declarations/reducers";
+import {State} from "src/declarations/reducers";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
 import {useDispatch} from "react-redux";
-import {useAppSelector} from "../../../store";
+import {useAppSelector} from "src/store";
 import {BodyLong, Button, Heading, Label, Radio, Select, Table, Tag} from "@navikt/ds-react";
 import {
   VerticalSeparatorDiv,
@@ -14,20 +14,20 @@ import {
 } from "@navikt/hoykontrast";
 import _ from "lodash";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
-import {Beloep, Ytelse} from "../../../declarations/p2000";
-import {getIdx} from "../../../utils/namespace";
-import {Validation} from "../../../declarations/app";
+import {Beloep, Ytelse} from "src/declarations/p2000";
+import {getIdx} from "src/utils/namespace";
+import {Validation} from "src/declarations/app";
 import classNames from "classnames";
-import {hasNamespaceWithErrors} from "../../../utils/validation";
-import {RepeatableRowNoBackground, HorizontalRadioGroup} from "../../../components/StyledComponents";
+import {hasNamespaceWithErrors} from "src/utils/validation";
+import {RepeatableRowNoBackground, HorizontalRadioGroup} from "src/components/StyledComponents";
 import useValidation from "../../../hooks/useValidation";
 import {validateYtelse, validateYtelser, ValidationYtelseProps, ValidationYtelserProps} from "./validation";
-import {resetValidation, setValidation} from "../../../actions/validation";
+import {resetValidation, setValidation} from "src/actions/validation";
 import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import BeloepRows from "../Beloep/BeloepRows";
-import {dateToString, formatDate} from "../../../utils/utils";
+import {dateToString, formatDate} from "src/utils/utils";
 import Input from "../../../components/Forms/Input";
 import DateField from "../DateField/DateField";
 

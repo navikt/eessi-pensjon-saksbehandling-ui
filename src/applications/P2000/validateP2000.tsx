@@ -6,6 +6,7 @@ import {validateDiverse, ValidationDiverseProps} from "./Diverse/validation";
 import {validateEktefelle, ValidationEktefelleProps} from "./Ektefelle/validation";
 import {validateBank, ValidationBankProps} from "./InformasjonOmBetaling/validation";
 import {validateBarnArray, ValidationBarnArrayProps} from "src/applications/P2000/Barn/validation";
+import {validateYtelser, ValidationYtelserProps} from "src/applications/P2000/Ytelser/validation";
 
 
 export interface ValidationP2000Props {
@@ -21,6 +22,10 @@ export const validateP2000 = (
   }: ValidationP2000Props
 ): boolean => {
   const hasErrors: Array<boolean> = []
+
+  hasErrors.push(performValidation<ValidationYtelserProps>(v, `p2000-ytelser`, validateYtelser, {
+    ytelser: P2000SED.pensjon.ytelser
+  }, true))
 
   hasErrors.push(performValidation<ValidationEktefelleProps>(v, `p2000-ektefelle`, validateEktefelle, {
     ektefelle: P2000SED.nav.ektefelle
