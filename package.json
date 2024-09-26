@@ -31,7 +31,7 @@
     "@navikt/hoykontrast": "^4.0.1",
     "@navikt/land-verktoy": "^4.0.0",
     "@navikt/landvelger": "^5.0.1",
-    "@navikt/tabell": "^4.4.1",
+    "@navikt/tabell": "^5.0.1",
     "@reduxjs/toolkit": "^1.8.5",
     "@sentry/browser": "^7.11.1",
     "@vitejs/plugin-react": "^4.2.1",
