@@ -5,6 +5,7 @@ import {ValidationVergeProps, validateVerge} from "./Verge/validation";
 import {validateDiverse, ValidationDiverseProps} from "./Diverse/validation";
 import {validateEktefelle, ValidationEktefelleProps} from "./Ektefelle/validation";
 import {validateBank, ValidationBankProps} from "./InformasjonOmBetaling/validation";
+import {validateBarnArray, ValidationBarnArrayProps} from "src/applications/P2000/Barn/validation";
 
 
 export interface ValidationP2000Props {
@@ -23,6 +24,10 @@ export const validateP2000 = (
 
   hasErrors.push(performValidation<ValidationEktefelleProps>(v, `p2000-ektefelle`, validateEktefelle, {
     ektefelle: P2000SED.nav.ektefelle
+  }, true))
+
+  hasErrors.push(performValidation<ValidationBarnArrayProps>(v, `p2000-barn`, validateBarnArray, {
+    barnArray: P2000SED.nav.barn
   }, true))
 
   hasErrors.push(performValidation<ValidationVergeProps>(v, `p2000-verge`, validateVerge, {

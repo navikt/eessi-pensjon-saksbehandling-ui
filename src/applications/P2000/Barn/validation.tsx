@@ -1,6 +1,6 @@
-import {Validation} from "../../../declarations/app";
-import {getIdx} from "../../../utils/namespace";
-import {Barn} from "../../../declarations/p2000";
+import {Validation} from "src/declarations/app";
+import {getIdx} from "src/utils/namespace";
+import {Barn} from "src/declarations/p2000";
 import _ from "lodash";
 import performValidation from "../../../utils/performValidation";
 import {validateFoedested, ValidationFoedestedProps} from "../Foedested/validation";
@@ -49,7 +49,12 @@ export const validateBarnArray = (
 ): boolean => {
   const hasErrors: Array<boolean> = []
 
-  console.log(v, namespace, barnArray)
+  barnArray?.forEach((barn, index) => {
+    hasErrors.push(performValidation<ValidationBarnProps>(v, namespace, validateBarn, {
+      barn: barn,
+      index: index
+    }, true))
+  })
 
   return hasErrors.find(value => value) !== undefined
 }

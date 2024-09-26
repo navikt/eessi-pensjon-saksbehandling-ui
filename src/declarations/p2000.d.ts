@@ -215,7 +215,7 @@ export interface P2000SED {
     bruker : Bruker,
     verge : Verge,
     krav : null,
-    barn : Barn,
+    barn : Array<Barn>,
     ektefelle: Ektefelle,
   },
   pensjon : Pensjon
