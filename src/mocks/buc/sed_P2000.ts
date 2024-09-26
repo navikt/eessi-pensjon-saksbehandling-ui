@@ -86,6 +86,12 @@ export default {
           "fornavn": "BARN",
           "etternavn": "BARNSEN"
         }
+      },
+      {
+        "person": {
+          "fornavn": "BARN 2",
+          "etternavn": "BARNSEN"
+        }
       }
     ],
     "verge": {
@@ -172,7 +178,7 @@ export default {
           "arbeidstimerperuke": null,
           "planlagtpensjoneringsdato": null,
           "yrke": "Kokk",
-          "type": "forsikrede_har_fortsatt_inntektsgivende_arbeid",
+          "type": null,
           "sluttdato": null
         },
         {
@@ -204,7 +210,7 @@ export default {
         "pin": null,
         "startdatoutbetaling": "2023-01-01",
         "mottasbasertpaa": "botid",
-        "ytelse": "01",
+        "ytelse": null,
         "startdatoretttilytelse": "2023-12-01",
         "sluttdatoUtbetaling": null,
         "beloep": [
@@ -217,7 +223,7 @@ export default {
             "utbetalingshyppighetAnnen": null
           }
         ],
-        "status": "02",
+        "status": null,
         "annenbetalingshyppighetytelse": null
       }
     ],

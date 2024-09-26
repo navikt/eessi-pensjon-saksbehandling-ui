@@ -16,23 +16,24 @@ import {useAppSelector} from "src/store";
 import {resetValidation, setValidation} from "src/actions/validation";
 import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
-import {Arbeidsforhold, Inntekt} from "../../../declarations/p2000";
+import {Arbeidsforhold, Inntekt} from "src/declarations/p2000";
 import {
   validateArbeidsforhold,
   validateYrkesaktivitet,
   ValidationArbeidsforholdProps,
   ValidationYrkesaktivitetProps
 } from "./validation";
-import {getIdx} from "../../../utils/namespace";
-import {Validation} from "../../../declarations/app";
-import {RepeatableRowNoBackground} from "../../../components/StyledComponents";
+import {getIdx} from "src/utils/namespace";
+import {Validation} from "src/declarations/app";
+import {RepeatableRowNoBackground} from "src/components/StyledComponents";
 import classNames from "classnames";
-import {hasNamespaceWithErrors} from "../../../utils/validation";
+import {hasNamespaceWithErrors} from "src/utils/validation";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import useValidation from "../../../hooks/useValidation";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import InntektRows from "../Inntekt/InntektRows";
+import FormText from "src/components/Forms/FormText";
 //import useValidation from "../../../hooks/useValidation";
 
 const mapState = (state: State): MainFormSelector => ({
@@ -213,7 +214,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
                   <PileDiv>
                     <Select
                       error={_v[_namespace + '-yrkesaktivitet']?.feilmelding}
-                      id='yrkesaktivitet'
+                      id={_namespace + '-yrkesaktivitet'}
                       label="Yrkesaktivitet"
                       onChange={(e) => setYrkeType(e.target.value, index)}
                       value={(_arbeidsforhold?.type)  ?? ''}
@@ -227,14 +228,17 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
                 )
                 :
                 (
-                  <>
+                  <FormText
+                    error={_v[_namespace + '-yrkesaktivitet']?.feilmelding}
+                    id={_namespace + '-yrkesaktivitet'}
+                  >
                     <Label>
                       {t('p2000:yrkesaktivitet')}
                     </Label>
                     <BodyLong>
                       {getYrkeLabel(_arbeidsforhold?.type)}
                     </BodyLong>
-                  </>
+                  </FormText>
                 )
               }
             </Column>

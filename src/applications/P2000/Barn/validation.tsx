@@ -50,10 +50,10 @@ export const validateBarnArray = (
   const hasErrors: Array<boolean> = []
 
   barnArray?.forEach((barn, index) => {
-    hasErrors.push(performValidation<ValidationBarnProps>(v, namespace, validateBarn, {
+    hasErrors.push(validateBarn(v, namespace, {
       barn: barn,
       index: index
-    }, true))
+    }))
   })
 
   return hasErrors.find(value => value) !== undefined

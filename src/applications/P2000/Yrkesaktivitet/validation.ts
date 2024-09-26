@@ -1,7 +1,7 @@
 import {Validation} from "src/declarations/app";
-import {Arbeidsforhold} from "../../../declarations/p2000";
-import {getIdx} from "../../../utils/namespace";
-import {checkIfNotEmpty} from "../../../utils/validation";
+import {Arbeidsforhold} from "src/declarations/p2000";
+import {getIdx} from "src/utils/namespace";
+import {checkIfNotEmpty} from "src/utils/validation";
 
 export interface ValidationYrkesaktivitetProps {
   arbeidsforholdArray: Array<Arbeidsforhold> | undefined
@@ -41,7 +41,12 @@ export const validateYrkesaktivitet = (
 ): boolean => {
   const hasErrors: Array<boolean> = []
 
-  console.log(v, namespace, arbeidsforholdArray)
+  arbeidsforholdArray?.forEach((arbeidsforhold, index) => {
+    hasErrors.push(validateArbeidsforhold( v, namespace, {
+      arbeidsforhold: arbeidsforhold,
+      index: index
+    }))
+  })
 
   return hasErrors.find(value => value) !== undefined
 }

@@ -7,6 +7,7 @@ import {validateEktefelle, ValidationEktefelleProps} from "./Ektefelle/validatio
 import {validateBank, ValidationBankProps} from "./InformasjonOmBetaling/validation";
 import {validateBarnArray, ValidationBarnArrayProps} from "src/applications/P2000/Barn/validation";
 import {validateYtelser, ValidationYtelserProps} from "src/applications/P2000/Ytelser/validation";
+import {validateYrkesaktivitet, ValidationYrkesaktivitetProps} from "src/applications/P2000/Yrkesaktivitet/validation";
 
 
 export interface ValidationP2000Props {
@@ -22,6 +23,10 @@ export const validateP2000 = (
   }: ValidationP2000Props
 ): boolean => {
   const hasErrors: Array<boolean> = []
+
+  hasErrors.push(performValidation<ValidationYrkesaktivitetProps>(v, `p2000-yrkesaktivitet`, validateYrkesaktivitet, {
+    arbeidsforholdArray: P2000SED.pensjon.bruker?.arbeidsforhold
+  }, true))
 
   hasErrors.push(performValidation<ValidationYtelserProps>(v, `p2000-ytelser`, validateYtelser, {
     ytelser: P2000SED.pensjon.ytelser
@@ -54,6 +59,8 @@ export const validateP2000 = (
   hasErrors.push(performValidation<ValidationDiverseProps>(v, `p2000-diverse-pensjon`, validateDiverse, {
     pensjon: P2000SED.pensjon
   }, true))
+
+  console.log(v)
 
   return hasErrors.find(value => value) !== undefined
 }

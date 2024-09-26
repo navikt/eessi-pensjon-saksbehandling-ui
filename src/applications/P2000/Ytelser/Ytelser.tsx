@@ -30,6 +30,7 @@ import BeloepRows from "../Beloep/BeloepRows";
 import {dateToString, formatDate} from "src/utils/utils";
 import Input from "../../../components/Forms/Input";
 import DateField from "../DateField/DateField";
+import ErrorLabel from "src/components/Forms/ErrorLabel";
 
 
 const mapState = (state: State): MainFormSelector => ({
@@ -412,10 +413,13 @@ const Ytelser: React.FC<MainFormProps> = ({
               <Column flex="5">
                 <Label>{t('p2000:form-ytelse')}</Label>
                 <HorizontalSeparatorDiv size='1.0' />
-                <Tag size='small' variant='info'>{getStatusLabel(_ytelse?.status)}</Tag>
+                {_ytelse?.status && <Tag size='small' variant='info'>{getStatusLabel(_ytelse?.status)}</Tag>}
                 <BodyLong>
                   {_ytelse?.ytelse === '99' ? _ytelse.annenytelse : getYtelseLabel(_ytelse?.ytelse)}
                 </BodyLong>
+                <ErrorLabel error={_v[_namespace + '-ytelse']?.feilmelding}/>
+                <HorizontalSeparatorDiv size='1.0' />
+                <ErrorLabel error={_v[_namespace + '-status']?.feilmelding}/>
               </Column>
               <Column>
                 {addremovepanel}
