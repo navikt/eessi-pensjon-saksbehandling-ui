@@ -223,7 +223,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
                 )
               : (
                 <FormText
-                  error={_validation[_namespace + '-land']?.feilmelding}
+                  error={_v[_namespace + '-land']?.feilmelding}
                   id={_namespace + '-land'}
                 >
                   <FlagPanel land={_pin?.land}/>

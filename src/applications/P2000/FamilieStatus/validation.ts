@@ -1,7 +1,11 @@
 import {Validation} from "src/declarations/app";
 import { checkIfNotEmpty } from 'src/utils/validation'
 import {Sivilstand} from "src/declarations/p2000";
-import {getIdx} from "../../../utils/namespace";
+import {getIdx} from "src/utils/namespace";
+
+export interface ValidationFamilieStatusArrayProps {
+  sivilstandArray: Array<Sivilstand> | undefined
+}
 
 export interface ValidationFamilieStatusProps {
   sivilstand: Sivilstand | undefined
@@ -30,6 +34,24 @@ export const validateFamilieStatus = (
     id: namespace + idx +  '-fradato',
     message: 'validation:missing-p2000-forsikret-person-sivilstand-fradato'
   }))
+
+  return hasErrors.find(value => value) !== undefined
+}
+
+export const validateFamilieStatusArray = (
+  v: Validation,
+  namespace: string,
+  {
+    sivilstandArray,
+  }: ValidationFamilieStatusArrayProps
+): boolean => {
+
+  const hasErrors: Array<boolean> = sivilstandArray?.map((sivilstand: Sivilstand, index: number) => {
+    return validateFamilieStatus(v, namespace, {
+      index,
+      sivilstand,
+    })
+  }) ?? []
 
   return hasErrors.find(value => value) !== undefined
 }

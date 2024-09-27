@@ -4,25 +4,26 @@ import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
-import {Sivilstand} from "../../../declarations/p2000";
-import {getIdx} from "../../../utils/namespace";
-import {RepeatableRow} from "../../../components/StyledComponents";
+import {Sivilstand} from "src/declarations/p2000";
+import {getIdx} from "src/utils/namespace";
+import {RepeatableRow} from "src/components/StyledComponents";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
-import {UpdateSedPayload} from "../../../declarations/types";
+import {UpdateSedPayload} from "src/declarations/types";
 import {PSED, Validation} from "src/declarations/app";
 import useValidation from "../../../hooks/useValidation";
 import { resetValidation, setValidation } from 'src/actions/validation'
 import performValidation from 'src/utils/performValidation'
-import {State} from "../../../declarations/reducers";
+import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
-import {useAppSelector} from "../../../store";
+import {useAppSelector} from "src/store";
 import {useTranslation} from "react-i18next";
 import {validateFamilieStatus, ValidationFamilieStatusProps} from "./validation";
 import DateField from "../DateField/DateField";
-import {dateToString, formatDate} from "../../../utils/utils";
+import {dateToString, formatDate} from "src/utils/utils";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
+import ErrorLabel from "src/components/Forms/ErrorLabel";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -215,11 +216,13 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
                   <div>
                     {sivilstandStatusOptions.filter((s) => {
                       return s.value === _sivilstand?.status
-                    })[0].label}
+                    })[0]?.label}
+                    <ErrorLabel error={_v[_namespace + '-status']?.feilmelding}/>
                   </div>
                 </Column>
                 <Column>
                   <div>{formatDate(_sivilstand?.fradato)}</div>
+                  <ErrorLabel error={_v[_namespace + '-fradato']?.feilmelding}/>
                 </Column>
               </>
             )

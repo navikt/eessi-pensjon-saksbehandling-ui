@@ -32,8 +32,16 @@ export default {
             "institusjonsnavn": null,
             "institusjonsid": null,
             "sektor": null,
-            "identifikator": "23456789",
+            "identifikator": null,
             "land": "SE",
+            "institusjon": null
+          },
+          {
+            "institusjonsnavn": null,
+            "institusjonsid": null,
+            "sektor": null,
+            "identifikator": "121212",
+            "land": null,
             "institusjon": null
           }
         ],
@@ -56,10 +64,29 @@ export default {
           "region": null
         },
         "foedselsdato": "1954-06-16",
-        "sivilstand": null,
+        "sivilstand": [
+          {
+            "status": "gift",
+            "fradato": null
+          },
+          {
+            "status": null,
+            "fradato": null
+          },
+        ],
         "relasjontilavdod": null,
         "rolle": null,
-        "kontakt": null
+        "kontakt": {
+          telefon: [
+            {nummer: null, type: 'mobil'},
+            {nummer: null, type: null},
+            {nummer: '92345678', type: 'mobil'},
+          ],
+          email: [
+            {},
+            {adresse: "epost-adresse"}
+          ]
+        }
       },
       "adresse": {
         "gate": "Gudbrandsdalsvegen 2582",

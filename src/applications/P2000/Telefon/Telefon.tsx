@@ -1,27 +1,28 @@
 import {Button, Heading, Select} from "@navikt/ds-react";
-import {AlignEndColumn, AlignStartRow, Column} from "@navikt/hoykontrast";
+import {AlignEndColumn, AlignStartRow, Column, HorizontalSeparatorDiv} from "@navikt/hoykontrast";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {Telefon as P2000Telefon} from "../../../declarations/p2000";
-import {getIdx} from "../../../utils/namespace";
-import {RepeatableRow} from "../../../components/StyledComponents";
+import {getIdx} from "src/utils/namespace";
+import {RepeatableRow} from "src/components/StyledComponents";
 import Input from "../../../components/Forms/Input";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
-import {UpdateSedPayload} from "../../../declarations/types";
+import {UpdateSedPayload} from "src/declarations/types";
 import {PSED, Validation} from "src/declarations/app";
 import useValidation from "../../../hooks/useValidation";
 import {validateTelefon, ValidationTelefonProps} from "./validation";
 import { resetValidation, setValidation } from 'src/actions/validation'
 import performValidation from 'src/utils/performValidation'
-import {State} from "../../../declarations/reducers";
+import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
-import {useAppSelector} from "../../../store";
+import {useAppSelector} from "src/store";
 import {useTranslation} from "react-i18next";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
+import ErrorLabel from "src/components/Forms/ErrorLabel";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -190,7 +191,10 @@ const Telefon: React.FC<TelefonProps> = ({
             )
             : (
               <Column>
-                <div>{_telefon?.nummer} ({_telefon?.type})</div>
+                <div>{_telefon?.nummer} {_telefon?.type && <span>{(_telefon?.type)}</span>}</div>
+                <ErrorLabel error={_v[_namespace + '-nummer']?.feilmelding}/>
+                <HorizontalSeparatorDiv size='1.0' />
+                <ErrorLabel error={_v[_namespace + '-type']?.feilmelding}/>
               </Column>
             )
           }

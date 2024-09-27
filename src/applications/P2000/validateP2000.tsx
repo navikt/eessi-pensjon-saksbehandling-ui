@@ -8,6 +8,10 @@ import {validateBank, ValidationBankProps} from "./InformasjonOmBetaling/validat
 import {validateBarnArray, ValidationBarnArrayProps} from "src/applications/P2000/Barn/validation";
 import {validateYtelser, ValidationYtelserProps} from "src/applications/P2000/Ytelser/validation";
 import {validateYrkesaktivitet, ValidationYrkesaktivitetProps} from "src/applications/P2000/Yrkesaktivitet/validation";
+import {
+  validateForsikretPerson,
+  ValidationForsikretPersonProps
+} from "src/applications/P2000/ForsikretPerson/validation";
 
 
 export interface ValidationP2000Props {
@@ -23,6 +27,10 @@ export const validateP2000 = (
   }: ValidationP2000Props
 ): boolean => {
   const hasErrors: Array<boolean> = []
+
+  hasErrors.push(performValidation<ValidationForsikretPersonProps>(v, `p2000-forsikretperson`, validateForsikretPerson, {
+    forsikretPerson: P2000SED.nav.bruker.person
+  }, true))
 
   hasErrors.push(performValidation<ValidationYrkesaktivitetProps>(v, `p2000-yrkesaktivitet`, validateYrkesaktivitet, {
     arbeidsforholdArray: P2000SED.pensjon.bruker?.arbeidsforhold

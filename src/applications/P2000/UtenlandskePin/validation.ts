@@ -69,6 +69,7 @@ export const validateUtenlandskePINs = (
     utenlandskePINs,
   }: ValidationUtenlandskePINsProps
 ): boolean => {
+
   const hasErrors: Array<boolean> = utenlandskePINs?.map((pin: PIN, index: number) => {
     return validateUtenlandskPIN(v, namespace, {
       index,
@@ -76,5 +77,6 @@ export const validateUtenlandskePINs = (
       utenlandskePINs,
     })
   }) ?? []
+
   return hasErrors.find(value => value) !== undefined
 }

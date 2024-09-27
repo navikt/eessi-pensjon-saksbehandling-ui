@@ -4,24 +4,25 @@ import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
-import {Email} from "../../../declarations/p2000";
-import {getIdx} from "../../../utils/namespace";
-import {RepeatableRow} from "../../../components/StyledComponents";
+import {Email} from "src/declarations/p2000";
+import {getIdx} from "src/utils/namespace";
+import {RepeatableRow} from "src/components/StyledComponents";
 import Input from "../../../components/Forms/Input";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
-import {UpdateSedPayload} from "../../../declarations/types";
+import {UpdateSedPayload} from "src/declarations/types";
 import {PSED, Validation} from "src/declarations/app";
 import useValidation from "../../../hooks/useValidation";
 import {validateEpost, ValidationEpostProps} from "./validation";
-import {resetValidation, setValidation} from "../../../actions/validation";
+import {resetValidation, setValidation} from "src/actions/validation";
 import performValidation from "../../../utils/performValidation";
-import {useAppSelector} from "../../../store";
-import {State} from "../../../declarations/reducers";
+import {useAppSelector} from "src/store";
+import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
+import ErrorLabel from "src/components/Forms/ErrorLabel";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -161,6 +162,7 @@ const Epost: React.FC<EpostProps> = ({
             : (
               <Column>
                 <div>{_epost?.adresse}</div>
+                <ErrorLabel error={_v[_namespace + '-adresse']?.feilmelding}/>
               </Column>
             )
           }
