@@ -29,37 +29,37 @@ export const validateP2000 = (
   const hasErrors: Array<boolean> = []
 
   hasErrors.push(performValidation<ValidationForsikretPersonProps>(v, `p2000-forsikretperson`, validateForsikretPerson, {
-    forsikretPerson: P2000SED.nav.bruker?.person
+    forsikretPerson: P2000SED.nav?.bruker?.person
   }, true))
 
   hasErrors.push(performValidation<ValidationYrkesaktivitetProps>(v, `p2000-yrkesaktivitet`, validateYrkesaktivitet, {
-    arbeidsforholdArray: P2000SED.pensjon.bruker?.arbeidsforhold
+    arbeidsforholdArray: P2000SED.pensjon?.bruker?.arbeidsforhold
   }, true))
 
   hasErrors.push(performValidation<ValidationYtelserProps>(v, `p2000-ytelser`, validateYtelser, {
-    ytelser: P2000SED.pensjon.ytelser
+    ytelser: P2000SED.pensjon?.ytelser
   }, true))
 
   hasErrors.push(performValidation<ValidationEktefelleProps>(v, `p2000-ektefelle`, validateEktefelle, {
-    ektefelle: P2000SED.nav.ektefelle
+    ektefelle: P2000SED.nav?.ektefelle
   }, true))
 
   hasErrors.push(performValidation<ValidationBarnArrayProps>(v, `p2000-barn`, validateBarnArray, {
-    barnArray: P2000SED.nav.barn
+    barnArray: P2000SED.nav?.barn
   }, true))
 
   hasErrors.push(performValidation<ValidationVergeProps>(v, `p2000-verge`, validateVerge, {
-    verge: P2000SED.nav.verge
+    verge: P2000SED.nav?.verge
   }, true))
 
   let sepaIkkeSepa = undefined
-  if(P2000SED.nav.bruker.bank?.konto?.sepa){
+  if(P2000SED.nav?.bruker?.bank?.konto?.sepa){
     sepaIkkeSepa = "sepa"
   } else if(P2000SED.nav.bruker.bank?.konto?.kontonr || P2000SED.nav.bruker.bank?.konto?.ikkesepa){
     sepaIkkeSepa = "ikkesepa"
   }
   hasErrors.push(performValidation<ValidationBankProps>(v, `p2000-informasjonombetaling`, validateBank, {
-    bank: P2000SED.nav.bruker.bank,
+    bank: P2000SED.nav?.bruker?.bank,
     sepaIkkeSepa: sepaIkkeSepa
   }, true))
 
@@ -68,7 +68,7 @@ export const validateP2000 = (
     pensjon: P2000SED.pensjon
   }, true))
 
-  console.log(v)
+  //console.log(v)
 
   return hasErrors.find(value => value) !== undefined
 }
