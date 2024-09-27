@@ -29,7 +29,7 @@ export const validateP2000 = (
   const hasErrors: Array<boolean> = []
 
   hasErrors.push(performValidation<ValidationForsikretPersonProps>(v, `p2000-forsikretperson`, validateForsikretPerson, {
-    forsikretPerson: P2000SED.nav.bruker.person
+    forsikretPerson: P2000SED.nav.bruker?.person
   }, true))
 
   hasErrors.push(performValidation<ValidationYrkesaktivitetProps>(v, `p2000-yrkesaktivitet`, validateYrkesaktivitet, {
