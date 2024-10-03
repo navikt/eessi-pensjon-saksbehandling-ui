@@ -148,13 +148,13 @@ const P2000: React.FC<P2000Props> = ({
           >
             {t('ui:save-sed')}
           </Button>
-          <Button
+{/*          <Button
             variant='primary'
             onClick={onSaveSed}
             loading={savingSed}
           >
             {t('ui:save-sed')}
-          </Button>
+          </Button>*/}
         </HStack>
       </Box>
     </>

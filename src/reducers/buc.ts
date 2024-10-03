@@ -814,13 +814,11 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     }
     case types.BUC_GET_SED_SUCCESS: {
       const payload = (action as ActionWithPayload).payload
-      const sed = (action as ActionWithPayload).context.sed
       return {
         ...state,
         PSED: {
           ...payload,
-          sedVersion: "v" + payload.sedGVer + "." + payload.sedVer,
-          sed
+          sedVersion: "v" + payload.sedGVer + "." + payload.sedVer
         }
       }
     }
