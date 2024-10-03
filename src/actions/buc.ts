@@ -322,7 +322,7 @@ export const getSed = (
     //expectedPayload: mockSed(sed.type),
     expectedPayload: mockP2000,
     context: {
-      sedId: sed.id
+      sed: sed
     },
     type: {
       request: types.BUC_GET_SED_REQUEST,
@@ -335,10 +335,14 @@ export const getSed = (
 export const saveSed = (
   caseId: string, sedId: string, sedType: string, payload: any
 ): Action => {
+  const copyPSED = _.cloneDeep(payload)
+  delete copyPSED.originalSed
+  delete copyPSED.sedVersion
+
   return call({
     url: sprintf(urls.BUC_PUT_SED_URL, { caseId, sedId }),
     method: 'PUT',
-    body: payload,
+    body: copyPSED,
     cascadeFailureError: true,
     context: {
       caseId,
