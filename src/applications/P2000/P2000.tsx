@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {Buc, Sed} from "src/declarations/buc";
 import {BUCMode, Validation} from "src/declarations/app";
-import {Box, Button, Loader} from "@navikt/ds-react";
+import {Box, Button, HStack, Loader} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {getSed, saveSed, setPSED, updatePSED} from "src/actions/buc";
 import {resetValidation, setValidation} from 'src/actions/validation'
@@ -140,14 +140,22 @@ const P2000: React.FC<P2000Props> = ({
         background="bg-default"
         padding="4"
       >
-        <Button
-          variant='primary'
-          onClick={onSaveSed}
-          loading={savingSed}
-        >
-          {t('ui:save-sed')}
-        </Button>
-
+        <HStack gap="4">
+          <Button
+            variant='primary'
+            onClick={onSaveSed}
+            loading={savingSed}
+          >
+            {t('ui:save-sed')}
+          </Button>
+          <Button
+            variant='primary'
+            onClick={onSaveSed}
+            loading={savingSed}
+          >
+            {t('ui:save-sed')}
+          </Button>
+        </HStack>
       </Box>
     </>
   )

@@ -1,7 +1,6 @@
 import {DatePicker, useDatepicker} from "@navikt/ds-react";
 import React, {useEffect} from "react";
 import styled from "styled-components";
-import {Column} from "@navikt/hoykontrast";
 
 export interface DateFieldProps {
   id: string
