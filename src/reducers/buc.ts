@@ -44,6 +44,7 @@ export interface BucState {
   currentBuc: string | undefined
   currentSed: Sed | undefined
   PSED: PSED | undefined
+  PSEDChanged: boolean
   followUpSeds: Array<Sed> | undefined
   howManyBucLists: number
   kravDato: string | null | undefined
@@ -78,6 +79,7 @@ export const initialBucState: BucState = {
   currentBuc: undefined,
   currentSed: undefined,
   PSED: undefined,
+  PSEDChanged: false,
   followUpSeds: undefined,
   institutionList: undefined,
   institutionNames: {},
@@ -819,9 +821,9 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         ...state,
         PSED: {
           ...payload,
-          sedVersion: "v" + payload.sedGVer + "." + payload.sedVer,
           originalSed: sed
-        }
+        },
+        PSEDChanged: false
       }
     }
     case types.BUC_GET_SED_FAILURE: {
@@ -872,6 +874,12 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         PSEDChanged: true
       }
     }
+
+    case types.BUC_PUT_SED_SUCCESS:
+      return {
+        ...state,
+        PSEDChanged: false
+      }
 
     default:
       return state

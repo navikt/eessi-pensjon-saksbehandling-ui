@@ -61,6 +61,7 @@ export interface ErrorBuc {
   status: null
   startDate: null
   type: string | null
+  cdm: string | null
 }
 
 export interface Institution {
@@ -288,6 +289,7 @@ export interface ValidBuc {
     kravDato?: string
   }
   type: string
+  cdm: string
 }
 
 export interface JoarkBuc {

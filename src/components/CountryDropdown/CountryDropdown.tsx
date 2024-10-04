@@ -2,16 +2,18 @@ import React from "react";
 import CountrySelect, {CountrySelectProps} from "@navikt/landvelger";
 import {State} from "src/declarations/reducers";
 import {useAppSelector} from "src/store";
-import {CountryCodeLists, CountryCodes, SimpleCountry, PSED} from "src/declarations/app";
-import _ from "lodash";
+import {CountryCodeLists, CountryCodes, SimpleCountry} from "src/declarations/app";
+import {Bucs} from "src/declarations/buc";
 
 export interface CountryDropdownSelector {
-  currentPSED: PSED
+  currentBuc: string
+  bucs: Bucs
   countryCodes: CountryCodes | null | undefined
 }
 
 const mapState = (state: State): CountryDropdownSelector => ({
-  currentPSED: state.buc.PSED,
+  currentBuc: state.buc.currentBuc,
+  bucs: state.buc.bucs,
   countryCodes: state.app.countryCodes
 })
 
@@ -28,10 +30,10 @@ const CountryDropdown : React.FC<CountryDropdownProps> = ({
   ...rest
 }: CountryDropdownProps) => {
 
-  const {currentPSED, countryCodes} = useAppSelector(mapState)
-  const sedVersion = _.get(currentPSED, "sedVersion")
+  const {bucs, currentBuc, countryCodes} = useAppSelector(mapState)
+  const cdmVersion = "v" + bucs[currentBuc].cdm
 
-  const countryCodesByVersion: CountryCodeLists | undefined = countryCodes ? countryCodes[sedVersion as keyof CountryCodes] : undefined
+  const countryCodesByVersion: CountryCodeLists | undefined = countryCodes ? countryCodes[cdmVersion as keyof CountryCodes] : undefined
 
   let includeList = countryCodeListName && countryCodesByVersion ? countryCodesByVersion[countryCodeListName as keyof CountryCodeLists] : rest.includeList
 

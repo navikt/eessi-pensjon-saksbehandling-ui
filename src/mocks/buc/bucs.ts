@@ -5,6 +5,7 @@ const later = new Date(1970, 0, 1).getTime()
 
 const mockBuc = [
   {
+    "cdm": "4.3",
     "type": "P_BUC_01",
     "caseId": "999999",
     "internationalId": "f1406de50b7a4084a4149d41c0ea00da",
@@ -82,6 +83,7 @@ const mockBuc = [
     "readOnly": false,
   },
   {
+    cdm: "4.2",
     type: 'P_BUC_01',
     readOnly: false,
     caseId: '600891',
@@ -1072,6 +1074,7 @@ const mockBuc = [
     error: null
   },
   {
+    cdm: "4.2",
     type: 'P_BUC_02',
     readOnly: false,
     creator: {
@@ -1771,6 +1774,7 @@ const mockBuc = [
     ]
   },
   {
+    cdm: "4.2",
     type: 'P_BUC_02',
     readOnly: false,
     creator: {
@@ -1878,6 +1882,7 @@ const mockBuc = [
     ]
   },
   {
+    cdm: "4.2",
     type: 'P_BUC_03',
     readOnly: true,
     creator: {
@@ -2624,6 +2629,7 @@ const mockBuc = [
     }]
   },
   {
+    cdm: "4.2",
     type: 'P_BUC_05',
     readOnly: false,
     creator: {
@@ -2653,6 +2659,7 @@ const mockBuc = [
     seds: []
   },
   {
+    cdm: "4.2",
     type: 'P_BUC_06',
     readOnly: false,
     creator: {
@@ -2721,6 +2728,7 @@ const mockBuc = [
     }]
   },
   {
+    cdm: "4.2",
     type: 'X_BUC_XX',
     readOnly: false,
     caseId: '362453',
@@ -2739,6 +2747,7 @@ const mockBuc = [
     seds: []
   },
   {
+    cdm: "4.2",
     type: '',
     readOnly: true,
     caseId: '',
@@ -2752,6 +2761,7 @@ const mockBuc = [
     error: 'Rina serverfeil, kan også skyldes ugyldig input, {"status":"INTERNAL_SERVER_ERROR","timestamp":"23-10-2019 15:48:30","messages":["500 null","{\\"stack\\":\\"\\",\\"error_description\\":\\"The user with userName:[Z990638] is not authorised\\",\\"error\\":\\"Cannot get case\\"}"]}'
   },
   {
+    cdm: "4.2",
     type: "P_BUC_06",
     readOnly: false,
     caseId: "1442485",
@@ -2825,6 +2835,7 @@ const mockBuc = [
     error: null
   },
   {
+    "cdm": "4.2",
     "type": "P_BUC_06",
     "caseId": "1443112",
     "internationalId": "4cda88884fc2446295b6f2fce0ed14e8",
@@ -2898,6 +2909,7 @@ const mockBuc = [
     "readOnly": false,
   },
   {
+    "cdm": "4.2",
     "type": "P_BUC_01",
     "caseId": "1441957",
     "internationalId": "f1406de50b7a4084a4149d41c0ea00da",
@@ -3241,6 +3253,7 @@ const mockBuc = [
     "readOnly": false,
   },
   {
+    "cdm": "4.2",
     "type": "P_BUC_01",
     "caseId": "1443133",
     "internationalId": "26ce9f052206448a986adbe7955409f0",
