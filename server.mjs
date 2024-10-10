@@ -82,14 +82,14 @@ const validateAuthorization = async (authorization) => {
 
 const mainPageAuth = async function(req, res, next) {
   const {sakId, aktoerId, fnr, vedtakId, kravId, saksNr, sakType, avdodFnr} = req.query
-  const aktoerIdOrFnr = aktoerId ? aktoerId : fnr
   const newPath =
-    (aktoerIdOrFnr !== undefined && aktoerIdOrFnr !== '' ? aktoerIdOrFnr : '-') + '/' +
+    (aktoerId !== undefined && aktoerId !== '' ? aktoerId : '-') + '/' +
     (sakId !== undefined && sakId !== '' ? sakId : ( saksNr !== undefined &&  saksNr !== '' ? saksNr : '-')) + '/' +
     (kravId !== undefined && kravId !== '' ? kravId : '-') + '/' +
     (vedtakId !== undefined && vedtakId !== '' ? vedtakId :  '-') + '/' +
     (sakType !== undefined && sakType !== '' ? sakType :  '-') + '/' +
-    (avdodFnr !== undefined && avdodFnr !== '' ? avdodFnr :  '-') + '/'
+    (avdodFnr !== undefined && avdodFnr !== '' ? avdodFnr :  '-') + '/' +
+    (fnr !== undefined && fnr !== '' ? fnr : '-') + '/'
 
   const gjenny = req.originalUrl.indexOf('gjenny') > 0 ? 'GJENNY': '-' + '/'
 
@@ -121,6 +121,7 @@ const handleCallback = (req, res) => {
   let vedtakId = (paths[5] === '-' ? '' : paths[5])
   let sakType = (paths[6] === '-' ? '' : paths[6])
   let avdodFnr = (paths[7] === '-' ? '' : paths[7])
+  let fnr = (paths[8] === '-' ? '' : paths[8])
 
   let redirectPath = "/"
   if(aktoerId !== "" && sakId !== ""){
@@ -138,9 +139,9 @@ const handleCallback = (req, res) => {
   }
 
 
-  if(paths[8] === 'GJENNY'){
-    if(aktoerId !== "" && sakId !== "" && sakType !== "" && avdodFnr !== ""){
-      redirectPath = '/gjenny/?aktoerId=' +  aktoerId  + '&sakId=' + sakId + '&sakType=' + sakType + '&avdodFnr=' + avdodFnr
+  if(paths[9] === 'GJENNY'){
+    if(fnr !== "" && sakId !== "" && sakType !== "" && avdodFnr !== ""){
+      redirectPath = '/gjenny/?fnr=' +  fnr  + '&sakId=' + sakId + '&sakType=' + sakType + '&avdodFnr=' + avdodFnr
     } else {
       redirectPath = '/gjenny/'
     }
