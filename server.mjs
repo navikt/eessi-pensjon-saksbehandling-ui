@@ -81,9 +81,10 @@ const validateAuthorization = async (authorization) => {
 }
 
 const mainPageAuth = async function(req, res, next) {
-  const {sakId, aktoerId, vedtakId, kravId, saksNr, sakType, avdodFnr} = req.query
+  const {sakId, aktoerId, fnr, vedtakId, kravId, saksNr, sakType, avdodFnr} = req.query
+  const aktoerIdOrFnr = aktoerId ? aktoerId : fnr
   const newPath =
-    (aktoerId !== undefined && aktoerId !== '' ? aktoerId : '-') + '/' +
+    (aktoerIdOrFnr !== undefined && aktoerIdOrFnr !== '' ? aktoerIdOrFnr : '-') + '/' +
     (sakId !== undefined && sakId !== '' ? sakId : ( saksNr !== undefined &&  saksNr !== '' ? saksNr : '-')) + '/' +
     (kravId !== undefined && kravId !== '' ? kravId : '-') + '/' +
     (vedtakId !== undefined && vedtakId !== '' ? vedtakId :  '-') + '/' +
