@@ -84,7 +84,7 @@ const RequireAuth: React.FC<any> = (props) => {
     }
 
     parseSearchParams()
-  }, [location, _params])
+  }, [location])
 
   useEffect(() => {
     if (loggedIn === undefined && !gettingUserInfo) {
