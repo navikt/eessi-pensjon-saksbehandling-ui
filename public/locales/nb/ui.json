@@ -95,6 +95,7 @@
     "scheme": "Ordning",
     "sender"  :"Mottaker",
     "send" : "Sende",
+    "send-sed" : "Send SED",
     "sending" : "Sender...",
     "sent" : "Sendt",
     "sentDocuments" : "Utsendte dokumenter",

@@ -337,7 +337,6 @@ export const saveSed = (
 ): Action => {
   const copyPSED = _.cloneDeep(payload)
   delete copyPSED.originalSed
-  delete copyPSED.sedVersion
 
   return call({
     url: sprintf(urls.BUC_PUT_SED_URL, { caseId, sedId }),
@@ -357,6 +356,23 @@ export const saveSed = (
     }
   })
 }
+
+export const sendSed = (
+  caseId: string, sedId: string
+): Action => {
+  return call({
+    url: sprintf(urls.EUX_BUC_SED_SEND_URL, { caseId, sedId }),
+    method: 'POST',
+    cascadeFailureError: true,
+    expectedPayload: {
+      success: 'true'
+    },
+    type: {
+      request: types.BUC_SEND_SED_REQUEST,
+      success: types.BUC_SEND_SED_SUCCESS,
+      failure: types.BUC_SEND_SED_FAILURE
+    }
+  })}
 
 export const setPSED: ActionCreator<ActionWithPayload<PSED>> = (
   PSED: PSED

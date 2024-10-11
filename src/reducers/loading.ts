@@ -43,6 +43,7 @@ export const initialLoadingState: LoadingState = {
   sendingP5000ToS3: false,
   savingSed: false,
   gettingSed: false,
+  sendingSed: false
 }
 
 const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAction) => {
@@ -538,6 +539,19 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
       return {
         ...state,
         savingSed: false
+      }
+
+    case types.BUC_SEND_SED_REQUEST:
+      return {
+        ...state,
+        sendingSed: true
+      }
+
+    case types.BUC_SEND_SED_SUCCESS:
+    case types.BUC_SEND_SED_FAILURE:
+      return {
+        ...state,
+        sendingSed: false
       }
 
     case types.GET_COUNTRYCODES_REQUEST:

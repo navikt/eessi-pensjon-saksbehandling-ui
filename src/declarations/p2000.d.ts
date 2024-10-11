@@ -1,3 +1,5 @@
+import {Sed} from "src/declarations/buc";
+
 export interface Beloep {
   annenbetalingshyppighetytelse?: string
   gjeldendesiden?: string
@@ -201,10 +203,7 @@ export interface Pensjon {
   angitidligstdato?: string
 }
 
-export interface P2000SED {
-  sed: string
-  sedGVer: string
-  sedVer: string
+export interface P2000SED extends BaseSED{
   nav: {
     eessisak: Array<{
       institusjonsid?: string
@@ -219,4 +218,11 @@ export interface P2000SED {
     ektefelle: Ektefelle,
   },
   pensjon : Pensjon
+}
+
+export interface BaseSED {
+  sed: string
+  sedGVer: string
+  sedVer: string
+  originalSed: Sed // removed before SAVE
 }

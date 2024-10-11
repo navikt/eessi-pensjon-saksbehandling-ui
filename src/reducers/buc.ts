@@ -45,6 +45,7 @@ export interface BucState {
   currentSed: Sed | undefined
   PSED: PSED | undefined
   PSEDChanged: boolean
+  PSEDSendResponse: any | null | undefined
   followUpSeds: Array<Sed> | undefined
   howManyBucLists: number
   kravDato: string | null | undefined
@@ -80,6 +81,7 @@ export const initialBucState: BucState = {
   currentSed: undefined,
   PSED: undefined,
   PSEDChanged: false,
+  PSEDSendResponse: undefined,
   followUpSeds: undefined,
   institutionList: undefined,
   institutionNames: {},
@@ -880,6 +882,31 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         ...state,
         PSEDChanged: false
       }
+
+    case types.BUC_SEND_SED_REQUEST:
+      return {
+        ...state,
+        PSEDSendResponse: undefined
+      }
+
+    case types.BUC_SEND_SED_FAILURE:
+      return {
+        ...state,
+        PSEDSendResponse: null
+      }
+
+    case types.BUC_SEND_SED_SUCCESS: {
+      const newPSED: PSED = _.cloneDeep(state.PSED) as PSED
+      if (_.isNil(newPSED.originalSed)) {
+        newPSED.originalSed = {} as PSED
+      }
+      newPSED.originalSed.status = 'sent'
+      return {
+        ...state,
+        PSED: newPSED,
+        PSEDSendResponse: { success: true }
+      }
+    }
 
     default:
       return state
