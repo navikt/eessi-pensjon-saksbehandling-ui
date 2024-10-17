@@ -878,9 +878,11 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     }
 
     case types.BUC_PUT_SED_SUCCESS:
+      let PSEDSendResponse = _.cloneDeep(state.PSEDSendResponse)
+      PSEDSendResponse = undefined
       return {
         ...state,
-        PSEDSendResponse: undefined,
+        PSEDSendResponse,
         PSEDChanged: false
       }
 

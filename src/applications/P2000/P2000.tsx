@@ -67,7 +67,7 @@ const P2000: React.FC<P2000Props> = ({
   const [_viewSaveSedModal, setViewSaveSedModal] = useState<boolean>(false)
 
   const disableSave =  !PSEDChanged || savingSed
-  const disableSend = !disableSave || sendingSed || (currentPSED?.originalSed?.status === "sent" &&_.isEmpty(PSEDSendResponse)) || !_.isEmpty(PSEDSendResponse)
+  const disableSend = !disableSave || sendingSed || (currentPSED?.originalSed?.status === "sent" && _.isEmpty(PSEDSendResponse)) || !_.isEmpty(PSEDSendResponse)
 
   useEffect(() => {
     if(sed){
