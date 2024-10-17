@@ -5,7 +5,7 @@ import {Buc, Sed} from "src/declarations/buc";
 import {BUCMode, Validation} from "src/declarations/app";
 import {Box, Button, HStack, Loader} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
-import {getSed, saveSed, sendSed, setPSED, updatePSED} from "src/actions/buc";
+import {fetchBuc, getSed, saveSed, sendSed, setPSED, updatePSED} from "src/actions/buc";
 import {resetValidation, setValidation} from 'src/actions/validation'
 import { State } from "src/declarations/reducers";
 import {P2000SED} from "src/declarations/p2000";
@@ -63,6 +63,7 @@ const P2000: React.FC<P2000Props> = ({
   const { PSEDChanged, currentPSED, gettingSed, savingSed, sendingSed, PSEDSendResponse, validation }: P2000Selector = useSelector<State, P2000Selector>(mapState)
   const namespace = "p2000"
 
+  const [_sendButtonClicked, _setSendButtonClicked] = useState<boolean>(false)
   const [_viewSaveSedModal, setViewSaveSedModal] = useState<boolean>(false)
 
   const disableSave =  !PSEDChanged || savingSed
@@ -74,6 +75,14 @@ const P2000: React.FC<P2000Props> = ({
     }
 
   }, [sed])
+
+  useEffect(() => {
+    if(_sendButtonClicked && !_.isNil(PSEDSendResponse)){
+      dispatch(resetValidation(namespace))
+      dispatch(fetchBuc(buc.caseId!))
+      setMode('bucedit', 'back')
+    }
+  }, [_sendButtonClicked, PSEDSendResponse])
 
   const onBackClick = () => {
     dispatch(resetValidation(namespace))
@@ -103,6 +112,7 @@ const P2000: React.FC<P2000Props> = ({
       dispatch(setValidation(clonedValidation))
 
       if (!hasErrors) {
+        _setSendButtonClicked(true)
         dispatch(sendSed(buc.caseId!, sed!.id))
       }
     }
