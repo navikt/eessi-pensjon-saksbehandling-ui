@@ -86,6 +86,7 @@ const P2000: React.FC<P2000Props> = ({
 
   const onBackClick = () => {
     dispatch(resetValidation(namespace))
+    dispatch(fetchBuc(buc.caseId!))
     setMode('bucedit', 'back')
   }
 

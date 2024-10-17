@@ -880,6 +880,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.BUC_PUT_SED_SUCCESS:
       return {
         ...state,
+        PSEDSendResponse: undefined,
         PSEDChanged: false
       }
 
