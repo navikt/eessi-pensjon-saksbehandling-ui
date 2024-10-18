@@ -889,7 +889,9 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       return {
         ...state,
         PSEDSendResponse: undefined,
-        PSEDSavedResponse: (action as ActionWithPayload).payload,
+        PSEDSavedResponse: {
+          saved: true
+        },
         PSEDChanged: false
       }
 
