@@ -33,6 +33,7 @@ export interface P2000Selector {
   savingSed: boolean
   sendingSed: boolean
   PSEDSendResponse: any | null | undefined
+  PSEDSavedResponse: any | null | undefined
   gettingSed: boolean
   validation: Validation
 }
@@ -43,6 +44,7 @@ const mapState = (state: State): P2000Selector => ({
   savingSed: state.loading.savingSed,
   sendingSed: state.loading.sendingSed,
   PSEDSendResponse: state.buc.PSEDSendResponse,
+  PSEDSavedResponse: state.buc.PSEDSavedResponse,
   gettingSed: state.loading.gettingSed,
   validation: state.validation.status,
 })
@@ -60,14 +62,14 @@ const P2000: React.FC<P2000Props> = ({
 }: P2000Props): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useDispatch()
-  const { PSEDChanged, currentPSED, gettingSed, savingSed, sendingSed, PSEDSendResponse, validation }: P2000Selector = useSelector<State, P2000Selector>(mapState)
+  const { PSEDChanged, currentPSED, gettingSed, savingSed, sendingSed, PSEDSendResponse, PSEDSavedResponse, validation }: P2000Selector = useSelector<State, P2000Selector>(mapState)
   const namespace = "p2000"
 
   const [_sendButtonClicked, _setSendButtonClicked] = useState<boolean>(false)
   const [_viewSaveSedModal, setViewSaveSedModal] = useState<boolean>(false)
 
   const disableSave =  !PSEDChanged || savingSed
-  const disableSend = !disableSave || sendingSed || (currentPSED?.originalSed?.status === "sent" && _.isEmpty(PSEDSendResponse)) || !_.isEmpty(PSEDSendResponse)
+  const disableSend = !disableSave || sendingSed || (currentPSED?.originalSed?.status === "sent" && _.isEmpty(PSEDSavedResponse)) || !_.isEmpty(PSEDSendResponse)
 
   useEffect(() => {
     if(sed){
