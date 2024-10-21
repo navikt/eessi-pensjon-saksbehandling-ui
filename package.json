@@ -30,7 +30,7 @@
     "@navikt/forhandsvisningsfil": "6.0.2",
     "@navikt/hoykontrast": "^4.0.1",
     "@navikt/land-verktoy": "^4.0.0",
-    "@navikt/landvelger": "^7.0.0",
+    "@navikt/landvelger": "^7.0.1",
     "@navikt/tabell": "^6.0.1",
     "@reduxjs/toolkit": "^1.8.5",
     "@sentry/browser": "^7.119.1",
