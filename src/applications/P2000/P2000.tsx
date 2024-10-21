@@ -5,7 +5,7 @@ import {Buc, Sed} from "src/declarations/buc";
 import {BUCMode, Validation} from "src/declarations/app";
 import {Box, Button, HStack, Loader} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
-import {getSed, saveSed, sendSed, setPSED, updatePSED} from "src/actions/buc";
+import {fetchBuc, getSed, saveSed, sendSed, setPSED, updatePSED} from "src/actions/buc";
 import {resetValidation, setValidation} from 'src/actions/validation'
 import { State } from "src/declarations/reducers";
 import {P2000SED} from "src/declarations/p2000";
@@ -33,6 +33,7 @@ export interface P2000Selector {
   savingSed: boolean
   sendingSed: boolean
   PSEDSendResponse: any | null | undefined
+  PSEDSavedResponse: any | null | undefined
   gettingSed: boolean
   validation: Validation
 }
@@ -43,6 +44,7 @@ const mapState = (state: State): P2000Selector => ({
   savingSed: state.loading.savingSed,
   sendingSed: state.loading.sendingSed,
   PSEDSendResponse: state.buc.PSEDSendResponse,
+  PSEDSavedResponse: state.buc.PSEDSavedResponse,
   gettingSed: state.loading.gettingSed,
   validation: state.validation.status,
 })
@@ -60,13 +62,14 @@ const P2000: React.FC<P2000Props> = ({
 }: P2000Props): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useDispatch()
-  const { PSEDChanged, currentPSED, gettingSed, savingSed, sendingSed, PSEDSendResponse, validation }: P2000Selector = useSelector<State, P2000Selector>(mapState)
+  const { PSEDChanged, currentPSED, gettingSed, savingSed, sendingSed, PSEDSendResponse, PSEDSavedResponse, validation }: P2000Selector = useSelector<State, P2000Selector>(mapState)
   const namespace = "p2000"
 
+  const [_sendButtonClicked, _setSendButtonClicked] = useState<boolean>(false)
   const [_viewSaveSedModal, setViewSaveSedModal] = useState<boolean>(false)
 
   const disableSave =  !PSEDChanged || savingSed
-  const disableSend = !disableSave || sendingSed || (currentPSED?.originalSed?.status === "sent" &&_.isEmpty(PSEDSendResponse)) || !_.isEmpty(PSEDSendResponse)
+  const disableSend = !disableSave || sendingSed || (currentPSED?.originalSed?.status === "sent" && _.isEmpty(PSEDSavedResponse)) || !_.isEmpty(PSEDSendResponse)
 
   useEffect(() => {
     if(sed){
@@ -75,8 +78,17 @@ const P2000: React.FC<P2000Props> = ({
 
   }, [sed])
 
+  useEffect(() => {
+    if(_sendButtonClicked && !_.isNil(PSEDSendResponse)){
+      dispatch(resetValidation(namespace))
+      dispatch(fetchBuc(buc.caseId!))
+      setMode('bucedit', 'back')
+    }
+  }, [_sendButtonClicked, PSEDSendResponse])
+
   const onBackClick = () => {
     dispatch(resetValidation(namespace))
+    dispatch(fetchBuc(buc.caseId!))
     setMode('bucedit', 'back')
   }
 
@@ -103,6 +115,7 @@ const P2000: React.FC<P2000Props> = ({
       dispatch(setValidation(clonedValidation))
 
       if (!hasErrors) {
+        _setSendButtonClicked(true)
         dispatch(sendSed(buc.caseId!, sed!.id))
       }
     }
