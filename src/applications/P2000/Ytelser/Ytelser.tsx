@@ -365,7 +365,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                   value={_ytelse?.mottasbasertpaa}
                 >
                   <Radio value="botid">Botid</Radio>
-                  <Radio value="arbeid">Arbeid</Radio>
+                  <Radio value="i_arbeid">Arbeid</Radio>
                 </HorizontalRadioGroup>
               </Column>
             </AlignStartRow>
