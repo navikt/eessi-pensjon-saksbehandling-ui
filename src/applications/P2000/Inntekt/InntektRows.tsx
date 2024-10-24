@@ -251,7 +251,7 @@ const InntektRows: React.FC<InntektProps> = ({
             )
           : (
             <Table.Row>
-              <Table.DataCell align="right" width={"10%"}>
+              <Table.DataCell width={"10%"}>
                 {inntekt?.beloep}
               </Table.DataCell>
               <Table.DataCell width={"10%"}>
