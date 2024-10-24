@@ -19,32 +19,7 @@ export default {
       "mor": null,
       "far": null,
       "person": {
-        "pin": [
-          {
-            "institusjonsnavn": "NAV ACCEPTANCE TEST 07",
-            "institusjonsid": "NO:NAVAT07",
-            "sektor": null,
-            "identifikator": "16465444863",
-            "land": "NO",
-            "institusjon": null
-          },
-          {
-            "institusjonsnavn": null,
-            "institusjonsid": null,
-            "sektor": null,
-            "identifikator": null,
-            "land": "SE",
-            "institusjon": null
-          },
-          {
-            "institusjonsnavn": null,
-            "institusjonsid": null,
-            "sektor": null,
-            "identifikator": "121212",
-            "land": null,
-            "institusjon": null
-          }
-        ],
+        "pin": [],
         "pinland": null,
         "statsborgerskap": [
           {
@@ -64,28 +39,14 @@ export default {
           "region": null
         },
         "foedselsdato": "1954-06-16",
-        "sivilstand": [
-          {
-            "status": "gift",
-            "fradato": null
-          },
-          {
-            "status": null,
-            "fradato": null
-          },
-        ],
+        "sivilstand": [],
         "relasjontilavdod": null,
         "rolle": null,
         "kontakt": {
           telefon: [
-            {nummer: null, type: 'mobil'},
-            {nummer: null, type: null},
             {nummer: '92345678', type: 'mobil'},
           ],
-          email: [
-            {},
-            {adresse: "epost-adresse"}
-          ]
+          email: []
         }
       },
       "adresse": {
@@ -107,20 +68,7 @@ export default {
       "bank": null
     },
     "ektefelle": null,
-    "barn": [
-      {
-        "person": {
-          "fornavn": "BARN",
-          "etternavn": "BARNSEN"
-        }
-      },
-      {
-        "person": {
-          "fornavn": "BARN 2",
-          "etternavn": "BARNSEN"
-        }
-      }
-    ],
+    "barn": [],
     "verge": {
       "person": {
         "pin": null,
@@ -205,7 +153,7 @@ export default {
           "arbeidstimerperuke": null,
           "planlagtpensjoneringsdato": null,
           "yrke": "Kokk",
-          "type": null,
+          "type": "forsikrede_driver_fortsatt_selvstendig_naerigsvirksomhet",
           "sluttdato": null
         },
         {
@@ -230,30 +178,7 @@ export default {
     },
     "angitidligstdato": null,
     "utsettelse": null,
-    "ytelser": [
-      {
-        "totalbruttobeloeparbeidsbasert": "1000",
-        "institusjon": null,
-        "pin": null,
-        "startdatoutbetaling": "2023-01-01",
-        "mottasbasertpaa": "botid",
-        "ytelse": null,
-        "startdatoretttilytelse": "2023-12-01",
-        "sluttdatoUtbetaling": null,
-        "beloep": [
-          {
-            "betalingshyppighetytelse": "03",
-            "valuta": "EUR",
-            "beloep": "100000",
-            "beloepBrutto": null,
-            "gjeldendesiden": "2022-09-01",
-            "utbetalingshyppighetAnnen": null
-          }
-        ],
-        "status": null,
-        "annenbetalingshyppighetytelse": null
-      }
-    ],
+    "ytelser": [],
     "forespurtstartdato": null,
     "vedtak": null,
     "vedlegg": null,
