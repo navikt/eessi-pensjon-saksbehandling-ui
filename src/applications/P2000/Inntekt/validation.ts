@@ -1,7 +1,7 @@
 import {Validation} from "src/declarations/app";
 import {getIdx} from "../../../utils/namespace";
 import {Inntekt} from "../../../declarations/p2000";
-import {checkIfNotEmpty} from "../../../utils/validation";
+import {checkIfNotEmpty, checkValidDateFormat} from "../../../utils/validation";
 
 export interface ValidationInntektProps {
   inntekt: Inntekt | undefined
@@ -35,6 +35,12 @@ export const validateInntekt = (
     needle: inntekt?.beloeputbetaltsiden,
     id: namespace + idx + '-beloeputbetaltsiden',
     message: 'validation:missing-p2000-arbeidsforhold-inntekt-beloeputbetaltsiden'
+  }))
+
+  hasErrors.push(checkValidDateFormat(v, {
+    needle: inntekt?.beloeputbetaltsiden,
+    id: namespace + idx + '-beloeputbetaltsiden',
+    message: 'validation:invalidDateFormat',
   }))
 
   hasErrors.push(checkIfNotEmpty(v, {

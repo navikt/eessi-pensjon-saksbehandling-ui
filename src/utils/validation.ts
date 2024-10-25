@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { ErrorElement, Validation } from 'src/declarations/app'
 import i18n from "i18next";
+import {isDateValidFormat} from "src/applications/P2000/DateField/DateField";
 
 export interface ValidateParams {
   id: string
@@ -51,6 +52,16 @@ export const checkIfDuplicate = (v: Validation, {
   }
   return false
 }
+
+
+export const checkValidDateFormat = (v: Validation, { needle, id, message, extra }: ValidateValueParams): boolean => {
+  if (isDateValidFormat(needle)){
+    return false
+  } else {
+    return addError(v, { id, message, extra })
+  }
+}
+
 
 export const checkIfNotEmail = (v: Validation, {
   needle, id, message, extra

@@ -5,6 +5,7 @@ import _ from "lodash";
 import performValidation from "../../../utils/performValidation";
 import {validateFoedested, ValidationFoedestedProps} from "../Foedested/validation";
 import {validatePerson, ValidationPersonProps} from "../PersonOpplysninger/validation";
+import {checkValidDateFormat} from "src/utils/validation";
 
 export interface ValidationBarnArrayProps {
   barnArray: Array<Barn> | undefined
@@ -36,6 +37,12 @@ export const validateBarn = (
       foedested: barn?.person?.foedested
     }, true))
   }
+
+  hasErrors.push(checkValidDateFormat(v, {
+    needle: barn?.person?.doedsdato,
+    id: namespace + idx + '-person-doedsdato',
+    message: 'validation:invalidDateFormat',
+  }))
 
   return hasErrors.find(value => value) !== undefined
 }

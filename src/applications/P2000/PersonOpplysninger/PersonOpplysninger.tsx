@@ -8,7 +8,7 @@ import Input from "src/components/Forms/Input";
 import DateField from "../DateField/DateField";
 import {BodyLong, Label, Radio} from "@navikt/ds-react";
 import {Person} from "src/declarations/p2000";
-import {dateToString, formatDate} from "src/utils/utils";
+import {  formatDate} from "src/utils/utils";
 import FormText from "../../../components/Forms/FormText";
 import {HorizontalRadioGroup} from "src/components/StyledComponents";
 import {Validation} from "../../../declarations/app";
@@ -82,8 +82,8 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
                   label={t('p2000:form-person-foedselsdato')}
                   error={v[namespace + '-foedselsdato']?.feilmelding}
                   namespace={namespace}
-                  onChanged={(v) => setPersonOpplysninger("foedselsdato", dateToString(v), parentIndex)}
-                  defaultDate={person?.foedselsdato ?? ''}
+                  onChanged={(v) => setPersonOpplysninger("foedselsdato", v, parentIndex)}
+                  dateValue={person?.foedselsdato ?? ''}
                 />
               </Column>
               <Column>

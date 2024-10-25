@@ -21,7 +21,7 @@ import UtenlandskePin from "../UtenlandskePin/UtenlandskePin";
 import Foedested from "../Foedested/Foedested";
 import Statsborgerskap from "../Statsborgerskap/Statsborgerskap";
 import DateField from "../DateField/DateField";
-import {dateToString, formatDate} from "src/utils/utils";
+import {formatDate} from "src/utils/utils";
 import FormText from "../../../components/Forms/FormText";
 import useValidation from "../../../hooks/useValidation";
 import {hasNamespaceWithErrors} from "src/utils/validation";
@@ -222,6 +222,8 @@ const Barn: React.FC<MainFormProps> = ({
     const _v: Validation = index < 0 ? _validation : validation
     const inEditMode = index < 0 || _editIndex === index
     const _barn = index < 0 ? _newBarn : (inEditMode ? _editBarn : barn)
+
+    console.log(_v)
     return (
       <Fragment key={"barn-" + index}>
         <RepeatableRowNoBackground
@@ -251,7 +253,7 @@ const Barn: React.FC<MainFormProps> = ({
                 <Column>
                   {inEditMode &&
                     <Select
-                      error={validation[namespace + '-relasjontilbruker']?.feilmelding}
+                      error={_v[_namespace + '-relasjontilbruker']?.feilmelding}
                       id='barn-relasjontilbruker'
                       label={t('p2000:form-barn-relasjontilbruker')}
                       hideLabel={true}
@@ -266,7 +268,7 @@ const Barn: React.FC<MainFormProps> = ({
                   }
                   {!inEditMode &&
                     <FormText
-                      error={validation[namespace + '-relasjontilbruker']?.feilmelding}
+                      error={_v[_namespace + '-relasjontilbruker']?.feilmelding}
                       id='barn-relasjontilbruker'
                     >
                       {_barn?.relasjontilbruker && <BodyLong>{getRelasjonLabel(_barn?.relasjontilbruker)}</BodyLong>}
@@ -288,15 +290,15 @@ const Barn: React.FC<MainFormProps> = ({
                       id='person-doedssdato'
                       index={0}
                       label={t('p2000:form-person-doedsdato')}
-                      error={validation[namespace + '-doedssdato']?.feilmelding}
-                      namespace={namespace}
-                      onChanged={(v) => setBarnPersonalia("doedsdato", dateToString(v), index)}
-                      defaultDate={_barn?.person?.doedsdato ?? ''}
+                      error={_v[_namespace + '-person-doedssdato']?.feilmelding}
+                      namespace={_namespace}
+                      onChanged={(v) => setBarnPersonalia("doedsdato", v, index)}
+                      dateValue={_barn?.person?.doedsdato ?? ''}
                     />
                   }
                   {!inEditMode &&
                     <FormText
-                      error={validation[namespace + '-doedssdato']?.feilmelding}
+                      error={_v[_namespace + '-person-doedssdato']?.feilmelding}
                       id='person-doedssdato'
                     >
                       {_barn?.person?.doedsdato &&<BodyLong>{formatDate(_barn?.person?.doedsdato)}</BodyLong>}
@@ -304,6 +306,8 @@ const Barn: React.FC<MainFormProps> = ({
                     </FormText>
                   }
                 </Column>
+                <Column/>
+                <Column/>
               </AlignStartRow>
               <VerticalSeparatorDiv/>
               <AlignEndColumn>

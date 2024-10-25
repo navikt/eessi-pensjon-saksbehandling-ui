@@ -1,15 +1,15 @@
 import React, {Fragment, useState} from "react";
-import {Inntekt} from "../../../declarations/p2000";
+import {Inntekt} from "src/declarations/p2000";
 import _ from "lodash";
 import {Select, Table} from "@navikt/ds-react";
-import {getIdx} from "../../../utils/namespace";
+import {getIdx} from "src/utils/namespace";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
-import {resetValidation, setValidation} from "../../../actions/validation";
+import {resetValidation, setValidation} from "src/actions/validation";
 import {useDispatch} from "react-redux";
 import Input from "../../../components/Forms/Input";
-import {Validation} from "../../../declarations/app";
-import {useAppSelector} from "../../../store";
-import {State} from "../../../declarations/reducers";
+import {Validation} from "src/declarations/app";
+import {useAppSelector} from "src/store";
+import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 import useValidation from "../../../hooks/useValidation";
 import {validateInntekt, ValidationInntektProps} from "./validation";
@@ -18,7 +18,7 @@ import CountrySelect from "@navikt/landvelger";
 import {Currency} from "@navikt/land-verktoy";
 import {useTranslation} from "react-i18next";
 import DateField from "../DateField/DateField";
-import {dateToString, formatDate} from "../../../utils/utils";
+import {formatDate} from "src/utils/utils";
 import styled from "styled-components";
 
 
@@ -207,14 +207,14 @@ const InntektRows: React.FC<InntektProps> = ({
                 </TopAlignedCell>
                 <TopAlignedCell width={"20%"}>
                   <DateField
-                    id='inntekt-beloeputbetaltsiden'
+                    id='beloeputbetaltsiden'
                     label={t('p2000:form-arbeidsforhold-inntekt-belop-siden')}
                     hideLabel={true}
                     index={index}
                     error={_v[_namespace + '-beloeputbetaltsiden']?.feilmelding}
                     namespace={_namespace}
-                    onChanged={(e) => setInntektProperty("beloeputbetaltsiden", dateToString(e)!, index)}
-                    defaultDate={_inntekt?.beloeputbetaltsiden}
+                    onChanged={(e) => setInntektProperty("beloeputbetaltsiden", e!, index)}
+                    dateValue={_inntekt?.beloeputbetaltsiden ?? ''}
                   />
                 </TopAlignedCell>
                 <TopAlignedCell width={"20%"}>

@@ -1,15 +1,15 @@
 import React, {Fragment, useState} from "react";
-import {Beloep, Inntekt} from "../../../declarations/p2000";
+import {Beloep, Inntekt} from "src/declarations/p2000";
 import _ from "lodash";
 import {Select, Table} from "@navikt/ds-react";
-import {getIdx} from "../../../utils/namespace";
+import {getIdx} from "src/utils/namespace";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
-import {resetValidation, setValidation} from "../../../actions/validation";
+import {resetValidation, setValidation} from "src/actions/validation";
 import {useDispatch} from "react-redux";
 import Input from "../../../components/Forms/Input";
-import {Validation} from "../../../declarations/app";
-import {useAppSelector} from "../../../store";
-import {State} from "../../../declarations/reducers";
+import {Validation} from "src/declarations/app";
+import {useAppSelector} from "src/store";
+import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 import useValidation from "../../../hooks/useValidation";
 import {validateBeloep, ValidationBeloepProps} from "./validation";
@@ -18,7 +18,7 @@ import CountrySelect from "@navikt/landvelger";
 import {Currency} from "@navikt/land-verktoy";
 import {useTranslation} from "react-i18next";
 import DateField from "../DateField/DateField";
-import {dateToString, formatDate} from "../../../utils/utils";
+import {formatDate} from "src/utils/utils";
 import styled from "styled-components";
 
 const TopAlignedCell = styled(Table.DataCell)`
@@ -209,14 +209,14 @@ const BeloepRows: React.FC<BeloepProps> = ({
             </TopAlignedCell>
             <TopAlignedCell width={"20%"}>
               <DateField
-                id='beloep-gjeldendesiden'
+                id='gjeldendesiden'
                 label={t('p2000:form-ytelse-beloep-beloep-siden')}
                 hideLabel={true}
                 index={index}
                 error={_v[_namespace + '-gjeldendesiden']?.feilmelding}
                 namespace={_namespace}
-                onChanged={(e) => setBeloepProperty("gjeldendesiden", dateToString(e)!, index)}
-                defaultDate={_beloep?.gjeldendesiden}
+                onChanged={(e) => setBeloepProperty("gjeldendesiden", e!, index)}
+                dateValue={_beloep?.gjeldendesiden ?? ''}
               />
             </TopAlignedCell>
             <TopAlignedCell width={"20%"}>

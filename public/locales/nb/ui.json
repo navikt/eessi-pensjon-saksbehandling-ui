@@ -138,5 +138,7 @@
     "year" : "År",
     "yes" : "Ja",
     "youComeFrom": "Du kommer fra ",
-    "yrke": "Yrke"
+    "yrke": "Yrke",
+
+    "placeholder-date-default": "DD.MM.ÅÅÅÅ"
 }

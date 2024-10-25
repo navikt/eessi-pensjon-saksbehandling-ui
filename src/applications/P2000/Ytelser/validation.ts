@@ -1,7 +1,7 @@
 import {Validation} from "src/declarations/app";
 import {Ytelse} from "src/declarations/p2000";
 import {getIdx} from "src/utils/namespace";
-import {checkIfNotEmpty} from "src/utils/validation";
+import {checkIfNotEmpty, checkValidDateFormat} from "src/utils/validation";
 
 export interface ValidationYtelserProps {
   ytelser: Array<Ytelse> | undefined
@@ -34,6 +34,26 @@ export const validateYtelse = (
     id: namespace + idx + '-status',
     message: 'validation:missing-p2000-ytelse-status'
   }))
+
+  hasErrors.push(checkValidDateFormat(v, {
+    needle: ytelse?.startdatoutbetaling,
+    id: namespace + idx + '-startdatoutbetaling',
+    message: 'validation:invalidDateFormat',
+  }))
+
+  hasErrors.push(checkValidDateFormat(v, {
+    needle: ytelse?.sluttdatoutbetaling,
+    id: namespace + idx + '-sluttdatoutbetaling',
+    message: 'validation:invalidDateFormat',
+  }))
+
+  hasErrors.push(checkValidDateFormat(v, {
+    needle: ytelse?.startdatoretttilytelse,
+    id: namespace + idx + '-startdatoretttilytelse',
+    message: 'validation:invalidDateFormat',
+  }))
+
+
 
   return hasErrors.find(value => value) !== undefined
 }

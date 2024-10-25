@@ -20,7 +20,7 @@ import {useAppSelector} from "src/store";
 import {useTranslation} from "react-i18next";
 import {validateFamilieStatus, ValidationFamilieStatusProps} from "./validation";
 import DateField from "../DateField/DateField";
-import {dateToString, formatDate} from "src/utils/utils";
+import {formatDate} from "src/utils/utils";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
 import ErrorLabel from "src/components/Forms/ErrorLabel";
@@ -73,9 +73,9 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
     })
   }
 
-  const setSivilstandFraDato = (fraDato: Date | undefined, index: number) => {
+  const setSivilstandFraDato = (fraDato: string | undefined, index: number) => {
     if(fraDato){
-      const dateString = dateToString(fraDato)
+      const dateString = fraDato
 
       if (index < 0) {
         _setNewSivilstand({
@@ -205,7 +205,7 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
                     error={_v[_namespace + '-fradato']?.feilmelding}
                     namespace={_namespace}
                     onChanged={(e) => setSivilstandFraDato(e, index)}
-                    defaultDate={_sivilstand?.fradato}
+                    dateValue={_sivilstand?.fradato ?? ''}
                   />
                 </Column>
               </>

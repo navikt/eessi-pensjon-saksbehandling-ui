@@ -23,7 +23,7 @@ import {validateUtsettelse, ValidationUtsettelseProps} from "./validation";
 import {Country} from "@navikt/land-verktoy";
 import Input from "../../../components/Forms/Input";
 import DateField from "../DateField/DateField";
-import {dateToString, formatDate} from "src/utils/utils";
+import {formatDate} from "src/utils/utils";
 import FormText from "../../../components/Forms/FormText";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import classNames from "classnames";
@@ -184,8 +184,8 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
                     index={index}
                     label={t('p2000:form-diverse-utsettelse-tildato')}
                     hideLabel={index>0}
-                    onChanged={(e) => setUtsettelseProp("tildato", dateToString(e)!, index)}
-                    defaultDate={_utsettelse?.tildato}
+                    onChanged={(e) => setUtsettelseProp("tildato", e!, index)}
+                    dateValue={_utsettelse?.tildato ?? ''}
                   />
                 </Column>
               </>

@@ -3,6 +3,8 @@
   "duplicate-p2000-statsborgerskap-land": "Land allerede lagt til",
   "duplicate-p2000-utenlandskepin-land": "Land allerede lagt til",
 
+  "invalidDateFormat": "Ugyldig datoformat (DD.MM.YYYY / DD.MM.YY / DDMMYY)",
+
   "invalid-p2000-bank-konto-ikkesepa-swift": "Ugyldig BIC/SWIFT",
   "invalid-p2000-bank-konto-sepa-iban": "Ugyldig IBAN",
   "invalid-p2000-bank-konto-sepa-swift": "Ugyldig BIC/SWIFT",

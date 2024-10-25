@@ -1,5 +1,5 @@
 import {Validation} from "src/declarations/app";
-import { checkIfNotEmpty } from 'src/utils/validation'
+import {checkIfNotEmpty, checkValidDateFormat} from 'src/utils/validation'
 import {Sivilstand} from "src/declarations/p2000";
 import {getIdx} from "src/utils/namespace";
 
@@ -33,6 +33,12 @@ export const validateFamilieStatus = (
     needle: sivilstand?.fradato,
     id: namespace + idx +  '-fradato',
     message: 'validation:missing-p2000-forsikret-person-sivilstand-fradato'
+  }))
+
+  hasErrors.push(checkValidDateFormat(v, {
+    needle: sivilstand?.fradato,
+    id: namespace + idx + '-fradato',
+    message: 'validation:invalidDateFormat',
   }))
 
   return hasErrors.find(value => value) !== undefined

@@ -27,7 +27,7 @@ import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import BeloepRows from "../Beloep/BeloepRows";
-import {dateToString, formatDate} from "src/utils/utils";
+import {formatDate} from "src/utils/utils";
 import Input from "../../../components/Forms/Input";
 import DateField from "../DateField/DateField";
 import ErrorLabel from "src/components/Forms/ErrorLabel";
@@ -295,21 +295,22 @@ const Ytelser: React.FC<MainFormProps> = ({
                   index={index}
                   error={_v[_namespace + '-startdatoutbetaling']?.feilmelding}
                   namespace={_namespace}
-                  onChanged={(e) => setYtelseProperty("startdatoutbetaling", dateToString(e)!, index)}
-                  defaultDate={_ytelse?.startdatoutbetaling}
+                  onChanged={(e) => setYtelseProperty("startdatoutbetaling", e!, index)}
+                  dateValue={_ytelse?.startdatoutbetaling}
                 />
               </Column>
-              <Column flex="2">
+              <Column flex="1">
                 <DateField
                   id={_namespace + '-sluttdatoutbetaling'}
                   label={t('p2000:form-ytelse-sluttdato-utbetaling')}
                   index={index}
                   error={_v[_namespace + '-sluttdatoutbetaling']?.feilmelding}
                   namespace={_namespace}
-                  onChanged={(e) => setYtelseProperty("sluttdatoutbetaling", dateToString(e)!, index)}
-                  defaultDate={_ytelse?.sluttdatoutbetaling}
+                  onChanged={(e) => setYtelseProperty("sluttdatoutbetaling", e!, index)}
+                  dateValue={_ytelse?.sluttdatoutbetaling}
                 />
               </Column>
+              <Column/>
             </AlignStartRow>
             <VerticalSeparatorDiv/>
             <AlignStartRow>
@@ -320,10 +321,12 @@ const Ytelser: React.FC<MainFormProps> = ({
                   index={index}
                   error={_v[_namespace + '-startdatoretttilytelse']?.feilmelding}
                   namespace={_namespace}
-                  onChanged={(e) => setYtelseProperty("startdatoretttilytelse", dateToString(e)!, index)}
-                  defaultDate={_ytelse?.startdatoretttilytelse}
+                  onChanged={(e) => setYtelseProperty("startdatoretttilytelse", e!, index)}
+                  dateValue={_ytelse?.startdatoretttilytelse}
                 />
               </Column>
+              <Column/>
+              <Column/>
             </AlignStartRow>
             <VerticalSeparatorDiv/>
             <AlignStartRow>

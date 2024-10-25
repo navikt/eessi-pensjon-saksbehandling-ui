@@ -1,6 +1,6 @@
 import {Validation} from "src/declarations/app";
 import _ from "lodash";
-import {checkIfNotEmpty, checkLength} from "src/utils/validation";
+import {checkIfNotEmpty, checkLength, checkValidDateFormat} from "src/utils/validation";
 import {Pensjon} from "src/declarations/p2000";
 
 export interface ValidationDiverseProps {
@@ -51,7 +51,11 @@ export const validateDiverse = (
     }))
   }
 
-
+  hasErrors.push(checkValidDateFormat(v, {
+    needle: pensjon?.forespurtstartdato,
+    id: namespace + '-forespurtstartdato  ',
+    message: 'validation:invalidDateFormat',
+  }))
 
   return hasErrors.find(value => value) !== undefined
 }

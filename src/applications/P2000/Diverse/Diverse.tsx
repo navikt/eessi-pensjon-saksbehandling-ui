@@ -11,7 +11,6 @@ import useUnmount from "src/hooks/useUnmount";
 import performValidation from "src/utils/performValidation";
 import {validateDiverse, ValidationDiverseProps} from "./validation";
 import DateField from "../DateField/DateField";
-import {dateToString} from "src/utils/utils";
 import {useTranslation} from "react-i18next";
 import {P2000SED, Pensjon} from "src/declarations/p2000";
 import {HorizontalRadioGroup} from "src/components/StyledComponents";
@@ -80,8 +79,8 @@ const Diverse: React.FC<MainFormProps> = ({
               label={t('p2000:form-diverse-pensjon-forespurtstartdato')}
               error={validation[namespace + '-forespurtstartdato']?.feilmelding}
               namespace={namespace}
-              onChanged={(v) => setPensjonProperty("forespurtstartdato", dateToString(v))}
-              defaultDate={pensjon?.forespurtstartdato ?? ''}
+              onChanged={(v) => setPensjonProperty("forespurtstartdato", v)}
+              dateValue={pensjon?.forespurtstartdato ?? ''}
             />
           </Column>
           <Column>

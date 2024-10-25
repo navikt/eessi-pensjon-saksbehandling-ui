@@ -1,6 +1,6 @@
 import {Validation} from "src/declarations/app";
 import {Person} from "src/declarations/p2000";
-import {checkIfNotEmpty, checkLength} from "src/utils/validation";
+import {checkIfNotEmpty, checkLength, checkValidDateFormat} from "src/utils/validation";
 
 export interface ValidationPersonProps {
   person: Person | undefined
@@ -51,6 +51,12 @@ export const validatePerson = (
     id: namespace + '-person-fornavn',
     max: 155,
     message: 'validation:textOverX'
+  }))
+
+  hasErrors.push(checkValidDateFormat(v, {
+    needle: person?.foedselsdato,
+    id: namespace + '-person-foedselsdato',
+    message: 'validation:invalidDateFormat',
   }))
 
   return hasErrors.find(value => value) !== undefined
