@@ -1,5 +1,5 @@
-import { progressBarAnimation } from '@navikt/hoykontrast'
 import styled from 'styled-components'
+import { progressBarAnimation } from "src/components/Animations/Animations";
 
 export const TextDiv = styled.div`
   min-width: 50%;

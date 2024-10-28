@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import {LinkPanel, Panel} from "@navikt/ds-react";
-import {animationClose, animationOpen, slideInFromLeft} from "@navikt/hoykontrast";
-
+import { LinkPanel, Panel } from "@navikt/ds-react";
+import { animationClose, animationOpen, slideInFromLeft } from "src/components/Animations/Animations";
 
 export const ProgressBarDiv = styled.div`
  flex: 2;

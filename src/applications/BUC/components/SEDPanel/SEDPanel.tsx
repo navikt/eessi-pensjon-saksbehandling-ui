@@ -1,13 +1,13 @@
 import SEDHeader from 'src/applications/BUC/components/SEDHeader/SEDHeader'
 import classNames from 'classnames'
 import { BUCMode } from 'src/declarations/app'
-import { slideInFromLeft } from '@navikt/hoykontrast'
 import { Buc, Sed } from 'src/declarations/buc'
 import _ from 'lodash'
 import styled from 'styled-components'
 import SEDBody from '../SEDBody/SEDBody'
 import { Accordion, Panel } from '@navikt/ds-react'
 import {useState} from "react";
+import { slideInFromLeft } from "src/components/Animations/Animations";
 
 const activeStatus: Array<string> = ['new', 'active']
 
