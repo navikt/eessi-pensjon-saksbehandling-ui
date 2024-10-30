@@ -580,7 +580,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           valueToShow = '111'
         }
       }
-      if (!(options.values.type === '43') && options.value === '') {
+      if (options.value === '' && !(options.values.type === '43')) {
         if (options.values.type === '45') {
           options.setValues({
             ytelse: '100'
