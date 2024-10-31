@@ -101,6 +101,8 @@
   "form-ytelse-bruttobeloep-arbeidsrelatert": "Totalt bruttobeløp for arbeidsrelatert pensjon",
   "form-ytelse-bruttobeloep-bostedsbasert": "Totalt bruttobeløp for bostedsbasert pensjon",
   "form-ytelse-mottas-basert-paa": "Pensjonen mottas basert på",
+  "form-ytelse-mottas-basert-paa-botid": "Botid",
+  "form-ytelse-mottas-basert-paa-i_arbeid": "Arbeid",
   "form-ytelse-startdato-utbetaling": "Startdato for utbetaling av ytelse",
   "form-ytelse-sluttdato-utbetaling": "Sluttdato for utbetaling av ytelse",
   "form-ytelse-startdato-rett-til-ytelser": "Startdato for rett til ytelser",

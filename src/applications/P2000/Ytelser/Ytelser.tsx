@@ -367,8 +367,8 @@ const Ytelser: React.FC<MainFormProps> = ({
                   onChange={(e: any) => setYtelseProperty("mottasbasertpaa", e, index)}
                   value={_ytelse?.mottasbasertpaa}
                 >
-                  <Radio value="botid">Botid</Radio>
-                  <Radio value="i_arbeid">Arbeid</Radio>
+                  <Radio value="botid">{t('p2000:form-ytelse-mottas-basert-paa-botid')}</Radio>
+                  <Radio value="i_arbeid">{t('p2000:form-ytelse-mottas-basert-paa-i_arbeid')}</Radio>
                 </HorizontalRadioGroup>
               </Column>
             </AlignStartRow>
@@ -475,7 +475,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                 <Column flex={5}>
                   <Label>{t('p2000:form-ytelse-mottas-basert-paa')}</Label>
                   <BodyLong>
-                    {_ytelse?.mottasbasertpaa ? _ytelse?.mottasbasertpaa.charAt(0).toUpperCase() + _ytelse?.mottasbasertpaa.slice(1) : ''}
+                    {_ytelse?.mottasbasertpaa ? t('p2000:form-ytelse-mottas-basert-paa-' + _ytelse?.mottasbasertpaa) : ''}
                   </BodyLong>
                 </Column>
               </AlignStartRow>
