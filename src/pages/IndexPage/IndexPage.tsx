@@ -7,7 +7,6 @@ import { timeLogger } from 'src/metrics/loggers'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import {Box, VStack} from "@navikt/ds-react";
-import {VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import BUCIndex from 'src/applications/BUC'
 import {GJENNY, PESYS} from "../../constants/constants";
 import BUCIndexGjenny from "../../applications/BUC/BUCIndexGjenny";
@@ -44,7 +43,6 @@ export const IndexPage: React.FC<IndexPageProps> = ({indexType = "PESYS"}): JSX.
         <ContextBanner mode={mode} />
         <Box padding="4">
           <PersonPanel />
-          <VerticalSeparatorDiv />
           {indexType === PESYS &&
             <BUCIndex/>
           }
