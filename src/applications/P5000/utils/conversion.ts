@@ -476,7 +476,7 @@ export const convertFromP5000ListRowsIntoP5000SED = (
 
   const allowedFor51 = (item: P5000ListRow): boolean => {
     let answer = true
-    if (item.type === '45') {
+    if (item.type === '45' && item.selected) {
       answer = false
     }
     return answer
@@ -502,7 +502,7 @@ export const convertFromP5000ListRowsIntoP5000SED = (
     if (item.type === '45' && item.selected) {
       answer = false
     }
-    if (item.type === '49') {
+    if (item.type === '49' && item.selected) {
       answer = false
     }
     if (item.type === '50') {

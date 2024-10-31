@@ -560,17 +560,39 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const renderYtelseEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
     let valueToShow = options.value
     if (options.values && !_.isNil(options.values.type)) {
-      if ((options.values.type === '43' || options.values.type === '45') && options.value !== '') {
-        options.setValues({
-          ytelse: ''
-        })
-        valueToShow = ''
+      if (options.value !== '') {
+        if (options.values.type === '43') {
+          options.setValues({
+            ytelse: ''
+          })
+          valueToShow = ''
+        }
+        if (options.values.type === '45' && options.value !== '100') {
+          options.setValues({
+            ytelse: '100'
+          })
+          valueToShow = '100'
+        }
+        if (!(options.values.type === '43' || options.values.type === '45') && options.value !== '111') {
+          options.setValues({
+            ytelse: '111'
+          })
+          valueToShow = '111'
+        }
       }
-      if (!(options.values.type === '43' || options.values.type === '45') && options.value === '') {
-        options.setValues({
-          ytelse: '111'
-        })
-        valueToShow = '111'
+      if (options.value === '' && !(options.values.type === '43')) {
+        if (options.values.type === '45') {
+          options.setValues({
+            ytelse: '100'
+          })
+          valueToShow = '100'
+        }
+        else {
+          options.setValues({
+            ytelse: '111'
+          })
+          valueToShow = '111'
+        }
       }
     }
     return (
