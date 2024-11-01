@@ -1,7 +1,7 @@
 import {Button, Heading, Label, Select} from "@navikt/ds-react";
 import {AlignEndColumn, AlignStartRow, Column, PaddedHorizontallyDiv, VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {Sivilstand} from "src/declarations/p2000";
@@ -24,6 +24,7 @@ import {formatDate} from "src/utils/utils";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
 import ErrorLabel from "src/components/Forms/ErrorLabel";
+import {addEditingItem, deleteEditingItem} from "src/actions/app";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -56,6 +57,14 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
   const [_newSivilstandForm, _setNewSivilstandForm] = useState<boolean>(false)
 
   const [_validation, _resetValidation, _performValidation] = useValidation<ValidationFamilieStatusProps>(validateFamilieStatus, namespace)
+
+  useEffect(() => {
+    if(_newSivilstandForm || _editSivilstand){
+      dispatch(addEditingItem("sivilstand"))
+    } else if (!_newSivilstandForm && !_editSivilstand){
+      dispatch(deleteEditingItem("sivilstand"))
+    }
+  }, [_newSivilstandForm, _editSivilstand])
 
   const setSivilstandStatus = (status: string, index: number) => {
     if (index < 0) {
