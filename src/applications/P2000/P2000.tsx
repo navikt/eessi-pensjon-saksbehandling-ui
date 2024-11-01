@@ -148,7 +148,7 @@ const P2000: React.FC<P2000Props> = ({
           setViewSaveSedModal(false)
         }}
       />
-      <WarningModal open={_viewWarningModal} onModalClose={() => setViewWarningModal(false)}/>
+      <WarningModal open={_viewWarningModal} onModalClose={() => setViewWarningModal(false)} elementKeys={Object.keys(editingItems)}/>
       <div style={{ display: 'inline-block' }}>
         <Button
           variant='secondary'

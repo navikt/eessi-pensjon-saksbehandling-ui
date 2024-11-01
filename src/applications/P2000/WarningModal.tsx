@@ -7,16 +7,15 @@ import { BodyLong } from "@navikt/ds-react";
 interface WarningModalProps {
   onModalClose: () => void
   open: boolean
+  elementKeys: Array<string>
 }
-
-
 
 const WarningModal: React.FC<WarningModalProps> = ({
   onModalClose,
   open,
+  elementKeys
 }: WarningModalProps): JSX.Element => {
   const { t } = useTranslation()
-
 
   return (
     <Modal
@@ -25,7 +24,8 @@ const WarningModal: React.FC<WarningModalProps> = ({
       modal={{
         modalContent: (
           <BodyLong>
-            OBS: Du holder på legge til eller redigere et element.  Husk å lagre eller avbryte for å gå videre
+            OBS: Du holder på legge til eller redigere et eller flere elementer ({elementKeys.map((k) => t('p2000:editingItem-' + k)).join(', ')}).
+            Husk å lagre eller avbryte for å gå videre.
           </BodyLong>
         )
       }}

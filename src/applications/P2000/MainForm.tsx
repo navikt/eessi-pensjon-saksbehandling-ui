@@ -274,7 +274,7 @@ const MainForm = <T extends PSED>({
 
   return (
     <PileDiv className='mainform'>
-      <WarningModal open={_viewWarningModal} onModalClose={() => setViewWarningModal(false)}/>
+      <WarningModal open={_viewWarningModal} onModalClose={() => setViewWarningModal(false)} elementKeys={Object.keys(editingItems)}/>
       <WithErrorPanel
         border
         className={classNames({ error: null })}
