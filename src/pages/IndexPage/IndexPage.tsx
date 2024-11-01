@@ -41,15 +41,17 @@ export const IndexPage: React.FC<IndexPageProps> = ({indexType = "PESYS"}): JSX.
     <TopContainer indexType={indexType}>
       <VStack gap="4">
         <ContextBanner mode={mode} />
-        <Box padding="4">
-          <PersonPanel />
-          {indexType === PESYS &&
-            <BUCIndex/>
-          }
-          {indexType === GJENNY &&
-            <BUCIndexGjenny/>
-          }
-        </Box>
+          <Box padding="4">
+            <VStack>
+              <PersonPanel />
+              {indexType === PESYS &&
+                <BUCIndex/>
+              }
+              {indexType === GJENNY &&
+                <BUCIndexGjenny/>
+              }
+            </VStack>
+          </Box>
     </VStack>
     </TopContainer>
   )
