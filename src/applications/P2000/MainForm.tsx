@@ -4,7 +4,7 @@ import {
   ChevronRightIcon,
   CheckmarkCircleFillIcon
 } from '@navikt/aksel-icons'
-import { BodyLong } from '@navikt/ds-react'
+import {BodyLong} from '@navikt/ds-react'
 import { ActionWithPayload } from '@navikt/fetch'
 import {
   FlexCenterDiv,
@@ -25,6 +25,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import {useAppSelector} from "src/store";
 import {State} from "src/declarations/reducers";
+import WarningModal from "src/applications/P2000/WarningModal";
 
 const LeftDiv = styled.div`
   flex: 1;
@@ -131,15 +132,18 @@ export interface MainFormProps {
 
 export interface MainFormSelector {
   validation: Validation
+  editingItems?: any
 }
 
 export interface Form extends Option {
   component: any
   condition ?: () => void
+  options?: any
 }
 
 export const mapState = (state: State): MainFormSelector => ({
-  validation: state.validation.status
+  validation: state.validation.status,
+  editingItems: state.app.editingItems
 })
 
 const MainForm = <T extends PSED>({
@@ -150,10 +154,12 @@ const MainForm = <T extends PSED>({
   namespace
 }: MainFormFCProps<T>) => {
   const { t } = useTranslation()
-  const { validation }: any = useAppSelector(mapState)
+  const { validation, editingItems }: any = useAppSelector(mapState)
 
   const initialMenu = forms.length === 1 ? forms[0].value : undefined
   const [currentMenu, _setCurrentMenu] = useState<string | undefined>(initialMenu)
+
+  const [_viewWarningModal, setViewWarningModal] = useState<boolean>(false)
 
 
   const setCurrentMenu = (newMenu: string | undefined) => {
@@ -174,6 +180,7 @@ const MainForm = <T extends PSED>({
           PSED={PSED}
           setPSED={setPSED}
           updatePSED={updatePSED}
+          options={form.options ?? {}}
         />
       )
     }
@@ -181,6 +188,10 @@ const MainForm = <T extends PSED>({
   }
 
   const changeMenu = (menu: string) => {
+    if(Object.keys(editingItems).length > 0){
+      setViewWarningModal(true)
+      return
+    }
     if (currentMenu !== menu) {
       setCurrentMenu(menu)
     }
@@ -263,6 +274,7 @@ const MainForm = <T extends PSED>({
 
   return (
     <PileDiv className='mainform'>
+      <WarningModal open={_viewWarningModal} onModalClose={() => setViewWarningModal(false)}/>
       <WithErrorPanel
         border
         className={classNames({ error: null })}
