@@ -7,7 +7,7 @@ import {
   AlignEndColumn,
   PileDiv
 } from "@navikt/hoykontrast";
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import _ from "lodash";
 import {State} from "src/declarations/reducers";
@@ -34,10 +34,11 @@ import {PlusCircleIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import InntektRows from "../Inntekt/InntektRows";
 import FormText from "src/components/Forms/FormText";
+import {addEditingItem, deleteEditingItem} from "src/actions/app";
 //import useValidation from "../../../hooks/useValidation";
 
 const mapState = (state: State): MainFormSelector => ({
-  validation: state.validation.status,
+  validation: state.validation.status
 })
 
 const Yrkesaktivitet: React.FC<MainFormProps> = ({
@@ -73,6 +74,14 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
     )
     dispatch(setValidation(clonedvalidation))
   })
+
+  useEffect(() => {
+    if(_newForm || _editArbeidsforhold){
+      dispatch(addEditingItem("arbeidsforhold"))
+    } else if (!_newForm && !_editArbeidsforhold){
+      dispatch(deleteEditingItem("arbeidsforhold"))
+    }
+  }, [_newForm, _editArbeidsforhold])
 
   const setArbeidsforhold = (newArbeidsforholdArray: Array<Arbeidsforhold>) => {
     let arbeidsforholdArray: Array<Arbeidsforhold> | undefined = _.cloneDeep(newArbeidsforholdArray)

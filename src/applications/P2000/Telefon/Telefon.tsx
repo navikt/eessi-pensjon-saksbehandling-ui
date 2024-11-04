@@ -1,7 +1,7 @@
 import {Button, Heading, Select} from "@navikt/ds-react";
 import {AlignEndColumn, AlignStartRow, Column, HorizontalSeparatorDiv} from "@navikt/hoykontrast";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {Telefon as P2000Telefon} from "../../../declarations/p2000";
@@ -23,6 +23,7 @@ import {useTranslation} from "react-i18next";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
 import ErrorLabel from "src/components/Forms/ErrorLabel";
+import {addEditingItem, deleteEditingItem} from "src/actions/app";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -55,6 +56,14 @@ const Telefon: React.FC<TelefonProps> = ({
   const [_newTelefonForm, _setNewTelefonForm] = useState<boolean>(false)
 
   const [_validation, _resetValidation, _performValidation] = useValidation<ValidationTelefonProps>(validateTelefon, namespace)
+
+  useEffect(() => {
+    if(_newTelefonForm || _editTelefon){
+      dispatch(addEditingItem("telefon"))
+    } else if (!_newTelefonForm && !_editTelefon){
+      dispatch(deleteEditingItem("telefon"))
+    }
+  }, [_newTelefonForm, _editTelefon])
 
   const setTelefonNummer = (nummer: string, index: number) => {
     if (index < 0) {

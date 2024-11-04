@@ -90,3 +90,15 @@ export const copyToClipboard = (text: string) => ({
   payload: text
 })
 
+export const addEditingItem = (item: string) => ({
+  type: types.APP_EDITING_ITEMS_ADD,
+  payload: item
+})
+
+export const deleteEditingItem = (item: string) => ({
+  type: types.APP_EDITING_ITEMS_DELETE,
+  payload: item
+})
+
+
+

@@ -1,7 +1,7 @@
 import {Button, Heading} from "@navikt/ds-react";
 import {AlignEndColumn, AlignStartRow, Column} from "@navikt/hoykontrast";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {Email} from "src/declarations/p2000";
@@ -23,6 +23,7 @@ import {useTranslation} from "react-i18next";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
 import ErrorLabel from "src/components/Forms/ErrorLabel";
+import {addEditingItem, deleteEditingItem} from "src/actions/app";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -55,6 +56,14 @@ const Epost: React.FC<EpostProps> = ({
   const [_newEpostForm, _setNewEpostForm] = useState<boolean>(false)
 
   const [_validation, _resetValidation, _performValidation] = useValidation<ValidationEpostProps>(validateEpost, namespace)
+
+  useEffect(() => {
+    if(_newEpostForm || _editEpost){
+      dispatch(addEditingItem("epost"))
+    } else if (!_newEpostForm && !_editEpost){
+      dispatch(deleteEditingItem("epost"))
+    }
+  }, [_newEpostForm, _editEpost])
 
   const setEpost = (adresse: string, index: number) => {
     if (index < 0) {

@@ -2,7 +2,7 @@ import {AlignEndColumn, AlignStartRow, Column, PaddedDiv, VerticalSeparatorDiv} 
 import {BodyLong, Button, Heading, Select} from "@navikt/ds-react";
 import _ from "lodash";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
 
@@ -29,6 +29,7 @@ import {validateBarn, validateBarnArray, ValidationBarnArrayProps, ValidationBar
 import performValidation from "../../../utils/performValidation";
 import {Validation} from "src/declarations/app";
 import useUnmount from "../../../hooks/useUnmount";
+import {addEditingItem, deleteEditingItem} from "src/actions/app";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -64,6 +65,14 @@ const Barn: React.FC<MainFormProps> = ({
     )
     dispatch(setValidation(clonedvalidation))
   })
+
+  useEffect(() => {
+    if(_newForm || _editBarn){
+      dispatch(addEditingItem("barn"))
+    } else if (!_newForm && !_editBarn){
+      dispatch(deleteEditingItem("barn"))
+    }
+  }, [_newForm, _editBarn])
 
   const setBarn = (newBarnArray: Array<P2000Barn>) => {
     let barnArray: Array<P2000Barn> | undefined = _.cloneDeep(newBarnArray)
@@ -223,7 +232,6 @@ const Barn: React.FC<MainFormProps> = ({
     const inEditMode = index < 0 || _editIndex === index
     const _barn = index < 0 ? _newBarn : (inEditMode ? _editBarn : barn)
 
-    console.log(_v)
     return (
       <Fragment key={"barn-" + index}>
         <RepeatableRowNoBackground

@@ -1,7 +1,7 @@
 import {BodyLong, Button, Heading, Label} from "@navikt/ds-react";
 import {AlignEndColumn, AlignStartRow, Column} from "@navikt/hoykontrast";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {getIdx} from "src/utils/namespace";
@@ -29,6 +29,7 @@ import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
+import {addEditingItem, deleteEditingItem} from "src/actions/app";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -61,6 +62,14 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
   const [_newUtsettelseForm, _setNewUtsettelseForm] = useState<boolean>(false)
 
   const [_validation, _resetValidation, _performValidation] = useValidation<ValidationUtsettelseProps>(validateUtsettelse, namespace)
+
+  useEffect(() => {
+    if(_newUtsettelseForm || _editUtsettelse){
+      dispatch(addEditingItem("utsettelse"))
+    } else if (!_newUtsettelseForm && !_editUtsettelse){
+      dispatch(deleteEditingItem("utsettelse"))
+    }
+  }, [_newUtsettelseForm, _editUtsettelse])
 
   const setUtsettelseProp = (prop: string, value: string, index: number) => {
     if (index < 0) {

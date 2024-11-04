@@ -4,6 +4,7 @@ import { SakTypeKey, SakTypeMap } from 'src/declarations/buc.d'
 import _ from 'lodash'
 import { AnyAction } from 'redux'
 import {BRUKERKONTEKST, GJENNY, KRAVKONTEKST, VEDTAKSKONTEKST} from "src/constants/constants";
+import {ActionWithPayload} from "@navikt/fetch";
 
 export interface AppState {
   featureToggles: FeatureToggles
@@ -14,6 +15,7 @@ export interface AppState {
   userRole: string | undefined
   countryCodes: CountryCodes | undefined
   countryCodeMap: {string: string} | undefined
+  editingItems: any
 }
 
 const initialFeatureToggles: FeatureToggles = {
@@ -31,7 +33,8 @@ export const initialAppState: AppState = {
   username: undefined,
   userRole: undefined,
   countryCodes: undefined,
-  countryCodeMap: undefined
+  countryCodeMap: undefined,
+  editingItems: {}
 }
 
 const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
@@ -202,6 +205,27 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
         ...state,
         params: newParams
       }
+
+    case types.APP_EDITING_ITEMS_ADD: {
+      let newEditingItem = _.cloneDeep(state.editingItems)
+      newEditingItem[action.payload] = true
+      return {
+        ...state,
+        editingItems:  newEditingItem
+      }
+    }
+
+    case types.APP_EDITING_ITEMS_DELETE: {
+      let newEditingItem = _.cloneDeep(state.editingItems)
+      _.unset(newEditingItem,
+        (action as ActionWithPayload).payload
+      )
+
+      return {
+        ...state,
+        editingItems:  newEditingItem
+      }
+    }
 
     default:
       return state
