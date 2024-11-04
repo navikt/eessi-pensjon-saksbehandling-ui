@@ -1,7 +1,7 @@
 import {Button, Heading} from "@navikt/ds-react";
 import {AlignEndColumn, AlignStartRow, Column} from "@navikt/hoykontrast";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {getIdx} from "../../../utils/namespace";
@@ -21,6 +21,7 @@ import {MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
+import {addEditingItem, deleteEditingItem} from "src/actions/app";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -53,6 +54,14 @@ const Institusjon: React.FC<InstitusjonProps> = ({
   const [_newInstitusjonForm, _setNewInstitusjonForm] = useState<boolean>(false)
 
   const [_validation, _resetValidation, _performValidation] = useValidation<ValidationInstitusjonProps>(validateInstitusjon, namespace)
+
+  useEffect(() => {
+    if(_newInstitusjonForm || _editInstitusjon){
+      dispatch(addEditingItem("institusjon"))
+    } else if (!_newInstitusjonForm && !_editInstitusjon){
+      dispatch(deleteEditingItem("institusjon"))
+    }
+  }, [_newInstitusjonForm, _editInstitusjon])
 
   const setInstitusjon = (institusjon: string, index: number) => {
     if (index < 0) {

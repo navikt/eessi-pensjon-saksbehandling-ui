@@ -131,5 +131,16 @@
   "ingen-arbeidsforhold": "Ingen arbeidsforhold",
   "ingen-ytelser": "Ingen Ytelser",
   "ingen-x-registrert": "Ingen {{x}} registrert",
-  "yrkesaktivitet": "Yrkesaktivitet"
+  "yrkesaktivitet": "Yrkesaktivitet",
+
+  "editingItem-epost": "Epost",
+  "editingItem-telefon": "Telefon",
+  "editingItem-statsborgerskap": "Statsborgerskap",
+  "editingItem-utenlandskepin": "Utenlandske PIN",
+  "editingItem-barn": "Barn",
+  "editingItem-ytelse": "Ytelse",
+  "editingItem-arbeidsforhold": "Arbeidsforhold",
+  "editingItem-utsettelse": "Utsettelse",
+  "editingItem-institusjon": "Institusjon",
+  "editingItem-sivilstand": "Familiestatus"
 }

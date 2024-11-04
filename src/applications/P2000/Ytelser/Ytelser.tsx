@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {State} from "src/declarations/reducers";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
@@ -31,6 +31,7 @@ import {formatDate} from "src/utils/utils";
 import Input from "../../../components/Forms/Input";
 import DateField from "../DateField/DateField";
 import ErrorLabel from "src/components/Forms/ErrorLabel";
+import {addEditingItem, deleteEditingItem} from "src/actions/app";
 
 
 const mapState = (state: State): MainFormSelector => ({
@@ -68,6 +69,14 @@ const Ytelser: React.FC<MainFormProps> = ({
     )
     dispatch(setValidation(clonedvalidation))
   })
+
+  useEffect(() => {
+    if(_newForm || _editYtelse){
+      dispatch(addEditingItem("ytelse"))
+    } else if (!_newForm && !_editYtelse){
+      dispatch(deleteEditingItem("ytelse"))
+    }
+  }, [_newForm, _editYtelse])
 
   const setYtelser = (newYtelser: Array<Ytelse>) => {
     let ytelser: Array<Ytelse> | undefined = _.cloneDeep(newYtelser)

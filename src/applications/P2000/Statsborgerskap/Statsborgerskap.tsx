@@ -15,7 +15,7 @@ import FormText from 'src/components/Forms/FormText'
 import { RepeatableRow } from 'src/components/StyledComponents'
 import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import {useAppDispatch, useAppSelector} from 'src/store'
 import { getIdx } from 'src/utils/namespace'
@@ -33,6 +33,7 @@ import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
+import {addEditingItem, deleteEditingItem} from "src/actions/app";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -73,6 +74,14 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
   const [_editIndex, _setEditIndex] = useState<number | undefined>(undefined)
   const [_newForm, _setNewForm] = useState<boolean>(false)
   const [_validation, _resetValidation, _performValidation] = useValidation<ValidationStatsborgerskapProps>(validateStatsborgerskap, namespace)
+
+  useEffect(() => {
+    if(_newForm || _editStatsborgerskap){
+      dispatch(addEditingItem("statsborgerskap"))
+    } else if (!_newForm && !_editStatsborgerskap){
+      dispatch(deleteEditingItem("statsborgerskap"))
+    }
+  }, [_newForm, _editStatsborgerskap])
 
   const setStatsborgerskap = (newStatsborgerskap: Array<P2000Statsborgerskap>) => {
     let statsborgerskap: Array<P2000Statsborgerskap> | undefined = _.cloneDeep(newStatsborgerskap)

@@ -26,6 +26,7 @@ import InformasjonOmBetaling from "./InformasjonOmBetaling/InformasjonOmBetaling
 import SakInfo from "./SakInfo/SakInfo";
 import SaveSEDModal from "./SaveSEDModal";
 import Diverse from "./Diverse/Diverse";
+import WarningModal from "src/applications/P2000/WarningModal";
 
 export interface P2000Selector {
   PSEDChanged: boolean
@@ -36,6 +37,7 @@ export interface P2000Selector {
   PSEDSavedResponse: any | null | undefined
   gettingSed: boolean
   validation: Validation
+  editingItems: any
 }
 
 const mapState = (state: State): P2000Selector => ({
@@ -47,6 +49,7 @@ const mapState = (state: State): P2000Selector => ({
   PSEDSavedResponse: state.buc.PSEDSavedResponse,
   gettingSed: state.loading.gettingSed,
   validation: state.validation.status,
+  editingItems: state.app.editingItems
 })
 
 export interface P2000Props {
@@ -62,11 +65,12 @@ const P2000: React.FC<P2000Props> = ({
 }: P2000Props): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useDispatch()
-  const { PSEDChanged, currentPSED, gettingSed, savingSed, sendingSed, PSEDSendResponse, PSEDSavedResponse, validation }: P2000Selector = useSelector<State, P2000Selector>(mapState)
+  const { PSEDChanged, currentPSED, gettingSed, savingSed, sendingSed, PSEDSendResponse, PSEDSavedResponse, validation, editingItems }: P2000Selector = useSelector<State, P2000Selector>(mapState)
   const namespace = "p2000"
 
   const [_sendButtonClicked, _setSendButtonClicked] = useState<boolean>(false)
   const [_viewSaveSedModal, setViewSaveSedModal] = useState<boolean>(false)
+  const [_viewWarningModal, setViewWarningModal] = useState<boolean>(false)
 
   const disableSave =  !PSEDChanged || savingSed
   const disableSend = !disableSave || sendingSed || (currentPSED?.originalSed?.status === "sent" && _.isEmpty(PSEDSavedResponse)) || !_.isEmpty(PSEDSendResponse)
@@ -93,11 +97,19 @@ const P2000: React.FC<P2000Props> = ({
   }
 
   const onSaveSed = () => {
+    if(Object.keys(editingItems).length > 0){
+      setViewWarningModal(true)
+      return
+    } else {
+      setViewWarningModal(false)
+    }
+
     const newP2000SED: P2000SED = _.cloneDeep(currentPSED)
     const clonedValidation = _.cloneDeep(validation)
     const hasErrors = performValidation<ValidationP2000Props>(clonedValidation, namespace, validateP2000, {
       P2000SED: newP2000SED
     })
+
     dispatch(setValidation(clonedValidation))
     if (!hasErrors) {
       setViewSaveSedModal(true)
@@ -136,6 +148,7 @@ const P2000: React.FC<P2000Props> = ({
           setViewSaveSedModal(false)
         }}
       />
+      <WarningModal open={_viewWarningModal} onModalClose={() => setViewWarningModal(false)} elementKeys={Object.keys(editingItems)}/>
       <div style={{ display: 'inline-block' }}>
         <Button
           variant='secondary'

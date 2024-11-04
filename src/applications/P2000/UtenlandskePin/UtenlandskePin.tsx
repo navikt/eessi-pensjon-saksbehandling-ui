@@ -16,7 +16,7 @@ import Input from 'src/components/Forms/Input'
 import { RepeatableRow } from 'src/components/StyledComponents'
 import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import {useAppDispatch, useAppSelector} from 'src/store'
 import { getIdx } from 'src/utils/namespace'
@@ -31,6 +31,7 @@ import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
+import {addEditingItem, deleteEditingItem} from "src/actions/app";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -76,6 +77,14 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
   const [_editIndex, _setEditIndex] = useState<number | undefined>(undefined)
   const [_newForm, _setNewForm] = useState<boolean>(false)
   const [_validation, _resetValidation, _performValidation] = useValidation<ValidationUtenlandskPINProps>(validateUtenlandskPIN, namespace)
+
+  useEffect(() => {
+    if(_newForm || _editPin){
+      dispatch(addEditingItem("utenlandskepin"))
+    } else if (!_newForm && !_editPin){
+      dispatch(deleteEditingItem("utenlandskepin"))
+    }
+  }, [_newForm, _editPin])
 
   const setUtenlandskePin = (newPins: Array<PIN>) => {
     let pins: Array<PIN> | undefined = _.cloneDeep(newPins)

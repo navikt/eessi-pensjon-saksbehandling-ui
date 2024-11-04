@@ -126,6 +126,7 @@
     "utenlandsk-pin": "Utenlandsk PIN",
     "variant" : "Variant",
     "version": "Versjon",
+    "warning": "Advarsel",
     "week": "Uke",
     "websocket-log": "Websocket logs",
     "websocket-updating-buc": "Oppdaterer status på BUC {{buc}}",
