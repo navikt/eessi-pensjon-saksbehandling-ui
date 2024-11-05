@@ -6,16 +6,15 @@ import {
 import InstitutionList from 'src/applications/BUC/components/InstitutionList/InstitutionList'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import { WidthSize } from 'src/declarations/app'
-import { Column, /*Row*/ } from '@navikt/hoykontrast'
 import { AllowedLocaleString, RinaUrl } from 'src/declarations/app.d'
-import {Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames, JoarkBuc} from 'src/declarations/buc'
+import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames, JoarkBuc } from 'src/declarations/buc'
 import { BucInfoPropType, BucPropType } from 'src/declarations/buc.pt'
 import { State } from 'src/declarations/reducers'
 import { FlagItems, FlagList } from '@navikt/flagg-ikoner'
 import _ from 'lodash'
 import { linkLogger } from 'src/metrics/loggers'
 import moment from 'moment'
-import {LinkPanel, BodyLong, Link, Heading, Tag, Box, HStack} from '@navikt/ds-react'
+import { LinkPanel, BodyLong, Link, Heading, Tag, Box, HStack } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -31,7 +30,6 @@ const Row = styled(HStack)`
     flex-direction: row;
   }
 `
-
 const FlexRow = styled(Row)`
   width: 100%;
   @media (min-width: 768px) {
@@ -40,7 +38,7 @@ const FlexRow = styled(Row)`
   align-items: flex-start;
   justify-content: space-between;
 `
-export const IconsDiv = styled(Column)`
+export const IconsDiv = styled(Box)`
   margin: 0;
   padding: 0;
   display: flex;
@@ -48,7 +46,7 @@ export const IconsDiv = styled(Column)`
   justify-content: flex-start;
   flex: 1;
 `
-const LabelsDiv = styled(Column)`
+const LabelsDiv = styled(Box)`
   flex: 1;
 `
 const NumberOfSedsDiv = styled.div`
