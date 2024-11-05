@@ -63,8 +63,8 @@ const NumberOfSedsDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: ${(props: any) => props['data-icon-size'] === 'XL' ? 'bold' : 'normal'}
-  font-size: 1.5rem
+  font-weight: ${(props: any) => props['data-icon-size'] === 'XL' ? 'bold' : 'normal'};
+  font-size: 1.5rem;
 `
 const PropertyDiv = styled.div`
   display: flex;
