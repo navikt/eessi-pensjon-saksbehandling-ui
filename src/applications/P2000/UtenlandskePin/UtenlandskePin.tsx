@@ -86,6 +86,14 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
     }
   }, [_newForm, _editPin])
 
+  useEffect(() => {
+    if(!parentEditMode){
+      _setNewForm(false)
+      _setEditPin(undefined)
+      _setEditIndex(undefined)
+    }
+  }, [parentEditMode])
+
   const setUtenlandskePin = (newPins: Array<PIN>) => {
     let pins: Array<PIN> | undefined = _.cloneDeep(newPins)
     if (_.isNil(pins)) {

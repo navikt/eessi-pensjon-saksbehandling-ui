@@ -83,6 +83,14 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
     }
   }, [_newForm, _editStatsborgerskap])
 
+  useEffect(() => {
+    if(!parentEditMode){
+      _setNewForm(false)
+      _setEditStatsborgerskap(undefined)
+      _setEditIndex(undefined)
+    }
+  }, [parentEditMode])
+
   const setStatsborgerskap = (newStatsborgerskap: Array<P2000Statsborgerskap>) => {
     let statsborgerskap: Array<P2000Statsborgerskap> | undefined = _.cloneDeep(newStatsborgerskap)
 
@@ -178,14 +186,14 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
   const renderRow = (statsborgerskap: P2000Statsborgerskap | null, index: number) => {
     const _namespace = namespace + getIdx(index)
     const _v: Validation = index < 0 ? _validation : validation
-    const inEditMode = index < 0 || _editIndex === index
+    const inEditMode = (index < 0 || _editIndex === index) && parentEditMode
     const _statsborgerskap = index < 0 ? _newStatsborgerskap : (inEditMode ? _editStatsborgerskap : statsborgerskap)
     return (
       <RepeatableRow
         key={'repeatablerow-' + _namespace + index}
         id={'repeatablerow-' + _namespace}
         className={classNames({
-          new: index < 0,
+          new: index < 0 && parentEditMode,
           error: hasNamespaceWithErrors(_v, _namespace)
         })}
       >
