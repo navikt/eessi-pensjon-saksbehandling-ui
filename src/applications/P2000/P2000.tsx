@@ -27,6 +27,7 @@ import SakInfo from "./SakInfo/SakInfo";
 import SaveSEDModal from "./SaveSEDModal";
 import Diverse from "./Diverse/Diverse";
 import WarningModal from "src/applications/P2000/WarningModal";
+import {resetEditingItems} from "src/actions/app";
 
 export interface P2000Selector {
   PSEDChanged: boolean
@@ -77,6 +78,7 @@ const P2000: React.FC<P2000Props> = ({
 
   useEffect(() => {
     if(sed){
+      dispatch(resetEditingItems())
       dispatch(getSed(buc.caseId!, sed))
     }
 
@@ -84,6 +86,7 @@ const P2000: React.FC<P2000Props> = ({
 
   useEffect(() => {
     if(_sendButtonClicked && !_.isNil(PSEDSendResponse)){
+      dispatch(resetEditingItems())
       dispatch(resetValidation(namespace))
       dispatch(fetchBuc(buc.caseId!))
       setMode('bucedit', 'back')
@@ -91,6 +94,7 @@ const P2000: React.FC<P2000Props> = ({
   }, [_sendButtonClicked, PSEDSendResponse])
 
   const onBackClick = () => {
+    dispatch(resetEditingItems())
     dispatch(resetValidation(namespace))
     dispatch(fetchBuc(buc.caseId!))
     setMode('bucedit', 'back')

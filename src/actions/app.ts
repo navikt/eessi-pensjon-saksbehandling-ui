@@ -100,5 +100,7 @@ export const deleteEditingItem = (item: string) => ({
   payload: item
 })
 
-
+export const resetEditingItems = () => ({
+  type: types.APP_EDITING_ITEMS_RESET,
+})
 
