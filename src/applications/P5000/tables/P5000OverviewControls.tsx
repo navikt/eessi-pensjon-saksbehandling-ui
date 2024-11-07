@@ -150,7 +150,22 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
       )}
       <AlignEndRow style={{ width: '100%' }}>
         <Column flex='2'>
-          <FlexEndDiv>
+            <Switch
+              checked={mergePeriods}
+              id='a_buc_c_sedstart--p5000-overview-hide-overlapping-checkbox'
+              data-testid='a_buc_c_sedstart--p5000-overview-hide-overlapping-checkbox'
+              onChange={() => setMergePeriods(!mergePeriods)}
+            >
+              <FlexCenterDiv>
+                <OneLineSpan>
+                  {t('p5000:hide-overlapping-periods')}
+                </OneLineSpan>
+                <HorizontalSeparatorDiv size='0.5' />
+                <HelpText>
+                    {t('p5000:help-hide-periods-1') + t('p5000:help-hide-periods-2')}
+                </HelpText>
+              </FlexCenterDiv>
+            </Switch>
             <Switch
               checked={mergePeriods}
               id='a_buc_c_sedstart--p5000-overview-merge-checkbox'
@@ -163,7 +178,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                 </OneLineSpan>
                 <HorizontalSeparatorDiv size='0.5' />
                 <HelpText>
-                    {t('p5000:help-merge-1') + t('p5000:help-merge-2')}
+                  {t('p5000:help-merge-1') + t('p5000:help-merge-2')}
                 </HelpText>
               </FlexCenterDiv>
             </Switch>
@@ -215,7 +230,6 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                 />
               </>
             )}
-          </FlexEndDiv>
         </Column>
         <Column>
           <FlexEndDiv style={{ flexDirection: 'row-reverse' }}>

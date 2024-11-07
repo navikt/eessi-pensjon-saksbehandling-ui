@@ -10,6 +10,7 @@
   "filter-label"            : "Filtrering (f.eks. skriv kode 30 i boksen som kommer opp under \"Type\")",
   "hent-gjpbp"              : "Hent trygdetid for dødsfallsmåneden",
   "hent-uft"                : "Hent trygdetid etter uføretidspunkt",
+  "hide-overlapping-periods": "Skjul overlappende perioder",
   "loading-sed-X-of-Y"      : "Laster ned {{x}} av {{y}} SED-er...",
   "merged-periods"          : "Sammenslåtte perioder. Klikk for å se hvilke.",
   "merge-periods"           : "Slå sammen like type perioder",
@@ -36,6 +37,8 @@
   "help-2"  : "Når du klikker på \"Overfør til Rina\" vil nødvendige felt i kapittel 4/5 i P5000 bli pre-utfylt.",
   "help-merge-1" : "Noen land stykker opp trygdetid i små perioder selv om det ikke er mellomrom mellom periodene.",
   "help-merge-2" : "Trykk på for å slå sammen sammenhengende perioder av samme type.",
+  "help-hide-periods-1" : "Noen land registrerer perioder som har helt like data.",
+  "help-hide-periods-2" : "Trykk på for å skjule overlappende perioder.",
   "help-uft" : "Klikk her for å få med trygdetid fra og med uføretidspunktet og frem til i dag. Ved flere uføretidspunkter må du velge korrekt vedtak i vedtakshistorikken",
   "help-gjpbp" : "Klikk her for å få med trygdetid fra den 1. i dødsfallsmåneden og frem til dagen før dødsfallet",
 
