@@ -66,6 +66,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
   const [itemsPerPage, setItemsPerPage] = useState<number>(30)
   const [renderPrintTable, setRenderPrintTable] = useState<boolean>(false)
+  const [hidePeriods, setHidePeriods] = useState<boolean>(false)
   const [mergePeriods, setMergePeriods] = useState<boolean>(false)
   const [mergePeriodTypes, setMergePeriodTypes] = useState<Array<string> | undefined>(undefined)
   const [mergePeriodBeregnings, setMergePeriodBeregnings] = useState<Array<string> | undefined>(undefined)
@@ -330,6 +331,8 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           p5000FromS3={p5000FromS3}
           componentRef={componentRef}
           featureToggles={featureToggles}
+          hidePeriods={hidePeriods}
+          setHidePeriods={setHidePeriods}
           mergePeriods={mergePeriods}
           setMergePeriods={setMergePeriods}
           mergePeriodTypes={mergePeriodTypes}

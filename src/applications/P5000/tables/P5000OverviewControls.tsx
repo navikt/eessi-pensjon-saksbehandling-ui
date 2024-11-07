@@ -29,6 +29,8 @@ export interface P5000OverviewControlsProps {
   caseId: string
   componentRef: any
   featureToggles: FeatureToggles
+  hidePeriods: boolean
+  setHidePeriods: (b: boolean) => void
   mergePeriods: boolean
   setMergePeriods: (b: boolean) => void
   setRenderPrintTable: (b: boolean) => void
@@ -60,6 +62,8 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
   caseId,
   componentRef,
   featureToggles,
+  hidePeriods,
+  setHidePeriods,
   mergePeriods,
   setMergePeriods,
   mergePeriodTypes,
@@ -151,10 +155,10 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
       <AlignEndRow style={{ width: '100%' }}>
         <Column flex='2'>
             <Switch
-              checked={mergePeriods}
+              checked={hidePeriods}
               id='a_buc_c_sedstart--p5000-overview-hide-overlapping-checkbox'
               data-testid='a_buc_c_sedstart--p5000-overview-hide-overlapping-checkbox'
-              onChange={() => setMergePeriods(!mergePeriods)}
+              onChange={() => setHidePeriods(!hidePeriods)}
             >
               <FlexCenterDiv>
                 <OneLineSpan>
