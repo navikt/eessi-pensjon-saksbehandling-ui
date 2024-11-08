@@ -3,13 +3,12 @@ import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {Buc, Sed} from "src/declarations/buc";
 import {BUCMode, Validation} from "src/declarations/app";
-import {Box, Button, HStack, Loader} from "@navikt/ds-react";
+import {Box, Button, HStack, Loader, VStack} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {fetchBuc, getSed, saveSed, sendSed, setPSED, updatePSED} from "src/actions/buc";
 import {resetValidation, setValidation} from 'src/actions/validation'
 import { State } from "src/declarations/reducers";
 import {P2000SED} from "src/declarations/p2000";
-import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import _ from 'lodash'
 
 import Verge from "./Verge/Verge";
@@ -153,66 +152,64 @@ const P2000: React.FC<P2000Props> = ({
         }}
       />
       <WarningModal open={_viewWarningModal} onModalClose={() => setViewWarningModal(false)} elementKeys={Object.keys(editingItems)}/>
-      <div style={{ display: 'inline-block' }}>
-        <Button
-          variant='secondary'
-          onClick={onBackClick}
-          iconPosition="left" icon={<ChevronLeftIcon aria-hidden />}
+      <VStack gap="4">
+        <div style={{ display: 'inline-block' }}>
+          <Button
+            variant='secondary'
+            onClick={onBackClick}
+            iconPosition="left" icon={<ChevronLeftIcon aria-hidden />}
+          >
+            <span>
+              {t('ui:back')}
+            </span>
+          </Button>
+        </div>
+        <SakInfo PSED={currentPSED}/>
+        <MainForm
+          forms={[
+            { label: "Forsikret person", value: 'forsikretperson', component: ForsikretPerson},
+            { label: "Yrkesaktivitet", value: 'yrkesaktivitet', component: Yrkesaktivitet},
+            { label: "Ytelser", value: 'ytelser', component: Ytelser},
+            { label: "Ektefelle", value: 'ektefelle', component: Ektefelle},
+            { label: "Barn", value: 'barn', component: Barn},
+            { label: "Verge", value: 'verge', component: Verge},
+            { label: "Informasjon om betaling", value: 'informasjonombetaling', component: InformasjonOmBetaling},
+            { label: "Diverse", value: 'diverse', component: Diverse}
+          ]}
+          PSED={currentPSED}
+          setPSED={setPSED}
+          updatePSED={updatePSED}
+          namespace={namespace}
+        />
+        <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
+        <Box
+          as="header"
+          borderWidth="1"
+          borderRadius="medium"
+          borderColor="border-default"
+          background="bg-default"
+          padding="4"
         >
-          <span>
-            {t('ui:back')}
-          </span>
-        </Button>
-      </div>
-      <VerticalSeparatorDiv/>
-      <SakInfo PSED={currentPSED}/>
-      <VerticalSeparatorDiv/>
-      <MainForm
-        forms={[
-          { label: "Forsikret person", value: 'forsikretperson', component: ForsikretPerson},
-          { label: "Yrkesaktivitet", value: 'yrkesaktivitet', component: Yrkesaktivitet},
-          { label: "Ytelser", value: 'ytelser', component: Ytelser},
-          { label: "Ektefelle", value: 'ektefelle', component: Ektefelle},
-          { label: "Barn", value: 'barn', component: Barn},
-          { label: "Verge", value: 'verge', component: Verge},
-          { label: "Informasjon om betaling", value: 'informasjonombetaling', component: InformasjonOmBetaling},
-          { label: "Diverse", value: 'diverse', component: Diverse}
-        ]}
-        PSED={currentPSED}
-        setPSED={setPSED}
-        updatePSED={updatePSED}
-        namespace={namespace}
-      />
-      <VerticalSeparatorDiv/>
-      <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
-      <VerticalSeparatorDiv/>
-      <Box
-        as="header"
-        borderWidth="1"
-        borderRadius="medium"
-        borderColor="border-default"
-        background="bg-default"
-        padding="4"
-      >
-        <HStack gap="4">
-          <Button
-            variant='primary'
-            onClick={onSaveSed}
-            loading={savingSed}
-            disabled={disableSave}
-          >
-            {t('ui:save-sed')}
-          </Button>
-          <Button
-            variant='primary'
-            onClick={onSendSed}
-            loading={false}
-            disabled={disableSend}
-          >
-            {sendingSed ? t('message:loading-sendingSed') : t('ui:send-sed')}
-          </Button>
-        </HStack>
-      </Box>
+          <HStack gap="4">
+            <Button
+              variant='primary'
+              onClick={onSaveSed}
+              loading={savingSed}
+              disabled={disableSave}
+            >
+              {t('ui:save-sed')}
+            </Button>
+            <Button
+              variant='primary'
+              onClick={onSendSed}
+              loading={false}
+              disabled={disableSend}
+            >
+              {sendingSed ? t('message:loading-sendingSed') : t('ui:send-sed')}
+            </Button>
+          </HStack>
+        </Box>
+      </VStack>
     </>
   )
 }
