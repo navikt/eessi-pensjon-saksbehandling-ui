@@ -78,6 +78,11 @@ const P2000: React.FC<P2000Props> = ({
   const disableSave =  !PSEDChanged || savingSed
   const disableSend = !disableSave || sendingSed || (currentPSED?.originalSed?.status === "sent" && _.isEmpty(PSEDSavedResponse)) || !_.isEmpty(PSEDSendResponse)
 
+  const activeStatus: Array<string> = ['new', 'active']
+  const sedCanHaveAttachments = (sed: Sed): boolean => {
+    return !buc.readOnly && sed !== undefined && sed.allowsAttachments && _.includes(activeStatus, sed.status)
+  }
+
   useEffect(() => {
     if(sed){
       dispatch(resetEditingItems())
@@ -184,10 +189,17 @@ const P2000: React.FC<P2000Props> = ({
           updatePSED={updatePSED}
           namespace={namespace}
         />
-        <SEDBody aktoerId={aktoerId} buc={buc} canHaveAttachments={true} sed={sed!}/>
+        <Box
+          borderWidth="1"
+          borderRadius="medium"
+          borderColor="border-default"
+          background="bg-default"
+          padding="4"
+        >
+          <SEDBody aktoerId={aktoerId} buc={buc} canHaveAttachments={sedCanHaveAttachments(sed!)} sed={sed!}/>
+        </Box>
         <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
         <Box
-          as="header"
           borderWidth="1"
           borderRadius="medium"
           borderColor="border-default"

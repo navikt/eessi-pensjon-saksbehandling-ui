@@ -181,7 +181,6 @@ const SEDBody: React.FC<SEDBodyProps> = ({
 
   return (
     <SEDBodyDiv>
-      <VerticalSeparatorDiv />
       <Heading size='small'>
         {t('ui:attachments')}
       </Heading>
