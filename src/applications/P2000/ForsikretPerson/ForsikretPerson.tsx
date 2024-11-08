@@ -1,5 +1,4 @@
-import {Heading} from "@navikt/ds-react";
-import {VerticalSeparatorDiv, PaddedDiv} from "@navikt/hoykontrast";
+import {Box, Heading, VStack} from "@navikt/ds-react";
 import React from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {Person} from "src/declarations/p2000";
@@ -44,31 +43,31 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
   })
 
   return (
-    <>
-      <PaddedDiv>
+    <Box padding="4">
+      <VStack gap="4">
         <Heading size='medium'>
           {label}
         </Heading>
-        <VerticalSeparatorDiv/>
-        <UtenlandskePin
-          PSED={PSED}
-          parentNamespace={namespace}
-          parentTarget={target}
-          updatePSED={updatePSED}
-        />
-        <VerticalSeparatorDiv/>
-        <FamilieStatus
-          PSED={PSED}
-          parentNamespace={namespace}
-          parentTarget={target}
-          updatePSED={updatePSED}
-        />
-        <VerticalSeparatorDiv/>
-        <Telefon PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/>
-        <VerticalSeparatorDiv/>
-        <Epost PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/>
-      </PaddedDiv>
-    </>
+        <Box>
+          <UtenlandskePin
+            PSED={PSED}
+            parentNamespace={namespace}
+            parentTarget={target}
+            updatePSED={updatePSED}
+          />
+        </Box>
+        <Box>
+          <FamilieStatus
+            PSED={PSED}
+            parentNamespace={namespace}
+            parentTarget={target}
+            updatePSED={updatePSED}
+          />
+        </Box>
+        <Box><Telefon PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/></Box>
+        <Box><Epost PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/></Box>
+      </VStack>
+    </Box>
   )
 }
 
