@@ -27,6 +27,7 @@ import SaveSEDModal from "./SaveSEDModal";
 import Diverse from "./Diverse/Diverse";
 import WarningModal from "src/applications/P2000/WarningModal";
 import {resetEditingItems} from "src/actions/app";
+import SEDBody from "src/applications/BUC/components/SEDBody/SEDBody";
 
 export interface P2000Selector {
   PSEDChanged: boolean
@@ -38,6 +39,7 @@ export interface P2000Selector {
   gettingSed: boolean
   validation: Validation
   editingItems: any
+  aktoerId: string
 }
 
 const mapState = (state: State): P2000Selector => ({
@@ -49,7 +51,8 @@ const mapState = (state: State): P2000Selector => ({
   PSEDSavedResponse: state.buc.PSEDSavedResponse,
   gettingSed: state.loading.gettingSed,
   validation: state.validation.status,
-  editingItems: state.app.editingItems
+  editingItems: state.app.editingItems,
+  aktoerId: state.app.params.aktoerId
 })
 
 export interface P2000Props {
@@ -65,7 +68,7 @@ const P2000: React.FC<P2000Props> = ({
 }: P2000Props): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useDispatch()
-  const { PSEDChanged, currentPSED, gettingSed, savingSed, sendingSed, PSEDSendResponse, PSEDSavedResponse, validation, editingItems }: P2000Selector = useSelector<State, P2000Selector>(mapState)
+  const { PSEDChanged, currentPSED, gettingSed, savingSed, sendingSed, PSEDSendResponse, PSEDSavedResponse, validation, editingItems, aktoerId }: P2000Selector = useSelector<State, P2000Selector>(mapState)
   const namespace = "p2000"
 
   const [_sendButtonClicked, _setSendButtonClicked] = useState<boolean>(false)
@@ -181,6 +184,7 @@ const P2000: React.FC<P2000Props> = ({
           updatePSED={updatePSED}
           namespace={namespace}
         />
+        <SEDBody aktoerId={aktoerId} buc={buc} canHaveAttachments={true} sed={sed!}/>
         <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
         <Box
           as="header"
