@@ -134,7 +134,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       })
     }
     _setViewItemsForPesys(newViewItemsForPesys)
-  }, [mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules])
+  }, [hidePeriods, mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules])
 
   const [pesysWarning] = useState<string | undefined>(() =>
     (items.length !== itemsForPesys.length ? t('p5000:warning-beregning-000', { x: (items.length - itemsForPesys.length) }) : undefined))

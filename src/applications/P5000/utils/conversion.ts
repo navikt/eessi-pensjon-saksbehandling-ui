@@ -208,6 +208,39 @@ export const mergeP5000ListRows = (
     Object.keys(groupedPeriods[key]).forEach(key2 => {
       if (groupedPeriods[key][key2].sub.length === 1) {
         // unmerged / single periods - just add the parent as a normal row
+
+        console.log(
+          "Vi kommer hit" +
+          groupedPeriods[key][key2].parent.startdato + " " +
+          groupedPeriods[key][key2].parent.sluttdato + " " +
+          groupedPeriods[key][key2].parent.acronym
+        )
+
+        const overlappingProperties =  {
+          status: groupedPeriods[key][key2].parent.status,
+          land:  groupedPeriods[key][key2].parent.land,
+          acronym:  groupedPeriods[key][key2].parent.acronym,
+          type:  groupedPeriods[key][key2].parent.type,
+          startdato:  groupedPeriods[key][key2].parent.startdato,
+          sluttdato:  groupedPeriods[key][key2].parent.sluttdato,
+          aar:  groupedPeriods[key][key2].parent.aar,
+          mnd:  groupedPeriods[key][key2].parent.mnd,
+          dag:  groupedPeriods[key][key2].parent.dag,
+          ytelse:  groupedPeriods[key][key2].parent.ytelse,
+          ordning:  groupedPeriods[key][key2].parent.ordning,
+          beregning:  groupedPeriods[key][key2].parent.beregning
+        };
+
+        const overlappingRow = _.find(rows, (obj) => _.isMatch(obj, overlappingProperties));
+        console.log("overlappingrow: " + overlappingRow)
+
+/*        if(overlappingRow !== undefined) {
+          rows.push({
+            ...groupedPeriods[key][key2].parent,
+            hasSubrows: false
+          })
+        }*/
+
         rows.push({
           ...groupedPeriods[key][key2].parent,
           hasSubrows: false
