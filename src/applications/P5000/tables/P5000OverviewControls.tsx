@@ -13,7 +13,7 @@ import { informasjonOmBeregningLabels, typePeriode } from 'src/applications/P500
 import { convertFromP5000ListRowsIntoPesysPeriods } from 'src/applications/P5000/utils/pesysUtils'
 import MultipleSelect from 'src/components/MultipleSelect/MultipleSelect'
 import { OneLineSpan } from 'src/components/StyledComponents'
-import { FeatureToggles, Option } from 'src/declarations/app'
+import { Option } from 'src/declarations/app'
 import { P5000ListRow, P5000ListRows } from 'src/declarations/p5000'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
@@ -28,7 +28,6 @@ export interface P5000OverviewControlsProps {
   aktoerId: string
   caseId: string
   componentRef: any
-  featureToggles: FeatureToggles
   hidePeriods: boolean
   setHidePeriods: (b: boolean) => void
   mergePeriods: boolean
@@ -61,7 +60,6 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
   aktoerId,
   caseId,
   componentRef,
-  featureToggles,
   hidePeriods,
   setHidePeriods,
   mergePeriods,
@@ -186,7 +184,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                 </HelpText>
               </FlexCenterDiv>
             </Switch>
-            {featureToggles.P5000_UPDATES_VISIBLE && mergePeriods && (
+            {mergePeriods && (
               <>
                 <HorizontalSeparatorDiv size='2' />
                 <MultipleSelect<Option>
@@ -210,7 +208,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                 />
               </>
             )}
-            {featureToggles.P5000_UPDATES_VISIBLE && mergePeriods && (
+            {mergePeriods && (
               <>
                 <HorizontalSeparatorDiv size='2' />
                 <MultipleSelect<Option>

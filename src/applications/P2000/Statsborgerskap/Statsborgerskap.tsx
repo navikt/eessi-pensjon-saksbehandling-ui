@@ -28,7 +28,7 @@ import {
 import {Person, Statsborgerskap as P2000Statsborgerskap} from "src/declarations/p2000";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
-import {Validation} from "src/declarations/app";
+import {PSED, Validation} from "src/declarations/app";
 import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
@@ -41,6 +41,7 @@ const mapState = (state: State): MainFormSelector => ({
 
 export interface StatsborgerskapProps {
   limit?: number
+  PSED?: PSED | null | undefined
   parentNamespace: string
   parentTarget?: string
   parentIndex?: number
@@ -52,6 +53,7 @@ export interface StatsborgerskapProps {
 
 const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
   limit = 99,
+  PSED,
   parentNamespace,
   parentTarget,
   parentIndex,
@@ -66,7 +68,8 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
   const namespace = `${parentNamespace}-statsborgerskap`
   const target = `${parentTarget}.person.statsborgerskap`
 
-  const statsborgerskap: Array<P2000Statsborgerskap> | undefined = person?.statsborgerskap
+  const _person:  Person | undefined = person ? person : _.get(PSED, `${parentTarget}.person`)
+  const statsborgerskap: Array<P2000Statsborgerskap> | undefined = _person?.statsborgerskap
 
   const [_newStatsborgerskap, _setNewStatsborgerskap] = useState<P2000Statsborgerskap | undefined>(undefined)
   const [_editStatsborgerskap, _setEditStatsborgerskap] = useState<P2000Statsborgerskap | undefined>(undefined)
@@ -82,6 +85,14 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
       dispatch(deleteEditingItem("statsborgerskap"))
     }
   }, [_newForm, _editStatsborgerskap])
+
+  useEffect(() => {
+    if(!parentEditMode){
+      _setNewForm(false)
+      _setEditStatsborgerskap(undefined)
+      _setEditIndex(undefined)
+    }
+  }, [parentEditMode])
 
   const setStatsborgerskap = (newStatsborgerskap: Array<P2000Statsborgerskap>) => {
     let statsborgerskap: Array<P2000Statsborgerskap> | undefined = _.cloneDeep(newStatsborgerskap)
@@ -178,14 +189,14 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
   const renderRow = (statsborgerskap: P2000Statsborgerskap | null, index: number) => {
     const _namespace = namespace + getIdx(index)
     const _v: Validation = index < 0 ? _validation : validation
-    const inEditMode = index < 0 || _editIndex === index
+    const inEditMode = (index < 0 || _editIndex === index) && parentEditMode
     const _statsborgerskap = index < 0 ? _newStatsborgerskap : (inEditMode ? _editStatsborgerskap : statsborgerskap)
     return (
       <RepeatableRow
         key={'repeatablerow-' + _namespace + index}
         id={'repeatablerow-' + _namespace}
         className={classNames({
-          new: index < 0,
+          new: index < 0 && parentEditMode,
           error: hasNamespaceWithErrors(_v, _namespace)
         })}
       >

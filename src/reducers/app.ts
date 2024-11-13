@@ -227,6 +227,13 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
       }
     }
 
+    case types.APP_EDITING_ITEMS_RESET: {
+      return {
+        ...state,
+        editingItems: {}
+      }
+    }
+
     default:
       return state
   }

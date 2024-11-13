@@ -17,7 +17,7 @@ const ValidationBox: React.FC<ValidationBoxProps> = ({
   const isValid = _.find(_.values(validation), (e) => e !== undefined && e.feilmelding !== 'notnull' && e.feilmelding !== 'error' && e.feilmelding !== 'ok') === undefined
 
   if (isValid) {
-    return <div />
+    return <></>
   }
   return (
     <ErrorSummary
