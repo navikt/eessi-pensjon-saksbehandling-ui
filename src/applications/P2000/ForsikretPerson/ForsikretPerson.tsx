@@ -14,6 +14,7 @@ import performValidation from "../../../utils/performValidation";
 import {validateForsikretPerson, ValidationForsikretPersonProps} from "./validation";
 import Telefon from "../Telefon/Telefon";
 import Epost from "../Epost/Epost";
+import Statsborgerskap from "src/applications/P2000/Statsborgerskap/Statsborgerskap";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -48,6 +49,14 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
         <Heading size='medium'>
           {label}
         </Heading>
+        <Box>
+          <Statsborgerskap
+            PSED={PSED}
+            parentNamespace={namespace}
+            parentTarget={target}
+            updatePSED={updatePSED}
+          />
+        </Box>
         <Box>
           <UtenlandskePin
             PSED={PSED}
