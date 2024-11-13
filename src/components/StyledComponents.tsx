@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {Panel, RadioGroup} from '@navikt/ds-react'
+import {Box, Panel, RadioGroup} from '@navikt/ds-react'
 import { PaddedHorizontallyDiv } from '@navikt/hoykontrast'
 
 export const OneLineSpan = styled.span`
@@ -53,6 +53,21 @@ export const RepeatableRow = styled(PaddedHorizontallyDiv)`
   &:not(:hover) .control-buttons {
     position: absolute;
     margin-left: -10000px;
+  }
+`
+
+export const RepeatableBox = styled(Box)`
+  &.new {
+    background-color: rgba(236, 243, 153, 0.5);
+  };
+  &.error {
+    background-color: rgba(255, 0, 0, 0.2);
+  };
+  &:hover:not(.new):not(.error) {
+    background-color: var(--a-gray-100);
+  }
+  &:not(:hover) .control-buttons {
+    display:none
   }
 `
 

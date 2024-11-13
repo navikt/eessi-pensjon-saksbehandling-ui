@@ -1,18 +1,11 @@
 import {PlusCircleIcon} from "@navikt/aksel-icons";
-import {BodyLong, Button, Heading, Label} from '@navikt/ds-react'
-import {
-  AlignEndColumn,
-  AlignStartRow,
-  Column,
-  PaddedHorizontallyDiv,
-  VerticalSeparatorDiv
-} from '@navikt/hoykontrast'
+import {BodyLong, Box, Button, Heading, HGrid, HStack, Label, Spacer} from '@navikt/ds-react'
 import { Country } from '@navikt/land-verktoy'
 import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
 import AddRemovePanel from 'src/components/AddRemovePanel/AddRemovePanel'
 import FormText from 'src/components/Forms/FormText'
-import { RepeatableRow } from 'src/components/StyledComponents'
+import {RepeatableBox} from 'src/components/StyledComponents'
 import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
 import React, {useEffect, useState} from 'react'
@@ -192,105 +185,99 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
     const inEditMode = (index < 0 || _editIndex === index) && parentEditMode
     const _statsborgerskap = index < 0 ? _newStatsborgerskap : (inEditMode ? _editStatsborgerskap : statsborgerskap)
     return (
-      <RepeatableRow
+      <RepeatableBox
         key={'repeatablerow-' + _namespace + index}
         id={'repeatablerow-' + _namespace}
         className={classNames({
           new: index < 0 && parentEditMode,
           error: hasNamespaceWithErrors(_v, _namespace)
         })}
+        padding="4"
       >
-        <VerticalSeparatorDiv size='0.5' />
-        <AlignStartRow>
-          <Column>
-            {inEditMode
-              ? (
-                <CountryDropdown
-                  closeMenuOnSelect
-                  data-testid={_namespace + '-land'}
-                  error={_v[_namespace + '-land']?.feilmelding}
-                  flagWave
-                  id={_namespace + '-land'}
-                  countryCodeListName="statsborgerskap"
-                  hideLabel={index >= 0}
-                  label={t('p2000:form-utenlandske-pin-land')}
-                  onOptionSelected={(e: Country) => setStatsborgerskapLand(e.value, index)}
-                  values={_statsborgerskap?.land}
-                />
-                )
-              : (
-                <FormText
-                  error={_validation[_namespace + '-land']?.feilmelding}
-                  id={_namespace + '-land'}
-                >
-                  <FlagPanel land={_statsborgerskap?.land}/>
-                </FormText>
-                )}
-          </Column>
-            <AlignEndColumn>
-              {parentEditMode &&
-                <AddRemovePanel<P2000Statsborgerskap>
-                  item={statsborgerskap}
-                  marginTop={index < 0}
-                  index={index}
-                  inEditMode={inEditMode}
-                  onRemove={onRemove}
-                  onAddNew={onAddNew}
-                  onCancelNew={onCloseNew}
-                  onStartEdit={onStartEdit}
-                  onConfirmEdit={onSaveEdit}
-                  onCancelEdit={() => onCloseEdit(_namespace)}
-                />
-              }
-            </AlignEndColumn>
-        </AlignStartRow>
-        <VerticalSeparatorDiv size='0.5' />
-      </RepeatableRow>
+        <HGrid columns={2}>
+          {inEditMode
+            ? (
+              <CountryDropdown
+                closeMenuOnSelect
+                data-testid={_namespace + '-land'}
+                error={_v[_namespace + '-land']?.feilmelding}
+                flagWave
+                id={_namespace + '-land'}
+                countryCodeListName="statsborgerskap"
+                hideLabel={index >= 0}
+                label={t('p2000:form-utenlandske-pin-land')}
+                onOptionSelected={(e: Country) => setStatsborgerskapLand(e.value, index)}
+                values={_statsborgerskap?.land}
+              />
+              )
+            : (
+              <FormText
+                error={_validation[_namespace + '-land']?.feilmelding}
+                id={_namespace + '-land'}
+              >
+                <FlagPanel land={_statsborgerskap?.land}/>
+              </FormText>
+              )
+          }
+          {parentEditMode &&
+            <HStack>
+              <Spacer/>
+              <AddRemovePanel<P2000Statsborgerskap>
+                item={statsborgerskap}
+                marginTop={index < 0}
+                index={index}
+                inEditMode={inEditMode}
+                onRemove={onRemove}
+                onAddNew={onAddNew}
+                onCancelNew={onCloseNew}
+                onStartEdit={onStartEdit}
+                onConfirmEdit={onSaveEdit}
+                onCancelEdit={() => onCloseEdit(_namespace)}
+              />
+            </HStack>
+          }
+        </HGrid>
+      </RepeatableBox>
     )
   }
 
   return (
     <>
       <Heading size="small">{t('p2000:form-person-statsborgerskap')}</Heading>
-      <VerticalSeparatorDiv size='0.5' />
       {_.isEmpty(statsborgerskap)
         ? (
-          <BodyLong>
-            <em>{t('message:warning-no-statsborgerskap')}</em>
-          </BodyLong>
+          <Box paddingBlock="2">
+            <BodyLong>
+              <em>{t('message:warning-no-statsborgerskap')}</em>
+            </BodyLong>
+          </Box>
           )
         : (
           <>
-            <PaddedHorizontallyDiv>
-              <AlignStartRow>
-                <Column>
-                  <Label>
-                    {t('p2000:form-person-statsborgerskap-land')}
-                  </Label>
-                </Column>
-                <Column />
-              </AlignStartRow>
-            </PaddedHorizontallyDiv>
-            <VerticalSeparatorDiv size='0.8' />
+            <Box paddingBlock="2" paddingInline="4">
+              <Label>
+                {t('p2000:form-person-statsborgerskap-land')}
+              </Label>
+            </Box>
             {statsborgerskap?.map(renderRow)}
           </>
           )
       }
-      <VerticalSeparatorDiv />
       {_newForm
         ? renderRow(null, -1)
         : (
-          <>
-            {(statsborgerskap?.length ?? 0) < limit && parentEditMode && (
-              <Button
-                variant='tertiary'
-                onClick={() => _setNewForm(true)}
-                iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
-              >
-                {t('ui:add-new-x', { x: t('p2000:form-person-statsborgerskap')?.toLowerCase() })}
-              </Button>
-            )}
-          </>
+          (statsborgerskap?.length ?? 0) < limit && parentEditMode && (
+          <HStack>
+            <Button
+              variant='tertiary'
+              onClick={() => _setNewForm(true)}
+              iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
+            >
+              {t('ui:add-new-x', { x: t('p2000:form-person-statsborgerskap')?.toLowerCase() })}
+            </Button>
+            <Spacer/>
+          </HStack>
+          )
           )}
     </>
   )
