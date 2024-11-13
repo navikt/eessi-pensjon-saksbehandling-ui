@@ -1,19 +1,12 @@
 import {PlusCircleIcon} from "@navikt/aksel-icons";
-import {BodyLong, Button, Heading, Label} from '@navikt/ds-react'
-import {
-  AlignEndColumn,
-  AlignStartRow,
-  Column,
-  PaddedHorizontallyDiv,
-  VerticalSeparatorDiv
-} from '@navikt/hoykontrast'
+import {BodyLong, Box, Button, Heading, HGrid, HStack, Label, Spacer} from '@navikt/ds-react'
 import { Country } from '@navikt/land-verktoy'
 import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
 import AddRemovePanel from 'src/components/AddRemovePanel/AddRemovePanel'
 import FormText from 'src/components/Forms/FormText'
 import Input from 'src/components/Forms/Input'
-import { RepeatableRow } from 'src/components/StyledComponents'
+import {RepeatableBox} from 'src/components/StyledComponents'
 import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
 import React, {useEffect, useState} from 'react'
@@ -211,134 +204,123 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
     const inEditMode = index < 0 || _editIndex === index
     const _pin = index < 0 ? _newPin : (inEditMode ? _editPin : pin)
     return (
-      <RepeatableRow
+      <RepeatableBox
         id={'repeatablerow-' + _namespace}
         key={getId(pin)}
         className={classNames({
           new: index < 0,
           error: hasNamespaceWithErrors(_v, _namespace)
         })}
+        padding="4"
       >
-        <VerticalSeparatorDiv size='0.5' />
-        <AlignStartRow>
-          <Column>
-            {inEditMode
-              ? (
-                <CountryDropdown
-                  closeMenuOnSelect
-                  data-testid={_namespace + '-land'}
-                  error={_v[_namespace + '-land']?.feilmelding}
-                  flagWave
-                  id={_namespace + '-land'}
-                  countryCodeListName="euEftaLand"
-                  excludeNorway={true}
-                  hideLabel={index >= 0}
-                  label={t('p2000:form-utenlandske-pin-land')}
-                  onOptionSelected={(e: Country) => setUtenlandskeLand(e.value, index)}
-                  values={_pin?.land}
-                />
-                )
-              : (
-                <FormText
-                  error={_v[_namespace + '-land']?.feilmelding}
-                  id={_namespace + '-land'}
-                >
-                  <FlagPanel land={_pin?.land}/>
-                </FormText>
-                )}
-          </Column>
-          <Column>
-            {inEditMode
-              ? (
-                <Input
-                  error={_v[_namespace + '-identifikator']?.feilmelding}
-                  id='identifikator'
-                  label={t('p2000:form-utenlandske-pin-pin')}
-                  hideLabel={index >= 0}
-                  namespace={_namespace}
-                  onChanged={(id: string) => setUtenlandskeIdentifikator(id, index)}
-                  value={_pin?.identifikator}
-                />
-                )
-              : (
-                <FormText
-                  id={_namespace + '-identifikator'}
-                  error={_v[_namespace + '-identifikator']?.feilmelding}
-                >
-                  <BodyLong>{_pin?.identifikator}</BodyLong>
-                </FormText>
-                )}
-          </Column>
-            <AlignEndColumn>
-              {parentEditMode &&
-                <AddRemovePanel<PIN>
-                  item={pin}
-                  marginTop={index < 0}
-                  index={index}
-                  inEditMode={inEditMode}
-                  onRemove={onRemove}
-                  onAddNew={onAddNew}
-                  onCancelNew={onCloseNew}
-                  onStartEdit={onStartEdit}
-                  onConfirmEdit={onSaveEdit}
-                  onCancelEdit={() => onCloseEdit(_namespace)}
-                />
-              }
-            </AlignEndColumn>
-        </AlignStartRow>
-        <VerticalSeparatorDiv size='0.5' />
-      </RepeatableRow>
+        <HGrid columns={3} gap="4">
+          {inEditMode
+            ? (
+              <CountryDropdown
+                closeMenuOnSelect
+                data-testid={_namespace + '-land'}
+                error={_v[_namespace + '-land']?.feilmelding}
+                flagWave
+                id={_namespace + '-land'}
+                countryCodeListName="euEftaLand"
+                excludeNorway={true}
+                hideLabel={index >= 0}
+                label={t('p2000:form-utenlandske-pin-land')}
+                onOptionSelected={(e: Country) => setUtenlandskeLand(e.value, index)}
+                values={_pin?.land}
+              />
+              )
+            : (
+              <FormText
+                error={_v[_namespace + '-land']?.feilmelding}
+                id={_namespace + '-land'}
+              >
+                <FlagPanel land={_pin?.land}/>
+              </FormText>
+              )}
+          {inEditMode
+            ? (
+              <Input
+                error={_v[_namespace + '-identifikator']?.feilmelding}
+                id='identifikator'
+                label={t('p2000:form-utenlandske-pin-pin')}
+                hideLabel={index >= 0}
+                namespace={_namespace}
+                onChanged={(id: string) => setUtenlandskeIdentifikator(id, index)}
+                value={_pin?.identifikator}
+              />
+              )
+            : (
+              <FormText
+                id={_namespace + '-identifikator'}
+                error={_v[_namespace + '-identifikator']?.feilmelding}
+              >
+                <BodyLong>{_pin?.identifikator}</BodyLong>
+              </FormText>
+              )
+          }
+          {parentEditMode &&
+            <HStack>
+              <Spacer/>
+              <AddRemovePanel<PIN>
+                item={pin}
+                marginTop={index < 0}
+                index={index}
+                inEditMode={inEditMode}
+                onRemove={onRemove}
+                onAddNew={onAddNew}
+                onCancelNew={onCloseNew}
+                onStartEdit={onStartEdit}
+                onConfirmEdit={onSaveEdit}
+                onCancelEdit={() => onCloseEdit(_namespace)}
+              />
+            </HStack>
+          }
+        </HGrid>
+      </RepeatableBox>
     )
   }
 
   return (
     <>
       <Heading size="small">{t('p2000:form-utenlandske-pin')}</Heading>
-      <VerticalSeparatorDiv size='0.5' />
       {_.isEmpty(utenlandskePINs)
         ? (
-          <BodyLong>
-            <em>{t('message:warning-no-utenlandskepin')}</em>
-          </BodyLong>
+          <Box paddingBlock="2">
+            <BodyLong>
+              <em>{t('message:warning-no-utenlandskepin')}</em>
+            </BodyLong>
+          </Box>
           )
         : (
           <>
-            <PaddedHorizontallyDiv>
-              <AlignStartRow>
-                <Column>
-                  <Label>
-                    {t('p2000:form-utenlandske-pin-land')}
-                  </Label>
-                </Column>
-                <Column>
-                  <Label>
-                    {t('p2000:form-utenlandske-pin-pin')}
-                  </Label>
-                </Column>
-                <Column />
-              </AlignStartRow>
-            </PaddedHorizontallyDiv>
-            <VerticalSeparatorDiv size='0.8' />
+            <Box paddingBlock="2" paddingInline="4">
+            <HGrid columns={3} gap="4">
+                <Label>
+                  {t('p2000:form-utenlandske-pin-land')}
+                </Label>
+                <Label>
+                  {t('p2000:form-utenlandske-pin-pin')}
+                </Label>
+                <Spacer/>
+            </HGrid>
+            </Box>
             {utenlandskePINs?.map(renderRow)}
           </>
           )
       }
-      <VerticalSeparatorDiv />
       {_newForm
         ? renderRow(null, -1)
-        : (
-          <>
-            {(utenlandskePINs?.length ?? 0) < limit && parentEditMode && (
-              <Button
-                variant='tertiary'
-                onClick={() => _setNewForm(true)}
-                iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
-              >
-                {t('ui:add-new-x', { x: t('p2000:form-utenlandske-pin')?.toLowerCase() })}
-              </Button>
-            )}
-          </>
-          )}
+        : (utenlandskePINs?.length ?? 0) < limit && parentEditMode && (
+            <Button
+              variant='tertiary'
+              onClick={() => _setNewForm(true)}
+              iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
+            >
+              {t('ui:add-new-x', { x: t('p2000:form-utenlandske-pin')?.toLowerCase() })}
+            </Button>
+          )
+      }
     </>
   )
 }

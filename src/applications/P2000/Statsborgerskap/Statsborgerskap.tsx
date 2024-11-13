@@ -265,9 +265,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
       }
       {_newForm
         ? renderRow(null, -1)
-        : (
-          (statsborgerskap?.length ?? 0) < limit && parentEditMode && (
-          <HStack>
+        : (statsborgerskap?.length ?? 0) < limit && parentEditMode && (
             <Button
               variant='tertiary'
               onClick={() => _setNewForm(true)}
@@ -275,10 +273,8 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
             >
               {t('ui:add-new-x', { x: t('p2000:form-person-statsborgerskap')?.toLowerCase() })}
             </Button>
-            <Spacer/>
-          </HStack>
           )
-          )}
+      }
     </>
   )
 }
