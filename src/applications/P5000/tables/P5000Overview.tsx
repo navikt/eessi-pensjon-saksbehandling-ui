@@ -329,7 +329,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           caseId={caseId}
           p5000FromS3={p5000FromS3}
           componentRef={componentRef}
-          featureToggles={featureToggles}
           mergePeriods={mergePeriods}
           setMergePeriods={setMergePeriods}
           mergePeriodTypes={mergePeriodTypes}
