@@ -890,10 +890,15 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       if (_.isNil(savedPSED.originalSed)) {
         savedPSED.originalSed = {} as PSED
       }
-      console.log(savedPSED.originalSed.status)
+
+      if(savedPSED.originalSed.status === "sent"){
+        // Set status to ACTIVE when SAVE after SENT
+        savedPSED.originalSed.status = 'active'
+      }
 
       return {
         ...state,
+        PSED: savedPSED,
         PSEDSendResponse: undefined,
         PSEDSavedResponse: {
           saved: true

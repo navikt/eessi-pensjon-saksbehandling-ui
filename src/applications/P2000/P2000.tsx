@@ -196,7 +196,6 @@ const P2000: React.FC<P2000Props> = ({
           background="bg-default"
           padding="4"
         >
-          {currentPSED?.originalSed?.status}
           <SEDBody aktoerId={aktoerId} buc={buc} canHaveAttachments={sedCanHaveAttachments(sed!)} sed={sed!}/>
         </Box>
         <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
