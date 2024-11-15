@@ -37,6 +37,8 @@ export interface P5000OverviewControlsProps {
   setMergePeriodBeregnings: (a: Array<string> | undefined) => void
   useGermanRules: boolean
   setUseGermanRules: (b: boolean) => void
+  pagination: boolean
+  setPagination: (b: boolean) => void
   itemsPerPage: number
   currentTabKey: string
   pesysWarning: string | undefined
@@ -67,6 +69,8 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
   setRenderPrintTable,
   useGermanRules,
   setUseGermanRules,
+  pagination,
+  setPagination,
   itemsPerPage,
   setItemsPerPage,
   items,
@@ -153,7 +157,10 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
               checked={mergePeriods}
               id='a_buc_c_sedstart--p5000-overview-merge-checkbox'
               data-testid='a_buc_c_sedstart--p5000-overview-merge-checkbox'
-              onChange={() => setMergePeriods(!mergePeriods)}
+              onChange={() => {
+                setMergePeriods(!mergePeriods)
+                setPagination(!pagination)
+              }}
             >
               <FlexCenterDiv>
                 <OneLineSpan>
@@ -244,20 +251,21 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
               {sendingToPesys ? t('ui:sending') : t('buc:form-send-to-PESYS')}
             </Button>
             <HorizontalSeparatorDiv />
-            <Select
-              id='itemsPerPage'
-              label={t('ui:itemsPerPage')}
-              onChange={itemsPerPageChanged}
-              value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
-            >
-              <option value='10'>10</option>
-              <option value='15'>15</option>
-              <option value='20'>20</option>
-              <option value='30'>30</option>
-              <option value='50'>50</option>
-              <option value='all'>{t('ui:all')}</option>
-            </Select>
-
+            {pagination && (
+              <Select
+                id='itemsPerPage'
+                label={t('ui:itemsPerPage')}
+                onChange={itemsPerPageChanged}
+                value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
+              >
+                <option value='10'>10</option>
+                <option value='15'>15</option>
+                <option value='20'>20</option>
+                <option value='30'>30</option>
+                <option value='50'>50</option>
+                <option value='all'>{t('ui:all')}</option>
+              </Select>
+            )}
           </FlexEndDiv>
         </Column>
       </AlignEndRow>
