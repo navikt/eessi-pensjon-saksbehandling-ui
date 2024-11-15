@@ -117,5 +117,6 @@
   "warning-no-utenlandskepin"   : "Ingen utenlandske PIN registrert",
   "warning-no-statsborgerskap"   : "Ingen statsborgerskap registrert",
   "warning-no-institusjonennaaikkesoektompensjon"   : "Ingen institusjoner",
-  "warning-no-utsettelse"   : "Ingen utsettelser registrert"
+  "warning-no-utsettelse"   : "Ingen utsettelser registrert",
+  "warning-no-familiestatus" : "Ingen familiestatus registrert"
 }

@@ -4,7 +4,6 @@ import { Country } from '@navikt/land-verktoy'
 import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
 import AddRemovePanel from 'src/components/AddRemovePanel/AddRemovePanel'
-import FormText from 'src/components/Forms/FormText'
 import {RepeatableBox} from 'src/components/StyledComponents'
 import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
@@ -27,6 +26,7 @@ import {MainFormSelector} from "../MainForm";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
+import FormTextBox from "src/components/Forms/FormTextBox";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -211,12 +211,12 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
               />
               )
             : (
-              <FormText
+              <FormTextBox
                 error={_validation[_namespace + '-land']?.feilmelding}
                 id={_namespace + '-land'}
               >
                 <FlagPanel land={_statsborgerskap?.land}/>
-              </FormText>
+              </FormTextBox>
               )
           }
           {parentEditMode &&

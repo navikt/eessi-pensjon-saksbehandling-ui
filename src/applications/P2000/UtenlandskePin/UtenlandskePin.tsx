@@ -4,7 +4,6 @@ import { Country } from '@navikt/land-verktoy'
 import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
 import AddRemovePanel from 'src/components/AddRemovePanel/AddRemovePanel'
-import FormText from 'src/components/Forms/FormText'
 import Input from 'src/components/Forms/Input'
 import {RepeatableBox} from 'src/components/StyledComponents'
 import useValidation from 'src/hooks/useValidation'
@@ -25,6 +24,7 @@ import {MainFormSelector} from "../MainForm";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
+import FormTextBox from "src/components/Forms/FormTextBox";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -231,12 +231,12 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
               />
               )
             : (
-              <FormText
+              <FormTextBox
                 error={_v[_namespace + '-land']?.feilmelding}
                 id={_namespace + '-land'}
               >
                 <FlagPanel land={_pin?.land}/>
-              </FormText>
+              </FormTextBox>
               )}
           {inEditMode
             ? (
@@ -251,12 +251,12 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
               />
               )
             : (
-              <FormText
+              <FormTextBox
                 id={_namespace + '-identifikator'}
                 error={_v[_namespace + '-identifikator']?.feilmelding}
               >
                 <BodyLong>{_pin?.identifikator}</BodyLong>
-              </FormText>
+              </FormTextBox>
               )
           }
           {parentEditMode &&
@@ -295,7 +295,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
         : (
           <>
             <Box paddingBlock="2" paddingInline="4">
-            <HGrid columns={3} gap="4">
+              <HGrid columns={3} gap="4">
                 <Label>
                   {t('p2000:form-utenlandske-pin-land')}
                 </Label>
@@ -303,7 +303,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
                   {t('p2000:form-utenlandske-pin-pin')}
                 </Label>
                 <Spacer/>
-            </HGrid>
+              </HGrid>
             </Box>
             {utenlandskePINs?.map(renderRow)}
           </>

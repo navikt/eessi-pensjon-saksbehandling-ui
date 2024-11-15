@@ -1,5 +1,4 @@
 import React from "react";
-import { PileDiv } from '@navikt/hoykontrast'
 import ErrorLabel from 'src/components/Forms/ErrorLabel'
 import {Box} from "@navikt/ds-react";
 
@@ -10,7 +9,7 @@ export interface FormTextProps {
   children: any
 }
 
-const FormText: React.FC<FormTextProps> = ({
+const FormTextBox: React.FC<FormTextProps> = ({
   children,
   error,
   id
@@ -21,4 +20,4 @@ const FormText: React.FC<FormTextProps> = ({
   </Box>
 )
 
-export default FormText
+export default FormTextBox
