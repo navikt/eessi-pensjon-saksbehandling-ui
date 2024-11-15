@@ -47,6 +47,7 @@ const defaultSelector: BUCListSelector = {
   }],
   bucs: {
     NorwayIsCaseOwner: {
+      cdm: "4.2",
       type: 'P_BUC_02',
       readOnly: false,
       caseId: 'NorwayIsCaseOwner',
@@ -70,6 +71,7 @@ const defaultSelector: BUCListSelector = {
       error: null
     },
     NorwayIsNOTCaseOwner: {
+      cdm: "4.2",
       type: 'P_BUC_02',
       readOnly: false,
       caseId: 'NorwayIsNOTCaseOwner',
