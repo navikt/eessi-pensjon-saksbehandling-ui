@@ -1,12 +1,11 @@
-import {Button, Heading} from "@navikt/ds-react";
-import {AlignEndColumn, AlignStartRow, Column} from "@navikt/hoykontrast";
+import {BodyLong, Box, Button, Heading, HGrid, HStack, Spacer} from "@navikt/ds-react";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {Email} from "src/declarations/p2000";
 import {getIdx} from "src/utils/namespace";
-import {RepeatableRow} from "src/components/StyledComponents";
+import {RepeatableBox} from "src/components/StyledComponents";
 import Input from "../../../components/Forms/Input";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
@@ -22,8 +21,8 @@ import {MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
-import ErrorLabel from "src/components/Forms/ErrorLabel";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
+import FormTextBox from "src/components/Forms/FormTextBox";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -144,39 +143,39 @@ const Epost: React.FC<EpostProps> = ({
     const inEditMode = index < 0 || _editEpostIndex === index
     const _epost = index < 0 ? _newEpost : (inEditMode ? _editEpost : epost)
     return(
-      <RepeatableRow
+      <RepeatableBox
         key={_namespace}
         id={'repeatablerow-' + _namespace}
         className={classNames({
           new: index < 0,
           error: hasNamespaceWithErrors(_v, _namespace)
         })}
+        padding="4"
       >
-        <AlignStartRow>
+        <HGrid columns={2} gap="4">
           {inEditMode
             ? (
-              <>
-                <Column>
-                  <Input
-                    error={_v[_namespace + '-adresse']?.feilmelding}
-                    namespace={_namespace}
-                    id=''
-                    label={t('p2000:form-epost-adresse')}
-                    onChanged={(e) => setEpost(e, index)}
-                    value={(_epost?.adresse)  ?? ''}
-                  />
-                </Column>
-              </>
+                <Input
+                  error={_v[_namespace + '-adresse']?.feilmelding}
+                  namespace={_namespace}
+                  id=''
+                  label={t('p2000:form-epost-adresse')}
+                  onChanged={(e) => setEpost(e, index)}
+                  value={(_epost?.adresse)  ?? ''}
+                />
             )
             : (
-              <Column>
-                <div>{_epost?.adresse}</div>
-                <ErrorLabel error={_v[_namespace + '-adresse']?.feilmelding}/>
-              </Column>
+              <FormTextBox
+                id={_namespace + '-adresse'}
+                error={_v[_namespace + '-adresse']?.feilmelding}
+              >
+                {_epost?.adresse}
+              </FormTextBox>
             )
           }
 
-          <AlignEndColumn>
+          <HStack>
+            <Spacer/>
             <AddRemovePanel
               item={epost}
               marginTop={index < 0}
@@ -189,29 +188,25 @@ const Epost: React.FC<EpostProps> = ({
               onConfirmEdit={onSaveEditEpost}
               onCancelEdit={() => onCloseEditEpost(_namespace)}
             />
-          </AlignEndColumn>
-        </AlignStartRow>
-      </RepeatableRow>
+          </HStack>
+        </HGrid>
+      </RepeatableBox>
     )
   }
 
   return (
     <>
       <Heading size="small">{t('p2000:form-epost')}</Heading>
-      <AlignStartRow>
-        {_.isEmpty(epostAdresser)
-          ? (
-            <Column>
-              <em>{t('p2000:ingen-x-registrert', {x: 'epost'})}</em>
-            </Column>
-          )
-          : (
-            <Column>
-              {epostAdresser?.map(renderEpost)}
-            </Column>
-          )
-        }
-      </AlignStartRow>
+      {_.isEmpty(epostAdresser)
+        ? (
+          <Box paddingBlock="2">
+            <BodyLong>
+              <em>{t('p2000:ingen-x-registrert', {x: 'epost'})}</em >
+            </BodyLong>
+          </Box>
+        )
+        : (epostAdresser?.map(renderEpost))
+      }
       {_newEpostForm
         ? renderEpost(null, -1)
         : (

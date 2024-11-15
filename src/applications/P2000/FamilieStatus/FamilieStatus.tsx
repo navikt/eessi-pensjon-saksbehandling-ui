@@ -1,12 +1,11 @@
-import {Button, Heading, Label, Select} from "@navikt/ds-react";
-import {AlignEndColumn, AlignStartRow, Column, PaddedHorizontallyDiv, VerticalSeparatorDiv} from "@navikt/hoykontrast";
+import {BodyLong, Box, Button, Heading, HGrid, HStack, Label, Select, Spacer} from "@navikt/ds-react";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {Sivilstand} from "src/declarations/p2000";
 import {getIdx} from "src/utils/namespace";
-import {RepeatableRow} from "src/components/StyledComponents";
+import {RepeatableBox} from "src/components/StyledComponents";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
@@ -25,6 +24,7 @@ import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
 import ErrorLabel from "src/components/Forms/ErrorLabel";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
+import FormTextBox from "src/components/Forms/FormTextBox";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -179,65 +179,64 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
     const _sivilstand = index < 0 ? _newSivilstand : (inEditMode ? _editSivilstand : sivilstand)
 
     return(
-      <RepeatableRow
+      <RepeatableBox
         id={'repeatablerow-' + _namespace}
         className={classNames({
           new: index < 0,
           error: hasNamespaceWithErrors(_v, _namespace)
         })}
+        padding="4"
       >
-        <AlignStartRow>
+        <HGrid columns={3} gap="4">
           {inEditMode
             ? (
               <>
-                <Column>
-                  <Select
-                    error={_v[_namespace + '-status']?.feilmelding}
-                    id='status'
-                    label={t('p2000:form-familiestatus-status')}
-                    onChange={(e) => setSivilstandStatus(e.target.value, index)}
-                    value={(_sivilstand?.status)  ?? ''}
-                    hideLabel={true}
-                  >
-                    <option value=''>Velg</option>
-                    {sivilstandStatusOptions.map((option) => {
-                      return(<option key={option.value} value={option.value}>{option.label}</option>)
-                    })}
-                  </Select>
-                </Column>
-                <Column>
-                  <DateField
-                    id='fraDato'
-                    index={index}
-                    label={t('p2000:form-familiestatus-fradato')}
-                    hideLabel={true}
-                    error={_v[_namespace + '-fradato']?.feilmelding}
-                    namespace={_namespace}
-                    onChanged={(e) => setSivilstandFraDato(e, index)}
-                    dateValue={_sivilstand?.fradato ?? ''}
-                  />
-                </Column>
+                <Select
+                  error={_v[_namespace + '-status']?.feilmelding}
+                  id='status'
+                  label={t('p2000:form-familiestatus-status')}
+                  onChange={(e) => setSivilstandStatus(e.target.value, index)}
+                  value={(_sivilstand?.status)  ?? ''}
+                >
+                  <option value=''>Velg</option>
+                  {sivilstandStatusOptions.map((option) => {
+                    return(<option key={option.value} value={option.value}>{option.label}</option>)
+                  })}
+                </Select>
+                <DateField
+                  id='fraDato'
+                  index={index}
+                  label={t('p2000:form-familiestatus-fradato')}
+                  error={_v[_namespace + '-fradato']?.feilmelding}
+                  namespace={_namespace}
+                  onChanged={(e) => setSivilstandFraDato(e, index)}
+                  dateValue={_sivilstand?.fradato ?? ''}
+                />
               </>
             )
             : (
               <>
-                <Column>
-                  <div>
-                    {sivilstandStatusOptions.filter((s) => {
-                      return s.value === _sivilstand?.status
-                    })[0]?.label}
-                    <ErrorLabel error={_v[_namespace + '-status']?.feilmelding}/>
-                  </div>
-                </Column>
-                <Column>
-                  <div>{formatDate(_sivilstand?.fradato)}</div>
+                <FormTextBox
+                  id={_namespace + '-status'}
+                  error={_v[_namespace + '-status']?.feilmelding}
+                >
+                  {sivilstandStatusOptions.filter((s) => {
+                    return s.value === _sivilstand?.status
+                  })[0]?.label}
+                  <ErrorLabel error={_v[_namespace + '-status']?.feilmelding}/>
+                </FormTextBox>
+                <FormTextBox
+                  id={_namespace + '-fradato'}
+                  error={_v[_namespace + '-fradato']?.feilmelding}
+                >
+                  {formatDate(_sivilstand?.fradato)}
                   <ErrorLabel error={_v[_namespace + '-fradato']?.feilmelding}/>
-                </Column>
+                </FormTextBox>
               </>
             )
           }
-
-          <AlignEndColumn>
+          <HStack>
+            <Spacer/>
             <AddRemovePanel
               item={sivilstand}
               marginTop={index < 0}
@@ -250,35 +249,40 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
               onConfirmEdit={onSaveEditSivilstand}
               onCancelEdit={() => onCloseEditSivilstand(_namespace)}
             />
-          </AlignEndColumn>
-        </AlignStartRow>
-      </RepeatableRow>
+          </HStack>
+        </HGrid>
+      </RepeatableBox>
     )
   }
 
   return (
     <>
       <Heading size="small">{t('p2000:form-familiestatus')}</Heading>
-      <VerticalSeparatorDiv size='0.5' />
-      <>
-        <PaddedHorizontallyDiv>
-          <AlignStartRow>
-            <Column>
-              <Label>
-                {t('p2000:form-familiestatus-status')}
-              </Label>
-            </Column>
-            <Column>
-              <Label>
-                {t('p2000:form-familiestatus-fradato')}
-              </Label>
-            </Column>
-            <Column />
-          </AlignStartRow>
-        </PaddedHorizontallyDiv>
-        <VerticalSeparatorDiv size='0.8' />
-        {sivilstandList?.map(renderSivilstand)}
-      </>
+      {_.isEmpty(sivilstandList)
+        ? (
+          <Box paddingBlock="2">
+            <BodyLong>
+              <em>{t('message:warning-no-familiestatus')}</em>
+            </BodyLong>
+          </Box>
+        )
+        : (
+          <>
+            <Box paddingBlock="2" paddingInline="5">
+              <HGrid columns={3} gap="4">
+                <Label>
+                  {t('p2000:form-familiestatus-status')}
+                </Label>
+                <Label>
+                  {t('p2000:form-familiestatus-fradato')}
+                </Label>
+                <Spacer/>
+              </HGrid>
+            </Box>
+            {sivilstandList?.map(renderSivilstand)}
+          </>
+        )
+      }
       {_newSivilstandForm
         ? renderSivilstand(null, -1)
         : (
