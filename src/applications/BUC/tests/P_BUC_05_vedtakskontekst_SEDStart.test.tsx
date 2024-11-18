@@ -49,6 +49,7 @@ describe('P_BUC_05 for SEDStart, vedtakskontekst,', () => {
 
   const mockBucs: Bucs = {
     NorwayIsCaseOwner: {
+      cdm: "4.2",
       type: 'P_BUC_05',
       readOnly: false,
       caseId: 'NorwayIsCaseOwner',
@@ -82,6 +83,7 @@ describe('P_BUC_05 for SEDStart, vedtakskontekst,', () => {
       error: null
     },
     NorwayIsNOTCaseOwner: {
+      cdm: "4.2",
       type: 'P_BUC_05',
       readOnly: false,
       caseId: 'NorwayIsNOTCaseOwner',

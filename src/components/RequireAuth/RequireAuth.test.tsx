@@ -10,10 +10,12 @@ jest.mock('src/actions/app', () => ({
 }))
 
 const defaultSelector: RequireAuthSelector = {
-  userRole: undefined,
   loggedIn: undefined,
+  userRole: undefined,
+  countryCodes: undefined,
   gettingUserInfo: false,
-  isLoggingIn: false
+  isLoggingIn: false,
+  gettingCountryCodes: false
 }
 
 describe('src/components/RequireAuth/RequireAuth', () => {
