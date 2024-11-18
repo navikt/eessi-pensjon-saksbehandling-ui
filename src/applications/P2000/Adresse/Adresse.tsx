@@ -1,5 +1,4 @@
 import React from "react";
-import {AlignStartRow, Column, VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import Input from "../../../components/Forms/Input";
 import {Country} from "@navikt/land-verktoy";
 import {MainFormSelector} from "../MainForm";
@@ -14,6 +13,7 @@ import {Adresse as P2000Adresse} from "src/declarations/p2000";
 import _ from "lodash";
 import {resetValidation} from "src/actions/validation";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
+import {HGrid, VStack} from "@navikt/ds-react";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -78,71 +78,57 @@ const Adresse: React.FC<AdresseProps> = ({
   }
 
   return (
-    <>
-      <AlignStartRow>
-        <Column>
-          <Input
-            error={validation[namespace + '-gate']?.feilmelding}
-            namespace={namespace}
-            id='gate'
-            label={t('p2000:form-adresse-gate')}
-            onChanged={setGate}
-            value={(adresse?.gate)  ?? ''}
-          />
-        </Column>
-      </AlignStartRow>
-      <VerticalSeparatorDiv/>
-      <AlignStartRow>
-        <Column>
-          <Input
-            error={validation[namespace + '-postnummer']?.feilmelding}
-            namespace={namespace}
-            id='postnummer'
-            label={t('p2000:form-adresse-postnummer')}
-            onChanged={setPostnummer}
-            value={(usePostKode ? adresse?.postkode: adresse?.postnummer) ?? ''}
-          />
-        </Column>
-        <Column>
-          <Input
-            error={validation[namespace + '-by']?.feilmelding}
-            namespace={namespace}
-            id='by'
-            label="By"
-            onChanged={setBy}
-            value={(adresse?.by)  ?? ''}
-          />
-        </Column>
-      </AlignStartRow>
-      <VerticalSeparatorDiv/>
-      <AlignStartRow>
-        <Column>
-          <Input
-            error={validation[namespace + '-region']?.feilmelding}
-            namespace={namespace}
-            id='region'
-            label={t('p2000:form-adresse-region')}
-            onChanged={setRegion}
-            value={(adresse?.region)  ?? ''}
-          />
-        </Column>
-      </AlignStartRow>
-      <VerticalSeparatorDiv/>
-      <AlignStartRow>
-        <Column>
-          <CountryDropdown
-            error={validation[namespace + '-land']?.feilmelding}
-            id={namespace + '-land'}
-            label={t('p2000:form-adresse-land')}
-            flags={true}
-            onOptionSelected={(land: Country) => setLand(land.value)}
-            values={(adresse?.land) ?? ''}
-            countryCodeListName="verdensLand"
-          />
-        </Column>
-      </AlignStartRow>
-    </>
-
+    <VStack gap="4">
+      <HGrid columns={1}>
+        <Input
+          error={validation[namespace + '-gate']?.feilmelding}
+          namespace={namespace}
+          id='gate'
+          label={t('p2000:form-adresse-gate')}
+          onChanged={setGate}
+          value={(adresse?.gate)  ?? ''}
+        />
+      </HGrid>
+      <HGrid columns={2} gap="4">
+        <Input
+          error={validation[namespace + '-postnummer']?.feilmelding}
+          namespace={namespace}
+          id='postnummer'
+          label={t('p2000:form-adresse-postnummer')}
+          onChanged={setPostnummer}
+          value={(usePostKode ? adresse?.postkode: adresse?.postnummer) ?? ''}
+        />
+        <Input
+          error={validation[namespace + '-by']?.feilmelding}
+          namespace={namespace}
+          id='by'
+          label="By"
+          onChanged={setBy}
+          value={(adresse?.by)  ?? ''}
+        />
+      </HGrid>
+      <HGrid columns={1}>
+        <Input
+          error={validation[namespace + '-region']?.feilmelding}
+          namespace={namespace}
+          id='region'
+          label={t('p2000:form-adresse-region')}
+          onChanged={setRegion}
+          value={(adresse?.region)  ?? ''}
+        />
+      </HGrid>
+      <HGrid columns={1}>
+        <CountryDropdown
+          error={validation[namespace + '-land']?.feilmelding}
+          id={namespace + '-land'}
+          label={t('p2000:form-adresse-land')}
+          flags={true}
+          onOptionSelected={(land: Country) => setLand(land.value)}
+          values={(adresse?.land) ?? ''}
+          countryCodeListName="verdensLand"
+        />
+      </HGrid>
+    </VStack>
   )
 }
 

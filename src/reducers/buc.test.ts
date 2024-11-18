@@ -110,6 +110,7 @@ describe('reducers/buc', () => {
 
     const mockBuc = {
       aktoerId: '1',
+      cdm: "4.2",
       caseId: '1',
       creator: {
         country: 'NO',
@@ -179,6 +180,7 @@ describe('reducers/buc', () => {
       .mockImplementationOnce(() => new Date('2020-01-01T00:00:00.000Z').getTime())
 
     const mockBuc = {
+      cdm: "4.2",
       aktoerId: '1',
       caseId: '1',
       creator: {

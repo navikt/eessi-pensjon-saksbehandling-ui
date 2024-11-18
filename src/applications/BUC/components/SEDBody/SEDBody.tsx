@@ -64,7 +64,8 @@ const SEDBody: React.FC<SEDBodyProps> = ({
   initialAttachmentsSent = false,
   initialSeeAttachmentPanel = false,
   initialSendingAttachments = false,
-  onAttachmentsSubmit, sed
+  onAttachmentsSubmit,
+  sed
 }: SEDBodyProps): JSX.Element => {
   const { attachmentsError }: SEDBodySelector = useSelector<State, SEDBodySelector>(mapState)
   const { t } = useTranslation()
@@ -181,19 +182,24 @@ const SEDBody: React.FC<SEDBodyProps> = ({
 
   return (
     <SEDBodyDiv>
-      <VerticalSeparatorDiv />
       <Heading size='small'>
         {t('ui:attachments')}
       </Heading>
-      <VerticalSeparatorDiv size='2' />
+      {_.isEmpty(_items) && (
+          <em>{t('ui:no-attachments')}</em>
+        )
+      }
       {!_.isEmpty(_items) && (
-        <JoarkBrowser
-          data-testid='a_buc_c_sedbody--attachments-id'
-          existingItems={_items}
-          mode='view'
-          onRowViewDelete={onRowViewDelete}
-          tableId={'viewsed-' + sed.id}
-        />
+        <>
+          <VerticalSeparatorDiv size='2' />
+          <JoarkBrowser
+            data-testid='a_buc_c_sedbody--attachments-id'
+            existingItems={_items}
+            mode='view'
+            onRowViewDelete={onRowViewDelete}
+            tableId={'viewsed-' + sed.id}
+          />
+        </>
       )}
       <>
         <VerticalSeparatorDiv />

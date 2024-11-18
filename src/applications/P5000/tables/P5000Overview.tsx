@@ -64,6 +64,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const componentRef = useRef(null)
   const countryInstance = CountryData.getCountryInstance('nb')
 
+  const [pagination, setPagination] = useState<boolean>(true)
   const [itemsPerPage, setItemsPerPage] = useState<number>(30)
   const [renderPrintTable, setRenderPrintTable] = useState<boolean>(false)
   const [mergePeriods, setMergePeriods] = useState<boolean>(false)
@@ -329,7 +330,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           caseId={caseId}
           p5000FromS3={p5000FromS3}
           componentRef={componentRef}
-          featureToggles={featureToggles}
           mergePeriods={mergePeriods}
           setMergePeriods={setMergePeriods}
           mergePeriodTypes={mergePeriodTypes}
@@ -339,6 +339,8 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           setRenderPrintTable={setRenderPrintTable}
           useGermanRules={useGermanRules}
           setUseGermanRules={setUseGermanRules}
+          pagination={pagination}
+          setPagination={setPagination}
           itemsPerPage={itemsPerPage}
           setItemsPerPage={setItemsPerPage}
           items={items}
@@ -378,6 +380,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               }}
               itemsPerPage={itemsPerPage}
               columns={columns}
+              pagination={ pagination }
             />
             <VerticalSeparatorDiv />
           </Tabs.Panel>
@@ -411,6 +414,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               }}
               itemsPerPage={itemsPerPage}
               columns={columns}
+              pagination={ pagination }
             />
             <VerticalSeparatorDiv />
           </Tabs.Panel>

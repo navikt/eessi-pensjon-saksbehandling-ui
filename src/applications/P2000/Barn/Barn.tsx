@@ -1,28 +1,24 @@
-import {AlignEndColumn, AlignStartRow, Column, PaddedDiv, VerticalSeparatorDiv} from "@navikt/hoykontrast";
-import {BodyLong, Button, Heading, Select} from "@navikt/ds-react";
+import {BodyLong, Box, Button, Heading, HStack, Select, Spacer, VStack} from "@navikt/ds-react";
 import _ from "lodash";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {Fragment, useEffect, useState} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
-
 import {useAppSelector} from "src/store";
 import {Barn as P2000Barn} from "../../../declarations/p2000";
 import {getIdx} from "src/utils/namespace";
-
 import {State} from "src/declarations/reducers";
 import PersonOpplysninger from "../PersonOpplysninger/PersonOpplysninger";
 import {resetValidation, setValidation} from "src/actions/validation";
 import {useDispatch} from "react-redux";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import classNames from "classnames";
-import {RepeatableRowNoBackground} from "src/components/StyledComponents";
+import {RepeatableBox} from "src/components/StyledComponents";
 import UtenlandskePin from "../UtenlandskePin/UtenlandskePin";
 import Foedested from "../Foedested/Foedested";
 import Statsborgerskap from "../Statsborgerskap/Statsborgerskap";
 import DateField from "../DateField/DateField";
 import {formatDate} from "src/utils/utils";
-import FormText from "../../../components/Forms/FormText";
 import useValidation from "../../../hooks/useValidation";
 import {hasNamespaceWithErrors} from "src/utils/validation";
 import {validateBarn, validateBarnArray, ValidationBarnArrayProps, ValidationBarnProps} from "./validation";
@@ -30,6 +26,7 @@ import performValidation from "../../../utils/performValidation";
 import {Validation} from "src/declarations/app";
 import useUnmount from "../../../hooks/useUnmount";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
+import FormTextBox from "src/components/Forms/FormTextBox";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -234,7 +231,7 @@ const Barn: React.FC<MainFormProps> = ({
 
     return (
       <Fragment key={"barn-" + index}>
-        <RepeatableRowNoBackground
+        <RepeatableBox
           id={'repeatablerow-' + _namespace}
           key={index}
           className={classNames({
@@ -242,83 +239,76 @@ const Barn: React.FC<MainFormProps> = ({
             error: hasNamespaceWithErrors(_v, _namespace),
             selected: inEditMode
           })}
+          padding="4"
         >
-            <>
-              <VerticalSeparatorDiv/>
-              <PersonOpplysninger setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode} parentValidation={_v}/>
-              <VerticalSeparatorDiv/>
-              <UtenlandskePin setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
-              <VerticalSeparatorDiv/>
-              <Foedested setPersonOpplysninger={setBarnFoedested} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode} parentValidation={_v}/>
-              <VerticalSeparatorDiv/>
-              <Statsborgerskap setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
-              <VerticalSeparatorDiv/>
+            <VStack gap="4">
+              <Box>
+                <PersonOpplysninger setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode} parentValidation={_v}/>
+              </Box>
+              <Box>
+                <UtenlandskePin setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
+              </Box>
+              <Box>
+                <Foedested setPersonOpplysninger={setBarnFoedested} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode} parentValidation={_v}/>
+              </Box>
+              <Box>
+                <Statsborgerskap setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode}/>
+              </Box>
               <Heading size='small'>
                 {t('p2000:form-barn-relasjontilbruker')}
               </Heading>
-              <VerticalSeparatorDiv/>
-              <AlignStartRow>
-                <Column>
-                  {inEditMode &&
-                    <Select
-                      error={_v[_namespace + '-relasjontilbruker']?.feilmelding}
-                      id='barn-relasjontilbruker'
-                      label={t('p2000:form-barn-relasjontilbruker')}
-                      hideLabel={true}
-                      onChange={(e) => setRelasjon(e.target.value, index)}
-                      value={(_barn?.relasjontilbruker) ?? ''}
-                    >
-                      <option value=''>{t('p2000:form-velg')}</option>
-                      {relasjonOptions.map((option) => {
-                        return(<option key={option.value} value={option.value}>{option.label}</option>)
-                      })}
-                    </Select>
-                  }
-                  {!inEditMode &&
-                    <FormText
-                      error={_v[_namespace + '-relasjontilbruker']?.feilmelding}
-                      id='barn-relasjontilbruker'
-                    >
-                      {_barn?.relasjontilbruker && <BodyLong>{getRelasjonLabel(_barn?.relasjontilbruker)}</BodyLong>}
-                      {!_barn?.relasjontilbruker && <em>{t('p2000:ingen-x-registrert', {x: 'relasjon'})}</em>}
-                    </FormText>
-                  }
-                </Column>
-              </AlignStartRow>
-              <VerticalSeparatorDiv/>
+              {inEditMode &&
+                <Select
+                  error={_v[_namespace + '-relasjontilbruker']?.feilmelding}
+                  id='barn-relasjontilbruker'
+                  label={t('p2000:form-barn-relasjontilbruker')}
+                  hideLabel={true}
+                  onChange={(e) => setRelasjon(e.target.value, index)}
+                  value={(_barn?.relasjontilbruker) ?? ''}
+                >
+                  <option value=''>{t('p2000:form-velg')}</option>
+                  {relasjonOptions.map((option) => {
+                    return(<option key={option.value} value={option.value}>{option.label}</option>)
+                  })}
+                </Select>
+              }
+              {!inEditMode &&
+                <FormTextBox
+                  error={_v[_namespace + '-relasjontilbruker']?.feilmelding}
+                  id='barn-relasjontilbruker'
+                  padding="0"
+                >
+                  {_barn?.relasjontilbruker && <BodyLong>{getRelasjonLabel(_barn?.relasjontilbruker)}</BodyLong>}
+                  {!_barn?.relasjontilbruker && <em>{t('p2000:ingen-x-registrert', {x: 'relasjon'})}</em>}
+                </FormTextBox>
+              }
               <Heading size='small'>
                 Dødsdato
               </Heading>
-              <VerticalSeparatorDiv/>
-              <AlignStartRow>
-                <Column>
-                  {inEditMode &&
-                    <DateField
-                      hideLabel={true}
-                      id='person-doedssdato'
-                      index={0}
-                      label={t('p2000:form-person-doedsdato')}
-                      error={_v[_namespace + '-person-doedssdato']?.feilmelding}
-                      namespace={_namespace}
-                      onChanged={(v) => setBarnPersonalia("doedsdato", v, index)}
-                      dateValue={_barn?.person?.doedsdato ?? ''}
-                    />
-                  }
-                  {!inEditMode &&
-                    <FormText
-                      error={_v[_namespace + '-person-doedssdato']?.feilmelding}
-                      id='person-doedssdato'
-                    >
-                      {_barn?.person?.doedsdato &&<BodyLong>{formatDate(_barn?.person?.doedsdato)}</BodyLong>}
-                      {!_barn?.person?.doedsdato && <em>{t('p2000:ingen-x-registrert', {x: 'dødsdato'})}</em>}
-                    </FormText>
-                  }
-                </Column>
-                <Column/>
-                <Column/>
-              </AlignStartRow>
-              <VerticalSeparatorDiv/>
-              <AlignEndColumn>
+              {inEditMode &&
+                <DateField
+                  hideLabel={true}
+                  id='person-doedssdato'
+                  index={0}
+                  label={t('p2000:form-person-doedsdato')}
+                  error={_v[_namespace + '-person-doedssdato']?.feilmelding}
+                  namespace={_namespace}
+                  onChanged={(v) => setBarnPersonalia("doedsdato", v, index)}
+                  dateValue={_barn?.person?.doedsdato ?? ''}
+                />
+              }
+              {!inEditMode &&
+                <FormTextBox
+                  error={_v[_namespace + '-person-doedssdato']?.feilmelding}
+                  id='person-doedssdato'
+                  padding="0"
+                >
+                  {_barn?.person?.doedsdato &&<BodyLong>{formatDate(_barn?.person?.doedsdato)}</BodyLong>}
+                  {!_barn?.person?.doedsdato && <em>{t('p2000:ingen-x-registrert', {x: 'dødsdato'})}</em>}
+                </FormTextBox>
+              }
+              <HStack>
+                <Spacer/>
                 <AddRemovePanel<P2000Barn>
                   item={barn}
                   marginTop={index < 0}
@@ -332,22 +322,19 @@ const Barn: React.FC<MainFormProps> = ({
                   onConfirmEdit={onSaveEdit}
                   onCancelEdit={() => onCloseEdit(_namespace)}
                 />
-              </AlignEndColumn>
-            </>
-          <VerticalSeparatorDiv/>
-        </RepeatableRowNoBackground>
-        <VerticalSeparatorDiv/>
+              </HStack>
+            </VStack>
+        </RepeatableBox>
       </Fragment>
     )
   }
 
   return (
-    <>
-      <PaddedDiv>
+    <Box padding="4">
+      <VStack gap="4">
         <Heading size='medium'>
           {label}
         </Heading>
-        <VerticalSeparatorDiv/>
         {_.isEmpty(barn)
           ? (
             <BodyLong>
@@ -360,22 +347,21 @@ const Barn: React.FC<MainFormProps> = ({
             </>
           )
         }
-        <VerticalSeparatorDiv />
         {_newForm
           ? renderRow(null, -1)
           : (
-            <AlignStartRow>
-              <Button
-                variant='tertiary'
-                onClick={() => _setNewForm(true)}
-                iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
-              >
-                {t('ui:add-new-x', { x: t('p2000:form-barn')?.toLowerCase() })}
-              </Button>
-            </AlignStartRow>
+              <Box>
+                <Button
+                  variant='tertiary'
+                  onClick={() => _setNewForm(true)}
+                  iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
+                >
+                  {t('ui:add-new-x', { x: t('p2000:form-barn')?.toLowerCase() })}
+                </Button>
+              </Box>
           )}
-      </PaddedDiv>
-    </>
+      </VStack>
+    </Box>
   )
 }
 

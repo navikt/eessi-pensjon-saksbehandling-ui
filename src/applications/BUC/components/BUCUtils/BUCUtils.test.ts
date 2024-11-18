@@ -47,6 +47,7 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
   }
 
   const mockBuc: Buc = {
+    cdm: "4.2",
     type: 'P2000',
     caseId: '123',
     sakType: 'Alderspensjon',

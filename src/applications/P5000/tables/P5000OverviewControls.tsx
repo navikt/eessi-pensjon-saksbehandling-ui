@@ -13,7 +13,7 @@ import { informasjonOmBeregningLabels, typePeriode } from 'src/applications/P500
 import { convertFromP5000ListRowsIntoPesysPeriods } from 'src/applications/P5000/utils/pesysUtils'
 import MultipleSelect from 'src/components/MultipleSelect/MultipleSelect'
 import { OneLineSpan } from 'src/components/StyledComponents'
-import { FeatureToggles, Option } from 'src/declarations/app'
+import { Option } from 'src/declarations/app'
 import { P5000ListRow, P5000ListRows } from 'src/declarations/p5000'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
@@ -28,7 +28,6 @@ export interface P5000OverviewControlsProps {
   aktoerId: string
   caseId: string
   componentRef: any
-  featureToggles: FeatureToggles
   mergePeriods: boolean
   setMergePeriods: (b: boolean) => void
   setRenderPrintTable: (b: boolean) => void
@@ -38,6 +37,8 @@ export interface P5000OverviewControlsProps {
   setMergePeriodBeregnings: (a: Array<string> | undefined) => void
   useGermanRules: boolean
   setUseGermanRules: (b: boolean) => void
+  pagination: boolean
+  setPagination: (b: boolean) => void
   itemsPerPage: number
   currentTabKey: string
   pesysWarning: string | undefined
@@ -59,7 +60,6 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
   aktoerId,
   caseId,
   componentRef,
-  featureToggles,
   mergePeriods,
   setMergePeriods,
   mergePeriodTypes,
@@ -69,6 +69,8 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
   setRenderPrintTable,
   useGermanRules,
   setUseGermanRules,
+  pagination,
+  setPagination,
   itemsPerPage,
   setItemsPerPage,
   items,
@@ -155,7 +157,10 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
               checked={mergePeriods}
               id='a_buc_c_sedstart--p5000-overview-merge-checkbox'
               data-testid='a_buc_c_sedstart--p5000-overview-merge-checkbox'
-              onChange={() => setMergePeriods(!mergePeriods)}
+              onChange={() => {
+                setMergePeriods(!mergePeriods)
+                setPagination(!pagination)
+              }}
             >
               <FlexCenterDiv>
                 <OneLineSpan>
@@ -167,7 +172,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                 </HelpText>
               </FlexCenterDiv>
             </Switch>
-            {featureToggles.P5000_UPDATES_VISIBLE && mergePeriods && (
+            {mergePeriods && (
               <>
                 <HorizontalSeparatorDiv size='2' />
                 <MultipleSelect<Option>
@@ -191,7 +196,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                 />
               </>
             )}
-            {featureToggles.P5000_UPDATES_VISIBLE && mergePeriods && (
+            {mergePeriods && (
               <>
                 <HorizontalSeparatorDiv size='2' />
                 <MultipleSelect<Option>
@@ -246,20 +251,21 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
               {sendingToPesys ? t('ui:sending') : t('buc:form-send-to-PESYS')}
             </Button>
             <HorizontalSeparatorDiv />
-            <Select
-              id='itemsPerPage'
-              label={t('ui:itemsPerPage')}
-              onChange={itemsPerPageChanged}
-              value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
-            >
-              <option value='10'>10</option>
-              <option value='15'>15</option>
-              <option value='20'>20</option>
-              <option value='30'>30</option>
-              <option value='50'>50</option>
-              <option value='all'>{t('ui:all')}</option>
-            </Select>
-
+            {pagination && (
+              <Select
+                id='itemsPerPage'
+                label={t('ui:itemsPerPage')}
+                onChange={itemsPerPageChanged}
+                value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
+              >
+                <option value='10'>10</option>
+                <option value='15'>15</option>
+                <option value='20'>20</option>
+                <option value='30'>30</option>
+                <option value='50'>50</option>
+                <option value='all'>{t('ui:all')}</option>
+              </Select>
+            )}
           </FlexEndDiv>
         </Column>
       </AlignEndRow>

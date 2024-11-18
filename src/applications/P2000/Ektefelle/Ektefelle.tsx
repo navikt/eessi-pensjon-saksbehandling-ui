@@ -1,5 +1,4 @@
-import {Heading, Radio, RadioGroup} from "@navikt/ds-react";
-import {VerticalSeparatorDiv, PaddedDiv, AlignStartRow, Column} from "@navikt/hoykontrast";
+import {VStack, Heading, Radio, RadioGroup, Box} from "@navikt/ds-react";
 import React, {useEffect} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {Ektefelle as P2000Ektefelle} from "src/declarations/p2000";
@@ -76,42 +75,41 @@ const Ektefelle: React.FC<MainFormProps> = ({
   }, [ektefelle])
 
   return (
-    <>
-      <PaddedDiv>
+    <Box padding="4">
+      <VStack gap="4">
         <Heading size='medium'>
           {label}
         </Heading>
-        <VerticalSeparatorDiv/>
-        <AlignStartRow>
-          <Column>
-            <RadioGroup
-              error={validation[namespace + '-type']?.feilmelding}
-              id={namespace + "-type"}
-              legend={t('p2000:form-ektefelle-type')}
-              onChange={(e: any) => setType(e)}
-              value={ektefelle?.type ?? ''}
-            >
-              <Radio value="ektefelle">Ektefelle</Radio>
-              <Radio value="part_i_et_registrert_partnerskap">Partner i registrert partnerskap</Radio>
-              <Radio value="samboer">Samboer</Radio>
-            </RadioGroup>
-          </Column>
-        </AlignStartRow>
-        <PersonOpplysninger setPersonOpplysninger={setEktefellePersonalia} person={ektefelle?.person} parentNamespace={namespace}/>
-        <VerticalSeparatorDiv/>
-        <UtenlandskePin
-          PSED={PSED}
-          parentNamespace={namespace}
-          parentTarget={target}
-          updatePSED={updatePSED}
-        />
-        <VerticalSeparatorDiv/>
-        <FoedestedFC setPersonOpplysninger={setEktefelleFoedested} person={ektefelle?.person} parentNamespace={namespace}/>
-        <VerticalSeparatorDiv/>
-        <Statsborgerskap parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED} person={ektefelle?.person}/>
-        <VerticalSeparatorDiv/>
-      </PaddedDiv>
-    </>
+        <RadioGroup
+          error={validation[namespace + '-type']?.feilmelding}
+          id={namespace + "-type"}
+          legend={t('p2000:form-ektefelle-type')}
+          onChange={(e: any) => setType(e)}
+          value={ektefelle?.type ?? ''}
+        >
+          <Radio value="ektefelle">Ektefelle</Radio>
+          <Radio value="part_i_et_registrert_partnerskap">Partner i registrert partnerskap</Radio>
+          <Radio value="samboer">Samboer</Radio>
+        </RadioGroup>
+        <Box>
+          <PersonOpplysninger setPersonOpplysninger={setEktefellePersonalia} person={ektefelle?.person} parentNamespace={namespace}/>
+        </Box>
+        <Box>
+          <UtenlandskePin
+            PSED={PSED}
+            parentNamespace={namespace}
+            parentTarget={target}
+            updatePSED={updatePSED}
+          />
+        </Box>
+        <Box>
+          <FoedestedFC setPersonOpplysninger={setEktefelleFoedested} person={ektefelle?.person} parentNamespace={namespace}/>
+        </Box>
+        <Box>
+          <Statsborgerskap parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED} person={ektefelle?.person}/>
+        </Box>
+      </VStack>
+    </Box>
   )
 }
 

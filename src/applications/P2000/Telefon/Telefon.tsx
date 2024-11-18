@@ -1,12 +1,11 @@
-import {Button, Heading, Select} from "@navikt/ds-react";
-import {AlignEndColumn, AlignStartRow, Column, HorizontalSeparatorDiv} from "@navikt/hoykontrast";
+import {BodyLong, Box, Button, Heading, HGrid, HStack, Select, Spacer} from "@navikt/ds-react";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {Telefon as P2000Telefon} from "../../../declarations/p2000";
 import {getIdx} from "src/utils/namespace";
-import {RepeatableRow} from "src/components/StyledComponents";
+import {RepeatableBox} from "src/components/StyledComponents";
 import Input from "../../../components/Forms/Input";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
@@ -22,8 +21,8 @@ import {useAppSelector} from "src/store";
 import {useTranslation} from "react-i18next";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
-import ErrorLabel from "src/components/Forms/ErrorLabel";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
+import FormTextBox from "src/components/Forms/FormTextBox";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -161,54 +160,59 @@ const Telefon: React.FC<TelefonProps> = ({
     const inEditMode = index < 0 || _editTelefonIndex === index
     const _telefon = index < 0 ? _newTelefon : (inEditMode ? _editTelefon : telefon)
     return(
-      <RepeatableRow
+      <RepeatableBox
         key={_namespace}
         id={'repeatablerow-' + _namespace}
         className={classNames({
           new: index < 0,
           error: hasNamespaceWithErrors(_v, _namespace)
         })}
+        padding="4"
       >
-        <AlignStartRow>
+        <HGrid columns={3} gap="4">
           {inEditMode
             ? (
               <>
-                <Column>
-                  <Input
-                    error={_v[_namespace + '-nummer']?.feilmelding}
-                    namespace={_namespace}
-                    id=''
-                    label={t('p2000:form-telefon-nummer')}
-                    onChanged={(e) => setTelefonNummer(e, index)}
-                    value={(_telefon?.nummer)  ?? ''}
-                  />
-                </Column>
-                <Column>
-                  <Select
-                    error={_v[_namespace + '-type']?.feilmelding}
-                    label={t('p2000:form-telefon-type')}
-                    onChange={(e) => setTelefonType(e.target.value, index)}
-                    value={(_telefon?.type)  ?? ''}
-                  >
-                    <option value=''></option>
-                    <option value='mobil'>{t('p2000:form-telefon-type-mobil')}</option>
-                    <option value='hjem'>{t('p2000:form-telefon-type-hjem')}</option>
-                    <option value='arbeid'>{t('p2000:form-telefon-type-arbeid')}</option>
-                  </Select>
-                </Column>
+                <Input
+                  error={_v[_namespace + '-nummer']?.feilmelding}
+                  namespace={_namespace}
+                  id=''
+                  label={t('p2000:form-telefon-nummer')}
+                  onChanged={(e) => setTelefonNummer(e, index)}
+                  value={(_telefon?.nummer)  ?? ''}
+                />
+                <Select
+                  error={_v[_namespace + '-type']?.feilmelding}
+                  label={t('p2000:form-telefon-type')}
+                  onChange={(e) => setTelefonType(e.target.value, index)}
+                  value={(_telefon?.type)  ?? ''}
+                >
+                  <option value=''></option>
+                  <option value='mobil'>{t('p2000:form-telefon-type-mobil')}</option>
+                  <option value='hjem'>{t('p2000:form-telefon-type-hjem')}</option>
+                  <option value='arbeid'>{t('p2000:form-telefon-type-arbeid')}</option>
+                </Select>
               </>
             )
             : (
-              <Column>
-                <div>{_telefon?.nummer} {_telefon?.type && <span>{(_telefon?.type)}</span>}</div>
-                <ErrorLabel error={_v[_namespace + '-nummer']?.feilmelding}/>
-                <HorizontalSeparatorDiv size='1.0' />
-                <ErrorLabel error={_v[_namespace + '-type']?.feilmelding}/>
-              </Column>
+              <>
+                <FormTextBox
+                  id={_namespace + '-nummer'}
+                  error={_v[_namespace + '-nummer']?.feilmelding}
+                >
+                  {_telefon?.nummer}
+                </FormTextBox>
+                <FormTextBox
+                  id={_namespace + '-type'}
+                  error={_v[_namespace + '-type']?.feilmelding}
+                >
+                  {_telefon?.type}
+                </FormTextBox>
+              </>
             )
           }
-
-          <AlignEndColumn>
+          <HStack>
+            <Spacer/>
             <AddRemovePanel
               item={telefon}
               marginTop={index < 0}
@@ -221,29 +225,26 @@ const Telefon: React.FC<TelefonProps> = ({
               onConfirmEdit={onSaveEditTelefon}
               onCancelEdit={() => onCloseEditTelefon(_namespace)}
             />
-          </AlignEndColumn>
-        </AlignStartRow>
-      </RepeatableRow>
+          </HStack>
+        </HGrid>
+      </RepeatableBox>
     )
   }
 
   return (
     <>
       <Heading size="small">{t('p2000:form-telefon')}</Heading>
-      <AlignStartRow>
+
         {_.isEmpty(telefonnumre)
           ? (
-            <Column>
-              <em>{t('p2000:ingen-x-registrert', {x: 'telefon'})}</em>
-            </Column>
+            <Box paddingBlock="2">
+              <BodyLong>
+                <em>{t('p2000:ingen-x-registrert', {x: 'telefon'})}</em>
+              </BodyLong>
+            </Box>
           )
-          : (
-            <Column>
-              {telefonnumre?.map(renderTelefon)}
-            </Column>
-          )
+          : (telefonnumre?.map(renderTelefon))
         }
-      </AlignStartRow>
       {_newTelefonForm
         ? renderTelefon(null, -1)
         : (
