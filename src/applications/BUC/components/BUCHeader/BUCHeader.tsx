@@ -23,8 +23,6 @@ import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 
 const Row = styled(HStack)`
   display: flex;
-  margin-left: -0.5rem;
-  margin-right: -0.5rem;
   flex-direction: column;
   @media (min-width: 768px) {
     flex-direction: row;
