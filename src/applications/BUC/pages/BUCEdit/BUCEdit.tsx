@@ -19,8 +19,6 @@ import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'src/metrics/loggers'
 import moment from 'moment'
 import {
-  animationClose,
-  animationOpen,
   Column,
   Row,
   VerticalSeparatorDiv
@@ -30,6 +28,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { animationClose, animationOpen } from "src/components/Animations/Animations";
 
 export const BUCEditDiv = styled.div`
 `

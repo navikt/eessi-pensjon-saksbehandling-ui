@@ -6,22 +6,28 @@ import {
 import InstitutionList from 'src/applications/BUC/components/InstitutionList/InstitutionList'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import { WidthSize } from 'src/declarations/app'
-import { HorizontalSeparatorDiv, Column, Row } from '@navikt/hoykontrast'
 import { AllowedLocaleString, RinaUrl } from 'src/declarations/app.d'
-import {Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames, JoarkBuc} from 'src/declarations/buc'
+import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames, JoarkBuc } from 'src/declarations/buc'
 import { BucInfoPropType, BucPropType } from 'src/declarations/buc.pt'
 import { State } from 'src/declarations/reducers'
 import { FlagItems, FlagList } from '@navikt/flagg-ikoner'
 import _ from 'lodash'
 import { linkLogger } from 'src/metrics/loggers'
 import moment from 'moment'
-import { LinkPanel, BodyLong, Link, Heading, Tag } from '@navikt/ds-react'
+import { LinkPanel, BodyLong, Link, Heading, Tag, Box, HStack } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 
+const Row = styled(HStack)`
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+`
 const FlexRow = styled(Row)`
   width: 100%;
   @media (min-width: 768px) {
@@ -30,21 +36,21 @@ const FlexRow = styled(Row)`
   align-items: flex-start;
   justify-content: space-between;
 `
-export const IconsDiv = styled(Column)`
-  margin: 0px;
-  padding: 0px;
+export const IconsDiv = styled(Box)`
+  margin: 0;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex: 1;
 `
-const LabelsDiv = styled(Column)`
+const LabelsDiv = styled(Box)`
   flex: 1;
 `
 const NumberOfSedsDiv = styled.div`
-  border-width: ${(props: any) => props['data-icon-size'] === 'XL' ? '3' : '2'}px};
+  border-width: ${(props: any) => props['data-icon-size'] === 'XL' ? '3' : '2'}px;
   border-style: solid;
-  border-color: var(--a-color-text-primary);
+  border-color: var(--a-text-default);
   border-radius: 50px;
   min-width: ${(props: any) => (props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
   min-height: ${(props: any) => (props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
@@ -62,7 +68,7 @@ const PropertyDiv = styled.div`
 `
 const RinaLink = styled(Link)`
   padding: 0.25rem 0.5rem 0.25rem 0.5rem !important;
-  margin-bottom: 0px !important;
+  margin-bottom: 0 !important;
   color: var(--a-surface-action) !important;
 `
 const RowText = styled(BodyLong)`
@@ -263,8 +269,9 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
             <TagsDiv>
               {bucInfo?.tags?.map((tag: string) => (
                 <div key={tag}>
-                  <Tag variant='info' size='small'>{t('buc:' + tag)}</Tag>
-                  <HorizontalSeparatorDiv size='0.5' />
+                  <Box paddingInline="0 2">
+                    <Tag variant='info' size='small'>{t('buc:' + tag)}</Tag>
+                  </Box>
                 </div>
               ))}
             </TagsDiv>

@@ -19,16 +19,14 @@ import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'src/metrics/loggers'
 import { Detail, BodyLong, Heading, Button, Panel, Textarea, Tabs } from '@navikt/ds-react'
-import {
-  slideInFromRight,
-  VerticalSeparatorDiv
-} from '@navikt/hoykontrast'
+import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { P5000sFromRinaMap } from 'src/declarations/p5000'
+import { slideInFromRight } from "src/components/Animations/Animations";
 
 const BUCToolsPanel = styled(Panel)`
   opacity: 0;

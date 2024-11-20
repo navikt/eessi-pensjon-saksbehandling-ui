@@ -6,7 +6,7 @@ import { State } from 'src/declarations/reducers'
 import { timeLogger } from 'src/metrics/loggers'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import {PaddedDiv, VerticalSeparatorDiv } from '@navikt/hoykontrast'
+import {Box, VStack} from "@navikt/ds-react";
 import BUCIndex from 'src/applications/BUC'
 import {GJENNY, PESYS} from "../../constants/constants";
 import BUCIndexGjenny from "../../applications/BUC/BUCIndexGjenny";
@@ -39,18 +39,20 @@ export const IndexPage: React.FC<IndexPageProps> = ({indexType = "PESYS"}): JSX.
 
   return (
     <TopContainer indexType={indexType}>
-      <ContextBanner mode={mode} />
-      <VerticalSeparatorDiv />
-      <PaddedDiv>
-        <PersonPanel />
-        <VerticalSeparatorDiv />
-        {indexType === PESYS &&
-          <BUCIndex/>
-        }
-        {indexType === GJENNY &&
-          <BUCIndexGjenny/>
-        }
-      </PaddedDiv>
+      <VStack gap="4">
+        <ContextBanner mode={mode} />
+          <Box padding="4">
+            <VStack>
+              <PersonPanel />
+              {indexType === PESYS &&
+                <BUCIndex/>
+              }
+              {indexType === GJENNY &&
+                <BUCIndexGjenny/>
+              }
+            </VStack>
+          </Box>
+    </VStack>
     </TopContainer>
   )
 }

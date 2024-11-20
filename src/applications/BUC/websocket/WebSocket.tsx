@@ -9,7 +9,7 @@ import { IS_TEST } from 'src/constants/environment'
 import { WEBSOCKET_URL } from 'src/constants/urls'
 import _ from 'lodash'
 import { BodyLong } from '@navikt/ds-react'
-import { rotating, VerticalSeparatorDiv } from '@navikt/hoykontrast'
+import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { State } from 'src/declarations/reducers'
 import { BucListItem } from 'src/declarations/buc'
+import { rotating } from "src/components/Animations/Animations";
 
 export interface BucWebSocketProps {
   fnr: string | undefined

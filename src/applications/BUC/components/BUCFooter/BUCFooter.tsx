@@ -1,10 +1,9 @@
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
-import { Link } from '@navikt/ds-react'
+import {HStack, Link} from '@navikt/ds-react'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import { RinaUrl } from 'src/declarations/app.d'
 import { State } from 'src/declarations/reducers'
 import { linkLogger } from 'src/metrics/loggers'
-import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -51,9 +50,10 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
             onClick={linkLogger}
             target='rinaWindow'
           >
-            {t('ui:goToRina')}
-            <HorizontalSeparatorDiv size='0.5' />
-            <ExternalLinkIcon fontSize="1.5rem" />
+            <HStack gap="4">
+              {t('ui:goToRina')}
+              <ExternalLinkIcon fontSize="1.5rem" />
+            </HStack>
           </Link>
           )
         : (

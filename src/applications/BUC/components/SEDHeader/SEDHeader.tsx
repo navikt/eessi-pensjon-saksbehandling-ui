@@ -16,7 +16,6 @@ import {ChevronRightIcon, ChevronDownIcon, ChevronUpIcon, PaperclipIcon} from '@
 import {
   HorizontalSeparatorDiv,
   PileDiv,
-  slideInFromLeft,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
 import PT from 'prop-types'
@@ -24,6 +23,7 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
+import { slideInFromLeft } from "src/components/Animations/Animations";
 
 const SEDListActionsDiv = styled.div`
   flex: 2;
