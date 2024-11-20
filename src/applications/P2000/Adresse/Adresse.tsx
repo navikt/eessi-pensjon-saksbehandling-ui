@@ -13,7 +13,8 @@ import {Adresse as P2000Adresse} from "src/declarations/p2000";
 import _ from "lodash";
 import {resetValidation} from "src/actions/validation";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
-import {HGrid, VStack} from "@navikt/ds-react";
+import {VStack} from "@navikt/ds-react";
+import {TopAlignedGrid} from "src/components/StyledComponents";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -79,7 +80,7 @@ const Adresse: React.FC<AdresseProps> = ({
 
   return (
     <VStack gap="4">
-      <HGrid columns={1}>
+      <TopAlignedGrid columns={1}>
         <Input
           error={validation[namespace + '-gate']?.feilmelding}
           namespace={namespace}
@@ -88,8 +89,8 @@ const Adresse: React.FC<AdresseProps> = ({
           onChanged={setGate}
           value={(adresse?.gate)  ?? ''}
         />
-      </HGrid>
-      <HGrid columns={2} gap="4">
+      </TopAlignedGrid>
+      <TopAlignedGrid columns={2} gap="4">
         <Input
           error={validation[namespace + '-postnummer']?.feilmelding}
           namespace={namespace}
@@ -106,8 +107,8 @@ const Adresse: React.FC<AdresseProps> = ({
           onChanged={setBy}
           value={(adresse?.by)  ?? ''}
         />
-      </HGrid>
-      <HGrid columns={1}>
+      </TopAlignedGrid>
+      <TopAlignedGrid columns={1}>
         <Input
           error={validation[namespace + '-region']?.feilmelding}
           namespace={namespace}
@@ -116,8 +117,8 @@ const Adresse: React.FC<AdresseProps> = ({
           onChanged={setRegion}
           value={(adresse?.region)  ?? ''}
         />
-      </HGrid>
-      <HGrid columns={1}>
+      </TopAlignedGrid>
+      <TopAlignedGrid columns={1}>
         <CountryDropdown
           error={validation[namespace + '-land']?.feilmelding}
           id={namespace + '-land'}
@@ -127,7 +128,7 @@ const Adresse: React.FC<AdresseProps> = ({
           values={(adresse?.land) ?? ''}
           countryCodeListName="verdensLand"
         />
-      </HGrid>
+      </TopAlignedGrid>
     </VStack>
   )
 }

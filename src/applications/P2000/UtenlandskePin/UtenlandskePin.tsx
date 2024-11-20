@@ -5,7 +5,7 @@ import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
 import AddRemovePanel from 'src/components/AddRemovePanel/AddRemovePanel'
 import Input from 'src/components/Forms/Input'
-import {RepeatableBox} from 'src/components/StyledComponents'
+import {RepeatableBox, TopAlignedGrid} from 'src/components/StyledComponents'
 import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
 import React, {useEffect, useState} from 'react'
@@ -213,7 +213,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
         })}
         padding="4"
       >
-        <HGrid columns={3} gap="4">
+        <TopAlignedGrid columns={3} gap="4">
           {inEditMode
             ? (
               <CountryDropdown
@@ -276,7 +276,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
               />
             </HStack>
           }
-        </HGrid>
+        </TopAlignedGrid>
       </RepeatableBox>
     )
   }

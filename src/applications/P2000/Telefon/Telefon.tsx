@@ -1,11 +1,11 @@
-import {BodyLong, Box, Button, Heading, HGrid, HStack, Select, Spacer} from "@navikt/ds-react";
+import {BodyLong, Box, Button, Heading, HStack, Select, Spacer} from "@navikt/ds-react";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {Telefon as P2000Telefon} from "../../../declarations/p2000";
 import {getIdx} from "src/utils/namespace";
-import {RepeatableBox} from "src/components/StyledComponents";
+import {RepeatableBox, TopAlignedGrid} from "src/components/StyledComponents";
 import Input from "../../../components/Forms/Input";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
@@ -169,7 +169,7 @@ const Telefon: React.FC<TelefonProps> = ({
         })}
         padding="4"
       >
-        <HGrid columns={3} gap="4">
+        <TopAlignedGrid columns={3} gap="4">
           {inEditMode
             ? (
               <>
@@ -226,7 +226,7 @@ const Telefon: React.FC<TelefonProps> = ({
               onCancelEdit={() => onCloseEditTelefon(_namespace)}
             />
           </HStack>
-        </HGrid>
+        </TopAlignedGrid>
       </RepeatableBox>
     )
   }
