@@ -18,8 +18,7 @@ import {
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'src/metrics/loggers'
-import { Detail, BodyLong, Heading, Button, Panel, Textarea, Tabs } from '@navikt/ds-react'
-import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
+import {Detail, BodyLong, Heading, Button, Panel, Textarea, Tabs, VStack, Box} from '@navikt/ds-react'
 
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -207,74 +206,75 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         </Tabs.List>
         <Tabs.Panel value='P5000'>
           <P5000Div>
-            <Heading size='small'>
-              {t('buc:form-titleP5000')}
-            </Heading>
-            <VerticalSeparatorDiv />
-            <FlexDiv>
-              <Button
-                variant='secondary'
-                data-amplitude='buc.view.tools.P5000.view'
-                data-testid='a_buc_c_buctools--P5000-button-id'
-                disabled={!hasP5000s()}
-                onClick={onGettingP5000Click}
-                iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
-              >
-                {t('buc:form-seeP5000s')}
-              </Button>
-            </FlexDiv>
+            <VStack gap="4">
+              <Heading size='small'>
+                {t('buc:form-titleP5000')}
+              </Heading>
+              <FlexDiv>
+                <Button
+                  variant='secondary'
+                  data-amplitude='buc.view.tools.P5000.view'
+                  data-testid='a_buc_c_buctools--P5000-button-id'
+                  disabled={!hasP5000s()}
+                  onClick={onGettingP5000Click}
+                  iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
+                >
+                  {t('buc:form-seeP5000s')}
+                </Button>
+              </FlexDiv>
+            </VStack>
           </P5000Div>
         </Tabs.Panel>
         <Tabs.Panel value='P4000'>
           <P4000Div>
-            <p>{t('buc:form-descriptionP4000')}</p>
-            <VerticalSeparatorDiv />
-            <FlexDiv>
-              <Button
-                variant='secondary'
-                data-amplitude='buc.view.tools.P4000.view'
-                data-testid='a_buc_c_buctools--P4000-button-id'
-                disabled={!hasP4000s()}
-                onClick={onGettingP4000Click}
-                iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
-              >
-                {t('buc:form-seeP4000s')}
-              </Button>
-            </FlexDiv>
+              <p>{t('buc:form-descriptionP4000')}</p>
+              <FlexDiv>
+                <Button
+                  variant='secondary'
+                  data-amplitude='buc.view.tools.P4000.view'
+                  data-testid='a_buc_c_buctools--P4000-button-id'
+                  disabled={!hasP4000s()}
+                  onClick={onGettingP4000Click}
+                  iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
+                >
+                  {t('buc:form-seeP4000s')}
+                </Button>
+              </FlexDiv>
           </P4000Div>
         </Tabs.Panel>
         <Tabs.Panel value='tags'>
-          <VerticalSeparatorDiv size='0.5' />
-          <BodyLong>
-            {t('buc:form-tagsForBUC-description')}
-          </BodyLong>
-          <VerticalSeparatorDiv size='0.5' />
-          {_tags && !_.isEmpty(_tags) && (
-            <>
-              <dt>
-                <Detail>
-                  {t('buc:form-tagsForBUC')}:
-                </Detail>
-              </dt>
-              <dd>
-                <BodyLong>
-                  {_tags.map((tag: Tag) => tag.label).join(', ')}
-                </BodyLong>
-              </dd>
-            </>
-          )}
-          <VerticalSeparatorDiv size='0.5' />
-          <MultipleSelect<Tag>
-            ariaLabel={t('buc:form-tagsForBUC')}
-            id='a_buc_c_buctools--tags-select-id'
-            aria-describedby='help-tags'
-            data-testid='a_buc_c_buctools--tags-select-id'
-            hideSelectedOptions={false}
-            onSelect={onTagsChange}
-            options={_allTags}
-            label={t('buc:form-tagsForBUC')}
-            values={_tags || []}
-          />
+          <Box paddingBlock="2">
+            <VStack gap="2">
+              <BodyLong>
+                {t('buc:form-tagsForBUC-description')}
+              </BodyLong>
+              {_tags && !_.isEmpty(_tags) && (
+                <>
+                  <dt>
+                    <Detail>
+                      {t('buc:form-tagsForBUC')}:
+                    </Detail>
+                  </dt>
+                  <dd>
+                    <BodyLong>
+                      {_tags.map((tag: Tag) => tag.label).join(', ')}
+                    </BodyLong>
+                  </dd>
+                </>
+              )}
+              <MultipleSelect<Tag>
+                ariaLabel={t('buc:form-tagsForBUC')}
+                id='a_buc_c_buctools--tags-select-id'
+                aria-describedby='help-tags'
+                data-testid='a_buc_c_buctools--tags-select-id'
+                hideSelectedOptions={false}
+                onSelect={onTagsChange}
+                options={_allTags}
+                label={t('buc:form-tagsForBUC')}
+                values={_tags || []}
+              />
+            </VStack>
+          </Box>
         </Tabs.Panel>
       </Tabs>
     </BUCToolsPanel>
