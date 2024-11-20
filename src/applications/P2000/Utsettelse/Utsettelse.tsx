@@ -1,11 +1,10 @@
-import {BodyLong, Button, Heading, Label} from "@navikt/ds-react";
-import {AlignEndColumn, AlignStartRow, Column} from "@navikt/hoykontrast";
+import {BodyLong, Box, Button, Heading, HStack, Label, Spacer } from "@navikt/ds-react";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {getIdx} from "src/utils/namespace";
-import {RepeatableRow} from "src/components/StyledComponents";
+import {RepeatableBox, TopAlignedGrid} from "src/components/StyledComponents";
 import AddRemovePanel from "src/components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
@@ -24,12 +23,12 @@ import {Country} from "@navikt/land-verktoy";
 import Input from "../../../components/Forms/Input";
 import DateField from "../DateField/DateField";
 import {formatDate} from "src/utils/utils";
-import FormText from "../../../components/Forms/FormText";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
+import FormTextBox from "src/components/Forms/FormTextBox";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -150,95 +149,85 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
     const _utsettelse = index < 0 ? _newUtsettelse : (inEditMode ? _editUtsettelse : utsettelse)
 
     return(
-      <RepeatableRow
+      <RepeatableBox
         id={'repeatablerow-' + _namespace}
         className={classNames({
           new: index < 0,
           error: hasNamespaceWithErrors(_v, _namespace)
         })}
+        padding="4"
       >
-        <AlignStartRow>
+        <TopAlignedGrid gap="4" columns={4}>
           {inEditMode
             ? (
               <>
-                <Column>
-                  <CountryDropdown
-                    closeMenuOnSelect
-                    error={_v[_namespace + '-land']?.feilmelding}
-                    flagWave
-                    id={_namespace + '-land'}
-                    countryCodeListName="euEftaLand"
-                    label={t('p2000:form-diverse-utsettelse-land')}
-                    hideLabel={index>0}
-                    onOptionSelected={(e: Country) => setUtsettelseProp('land', e.value, index)}
-                    values={_utsettelse?.land}
-                  />
-                </Column>
-                <Column>
-                  <Input
-                    error={_v[_namespace + '-institusjonsnavn']?.feilmelding}
-                    namespace={_namespace}
-                    id={'institusjonsnavn'}
-                    label={t('p2000:form-diverse-utsettelse-institusjonsnavn')}
-                    hideLabel={index>0}
-                    onChanged={(e) => setUtsettelseProp('institusjonsnavn', e, index)}
-                    value={_utsettelse?.institusjonsnavn}
-                  />
-                </Column>
-                <Column>
-                  <DateField
-                    error={_v[_namespace + '-tildato']?.feilmelding}
-                    namespace={_namespace}
-                    id={'tildato'}
-                    index={index}
-                    label={t('p2000:form-diverse-utsettelse-tildato')}
-                    hideLabel={index>0}
-                    onChanged={(e) => setUtsettelseProp("tildato", e!, index)}
-                    dateValue={_utsettelse?.tildato ?? ''}
-                  />
-                </Column>
+                <CountryDropdown
+                  closeMenuOnSelect
+                  error={_v[_namespace + '-land']?.feilmelding}
+                  flagWave
+                  id={_namespace + '-land'}
+                  countryCodeListName="euEftaLand"
+                  label={t('p2000:form-diverse-utsettelse-land')}
+                  hideLabel={index>0}
+                  onOptionSelected={(e: Country) => setUtsettelseProp('land', e.value, index)}
+                  values={_utsettelse?.land}
+                />
+                <Input
+                  error={_v[_namespace + '-institusjonsnavn']?.feilmelding}
+                  namespace={_namespace}
+                  id={'institusjonsnavn'}
+                  label={t('p2000:form-diverse-utsettelse-institusjonsnavn')}
+                  hideLabel={index>0}
+                  onChanged={(e) => setUtsettelseProp('institusjonsnavn', e, index)}
+                  value={_utsettelse?.institusjonsnavn}
+                />
+                <DateField
+                  error={_v[_namespace + '-tildato']?.feilmelding}
+                  namespace={_namespace}
+                  id={'tildato'}
+                  index={index}
+                  label={t('p2000:form-diverse-utsettelse-tildato')}
+                  hideLabel={index>0}
+                  onChanged={(e) => setUtsettelseProp("tildato", e!, index)}
+                  dateValue={_utsettelse?.tildato ?? ''}
+                />
               </>
             )
             : (
               <>
-                <Column>
-                  <FormText
-                    error={validation[_namespace + '-land']?.feilmelding}
-                    id={_namespace + '-land'}
-                  >
-                    <Label hidden={index>0}>
-                      {t('p2000:form-diverse-utsettelse-land')}
-                    </Label>
-                    <FlagPanel land={_utsettelse?.land}/>
-                  </FormText>
-                </Column>
-                <Column>
-                  <FormText
-                    error={validation[_namespace + '-institusjonsnavn']?.feilmelding}
-                    id={_namespace + '-institusjonsnavn'}
-                  >
-                    <Label hidden={index>0}>
-                      {t('p2000:form-diverse-utsettelse-institusjonsnavn')}
-                    </Label>
-                    <BodyLong>{_utsettelse?.institusjonsnavn}</BodyLong>
-                  </FormText>
-                </Column>
-                <Column>
-                  <FormText
-                    error={validation[_namespace + '-tildato']?.feilmelding}
-                    id={_namespace + '-tildato'}
-                  >
-                    <Label hidden={index>0}>
-                      {t('p2000:form-diverse-utsettelse-tildato')}
-                    </Label>
-                    <BodyLong>{formatDate(_utsettelse?.tildato)}</BodyLong>
-                  </FormText>
-                </Column>
+                <FormTextBox
+                  error={validation[_namespace + '-land']?.feilmelding}
+                  id={_namespace + '-land'}
+                >
+                  <Label hidden={index>0}>
+                    {t('p2000:form-diverse-utsettelse-land')}
+                  </Label>
+                  <FlagPanel land={_utsettelse?.land}/>
+                </FormTextBox>
+                <FormTextBox
+                  error={validation[_namespace + '-institusjonsnavn']?.feilmelding}
+                  id={_namespace + '-institusjonsnavn'}
+                >
+                  <Label hidden={index>0}>
+                    {t('p2000:form-diverse-utsettelse-institusjonsnavn')}
+                  </Label>
+                  <BodyLong>{_utsettelse?.institusjonsnavn}</BodyLong>
+                </FormTextBox>
+                <FormTextBox
+                  error={validation[_namespace + '-tildato']?.feilmelding}
+                  id={_namespace + '-tildato'}
+                >
+                  <Label hidden={index>0}>
+                    {t('p2000:form-diverse-utsettelse-tildato')}
+                  </Label>
+                  <BodyLong>{formatDate(_utsettelse?.tildato)}</BodyLong>
+                </FormTextBox>
               </>
             )
           }
 
-          <AlignEndColumn>
+          <HStack>
+            <Spacer/>
             <AddRemovePanel
               item={utsettelse}
               marginTop={index < 0}
@@ -251,39 +240,31 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
               onConfirmEdit={onSaveEditUtsettelse}
               onCancelEdit={() => onCloseEditUtsettelse(_namespace)}
             />
-          </AlignEndColumn>
-        </AlignStartRow>
-      </RepeatableRow>
+          </HStack>
+        </TopAlignedGrid>
+      </RepeatableBox>
     )
   }
 
   return (
     <>
       <Heading size="xsmall">{t('p2000:form-diverse-utsettelse')}</Heading>
-      <AlignStartRow>
         {_.isEmpty(utsettelseArray)
-          ? (
-            <Column>
-              <em>{t('message:warning-no-utsettelse')}</em>
-            </Column>
-          )
-          : (
-            <Column>
-              {utsettelseArray?.map(renderUtsettelse)}
-            </Column>
-          )
+          ? (<em>{t('message:warning-no-utsettelse')}</em>)
+          : (<Box>{utsettelseArray?.map(renderUtsettelse)}</Box>)
         }
-      </AlignStartRow>
       {_newUtsettelseForm
         ? renderUtsettelse(null, -1)
         : (
-          <Button
-            variant='tertiary'
-            onClick={() => _setNewUtsettelseForm(true)}
-            iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
-          >
-            {t('ui:add-new-x', { x: t('p2000:form-diverse-utsettelse')?.toLowerCase() })}
-          </Button>
+          <Box>
+            <Button
+              variant='tertiary'
+              onClick={() => _setNewUtsettelseForm(true)}
+              iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
+            >
+              {t('ui:add-new-x', { x: t('p2000:form-diverse-utsettelse')?.toLowerCase() })}
+            </Button>
+          </Box>
         )
       }
     </>

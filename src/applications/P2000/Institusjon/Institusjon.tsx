@@ -1,4 +1,4 @@
-import {Box, Button, Heading, HGrid, HStack, Spacer, VStack} from "@navikt/ds-react";
+import {Box, Button, Heading, HGrid, HStack, Spacer} from "@navikt/ds-react";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
@@ -180,7 +180,7 @@ const Institusjon: React.FC<InstitusjonProps> = ({
   }
 
   return (
-      <VStack gap="4">
+      <>
         <Heading size="xsmall">{t('p2000:form-diverse-institusjonennaaikkesoektompensjon')}</Heading>
         {_.isEmpty(institusjoner)
           ? (<em>{t('message:warning-no-institusjonennaaikkesoektompensjon')}</em>)
@@ -200,7 +200,7 @@ const Institusjon: React.FC<InstitusjonProps> = ({
             </Box>
             )
         }
-      </VStack>
+      </>
   )
 }
 
