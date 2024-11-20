@@ -1,5 +1,5 @@
 import { ChevronLeftIcon } from '@navikt/aksel-icons'
-import {BodyLong, Button, Label, Loader, Panel} from '@navikt/ds-react'
+import {BodyLong, Box, Button, HStack, Label, Loader, Panel, VStack} from '@navikt/ds-react'
 import { alertFailure } from 'src/actions/alert'
 import {getSedList, resetNewSed, setCurrentBuc, setFollowUpSeds, setSedList} from 'src/actions/buc'
 import BUCDetail from 'src/applications/BUC/components/BUCDetail/BUCDetail'
@@ -18,17 +18,17 @@ import CountryData from '@navikt/land-verktoy'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'src/metrics/loggers'
 import moment from 'moment'
-import {
-  Column,
-  Row,
-  VerticalSeparatorDiv
-} from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { animationClose, animationOpen } from "src/components/Animations/Animations";
+
+const Row = styled(HStack)`
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+`
 
 export const BUCEditDiv = styled.div`
 `
@@ -39,7 +39,9 @@ const BUCEditHeader = styled.div`
   align-items: center;
   min-height: 40px;
 `
-const ContentDiv = styled(Column)`
+const ContentDiv = styled.div`
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
   flex: 3;
 `
 const NoSedsDiv = styled.div`
@@ -68,9 +70,11 @@ const SEDStartDiv = styled.div`
     animation: ${animationOpen(150)} 700ms ease;
   }
 `
-const WidgetDiv = styled(Column)`
+const WidgetDiv = styled.div`
   flex: 1;
   max-width: 400px;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 `
 
 export interface BUCEditProps {
@@ -243,52 +247,54 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <BUCEditHeader>
-        <Button
-          variant='secondary'
-          data-testid='a-buc-p-bucedit--back-button-id'
-          onClick={onBackLinkClick}
-          iconPosition="left" icon={<ChevronLeftIcon aria-hidden />}
-        >
-          <span>
-            {t('ui:back')}
-          </span>
-        </Button>
-
-        {_startSed !== 'open' && (
+      <VStack gap="4">
+        <BUCEditHeader>
           <Button
             variant='secondary'
-            disabled={buc!.readOnly === true || (buc!.type === 'P_BUC_06' && hasSeds(buc!))}
-            data-amplitude='buc.view.newsed'
-            data-testid='a-buc-p-bucedit--new-sed-button-id'
-            onClick={onNewSedButtonClick}
-          >{t('buc:form-orderNewSED')}
+            data-testid='a-buc-p-bucedit--back-button-id'
+            onClick={onBackLinkClick}
+            iconPosition="left" icon={<ChevronLeftIcon aria-hidden />}
+          >
+            <span>
+              {t('ui:back')}
+            </span>
           </Button>
-        )}
 
-      </BUCEditHeader>
-      <VerticalSeparatorDiv />
-      <SEDStartDiv
-        className={classNames({
-          open: _startSed === 'open',
-          close: _startSed === 'close',
-          closeOnBack: _startSed === 'closeOnBack'
-        })}
-        ref={componentRef}
-      >
-        <SEDNewDiv border>
-          <SEDStart
-            aktoerId={aktoerId}
-            bucs={bucs!}
-            currentBuc={currentBuc}
-            currentSed={currentSed}
-            followUpSeds={followUpSeds}
-            onSedCreated={() => setStartSed('close')}
-            onSedCancelled={() => setStartSed('close')}
-          />
-        </SEDNewDiv>
-        <VerticalSeparatorDiv />
-      </SEDStartDiv>
+          {_startSed !== 'open' && (
+            <Button
+              variant='secondary'
+              disabled={buc!.readOnly === true || (buc!.type === 'P_BUC_06' && hasSeds(buc!))}
+              data-amplitude='buc.view.newsed'
+              data-testid='a-buc-p-bucedit--new-sed-button-id'
+              onClick={onNewSedButtonClick}
+            >{t('buc:form-orderNewSED')}
+            </Button>
+          )}
+
+        </BUCEditHeader>
+        <SEDStartDiv
+          className={classNames({
+            open: _startSed === 'open',
+            close: _startSed === 'close',
+            closeOnBack: _startSed === 'closeOnBack'
+          })}
+          ref={componentRef}
+        >
+          <Box paddingBlock="0 4">
+            <SEDNewDiv border>
+              <SEDStart
+                aktoerId={aktoerId}
+                bucs={bucs!}
+                currentBuc={currentBuc}
+                currentSed={currentSed}
+                followUpSeds={followUpSeds}
+                onSedCreated={() => setStartSed('close')}
+                onSedCancelled={() => setStartSed('close')}
+              />
+            </SEDNewDiv>
+          </Box>
+        </SEDStartDiv>
+      </VStack>
       <Row>
         <ContentDiv>
           <SEDSearch
@@ -301,25 +307,24 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             ? renderSeds.map((sed, index) => {
                 return (
                   <div key={sed.id}>
-                    <VerticalSeparatorDiv size='0.5' />
                     {index === 0 && sed.status === 'new' && (
                       <>
-                        <VerticalSeparatorDiv size='1.5' />
-                        <Label>
-                          {t('buc:form-utkast-seds')}
-                        </Label>
-                        <VerticalSeparatorDiv />
+                        <Box paddingBlock="2 4">
+                          <Label>
+                            {t('buc:form-utkast-seds')}
+                          </Label>
+                        </Box>
                       </>
                     )}
                     {index > 0 &&
                     renderSeds?.[index - 1]?.status === 'new' &&
                       sed.status !== 'new' && (
                         <>
-                          <VerticalSeparatorDiv size='2' />
-                          <Label>
-                            {t('buc:form-andre-seder')}
-                          </Label>
-                          <VerticalSeparatorDiv />
+                          <Box paddingBlock="4 4">
+                            <Label>
+                              {t('buc:form-andre-seder')}
+                            </Label>
+                          </Box>
                         </>
                     )}
                     <SEDPanel
@@ -347,18 +352,18 @@ const BUCEdit: React.FC<BUCEditProps> = ({
               )}
         </ContentDiv>
         <WidgetDiv>
-          <BUCDetail
-            buc={buc!}
-            personAvdods={personAvdods}
-          />
-          <VerticalSeparatorDiv />
-          <BUCTools
-            aktoerId={aktoerId!}
-            buc={buc!}
-            bucInfo={bucInfo}
-            setMode={setMode}
-          />
-          <VerticalSeparatorDiv />
+          <VStack gap="4">
+            <BUCDetail
+              buc={buc!}
+              personAvdods={personAvdods}
+            />
+            <BUCTools
+              aktoerId={aktoerId!}
+              buc={buc!}
+              bucInfo={bucInfo}
+              setMode={setMode}
+            />
+          </VStack>
         </WidgetDiv>
       </Row>
     </BUCEditDiv>
