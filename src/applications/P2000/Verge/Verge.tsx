@@ -3,8 +3,7 @@ import {useDispatch} from "react-redux";
 import {Verge as P2000Verge} from "../../../declarations/p2000";
 import Input from "../../../components/Forms/Input";
 import _ from "lodash";
-import {AlignStartRow, Column, VerticalSeparatorDiv, PaddedDiv} from '@navikt/hoykontrast'
-import {Heading} from "@navikt/ds-react";
+import {Box, Heading, VStack} from "@navikt/ds-react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import Telefon from "../Telefon/Telefon";
 import Epost from "../Epost/Epost";
@@ -17,6 +16,7 @@ import {resetValidation, setValidation} from "src/actions/validation";
 import {useTranslation} from "react-i18next";
 import Adresse from "../Adresse/Adresse";
 import TextArea from "../../../components/Forms/TextArea";
+import {TopAlignedGrid} from "src/components/StyledComponents";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -68,62 +68,47 @@ const Verge: React.FC<MainFormProps> = ({
   }
 
   return (
-    <>
-      <PaddedDiv>
+    <Box padding="4">
+      <VStack gap="4">
         <Heading size='medium'>
           {label}
         </Heading>
-        <VerticalSeparatorDiv/>
         <Heading size='small'>
           Informasjon om representant/verge
         </Heading>
-        <VerticalSeparatorDiv/>
-        <AlignStartRow>
-          <Column>
-            <Input
-              error={validation[namespace + '-person-etternavn']?.feilmelding}
-              namespace={namespace}
-              id='person-etternavn'
-              label={t('p2000:form-person-etternavn')}
-              onChanged={setEtternavn}
-              value={(verge?.person?.etternavn) ?? ''}
-            />
-          </Column>
-          <Column>
-            <Input
-              error={validation[namespace + '-person-fornavn']?.feilmelding}
-              namespace={namespace}
-              id='person-fornavn'
-              label={t('p2000:form-person-fornavn')}
-              onChanged={setFornavn}
-              value={(verge?.person?.fornavn)  ?? ''}
-            />
-          </Column>
-        </AlignStartRow>
-        <VerticalSeparatorDiv/>
-        <AlignStartRow>
-          <Column>
-            <TextArea
-              error={validation[namespace + '-vergemaal-mandat']?.feilmelding}
-              namespace={namespace}
-              id='vergemaal-mandat'
-              label={t('p2000:form-verge-vergemaal-mandat')}
-              onChanged={setVergemaalMandat}
-              value={(verge?.vergemaal?.mandat)  ?? ''}
-              maxLength={255}
-            />
-          </Column>
-        </AlignStartRow>
-        <VerticalSeparatorDiv/>
+        <TopAlignedGrid gap="4" columns={2}>
+          <Input
+            error={validation[namespace + '-person-etternavn']?.feilmelding}
+            namespace={namespace}
+            id='person-etternavn'
+            label={t('p2000:form-person-etternavn')}
+            onChanged={setEtternavn}
+            value={(verge?.person?.etternavn) ?? ''}
+          />
+          <Input
+            error={validation[namespace + '-person-fornavn']?.feilmelding}
+            namespace={namespace}
+            id='person-fornavn'
+            label={t('p2000:form-person-fornavn')}
+            onChanged={setFornavn}
+            value={(verge?.person?.fornavn)  ?? ''}
+          />
+        </TopAlignedGrid>
+        <TextArea
+          error={validation[namespace + '-vergemaal-mandat']?.feilmelding}
+          namespace={namespace}
+          id='vergemaal-mandat'
+          label={t('p2000:form-verge-vergemaal-mandat')}
+          onChanged={setVergemaalMandat}
+          value={(verge?.vergemaal?.mandat)  ?? ''}
+          maxLength={255}
+        />
         <Heading size="small">{t('p2000:form-adresse')}</Heading>
-        <VerticalSeparatorDiv/>
         <Adresse PSED={PSED} updatePSED={updatePSED} parentNamespace={namespace} parentTarget={target}/>
-        <VerticalSeparatorDiv/>
-        <Telefon PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/>
-        <VerticalSeparatorDiv/>
-        <Epost PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/>
-      </PaddedDiv>
-    </>
+        <Box><Telefon PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/></Box>
+        <Box><Epost PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/></Box>
+      </VStack>
+    </Box>
   )
 }
 

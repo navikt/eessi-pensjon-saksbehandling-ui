@@ -1,27 +1,27 @@
-import {Button, Heading} from "@navikt/ds-react";
-import {AlignEndColumn, AlignStartRow, Column} from "@navikt/hoykontrast";
+import {Box, Button, Heading, HGrid, HStack, Spacer} from "@navikt/ds-react";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
-import {getIdx} from "../../../utils/namespace";
-import {RepeatableRow} from "../../../components/StyledComponents";
+import {getIdx} from "src/utils/namespace";
+import {RepeatableBox} from "src/components/StyledComponents";
 import Input from "../../../components/Forms/Input";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
-import {UpdateSedPayload} from "../../../declarations/types";
+import {UpdateSedPayload} from "src/declarations/types";
 import {PSED, Validation} from "src/declarations/app";
 import useValidation from "../../../hooks/useValidation";
 import {validateInstitusjon, ValidationInstitusjonProps} from "./validation";
-import {resetValidation, setValidation} from "../../../actions/validation";
+import {resetValidation, setValidation} from "src/actions/validation";
 import performValidation from "../../../utils/performValidation";
-import {useAppSelector} from "../../../store";
-import {State} from "../../../declarations/reducers";
+import {useAppSelector} from "src/store";
+import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
+import FormTextBox from "src/components/Forms/FormTextBox";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -136,41 +136,34 @@ const Institusjon: React.FC<InstitusjonProps> = ({
     const inEditMode = index < 0 || _editInstitusjonIndex === index
     const _institusjon = index < 0 ? _newInstitusjon : (inEditMode ? _editInstitusjon : institusjon)
     return(
-      <RepeatableRow
+      <RepeatableBox
         id={'repeatablerow-' + _namespace}
         className={classNames({
           new: index < 0,
           error: hasNamespaceWithErrors(_v, _namespace)
         })}
+        padding="4"
       >
-        <AlignStartRow>
+        <HGrid columns={2}>
           {inEditMode
             ? (
-              <>
-                <Column>
-                  <Input
-                    error={_v[_namespace]?.feilmelding}
-                    namespace={_namespace}
-                    id=''
-                    label={t('p2000:form-diverse-institusjonennaaikkesoektompensjon')}
-                    hideLabel={true}
-                    onChanged={(e) => setInstitusjon(e, index)}
-                    value={_institusjon ?? ''}
-                  />
-                </Column>
-              </>
+                <Input
+                  error={_v[_namespace]?.feilmelding}
+                  namespace={_namespace}
+                  id=''
+                  label={t('p2000:form-diverse-institusjonennaaikkesoektompensjon')}
+                  hideLabel={true}
+                  onChanged={(e) => setInstitusjon(e, index)}
+                  value={_institusjon ?? ''}
+                />
             )
-            : (
-              <Column>
-                <div>{_institusjon}</div>
-              </Column>
-            )
+            : (<FormTextBox id='' error={_v[_namespace]?.feilmelding}>{_institusjon}</FormTextBox>)
           }
-
-          <AlignEndColumn>
+          <HStack>
+            <Spacer/>
             <AddRemovePanel
               item={institusjon}
-              marginTop={index < 0}
+              marginTop={false  }
               index={index}
               inEditMode={inEditMode}
               onRemove={onRemoveEpost}
@@ -180,42 +173,34 @@ const Institusjon: React.FC<InstitusjonProps> = ({
               onConfirmEdit={onSaveEditInstitusjon}
               onCancelEdit={() => onCloseEditInstitusjon(_namespace)}
             />
-          </AlignEndColumn>
-        </AlignStartRow>
-      </RepeatableRow>
+          </HStack>
+        </HGrid>
+      </RepeatableBox>
     )
   }
 
   return (
-    <>
-      <Heading size="xsmall">{t('p2000:form-diverse-institusjonennaaikkesoektompensjon')}</Heading>
-      <AlignStartRow>
-      {_.isEmpty(institusjoner)
-        ? (
-          <Column>
-            <em>{t('message:warning-no-institusjonennaaikkesoektompensjon')}</em>
-          </Column>
-        )
-        : (
-        <Column>
-          {institusjoner?.map(renderInstitusjon)}
-        </Column>
-        )
-      }
-      </AlignStartRow>
-      {_newInstitusjonForm
-        ? renderInstitusjon(null, -1)
-        : (
-            <Button
-              variant='tertiary'
-              onClick={() => _setNewInstitusjonForm(true)}
-              iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
-            >
-              {t('ui:add-new-x', { x: t('p2000:form-diverse-institusjon')?.toLowerCase() })}
-            </Button>
-          )
-      }
-    </>
+      <>
+        <Heading size="xsmall">{t('p2000:form-diverse-institusjonennaaikkesoektompensjon')}</Heading>
+        {_.isEmpty(institusjoner)
+          ? (<em>{t('message:warning-no-institusjonennaaikkesoektompensjon')}</em>)
+          : (<Box>{institusjoner?.map(renderInstitusjon)}</Box>)
+        }
+        {_newInstitusjonForm
+          ? renderInstitusjon(null, -1)
+          : (
+            <Box>
+              <Button
+                variant='tertiary'
+                onClick={() => _setNewInstitusjonForm(true)}
+                iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
+              >
+                {t('ui:add-new-x', { x: t('p2000:form-diverse-institusjon')?.toLowerCase() })}
+              </Button>
+            </Box>
+            )
+        }
+      </>
   )
 }
 

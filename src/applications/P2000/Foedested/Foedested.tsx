@@ -3,15 +3,15 @@ import {MainFormSelector} from "../MainForm";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {useAppSelector} from "src/store";
-import {AlignStartRow, Column, VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import Input from "src/components/Forms/Input";
 import {Person} from "src/declarations/p2000";
-import {BodyLong, Heading, Label} from "@navikt/ds-react";
+import {BodyLong, Heading, Label, VStack} from "@navikt/ds-react";
 import {Country} from "@navikt/land-verktoy";
 import FormText from "../../../components/Forms/FormText";
 import {Validation} from "src/declarations/app";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
+import {TopAlignedGrid} from "src/components/StyledComponents";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -41,88 +41,75 @@ const Foedested: React.FC<FoedestedProps> = ({
   const v:Validation = parentValidation ? parentValidation : validation
 
   return(
-    <>
+    <VStack gap="4">
       <Heading size="small">{t('p2000:form-person-foedested')}</Heading>
-      <VerticalSeparatorDiv size='0.5' />
-      <AlignStartRow>
+      <TopAlignedGrid columns={3} gap="4">
         {parentEditMode &&
           <>
-            <Column>
-              <Input
-                error={v[namespace + '-by']?.feilmelding}
-                namespace={namespace}
-                id='by'
-                label={t('p2000:form-person-foedested-by')}
-                onChanged={(v) => setPersonOpplysninger("by", v !== "" ? v : undefined, parentIndex)}
-                value={(person?.foedested?.by) ?? ''}
-              />
-            </Column>
-            <Column>
-              <Input
-                error={v[namespace + '-region']?.feilmelding}
-                namespace={namespace}
-                id='region'
-                label={t('p2000:form-person-foedested-region')}
-                onChanged={(v) => setPersonOpplysninger("region", v !== "" ? v : undefined, parentIndex)}
-                value={(person?.foedested?.region)  ?? ''}
-              />
-            </Column>
-            <Column>
-              <CountryDropdown
-                error={v[namespace + '-land']?.feilmelding}
-                id="land"
-                countryCodeListName="verdensLandHistorisk"
-                label={t('p2000:form-person-foedested-land')}
-                onOptionSelected={(v: Country) => setPersonOpplysninger("land", v.value, parentIndex)}
-                values={(person?.foedested?.land)  ?? ''}
-              />
-            </Column>
+            <Input
+              error={v[namespace + '-by']?.feilmelding}
+              namespace={namespace}
+              id='by'
+              label={t('p2000:form-person-foedested-by')}
+              onChanged={(v) => setPersonOpplysninger("by", v !== "" ? v : undefined, parentIndex)}
+              value={(person?.foedested?.by) ?? ''}
+            />
+            <Input
+              error={v[namespace + '-region']?.feilmelding}
+              namespace={namespace}
+              id='region'
+              label={t('p2000:form-person-foedested-region')}
+              onChanged={(v) => setPersonOpplysninger("region", v !== "" ? v : undefined, parentIndex)}
+              value={(person?.foedested?.region)  ?? ''}
+            />
+            <CountryDropdown
+              error={v[namespace + '-land']?.feilmelding}
+              id="land"
+              countryCodeListName="verdensLandHistorisk"
+              label={t('p2000:form-person-foedested-land')}
+              onOptionSelected={(v: Country) => setPersonOpplysninger("land", v.value, parentIndex)}
+              values={(person?.foedested?.land)  ?? ''}
+            />
           </>
         }
         {!parentEditMode &&
           <>
-            {!person?.foedested?.by && !person?.foedested?.region && !person?.foedested?.land && <Column><em>Ingen fødested registrert</em></Column>}
+            {!person?.foedested?.by && !person?.foedested?.region && !person?.foedested?.land && <em>Ingen fødested registrert</em>}
             {(person?.foedested?.by || person?.foedested?.region || person?.foedested?.land) &&
               <>
-                <Column>
-                  <FormText
-                    id={"person-foedested-by"}
-                    error={v[namespace + '-by']?.feilmelding}
-                  >
-                    <Label>
-                      {t('p2000:form-person-foedested-by')}
-                    </Label>
-                    <BodyLong>{person?.foedested?.by}</BodyLong>
-                  </FormText>
-                </Column>
-                <Column>
-                  <FormText
-                    id={"person-foedested-region"}
-                    error={v[namespace + '-region']?.feilmelding}
-                  >
-                    <Label>
-                      {t('p2000:form-person-foedested-region')}
-                    </Label>
-                    <BodyLong>{person?.foedested?.region}</BodyLong>
-                  </FormText>
-                </Column>
-                <Column>
-                  <FormText
-                    id={"person-foedested-land"}
-                    error={v[namespace + '-land']?.feilmelding}
-                  >
-                    <Label>
-                      {t('p2000:form-person-foedested-land')}
-                    </Label>
-                    <FlagPanel land={person?.foedested?.land}/>
-                  </FormText>
-                </Column>
+                <FormText
+                  id={"person-foedested-by"}
+                  error={v[namespace + '-by']?.feilmelding}
+                >
+                  <Label>
+                    {t('p2000:form-person-foedested-by')}
+                  </Label>
+                  <BodyLong>{person?.foedested?.by}</BodyLong>
+                </FormText>
+                <FormText
+                  id={"person-foedested-region"}
+                  error={v[namespace + '-region']?.feilmelding}
+                >
+                  <Label>
+                    {t('p2000:form-person-foedested-region')}
+                  </Label>
+                  <BodyLong>{person?.foedested?.region}</BodyLong>
+                </FormText>
+                <FormText
+                  id={"person-foedested-land"}
+                  error={v[namespace + '-land']?.feilmelding}
+                >
+                  <Label>
+                    {t('p2000:form-person-foedested-land')}
+                  </Label>
+                  <FlagPanel land={person?.foedested?.land}/>
+                </FormText>
               </>
             }
           </>
         }
-      </AlignStartRow>
-    </>
+      </TopAlignedGrid>
+    </VStack>
   )
 }
 

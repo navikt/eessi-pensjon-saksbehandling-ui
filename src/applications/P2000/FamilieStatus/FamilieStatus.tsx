@@ -5,7 +5,7 @@ import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {Sivilstand} from "src/declarations/p2000";
 import {getIdx} from "src/utils/namespace";
-import {RepeatableBox} from "src/components/StyledComponents";
+import {RepeatableBox, TopAlignedGrid} from "src/components/StyledComponents";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
@@ -187,7 +187,7 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
         })}
         padding="4"
       >
-        <HGrid columns={3} gap="4">
+        <TopAlignedGrid columns={3} gap="4">
           {inEditMode
             ? (
               <>
@@ -250,7 +250,7 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
               onCancelEdit={() => onCloseEditSivilstand(_namespace)}
             />
           </HStack>
-        </HGrid>
+        </TopAlignedGrid>
       </RepeatableBox>
     )
   }
