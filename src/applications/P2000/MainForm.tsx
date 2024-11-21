@@ -158,6 +158,7 @@ const MainForm = <T extends PSED>({
 
   const initialMenu = forms.length === 1 ? forms[0].value : undefined
   const [currentMenu, _setCurrentMenu] = useState<string | undefined>(initialMenu)
+  const [menuVisited, _setMenuVisited] = useState<Array<string>>([])
 
   const [_viewWarningModal, setViewWarningModal] = useState<boolean>(false)
 
@@ -196,6 +197,7 @@ const MainForm = <T extends PSED>({
       setCurrentMenu(menu)
     }
     menuRef.current = menu
+    _setMenuVisited(visitedArr => [...visitedArr, menu])
     return
   }
 
@@ -244,10 +246,10 @@ const MainForm = <T extends PSED>({
               className={classNames({ selected })}
             >
               {!isValidated
-                ? null
+                ? menuVisited.indexOf(form.value) >= 0 && <CheckmarkCircleFillIcon color='grey'/>
                 : validationHasErrors
                   ? <XMarkOctagonFillIcon color='red' />
-                  : <CheckmarkCircleFillIcon fontSize="1.5rem" color='green' />
+                  : menuVisited.indexOf(form.value) >= 0 && <CheckmarkCircleFillIcon color='grey'/>
               }
               <>
                 <HorizontalSeparatorDiv size='0.5' />
