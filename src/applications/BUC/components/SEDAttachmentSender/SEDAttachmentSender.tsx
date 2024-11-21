@@ -1,4 +1,3 @@
-import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import { IS_TEST } from 'src/constants/environment'
 import { SavingAttachmentsJob, SEDAttachmentPayload, SEDAttachmentPayloadWithFile } from 'src/declarations/buc'
 import { SEDAttachmentPayloadPropType } from 'src/declarations/buc.pt'
@@ -10,7 +9,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { Button } from '@navikt/ds-react'
+import { Box, Button } from '@navikt/ds-react'
 import ProgressBar, {ProgressBarStatus} from "src/components/ProgressBar/ProgressBar";
 
 const SEDAttachmentSenderDiv = styled.div`
@@ -134,19 +133,20 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
       </ProgressBar>
       {_status === 'inprogress' && _.isFunction(onCancel) && (
         <>
-          <HorizontalSeparatorDiv data-sise='0.35' />
-          <Button
-            size='small'
-            variant='secondary'
-            data-testid='a_buc_c_sedAttachmentSender--cancel-button-id'
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-              e.preventDefault()
-              e.stopPropagation()
-              onCancel()
-            }}
-          >
-            {t('ui:cancel')}
-          </Button>
+          <Box paddingInline="4 0">
+            <Button
+              size='small'
+              variant='secondary'
+              data-testid='a_buc_c_sedAttachmentSender--cancel-button-id'
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                e.preventDefault()
+                e.stopPropagation()
+                onCancel()
+              }}
+            >
+              {t('ui:cancel')}
+            </Button>
+          </Box>
         </>
       )}
     </SEDAttachmentSenderDiv>
