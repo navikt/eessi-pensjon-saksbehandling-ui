@@ -4,10 +4,6 @@ import MonitorPNG from 'src/assets/images/artwork/dataskjerm.png'
 import CupPNG from 'src/assets/images/artwork/kop.png'
 import MousePNG from 'src/assets/images/artwork/NAVmusematte.png'
 import MapPNG from 'src/assets/images/artwork/saksstatus.png'
-import {
-  HorizontalSeparatorDiv,
-  VerticalSeparatorDiv
-} from '@navikt/hoykontrast'
 import { State } from 'src/declarations/reducers'
 import { RinaUrl } from 'src/declarations/app.d'
 import { standardLogger } from 'src/metrics/loggers'
@@ -16,7 +12,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { Button, TextField } from '@navikt/ds-react'
+import {Box, Button, TextField, VStack} from '@navikt/ds-react'
 
 export const BUCEmptyDiv = styled.div`
   display: flex;
@@ -65,7 +61,7 @@ const BUCEmptyForm = styled.div`
   flex-direction: row;
   align-items: flex-end;
   .skjemaelement {
-    margin-bottom: 0px !important
+    margin-bottom: 0 !important
   }
 `
 
@@ -125,53 +121,57 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
   return (
     <>
       <BUCEmptyDiv>
-        <BUCEmptyArtwork>
-          <img alt='' className='monitor' src={MonitorPNG} />
-          <img alt='' className='cup' src={CupPNG} />
-          <img alt='' className='mouse' src={MousePNG} />
-          <img alt='' className='map' src={MapPNG} />
-        </BUCEmptyArtwork>
-        <VerticalSeparatorDiv />
-        {!aktoerId && (
-          <BUCEmptyForm>
-            <TextField
-              data-testid='a-buc-p-bucempty--aktoerid-input-id'
-              error={validation || false}
-              id='a-buc-p-bucempty--aktoerid-input-id'
-              label={t('ui:aktoerId')}
-              onChange={onAktoerIdChange}
-              value={_aktoerId || ''}
-            />
-            <HorizontalSeparatorDiv />
-            <Button
-              variant='primary'
-              data-testid='a-buc-p-bucempty--aktoerid-button-id'
-              onClick={onSubmitAktoerId}
-            >
-              {t('ui:add')}
-            </Button>
-          </BUCEmptyForm>
-        )}
-        {!sakId && (
-          <BUCEmptyForm>
-            <TextField
-              data-testid='a-buc-p-bucempty--sakid-input-id'
-              error={validation || false}
-              id='a-buc-p-bucempty--sakid-input-id'
-              label={t('buc:form-caseId')}
-              onChange={onSakIdChange}
-              value={_sakId || ''}
-            />
-            <HorizontalSeparatorDiv />
-            <Button
-              variant='primary'
-              data-testid='a-buc-p-bucempty--sakid-button-id'
-              onClick={onSubmitSakId}
-            >
-              {t('ui:add')}
-            </Button>
-          </BUCEmptyForm>
-        )}
+        <VStack gap="4">
+          <BUCEmptyArtwork>
+            <img alt='' className='monitor' src={MonitorPNG} />
+            <img alt='' className='cup' src={CupPNG} />
+            <img alt='' className='mouse' src={MousePNG} />
+            <img alt='' className='map' src={MapPNG} />
+          </BUCEmptyArtwork>
+          {!aktoerId && (
+            <BUCEmptyForm>
+              <Box paddingInline="0 4">
+                <TextField
+                  data-testid='a-buc-p-bucempty--aktoerid-input-id'
+                  error={validation || false}
+                  id='a-buc-p-bucempty--aktoerid-input-id'
+                  label={t('ui:aktoerId')}
+                  onChange={onAktoerIdChange}
+                  value={_aktoerId || ''}
+                />
+              </Box>
+              <Button
+                variant='primary'
+                data-testid='a-buc-p-bucempty--aktoerid-button-id'
+                onClick={onSubmitAktoerId}
+              >
+                {t('ui:add')}
+              </Button>
+
+            </BUCEmptyForm>
+          )}
+          {!sakId && (
+            <BUCEmptyForm>
+              <Box paddingInline="0 4">
+                <TextField
+                  data-testid='a-buc-p-bucempty--sakid-input-id'
+                  error={validation || false}
+                  id='a-buc-p-bucempty--sakid-input-id'
+                  label={t('buc:form-caseId')}
+                  onChange={onSakIdChange}
+                  value={_sakId || ''}
+                />
+              </Box>
+              <Button
+                variant='primary'
+                data-testid='a-buc-p-bucempty--sakid-button-id'
+                onClick={onSubmitSakId}
+              >
+                {t('ui:add')}
+              </Button>
+            </BUCEmptyForm>
+          )}
+        </VStack>
       </BUCEmptyDiv>
       {rinaUrl && (<BUCFooter />)}
     </>
