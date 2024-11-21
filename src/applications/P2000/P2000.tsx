@@ -86,6 +86,7 @@ const P2000: React.FC<P2000Props> = ({
   useEffect(() => {
     if(sed){
       dispatch(resetEditingItems())
+      dispatch(resetValidation(namespace))
       dispatch(getSed(buc.caseId!, sed))
     }
 
