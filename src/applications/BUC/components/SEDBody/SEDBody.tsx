@@ -8,7 +8,6 @@ import { sedAttachmentSorter } from 'src/applications/BUC/components/BUCUtils/BU
 import SEDAttachmentModal from 'src/applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
 import SEDAttachmentSender from 'src/applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import JoarkBrowser from 'src/components/JoarkBrowser/JoarkBrowser'
-import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import {
   Buc,
   SavingAttachmentsJob,
@@ -23,7 +22,7 @@ import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { standardLogger } from 'src/metrics/loggers'
-import { Heading, Loader, Button } from '@navikt/ds-react'
+import { Heading, Loader, Button, Box } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -191,31 +190,32 @@ const SEDBody: React.FC<SEDBodyProps> = ({
       }
       {!_.isEmpty(_items) && (
         <>
-          <VerticalSeparatorDiv size='2' />
-          <JoarkBrowser
-            data-testid='a_buc_c_sedbody--attachments-id'
-            existingItems={_items}
-            mode='view'
-            onRowViewDelete={onRowViewDelete}
-            tableId={'viewsed-' + sed.id}
-          />
+          <Box paddingBlock="8 0">
+            <JoarkBrowser
+              data-testid='a_buc_c_sedbody--attachments-id'
+              existingItems={_items}
+              mode='view'
+              onRowViewDelete={onRowViewDelete}
+              tableId={'viewsed-' + sed.id}
+            />
+          </Box>
         </>
       )}
       <>
-        <VerticalSeparatorDiv />
         {!_attachmentsSent && _.find(_items, (item) => item.type === 'joark') !== undefined && (
-          <Button
-            variant='primary'
-            data-testid='a_buc_c_sedbody--upload-button-id'
-            disabled={_sendingAttachments}
-            onClick={onAttachmentsSubmitted}
-          >
-            {_sendingAttachments && <Loader />}
-            {_sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
-          </Button>
+          <Box paddingBlock="4 0">
+            <Button
+              variant='primary'
+              data-testid='a_buc_c_sedbody--upload-button-id'
+              disabled={_sendingAttachments}
+              onClick={onAttachmentsSubmitted}
+            >
+              {_sendingAttachments && <Loader />}
+              {_sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
+            </Button>
+          </Box>
         )}
       </>
-      <VerticalSeparatorDiv />
       {canHaveAttachments && (
         (_sendingAttachments || _attachmentsSent)
           ? (
@@ -233,20 +233,20 @@ const SEDBody: React.FC<SEDBodyProps> = ({
                   onFinished={_onFinished}
                   onSaved={_onSaved}
                 />
-                <VerticalSeparatorDiv />
               </>
             </SEDAttachmentSenderDiv>
             )
           : (
             <>
-              <Button
-                variant='secondary'
-                data-testid='a_buc_c_sedbody--show-table-button-id'
-                onClick={() => !_attachmentsTableVisible ? onAttachmentsPanelOpen() : onAttachmentsPanelClose()}
-              >
-                {t(_attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}
-              </Button>
-              <VerticalSeparatorDiv />
+              <Box paddingBlock="4 4">
+                <Button
+                  variant='secondary'
+                  data-testid='a_buc_c_sedbody--show-table-button-id'
+                  onClick={() => !_attachmentsTableVisible ? onAttachmentsPanelOpen() : onAttachmentsPanelClose()}
+                >
+                  {t(_attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}
+                </Button>
+              </Box>
             </>
             )
       )}
