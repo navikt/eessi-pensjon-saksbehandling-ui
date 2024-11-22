@@ -2,19 +2,17 @@ import kvinne from 'src/assets/icons/icon-kvinne.png'
 import mann from 'src/assets/icons/icon-mann.png'
 import ukjent from 'src/assets/icons/icon-ukjent.png'
 import classNames from 'classnames'
-import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import { PersonPDL } from 'src/declarations/person'
 import { PersonPropType } from 'src/declarations/person.pt'
 import _ from 'lodash'
 import moment from 'moment'
-import { Heading } from '@navikt/ds-react'
+import {Heading, HStack} from '@navikt/ds-react'
 import PT from 'prop-types'
 import styled from 'styled-components'
 import PersonLoading from './PersonLoading'
 import {getFnr, getNPID} from 'src/applications/BUC/components/BUCUtils/BUCUtils'
 
-export const Title = styled.div`
-  display: flex;
+export const Title = styled(HStack)`
   align-items: center;
   .dead {
     filter: grayscale(100%)
@@ -64,7 +62,7 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
   }
 
   return (
-    <Title>
+    <Title gap="4">
       <img
         alt={kind}
         className={classNames({ dead: !_.isNil(deathDate) })}
@@ -72,7 +70,6 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
         src={src}
         width={40}
       />
-      <HorizontalSeparatorDiv />
       <Heading size='medium'>
         {person.navn?.sammensattNavn} ({age}) - {getFnr(person) ? getFnr(person) : getNPID(person)}
       </Heading>
