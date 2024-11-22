@@ -104,6 +104,7 @@ const Ytelser: React.FC<MainFormProps> = ({
           [property]: value
         }
       })
+      return
     }
     _setEditYtelse((prevState) => {
       return {
