@@ -13,7 +13,7 @@ import {resetValidation, setValidation} from "src/actions/validation";
 import {useDispatch} from "react-redux";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import classNames from "classnames";
-import {RepeatableBox} from "src/components/StyledComponents";
+import {RepeatableBoxWithBorder} from "src/components/StyledComponents";
 import UtenlandskePin from "../UtenlandskePin/UtenlandskePin";
 import Foedested from "../Foedested/Foedested";
 import Statsborgerskap from "../Statsborgerskap/Statsborgerskap";
@@ -231,7 +231,7 @@ const Barn: React.FC<MainFormProps> = ({
 
     return (
       <Fragment key={"barn-" + index}>
-        <RepeatableBox
+        <RepeatableBoxWithBorder
           id={'repeatablerow-' + _namespace}
           key={index}
           className={classNames({
@@ -324,7 +324,7 @@ const Barn: React.FC<MainFormProps> = ({
                 />
               </HStack>
             </VStack>
-        </RepeatableBox>
+        </RepeatableBoxWithBorder>
       </Fragment>
     )
   }

@@ -70,6 +70,11 @@ export const RepeatableBox = styled(Box)`
   }
 `
 
+export const RepeatableBoxWithBorder = styled(RepeatableBox)`
+  border: 1px solid var(--a-border-default);
+`
+
+
 export const TopAlignedGrid = styled(HGrid)`
   align-items: start
 `
