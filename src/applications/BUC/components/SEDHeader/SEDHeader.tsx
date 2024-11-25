@@ -11,13 +11,8 @@ import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import {buttonLogger} from 'src/metrics/loggers'
 import moment from 'moment'
-import { Alert, Detail, BodyLong, Button, Panel } from '@navikt/ds-react'
+import {Alert, Detail, BodyLong, Button, Panel, HStack} from '@navikt/ds-react'
 import {ChevronRightIcon, ChevronDownIcon, ChevronUpIcon, PaperclipIcon} from '@navikt/aksel-icons'
-import {
-  HorizontalSeparatorDiv,
-  PileDiv,
-  VerticalSeparatorDiv
-} from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -181,40 +176,41 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             {sed.type}{sedLabel ? ' - ' + sedLabel : ''}
           </Detail>
           <SEDListStatusItemDiv>
-            <PopoverCustomized
-              label={(
-                <BodyLong>
-                  {t('ui:firstVersion')}: &nbsp;
-                  {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
-                  <br/>
-                  Dokument ID: {sed.id}
-                </BodyLong>
-                )}
-            >
-              <SEDStatus
-                data-testid='a_buc_c_sedheader--status-id'
-                status={sed.type === 'P5000' && P5000Draft ? 'active' : sed.status}
-              />
-            </PopoverCustomized>
-            <HorizontalSeparatorDiv date-size='0.5' />
-            <SEDVersion>
-              <BodyLong
-                data-testid='a_buc_c_sedheader--version-date-id'
+            <HStack gap="4">
+              <PopoverCustomized
+                label={(
+                  <BodyLong>
+                    {t('ui:firstVersion')}: &nbsp;
+                    {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
+                    <br/>
+                    Dokument ID: {sed.id}
+                  </BodyLong>
+                  )}
               >
-                {sed.receiveDate
-                  ? moment(sed.receiveDate).format('DD.MM.YYYY')
-                  : sed.lastUpdate
-                    ? moment(sed.lastUpdate).format('DD.MM.YYYY')
-                    : null}
-              </BodyLong>
-              {sed.version && (
+                <SEDStatus
+                  data-testid='a_buc_c_sedheader--status-id'
+                  status={sed.type === 'P5000' && P5000Draft ? 'active' : sed.status}
+                />
+              </PopoverCustomized>
+              <SEDVersion>
                 <BodyLong
-                  data-testid='a_buc_c_sedheader--version-id'
+                  data-testid='a_buc_c_sedheader--version-date-id'
                 >
-                  {t('ui:version')}{': '}{sed.version || '-'}
+                  {sed.receiveDate
+                    ? moment(sed.receiveDate).format('DD.MM.YYYY')
+                    : sed.lastUpdate
+                      ? moment(sed.lastUpdate).format('DD.MM.YYYY')
+                      : null}
                 </BodyLong>
-              )}
-            </SEDVersion>
+                {sed.version && (
+                  <BodyLong
+                    data-testid='a_buc_c_sedheader--version-id'
+                  >
+                    {t('ui:version')}{': '}{sed.version || '-'}
+                  </BodyLong>
+                )}
+              </SEDVersion>
+            </HStack>
           </SEDListStatusItemDiv>
         </SEDListStatusDiv>
         <SEDListInstitutionsDiv>
@@ -263,7 +259,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               {t('buc:form-answerSED')}
             </Button>
           )}
-          <PileDiv>
+          <div>
             {sed.type === 'P5000' && (sed.status !== 'received') && (
             <>
               <Button
@@ -295,7 +291,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               </Button>
             </>
           )}
-          </PileDiv>
+          </div>
           {isAdmin && sed.type === 'P2000' && (sed.status !== 'received') &&
             <>
               <Button
@@ -321,7 +317,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               >
                 Oppdater P2000
               </Button>
-              <VerticalSeparatorDiv />
             </>
           }
           {sedCanHaveAttachments(sed) && toggleOpen &&
