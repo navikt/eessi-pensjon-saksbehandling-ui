@@ -5,6 +5,17 @@ import { PaddedHorizontallyDiv } from '@navikt/hoykontrast'
 export const OneLineSpan = styled.span`
   white-space: nowrap;
 `
+
+export const MarginLeftDiv = styled.span`
+    flex: 1;
+    margin-left: 0.5rem;
+`
+
+export const MarginRightDiv = styled.span`
+    flex: 1;
+    margin-right: 0.5rem;
+`
+
 export const SeparatorSpan = styled.span`
   margin-left: 0.25rem;
   margin-right: 0.25rem;

@@ -34,13 +34,13 @@ import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'src/metrics/loggers'
 import moment from 'moment'
-import { Column, Row } from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import {BUCStartIndexProps, BUCStartSelector, mapBUCStartState} from "./BUCStartIndex";
+import { BUCStartIndexProps, BUCStartSelector, mapBUCStartState } from "./BUCStartIndex";
+import { MarginLeftDiv, MarginRightDiv } from "src/components/StyledComponents";
 
 const FlexDiv = styled.div`
   display: flex;
@@ -441,148 +441,146 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
 
   return (
     <div data-testid='a_buc_c_BUCStart'>
-      <Row>
-        <HStack
-          gap="8"
-          width="100%"
-        >
-          <Column>
-            <Box paddingBlock="8 0">
-              <>
-                <label className='navds-text-field--label navds-label'>
-                  {t('buc:form-chooseSubjectArea')}
-                </label>
-                <Select
-                  data-testid='a_buc_c_BUCStart--subjectarea-select-id'
-                  defaultValue={{ label: _subjectArea, value: _subjectArea } as Option}
-                  error={_validation?.subjectArea?.feilmelding}
-                  id='a_buc_c_BUCStart--subjectarea-select-id'
-                  isSearchable
-                  menuPortalTarget={document.getElementById('main')}
-                  onChange={onSubjectAreaChange}
-                  options={renderOptions(subjectAreaList)}
-                />
-              </>
-            </Box>
-            <Box paddingBlock="4 0">
-              <>
-                <label className='navds-text-field--label navds-label'>
-                  {t(loading.gettingBucOptions ? 'message:loading-bucOptions' : 'buc:form-chooseBuc')}
-                </label>
-                <Select
-                  data-testid='a_buc_c_BUCStart--buc-select-id'
-                  error={_validation?.buc?.feilmelding}
-                  id='a_buc_c_BUCStart--buc-select-id'
-                  isLoading={loading.gettingBucOptions}
-                  isSearchable
-                  menuPortalTarget={document.getElementById('main')}
-                  onChange={onBucChange}
-                  options={bucListOptions}
-                  value={_.find(bucListOptions, (b: Option) => b.value === _buc)}
-                />
-              </>
-            </Box>
-            {bucNeedsAvdod() && (
-              <>
-                <Box paddingBlock="4 0">
-                  <label className='navds-text-field--label navds-label'>
-                    {t('buc:form-chooseAvdod')}
-                  </label>
-                  <Select
-                    data-testid='a_buc_c_BUCStart--avdod-select-id'
-                    error={_validation.avdod ? t(_validation.avdod.feilmelding) : undefined}
-                    id='a_buc_c_BUCStart--avdod-select-id'
-                    isSearchable
-                    menuPortalTarget={document.getElementById('main')}
-                    onChange={onAvdodChange}
-                    options={avdodOptions}
-                    value={_.find(avdodOptions, (f: any) => _avdod?.fnr === f.value) || null}
-                  />
-                </Box>
-              </>
-            )}
-            {bucNeedsAvdodButWeHaveNone() && (
-              <>
-                <Box paddingBlock="4 0">
-                  <FlexDiv>
-                    <Box
-                      paddingInline="0 2"
-                      width="100%"
-                    >
-                      <TextField
-                        className='flex-2'
-                        data-testid='a_buc_c_BUCStart--avdod-input-id'
-                        id='a_buc_c_BUCStart--avdod-input-id'
-                        label={t('buc:form-avdod')}
-                        value={_avdodFnr}
-                        onChange={onAvdodFnrChange}
-                        description={t('buc:form-fnrdnr')}
-                        error={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : undefined}
-                      />
-                    </Box>
-                    <HelpText>
-                      {t('message:help-avdodFnr')}
-                    </HelpText>
-                  </FlexDiv>
-                </Box>
-              </>
-            )}
-            {bucNeedsKravDato(_buc) && (
-              <>
-                <Box paddingBlock="4 0">
-                  <FlexDiv>
-                    <TextField
-                      data-testid='a_buc_c_BUCStart--kravDato-input-id'
-                      id='a_buc_c_BUCStart--kravDato-input-id'
-                      label={t('buc:form-kravDato') + '(' + t('buc:form-kravDatoPlaceholder') + ')'}
-                      value={_kravDato}
-                      onChange={onKravDatoChange}
-                      error={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
-                    />
-                    {loading.gettingKravDato
-                      ? (
-                        <>
-                          <Box paddingInline="4 0">
-                            <WaitingPanel size='xsmall' oneLine />
-                          </Box>
-                        </>
-                        )
-                      : undefined}
-                  </FlexDiv>
-                </Box>
-              </>
-            )}
-          </Column>
-          <Column>
-            <Box paddingBlock="8 0">
-              <MultipleSelect<Option>
-                ariaLabel={t('buc:form-tagsForBUC')}
-                aria-describedby='help-tags'
-                data-testid='a_buc_c_BUCStart--tags-select-id'
-                hideSelectedOptions={false}
-                id='a_buc_c_BUCStart--tags-select-id'
-                isLoading={loading.gettingTagList}
-                label={(
-                  <>
-                    <VStack gap="4">
-                      <label className='navds-text-field--label navds-label'>
-                        {t(loading.gettingTagList ? 'message:loading-tagList' : 'buc:form-tagsForBUC')}
-                      </label>
-                      <BodyLong>
-                        {t('buc:form-tagsForBUC-description')}
-                      </BodyLong>
-                    </VStack>
-                  </>
-                  )}
-                onSelect={onTagsChange}
-                options={tagObjectList}
+      <HStack
+        gap="8"
+        width="100%"
+      >
+        <MarginRightDiv>
+          <Box paddingBlock="8 0">
+            <>
+              <label className='navds-text-field--label navds-label'>
+                {t('buc:form-chooseSubjectArea')}
+              </label>
+              <Select
+                data-testid='a_buc_c_BUCStart--subjectarea-select-id'
+                defaultValue={{ label: _subjectArea, value: _subjectArea } as Option}
+                error={_validation?.subjectArea?.feilmelding}
+                id='a_buc_c_BUCStart--subjectarea-select-id'
+                isSearchable
                 menuPortalTarget={document.getElementById('main')}
-                values={_tags}
+                onChange={onSubjectAreaChange}
+                options={renderOptions(subjectAreaList)}
               />
-            </Box>
-          </Column>
-        </HStack>
-      </Row>
+            </>
+          </Box>
+          <Box paddingBlock="4 0">
+            <>
+              <label className='navds-text-field--label navds-label'>
+                {t(loading.gettingBucOptions ? 'message:loading-bucOptions' : 'buc:form-chooseBuc')}
+              </label>
+              <Select
+                data-testid='a_buc_c_BUCStart--buc-select-id'
+                error={_validation?.buc?.feilmelding}
+                id='a_buc_c_BUCStart--buc-select-id'
+                isLoading={loading.gettingBucOptions}
+                isSearchable
+                menuPortalTarget={document.getElementById('main')}
+                onChange={onBucChange}
+                options={bucListOptions}
+                value={_.find(bucListOptions, (b: Option) => b.value === _buc)}
+              />
+            </>
+          </Box>
+          {bucNeedsAvdod() && (
+            <>
+              <Box paddingBlock="4 0">
+                <label className='navds-text-field--label navds-label'>
+                  {t('buc:form-chooseAvdod')}
+                </label>
+                <Select
+                  data-testid='a_buc_c_BUCStart--avdod-select-id'
+                  error={_validation.avdod ? t(_validation.avdod.feilmelding) : undefined}
+                  id='a_buc_c_BUCStart--avdod-select-id'
+                  isSearchable
+                  menuPortalTarget={document.getElementById('main')}
+                  onChange={onAvdodChange}
+                  options={avdodOptions}
+                  value={_.find(avdodOptions, (f: any) => _avdod?.fnr === f.value) || null}
+                />
+              </Box>
+            </>
+          )}
+          {bucNeedsAvdodButWeHaveNone() && (
+            <>
+              <Box paddingBlock="4 0">
+                <FlexDiv>
+                  <Box
+                    paddingInline="0 2"
+                    width="100%"
+                  >
+                    <TextField
+                      className='flex-2'
+                      data-testid='a_buc_c_BUCStart--avdod-input-id'
+                      id='a_buc_c_BUCStart--avdod-input-id'
+                      label={t('buc:form-avdod')}
+                      value={_avdodFnr}
+                      onChange={onAvdodFnrChange}
+                      description={t('buc:form-fnrdnr')}
+                      error={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : undefined}
+                    />
+                  </Box>
+                  <HelpText>
+                    {t('message:help-avdodFnr')}
+                  </HelpText>
+                </FlexDiv>
+              </Box>
+            </>
+          )}
+          {bucNeedsKravDato(_buc) && (
+            <>
+              <Box paddingBlock="4 0">
+                <FlexDiv>
+                  <TextField
+                    data-testid='a_buc_c_BUCStart--kravDato-input-id'
+                    id='a_buc_c_BUCStart--kravDato-input-id'
+                    label={t('buc:form-kravDato') + '(' + t('buc:form-kravDatoPlaceholder') + ')'}
+                    value={_kravDato}
+                    onChange={onKravDatoChange}
+                    error={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
+                  />
+                  {loading.gettingKravDato
+                    ? (
+                      <>
+                        <Box paddingInline="4 0">
+                          <WaitingPanel size='xsmall' oneLine />
+                        </Box>
+                      </>
+                      )
+                    : undefined}
+                </FlexDiv>
+              </Box>
+            </>
+          )}
+        </MarginRightDiv>
+        <MarginLeftDiv>
+          <Box paddingBlock="8 0">
+            <MultipleSelect<Option>
+              ariaLabel={t('buc:form-tagsForBUC')}
+              aria-describedby='help-tags'
+              data-testid='a_buc_c_BUCStart--tags-select-id'
+              hideSelectedOptions={false}
+              id='a_buc_c_BUCStart--tags-select-id'
+              isLoading={loading.gettingTagList}
+              label={(
+                <>
+                  <VStack gap="4">
+                    <label className='navds-text-field--label navds-label'>
+                      {t(loading.gettingTagList ? 'message:loading-tagList' : 'buc:form-tagsForBUC')}
+                    </label>
+                    <BodyLong>
+                      {t('buc:form-tagsForBUC-description')}
+                    </BodyLong>
+                  </VStack>
+                </>
+                )}
+              onSelect={onTagsChange}
+              options={tagObjectList}
+              menuPortalTarget={document.getElementById('main')}
+              values={_tags}
+            />
+          </Box>
+        </MarginLeftDiv>
+      </HStack>
       {_showWarningBucDeceased && (
         <>
           <Box paddingBlock="8 0">
