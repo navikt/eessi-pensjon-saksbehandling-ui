@@ -4,19 +4,12 @@ import {
   ChevronRightIcon,
   CheckmarkCircleFillIcon
 } from '@navikt/aksel-icons'
-import {BodyLong} from '@navikt/ds-react'
+import {BodyLong, HStack, VStack} from '@navikt/ds-react'
 import { ActionWithPayload } from '@navikt/fetch'
-import {
-  FlexCenterDiv,
-  FlexCenterSpacedDiv,
-  HorizontalSeparatorDiv,
-  PileCenterDiv,
-  PileDiv
-} from '@navikt/hoykontrast'
 
 import {PSED, Validation} from "src/declarations/app.d";
 import classNames from 'classnames'
-import { WithErrorPanel } from 'src/components/StyledComponents'
+import { WithErrorBox } from 'src/components/StyledComponents'
 import { Option } from 'src/declarations/app'
 import { ErrorElement } from 'src/declarations/app.d'
 import { UpdateSedPayload } from 'src/declarations/types'
@@ -31,18 +24,14 @@ const LeftDiv = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-self: stretch;
-  min-width: 300px;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 `
 const RightDiv = styled.div`
   flex: 3;
-  align-self: stretch;
-  position: relative;
   overflow: visible;
-  width: 780px;
 `
+
 const RightActiveDiv = styled.div`
   border-width: 1px;
   border-style: solid;
@@ -55,7 +44,7 @@ const RightActiveDiv = styled.div`
   margin-left: 0px;
   overflow: visible;
 `
-const NameAndOptionsDiv = styled(PileDiv)`
+const NameAndOptionsDiv = styled(VStack)`
  &.selected {
    border-right: 1px solid var(--a-bg-default);
    background-image: linear-gradient(to right, var(--a-bg-subtle), var(--a-bg-default));
@@ -81,8 +70,9 @@ const NameDiv = styled.div`
    margin-right: -1px;
   }
 `
-const NameLabelDiv = styled(FlexCenterDiv)`
-  flex: 1;
+const NameLabelDiv = styled(HStack)`
+  align-items: center;
+  padding-left: 0.5rem;
 `
 const LastDiv = styled.div`
   flex: 1;
@@ -95,7 +85,7 @@ const MenuLabelText = styled(BodyLong)`
 const MenuArrowDiv = styled.div`
  padding: 0rem 0.5rem;
 `
-const BlankDiv = styled(PileCenterDiv)`
+const RightBlankContent = styled(VStack)`
   border-width: 1px;
   border-style: solid;
   border-color: var(--a-border-strong);
@@ -105,11 +95,7 @@ const BlankDiv = styled(PileCenterDiv)`
   margin-left: -1px;
   height: 100%;
 `
-const BlankContentDiv = styled(FlexCenterDiv)`
-  flex: 1;
-  align-self: center;
-  background-color: var(--a-bg-default);
-`
+
 export interface MainFormFCProps<T> {
   forms: Array<Form>
   firstForm?: string
@@ -244,6 +230,7 @@ const MainForm = <T extends PSED>({
           >
             <NameLabelDiv
               className={classNames({ selected })}
+              gap="1"
             >
               {!isValidated
                 ? menuVisited.indexOf(form.value) >= 0 && <CheckmarkCircleFillIcon color='grey'/>
@@ -251,12 +238,10 @@ const MainForm = <T extends PSED>({
                   ? <XMarkOctagonFillIcon color='red' />
                   : menuVisited.indexOf(form.value) >= 0 && <CheckmarkCircleFillIcon color='grey'/>
               }
-              <>
-                <HorizontalSeparatorDiv size='0.5' />
+
                 <MenuLabelText className={classNames({ selected })}>
                   {form.label}
                 </MenuLabelText>
-              </>
             </NameLabelDiv>
             <MenuArrowDiv>
               <ChevronRightIcon fontSize="1.5rem" />
@@ -274,28 +259,28 @@ const MainForm = <T extends PSED>({
     }
   }, [])
 
+  const panelError = _.some(Object.keys(validation), k => k.startsWith(namespace) && validation[k]?.feilmelding !== 'ok')
+
   return (
-    <PileDiv className='mainform'>
+    <VStack className='mainform'>
       <WarningModal open={_viewWarningModal} onModalClose={() => setViewWarningModal(false)} elementKeys={Object.keys(editingItems)}/>
-      <WithErrorPanel
+      <WithErrorBox
         border
-        className={classNames({ error: null })}
+        className={classNames({ error: panelError  })}
       >
-        <FlexCenterSpacedDiv>
+        <HStack>
           <LeftDiv className='left'>
             <>
               {renderOneLevelMenu(forms)}
-              <LastDiv />
+              <LastDiv/>
             </>
           </LeftDiv>
           <RightDiv>
             {!currentMenu
               ? (
-                <BlankDiv>
-                  <BlankContentDiv>
-                    {t('label:velg-meny')}
-                  </BlankContentDiv>
-                </BlankDiv>
+                <RightBlankContent justify="center" align="center">
+                  {t('label:velg-meny')}
+                </RightBlankContent>
                 )
               : (
                 <RightActiveDiv
@@ -306,9 +291,9 @@ const MainForm = <T extends PSED>({
                 </RightActiveDiv>
                 )}
           </RightDiv>
-        </FlexCenterSpacedDiv>
-      </WithErrorPanel>
-    </PileDiv>
+        </HStack>
+      </WithErrorBox>
+    </VStack>
   )
 }
 

@@ -4,14 +4,20 @@ import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "src/store";
-import {BodyLong, Button, Heading, Label, Radio, Select, Table, Tag} from "@navikt/ds-react";
 import {
-  VerticalSeparatorDiv,
-  PaddedDiv,
-  Column,
-  AlignStartRow,
-  HorizontalSeparatorDiv
-} from "@navikt/hoykontrast";
+  BodyLong,
+  Box,
+  Button,
+  Heading,
+  HGrid, HStack,
+  Label,
+  Radio,
+  Select,
+  Spacer,
+  Table,
+  Tag,
+  VStack
+} from "@navikt/ds-react";
 import _ from "lodash";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import {Beloep, Ytelse} from "src/declarations/p2000";
@@ -19,7 +25,10 @@ import {getIdx} from "src/utils/namespace";
 import {Validation} from "src/declarations/app";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
-import {RepeatableRowNoBackground, HorizontalRadioGroup} from "src/components/StyledComponents";
+import {
+  HorizontalRadioGroup,
+  RepeatableBoxWithBorder
+} from "src/components/StyledComponents";
 import useValidation from "../../../hooks/useValidation";
 import {validateYtelse, validateYtelser, ValidationYtelseProps, ValidationYtelserProps} from "./validation";
 import {resetValidation, setValidation} from "src/actions/validation";
@@ -95,6 +104,7 @@ const Ytelser: React.FC<MainFormProps> = ({
           [property]: value
         }
       })
+      return
     }
     _setEditYtelse((prevState) => {
       return {
@@ -223,6 +233,7 @@ const Ytelser: React.FC<MainFormProps> = ({
     const addremovepanel = (
       <AddRemovePanel<Ytelse>
         item={ytelse}
+        alwaysVisible={true}
         marginTop={inEditMode}
         index={index}
         inEditMode={inEditMode}
@@ -238,7 +249,7 @@ const Ytelser: React.FC<MainFormProps> = ({
     if(inEditMode){
       return (
         <Fragment key={_namespace}>
-          <RepeatableRowNoBackground
+          <RepeatableBoxWithBorder
             id={'repeatablerow-' + _namespace}
             key={index}
             className={classNames({
@@ -246,10 +257,10 @@ const Ytelser: React.FC<MainFormProps> = ({
               error: hasNamespaceWithErrors(_v, _namespace),
               selected: true
             })}
+            padding="4"
           >
-            <VerticalSeparatorDiv size='0.5' />
-            <AlignStartRow>
-              <Column flex="3">
+            <VStack gap="4">
+              <HGrid gap="4" columns={2}>
                 <Select
                   error={_v[_namespace + '-ytelse']?.feilmelding}
                   id={_namespace + '-ytelse'}
@@ -262,8 +273,6 @@ const Ytelser: React.FC<MainFormProps> = ({
                     return(<option key={option.value} value={option.value}>{option.label}</option>)
                   })}
                 </Select>
-              </Column>
-              <Column flex="2">
                 {_ytelse?.ytelse === "99" &&
                   <Input
                     error={_v[_namespace + '-annenytelse']?.feilmelding}
@@ -274,30 +283,21 @@ const Ytelser: React.FC<MainFormProps> = ({
                     value={ytelse?.annenytelse ?? ''}
                   />
                 }
-              </Column>
-              <Column>
-                {addremovepanel}
-              </Column>
-            </AlignStartRow>
-            <VerticalSeparatorDiv/>
-            <AlignStartRow>
-              <Column>
-                <HorizontalRadioGroup
-                  error={_v[_namespace + '-status']?.feilmelding}
-                  id={_namespace + "-status"}
-                  legend={t('p2000:form-ytelse-status')}
-                  onChange={(e: any) => setYtelseProperty("status", e, index)}
-                  value={_ytelse?.status}
-                >
-                  {statusOptions.map((option) => {
-                    return(<Radio key={option.value} value={option.value}>{option.label}</Radio>)
-                  })}
-                </HorizontalRadioGroup>
-              </Column>
-            </AlignStartRow>
-            <VerticalSeparatorDiv/>
-            <AlignStartRow>
-              <Column flex="1">
+
+
+              </HGrid>
+              <HorizontalRadioGroup
+                error={_v[_namespace + '-status']?.feilmelding}
+                id={_namespace + "-status"}
+                legend={t('p2000:form-ytelse-status')}
+                onChange={(e: any) => setYtelseProperty("status", e, index)}
+                value={_ytelse?.status}
+              >
+                {statusOptions.map((option) => {
+                  return(<Radio key={option.value} value={option.value}>{option.label}</Radio>)
+                })}
+              </HorizontalRadioGroup>
+              <HGrid gap="4" columns={2}>
                 <DateField
                   id={_namespace + '-startdatoutbetaling'}
                   label={t('p2000:form-ytelse-startdato-utbetaling')}
@@ -307,8 +307,6 @@ const Ytelser: React.FC<MainFormProps> = ({
                   onChanged={(e) => setYtelseProperty("startdatoutbetaling", e!, index)}
                   dateValue={_ytelse?.startdatoutbetaling}
                 />
-              </Column>
-              <Column flex="1">
                 <DateField
                   id={_namespace + '-sluttdatoutbetaling'}
                   label={t('p2000:form-ytelse-sluttdato-utbetaling')}
@@ -318,12 +316,8 @@ const Ytelser: React.FC<MainFormProps> = ({
                   onChanged={(e) => setYtelseProperty("sluttdatoutbetaling", e!, index)}
                   dateValue={_ytelse?.sluttdatoutbetaling}
                 />
-              </Column>
-              <Column/>
-            </AlignStartRow>
-            <VerticalSeparatorDiv/>
-            <AlignStartRow>
-              <Column>
+              </HGrid>
+              <HGrid gap="4" columns={2}>
                 <DateField
                   id={_namespace + '-startdatoretttilytelse'}
                   label={t('p2000:form-ytelse-startdato-rett-til-ytelser')}
@@ -333,12 +327,8 @@ const Ytelser: React.FC<MainFormProps> = ({
                   onChanged={(e) => setYtelseProperty("startdatoretttilytelse", e!, index)}
                   dateValue={_ytelse?.startdatoretttilytelse}
                 />
-              </Column>
-              <Column/>
-              <Column/>
-            </AlignStartRow>
-            <VerticalSeparatorDiv/>
-            <AlignStartRow>
+                <Spacer/>
+              </HGrid>
               <Table zebraStripes={true}>
                 <Table.Header>
                   <Table.Row>
@@ -353,37 +343,28 @@ const Ytelser: React.FC<MainFormProps> = ({
                   <BeloepRows beloep={_ytelse?.beloep} setBeloep={setBeloep} parentIndex={index} parentEditMode={true} newBeloepForm={_newBeloepForm} setNewBeloepForm={_setNewBeloepForm} parentNamespace={_namespace}/>
                 </Table.Body>
               </Table>
-            </AlignStartRow>
-            <VerticalSeparatorDiv/>
-            <AlignStartRow>
               {inEditMode && !_newBeloepForm &&
-                <Button
-                  variant='tertiary'
-                  onClick={() => _setNewBeloepForm(true)}
-                  iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
-                >
-                  {t('ui:add-new-x', { x: t('p2000:form-ytelse-beloep')?.toLowerCase() })}
-                </Button>
+                <Box>
+                  <Button
+                    variant='tertiary'
+                    onClick={() => _setNewBeloepForm(true)}
+                    iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
+                  >
+                    {t('ui:add-new-x', { x: t('p2000:form-ytelse-beloep')?.toLowerCase() })}
+                  </Button>
+                </Box>
               }
-            </AlignStartRow>
-            <VerticalSeparatorDiv/>
-            <AlignStartRow>
-              <Column>
-                <HorizontalRadioGroup
-                  error={_v[_namespace + '-mottasbasertpaa']?.feilmelding}
-                  id={_namespace + "-mottasbasertpaa"}
-                  legend={t('p2000:form-ytelse-mottas-basert-paa')}
-                  onChange={(e: any) => setYtelseProperty("mottasbasertpaa", e, index)}
-                  value={_ytelse?.mottasbasertpaa}
-                >
-                  <Radio value="botid">{t('p2000:form-ytelse-mottas-basert-paa-botid')}</Radio>
-                  <Radio value="i_arbeid">{t('p2000:form-ytelse-mottas-basert-paa-i_arbeid')}</Radio>
-                </HorizontalRadioGroup>
-              </Column>
-            </AlignStartRow>
-            <VerticalSeparatorDiv/>
-            <AlignStartRow>
-              <Column>
+              <HorizontalRadioGroup
+                error={_v[_namespace + '-mottasbasertpaa']?.feilmelding}
+                id={_namespace + "-mottasbasertpaa"}
+                legend={t('p2000:form-ytelse-mottas-basert-paa')}
+                onChange={(e: any) => setYtelseProperty("mottasbasertpaa", e, index)}
+                value={_ytelse?.mottasbasertpaa}
+              >
+                <Radio value="botid">{t('p2000:form-ytelse-mottas-basert-paa-botid')}</Radio>
+                <Radio value="i_arbeid">{t('p2000:form-ytelse-mottas-basert-paa-i_arbeid')}</Radio>
+              </HorizontalRadioGroup>
+              <HGrid gap="4" columns={2}>
                 <Input
                   error={_v[_namespace + '-totalbruttobeloepbostedsbasert']?.feilmelding}
                   namespace={_namespace}
@@ -392,8 +373,6 @@ const Ytelser: React.FC<MainFormProps> = ({
                   onChanged={(e) => setYtelseProperty("totalbruttobeloepbostedsbasert", e, index)}
                   value={_ytelse?.totalbruttobeloepbostedsbasert ?? ''}
                 />
-              </Column>
-              <Column>
                 <Input
                   error={_v[_namespace + '-totalbruttobeloeparbeidsbasert']?.feilmelding}
                   namespace={_namespace}
@@ -402,67 +381,66 @@ const Ytelser: React.FC<MainFormProps> = ({
                   onChanged={(e) => setYtelseProperty("totalbruttobeloeparbeidsbasert", e, index)}
                   value={_ytelse?.totalbruttobeloeparbeidsbasert ?? ''}
                 />
-              </Column>
-            </AlignStartRow>
-
-          </RepeatableRowNoBackground>
-          <VerticalSeparatorDiv/>
+              </HGrid>
+              <HStack>
+                <Spacer/>
+                {addremovepanel}
+              </HStack>
+            </VStack>
+          </RepeatableBoxWithBorder>
         </Fragment>
       )
     } else {
       return (
         <Fragment key={_namespace}>
-          <RepeatableRowNoBackground
+          <RepeatableBoxWithBorder
             id={'repeatablerow-' + _namespace}
             key={index}
             className={classNames({
               new: index < 0,
               error: hasNamespaceWithErrors(_v, _namespace)
             })}
+            padding="4"
           >
-            <VerticalSeparatorDiv size='0.5' />
-            <AlignStartRow>
-              <Column flex="5">
-                <Label>{t('p2000:form-ytelse')}</Label>
-                <HorizontalSeparatorDiv size='1.0' />
-                {_ytelse?.status && <Tag size='small' variant='info'>{getStatusLabel(_ytelse?.status)}</Tag>}
+            <VStack gap="4">
+              <VStack>
+                <HStack gap="4">
+                  <Label>{t('p2000:form-ytelse')}</Label>
+                  {_ytelse?.status && <Tag size='small' variant='info'>{getStatusLabel(_ytelse?.status)}</Tag>}
+                </HStack>
                 <BodyLong>
                   {_ytelse?.ytelse === '99' ? _ytelse.annenytelse : getYtelseLabel(_ytelse?.ytelse)}
                 </BodyLong>
-                <ErrorLabel error={_v[_namespace + '-ytelse']?.feilmelding}/>
-                <HorizontalSeparatorDiv size='1.0' />
-                <ErrorLabel error={_v[_namespace + '-status']?.feilmelding}/>
-              </Column>
-              <Column>
-                {addremovepanel}
-              </Column>
-            </AlignStartRow>
-            <VerticalSeparatorDiv/>
-            <AlignStartRow>
-              <Column>
-                <Label>{t('p2000:form-ytelse-startdato-utbetaling')}</Label>
-                <BodyLong>
-                  {_ytelse?.startdatoutbetaling ? formatDate(_ytelse?.startdatoutbetaling as string) : <em>Ingen dato oppgitt</em>}
-                </BodyLong>
-              </Column>
-              <Column>
-                <Label>{t('p2000:form-ytelse-sluttdato-utbetaling')}</Label>
-                <BodyLong>
-                  {_ytelse?.sluttdatoutbetaling ? formatDate(_ytelse?.sluttdatoutbetaling as string) : <em>Ingen dato oppgitt</em>}
-                </BodyLong>
-              </Column>
-            </AlignStartRow>
-            <VerticalSeparatorDiv/>
-            <AlignStartRow>
-              <Column flex={5}>
-                <Label>{t('p2000:form-ytelse-startdato-rett-til-ytelser')}</Label>
-                <BodyLong>
-                  {_ytelse?.startdatoretttilytelse ? formatDate(_ytelse?.startdatoretttilytelse as string) : <em>Ingen dato oppgitt</em>}
-                </BodyLong>
-              </Column>
-            </AlignStartRow>
-            <VerticalSeparatorDiv/>
-            <AlignStartRow>
+                <HStack gap="4">
+                  <ErrorLabel error={_v[_namespace + '-ytelse']?.feilmelding}/>
+                  <ErrorLabel error={_v[_namespace + '-status']?.feilmelding}/>
+                </HStack>
+              </VStack>
+
+              <HGrid columns={2} gap="4">
+                <VStack>
+                  <Label>{t('p2000:form-ytelse-startdato-utbetaling')}</Label>
+                  <BodyLong>
+                    {_ytelse?.startdatoutbetaling ? formatDate(_ytelse?.startdatoutbetaling as string) : <em>Ingen dato oppgitt</em>}
+                  </BodyLong>
+                </VStack>
+                <VStack>
+                  <Label>{t('p2000:form-ytelse-sluttdato-utbetaling')}</Label>
+                  <BodyLong>
+                    {_ytelse?.sluttdatoutbetaling ? formatDate(_ytelse?.sluttdatoutbetaling as string) : <em>Ingen dato oppgitt</em>}
+                  </BodyLong>
+                </VStack>
+              </HGrid>
+              <HGrid columns={2} gap="4">
+                <VStack>
+                  <Label>{t('p2000:form-ytelse-startdato-rett-til-ytelser')}</Label>
+                  <BodyLong>
+                    {_ytelse?.startdatoretttilytelse ? formatDate(_ytelse?.startdatoretttilytelse as string) : <em>Ingen dato oppgitt</em>}
+                  </BodyLong>
+                </VStack>
+                <Spacer/>
+              </HGrid>
+
               <Table zebraStripes={true}>
                 <Table.Header>
                   <Table.Row>
@@ -477,52 +455,47 @@ const Ytelser: React.FC<MainFormProps> = ({
                   <BeloepRows parentEditMode={false} newBeloepForm={false} setNewBeloepForm={_setNewBeloepForm} setBeloep={setBeloep} parentIndex={index} beloep={_ytelse?.beloep} parentNamespace={_namespace}/>
                 </Table.Body>
               </Table>
-            </AlignStartRow>
-            <VerticalSeparatorDiv/>
-            {_ytelse?.mottasbasertpaa &&
-              <AlignStartRow>
-                <Column flex={5}>
+              {_ytelse?.mottasbasertpaa &&
+                <VStack>
                   <Label>{t('p2000:form-ytelse-mottas-basert-paa')}</Label>
                   <BodyLong>
                     {_ytelse?.mottasbasertpaa ? t('p2000:form-ytelse-mottas-basert-paa-' + _ytelse?.mottasbasertpaa) : ''}
                   </BodyLong>
-                </Column>
-              </AlignStartRow>
-            }
-            <VerticalSeparatorDiv/>
-            <AlignStartRow>
+                </VStack>
+              }
               {_ytelse?.totalbruttobeloepbostedsbasert &&
-                <Column>
+                <VStack>
                   <Label>{t('p2000:form-ytelse-bruttobeloep-bostedsbasert')}</Label>
                   <BodyLong>
                     {_ytelse?.totalbruttobeloepbostedsbasert}
                   </BodyLong>
-                </Column>
+                </VStack>
               }
               {_ytelse?.totalbruttobeloeparbeidsbasert &&
-                <Column>
+                <VStack>
                   <Label>{t('p2000:form-ytelse-bruttobeloep-arbeidsrelatert')}</Label>
                   <BodyLong>
                     {_ytelse?.totalbruttobeloeparbeidsbasert}
                   </BodyLong>
-                </Column>
+                </VStack>
               }
-            </AlignStartRow>
-            <VerticalSeparatorDiv/>
-          </RepeatableRowNoBackground>
-          <VerticalSeparatorDiv/>
+              <HStack>
+                <Spacer/>
+                {addremovepanel}
+              </HStack>
+            </VStack>
+          </RepeatableBoxWithBorder>
         </Fragment>
       )
     }
   }
 
   return (
-    <>
-      <PaddedDiv>
+    <Box padding="4">
+      <VStack gap="4">
         <Heading size='medium'>
           {label}
         </Heading>
-        <VerticalSeparatorDiv/>
         {_.isEmpty(ytelser)
           ? (
             <BodyLong>
@@ -535,11 +508,10 @@ const Ytelser: React.FC<MainFormProps> = ({
             </>
           )
         }
-        <VerticalSeparatorDiv />
         {_newForm
           ? renderRow(null, -1)
           : (
-            <AlignStartRow>
+            <Box>
               <Button
                 variant='tertiary'
                 onClick={() => _setNewForm(true)}
@@ -547,12 +519,10 @@ const Ytelser: React.FC<MainFormProps> = ({
               >
                 {t('ui:add-new-x', { x: t('p2000:form-ytelse')?.toLowerCase() })}
               </Button>
-            </AlignStartRow>
+            </Box>
           )}
-
-
-      </PaddedDiv>
-    </>
+      </VStack>
+    </Box>
   )
 }
 

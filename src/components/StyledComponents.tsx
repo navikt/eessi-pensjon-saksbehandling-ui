@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {Box, HGrid, Panel, RadioGroup} from '@navikt/ds-react'
+import {Box, HGrid, RadioGroup} from '@navikt/ds-react'
 import { PaddedHorizontallyDiv } from '@navikt/hoykontrast'
 
 export const OneLineSpan = styled.span`
@@ -27,8 +27,7 @@ export const HorizontalLineSeparator = styled.div`
   margin-left: 2rem;
   margin-right: 2rem;
 `
-export const WithErrorPanel = styled(Panel)`
-  padding: 0rem;
+export const WithErrorBox = styled(Box)`
   background-color: transparent;
   border: none;
   &.error {
@@ -70,6 +69,11 @@ export const RepeatableBox = styled(Box)`
     display:none
   }
 `
+
+export const RepeatableBoxWithBorder = styled(RepeatableBox)`
+  border: 1px solid var(--a-border-default);
+`
+
 
 export const TopAlignedGrid = styled(HGrid)`
   align-items: start
