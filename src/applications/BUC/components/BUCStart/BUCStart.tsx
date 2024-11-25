@@ -1,4 +1,4 @@
-import { Alert, BodyLong, Button, HelpText, Loader, TextField } from '@navikt/ds-react'
+import {Alert, BodyLong, Box, Button, HelpText, HGrid, HStack, Loader, TextField, VStack} from '@navikt/ds-react'
 import {
   cleanNewlyCreatedBuc,
   createBuc,
@@ -34,7 +34,7 @@ import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'src/metrics/loggers'
 import moment from 'moment'
-import { Column, HorizontalSeparatorDiv, Row, VerticalSeparatorDiv } from '@navikt/hoykontrast'
+import { Column, Row } from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -442,204 +442,225 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
   return (
     <div data-testid='a_buc_c_BUCStart'>
       <Row>
-        <Column>
-          <VerticalSeparatorDiv size='2' />
-          <>
-            <label className='navds-text-field--label navds-label'>
-              {t('buc:form-chooseSubjectArea')}
-            </label>
-            <Select
-              data-testid='a_buc_c_BUCStart--subjectarea-select-id'
-              defaultValue={{ label: _subjectArea, value: _subjectArea } as Option}
-              error={_validation?.subjectArea?.feilmelding}
-              id='a_buc_c_BUCStart--subjectarea-select-id'
-              isSearchable
-              menuPortalTarget={document.getElementById('main')}
-              onChange={onSubjectAreaChange}
-              options={renderOptions(subjectAreaList)}
-            />
-          </>
-          <VerticalSeparatorDiv />
-          <>
-            <label className='navds-text-field--label navds-label'>
-              {t(loading.gettingBucOptions ? 'message:loading-bucOptions' : 'buc:form-chooseBuc')}
-            </label>
-            <Select
-              data-testid='a_buc_c_BUCStart--buc-select-id'
-              error={_validation?.buc?.feilmelding}
-              id='a_buc_c_BUCStart--buc-select-id'
-              isLoading={loading.gettingBucOptions}
-              isSearchable
-              menuPortalTarget={document.getElementById('main')}
-              onChange={onBucChange}
-              options={bucListOptions}
-              value={_.find(bucListOptions, (b: Option) => b.value === _buc)}
-            />
-          </>
-          {bucNeedsAvdod() && (
-            <>
-              <VerticalSeparatorDiv />
-              <label className='navds-text-field--label navds-label'>
-                {t('buc:form-chooseAvdod')}
-              </label>
-              <Select
-                data-testid='a_buc_c_BUCStart--avdod-select-id'
-                error={_validation.avdod ? t(_validation.avdod.feilmelding) : undefined}
-                id='a_buc_c_BUCStart--avdod-select-id'
-                isSearchable
-                menuPortalTarget={document.getElementById('main')}
-                onChange={onAvdodChange}
-                options={avdodOptions}
-                value={_.find(avdodOptions, (f: any) => _avdod?.fnr === f.value) || null}
-              />
-            </>
-          )}
-          {bucNeedsAvdodButWeHaveNone() && (
-            <>
-              <VerticalSeparatorDiv />
-              <FlexDiv>
-                <TextField
-                  className='flex-2'
-                  data-testid='a_buc_c_BUCStart--avdod-input-id'
-                  id='a_buc_c_BUCStart--avdod-input-id'
-                  label={t('buc:form-avdod')}
-                  value={_avdodFnr}
-                  onChange={onAvdodFnrChange}
-                  description={t('buc:form-fnrdnr')}
-                  error={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : undefined}
-                />
-                <HorizontalSeparatorDiv size='0.5' />
-                <HelpText>
-                  {t('message:help-avdodFnr')}
-                </HelpText>
-              </FlexDiv>
-            </>
-          )}
-          {bucNeedsKravDato(_buc) && (
-            <>
-              <VerticalSeparatorDiv />
-              <FlexDiv>
-                <TextField
-                  data-testid='a_buc_c_BUCStart--kravDato-input-id'
-                  id='a_buc_c_BUCStart--kravDato-input-id'
-                  label={t('buc:form-kravDato') + '(' + t('buc:form-kravDatoPlaceholder') + ')'}
-                  value={_kravDato}
-                  onChange={onKravDatoChange}
-                  error={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
-                />
-                {loading.gettingKravDato
-                  ? (
-                    <>
-                      <HorizontalSeparatorDiv />
-                      <WaitingPanel size='xsmall' oneLine />
-                    </>
-                    )
-                  : undefined}
-              </FlexDiv>
-            </>
-          )}
-        </Column>
-        <HorizontalSeparatorDiv size='2' />
-        <Column>
-          <VerticalSeparatorDiv size='2' />
-          <MultipleSelect<Option>
-            ariaLabel={t('buc:form-tagsForBUC')}
-            aria-describedby='help-tags'
-            data-testid='a_buc_c_BUCStart--tags-select-id'
-            hideSelectedOptions={false}
-            id='a_buc_c_BUCStart--tags-select-id'
-            isLoading={loading.gettingTagList}
-            label={(
+        <HStack
+          gap="8"
+          width="100%"
+        >
+          <Column>
+            <Box paddingBlock="8 0">
               <>
                 <label className='navds-text-field--label navds-label'>
-                  {t(loading.gettingTagList ? 'message:loading-tagList' : 'buc:form-tagsForBUC')}
+                  {t('buc:form-chooseSubjectArea')}
                 </label>
-                <VerticalSeparatorDiv />
-                <BodyLong>
-                  {t('buc:form-tagsForBUC-description')}
-                </BodyLong>
+                <Select
+                  data-testid='a_buc_c_BUCStart--subjectarea-select-id'
+                  defaultValue={{ label: _subjectArea, value: _subjectArea } as Option}
+                  error={_validation?.subjectArea?.feilmelding}
+                  id='a_buc_c_BUCStart--subjectarea-select-id'
+                  isSearchable
+                  menuPortalTarget={document.getElementById('main')}
+                  onChange={onSubjectAreaChange}
+                  options={renderOptions(subjectAreaList)}
+                />
               </>
-              )}
-            onSelect={onTagsChange}
-            options={tagObjectList}
-            menuPortalTarget={document.getElementById('main')}
-            values={_tags}
-          />
-        </Column>
+            </Box>
+            <Box paddingBlock="4 0">
+              <>
+                <label className='navds-text-field--label navds-label'>
+                  {t(loading.gettingBucOptions ? 'message:loading-bucOptions' : 'buc:form-chooseBuc')}
+                </label>
+                <Select
+                  data-testid='a_buc_c_BUCStart--buc-select-id'
+                  error={_validation?.buc?.feilmelding}
+                  id='a_buc_c_BUCStart--buc-select-id'
+                  isLoading={loading.gettingBucOptions}
+                  isSearchable
+                  menuPortalTarget={document.getElementById('main')}
+                  onChange={onBucChange}
+                  options={bucListOptions}
+                  value={_.find(bucListOptions, (b: Option) => b.value === _buc)}
+                />
+              </>
+            </Box>
+            {bucNeedsAvdod() && (
+              <>
+                <Box paddingBlock="4 0">
+                  <label className='navds-text-field--label navds-label'>
+                    {t('buc:form-chooseAvdod')}
+                  </label>
+                  <Select
+                    data-testid='a_buc_c_BUCStart--avdod-select-id'
+                    error={_validation.avdod ? t(_validation.avdod.feilmelding) : undefined}
+                    id='a_buc_c_BUCStart--avdod-select-id'
+                    isSearchable
+                    menuPortalTarget={document.getElementById('main')}
+                    onChange={onAvdodChange}
+                    options={avdodOptions}
+                    value={_.find(avdodOptions, (f: any) => _avdod?.fnr === f.value) || null}
+                  />
+                </Box>
+              </>
+            )}
+            {bucNeedsAvdodButWeHaveNone() && (
+              <>
+                <Box paddingBlock="4 0">
+                  <FlexDiv>
+                    <Box
+                      paddingInline="0 2"
+                      width="100%"
+                    >
+                      <TextField
+                        className='flex-2'
+                        data-testid='a_buc_c_BUCStart--avdod-input-id'
+                        id='a_buc_c_BUCStart--avdod-input-id'
+                        label={t('buc:form-avdod')}
+                        value={_avdodFnr}
+                        onChange={onAvdodFnrChange}
+                        description={t('buc:form-fnrdnr')}
+                        error={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : undefined}
+                      />
+                    </Box>
+                    <HelpText>
+                      {t('message:help-avdodFnr')}
+                    </HelpText>
+                  </FlexDiv>
+                </Box>
+              </>
+            )}
+            {bucNeedsKravDato(_buc) && (
+              <>
+                <Box paddingBlock="4 0">
+                  <FlexDiv>
+                    <TextField
+                      data-testid='a_buc_c_BUCStart--kravDato-input-id'
+                      id='a_buc_c_BUCStart--kravDato-input-id'
+                      label={t('buc:form-kravDato') + '(' + t('buc:form-kravDatoPlaceholder') + ')'}
+                      value={_kravDato}
+                      onChange={onKravDatoChange}
+                      error={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
+                    />
+                    {loading.gettingKravDato
+                      ? (
+                        <>
+                          <Box paddingInline="4 0">
+                            <WaitingPanel size='xsmall' oneLine />
+                          </Box>
+                        </>
+                        )
+                      : undefined}
+                  </FlexDiv>
+                </Box>
+              </>
+            )}
+          </Column>
+          <Column>
+            <Box paddingBlock="8 0">
+              <MultipleSelect<Option>
+                ariaLabel={t('buc:form-tagsForBUC')}
+                aria-describedby='help-tags'
+                data-testid='a_buc_c_BUCStart--tags-select-id'
+                hideSelectedOptions={false}
+                id='a_buc_c_BUCStart--tags-select-id'
+                isLoading={loading.gettingTagList}
+                label={(
+                  <>
+                    <VStack gap="4">
+                      <label className='navds-text-field--label navds-label'>
+                        {t(loading.gettingTagList ? 'message:loading-tagList' : 'buc:form-tagsForBUC')}
+                      </label>
+                      <BodyLong>
+                        {t('buc:form-tagsForBUC-description')}
+                      </BodyLong>
+                    </VStack>
+                  </>
+                  )}
+                onSelect={onTagsChange}
+                options={tagObjectList}
+                menuPortalTarget={document.getElementById('main')}
+                values={_tags}
+              />
+            </Box>
+          </Column>
+        </HStack>
       </Row>
       {_showWarningBucDeceased && (
         <>
-          <VerticalSeparatorDiv size='2' />
-          <Row>
-            <Column>
-              <Alert
-                variant='warning'
-                data-testid='a_buc_c_BUCStart--warning-id'
+          <Box paddingBlock="8 0">
+            <HGrid columns={2}>
+              <Box
+                paddingInline="0 6"
               >
-                <BodyLong>
-                  {t('message:alert-noDeceased')}
-                </BodyLong>
-              </Alert>
-            </Column>
-            <HorizontalSeparatorDiv size='2' />
-            <Column />
-          </Row>
+                  <Alert
+                    variant='warning'
+                    data-testid='a_buc_c_BUCStart--warning-id'
+                  >
+                    <BodyLong>
+                      {t('message:alert-noDeceased')}
+                    </BodyLong>
+                  </Alert>
+              </Box>
+              <Box
+              />
+            </HGrid>
+          </Box>
         </>
       )}
       {_showWarningBuc01 && (
         <>
-          <VerticalSeparatorDiv size='2' />
-          <Row>
-            <Column>
-              <Alert
-                variant='warning'
-                data-testid='a_buc_c_BUCStart--warning-id'
+          <Box paddingBlock="8 0">
+            <HGrid columns={2}>
+              <Box
+                paddingInline="0 6"
               >
-                <BodyLong>
-                  {t('message:warning-P_BUC_01-uføretrygd')}
-                </BodyLong>
-              </Alert>
-            </Column>
-            <HorizontalSeparatorDiv size='2' />
-            <Column />
-          </Row>
+                <Alert
+                  variant='warning'
+                  data-testid='a_buc_c_BUCStart--warning-id'
+                >
+                  <BodyLong>
+                    {t('message:warning-P_BUC_01-uføretrygd')}
+                  </BodyLong>
+                </Alert>
+              </Box>
+              <Box
+              />
+            </HGrid>
+          </Box>
         </>
       )}
-      <VerticalSeparatorDiv size='2' />
-      <div data-testid='a_buc_c_BUCStart--buttons-id'>
-        <Button
-          variant='primary'
-          data-amplitude='buc.new.create'
-          data-testid='a_buc_c_BUCStart--forward-button-id'
-          disabled={_isCreatingBuc || _showWarningBuc01}
-          onClick={onForwardButtonClick}
-        >
-          {_isCreatingBuc && <Loader />}
-          {loading.creatingBUC
-            ? t('message:loading-creatingCaseinRINA')
-            : loading.savingBucsInfo
-              ? t('message:loading-savingBucInfo')
-              : t('buc:form-createCaseinRINA')}
-        </Button>
-        <HorizontalSeparatorDiv />
-        <Button
-          variant='tertiary'
-          data-amplitude='buc.new.cancel'
-          data-testid='a_buc_c_BUCStart--cancel-button-id'
-          onClick={onCancelButtonClick}
-        >{t('ui:cancel')}
-        </Button>
-      </div>
-      <VerticalSeparatorDiv />
+      <Box paddingBlock="8 4">
+        <div data-testid='a_buc_c_BUCStart--buttons-id'>
+          <HStack gap="4">
+            <Button
+              variant='primary'
+              data-amplitude='buc.new.create'
+              data-testid='a_buc_c_BUCStart--forward-button-id'
+              disabled={_isCreatingBuc || _showWarningBuc01}
+              onClick={onForwardButtonClick}
+            >
+              {_isCreatingBuc && <Loader />}
+              {loading.creatingBUC
+                ? t('message:loading-creatingCaseinRINA')
+                : loading.savingBucsInfo
+                  ? t('message:loading-savingBucInfo')
+                  : t('buc:form-createCaseinRINA')}
+            </Button>
+            <Button
+              variant='tertiary'
+              data-amplitude='buc.new.cancel'
+              data-testid='a_buc_c_BUCStart--cancel-button-id'
+              onClick={onCancelButtonClick}
+            >{t('ui:cancel')}
+            </Button>
+          </HStack>
+        </div>
+      </Box>
       {!hasNoValidationErrors(_validation) && (
         <>
-          <VerticalSeparatorDiv size='2' />
-          <Row>
-            <Column>
-              <ValidationBox heading={t('message:error-validationbox-bucstart')} validation={_validation} />
-            </Column>
-            <Column />
-          </Row>
+          <Box paddingBlock="4 0">
+            <HGrid columns={2}>
+                  <ValidationBox heading={t('message:error-validationbox-bucstart')} validation={_validation} />
+            </HGrid>
+          </Box>
         </>
       )}
     </div>
