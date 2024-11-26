@@ -1,5 +1,17 @@
 import { PersonIcon } from '@navikt/aksel-icons'
-import { Alert, BodyLong, Button, Heading, Loader, Radio, RadioGroup, TextField } from '@navikt/ds-react'
+import {
+  Alert,
+  BodyLong,
+  Box,
+  Button,
+  Heading,
+  HGrid,
+  HStack,
+  Loader,
+  Radio,
+  RadioGroup,
+  TextField
+} from '@navikt/ds-react'
 import {
   createReplySed,
   createSavingAttachmentJob,
@@ -30,7 +42,7 @@ import SEDP6000 from 'src/applications/BUC/components/SEDP6000/SEDP6000'
 import JoarkBrowser from 'src/components/JoarkBrowser/JoarkBrowser'
 import MultipleSelect from 'src/components/MultipleSelect/MultipleSelect'
 import Select from 'src/components/Select/Select'
-import { HorizontalLineSeparator } from 'src/components/StyledComponents'
+import {FlexOneDiv, HorizontalLineSeparator, MarginLeftDiv, MarginRightDiv} from 'src/components/StyledComponents'
 import ValidationBox from 'src/components/ValidationBox/ValidationBox'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import * as constants from 'src/constants/constants'
@@ -81,7 +93,6 @@ import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'src/metrics/loggers'
 import moment from 'moment'
 
-import { Column, HorizontalSeparatorDiv, Row, VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -1013,10 +1024,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           </AlertDiv>
         </FullWidthDiv>
       )}
-      <Row>
-        <Column>
-          <VerticalSeparatorDiv size='2' />
-          <>
+      <HStack
+        gap="8"
+        width="100%"
+      >
+        <MarginRightDiv>
+          <Box paddingBlock="8 0">
             <label className='navds-text-field--label navds-label'>
               {t('buc:form-chooseSed')}
             </label>
@@ -1031,10 +1044,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               options={_sedOptions}
               value={_.find(_sedOptions, (f: any) => f.value === _sed) || null}
             />
-          </>
+          </Box>
           {_sed && showVedtakIdField(_sed) && (
-            <>
-              <VerticalSeparatorDiv />
+            <Box paddingBlock="4 0">
               <TextField
                 disabled
                 data-testid='a_buc_c_sedstart--vedtakid-input-id'
@@ -1044,29 +1056,27 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 onChange={onVedtakIdChange}
                 error={_validation.vedtakid ? t(_validation.vedtakid.feilmelding) : null}
               />
-            </>
+            </Box>
           )}
           {sedHasFixedAvdod() && (
-            <>
-              <VerticalSeparatorDiv />
+            <Box paddingBlock="4 0">
               <FlexDiv
                 data-testid='a_buc_c_sedstart--avdod-div-id'
               >
-                <PersonIcon fontSize="1.5rem" />
-                <HorizontalSeparatorDiv />
-                <label className='navds-text-field--label navds-label'>
-                  {t('buc:form-avdod')}:
-                </label>
-                <HorizontalSeparatorDiv />
-                <BodyLong>
-                  {renderAvdodName(_avdod, t)}
-                </BodyLong>
+                <HStack gap="4">
+                  <PersonIcon fontSize="1.5rem" />
+                  <label className='navds-text-field--label navds-label'>
+                    {t('buc:form-avdod')}:
+                  </label>
+                  <BodyLong>
+                    {renderAvdodName(_avdod, t)}
+                  </BodyLong>
+                </HStack>
               </FlexDiv>
-            </>
+            </Box>
           )}
           {sedNeedsAvdodFnrInput() && (
-            <>
-              <VerticalSeparatorDiv />
+            <Box paddingBlock="4 0">
               <TextField
                 label={t('buc:form-chooseAvdodFnr')}
                 data-testid='a_buc_c_sedstart--avdod-input-id'
@@ -1075,11 +1085,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 value={_avdodFnr}
                 error={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : null}
               />
-            </>
+            </Box>
           )}
           {_sed && sedNeedsKravdato(_sed) && (
-            <>
-              <VerticalSeparatorDiv />
+            <Box paddingBlock="4 0">
               <TextField
                 data-testid='a_buc_c_sedstart--kravDato-input-id'
                 id='a_buc_c_sedstart--kravDato-input-id'
@@ -1088,11 +1097,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 onChange={onKravDatoChange}
                 error={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
               />
-            </>
+            </Box>
           )}
           {_sed && sedNeedsKravOm(_sed) && pesysContext !== GJENNY && (
-            <>
-              <VerticalSeparatorDiv />
+            <Box paddingBlock="4 0">
               <RadioGroup
                 value={_kravOm as string}
                 data-testid='a_buc_c_sedstart--kravOm-radiogroup-id'
@@ -1115,11 +1123,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 >{t('buc:form-uføretrygd')}
                 </Radio>
               </RadioGroup>
-            </>
+            </Box>
           )}
           {sedNeedsAvdodBrukerQuestion() && (
-            <>
-              <VerticalSeparatorDiv />
+            <Box paddingBlock="4 0">
               <RadioGroup
                 value={_avdodOrSoker}
                 data-testid='a_buc_c_sedstart--avdodorsoker-radiogroup-id'
@@ -1130,11 +1137,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 <Radio value='AVDOD'>{t('buc:form-avdod')}</Radio>
                 <Radio value='SOKER'>{t('buc:form-søker')}</Radio>
               </RadioGroup>
-            </>
+            </Box>
           )}
           {!currentSed && (
-            <>
-              <VerticalSeparatorDiv />
+            <Box paddingBlock="4 0">
               <CountrySelect
                 ariaLabel={t('ui:country')}
                 aria-describedby='help-country'
@@ -1152,24 +1158,27 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 label={loading.gettingCountryList ? getSpinner('message:loading-country') : t('buc:form-chooseCountry')}
                 onOptionSelected={onCountriesChange}
               />
-              <VerticalSeparatorDiv />
-              <MultipleSelect<Option>
-                ariaLabel={t('ui:institution')}
-                aria-describedby='help-institution'
-                data-testid='a_buc_c_sedstart--institution-select-id'
-                isDisabled={loading.gettingInstitutionList || isDisabled}
-                error={_validation.institution ? t(_validation.institution.feilmelding) : undefined}
-                hideSelectedOptions={false}
-                id='a_buc_c_sedstart--institution-select-id'
-                isLoading={loading.gettingInstitutionList}
-                label={loading.gettingInstitutionList ? getSpinner('message:loading-institution') : t('buc:form-chooseInstitution')}
-                options={_institutionObjectList}
-                onSelect={onInstitutionsChange}
-                values={_institutionValueList}
-              />
-              <VerticalSeparatorDiv size='2' />
+              <Box paddingBlock="4 8">
+                <MultipleSelect<Option>
+                  ariaLabel={t('ui:institution')}
+                  aria-describedby='help-institution'
+                  data-testid='a_buc_c_sedstart--institution-select-id'
+                  isDisabled={loading.gettingInstitutionList || isDisabled}
+                  error={_validation.institution ? t(_validation.institution.feilmelding) : undefined}
+                  hideSelectedOptions={false}
+                  id='a_buc_c_sedstart--institution-select-id'
+                  isLoading={loading.gettingInstitutionList}
+                  label={loading.gettingInstitutionList ? getSpinner('message:loading-institution') : t('buc:form-chooseInstitution')}
+                  options={_institutionObjectList}
+                  onSelect={onInstitutionsChange}
+                  values={_institutionValueList}
+                />
+              </Box>
               {_sed === 'P7000' && bucRequiresP6000s(_buc) && (
-                <>
+                <Box
+                  paddingBlock="0 8"
+                  paddingInline="2 0"
+                >
                   {_.isNil(p6000s)
                     ? (
                       <Button
@@ -1187,76 +1196,76 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                         p6000s={p6000s}
                         onChanged={onChangedSedP6000}
                       />}
-                  <VerticalSeparatorDiv size='2' />
-                </>
+                </Box>
               )}
               <label className='navds-text-field--label navds-label'>
                 {t('buc:form-chosenInstitutions')}
               </label>
-              <VerticalSeparatorDiv />
-              <InstitutionsDiv>
-                <InstitutionList
-                  institutions={_institutions.map(institution => {
-                    const [country, acronym] = institution.split(':')
-                    return {
-                      country,
-                      acronym,
-                      institution,
-                      name: institutionNames ? institutionNames[institution].name : institution
-                    }
-                  })}
-                  locale={locale}
-                  type='joined'
-                />
-              </InstitutionsDiv>
-            </>
+              <Box paddingBlock="4 0">
+                <InstitutionsDiv>
+                  <InstitutionList
+                    institutions={_institutions.map(institution => {
+                      const [country, acronym] = institution.split(':')
+                      return {
+                        country,
+                        acronym,
+                        institution,
+                        name: institutionNames ? institutionNames[institution].name : institution
+                      }
+                    })}
+                    locale={locale}
+                    type='joined'
+                  />
+                </InstitutionsDiv>
+              </Box>
+            </Box>
           )}
-          <Column>
-            <VerticalSeparatorDiv size='1.5' />
-            <Button
-              variant={_sed === 'P7000' && _.isEmpty(_p6000s) ? 'secondary' : 'primary'}
-              data-amplitude='sed.new.create'
-              data-testid='a_buc_c_sedstart--forward-button-id'
-              disabled={loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)}
-              onClick={onForwardButtonClick}
-            >
-              {(loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)) && <Loader />}
-              {loading.creatingSed
-                ? t('message:loading-creatingSED')
-                : _sendingAttachments
-                  ? t('message:loading-sendingSEDattachments')
-                  : (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
-                      ? t('ui:pleaseWaitXSeconds', { cooldown: _bucCooldown })
-                      : t('buc:form-orderSED')}
-            </Button>
-            <HorizontalSeparatorDiv />
-            <Button
-              variant='tertiary'
-              data-amplitude='sed.new.cancel'
-              data-testid='a_buc_c_sedstart--cancel-button-id'
-              onClick={onCancelButtonClick}
-            >
-              {t('ui:cancel')}
-            </Button>
-            <VerticalSeparatorDiv size='1.5' />
-          </Column>
-        </Column>
-        <HorizontalSeparatorDiv />
-        <Column>
+          <Box
+            paddingBlock="6 2"
+            paddingInline="2 0"
+          >
+            <HStack gap="4">
+              <Button
+                variant={_sed === 'P7000' && _.isEmpty(_p6000s) ? 'secondary' : 'primary'}
+                data-amplitude='sed.new.create'
+                data-testid='a_buc_c_sedstart--forward-button-id'
+                disabled={loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)}
+                onClick={onForwardButtonClick}
+              >
+                {(loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)) && <Loader />}
+                {loading.creatingSed
+                  ? t('message:loading-creatingSED')
+                  : _sendingAttachments
+                    ? t('message:loading-sendingSEDattachments')
+                    : (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
+                        ? t('ui:pleaseWaitXSeconds', { cooldown: _bucCooldown })
+                        : t('buc:form-orderSED')}
+              </Button>
+              <Button
+                variant='tertiary'
+                data-amplitude='sed.new.cancel'
+                data-testid='a_buc_c_sedstart--cancel-button-id'
+                onClick={onCancelButtonClick}
+              >
+                {t('ui:cancel')}
+              </Button>
+            </HStack>
+          </Box>
+        </MarginRightDiv>
+        <MarginLeftDiv>
           {sedCanHaveAttachments() && (
-            <>
-              <VerticalSeparatorDiv size='2' />
+            <Box paddingBlock="8 0">
               <label className='navds-text-field--label navds-label'>
                 {t('ui:attachments')}
               </label>
-              <VerticalSeparatorDiv />
-              <Button
-                variant='secondary'
-                onClick={() => setAttachmentsTableVisible(!_attachmentsTableVisible)}
-              >
-                {t(_attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}
-              </Button>
-              <VerticalSeparatorDiv />
+              <Box paddingBlock="4 4">
+                <Button
+                  variant='secondary'
+                  onClick={() => setAttachmentsTableVisible(!_attachmentsTableVisible)}
+                >
+                  {t(_attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}
+                </Button>
+              </Box>
               <SEDAttachmentModal
                 open={_attachmentsTableVisible}
                 onModalClose={() => setAttachmentsTableVisible(false)}
@@ -1266,7 +1275,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               />
               {!_.isEmpty(_sedAttachments) && (
                 <>
-                  <VerticalSeparatorDiv />
                   <JoarkBrowser
                     mode='view'
                     existingItems={_sedAttachments}
@@ -1275,12 +1283,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                   />
                 </>
               )}
-            </>
+            </Box>
           )}
-          <Column>
+          <FlexOneDiv>
             {(_sendingAttachments || _attachmentsSent) && sed && (
               <SEDAttachmentSenderDiv>
-                <>
+                <Box paddingBlock="0 4">
                   <SEDAttachmentSender
                     attachmentsError={attachmentsError}
                     payload={{
@@ -1293,22 +1301,19 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                     onCancel={_cancelSendAttachmentToSed}
                     sendAttachmentToSed={_sendAttachmentToSed}
                   />
-                  <VerticalSeparatorDiv />
-                </>
+                </Box>
               </SEDAttachmentSenderDiv>
             )}
-          </Column>
-        </Column>
-      </Row>
+          </FlexOneDiv>
+        </MarginLeftDiv>
+      </HStack>
       {!hasNoValidationErrors(_validation) && (
         <>
-          <VerticalSeparatorDiv size='2' />
-          <Row>
-            <Column>
+          <Box paddingBlock="4 0">
+            <HGrid columns={2}>
               <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={_validation} />
-            </Column>
-            <Column />
-          </Row>
+            </HGrid>
+          </Box>
         </>
       )}
     </SEDStartDiv>

@@ -20,6 +20,12 @@ export const SeparatorSpan = styled.span`
   margin-left: 0.25rem;
   margin-right: 0.25rem;
 `
+
+export const FlexOneDiv = styled.span`
+    flex: 1;
+    margin-left: 0.5rem;
+`
+
 export const SpinnerDiv = styled.div`
   position: absolute;
   top: 3rem;
