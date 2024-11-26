@@ -7,7 +7,6 @@ import BUCStartIndex from 'src/applications/BUC/components/BUCStart/BUCStartInde
 import { bucFilter, bucSorter, pbuc02filter } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
 import classNames from 'classnames'
 import { HorizontalLineSeparator } from 'src/components/StyledComponents'
-import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import { AllowedLocaleString, BUCMode, PesysContext } from 'src/declarations/app.d'
 import {
   Buc,
@@ -22,7 +21,7 @@ import { PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'src/metrics/loggers'
-import { Alert, BodyLong, Heading, Button} from '@navikt/ds-react'
+import {Alert, BodyLong, Heading, Button, Box} from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -143,80 +142,80 @@ const BUCList: React.FC<BUCListProps> = ({
       onMouseLeave={onMouseLeave}
     >
 
-      <BUCListHeader>
-        <Heading size='small'>
-          {t('buc:form-buclist')}
-        </Heading>
-        <ProgressBarDiv>
-          {(gettingBucsList || gettingBucs) && (
-            <ProgressBar
-              status={status}
-              now={now}
-            >
-              <BodyLong>
-                {t(_.isEmpty(bucsList) ? 'message:loading-bucListX' : 'message:loading-bucsX', { x: now })}
-              </BodyLong>
-            </ProgressBar>
-          )}
-        </ProgressBarDiv>
-        {!_newBucPanelOpen && (
-          <Button
-            variant='secondary'
-            data-amplitude='buc.list.newbuc'
-            data-testid='a-buc-p-buclist--newbuc-button-id'
-            onClick={onBUCNew}
-          >
-            {t('buc:form-createNewCase')}
-          </Button>
-        )}
-      </BUCListHeader>
-      <VerticalSeparatorDiv />
-      <BUCStartDiv className={classNames({
-        open: _newBucPanelOpen === true,
-        close: _newBucPanelOpen === false
-      })}
-      >
-        <BUCNewDiv border>
-          <Heading size='medium'>
-            {t('buc:step-startBUCTitle')}
+      <Box paddingBlock="0 4">
+        <BUCListHeader>
+          <Heading size='small'>
+            {t('buc:form-buclist')}
           </Heading>
-          <HorizontalLineSeparator />
-          <BUCStartIndex
-            aktoerId={aktoerId}
-            onBucCreated={() => {
-              setNewBucPanelOpen(false)
-              setMode('sednew', 'forward')
-              window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: 'smooth'
-              })
-            }}
-            onBucCancelled={() => setNewBucPanelOpen(false)}
-          />
-        </BUCNewDiv>
-        <VerticalSeparatorDiv />
-      </BUCStartDiv>
-      <VerticalSeparatorDiv />
-      {!gettingBucs && _.isEmpty(bucsList) && (
-        <>
-          <VerticalSeparatorDiv size='2' />
-          <BodyLong>
-            {t('message:warning-noBucs')}
-          </BodyLong>
-        </>
-      )}
-      {!_.isNil(_filteredBucs) && !_.isNil(_pBuc02filteredBucs) && _filteredBucs.length !== _pBuc02filteredBucs.length && (
-        <>
-          <VerticalSeparatorDiv />
-          <BadBucDiv>
-            <Alert variant='warning'>
-              {t('message:warning-filteredBucs')}
-            </Alert>
-          </BadBucDiv>
-          <VerticalSeparatorDiv />
-        </>
-      )}
+          <ProgressBarDiv>
+            {(gettingBucsList || gettingBucs) && (
+              <ProgressBar
+                status={status}
+                now={now}
+              >
+                <BodyLong>
+                  {t(_.isEmpty(bucsList) ? 'message:loading-bucListX' : 'message:loading-bucsX', { x: now })}
+                </BodyLong>
+              </ProgressBar>
+            )}
+          </ProgressBarDiv>
+          {!_newBucPanelOpen && (
+            <Button
+              variant='secondary'
+              data-amplitude='buc.list.newbuc'
+              data-testid='a-buc-p-buclist--newbuc-button-id'
+              onClick={onBUCNew}
+            >
+              {t('buc:form-createNewCase')}
+            </Button>
+          )}
+        </BUCListHeader>
+      </Box>
+        <BUCStartDiv className={classNames({
+          open: _newBucPanelOpen === true,
+          close: _newBucPanelOpen === false
+        })}
+        >
+          <Box paddingBlock="0 4">
+            <BUCNewDiv border>
+              <Heading size='medium'>
+                {t('buc:step-startBUCTitle')}
+              </Heading>
+              <HorizontalLineSeparator />
+              <BUCStartIndex
+                aktoerId={aktoerId}
+                onBucCreated={() => {
+                  setNewBucPanelOpen(false)
+                  setMode('sednew', 'forward')
+                  window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                  })
+                }}
+                onBucCancelled={() => setNewBucPanelOpen(false)}
+              />
+            </BUCNewDiv>
+          </Box>
+        </BUCStartDiv>
+      <Box paddingBlock="4 0">
+        {!gettingBucs && _.isEmpty(bucsList) && (
+          <Box paddingBlock="4 4">
+            <BodyLong>
+              {t('message:warning-noBucs')}
+            </BodyLong>
+          </Box>
+        )}
+        {!_.isNil(_filteredBucs) && !_.isNil(_pBuc02filteredBucs) && _filteredBucs.length !== _pBuc02filteredBucs.length && (
+          <>
+            <BadBucDiv>
+              <Alert variant='warning'>
+                {t('message:warning-filteredBucs')}
+              </Alert>
+            </BadBucDiv>
+          </>
+        )}
+      </Box>
       {!_.isNil(_sortedBucs) && !_.isEmpty(_sortedBucs) &&
           _sortedBucs.map((buc: Buc, index: number) => {
             if (buc?.error) {
