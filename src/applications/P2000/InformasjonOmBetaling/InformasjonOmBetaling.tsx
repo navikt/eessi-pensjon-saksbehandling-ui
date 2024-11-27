@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {useTranslation} from "react-i18next";
-import {Heading, Radio, RadioGroup} from "@navikt/ds-react";
-import {AlignStartRow, VerticalSeparatorDiv, PaddedDiv, Column} from "@navikt/hoykontrast";
+import {Box, Heading, Radio, RadioGroup, VStack} from "@navikt/ds-react";
 import {State} from "src/declarations/reducers";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useAppSelector} from "src/store";
@@ -21,6 +20,7 @@ import {
   ValidationIbanProps,
   ValidationSwiftProps
 } from "./validation";
+import {TopAlignedGrid} from "src/components/StyledComponents";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -149,60 +149,50 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
   })
 
   return (
-    <>
-      <PaddedDiv>
+    <Box padding="4">
+      <VStack gap="4">
         <Heading size='medium'>
           {label}
         </Heading>
-        <VerticalSeparatorDiv/>
-        <AlignStartRow>
-          <Column>
-            <RadioGroup
-              error={validation[namespace + '-konto-innehaver-rolle']?.feilmelding}
-              id='bank-konto-innehaver-rolle'
-              legend={t('p2000:form-bank-konto-innehaver-rolle')}
-              onChange={(e: any) => setInnehaverRolle(e)}
-              value={(bank?.konto?.innehaver?.rolle) ?? ''}
+        <TopAlignedGrid gap="4" columns={2}>
+          <RadioGroup
+            error={validation[namespace + '-konto-innehaver-rolle']?.feilmelding}
+            id='bank-konto-innehaver-rolle'
+            legend={t('p2000:form-bank-konto-innehaver-rolle')}
+            onChange={(e: any) => setInnehaverRolle(e)}
+            value={(bank?.konto?.innehaver?.rolle) ?? ''}
 
-            >
-              <Radio value="forsikret_person">Forsikret person</Radio>
-              <Radio value="representant_eller_verge">Representant/Verge</Radio>
-            </RadioGroup>
-
-          </Column>
-        </AlignStartRow>
-        <AlignStartRow>
-          <Column>
-            <Input
-              error={validation[namespace + '-konto-innehaver-navn']?.feilmelding}
-              namespace={namespace}
-              id='bank-konto-innehaver-navn'
-              label={t('p2000:form-bank-konto-innehaver-navn')}
-              onChanged={setInnehaverNavn}
-              value={(bank?.konto?.innehaver?.navn) ?? ''}
-            />
-          </Column>
-        </AlignStartRow>
-        <VerticalSeparatorDiv/>
+          >
+            <Radio value="forsikret_person">Forsikret person</Radio>
+            <Radio value="representant_eller_verge">Representant/Verge</Radio>
+          </RadioGroup>
+        </TopAlignedGrid>
+        <TopAlignedGrid gap="4" columns={2}>
+          <Input
+            error={validation[namespace + '-konto-innehaver-navn']?.feilmelding}
+            namespace={namespace}
+            id='bank-konto-innehaver-navn'
+            label={t('p2000:form-bank-konto-innehaver-navn')}
+            onChanged={setInnehaverNavn}
+            value={(bank?.konto?.innehaver?.navn) ?? ''}
+          />
+        </TopAlignedGrid>
         <Heading size='medium'>
           Bankinformasjon
         </Heading>
-        <VerticalSeparatorDiv/>
-        <AlignStartRow>
-          <Column>
-            <RadioGroup
-              error={validation[namespace + '-konto-sepa-ikkesepa']?.feilmelding}
-              id='bank-konto-sepa-ikkesepa'
-              legend={t('p2000:form-bank-konto-sepa-ikkesepa')}
-              onChange={(e: any) => sepaIkkeSepaChange(e)}
-              value={(_sepaIkkeSepa) ?? ''}
-            >
-              <Radio value="sepa">SEPA-konto</Radio>
-              <Radio value="ikkesepa">Ikke SEPA-konto</Radio>
-            </RadioGroup>
-          </Column>
+        <TopAlignedGrid gap="4" columns={2}>
+          <RadioGroup
+            error={validation[namespace + '-konto-sepa-ikkesepa']?.feilmelding}
+            id='bank-konto-sepa-ikkesepa'
+            legend={t('p2000:form-bank-konto-sepa-ikkesepa')}
+            onChange={(e: any) => sepaIkkeSepaChange(e)}
+            value={(_sepaIkkeSepa) ?? ''}
+          >
+            <Radio value="sepa">SEPA-konto</Radio>
+            <Radio value="ikkesepa">Ikke SEPA-konto</Radio>
+          </RadioGroup>
           {_sepaIkkeSepa === "sepa" &&
-            <Column>
+            <VStack gap="4">
               <Input
                 error={validation[namespace + '-konto-sepa-iban']?.feilmelding}
                 namespace={namespace}
@@ -219,10 +209,10 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
                 onChanged={setSepaSwift}
                 value={(bank?.konto?.sepa?.swift) ?? ''}
               />
-            </Column>
+            </VStack>
           }
           {_sepaIkkeSepa === "ikkesepa" &&
-            <Column>
+            <VStack gap="4">
               <Input
                 error={validation[namespace + '-konto-kontonr']?.feilmelding}
                 namespace={namespace}
@@ -239,30 +229,26 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
                 onChanged={setIkkeSepaSwift}
                 value={(bank?.konto?.ikkesepa?.swift) ?? ''}
               />
-            </Column>
+            </VStack>
           }
-        </AlignStartRow>
+        </TopAlignedGrid>
         {_sepaIkkeSepa === "ikkesepa" &&
           <>
-            <AlignStartRow>
-              <Column>
-                <Input
-                  error={validation[namespace + '-bank-navn']?.feilmelding}
-                  namespace={namespace}
-                  id='bank-navn'
-                  label={t('p2000:form-bank-navn')}
-                  onChanged={setBankNavn}
-                  value={(bank?.navn) ?? ''}
-                />
-              </Column>
-              <Column/>
-            </AlignStartRow>
-            <VerticalSeparatorDiv/>
+            <TopAlignedGrid gap="4" columns={2}>
+              <Input
+                error={validation[namespace + '-bank-navn']?.feilmelding}
+                namespace={namespace}
+                id='bank-navn'
+                label={t('p2000:form-bank-navn')}
+                onChanged={setBankNavn}
+                value={(bank?.navn) ?? ''}
+              />
+            </TopAlignedGrid>
             <Adresse usePostKode={true} PSED={PSED} updatePSED={updatePSED} parentNamespace={namespace + '-bank'} parentTarget={target}/>
           </>
         }
-      </PaddedDiv>
-    </>
+      </VStack>
+    </Box>
   )
 }
 export default InformasjonOmBetaling
