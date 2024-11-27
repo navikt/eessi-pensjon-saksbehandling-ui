@@ -4,15 +4,7 @@ import {useTranslation} from "react-i18next";
 import Modal from "src/components/Modal/Modal";
 import styled from "styled-components";
 import * as types from 'src/constants/actionTypes'
-import {Alert, Button, Loader} from "@navikt/ds-react";
-import {
-  FlexCenterSpacedDiv,
-  PileCenterDiv,
-  VerticalSeparatorDiv,
-  PileDiv,
-  HorizontalSeparatorDiv,
-
-} from '@navikt/hoykontrast'
+import {Alert, Box, Button, HStack, Loader, Spacer, VStack} from "@navikt/ds-react";
 import {CheckmarkCircleFillIcon} from "@navikt/aksel-icons";
 
 const MinimalModalDiv = styled.div`
@@ -81,56 +73,52 @@ const SaveSEDModal: React.FC<SaveSEDModalProps> = ({
         modalContent: (
           <MinimalModalDiv>
             {alertMessage && alertType && [types.BUC_PUT_SED_FAILURE].indexOf(alertType) >= 0 && (
-              <PileCenterDiv>
+              <VStack gap="4">
                 <AlertstripeDiv>
                   <Alert variant='error'>{alertMessage}</Alert>
                 </AlertstripeDiv>
-                <VerticalSeparatorDiv />
-                <FlexCenterSpacedDiv>
-                  <div />
+                <HStack>
+                  <Spacer/>
                   <Button
                     variant='secondary'
                     onClick={onModalClose}
                   >
                     {t('ui:damn-really')}
                   </Button>
-                  <div />
-                </FlexCenterSpacedDiv>
-              </PileCenterDiv>
+                  <Spacer/>
+                </HStack>
+              </VStack>
             )}
 
             <MinimalContentDiv>
               <SectionDiv>
-                <PileDiv style={{ alignItems: 'flex-start' }}>
+                <VStack style={{ alignItems: 'flex-start' }}>
                   <div>
                     {savingSed && (
-                      <FlexCenterSpacedDiv>
+                      <HStack gap="4">
                         <Loader type='xsmall' />
-                        <HorizontalSeparatorDiv size='0.5' />
                         <span>{t('message:loading-lagrer-sed')}</span>
-                      </FlexCenterSpacedDiv>
+                      </HStack>
                     )}
                     {!savingSed && bannerStatus !== 'error' && (
-                      <FlexCenterSpacedDiv>
+                      <HStack gap="4">
                         <CheckmarkCircleFillIcon color='green' />
-                        <HorizontalSeparatorDiv size='0.5' />
                         <span>{t('message:loading-sed-lagret')}</span>
-                      </FlexCenterSpacedDiv>
+                      </HStack>
                     )}
                   </div>
-                  <VerticalSeparatorDiv size='0.5' />
-                </PileDiv>
+                </VStack>
               </SectionDiv>
               <SectionDiv>
                 {!savingSed &&  bannerStatus !== 'error' && (
-                  <FlexCenterSpacedDiv>
+                  <Box>
                     <Button
                       variant='secondary'
                       onClick={onModalClose}
                     >
                       {t('ui:close')}
                     </Button>
-                  </FlexCenterSpacedDiv>
+                  </Box>
                 )}
               </SectionDiv>
             </MinimalContentDiv>
