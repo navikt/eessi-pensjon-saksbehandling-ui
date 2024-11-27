@@ -32,6 +32,12 @@ export const SpinnerDiv = styled.div`
   left: 0;
   right: 0;
 `
+
+export const HorizontalSeparatorSpan = styled.span<{size?: string}>`
+  display: inline-block;
+  margin-left: ${(props: any) => props.size || 1}rem;
+`
+
 export const HorizontalLineSeparator = styled.div`
   height: 1px;
   background: linear-gradient(90deg,

@@ -5,26 +5,28 @@ import { PersonAvdod, PersonAvdods } from 'src/declarations/person.d'
 import CountryData from '@navikt/land-verktoy'
 import _ from 'lodash'
 import moment from 'moment'
-import { BodyLong, Detail } from '@navikt/ds-react'
-import { Column, HorizontalSeparatorDiv, HorizontalSeparatorSpan, Row } from '@navikt/hoykontrast'
+import { BodyLong, Box, Detail, HStack } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { HorizontalLineSeparator } from 'src/components/StyledComponents'
+import { HorizontalLineSeparator, HorizontalSeparatorSpan } from 'src/components/StyledComponents'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 
 const Element = styled.div`
   display: flex;
   align-items: baseline;
 `
-const MarginRow = styled(Row)`
+const MarginRow = styled(HStack)`
   margin: 1.5rem;
   display: flex;
 `
-const MarginColumn = styled(Column)`
+const MarginColumn = styled.div`
   display: flex;
   align-items: flex-start;
   margin-bottom: 0.5rem;
+  flex: ${(props: any) => props.flex || 1};
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 `
 export const PersonBodyDiv = styled.div``
 
@@ -61,10 +63,11 @@ const PersonBody: React.FC<PersonBodyProps> = ({
             {t(label)}
           </strong>:
         </Detail>
-        <HorizontalSeparatorDiv />
-        <div className='navds-body-long'>
-          {_value.map((val: any) => val)}
-        </div>
+        <Box paddingInline="4 0">
+          <div className='navds-body-long'>
+            {_value.map((val: any) => val)}
+          </div>
+        </Box>
       </Element>
     )
   }
@@ -179,32 +182,37 @@ const PersonBody: React.FC<PersonBodyProps> = ({
     <PersonBodyDiv data-testid="person-body-div">
       <MarginRow key="personBody-marginrow-1">
         <MarginColumn key="personBody-marginrow-1-margincolumn-1">
-          <HouseIcon title={t('ui:bostedsadresse')} fontSize="1.5rem" />
-          <HorizontalSeparatorDiv />
-          {bostedsadresse ? renderEntity('ui:bostedsadresse', bostedsadresse) : null}
+          <HStack gap="4">
+            <HouseIcon title={t('ui:bostedsadresse')} fontSize="1.5rem" />
+            {bostedsadresse ? renderEntity('ui:bostedsadresse', bostedsadresse) : null}
+          </HStack>
         </MarginColumn>
         <MarginColumn key="personBody-marginrow-1-margincolumn-2">
-          <CalendarIcon title={t('ui:birthdate')} fontSize="1.5rem" />
-          <HorizontalSeparatorDiv />
-          {renderEntity('ui:birthdate', birthDateString)}
+          <HStack gap="4">
+            <CalendarIcon title={t('ui:birthdate')} fontSize="1.5rem" />
+            {renderEntity('ui:birthdate', birthDateString)}
+          </HStack>
         </MarginColumn>
         <MarginColumn key="personBody-marginrow-1-margincolumn-3">
-          <PersonRectangleIcon title={t('ui:nationality')} fontSize="1.5rem"/>
-          <HorizontalSeparatorDiv />
-          {renderEntity('ui:nationality', nationality)}
+          <HStack gap="4">
+            <PersonRectangleIcon title={t('ui:nationality')} fontSize="1.5rem"/>
+            {renderEntity('ui:nationality', nationality)}
+          </HStack>
         </MarginColumn>
       </MarginRow>
       <HorizontalLineSeparator />
       <MarginRow key="personBody-marginrow-2">
         <MarginColumn key="personBody-marginrow-2-margincolumn-1">
-          <GlobeIcon title={t('ui:oppholdsadresse')} fontSize="1.5rem" />
-          <HorizontalSeparatorDiv />
-          {renderEntity('ui:oppholdsadresse', oppholdsadresse)}
+          <HStack gap="4">
+            <GlobeIcon title={t('ui:oppholdsadresse')} fontSize="1.5rem" />
+            {renderEntity('ui:oppholdsadresse', oppholdsadresse)}
+          </HStack>
         </MarginColumn>
         <MarginColumn key="personBody-marginrow-2-margincolumn-2">
-          <HeartIcon title={t('ui:marital-status')} fontSize="1.5rem"/>
-          <HorizontalSeparatorDiv />
-          {renderEntity('ui:marital-status', maritalStatus)}
+          <HStack gap="4">
+            <HeartIcon title={t('ui:marital-status')} fontSize="1.5rem"/>
+            {renderEntity('ui:marital-status', maritalStatus)}
+          </HStack>
         </MarginColumn>
         <MarginColumn key="personBody-marginrow-2-margincolumn-3"/>
       </MarginRow>
@@ -215,10 +223,11 @@ const PersonBody: React.FC<PersonBodyProps> = ({
 
             <MarginColumn key="personBody-marginrow-3-margincolumn-1">
               <PersonIcon fontSize="1.5rem" />
-              <HorizontalSeparatorDiv />
-              <Detail size='small'>
-                <strong>{t('ui:deceased')}</strong>:
-              </Detail>
+              <Box paddingInline="4 0">
+                <Detail size='small'>
+                  <strong>{t('ui:deceased')}</strong>:
+                </Detail>
+               </Box>
               <div>
                 {personAvdods && personAvdods.length > 0
                   ? personAvdods.map((avdod: PersonAvdod) => (
@@ -226,43 +235,40 @@ const PersonBody: React.FC<PersonBodyProps> = ({
                       key={avdod.fnr}
                       id='w-overview-PersonBody--element-deceased'
                     >
-                      <HorizontalSeparatorDiv />
-                      <BodyLong>
-                        {
-                          avdod?.fornavn +
-                          (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
-                          (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
-                          ' - ' + avdod.fnr
-                        }
-                        {
-                          avdod.relasjon ? ' (' + t('buc:relasjon-' + avdod?.relasjon) + ')' : ''
-                        }
-                        {
-                          avdod?.doedsDato ? ' (Dødsdato: ' + avdod.doedsDato + ')' : ''
-                        }
+                      <Box paddingInline="4 0">
+                        <BodyLong>
+                          {avdod?.fornavn +
+                            (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
+                            (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
+                            ' - ' + avdod.fnr}
+                          {avdod.relasjon ? ' (' + t('buc:relasjon-' + avdod?.relasjon) + ')' : ''}
+                          {avdod?.doedsDato ? ' (Dødsdato: ' + avdod.doedsDato + ')' : ''}
 
-                      </BodyLong>
+                        </BodyLong>
+                      </Box>
                     </Element>
-                    ))
+                  ))
                   : (
                     <Element
-                      key='noAvdod'
-                      id='w-overview-PersonBody--element-deceased'
-                    >
-                      <HorizontalSeparatorDiv />
-                      <BodyLong>
-                        {t('buc:form-noAvdod')}
-                      </BodyLong>
-                    </Element>
-                    )}
+                        key='noAvdod'
+                        id='w-overview-PersonBody--element-deceased'
+                      >
+                        <Box paddingInline="4 0">
+                          <BodyLong>
+                            {t('buc:form-noAvdod')}
+                          </BodyLong>
+                        </Box>
+                      </Element>
+                      )}
               </div>
             </MarginColumn>
             {deathDateString
               ? (
                 <MarginColumn key="personBody-marginrow-3-margincolumn-2">
-                  <CalendarIcon fontSize="1.5rem" />
-                  <HorizontalSeparatorDiv />
-                  {renderEntity('ui:deathdate', deathDateString)}
+                  <HStack gap="4">
+                    <CalendarIcon fontSize="1.5rem" />
+                    {renderEntity('ui:deathdate', deathDateString)}
+                  </HStack>
                 </MarginColumn>
                 )
               : (
