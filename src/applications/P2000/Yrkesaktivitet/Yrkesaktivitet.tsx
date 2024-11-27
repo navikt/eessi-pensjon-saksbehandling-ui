@@ -1,12 +1,4 @@
-import {BodyLong, Button, Heading, Label, Select, Table} from "@navikt/ds-react";
-import {
-  VerticalSeparatorDiv,
-  PaddedDiv,
-  AlignStartRow,
-  Column,
-  AlignEndColumn,
-  PileDiv
-} from "@navikt/hoykontrast";
+import {BodyLong, Box, Button, Heading, HStack, Label, Select, Spacer, Table, VStack} from "@navikt/ds-react";
 import React, {Fragment, useEffect, useState} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import _ from "lodash";
@@ -25,7 +17,7 @@ import {
 } from "./validation";
 import {getIdx} from "src/utils/namespace";
 import {Validation} from "src/declarations/app";
-import {RepeatableRowNoBackground} from "src/components/StyledComponents";
+import {RepeatableBoxWithBorder} from "src/components/StyledComponents";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
@@ -33,9 +25,8 @@ import useValidation from "../../../hooks/useValidation";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import InntektRows from "../Inntekt/InntektRows";
-import FormText from "src/components/Forms/FormText";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
-//import useValidation from "../../../hooks/useValidation";
+import FormTextBox from "src/components/Forms/FormTextBox";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -205,7 +196,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
     const _arbeidsforhold = index < 0 ? _newArbeidsforhold : (inEditMode ? _editArbeidsforhold : arbeidsforhold)
     return (
       <Fragment key={_namespace}>
-        <RepeatableRowNoBackground
+        <RepeatableBoxWithBorder
           id={'repeatablerow-' + _namespace}
           key={index}
           className={classNames({
@@ -213,31 +204,29 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
             error: hasNamespaceWithErrors(_v, _namespace),
             selected: inEditMode
           })}
+          padding="4"
         >
-          <VerticalSeparatorDiv size='0.5' />
-          <AlignStartRow>
-            <Column flex="2">
+          <VStack gap="4">
+            <HStack>
               {inEditMode
                 ?
                 (
-                  <PileDiv>
-                    <Select
-                      error={_v[_namespace + '-yrkesaktivitet']?.feilmelding}
-                      id={_namespace + '-yrkesaktivitet'}
-                      label="Yrkesaktivitet"
-                      onChange={(e) => setYrkeType(e.target.value, index)}
-                      value={(_arbeidsforhold?.type)  ?? ''}
-                    >
-                      <option value=''>Velg</option>
-                      {yrkeOptions.map((option) => {
-                        return(<option key={option.value} value={option.value}>{option.label}</option>)
-                      })}
-                    </Select>
-                  </PileDiv>
+                  <Select
+                    error={_v[_namespace + '-yrkesaktivitet']?.feilmelding}
+                    id={_namespace + '-yrkesaktivitet'}
+                    label="Yrkesaktivitet"
+                    onChange={(e) => setYrkeType(e.target.value, index)}
+                    value={(_arbeidsforhold?.type)  ?? ''}
+                  >
+                    <option value=''>Velg</option>
+                    {yrkeOptions.map((option) => {
+                      return(<option key={option.value} value={option.value}>{option.label}</option>)
+                    })}
+                  </Select>
                 )
                 :
                 (
-                  <FormText
+                  <FormTextBox
                     error={_v[_namespace + '-yrkesaktivitet']?.feilmelding}
                     id={_namespace + '-yrkesaktivitet'}
                   >
@@ -247,26 +236,26 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
                     <BodyLong>
                       {getYrkeLabel(_arbeidsforhold?.type)}
                     </BodyLong>
-                  </FormText>
+                  </FormTextBox>
                 )
               }
-            </Column>
-            <AlignEndColumn>
-              <AddRemovePanel<Arbeidsforhold>
-                item={arbeidsforhold}
-                marginTop={index < 0}
-                index={index}
-                inEditMode={inEditMode}
-                onRemove={onRemove}
-                onAddNew={onAddNew}
-                onCancelNew={onCloseNew}
-                onStartEdit={onStartEdit}
-                onConfirmEdit={onSaveEdit}
-                onCancelEdit={() => onCloseEdit(_namespace)}
-              />
-            </AlignEndColumn>
-          </AlignStartRow>
-          <AlignStartRow>
+              <Spacer/>
+              <Box>
+                <AddRemovePanel<Arbeidsforhold>
+                  item={arbeidsforhold}
+                  marginTop={index < 0}
+                  index={index}
+                  inEditMode={inEditMode}
+                  onRemove={onRemove}
+                  onAddNew={onAddNew}
+                  onCancelNew={onCloseNew}
+                  onStartEdit={onStartEdit}
+                  onConfirmEdit={onSaveEdit}
+                  onCancelEdit={() => onCloseEdit(_namespace)}
+                />
+              </Box>
+            </HStack>
+
             <Table zebraStripes={true}>
               <Table.Header>
                 <Table.Row>
@@ -288,33 +277,29 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
                 }
               </Table.Body>
             </Table>
-          </AlignStartRow>
-          <VerticalSeparatorDiv/>
-          <AlignStartRow>
             {inEditMode && !_newInntektForm &&
-              <Button
-                variant='tertiary'
-                onClick={() => _setNewInntektForm(true)}
-                iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
-              >
-                {t('ui:add-new-x', { x: t('p2000:form-arbeidsforhold-inntekt')?.toLowerCase() })}
-              </Button>
+              <Box>
+                <Button
+                  variant='tertiary'
+                  onClick={() => _setNewInntektForm(true)}
+                  iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
+                >
+                  {t('ui:add-new-x', { x: t('p2000:form-arbeidsforhold-inntekt')?.toLowerCase() })}
+                </Button>
+              </Box>
             }
-          </AlignStartRow>
-          <VerticalSeparatorDiv/>
-        </RepeatableRowNoBackground>
-        <VerticalSeparatorDiv/>
+          </VStack>
+        </RepeatableBoxWithBorder>
       </Fragment>
     )
   }
 
   return (
-    <>
-      <PaddedDiv>
+    <Box padding="4">
+      <VStack gap="4">
         <Heading size='medium'>
           {label}
         </Heading>
-        <VerticalSeparatorDiv/>
         {_.isEmpty(arbeidsforholdArray)
           ? (
             <BodyLong>
@@ -327,11 +312,10 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
             </>
           )
         }
-        <VerticalSeparatorDiv />
         {_newForm
           ? renderRow(null, -1)
           : (
-            <AlignStartRow>
+            <Box>
               <Button
                 variant='tertiary'
                 onClick={() => _setNewForm(true)}
@@ -339,11 +323,11 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
               >
                 {t('ui:add-new-x', { x: t('p2000:form-arbeidsforhold')?.toLowerCase() })}
               </Button>
-            </AlignStartRow>
+            </Box>
           )}
 
-      </PaddedDiv>
-    </>
+      </VStack>
+    </Box>
   )
 }
 
