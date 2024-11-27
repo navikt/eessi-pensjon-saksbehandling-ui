@@ -3,15 +3,14 @@ import {MainFormSelector} from "../MainForm";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {useAppSelector} from "src/store";
-import {AlignStartRow, Column, VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import Input from "src/components/Forms/Input";
 import DateField from "../DateField/DateField";
-import {BodyLong, Label, Radio} from "@navikt/ds-react";
+import {BodyLong, HGrid, Label, Radio, VStack} from "@navikt/ds-react";
 import {Person} from "src/declarations/p2000";
 import {  formatDate} from "src/utils/utils";
-import FormText from "../../../components/Forms/FormText";
 import {HorizontalRadioGroup} from "src/components/StyledComponents";
-import {Validation} from "../../../declarations/app";
+import {Validation} from "src/declarations/app";
+import FormTextBox from "src/components/Forms/FormTextBox";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -48,114 +47,97 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
   }
 
   return(
-      <>
+      <VStack gap="4">
         {parentEditMode &&
           <>
-            <AlignStartRow>
-              <Column>
-                <Input
-                  error={v[namespace + '-etternavn']?.feilmelding}
-                  namespace={namespace}
-                  id='etternavn'
-                  label={t('p2000:form-person-etternavn')}
-                  onChanged={(v) => setPersonOpplysninger("etternavn", v, parentIndex)}
-                  value={(person?.etternavn) ?? ''}
-                />
-              </Column>
-              <Column>
-                <Input
-                  error={v[namespace + '-fornavn']?.feilmelding}
-                  namespace={namespace}
-                  id='fornavn'
-                  label={t('p2000:form-person-fornavn')}
-                  onChanged={(v) => setPersonOpplysninger("fornavn", v, parentIndex)}
-                  value={(person?.fornavn)  ?? ''}
-                />
-              </Column>
-            </AlignStartRow>
-            <VerticalSeparatorDiv/>
-            <AlignStartRow>
-              <Column>
-                <DateField
-                  id='foedselsdato'
-                  index={0}
-                  label={t('p2000:form-person-foedselsdato')}
-                  error={v[namespace + '-foedselsdato']?.feilmelding}
-                  namespace={namespace}
-                  onChanged={(v) => setPersonOpplysninger("foedselsdato", v, parentIndex)}
-                  dateValue={person?.foedselsdato ?? ''}
-                />
-              </Column>
-              <Column>
-                <HorizontalRadioGroup
-                  error={v[namespace + '-kjoenn']?.feilmelding}
-                  id={namespace + "-kjoenn"}
-                  legend={t('p2000:form-person-kjoenn')}
-                  onChange={(v) => setPersonOpplysninger("kjoenn", v, parentIndex)}
-                  value={person?.kjoenn}
-                >
-                  <Radio value="M">Mann</Radio>
-                  <Radio value="K">Kvinne</Radio>
-                  <Radio value="">Ukjent</Radio>
-                </HorizontalRadioGroup>
-              </Column>
-            </AlignStartRow>
+            <HGrid gap="4" columns={2}>
+              <Input
+                error={v[namespace + '-etternavn']?.feilmelding}
+                namespace={namespace}
+                id='etternavn'
+                label={t('p2000:form-person-etternavn')}
+                onChanged={(v) => setPersonOpplysninger("etternavn", v, parentIndex)}
+                value={(person?.etternavn) ?? ''}
+              />
+              <Input
+                error={v[namespace + '-fornavn']?.feilmelding}
+                namespace={namespace}
+                id='fornavn'
+                label={t('p2000:form-person-fornavn')}
+                onChanged={(v) => setPersonOpplysninger("fornavn", v, parentIndex)}
+                value={(person?.fornavn)  ?? ''}
+              />
+            </HGrid>
+            <HGrid gap="4" columns={2}>
+              <DateField
+                id='foedselsdato'
+                index={0}
+                label={t('p2000:form-person-foedselsdato')}
+                error={v[namespace + '-foedselsdato']?.feilmelding}
+                namespace={namespace}
+                onChanged={(v) => setPersonOpplysninger("foedselsdato", v, parentIndex)}
+                dateValue={person?.foedselsdato ?? ''}
+              />
+              <HorizontalRadioGroup
+                error={v[namespace + '-kjoenn']?.feilmelding}
+                id={namespace + "-kjoenn"}
+                legend={t('p2000:form-person-kjoenn')}
+                onChange={(v) => setPersonOpplysninger("kjoenn", v, parentIndex)}
+                value={person?.kjoenn}
+              >
+                <Radio value="M">Mann</Radio>
+                <Radio value="K">Kvinne</Radio>
+                <Radio value="">Ukjent</Radio>
+              </HorizontalRadioGroup>
+            </HGrid>
           </>
         }
         {!parentEditMode &&
           <>
-            <AlignStartRow>
-              <Column>
-                <FormText
-                  error={v[namespace + '-etternavn']?.feilmelding}
-                  id={namespace + '-etternavn'}
-                >
-                  <Label>
-                    {t('p2000:form-person-etternavn')}
-                  </Label>
-                  <BodyLong>{person?.etternavn}</BodyLong>
-                </FormText>
-              </Column>
-              <Column>
-                <FormText
-                  error={v[namespace + '-fornavn']?.feilmelding}
-                  id={namespace + '-fornavn'}
-                >
-                  <Label>
-                    {t('p2000:form-person-fornavn')}
-                  </Label>
-                  <BodyLong>{person?.fornavn}</BodyLong>
-                </FormText>
-              </Column>
-            </AlignStartRow>
-            <VerticalSeparatorDiv/>
-            <AlignStartRow>
-              <Column>
-                <FormText
-                  id={namespace + '-foedselsdato'}
-                  error={v[namespace + '-foedselsdato']?.feilmelding}
-                >
-                  <Label>
-                    {t('p2000:form-person-foedselsdato')}
-                  </Label>
-                  <BodyLong>{formatDate(person?.foedselsdato)}</BodyLong>
-                </FormText>
-              </Column>
-              <Column>
-                <FormText
-                  error={v[namespace + '-kjoenn']?.feilmelding}
-                  id={namespace + "-kjoenn"}
-                >
-                  <Label>
-                    {t('p2000:form-person-kjoenn')}
-                  </Label>
-                  <BodyLong>{getKjoenn(person?.kjoenn)}</BodyLong>
-                </FormText>
-              </Column>
-            </AlignStartRow>
+            <HGrid gap="4" columns={2}>
+              <FormTextBox padding="0"
+                error={v[namespace + '-etternavn']?.feilmelding}
+                id={namespace + '-etternavn'}
+              >
+                <Label>
+                  {t('p2000:form-person-etternavn')}
+                </Label>
+                <BodyLong>{person?.etternavn}</BodyLong>
+              </FormTextBox>
+              <FormTextBox padding="0"
+                error={v[namespace + '-fornavn']?.feilmelding}
+                id={namespace + '-fornavn'}
+              >
+                <Label>
+                  {t('p2000:form-person-fornavn')}
+                </Label>
+                <BodyLong>{person?.fornavn}</BodyLong>
+              </FormTextBox>
+            </HGrid>
+
+            <HGrid gap="4" columns={2}>
+              <FormTextBox padding="0"
+                id={namespace + '-foedselsdato'}
+                error={v[namespace + '-foedselsdato']?.feilmelding}
+              >
+                <Label>
+                  {t('p2000:form-person-foedselsdato')}
+                </Label>
+                <BodyLong>{formatDate(person?.foedselsdato)}</BodyLong>
+              </FormTextBox>
+              <FormTextBox padding="0"
+                error={v[namespace + '-kjoenn']?.feilmelding}
+                id={namespace + "-kjoenn"}
+              >
+                <Label>
+                  {t('p2000:form-person-kjoenn')}
+                </Label>
+                <BodyLong>{getKjoenn(person?.kjoenn)}</BodyLong>
+              </FormTextBox>
+            </HGrid>
           </>
         }
-      </>
+      </VStack>
   )
 }
 

@@ -7,11 +7,11 @@ import Input from "src/components/Forms/Input";
 import {Person} from "src/declarations/p2000";
 import {BodyLong, Heading, Label, VStack} from "@navikt/ds-react";
 import {Country} from "@navikt/land-verktoy";
-import FormText from "../../../components/Forms/FormText";
 import {Validation} from "src/declarations/app";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import {TopAlignedGrid} from "src/components/StyledComponents";
+import FormTextBox from "src/components/Forms/FormTextBox";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -77,7 +77,7 @@ const Foedested: React.FC<FoedestedProps> = ({
             {!person?.foedested?.by && !person?.foedested?.region && !person?.foedested?.land && <em>Ingen fødested registrert</em>}
             {(person?.foedested?.by || person?.foedested?.region || person?.foedested?.land) &&
               <>
-                <FormText
+                <FormTextBox padding="0"
                   id={"person-foedested-by"}
                   error={v[namespace + '-by']?.feilmelding}
                 >
@@ -85,8 +85,8 @@ const Foedested: React.FC<FoedestedProps> = ({
                     {t('p2000:form-person-foedested-by')}
                   </Label>
                   <BodyLong>{person?.foedested?.by}</BodyLong>
-                </FormText>
-                <FormText
+                </FormTextBox>
+                <FormTextBox padding="0"
                   id={"person-foedested-region"}
                   error={v[namespace + '-region']?.feilmelding}
                 >
@@ -94,8 +94,8 @@ const Foedested: React.FC<FoedestedProps> = ({
                     {t('p2000:form-person-foedested-region')}
                   </Label>
                   <BodyLong>{person?.foedested?.region}</BodyLong>
-                </FormText>
-                <FormText
+                </FormTextBox>
+                <FormTextBox padding="0"
                   id={"person-foedested-land"}
                   error={v[namespace + '-land']?.feilmelding}
                 >
@@ -103,7 +103,7 @@ const Foedested: React.FC<FoedestedProps> = ({
                     {t('p2000:form-person-foedested-land')}
                   </Label>
                   <FlagPanel land={person?.foedested?.land}/>
-                </FormText>
+                </FormTextBox>
               </>
             }
           </>
