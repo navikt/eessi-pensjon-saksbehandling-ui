@@ -50,7 +50,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
       <VStack gap="4">
         {parentEditMode &&
           <>
-            <HGrid gap="4" columns={2}>
+            <HGrid gap="4" columns={3}>
               <Input
                 error={v[namespace + '-etternavn']?.feilmelding}
                 namespace={namespace}
@@ -67,8 +67,6 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
                 onChanged={(v) => setPersonOpplysninger("fornavn", v, parentIndex)}
                 value={(person?.fornavn)  ?? ''}
               />
-            </HGrid>
-            <HGrid gap="4" columns={2}>
               <DateField
                 id='foedselsdato'
                 index={0}
@@ -78,6 +76,8 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
                 onChanged={(v) => setPersonOpplysninger("foedselsdato", v, parentIndex)}
                 dateValue={person?.foedselsdato ?? ''}
               />
+            </HGrid>
+            <HGrid gap="4" columns={3}>
               <HorizontalRadioGroup
                 error={v[namespace + '-kjoenn']?.feilmelding}
                 id={namespace + "-kjoenn"}

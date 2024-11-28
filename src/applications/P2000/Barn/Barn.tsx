@@ -1,4 +1,4 @@
-import {BodyLong, Box, Button, Heading, HStack, Select, Spacer, VStack} from "@navikt/ds-react";
+import {BodyLong, Box, Button, Heading, HGrid, HStack, Select, Spacer, VStack} from "@navikt/ds-react";
 import _ from "lodash";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {Fragment, useEffect, useState} from "react";
@@ -258,19 +258,21 @@ const Barn: React.FC<MainFormProps> = ({
                 {t('p2000:form-barn-relasjontilbruker')}
               </Heading>
               {inEditMode &&
-                <Select
-                  error={_v[_namespace + '-relasjontilbruker']?.feilmelding}
-                  id='barn-relasjontilbruker'
-                  label={t('p2000:form-barn-relasjontilbruker')}
-                  hideLabel={true}
-                  onChange={(e) => setRelasjon(e.target.value, index)}
-                  value={(_barn?.relasjontilbruker) ?? ''}
-                >
-                  <option value=''>{t('p2000:form-velg')}</option>
-                  {relasjonOptions.map((option) => {
-                    return(<option key={option.value} value={option.value}>{option.label}</option>)
-                  })}
-                </Select>
+                <HGrid columns={3} gap="4">
+                  <Select
+                    error={_v[_namespace + '-relasjontilbruker']?.feilmelding}
+                    id='barn-relasjontilbruker'
+                    label={t('p2000:form-barn-relasjontilbruker')}
+                    hideLabel={true}
+                    onChange={(e) => setRelasjon(e.target.value, index)}
+                    value={(_barn?.relasjontilbruker) ?? ''}
+                  >
+                    <option value=''>{t('p2000:form-velg')}</option>
+                    {relasjonOptions.map((option) => {
+                      return(<option key={option.value} value={option.value}>{option.label}</option>)
+                    })}
+                  </Select>
+                </HGrid>
               }
               {!inEditMode &&
                 <FormTextBox
@@ -286,16 +288,18 @@ const Barn: React.FC<MainFormProps> = ({
                 Dødsdato
               </Heading>
               {inEditMode &&
-                <DateField
-                  hideLabel={true}
-                  id='person-doedssdato'
-                  index={0}
-                  label={t('p2000:form-person-doedsdato')}
-                  error={_v[_namespace + '-person-doedssdato']?.feilmelding}
-                  namespace={_namespace}
-                  onChanged={(v) => setBarnPersonalia("doedsdato", v, index)}
-                  dateValue={_barn?.person?.doedsdato ?? ''}
-                />
+                <HGrid columns={3} gap="4">
+                  <DateField
+                    hideLabel={true}
+                    id='person-doedssdato'
+                    index={0}
+                    label={t('p2000:form-person-doedsdato')}
+                    error={_v[_namespace + '-person-doedssdato']?.feilmelding}
+                    namespace={_namespace}
+                    onChanged={(v) => setBarnPersonalia("doedsdato", v, index)}
+                    dateValue={_barn?.person?.doedsdato ?? ''}
+                  />
+                </HGrid>
               }
               {!inEditMode &&
                 <FormTextBox
