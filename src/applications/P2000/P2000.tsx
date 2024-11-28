@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {Buc, Sed} from "src/declarations/buc";
 import {BUCMode, Validation} from "src/declarations/app";
-import {Box, Button, HStack, Loader, VStack} from "@navikt/ds-react";
+import {Box, Button, HStack, VStack} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {fetchBuc, getSed, saveSed, sendSed, setPSED, updatePSED} from "src/actions/buc";
 import {resetValidation, setValidation} from 'src/actions/validation'
@@ -28,6 +28,9 @@ import Diverse from "./Diverse/Diverse";
 import WarningModal from "src/applications/P2000/WarningModal";
 import {resetEditingItems} from "src/actions/app";
 import SEDBody from "src/applications/BUC/components/SEDBody/SEDBody";
+import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
+import {WaitingPanelDiv} from "src/components/StyledComponents";
+
 
 export interface P2000Selector {
   PSEDChanged: boolean
@@ -147,7 +150,9 @@ const P2000: React.FC<P2000Props> = ({
 
   if(gettingSed){
     return(
-      <Loader/>
+      <WaitingPanelDiv>
+        <WaitingPanel/>
+      </WaitingPanelDiv>
     )
   }
 

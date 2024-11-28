@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import {VEDTAKSKONTEKST} from "../../constants/constants";
 import {Box} from "@navikt/ds-react";
+import {WaitingPanelDiv} from "src/components/StyledComponents";
 
 const transition = 500
 const timeout = 501
@@ -108,14 +109,7 @@ export const ContainerDiv = styled.div`
   display: block;
   overflow: visible;
 `
-const WaitingPanelDiv = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 50vh;
-`
+
 export const WindowDiv = styled.div`
   width: 300%;
   display: flex;

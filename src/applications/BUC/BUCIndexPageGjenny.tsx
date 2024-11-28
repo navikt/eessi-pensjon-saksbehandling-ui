@@ -16,7 +16,8 @@ import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import {fetchBucsListForAvdod, fetchBucsListForGjenlevende} from "../../actions/gjenny";
+import {fetchBucsListForAvdod, fetchBucsListForGjenlevende} from "src/actions/gjenny";
+import {WaitingPanelDiv} from "src/components/StyledComponents";
 
 const transition = 500
 const timeout = 501
@@ -104,14 +105,7 @@ export const ContainerDiv = styled.div`
   display: block;
   overflow: hidden;
 `
-const WaitingPanelDiv = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 50vh;
-`
+
 export const WindowDiv = styled.div`
   width: 300%;
   display: flex;

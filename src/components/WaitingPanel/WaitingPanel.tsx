@@ -1,11 +1,8 @@
 import classNames from 'classnames'
-import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
-import { BodyLong, Loader } from '@navikt/ds-react'
-import PT from 'prop-types'
+import {BodyLong, HStack, Loader} from '@navikt/ds-react'
 import styled from 'styled-components'
 
-export const WaitingPanelDiv = styled.div`
-  display: flex;
+export const WaitingPanelDiv = styled(HStack)`
   align-items: center;
   flex-direction: column;
   &.rowDirection {
@@ -35,28 +32,18 @@ const WaitingPanel: React.FC<WaitingPanelProps> = ({
     className={classNames(className, { rowDirection: oneLine })}
     data-testid='c-WaitingPanel'
     {...props}
+    gap="4"
   >
     <Loader type={size} />
     {message && (
-      <>
-        <HorizontalSeparatorDiv />
-        <BodyLong
-          className={classNames({ oneLine })}
-          data-testid='c-waitingpanel--text-id'
-        >
-          {message}
-        </BodyLong>
-      </>
+      <BodyLong
+        className={classNames({ oneLine })}
+        data-testid='c-waitingpanel--text-id'
+      >
+        {message}
+      </BodyLong>
     )}
   </WaitingPanelDiv>
 )
 
-WaitingPanel.propTypes = {
-  className: PT.string,
-  message: PT.string,
-  oneLine: PT.bool,
-  size: PT.oneOf(['xsmall', 'small', 'medium', 'large', 'xlarge', '2xlarge']),
-  style: PT.object
-}
-WaitingPanel.displayName = 'WaitingPanel'
 export default WaitingPanel
