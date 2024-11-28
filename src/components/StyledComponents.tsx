@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {Box, HGrid, RadioGroup} from '@navikt/ds-react'
+import {Box, HGrid, HStack, RadioGroup} from '@navikt/ds-react'
 import { PaddedHorizontallyDiv } from '@navikt/hoykontrast'
 
 export const OneLineSpan = styled.span`
@@ -100,6 +100,10 @@ export const RepeatableBoxWithBorder = styled(RepeatableBox)`
 
 export const TopAlignedGrid = styled(HGrid)`
   align-items: start
+`
+
+export const CenterHStack = styled(HStack)`
+  align-items: center;
 `
 
 export const RepeatableRowAlternateColors = styled(RepeatableRow)`

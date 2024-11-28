@@ -1,9 +1,9 @@
 import React from "react";
-import {FlexCenterDiv, HorizontalSeparatorDiv} from "@navikt/hoykontrast";
 import Flag from "@navikt/flagg-ikoner";
 import CountryData from "@navikt/land-verktoy";
 import {State} from "src/declarations/reducers";
 import {useAppSelector} from "src/store";
+import {CenterHStack} from "src/components/StyledComponents";
 
 export interface FlagPanelProps {
   land: string | undefined
@@ -25,11 +25,10 @@ const FlagPanel: React.FC<FlagPanelProps> = ({
   const country = countryData.findByValue(land)
 
   return(
-    <FlexCenterDiv>
+    <CenterHStack gap="4">
       {land && <Flag size='S' country={country ? land : "XU"} />}
-      <HorizontalSeparatorDiv />
       {country ? country.label : countryCodeMap && land ? countryCodeMap[land as keyof typeof countryCodeMap] : land}
-    </FlexCenterDiv>
+    </CenterHStack>
   )
 }
 
