@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import NavLogoTransparent from 'src/assets/images/NavLogoTransparent'
 import { Loader, Heading } from '@navikt/ds-react'
 import styled from 'styled-components'
-import {GJENNY} from "../../constants/constants";
+import {GJENNY} from "src/constants/constants";
 
 export interface HeaderProps {
   className ?: string

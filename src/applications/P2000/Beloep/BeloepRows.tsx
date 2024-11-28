@@ -311,7 +311,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
       {_.isEmpty(beloep) && !newBeloepForm
         ? (
           <Table.Row>
-            <Table.DataCell colSpan={5}>
+            <Table.DataCell colSpan={6}>
               <em>Ingen beløp</em>
             </Table.DataCell>
           </Table.Row>
