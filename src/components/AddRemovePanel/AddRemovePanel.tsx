@@ -8,12 +8,11 @@ import {
 } from '@navikt/aksel-icons'
 import classNames from 'classnames'
 import { Labels } from 'src/declarations/app'
-import { Button, BodyLong } from '@navikt/ds-react'
-import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
+import {Button, BodyLong, Box, HStack} from '@navikt/ds-react'
 import _ from 'lodash'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
+import {CenterHStack} from "src/components/StyledComponents";
 
 export interface AddRemovePanelProps<T> {
   item: T | null
@@ -33,18 +32,6 @@ export interface AddRemovePanelProps<T> {
   onRemove: (item: T) => void
   alwaysVisible?: boolean
 }
-
-const InlineFlexDiv = styled.div`
-  display: inline-flex;
-  align-items: flex-center;
-  margin-top: 0.5rem;
-  &.marginTop {
-    margin-top: 2.5rem;
-  }
-  &.noMargin {
-    margin-top: 0rem;
-  }
-`
 
 const AddRemovePanel = <T extends any>({
   labels = {},
@@ -74,124 +61,125 @@ const AddRemovePanel = <T extends any>({
 
   if (candidateForDeletion) {
     return (
-      <InlineFlexDiv className={classNames('slideInFromRight', { marginTop }, { noMargin })}>
-        <BodyLong style={{ whiteSpace: 'nowrap' }}>
-          {labels?.areYouSure ?? t('ui:are-you-sure')}
-        </BodyLong>
-        <HorizontalSeparatorDiv size='0.5' />
-        <Button
-          size='small'
-          variant='tertiary'
-          onClick={() => {onRemove(item!);setInDeleteMode(false)}}
-        >
-          {labels?.yes ?? t('ui:yes')}
-        </Button>
-        <HorizontalSeparatorDiv size='0.5' />
-        <Button
-          size='small'
-          variant='tertiary'
-          onClick={() => setInDeleteMode(false)}
-        >
-          {labels?.no ?? t('ui:no')}
-        </Button>
-      </InlineFlexDiv>
+      <Box className={classNames('slideInFromRight', { marginTop }, { noMargin })}>
+        <CenterHStack gap="4">
+          <BodyLong style={{ whiteSpace: 'nowrap' }}>
+            {labels?.areYouSure ?? t('ui:are-you-sure')}
+          </BodyLong>
+
+          <Button
+            size='small'
+            variant='tertiary'
+            onClick={() => {onRemove(item!);setInDeleteMode(false)}}
+          >
+            {labels?.yes ?? t('ui:yes')}
+          </Button>
+          <Button
+            size='small'
+            variant='tertiary'
+            onClick={() => setInDeleteMode(false)}
+          >
+            {labels?.no ?? t('ui:no')}
+          </Button>
+        </CenterHStack>
+      </Box>
     )
   }
 
   if (candidateForEdition) {
     return (
-      <InlineFlexDiv className={classNames({ marginTop }, { noMargin })}>
-        <HorizontalSeparatorDiv />
-        <Button
-          size='small'
-          variant='tertiary'
-          onClick={() => {
-            onConfirmEdit!()
-          }}
-          iconPosition="left" icon={<CheckmarkIcon aria-hidden />}
-        >
-          {labels?.ok ?? t('ui:save')}
-        </Button>
-        <HorizontalSeparatorDiv />
-        <Button
-          size='small'
-          variant='tertiary'
-          onClick={() => {
-            if (onCancelEdit) {
-              onCancelEdit()
-            }
-          }}
-          iconPosition="left" icon={<ArrowUndoIcon aria-hidden />}
-        >
-          {labels?.cancel ?? t('ui:cancel')}
-        </Button>
-      </InlineFlexDiv>
+      <Box className={classNames({ marginTop }, { noMargin })}>
+        <HStack gap="4">
+          <Button
+            size='small'
+            variant='tertiary'
+            onClick={() => {
+              onConfirmEdit!()
+            }}
+            iconPosition="left" icon={<CheckmarkIcon aria-hidden />}
+          >
+            {labels?.ok ?? t('ui:save')}
+          </Button>
+          <Button
+            size='small'
+            variant='tertiary'
+            onClick={() => {
+              if (onCancelEdit) {
+                onCancelEdit()
+              }
+            }}
+            iconPosition="left" icon={<ArrowUndoIcon aria-hidden />}
+          >
+            {labels?.cancel ?? t('ui:cancel')}
+          </Button>
+        </HStack>
+      </Box>
     )
   }
 
   if (isNew) {
     return (
-      <InlineFlexDiv className={classNames({ marginTop }, { noMargin })}>
-        <Button
-          size='small'
-          variant='tertiary'
-          onClick={() => {
-            if (_.isFunction(onAddNew)) {
-              onAddNew()
-            }
-          }}
-          iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
-        >
-          {labels?.add ?? t('ui:add')}
-        </Button>
-        <HorizontalSeparatorDiv />
-        <Button
-          size='small'
-          variant='tertiary'
-          onClick={() => {
-            if (_.isFunction(onCancelNew)) {
-              onCancelNew()
-            }
-          }}
-          iconPosition="left" icon={<ArrowUndoIcon aria-hidden />}
-        >
-          {labels?.cancel ?? t('ui:cancel')}
-        </Button>
-      </InlineFlexDiv>
+      <Box className={classNames({ marginTop }, { noMargin })}>
+        <HStack gap="4">
+          <Button
+            size='small'
+            variant='tertiary'
+            onClick={() => {
+              if (_.isFunction(onAddNew)) {
+                onAddNew()
+              }
+            }}
+            iconPosition="left" icon={<PlusCircleIcon aria-hidden />}
+          >
+            {labels?.add ?? t('ui:add')}
+          </Button>
+          <Button
+            size='small'
+            variant='tertiary'
+            onClick={() => {
+              if (_.isFunction(onCancelNew)) {
+                onCancelNew()
+              }
+            }}
+            iconPosition="left" icon={<ArrowUndoIcon aria-hidden />}
+          >
+            {labels?.cancel ?? t('ui:cancel')}
+          </Button>
+        </HStack>
+      </Box>
     )
   }
 
   return (
-    <InlineFlexDiv className={classNames(alwaysVisible ? '' : 'control-buttons', 'noMargin')}>
-      {allowEdit && (
-        <Button
-          size='small'
-          variant='tertiary'
-          onClick={() => {
-            if (onStartEdit) {
-              onStartEdit(item!, index)
-            }
-          }}
-          iconPosition="left" icon={<PencilIcon aria-hidden />}
-        >
-          {labels?.edit ?? t('ui:edit')}
-        </Button>
-      )}
-      {onCopy &&
-        <Button
-          size='small'
-          variant='tertiary'
-          onClick={() => {
-            onCopy(item!, index)
-          }}
-          iconPosition="left" icon={<FilesIcon aria-hidden />}
-        >
-          {labels?.copy ?? t('ui:copy')}
-        </Button>
-      }
-      {allowDelete && (
-        <>
-          <HorizontalSeparatorDiv />
+    <Box className={classNames(alwaysVisible ? '' : 'control-buttons', 'noMargin')}>
+      <HStack gap="4">
+        {allowEdit && (
+          <Button
+            size='small'
+            variant='tertiary'
+            onClick={() => {
+              if (onStartEdit) {
+                onStartEdit(item!, index)
+              }
+            }}
+            iconPosition="left" icon={<PencilIcon aria-hidden />}
+          >
+            {labels?.edit ?? t('ui:edit')}
+          </Button>
+        )}
+        {onCopy &&
+          <Button
+            size='small'
+            variant='tertiary'
+            onClick={() => {
+              onCopy(item!, index)
+            }}
+            iconPosition="left" icon={<FilesIcon aria-hidden />}
+          >
+            {labels?.copy ?? t('ui:copy')}
+          </Button>
+        }
+        {allowDelete && (
           <Button
             size='small'
             variant='tertiary'
@@ -200,9 +188,9 @@ const AddRemovePanel = <T extends any>({
           >
             {labels?.remove ?? t('ui:remove')}
           </Button>
-        </>
-      )}
-    </InlineFlexDiv>
+        )}
+      </HStack>
+    </Box>
   )
 }
 
