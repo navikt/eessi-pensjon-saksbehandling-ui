@@ -1,8 +1,7 @@
 import EESSIPensjonVeileder from 'src/components/EESSIPensjonVeileder/EESSIPensjonVeileder'
 import TopContainer from 'src/components/TopContainer/TopContainer'
 import { standardLogger, timeLogger } from 'src/metrics/loggers'
-import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
-import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
+import {Accordion, BodyLong, Heading, VStack} from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -13,10 +12,7 @@ const Description = styled.div`
   margin: 1rem;
   text-align: center;
 `
-export const ErrorPageDiv = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+export const ErrorPageDiv = styled(VStack)`
   align-items: center;
   justify-content: center;
 `
@@ -26,7 +22,7 @@ const Line = styled.div`
    min-height: 0.25rem;
    border-bottom: 1px solid ${({ theme }) => theme.navGra60};
 `
-const Veilder = styled(EESSIPensjonVeileder)`
+const Veileder = styled(EESSIPensjonVeileder)`
   height: 110px;
 `
 export interface ErrorPageProps {
@@ -65,12 +61,11 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
 
   return (
     <TopContainer>
-      <ErrorPageDiv>
-        <Veilder
+      <ErrorPageDiv gap="4">
+        <Veileder
           mood='trist'
           data-testid='p-error--veileder-id'
         />
-        <VerticalSeparatorDiv size='2' />
         <Heading size='small' data-testid='p-error--title-id'>
           {title}
         </Heading>
@@ -97,13 +92,12 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
         )}
 
         {footer && (
-          <div data-testid='p-error--footer-id'>
+          <VStack data-testid='p-error--footer-id'>
             <Line />
-            <VerticalSeparatorDiv />
             <BodyLong>
               {footer}
             </BodyLong>
-          </div>
+          </VStack>
         )}
       </ErrorPageDiv>
     </TopContainer>
