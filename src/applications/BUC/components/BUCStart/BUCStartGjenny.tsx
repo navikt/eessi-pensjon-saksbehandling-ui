@@ -1,4 +1,4 @@
-import { Alert, BodyLong, Button, Loader } from '@navikt/ds-react'
+import {Alert, BodyLong, Box, Button, HGrid, HStack, Loader} from '@navikt/ds-react'
 import {
   cleanNewlyCreatedBuc,
   resetBuc
@@ -18,12 +18,12 @@ import { PersonAvdod } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger } from 'src/metrics/loggers'
-import { Column, HorizontalSeparatorDiv, Row, VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import {createBucGjenny, getBucOptionsGjenny} from "src/actions/gjenny";
 import {BUCStartIndexProps, BUCStartSelector, mapBUCStartState} from "./BUCStartIndex";
+import {MarginLeftDiv, MarginRightDiv} from "src/components/StyledComponents";
 
 const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
   onBucChanged,
@@ -191,10 +191,12 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
 
   return (
     <div data-testid='a_buc_c_BUCStart'>
-      <Row>
-        <Column>
-          <VerticalSeparatorDiv size='2' />
-          <>
+      <HStack
+        gap="8"
+        width="100%"
+      >
+        <MarginRightDiv>
+          <Box paddingBlock="8 0">
             <label className='navds-text-field--label navds-label'>
               {t('buc:form-chooseSubjectArea')}
             </label>
@@ -208,9 +210,8 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
               onChange={onSubjectAreaChange}
               options={renderOptions(subjectAreaList)}
             />
-          </>
-          <VerticalSeparatorDiv />
-          <>
+          </Box>
+          <Box paddingBlock="4 0">
             <label className='navds-text-field--label navds-label'>
               {t(loading.gettingBucOptions ? 'message:loading-bucOptions' : 'buc:form-chooseBuc')}
             </label>
@@ -225,66 +226,65 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
               options={bucListOptions}
               value={_.find(bucListOptions, (b: Option) => b.value === _buc)}
             />
-          </>
-        </Column>
-        <HorizontalSeparatorDiv size='2' />
-        <Column>
-          <></>
-        </Column>
-      </Row>
+          </Box>
+        </MarginRightDiv>
+        <MarginLeftDiv />
+      </HStack>
       {_showWarningBucDeceased && (
         <>
-          <VerticalSeparatorDiv size='2' />
-          <Row>
-            <Column>
-              <Alert
-                variant='warning'
-                data-testid='a_buc_c_BUCStart--warning-id'
+          <Box paddingBlock="8 0">
+            <HGrid columns={2}>
+              <Box
+                paddingInline="0 6"
               >
-                <BodyLong>
-                  {t('message:alert-noDeceased')}
-                </BodyLong>
-              </Alert>
-            </Column>
-            <HorizontalSeparatorDiv size='2' />
-            <Column />
-          </Row>
+                <Alert
+                  variant='warning'
+                  data-testid='a_buc_c_BUCStart--warning-id'
+                >
+                  <BodyLong>
+                    {t('message:alert-noDeceased')}
+                  </BodyLong>
+                </Alert>
+              </Box>
+              <Box
+              />
+            </HGrid>
+          </Box>
         </>
       )}
-      <VerticalSeparatorDiv size='2' />
-      <div data-testid='a_buc_c_BUCStart--buttons-id'>
-        <Button
-          variant='primary'
-          data-amplitude='buc.new.create'
-          data-testid='a_buc_c_BUCStart--forward-button-id'
-          disabled={loading.creatingBuc}
-          onClick={onForwardButtonClick}
-        >
-          {loading.creatingBUC && <Loader />}
-          {loading.creatingBUC
-            ? t('message:loading-creatingCaseinRINA')
-            : t('buc:form-createCaseinRINA')}
-        </Button>
-        <HorizontalSeparatorDiv />
-        <Button
-          variant='tertiary'
-          data-amplitude='buc.new.cancel'
-          data-testid='a_buc_c_BUCStart--cancel-button-id'
-          onClick={onCancelButtonClick}
-        >{t('ui:cancel')}
-        </Button>
-      </div>
-      <VerticalSeparatorDiv />
+      <Box paddingBlock="8 4">
+        <div data-testid='a_buc_c_BUCStart--buttons-id'>
+          <HStack gap="4">
+            <Button
+              variant='primary'
+              data-amplitude='buc.new.create'
+              data-testid='a_buc_c_BUCStart--forward-button-id'
+              disabled={loading.creatingBuc}
+              onClick={onForwardButtonClick}
+            >
+              {loading.creatingBUC && <Loader />}
+              {loading.creatingBUC
+                ? t('message:loading-creatingCaseinRINA')
+                : t('buc:form-createCaseinRINA')}
+            </Button>
+            <Button
+              variant='tertiary'
+              data-amplitude='buc.new.cancel'
+              data-testid='a_buc_c_BUCStart--cancel-button-id'
+              onClick={onCancelButtonClick}
+            >{t('ui:cancel')}
+            </Button>
+          </HStack>
+        </div>
+      </Box>
       {!hasNoValidationErrors(_validation) && (
-        <>
-          <VerticalSeparatorDiv size='2' />
-          <Row>
-            <Column>
-              <ValidationBox heading={t('message:error-validationbox-bucstart')} validation={_validation} />
-            </Column>
-            <Column />
-          </Row>
-        </>
+      <>
+        <Box paddingBlock="4 0">
+          <HGrid columns={2}>
+            <ValidationBox heading={t('message:error-validationbox-bucstart')} validation={_validation} />
+          </HGrid>
+        </Box>
+      </>
       )}
     </div>
   )
