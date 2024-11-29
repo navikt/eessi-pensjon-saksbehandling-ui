@@ -5,8 +5,7 @@ import {useEffect, useState} from "react";
 import { getRinaUrl} from "../../actions/buc";
 import {loadAllEntries} from "../../actions/localStorage";
 import styled from "styled-components";
-import {Button, Select, TextField} from "@navikt/ds-react";
-import {VerticalSeparatorDiv} from "@navikt/hoykontrast";
+import {Button, Select, TextField, VStack} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
 import {getAktoerId, setContext, setStatusParam} from "../../actions/app";
 import BUCIndexPageGjenny from "./BUCIndexPageGjenny";
@@ -225,44 +224,42 @@ export const BUCIndexGjenny = (): JSX.Element => {
     return (
       <FrontpageDiv>
         <FrontpageForm>
-          <TextField
-            error={_validationFnr || false}
-            id='gjenny-fnr-input-id'
-            label="PID Gjenlevende"
-            onChange={onFnrChange}
-            value={_fnr || ''}
-          />
-          <VerticalSeparatorDiv/>
-          <TextField
-            error={_validationFnrAvdod || false}
-            id='gjenny-fnr-avdod-input-id'
-            label="PID Avdød"
-            onChange={onFnrAvdodChange}
-            value={_fnrAvdod || ''}
-          />
-          <VerticalSeparatorDiv/>
-          <Select label="Saktype" onChange={onSakTypeChange} error={_validationSakType || false}>
-            <option value="">Velg saktype</option>
-            <option value="OMSST">{SakTypeMap["OMSST"]}</option>
-            <option value="BARNEP">{SakTypeMap["BARNEP"]}</option>
-          </Select>
-          <VerticalSeparatorDiv/>
-          <TextField
-            error={_validationSakId || false}
-            id='gjenny-sakid-input-id'
-            label="Sak ID"
-            onChange={onSakIdChange}
-            value={_sakId || ''}
-          />
-          <VerticalSeparatorDiv/>
-          <Button
-            variant='primary'
-            onClick={onSubmit}
-            loading={gettingAktoerId || gettingPersonInfo || gettingPersonAvdodAktoerId}
-          >
-            {t('ui:add')}
-          </Button>
-          </FrontpageForm>
+          <VStack gap="4">
+            <TextField
+              error={_validationFnr || false}
+              id='gjenny-fnr-input-id'
+              label="PID Gjenlevende"
+              onChange={onFnrChange}
+              value={_fnr || ''}
+            />
+            <TextField
+              error={_validationFnrAvdod || false}
+              id='gjenny-fnr-avdod-input-id'
+              label="PID Avdød"
+              onChange={onFnrAvdodChange}
+              value={_fnrAvdod || ''}
+            />
+            <Select label="Saktype" onChange={onSakTypeChange} error={_validationSakType || false}>
+              <option value="">Velg saktype</option>
+              <option value="OMSST">{SakTypeMap["OMSST"]}</option>
+              <option value="BARNEP">{SakTypeMap["BARNEP"]}</option>
+            </Select>
+            <TextField
+              error={_validationSakId || false}
+              id='gjenny-sakid-input-id'
+              label="Sak ID"
+              onChange={onSakIdChange}
+              value={_sakId || ''}
+            />
+            <Button
+              variant='primary'
+              onClick={onSubmit}
+              loading={gettingAktoerId || gettingPersonInfo || gettingPersonAvdodAktoerId}
+            >
+              {t('ui:add')}
+            </Button>
+          </VStack>
+        </FrontpageForm>
       </FrontpageDiv>
     )
   }
