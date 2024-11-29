@@ -1,7 +1,6 @@
 import React, {useState} from "react";
-import {HorizontalSeparatorDiv, VerticalSeparatorDiv} from "@navikt/hoykontrast";
 import {BadBucDiv, FlexDiv, HiddenDiv} from "../../CommonBucComponents";
-import {Accordion, Button, Heading, TextField} from "@navikt/ds-react";
+import {Accordion, Box, Button, Heading, HStack, TextField} from "@navikt/ds-react";
 import {MagnifyingGlassIcon} from "@navikt/aksel-icons";
 import classNames from "classnames";
 import {fetchBucsListWithAvdodFnr} from "src/actions/buc";
@@ -56,52 +55,58 @@ const AvdodFnrSearch: React.FC<any> = ({setNewBucPanelOpen}: AvdodFnrSearchProps
 
   return(
     <>
-      <VerticalSeparatorDiv size='2' />
-      <BadBucDiv>
-        <>
-          <Accordion id='a_buc_c_buclist--no-buc-id'>
-            <Accordion.Item>
-              <Accordion.Header>
-                <FlexDiv>
-                  <MagnifyingGlassIcon fontSize="1.5rem" />
-                  <HorizontalSeparatorDiv />
-                  <Heading size='small'>
-                    {t('buc:form-searchOtherBUCs')}
-                  </Heading>
-                </FlexDiv>
-              </Accordion.Header>
-              <Accordion.Content>
-                <FlexDiv className={classNames({ error: _validation || false })}>
-                  <TextField
-                    style={{ width: '200px' }}
-                    data-testid='a-buc-p-buclist--avdod-input-id'
-                    error={_validation || false}
-                    id='a-buc-p-buclist--avdod-input-id'
-                    label={(
-                      <HiddenDiv>
-                        {t('buc:form-avdodFnr')}
-                      </HiddenDiv>
-                    )}
-                    onChange={onAvdodFnrChange}
-                    description={t('buc:form-searchOtherBUCs-description')}
-                    value={_avdodFnr || ''}
-                    onKeyPress={handleKeyPress}
-                  />
-                  <HorizontalSeparatorDiv />
-                  <Button
-                    variant='primary'
-                    onClick={onAvdodFnrButtonClick}
-                  >
-                    {t('ui:get')}
-                  </Button>
-                </FlexDiv>
-              </Accordion.Content>
-            </Accordion.Item>
-          </Accordion>
-          <VerticalSeparatorDiv size='2' />
-        </>
-      </BadBucDiv>
-      <VerticalSeparatorDiv size='2' />
+      <Box paddingBlock="8 8">
+        <BadBucDiv>
+          <>
+            <Accordion id='a_buc_c_buclist--no-buc-id'>
+              <Accordion.Item>
+                <Accordion.Header>
+                  <FlexDiv>
+                    <HStack gap="4">
+                      <MagnifyingGlassIcon fontSize="1.5rem" />
+                      <Heading size='small'>
+                        {t('buc:form-searchOtherBUCs')}
+                      </Heading>
+                    </HStack>
+                  </FlexDiv>
+                </Accordion.Header>
+                <Accordion.Content>
+                  <FlexDiv className={classNames({ error: _validation || false })}>
+                    <HStack
+                      align="end"
+                      gap="4"
+                    >
+                      <TextField
+                        style={{ width: '200px' }}
+                        data-testid='a-buc-p-buclist--avdod-input-id'
+                        error={_validation || false}
+                        id='a-buc-p-buclist--avdod-input-id'
+                        label={(
+                          <HiddenDiv>
+                            {t('buc:form-avdodFnr')}
+                          </HiddenDiv>
+                        )}
+                        onChange={onAvdodFnrChange}
+                        description={t('buc:form-searchOtherBUCs-description')}
+                        value={_avdodFnr || ''}
+                        onKeyPress={handleKeyPress}
+                      />
+                      <Box>
+                        <Button
+                          variant='primary'
+                          onClick={onAvdodFnrButtonClick}
+                        >
+                          {t('ui:get')}
+                        </Button>
+                      </Box>
+                    </HStack>
+                  </FlexDiv>
+                </Accordion.Content>
+              </Accordion.Item>
+            </Accordion>
+          </>
+        </BadBucDiv>
+      </Box>
     </>
   )
 }
