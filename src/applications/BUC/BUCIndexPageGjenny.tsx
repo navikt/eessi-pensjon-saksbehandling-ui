@@ -12,12 +12,12 @@ import { BucListItem, Bucs } from 'src/declarations/buc'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { timeDiffLogger } from 'src/metrics/loggers'
-import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import {fetchBucsListForAvdod, fetchBucsListForGjenlevende} from "src/actions/gjenny";
 import {WaitingPanelDiv} from "src/components/StyledComponents";
+import {Box} from "@navikt/ds-react";
 
 const transition = 500
 const timeout = 501
@@ -371,29 +371,30 @@ export const BUCIndexPageGjenny = (): JSX.Element => {
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <VerticalSeparatorDiv />
-      <ContainerDiv>
-        <WindowDiv>
-          <AnimatableDiv
-            key='animatableDivA'
-            className={classNames(cls(positionA))}
-          >
-            {contentA}
-          </AnimatableDiv>
-          <AnimatableDiv
-            key='animatableDivB'
-            className={classNames(cls(positionB))}
-          >
-            {contentB}
-          </AnimatableDiv>
-          <AnimatableDiv
-            key='animatableDivC'
-            className={classNames(cls(positionC))}
-          >
-            {contentC}
-          </AnimatableDiv>
-        </WindowDiv>
-      </ContainerDiv>
+      <Box paddingBlock="4 0">
+        <ContainerDiv>
+          <WindowDiv>
+            <AnimatableDiv
+              key='animatableDivA'
+              className={classNames(cls(positionA))}
+            >
+              {contentA}
+            </AnimatableDiv>
+            <AnimatableDiv
+              key='animatableDivB'
+              className={classNames(cls(positionB))}
+            >
+              {contentB}
+            </AnimatableDiv>
+            <AnimatableDiv
+              key='animatableDivC'
+              className={classNames(cls(positionC))}
+            >
+              {contentC}
+            </AnimatableDiv>
+          </WindowDiv>
+        </ContainerDiv>
+      </Box>
     </div>
   )
 }
