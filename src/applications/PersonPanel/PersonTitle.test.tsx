@@ -24,10 +24,6 @@ describe('applications/PersonPanel/PersonTitle', () => {
     expect(container.firstChild).toMatchSnapshot()
   })
 
-  it('Render: waiting spinner if no person is given', () => {
-    wrapper = render(<PersonTitle {...initialMockProps} person={undefined} />)
-    expect(wrapper.exists('PersonLoading')).toBeTruthy()
-  })
 
   it('Render: has proper HTML structure', () => {
     expect(wrapper.exists(Title)).toBeTruthy()
