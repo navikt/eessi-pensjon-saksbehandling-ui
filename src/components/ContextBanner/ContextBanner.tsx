@@ -1,4 +1,3 @@
-import { HorizontalSeparatorDiv } from '@navikt/hoykontrast'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import { BUCMode, PesysContext } from 'src/declarations/app.d'
 import { SakTypeMap, SakTypeValue } from 'src/declarations/buc.d'
@@ -6,40 +5,36 @@ import { PersonPDL } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import { linkLogger, standardLogger } from 'src/metrics/loggers'
 import { ChevronRightIcon, ExternalLinkIcon } from '@navikt/aksel-icons'
-import { Link } from '@navikt/ds-react'
+import {HStack, Link} from '@navikt/ds-react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-export const DivWithLinks = styled.div`
+export const DivWithLinks = styled(HStack)`
   padding: 0.5rem 2rem;
-  display: flex;
   flex-direction: row-reverse;
 `
 const SeparatorSpan = styled.span`
   padding: 0rem 0.5rem
 `
-const Content = styled.div`
-  display: flex;
-  flex-direction: row;
+const Content = styled(HStack)`
   align-items: center;
   justify-content: space-between;
   background-color: var(--a-surface-subtle);
   border-bottom: 1px solid var(--a-border-strong);
 `
-export const Context = styled.div`
+export const Context = styled(HStack)`
  padding: 0.5rem 2rem;
- display: flex;
  align-items: center;
 `
-export const Tag = styled.div`
- padding: 0rem 0.5rem;
- margin-left: 0.25rem;
- margin-right: 0.25rem;
- display: flex;
+export const Tag = styled(HStack)`
  align-items: center;
  font-size: var(--a-font-size-small)
+`
+
+export const LinkContent = styled(HStack)`
+ align-items: center;
 `
 
 export interface ContextBannerProps {
@@ -75,25 +70,17 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
 
   return (
     <Content>
-      <Context data-testid="contextbanner-context">
-        {/*<BUCWebSocket*/}
-        {/*  fnr={getFnr(personPdl) ? getFnr(personPdl) : ''}*/}
-        {/*  avdodFnr=''*/}
-        {/*/>*/}
+      <Context data-testid="contextbanner-context" gap="3">
         <ChevronRightIcon fontSize="1.5rem" />
         {pesysContext && (
-          <Tag data-testid="tag-pesyscontext">
+          <Tag data-testid="tag-pesyscontext" gap="1">
             <span>{t('ui:youComeFrom')}</span>
-            <HorizontalSeparatorDiv size='0.25' />
             <strong>{(pesysContext as string).toUpperCase()}</strong>
           </Tag>
         )}
-        <Tag data-testid="tag-buc-case-type">
+        <Tag data-testid="tag-buc-case-type" gap="1">
           {sakType && (
-            <>
-              <span>{t('buc:form-caseType')}: </span>
-              <HorizontalSeparatorDiv size='0.25' />
-            </>
+            <span>{t('buc:form-caseType')}: </span>
           )}
           {gettingSakType && (
             <WaitingPanel size='xsmall' oneLine />
@@ -102,7 +89,6 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
             <strong>{sakType}</strong>
           )}
         </Tag>
-
       </Context>
       <DivWithLinks data-testid="div-with-links">
         <Link
@@ -111,9 +97,10 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
           href='https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03'
           onClick={(e: React.MouseEvent) => linkLogger(e, { mode })}
         >
-          {t('ui:lawsource')}
-          <HorizontalSeparatorDiv size='0.5' />
-          <ExternalLinkIcon fontSize="1.5rem" />
+          <LinkContent gap="4">
+            {t('ui:lawsource')}
+            <ExternalLinkIcon fontSize="1.5rem" />
+          </LinkContent>
         </Link>
         <SeparatorSpan>
           •
@@ -124,9 +111,10 @@ const ContextBanner: React.FC<ContextBannerProps> = ({
           href='https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx'
           onClick={(e: React.MouseEvent) => linkLogger(e, { mode })}
         >
-          {t('ui:help')}
-          <HorizontalSeparatorDiv size='0.5' />
-          <ExternalLinkIcon fontSize="1.5rem" />
+          <LinkContent gap="4">
+            {t('ui:help')}
+            <ExternalLinkIcon fontSize="1.5rem" />
+          </LinkContent>
         </Link>
       </DivWithLinks>
     </Content>
