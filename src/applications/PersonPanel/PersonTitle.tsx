@@ -9,8 +9,8 @@ import moment from 'moment'
 import {Heading, HStack} from '@navikt/ds-react'
 import PT from 'prop-types'
 import styled from 'styled-components'
-import PersonLoading from './PersonLoading'
 import {getFnr, getNPID} from 'src/applications/BUC/components/BUCUtils/BUCUtils'
+import LoadingImage from "src/components/Loading/LoadingImage";
 
 export const Title = styled(HStack)`
   align-items: center;
@@ -34,7 +34,7 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
 
   if (!person || gettingPersonInfo) {
     return (
-      <PersonLoading />
+      <LoadingImage />
     )
   }
 
