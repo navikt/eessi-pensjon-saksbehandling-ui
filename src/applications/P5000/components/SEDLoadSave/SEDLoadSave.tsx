@@ -1,4 +1,4 @@
-import { BodyLong, Panel } from '@navikt/ds-react'
+import { BodyLong, HStack, Panel, VStack } from '@navikt/ds-react'
 import { saveEntries } from 'src/actions/localStorage'
 import { updateP5000WorkingCopies } from 'src/applications/P5000/utils/entriesUtils'
 import { ytelseType } from 'src/applications/P5000/P5000.labels'
@@ -7,12 +7,15 @@ import { Buc } from 'src/declarations/buc'
 import { P5000SED } from 'src/declarations/p5000'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { FlexBaseDiv, HorizontalSeparatorDiv, PileDiv } from '@navikt/hoykontrast'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import AddRemovePanel from "src/components/AddRemovePanel/AddRemovePanel";
+
+const FlexBaseDiv= styled(HStack)`
+  align-items: baseline;
+  `
 
 const MyPanel = styled(Panel)`
   background: var(--a-surface-subtle);
@@ -54,69 +57,89 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
   }
 
   return (
-    <PileDiv>
+    <VStack>
       {entries?.map((entry: LocalStorageEntry<P5000SED>, index) => (
         <FlexBaseDiv key={entry.sedId} style={{ flexDirection: 'row-reverse' }}>
           <MyPanel border>
             <FlexBaseDiv style={{ alignItems: 'center' }}>
-              <PileDiv>
-                <BodyLong>
-                  {t('p5000:saved-entries')}
-                </BodyLong>
-                <FlexBaseDiv>
-                  <BodyLong size='small'>
-                    {t('p5000:4-1-title') + ': '}
-                  </BodyLong>
-                  <HorizontalSeparatorDiv size='0.5' />
+              <HStack
+                gap="4"
+                align="center"
+              >
+                <VStack>
                   <BodyLong>
-                    {_.find(ytelseOptions, (o: Option) => (
-                      o?.value === (entry.content as P5000SED)?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
-                    ))?.label ?? '-'}
+                    {t('p5000:saved-entries')}
                   </BodyLong>
-                </FlexBaseDiv>
+                  <FlexBaseDiv>
+                    <HStack
+                      align="center"
+                      gap="2"
+                    >
+                      <BodyLong size='small'>
+                        {t('p5000:4-1-title') + ': '}
+                      </BodyLong>
+                      <BodyLong>
+                        {_.find(ytelseOptions, (o: Option) => (
+                          o?.value === (entry.content as P5000SED)?.pensjon?.medlemskapboarbeid?.enkeltkrav?.krav
+                        ))?.label ?? '-'}
+                      </BodyLong>
+                    </HStack>
+                  </FlexBaseDiv>
+                  <FlexBaseDiv>
+                    <HStack
+                      align="center"
+                      gap="2"
+                    >
+                      <BodyLong size='small'>
+                        {t('p5000:4-2-title') + ': '}
+                      </BodyLong>
+                      <BodyLong>
+                        {(entry.content as P5000SED)?.pensjon?.medlemskapboarbeid?.gyldigperiode}
+                      </BodyLong>
+                    </HStack>
+                  </FlexBaseDiv>
+                  <FlexBaseDiv>
+                    <HStack
+                      align="center"
+                      gap="2"
+                    >
+                      <BodyLong size='small'>
+                        {t('ui:date') + ': '}
+                      </BodyLong>
+                      <BodyLong>
+                        {new Date(entry.date).toLocaleDateString()}
+                      </BodyLong>
+                    </HStack>
+                  </FlexBaseDiv>
+                  <FlexBaseDiv>
+                    <HStack
+                      align="center"
+                      gap="2"
+                    >
+                      <BodyLong size='small'>
+                        {t('ui:rows') + ': '}
+                      </BodyLong>
+                      <BodyLong>
+                        {entry.content?.pensjon.medlemskapboarbeid?.medlemskap?.length}
+                      </BodyLong>
+                    </HStack>
+                  </FlexBaseDiv>
+                </VStack>
                 <FlexBaseDiv>
-                  <BodyLong size='small'>
-                    {t('p5000:4-2-title') + ': '}
-                  </BodyLong>
-                  <HorizontalSeparatorDiv size='0.5' />
-                  <BodyLong>
-                    {(entry.content as P5000SED)?.pensjon?.medlemskapboarbeid?.gyldigperiode}
-                  </BodyLong>
+                  <AddRemovePanel
+                    item={entry}
+                    index={index}
+                    onRemove={onRemove}
+                    allowEdit={false}
+                  />
                 </FlexBaseDiv>
-                <FlexBaseDiv>
-                  <BodyLong size='small'>
-                    {t('ui:date') + ': '}
-                  </BodyLong>
-                  <HorizontalSeparatorDiv size='0.5' />
-                  <BodyLong>
-                    {new Date(entry.date).toLocaleDateString()}
-                  </BodyLong>
-                </FlexBaseDiv>
-                <FlexBaseDiv>
-                  <BodyLong size='small'>
-                    {t('ui:rows') + ': '}
-                  </BodyLong>
-                  <HorizontalSeparatorDiv size='0.5' />
-                  <BodyLong>
-                    {entry.content?.pensjon.medlemskapboarbeid?.medlemskap?.length}
-                  </BodyLong>
-                </FlexBaseDiv>
-              </PileDiv>
-              <HorizontalSeparatorDiv />
-              <FlexBaseDiv>
-                <AddRemovePanel
-                  item={entry}
-                  index={index}
-                  onRemove={onRemove}
-                  allowEdit={false}
-                />
-              </FlexBaseDiv>
+              </HStack>
             </FlexBaseDiv>
           </MyPanel>
         </FlexBaseDiv>
       )
       )}
-    </PileDiv>
+    </VStack>
   )
 }
 
