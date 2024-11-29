@@ -8,8 +8,7 @@ import Modal from 'src/components/Modal/Modal'
 import { IS_TEST } from 'src/constants/environment'
 import { WEBSOCKET_URL } from 'src/constants/urls'
 import _ from 'lodash'
-import { BodyLong } from '@navikt/ds-react'
-import { VerticalSeparatorDiv } from '@navikt/hoykontrast'
+import {BodyLong, Box} from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -178,8 +177,9 @@ const BucWebSocket: React.FC<BucWebSocketProps> = ({
           modalTitle: t('ui:websocket-log'),
           modalContent: (
             <div style={{ maxWidth: '800px' }}>
-              <VerticalSeparatorDiv size='2' />
+              <Box paddingBlock="8 0">
               {_log}
+              </Box>
             </div>
           ),
           modalButtons: [{
