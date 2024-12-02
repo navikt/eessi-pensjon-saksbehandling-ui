@@ -12,8 +12,7 @@ import {
 } from '@navikt/ds-react'
 import {
   AlignEndRow,
-  Column, FlexBaseDiv, FlexCenterDiv,
-   FlexEndDiv,
+  Column,
   FullWidthDiv, HorizontalSeparatorDiv,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
@@ -462,13 +461,15 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         <Column />
         <Column flex='2'>
           <Alert variant='warning'>
-            <FlexCenterDiv>
+            <HStack
+              align="center"
+            >
               {t('p5000:warning-P5000Edit-instructions-li1')}
               <HorizontalSeparatorDiv size='0.5' />
               <HelpText>
                   {t('p5000:warning-P5000Edit-instructions-li1-help')}
               </HelpText>
-            </FlexCenterDiv>
+            </HStack>
           </Alert>
         </Column>
         <Column />
@@ -492,14 +493,18 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
           </FullWidthDiv>
         </Column>
         <Column style={{ justifyContent: 'center' }}>
-          <FlexCenterDiv>
+          <HStack
+            align="center"
+          >
             <RadioGroup
               value={forsikringEllerBosetningsperioder}
               error={validation['P5000Edit-forsikringEllerBosetningsperioder']?.feilmelding}
               id='P5000Edit-forsikringEllerBosetningsperioder'
               onChange={_setForsikringEllerBosetningsperioder}
               legend={(
-                <FlexCenterDiv>
+                <HStack
+                  align="center"
+                >
                   <OneLineSpan>
                     {t('p5000:4-2-title')}
                   </OneLineSpan>
@@ -507,10 +512,12 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                   <HelpText>
                       {t('p5000:help-1') + t('p5000:help-2')}
                   </HelpText>
-                </FlexCenterDiv>
+                </HStack>
               )}
             >
-              <FlexEndDiv>
+              <HStack
+                align="end"
+              >
                 <Radio value='1'>
                   {t('ui:yes')}
                 </Radio>
@@ -518,12 +525,15 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                 <Radio value='0'>
                   {t('ui:no')}
                 </Radio>
-              </FlexEndDiv>
+              </HStack>
             </RadioGroup>
-          </FlexCenterDiv>
+          </HStack>
         </Column>
         <Column>
-          <FlexEndDiv style={{ justifyContent: 'flex-end' }}>
+          <HStack
+            align="end"
+            justify="end"
+          >
             <NavSelect
               id='itemsPerPage'
               label={t('ui:itemsPerPage')}
@@ -563,7 +573,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
               )}
               content={() => componentRef.current}
             />
-          </FlexEndDiv>
+          </HStack>
         </Column>
       </AlignEndRow>
       <VerticalSeparatorDiv />
@@ -587,7 +597,9 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
       <AlignEndRow style={{ width: '100%' }}>
         <Column>
           {sakType === SakTypeMap.UFOREP && pesysContext === constants.VEDTAKSKONTEKST && (
-             <FlexBaseDiv>
+             <HStack
+               align="baseline"
+             >
                <Button
                  variant='secondary'
                  disabled={gettingUft}
@@ -600,7 +612,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                <HelpText placement='right'>
                    {t('p5000:help-uft')}
                </HelpText>
-             </FlexBaseDiv>
+             </HStack>
           )}
 
           {(
@@ -608,7 +620,9 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
             ((sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && pesysContext === VEDTAKSKONTEKST)) &&
             (
             <>
-              <FlexBaseDiv>
+              <HStack
+                align="baseline"
+              >
                 <Button
                   variant='secondary'
                   disabled={requestingGjpBp}
@@ -621,7 +635,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                 <HelpText placement='right'>
                     {t('p5000:help-gjpbp')}
                 </HelpText>
-              </FlexBaseDiv>
+              </HStack>
               {!_.isNil(gjpbpwarning) && (
                 <>
                   <Alert variant={gjpbpwarning.type}>{gjpbpwarning.message}</Alert>
