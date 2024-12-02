@@ -1,5 +1,4 @@
-import {Heading, Panel} from '@navikt/ds-react'
-import {FlexCenterDiv, HorizontalSeparatorDiv, VerticalSeparatorDiv} from '@navikt/hoykontrast'
+import {Box, Heading, HStack, Panel} from '@navikt/ds-react'
 import { saveEntries } from 'src/actions/localStorage'
 import { getP5000FromS3, getSed, resetSentP5000info } from 'src/actions/p5000'
 import { getWorkingCopy, updateP5000WorkingCopies } from 'src/applications/P5000/utils/entriesUtils'
@@ -18,6 +17,11 @@ import P5000Edit from 'src/applications/P5000/tables/P5000Edit'
 import P5000Overview from 'src/applications/P5000/tables/P5000Overview'
 import P5000SedLabel from 'src/applications/P5000/components/P5000SedLabel'
 import P5000Sum from 'src/applications/P5000/tables/P5000Sum'
+import styled from "styled-components";
+
+const FlexCenterDiv= styled(HStack)`
+  align-items: center;
+`
 
 export interface P5000Props {
   buc: Buc
@@ -101,9 +105,12 @@ const P5000: React.FC<P5000Props> = ({
         <Heading size='small' style={{ display: 'flex' }}>
           {t('p5000:edit-title')}
         </Heading>
-        <HorizontalSeparatorDiv />
+{/*        <HorizontalSeparatorDiv />
         -
-        <HorizontalSeparatorDiv />
+        <HorizontalSeparatorDiv />*/}
+        <Box paddingInline="4 4">
+          -
+        </Box>
         <P5000SedLabel sed={mainSed} />
       </FlexCenterDiv>
     )
@@ -297,8 +304,7 @@ const P5000: React.FC<P5000Props> = ({
         changeActiveSeds={changeActiveSeds}
         onBackClick={onBackClick}
       />
-      <VerticalSeparatorDiv size='2' />
-      <>
+      <Box paddingBlock="8 0">
         {_tables.map((table: any, index: number): JSX.Element => {
           if ((table.id === 'P5000Edit' && !_.isNil(mainSed)) ||
             ((table.id === 'P5000Sum') && !_.isNil(mainSed)) ||
@@ -306,19 +312,21 @@ const P5000: React.FC<P5000Props> = ({
           ) {
             return (
               <div key={table.id}>
-                <Panel border>
-                  {renderTableHeader(table.id)}
-                  <VerticalSeparatorDiv size='2' />
-                  {renderTableContent(table)}
-                </Panel>
-                <VerticalSeparatorDiv size='2' />
+                <Box paddingBlock="0 8">
+                  <Panel border>
+                    {renderTableHeader(table.id)}
+                    <Box paddingBlock="8 0">
+                      {renderTableContent(table)}
+                    </Box>
+                  </Panel>
+                </Box>
               </div>
             )
           } else {
             return <div key={"table-empty-" + index}/>
           }
         })}
-      </>
+      </Box>
     </div>
   )
 }
