@@ -1,10 +1,20 @@
-import { Alert, Button, HelpText, Link, Loader, Radio, RadioGroup, Select as NavSelect } from '@navikt/ds-react'
+import {
+  Alert,
+  Box,
+  Button,
+  HelpText, HStack,
+  Link,
+  Loader,
+  Radio,
+  RadioGroup,
+  Select as NavSelect,
+  VStack
+} from '@navikt/ds-react'
 import {
   AlignEndRow,
   Column, FlexBaseDiv, FlexCenterDiv,
-  FlexCenterSpacedDiv, FlexEndDiv,
+   FlexEndDiv,
   FullWidthDiv, HorizontalSeparatorDiv,
-  PileCenterDiv,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
 import { resetSentP5000info, sendP5000toRina, setGjpBpWarning } from 'src/actions/p5000'
@@ -392,13 +402,17 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
           modalContent: (
             <div>
               {_.isNull(sentP5000info) && (
-                <PileCenterDiv>
-                  <VerticalSeparatorDiv size='3' />
-                  <Alert variant='warning'>
-                    {t('p5000:warning-failedP5000Sending')}
-                  </Alert>
-                  <VerticalSeparatorDiv />
-                  <FlexCenterSpacedDiv>
+                <VStack
+                  align="center"
+                >
+                  <Box paddingBlock="12 4">
+                    <Alert variant='warning'>
+                      {t('p5000:warning-failedP5000Sending')}
+                    </Alert>
+                  </Box>
+                  <HStack
+                    justify="space-between"
+                  >
                     <div />
                     <Button
                       variant='primary'
@@ -408,16 +422,21 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                     >OK
                     </Button>
                     <div />
-                  </FlexCenterSpacedDiv>
-                </PileCenterDiv>
+                  </HStack>
+                </VStack>
               )}
               {!_.isNil(sentP5000info) && (
-                <PileCenterDiv>
-                  <Alert variant='info'>
-                    {t('p5000:warning-okP5000Sending', { caseId })}
-                  </Alert>
-                  <VerticalSeparatorDiv />
-                  <FlexCenterSpacedDiv>
+              <VStack
+                align="center"
+              >
+                  <Box paddingBlock="0 4">
+                    <Alert variant='info'>
+                      {t('p5000:warning-okP5000Sending', { caseId })}
+                    </Alert>
+                  </Box>
+                  <HStack
+                    justify="space-between"
+                  >
                     <div />
                     <Button
                       variant='primary'
@@ -428,8 +447,8 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                     >OK
                     </Button>
                     <div />
-                  </FlexCenterSpacedDiv>
-                </PileCenterDiv>
+                  </HStack>
+              </VStack>
               )}
             </div>
           )
