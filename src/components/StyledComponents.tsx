@@ -10,6 +10,12 @@ export const MarginLeftDiv = styled.span`
     margin-left: 0.5rem;
 `
 
+export const MarginOneLeftDiv = styled.span`
+    flex: 1;
+    margin-left: 1rem;
+    width: 100%;
+`
+
 export const MarginRightDiv = styled.span`
     flex: 1;
     margin-right: 0.5rem;
@@ -112,5 +118,9 @@ export const WaitingPanelDiv = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 50vh;
+`
+
+export const HiddenDiv = styled.div`
+  display: none;
 `
 

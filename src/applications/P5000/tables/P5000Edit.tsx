@@ -1,7 +1,7 @@
 import {
   BodyLong,
   Tag,
-  SortState
+  SortState, VStack, Box
 } from '@navikt/ds-react'
 import {
   informasjonOmBeregning,
@@ -13,7 +13,7 @@ import {
 import P5000EditControls from 'src/applications/P5000/tables/P5000EditControls'
 import Input from 'src/components/Forms/Input'
 import Select from 'src/components/Select/Select'
-import { HorizontalLineSeparator } from 'src/components/StyledComponents'
+import {HiddenDiv, HorizontalLineSeparator, MarginOneLeftDiv} from 'src/components/StyledComponents'
 import { LocalStorageEntry, Option } from 'src/declarations/app.d'
 import { Sed } from 'src/declarations/buc.d'
 import { P5000sFromRinaMap } from 'src/declarations/p5000.d'
@@ -29,11 +29,6 @@ import { State } from 'src/declarations/reducers'
 import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
 import { standardLogger } from 'src/metrics/loggers'
-import {
-  HiddenDiv,
-  PileCenterDiv,
-  VerticalSeparatorDiv
-} from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -868,31 +863,40 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   return (
     <>
-      <PileCenterDiv>
-        <P5000EditControls
-          items={_items}
-          caseId={caseId}
-          componentRef={componentRef}
-          ytelseOption={_ytelseOption}
-          setYtelseOption={_setYtelseOption}
-          forsikringEllerBosetningsperioder={_forsikringEllerBosetningsperioder}
-          setForsikringEllerBosetningsperioder={_setForsikringEllerBosetningsperioder}
-          itemsPerPage={_itemsPerPage}
-          onBackClick={onBackClick}
-          onSave={onSave}
-          performValidation={_performValidation}
-          p5000WorkingCopy={p5000WorkingCopy}
-          p5000sFromRinaMap={p5000sFromRinaMap}
-          p5000changed={sourceStatus !== 'rina'}
-          resetValidation={_resetValidation}
-          setItemsPerPage={_setItemsPerPage}
-          setRenderPrintTable={setRenderPrintTable}
-          validation={_validation}
-          sedId={mainSed.id}
-          editingRow={Object.keys(_itemsEditing).length > 0 || _addRowEditing}
-        />
-        <HorizontalLineSeparator />
-        <VerticalSeparatorDiv />
+      <VStack
+        paddingBlock="0 12"
+        align="center"
+      >
+        <MarginOneLeftDiv>
+          <Box
+            width="100%"
+            paddingBlock="0 4"
+          >
+            <P5000EditControls
+              items={_items}
+              caseId={caseId}
+              componentRef={componentRef}
+              ytelseOption={_ytelseOption}
+              setYtelseOption={_setYtelseOption}
+              forsikringEllerBosetningsperioder={_forsikringEllerBosetningsperioder}
+              setForsikringEllerBosetningsperioder={_setForsikringEllerBosetningsperioder}
+              itemsPerPage={_itemsPerPage}
+              onBackClick={onBackClick}
+              onSave={onSave}
+              performValidation={_performValidation}
+              p5000WorkingCopy={p5000WorkingCopy}
+              p5000sFromRinaMap={p5000sFromRinaMap}
+              p5000changed={sourceStatus !== 'rina'}
+              resetValidation={_resetValidation}
+              setItemsPerPage={_setItemsPerPage}
+              setRenderPrintTable={setRenderPrintTable}
+              validation={_validation}
+              sedId={mainSed.id}
+              editingRow={Object.keys(_itemsEditing).length > 0 || _addRowEditing}
+            />
+            <HorizontalLineSeparator />
+          </Box>
+        </MarginOneLeftDiv>
         <Table<P5000ListRow, P5000TableContext>
           id={tableId}
           animatable={false}
@@ -1165,50 +1169,50 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             }
           ]}
         />
-        <VerticalSeparatorDiv />
-        {renderPrintTable && (
-          <HiddenDiv>
-            <div ref={componentRef} id='printJS-form'>
-              <Table
-              // important to it re-renders when sorting changes
-                className='print-version'
-                fullWidth
-                items={_items}
-                editable={false}
-                animatable={false}
-                searchable={false}
-                selectable={false}
-                sortable
-                sort={_tableSort}
-                itemsPerPage={9999}
-                categories={[{
-                  colSpan: 3,
-                  label: ''
-                }, {
-                  colSpan: 3,
-                  label: t('buc:Periodesum')
-                }, {
-                  colSpan: 4,
-                  label: ''
-                }]}
-                columns={[
-                  { id: 'status', label: t('ui:status'), type: 'string' },
-                  { id: 'type', label: t('p5000:type-43113'), type: 'string', render: renderType },
-                  { id: 'startdato', label: t('ui:startDate'), type: 'string', render: renderDateCell },
-                  { id: 'sluttdato', label: t('ui:endDate'), type: 'string', render: renderDateCell },
-                  { id: 'dag', label: t('ui:day'), type: 'number', align: 'center' },
-                  { id: 'mnd', label: t('ui:month'), type: 'number', align: 'center' },
-                  { id: 'aar', label: t('ui:year'), type: 'number', align: 'center' },
-                  { id: 'ytelse', label: t('p5000:ytelse'), type: 'string', align: 'center' },
-                  { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', align: 'center' },
-                  { id: 'ordning', label: t('ui:scheme'), type: 'string', align: 'center' }
-                ]}
-              />
-            </div>
-          </HiddenDiv>
-        )}
-      </PileCenterDiv>
-      <VerticalSeparatorDiv size='3' />
+        <Box paddingBlock="4 0">
+          {renderPrintTable && (
+            <HiddenDiv>
+              <div ref={componentRef} id='printJS-form'>
+                <Table
+                // important to it re-renders when sorting changes
+                  className='print-version'
+                  fullWidth
+                  items={_items}
+                  editable={false}
+                  animatable={false}
+                  searchable={false}
+                  selectable={false}
+                  sortable
+                  sort={_tableSort}
+                  itemsPerPage={9999}
+                  categories={[{
+                    colSpan: 3,
+                    label: ''
+                  }, {
+                    colSpan: 3,
+                    label: t('buc:Periodesum')
+                  }, {
+                    colSpan: 4,
+                    label: ''
+                  }]}
+                  columns={[
+                    { id: 'status', label: t('ui:status'), type: 'string' },
+                    { id: 'type', label: t('p5000:type-43113'), type: 'string', render: renderType },
+                    { id: 'startdato', label: t('ui:startDate'), type: 'string', render: renderDateCell },
+                    { id: 'sluttdato', label: t('ui:endDate'), type: 'string', render: renderDateCell },
+                    { id: 'dag', label: t('ui:day'), type: 'number', align: 'center' },
+                    { id: 'mnd', label: t('ui:month'), type: 'number', align: 'center' },
+                    { id: 'aar', label: t('ui:year'), type: 'number', align: 'center' },
+                    { id: 'ytelse', label: t('p5000:ytelse'), type: 'string', align: 'center' },
+                    { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', align: 'center' },
+                    { id: 'ordning', label: t('ui:scheme'), type: 'string', align: 'center' }
+                  ]}
+                />
+              </div>
+            </HiddenDiv>
+          )}
+        </Box>
+      </VStack>
     </>
   )
 }
