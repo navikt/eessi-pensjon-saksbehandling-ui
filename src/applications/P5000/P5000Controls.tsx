@@ -1,12 +1,12 @@
 import { ChevronLeftIcon } from '@navikt/aksel-icons';
-import { Alert, BodyLong, Button, Checkbox } from '@navikt/ds-react'
-import { Column, PileDiv, Row, VerticalSeparatorDiv } from '@navikt/hoykontrast'
+import {Alert, BodyLong, Box, Button, Checkbox, HStack, VStack} from '@navikt/ds-react'
 import { Sed } from 'src/declarations/buc'
 import { EmptyPeriodsReport } from 'src/declarations/p5000'
 import _ from 'lodash'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import P5000SedLabel from 'src/applications/P5000/components/P5000SedLabel'
+import {MarginLeftDiv, MarginRightDiv} from "src/components/StyledComponents";
 
 const P5000Controls = ({
   onBackClick,
@@ -25,35 +25,40 @@ const P5000Controls = ({
 
   return (
     <>
-      <Row>
-        <Column>
-          <PileDiv>
-            <BodyLong>
-              {t('p5000:active-seds')}:
-            </BodyLong>
-            <VerticalSeparatorDiv size='0.5' />
-            {seds?.map((sed: Sed) => (
-              <Checkbox
-                data-testid={'a_buc_c_P5000overview--checkbox-' + sed.id}
-                checked={_.find(activeSeds, s => s.id === sed.id) !== undefined}
-                key={'a_buc_c_P5000overview--checkbox-' + sed.id}
-                id={'a_buc_c_P5000overview--checkbox-' + sed.id}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeActiveSeds(sed, e.target.checked)}
-              >
-                <P5000SedLabel sed={sed} warning={emptyPeriodReport[sed.id]} />
-              </Checkbox>
-            ))}
-          </PileDiv>
-        </Column>
-        <Column>
-          {warning && (
-            <Alert variant='warning'>
-              {t('buc:form-P5000-warning')}
-            </Alert>
-          )}
-        </Column>
-      </Row>
-      <VerticalSeparatorDiv size='3' />
+      <Box paddingBlock="0 12">
+        <HStack
+          gap="8"
+          width="100%"
+        >
+          <MarginRightDiv>
+            <VStack>
+              <BodyLong>
+                {t('p5000:active-seds')}:
+              </BodyLong>
+              <Box paddingBlock="2 0">
+                {seds?.map((sed: Sed) => (
+                  <Checkbox
+                    data-testid={'a_buc_c_P5000overview--checkbox-' + sed.id}
+                    checked={_.find(activeSeds, s => s.id === sed.id) !== undefined}
+                    key={'a_buc_c_P5000overview--checkbox-' + sed.id}
+                    id={'a_buc_c_P5000overview--checkbox-' + sed.id}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeActiveSeds(sed, e.target.checked)}
+                  >
+                    <P5000SedLabel sed={sed} warning={emptyPeriodReport[sed.id]} />
+                  </Checkbox>
+                ))}
+              </Box>
+            </VStack>
+          </MarginRightDiv>
+          <MarginLeftDiv>
+            {warning && (
+              <Alert variant='warning'>
+                {t('buc:form-P5000-warning')}
+              </Alert>
+            )}
+          </MarginLeftDiv>
+        </HStack>
+      </Box>
       <div style={{ display: 'inline-block' }}>
         <Button
           variant='secondary'
