@@ -10,11 +10,6 @@ import {
   Select as NavSelect,
   VStack
 } from '@navikt/ds-react'
-import {
-  AlignEndRow,
-  Column,
-  FullWidthDiv,
-} from '@navikt/hoykontrast'
 import { resetSentP5000info, sendP5000toRina, setGjpBpWarning } from 'src/actions/p5000'
 import {getGjpBp, getUFT, setGjpBp} from 'src/actions/person'
 import { listItemtoPeriod } from 'src/applications/P5000/utils/conversionUtils'
@@ -22,7 +17,13 @@ import { ytelseType } from 'src/applications/P5000/P5000.labels'
 import P5000HelpModal from 'src/applications/P5000/components/P5000HelpModal'
 import Modal from 'src/components/Modal/Modal'
 import Select from 'src/components/Select/Select'
-import { OneLineSpan } from 'src/components/StyledComponents'
+import {
+  FlexTwoDiv,
+  FullWidthDiv,
+  MarginBothDiv,
+  MarginLeftDiv, MarginOneLeftDiv,
+  OneLineSpan
+} from 'src/components/StyledComponents'
 import * as constants from 'src/constants/constants'
 import { LocalStorageEntry, Option, Validation } from 'src/declarations/app'
 import { SakTypeMap, SakTypeValue } from 'src/declarations/buc.d'
@@ -40,7 +41,14 @@ import {GJENNY, VEDTAKSKONTEKST} from "src/constants/constants";
 import {sendP5000toRinaGjenny} from "../../../actions/gjenny";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat"
+import styled from "styled-components";
 dayjs.extend(customParseFormat)
+
+const AlignEndRow = styled(HStack)`
+  width: 100%;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+`
 
 export interface P5000EditControlsSelector {
   gettingUft: boolean
@@ -457,9 +465,9 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         onClose={() => _setShowHelpModal(false)}
       />
       <Box paddingBlock="0 4">
-        <AlignEndRow style={{ width: '100%' }}>
-          <Column />
-          <Column flex='2'>
+        <HStack>
+          <MarginLeftDiv />
+          <FlexTwoDiv >
             <Alert variant='warning'>
               <HStack
                 gap="2"
@@ -471,13 +479,13 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                 </HelpText>
               </HStack>
             </Alert>
-          </Column>
-          <Column />
-        </AlignEndRow>
+          </FlexTwoDiv>
+          <MarginLeftDiv />
+        </HStack>
       </Box>
       <Box paddingBlock="0 4">
-        <AlignEndRow style={{ width: '100%' }}>
-          <Column>
+        <AlignEndRow>
+          <MarginBothDiv>
             <FullWidthDiv>
               <Select
                 key={'ytelse' + ytelseOption}
@@ -492,8 +500,8 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                 value={_.find(ytelseOptions, y => y.value === ytelseOption) ?? null}
               />
             </FullWidthDiv>
-          </Column>
-          <Column style={{ justifyContent: 'center' }}>
+          </MarginBothDiv>
+          <MarginOneLeftDiv>
             <HStack
               align="center"
             >
@@ -529,8 +537,8 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                 </HStack>
               </RadioGroup>
             </HStack>
-          </Column>
-          <Column>
+          </MarginOneLeftDiv>
+          <MarginBothDiv>
             <HStack
               gap="4"
               align="end"
@@ -574,13 +582,13 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                 content={() => componentRef.current}
               />
             </HStack>
-          </Column>
+          </MarginBothDiv>
         </AlignEndRow>
       </Box>
       <Box paddingBlock="0 4">
-        <AlignEndRow style={{ width: '100%' }}>
-          <Column />
-          <Column style={{ textAlign: 'end' }}>
+        <AlignEndRow>
+          <MarginBothDiv />
+          <MarginBothDiv style={{ textAlign: 'end' }}>
             {p5000changed && (
               <div style={{ whiteSpace: 'nowrap' }}>
                 <HStack gap="2"
@@ -595,11 +603,11 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                 </HStack>
               </div>
             )}
-          </Column>
+          </MarginBothDiv>
         </AlignEndRow>
       </Box>
-      <AlignEndRow style={{ width: '100%' }}>
-        <Column>
+      <AlignEndRow>
+        <MarginBothDiv>
           {sakType === SakTypeMap.UFOREP && pesysContext === constants.VEDTAKSKONTEKST && (
              <HStack
                gap="4"
@@ -648,8 +656,8 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
               )}
             </>
           )}
-        </Column>
-        <Column />
+        </MarginBothDiv>
+        <MarginBothDiv />
       </AlignEndRow>
     </>
   )

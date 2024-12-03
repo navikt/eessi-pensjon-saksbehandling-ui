@@ -42,7 +42,13 @@ import SEDP6000 from 'src/applications/BUC/components/SEDP6000/SEDP6000'
 import JoarkBrowser from 'src/components/JoarkBrowser/JoarkBrowser'
 import MultipleSelect from 'src/components/MultipleSelect/MultipleSelect'
 import Select from 'src/components/Select/Select'
-import {FlexOneDiv, HorizontalLineSeparator, MarginLeftDiv, MarginRightDiv} from 'src/components/StyledComponents'
+import {
+  FlexOneDiv,
+  FullWidthDiv,
+  HorizontalLineSeparator,
+  MarginLeftDiv,
+  MarginRightDiv
+} from 'src/components/StyledComponents'
 import ValidationBox from 'src/components/ValidationBox/ValidationBox'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import * as constants from 'src/constants/constants'
@@ -112,9 +118,7 @@ const FlexDiv = styled.div`
    display: flex;
    align-items: flex-end;
 `
-const FullWidthDiv = styled.div`
-  width: 100%;
-`
+
 const InstitutionsDiv = styled.div``
 const SEDAttachmentSenderDiv = styled.div`
    margin-top: 1rem;

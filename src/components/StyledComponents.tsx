@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 import {Box, HGrid, HStack, RadioGroup} from '@navikt/ds-react'
 
+export const FullWidthDiv = styled.div`
+  width: 100%;
+`
+
 export const OneLineSpan = styled.span`
   white-space: nowrap;
 `
@@ -21,6 +25,12 @@ export const MarginRightDiv = styled.span`
     margin-right: 0.5rem;
 `
 
+export const MarginBothDiv = styled.span`
+    flex: 1;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+`
+
 export const SeparatorSpan = styled.span`
   margin-left: 0.25rem;
   margin-right: 0.25rem;
@@ -29,6 +39,11 @@ export const SeparatorSpan = styled.span`
 export const FlexOneDiv = styled.span`
     flex: 1;
     margin-left: 0.5rem;
+`
+
+export const FlexTwoDiv = styled.span`
+    flex: 2;
+    margin-right: 0.5rem;
 `
 
 export const SpinnerDiv = styled.div`
