@@ -1,33 +1,34 @@
 import {ChevronLeftIcon} from '@navikt/aksel-icons';
-import {BodyLong, Button, Heading, Loader, Panel, Select, SortState} from '@navikt/ds-react'
+import {
+  BodyLong,
+  Box,
+  Button,
+  Heading,
+  HStack,
+  Loader,
+  Select,
+  SortState,
+  VStack
+} from '@navikt/ds-react'
 import {BUCMode} from 'src/declarations/app'
 import {Buc, Sed} from 'src/declarations/buc'
-import {
-  AlignEndRow,
-  Column as ColumnDiv,
-  FlexEndDiv,
-  FlexCenterDiv,
-  HiddenDiv,
-  HorizontalSeparatorDiv,
-  VerticalSeparatorDiv
-} from '@navikt/hoykontrast'
 import React, {useEffect, useRef, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import {useDispatch, useSelector} from 'react-redux'
-import {getSedP4000} from "../../actions/buc";
+import {getSedP4000} from "src/actions/buc";
 import {
   P4000SED,
   P4000ListRow,
   P4000TableContext,
   P4000ListRows,
   P4000PeriodObject
-} from "../../declarations/p4000";
-import {State} from "../../declarations/reducers";
+} from "src/declarations/p4000";
+import {State} from "src/declarations/reducers";
 import Table, {Column, RenderOptions} from "@navikt/tabell";
 import _ from "lodash";
 import CountryData, {AllowedLocaleString} from "@navikt/land-verktoy";
 import moment from "moment";
-import {standardLogger} from "../../metrics/loggers";
+import {standardLogger} from "src/metrics/loggers";
 import md5 from "md5";
 import {
   P4000_ANDRE,
@@ -42,6 +43,8 @@ import {
 } from "../../constants/types";
 import ReactToPrint from "react-to-print";
 import WaitingPanel from "../../components/WaitingPanel/WaitingPanel";
+import styled from "styled-components";
+import {WaitingPanelDiv} from "src/components/StyledComponents";
 
 export interface P4000Props {
   buc: Buc
@@ -62,6 +65,13 @@ const mapState = (state: State): P4000Selector => ({
   gettingP4000: state.loading.gettingP4000
 })
 
+export const BottomAlignedHStack = styled(HStack)`
+  align-items: end;
+`
+
+export const HiddenDiv = styled.div`
+  display: none;
+`
 
 const P4000: React.FC<P4000Props> = ({
   buc,
@@ -234,53 +244,45 @@ const P4000: React.FC<P4000Props> = ({
 
 
   return (
-    <div>
-      <VerticalSeparatorDiv size='3' />
+    <VStack gap="4">
       {renderBackLink()}
-      <VerticalSeparatorDiv size='2' />
-      <Panel>
+      <Box background="bg-default" padding="4">
         <Heading size='small'>
           {t('p4000:title', {ORGANISATION_NAME: organisation?.name, ORGANISATION_COUNTRY: organisation?.country})}
         </Heading>
-        <AlignEndRow style={{ width: '100%' }}>
-          <ColumnDiv>
-            <FlexEndDiv style={{ flexDirection: 'row-reverse' }}>
-              <ReactToPrint
-                documentTitle='P4000'
-                onAfterPrint={afterPrintOut}
-                onBeforePrint={beforePrintOut}
-                trigger={() =>
-                  <Button
-                    variant='secondary'
-                    disabled={_printDialogOpen}
-                  >
-                    {_printDialogOpen && <Loader />}
-                    {t('ui:print')}
-                  </Button>}
-                content={() => componentRef.current }
-              />
-              <HorizontalSeparatorDiv />
-              <Select
-                id='itemsPerPage'
-                label={t('ui:itemsPerPage')}
-                onChange={itemsPerPageChanged}
-                value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
-              >
-                <option value='10'>10</option>
-                <option value='15'>15</option>
-                <option value='20'>20</option>
-                <option value='30'>30</option>
-                <option value='50'>50</option>
-                <option value='all'>{t('ui:all')}</option>
-              </Select>
-
-            </FlexEndDiv>
-          </ColumnDiv>
-        </AlignEndRow>
+        <BottomAlignedHStack gap="4" style={{ flexDirection: 'row-reverse'}}>
+            <ReactToPrint
+              documentTitle='P4000'
+              onAfterPrint={afterPrintOut}
+              onBeforePrint={beforePrintOut}
+              trigger={() =>
+                <Button
+                  variant='secondary'
+                  disabled={_printDialogOpen}
+                >
+                  {_printDialogOpen && <Loader />}
+                  {t('ui:print')}
+                </Button>}
+              content={() => componentRef.current }
+            />
+          <Select
+            id='itemsPerPage'
+            label={t('ui:itemsPerPage')}
+            onChange={itemsPerPageChanged}
+            value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
+          >
+            <option value='10'>10</option>
+            <option value='15'>15</option>
+            <option value='20'>20</option>
+            <option value='30'>30</option>
+            <option value='50'>50</option>
+            <option value='all'>{t('ui:all')}</option>
+          </Select>
+        </BottomAlignedHStack>
         {gettingP4000 &&
-          <FlexCenterDiv style={{ width: '10%', marginLeft:"auto", marginRight:"auto" }}>
+          <WaitingPanelDiv>
             <WaitingPanel/>
-          </FlexCenterDiv>
+          </WaitingPanelDiv>
         }
         {!gettingP4000 &&
           <Table<P4000ListRow, P4000TableContext>
@@ -298,7 +300,7 @@ const P4000: React.FC<P4000Props> = ({
             columns={columns}
           />
         }
-      </Panel>
+      </Box>
       <HiddenDiv>
         <div ref={componentRef} id='printJS-form'>
           <Table<P4000ListRow, P4000TableContext>
@@ -317,8 +319,7 @@ const P4000: React.FC<P4000Props> = ({
           />
         </div>
       </HiddenDiv>
-
-    </div>
+    </VStack>
   )
 }
 
