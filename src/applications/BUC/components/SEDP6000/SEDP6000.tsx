@@ -9,14 +9,7 @@ import Flag from '@navikt/flagg-ikoner'
 import File from '@navikt/forhandsvisningsfil'
 import CountryData, { Country } from '@navikt/land-verktoy'
 import _ from 'lodash'
-import { Checkbox, Button, Loader, Panel } from '@navikt/ds-react'
-import {
-  FlexCenterDiv,
-  FlexCenterSpacedDiv,
-  HorizontalSeparatorDiv,
-  PileDiv,
-  VerticalSeparatorDiv
-} from '@navikt/hoykontrast'
+import {Checkbox, Button, Loader, Box, HStack, Spacer, VStack} from '@navikt/ds-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -92,21 +85,19 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
           )
         }}
       />
-      {p6000s.map(p6000 => {
-        const country: Country = countryData.findByValue(p6000.fraLand)
-        return (
-          <div className='a_buc_c_sedstart--p6000' key={p6000.documentID}>
-            <Panel border className={classNames({ 'skjemaelement--input--harFeil': !!feil })}>
-              <FlexCenterSpacedDiv>
-                <FlexCenterDiv>
+      <VStack gap="4">
+        {p6000s.map(p6000 => {
+          const country: Country = countryData.findByValue(p6000.fraLand)
+          return (
+            <div className='a_buc_c_sedstart--p6000' key={p6000.documentID}>
+              <Box padding="4" borderWidth="1" borderColor="border-default" className={classNames({ 'skjemaelement--input--harFeil': !!feil })}>
+                <HStack gap="4">
                   <Flag animate={false} wave={false} type='circle' country={p6000.fraLand} label={country.label ?? p6000.fraLand} />
-                  <HorizontalSeparatorDiv />
-                  <PileDiv>
+                  <VStack>
                     <span>{t('ui:type')}: {p6000.type}</span>
                     <span>{t('ui:version')}: {p6000.sisteVersjon}</span>
-                  </PileDiv>
-                </FlexCenterDiv>
-                <FlexCenterDiv>
+                  </VStack>
+                  <Spacer/>
                   <Button
                     variant='tertiary'
                     data-testid={'a_buc_c_sedstart--p6000-preview-' + p6000.documentID}
@@ -120,7 +111,6 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
                     )}
                     {gettingP6000PDF ? t('ui:loading') : t('ui:preview')}
                   </Button>
-                  <HorizontalSeparatorDiv />
                   <Checkbox
                     checked={_.find(chosenP6000s, _p6000 => _p6000.documentID === p6000.documentID) !== undefined}
                     key={p6000.documentID}
@@ -130,14 +120,14 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
 
                   >{t('ui:choose')}
                   </Checkbox>
-                </FlexCenterDiv>
-              </FlexCenterSpacedDiv>
-            </Panel>
-            <VerticalSeparatorDiv />
-          </div>
-        )
-      }
-      )}
+                </HStack>
+              </Box>
+            </div>
+          )
+        }
+        )}
+      </VStack>
+
       {feil && (
         <div role='alert' aria-live='assertive' className='navds-error-message navds-error-message--medium navds-label'>
           {feil.feilmelding}
