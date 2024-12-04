@@ -40,7 +40,7 @@ import {
   P4000_OMSORG,
   P4000_OPPLAERING,
   P4000_SYKEPENGER
-} from "../../constants/types";
+} from "src/constants/types";
 import ReactToPrint from "react-to-print";
 import WaitingPanel from "../../components/WaitingPanel/WaitingPanel";
 import styled from "styled-components";
