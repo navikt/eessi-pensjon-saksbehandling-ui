@@ -10,7 +10,7 @@ import {
   Loader,
   Radio,
   RadioGroup,
-  TextField
+  TextField, VStack
 } from '@navikt/ds-react'
 import {
   createReplySed,
@@ -43,11 +43,8 @@ import JoarkBrowser from 'src/components/JoarkBrowser/JoarkBrowser'
 import MultipleSelect from 'src/components/MultipleSelect/MultipleSelect'
 import Select from 'src/components/Select/Select'
 import {
-  FlexOneDiv,
   FullWidthDiv,
   HorizontalLineSeparator,
-  MarginLeftDiv,
-  MarginRightDiv
 } from 'src/components/StyledComponents'
 import ValidationBox from 'src/components/ValidationBox/ValidationBox'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
@@ -87,9 +84,7 @@ import {
   SedsWithAttachmentsMap,
   ValidBuc
 } from 'src/declarations/buc.d'
-import { BucsPropType, SedPropType } from 'src/declarations/buc.pt'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark'
-import { JoarkBrowserItemFileType } from 'src/declarations/joark.pt'
 
 import { PersonAvdod, PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
@@ -99,7 +94,6 @@ import _ from 'lodash'
 import { buttonLogger, standardLogger } from 'src/metrics/loggers'
 import moment from 'moment'
 
-import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -119,12 +113,6 @@ const FlexDiv = styled.div`
    align-items: flex-end;
 `
 
-const InstitutionsDiv = styled.div``
-const SEDAttachmentSenderDiv = styled.div`
-   margin-top: 1rem;
-   margin-bottom: 1rem;
-   width: 100%;
-`
 export const SEDStartDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -997,7 +985,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   return (
-    <SEDStartDiv>
+    <VStack gap="4">
       <Heading size='medium'>
         {!currentSed && _.isEmpty(followUpSeds)
           ? t('buc:step-startSEDTitle', {
@@ -1028,16 +1016,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           </AlertDiv>
         </FullWidthDiv>
       )}
-      <HStack
-        gap="8"
-        width="100%"
-      >
-        <MarginRightDiv>
-          <Box paddingBlock="8 0">
-            <label className='navds-text-field--label navds-label'>
-              {t('buc:form-chooseSed')}
-            </label>
+      <HGrid columns={2} gap="4">
+        <VStack gap="4">
             <Select
+              label={t('buc:form-chooseSed')}
               data-testid='a_buc_c_sedstart--sed-select-id'
               isDisabled={loading.gettingSedList}
               id='a_buc_c_sedstart--sed-select-id'
@@ -1048,103 +1030,92 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               options={_sedOptions}
               value={_.find(_sedOptions, (f: any) => f.value === _sed) || null}
             />
-          </Box>
+
           {_sed && showVedtakIdField(_sed) && (
-            <Box paddingBlock="4 0">
-              <TextField
-                disabled
-                data-testid='a_buc_c_sedstart--vedtakid-input-id'
-                id='a_buc_c_sedstart--vedtakid-input-id'
-                label={t('buc:form-vedtakId') + (_.isEmpty(_vedtakId) ? ' - ' + t('buc:form-noVedtakId') : '')}
-                value={_vedtakId || ''}
-                onChange={onVedtakIdChange}
-                error={_validation.vedtakid ? t(_validation.vedtakid.feilmelding) : null}
-              />
-            </Box>
+            <TextField
+              disabled
+              data-testid='a_buc_c_sedstart--vedtakid-input-id'
+              id='a_buc_c_sedstart--vedtakid-input-id'
+              label={t('buc:form-vedtakId') + (_.isEmpty(_vedtakId) ? ' - ' + t('buc:form-noVedtakId') : '')}
+              value={_vedtakId || ''}
+              onChange={onVedtakIdChange}
+              error={_validation.vedtakid ? t(_validation.vedtakid.feilmelding) : null}
+            />
           )}
           {sedHasFixedAvdod() && (
-            <Box paddingBlock="4 0">
-              <FlexDiv
-                data-testid='a_buc_c_sedstart--avdod-div-id'
-              >
-                <HStack gap="4">
-                  <PersonIcon fontSize="1.5rem" />
-                  <label className='navds-text-field--label navds-label'>
-                    {t('buc:form-avdod')}:
-                  </label>
-                  <BodyLong>
-                    {renderAvdodName(_avdod, t)}
-                  </BodyLong>
-                </HStack>
-              </FlexDiv>
-            </Box>
+            <FlexDiv
+              data-testid='a_buc_c_sedstart--avdod-div-id'
+            >
+              <HStack gap="4">
+                <PersonIcon fontSize="1.5rem" />
+                <label className='navds-text-field--label navds-label'>
+                  {t('buc:form-avdod')}:
+                </label>
+                <BodyLong>
+                  {renderAvdodName(_avdod, t)}
+                </BodyLong>
+              </HStack>
+            </FlexDiv>
           )}
           {sedNeedsAvdodFnrInput() && (
-            <Box paddingBlock="4 0">
-              <TextField
-                label={t('buc:form-chooseAvdodFnr')}
-                data-testid='a_buc_c_sedstart--avdod-input-id'
-                id='a_buc_c_sedstart--avdod-input-id'
-                onChange={onAvdodFnrChange}
-                value={_avdodFnr}
-                error={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : null}
-              />
-            </Box>
+            <TextField
+              label={t('buc:form-chooseAvdodFnr')}
+              data-testid='a_buc_c_sedstart--avdod-input-id'
+              id='a_buc_c_sedstart--avdod-input-id'
+              onChange={onAvdodFnrChange}
+              value={_avdodFnr}
+              error={_validation.avdodFnr ? t(_validation.avdodFnr.feilmelding) : null}
+            />
           )}
           {_sed && sedNeedsKravdato(_sed) && (
-            <Box paddingBlock="4 0">
-              <TextField
-                data-testid='a_buc_c_sedstart--kravDato-input-id'
-                id='a_buc_c_sedstart--kravDato-input-id'
-                label={t('buc:form-kravDato') + '(' + t('buc:form-kravDatoPlaceholder') + ')'}
-                value={_kravDato}
-                onChange={onKravDatoChange}
-                error={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
-              />
-            </Box>
+            <TextField
+              data-testid='a_buc_c_sedstart--kravDato-input-id'
+              id='a_buc_c_sedstart--kravDato-input-id'
+              label={t('buc:form-kravDato') + '(' + t('buc:form-kravDatoPlaceholder') + ')'}
+              value={_kravDato}
+              onChange={onKravDatoChange}
+              error={_validation.kravDato ? t(_validation.kravDato.feilmelding) : undefined}
+            />
           )}
           {_sed && sedNeedsKravOm(_sed) && pesysContext !== GJENNY && (
-            <Box paddingBlock="4 0">
-              <RadioGroup
-                value={_kravOm as string}
-                data-testid='a_buc_c_sedstart--kravOm-radiogroup-id'
-                error={_validation.kravOm ? t(_validation.kravOm.feilmelding) : undefined}
-                legend={t('buc:form-kravOm')}
-                onChange={onKravOmChange}
-              >
-                <Radio
-                  disabled={(sakType === SakTypeMap.UFOREP || sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)}
-                  value='Alderspensjon'
-                >{t('buc:form-alderspensjon')}
-                </Radio>
-                <Radio
-                  value='Etterlatteytelser'
-                >{t('buc:form-etterletteytelser')}
-                </Radio>
-                <Radio
-                  disabled={(sakType === SakTypeMap.ALDER || sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)}
-                  value='Uføretrygd'
-                >{t('buc:form-uføretrygd')}
-                </Radio>
-              </RadioGroup>
-            </Box>
+            <RadioGroup
+              value={_kravOm as string}
+              data-testid='a_buc_c_sedstart--kravOm-radiogroup-id'
+              error={_validation.kravOm ? t(_validation.kravOm.feilmelding) : undefined}
+              legend={t('buc:form-kravOm')}
+              onChange={onKravOmChange}
+            >
+              <Radio
+                disabled={(sakType === SakTypeMap.UFOREP || sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)}
+                value='Alderspensjon'
+              >{t('buc:form-alderspensjon')}
+              </Radio>
+              <Radio
+                value='Etterlatteytelser'
+              >{t('buc:form-etterletteytelser')}
+              </Radio>
+              <Radio
+                disabled={(sakType === SakTypeMap.ALDER || sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP)}
+                value='Uføretrygd'
+              >{t('buc:form-uføretrygd')}
+              </Radio>
+            </RadioGroup>
+
           )}
           {sedNeedsAvdodBrukerQuestion() && (
-            <Box paddingBlock="4 0">
-              <RadioGroup
-                value={_avdodOrSoker}
-                data-testid='a_buc_c_sedstart--avdodorsoker-radiogroup-id'
-                error={_validation.avdodorsoker ? t(_validation.avdodorsoker.feilmelding) : null}
-                legend={t('buc:form-avdodorsøker')}
-                onChange={onAvdodOrSokerChange}
-              >
-                <Radio value='AVDOD'>{t('buc:form-avdod')}</Radio>
-                <Radio value='SOKER'>{t('buc:form-søker')}</Radio>
-              </RadioGroup>
-            </Box>
+            <RadioGroup
+              value={_avdodOrSoker}
+              data-testid='a_buc_c_sedstart--avdodorsoker-radiogroup-id'
+              error={_validation.avdodorsoker ? t(_validation.avdodorsoker.feilmelding) : null}
+              legend={t('buc:form-avdodorsøker')}
+              onChange={onAvdodOrSokerChange}
+            >
+              <Radio value='AVDOD'>{t('buc:form-avdod')}</Radio>
+              <Radio value='SOKER'>{t('buc:form-søker')}</Radio>
+            </RadioGroup>
           )}
           {!currentSed && (
-            <Box paddingBlock="4 0">
+            <>
               <CountrySelect
                 ariaLabel={t('ui:country')}
                 aria-describedby='help-country'
@@ -1162,27 +1133,22 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 label={loading.gettingCountryList ? getSpinner('message:loading-country') : t('buc:form-chooseCountry')}
                 onOptionSelected={onCountriesChange}
               />
-              <Box paddingBlock="4 8">
-                <MultipleSelect<Option>
-                  ariaLabel={t('ui:institution')}
-                  aria-describedby='help-institution'
-                  data-testid='a_buc_c_sedstart--institution-select-id'
-                  isDisabled={loading.gettingInstitutionList || isDisabled}
-                  error={_validation.institution ? t(_validation.institution.feilmelding) : undefined}
-                  hideSelectedOptions={false}
-                  id='a_buc_c_sedstart--institution-select-id'
-                  isLoading={loading.gettingInstitutionList}
-                  label={loading.gettingInstitutionList ? getSpinner('message:loading-institution') : t('buc:form-chooseInstitution')}
-                  options={_institutionObjectList}
-                  onSelect={onInstitutionsChange}
-                  values={_institutionValueList}
-                />
-              </Box>
+              <MultipleSelect<Option>
+                ariaLabel={t('ui:institution')}
+                aria-describedby='help-institution'
+                data-testid='a_buc_c_sedstart--institution-select-id'
+                isDisabled={loading.gettingInstitutionList || isDisabled}
+                error={_validation.institution ? t(_validation.institution.feilmelding) : undefined}
+                hideSelectedOptions={false}
+                id='a_buc_c_sedstart--institution-select-id'
+                isLoading={loading.gettingInstitutionList}
+                label={loading.gettingInstitutionList ? getSpinner('message:loading-institution') : t('buc:form-chooseInstitution')}
+                options={_institutionObjectList}
+                onSelect={onInstitutionsChange}
+                values={_institutionValueList}
+              />
               {_sed === 'P7000' && bucRequiresP6000s(_buc) && (
-                <Box
-                  paddingBlock="0 8"
-                  paddingInline="2 0"
-                >
+                <Box>
                   {_.isNil(p6000s)
                     ? (
                       <Button
@@ -1205,29 +1171,22 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               <label className='navds-text-field--label navds-label'>
                 {t('buc:form-chosenInstitutions')}
               </label>
-              <Box paddingBlock="4 0">
-                <InstitutionsDiv>
-                  <InstitutionList
-                    institutions={_institutions.map(institution => {
-                      const [country, acronym] = institution.split(':')
-                      return {
-                        country,
-                        acronym,
-                        institution,
-                        name: institutionNames ? institutionNames[institution].name : institution
-                      }
-                    })}
-                    locale={locale}
-                    type='joined'
-                  />
-                </InstitutionsDiv>
-              </Box>
-            </Box>
+              <InstitutionList
+                institutions={_institutions.map(institution => {
+                  const [country, acronym] = institution.split(':')
+                  return {
+                    country,
+                    acronym,
+                    institution,
+                    name: institutionNames ? institutionNames[institution].name : institution
+                  }
+                })}
+                locale={locale}
+                type='joined'
+              />
+            </>
           )}
-          <Box
-            paddingBlock="6 2"
-            paddingInline="2 0"
-          >
+          <Box>
             <HStack gap="4">
               <Button
                 variant={_sed === 'P7000' && _.isEmpty(_p6000s) ? 'secondary' : 'primary'}
@@ -1255,14 +1214,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               </Button>
             </HStack>
           </Box>
-        </MarginRightDiv>
-        <MarginLeftDiv>
+        </VStack>
+        <VStack gap="4">
           {sedCanHaveAttachments() && (
-            <Box paddingBlock="8 0">
+            <Box>
               <label className='navds-text-field--label navds-label'>
                 {t('ui:attachments')}
               </label>
-              <Box paddingBlock="4 4">
+              <Box paddingBlock="2">
                 <Button
                   variant='secondary'
                   onClick={() => setAttachmentsTableVisible(!_attachmentsTableVisible)}
@@ -1289,52 +1248,29 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               )}
             </Box>
           )}
-          <FlexOneDiv>
-            {(_sendingAttachments || _attachmentsSent) && sed && (
-              <SEDAttachmentSenderDiv>
-                <Box paddingBlock="0 4">
-                  <SEDAttachmentSender
-                    attachmentsError={attachmentsError}
-                    payload={{
-                      aktoerId,
-                      rinaId: _buc.caseId,
-                      rinaDokumentId: sed!.id
-                    } as SEDAttachmentPayload}
-                    onSaved={_onSaved}
-                    onFinished={_onFinished}
-                    onCancel={_cancelSendAttachmentToSed}
-                    sendAttachmentToSed={_sendAttachmentToSed}
-                  />
-                </Box>
-              </SEDAttachmentSenderDiv>
-            )}
-          </FlexOneDiv>
-        </MarginLeftDiv>
-      </HStack>
+          {(_sendingAttachments || _attachmentsSent) && sed && (
+            <SEDAttachmentSender
+              attachmentsError={attachmentsError}
+              payload={{
+                aktoerId,
+                rinaId: _buc.caseId,
+                rinaDokumentId: sed!.id
+              } as SEDAttachmentPayload}
+              onSaved={_onSaved}
+              onFinished={_onFinished}
+              onCancel={_cancelSendAttachmentToSed}
+              sendAttachmentToSed={_sendAttachmentToSed}
+            />
+          )}
+        </VStack>
+      </HGrid>
       {!hasNoValidationErrors(_validation) && (
-        <>
-          <Box paddingBlock="4 0">
-            <HGrid columns={2}>
-              <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={_validation} />
-            </HGrid>
-          </Box>
-        </>
+        <HGrid columns={2}>
+          <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={_validation} />
+        </HGrid>
       )}
-    </SEDStartDiv>
+    </VStack>
   )
-}
-
-SEDStart.propTypes = {
-  aktoerId: PT.string.isRequired,
-  bucs: BucsPropType.isRequired,
-  currentBuc: PT.string.isRequired,
-  currentSed: SedPropType,
-  initialAttachments: PT.arrayOf(JoarkBrowserItemFileType.isRequired),
-  initialSed: PT.string,
-  initialSendingAttachments: PT.bool,
-  onSedCreated: PT.func.isRequired,
-  onSedCancelled: PT.func.isRequired,
-  followUpSeds: PT.arrayOf(SedPropType.isRequired)
 }
 
 export default SEDStart

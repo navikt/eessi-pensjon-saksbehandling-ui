@@ -132,22 +132,20 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
         </>
       </ProgressBar>
       {_status === 'inprogress' && _.isFunction(onCancel) && (
-        <>
-          <Box paddingInline="4 0">
-            <Button
-              size='small'
-              variant='secondary'
-              data-testid='a_buc_c_sedAttachmentSender--cancel-button-id'
-              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                e.preventDefault()
-                e.stopPropagation()
-                onCancel()
-              }}
-            >
-              {t('ui:cancel')}
-            </Button>
-          </Box>
-        </>
+        <Box paddingInline="4 0">
+          <Button
+            size='small'
+            variant='secondary'
+            data-testid='a_buc_c_sedAttachmentSender--cancel-button-id'
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+              e.preventDefault()
+              e.stopPropagation()
+              onCancel()
+            }}
+          >
+            {t('ui:cancel')}
+          </Button>
+        </Box>
       )}
     </SEDAttachmentSenderDiv>
   )
