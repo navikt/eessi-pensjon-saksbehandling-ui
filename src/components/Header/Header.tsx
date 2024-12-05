@@ -6,7 +6,19 @@ import NavLogoTransparent from 'src/assets/images/NavLogoTransparent'
 import {Loader, HStack, Spacer} from '@navikt/ds-react'
 import styled from 'styled-components'
 import {GJENNY} from "src/constants/constants";
-import {CenterHStack} from "src/components/StyledComponents";
+
+export const CenterHStack = styled(HStack)`
+  align-items: center;
+
+  &:before {
+    position: absolute;
+    content: url(../../../nisselue.svg);
+    transform: scale(2.3) rotate(45deg);
+    top: 2px;
+    left: 50px;
+
+  }
+`
 
 export interface HeaderProps {
   className ?: string
