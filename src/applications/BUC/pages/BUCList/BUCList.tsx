@@ -22,7 +22,6 @@ import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'src/metrics/loggers'
 import {Alert, BodyLong, Heading, Button, Box} from '@navikt/ds-react'
-import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -31,7 +30,6 @@ import {
   BucLenkePanel,
   BUCListDiv,
   BUCListHeader,
-  BUCNewDiv,
   BUCStartDiv,
   ProgressBarDiv
 } from "../../CommonBucComponents";
@@ -171,33 +169,31 @@ const BUCList: React.FC<BUCListProps> = ({
           )}
         </BUCListHeader>
       </Box>
-        <BUCStartDiv className={classNames({
-          open: _newBucPanelOpen === true,
-          close: _newBucPanelOpen === false
-        })}
-        >
-          <Box paddingBlock="0 4">
-            <BUCNewDiv border>
-              <Heading size='medium'>
-                {t('buc:step-startBUCTitle')}
-              </Heading>
-              <HorizontalLineSeparator />
-              <BUCStartIndex
-                aktoerId={aktoerId}
-                onBucCreated={() => {
-                  setNewBucPanelOpen(false)
-                  setMode('sednew', 'forward')
-                  window.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: 'smooth'
-                  })
-                }}
-                onBucCancelled={() => setNewBucPanelOpen(false)}
-              />
-            </BUCNewDiv>
-          </Box>
-        </BUCStartDiv>
+      <BUCStartDiv className={classNames({
+        open: _newBucPanelOpen === true,
+        close: _newBucPanelOpen === false
+      })}
+      >
+        <Box padding="8"  background="bg-default" borderWidth="1" borderColor="border-default">
+          <Heading size='medium'>
+            {t('buc:step-startBUCTitle')}
+          </Heading>
+          <HorizontalLineSeparator />
+          <BUCStartIndex
+            aktoerId={aktoerId}
+            onBucCreated={() => {
+              setNewBucPanelOpen(false)
+              setMode('sednew', 'forward')
+              window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+              })
+            }}
+            onBucCancelled={() => setNewBucPanelOpen(false)}
+          />
+        </Box>
+      </BUCStartDiv>
       <Box paddingBlock="4 0">
         {!gettingBucs && _.isEmpty(bucsList) && (
           <Box paddingBlock="4 4">
@@ -207,13 +203,11 @@ const BUCList: React.FC<BUCListProps> = ({
           </Box>
         )}
         {!_.isNil(_filteredBucs) && !_.isNil(_pBuc02filteredBucs) && _filteredBucs.length !== _pBuc02filteredBucs.length && (
-          <>
-            <BadBucDiv>
-              <Alert variant='warning'>
-                {t('message:warning-filteredBucs')}
-              </Alert>
-            </BadBucDiv>
-          </>
+          <BadBucDiv>
+            <Alert variant='warning'>
+              {t('message:warning-filteredBucs')}
+            </Alert>
+          </BadBucDiv>
         )}
       </Box>
       {!_.isNil(_sortedBucs) && !_.isEmpty(_sortedBucs) &&
@@ -250,10 +244,6 @@ const BUCList: React.FC<BUCListProps> = ({
       <BUCFooter />
     </BUCListDiv>
   )
-}
-
-BUCList.propTypes = {
-  setMode: PT.func.isRequired
 }
 
 export default BUCList

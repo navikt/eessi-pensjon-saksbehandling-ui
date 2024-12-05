@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { LinkPanel, Panel } from "@navikt/ds-react";
+import { LinkPanel } from "@navikt/ds-react";
 import { animationClose, animationOpen } from "src/components/Animations/Animations";
 
 export const ProgressBarDiv = styled.div`
@@ -72,8 +72,4 @@ export const BUCStartDiv = styled.div`
     max-height: 50em;
     animation: ${animationOpen(150)} 400ms ease;
   }
-`
-
-export const BUCNewDiv = styled(Panel)`
-  padding: 2rem !important;
 `
