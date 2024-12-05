@@ -36,11 +36,6 @@ export const SeparatorSpan = styled.span`
   margin-right: 0.25rem;
 `
 
-export const FlexOneDiv = styled.span`
-    flex: 1;
-    margin-left: 0.5rem;
-`
-
 export const FlexTwoDiv = styled.span`
     flex: 2;
     margin-right: 0.5rem;

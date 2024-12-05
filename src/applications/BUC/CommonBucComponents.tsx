@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { LinkPanel, Panel } from "@navikt/ds-react";
-import { animationClose, animationOpen, slideInFromLeft } from "src/components/Animations/Animations";
+import { LinkPanel } from "@navikt/ds-react";
+import { animationClose, animationOpen } from "src/components/Animations/Animations";
 
 export const ProgressBarDiv = styled.div`
  flex: 2;
@@ -45,9 +45,6 @@ export const BadBucDiv = styled.div`
   }
 `
 export const BucLenkePanel = styled(LinkPanel)`
-/*  transform: translateX(-20px);
-  opacity: 0;
-  animation: ${slideInFromLeft} 0.2s forwards;*/
   background: var(--a-surface-default);
   margin-bottom: 1rem;
   .navds-link-panel__content {
@@ -75,8 +72,4 @@ export const BUCStartDiv = styled.div`
     max-height: 50em;
     animation: ${animationOpen(150)} 400ms ease;
   }
-`
-
-export const BUCNewDiv = styled(Panel)`
-  padding: 2rem !important;
 `
