@@ -12,7 +12,7 @@ export const CenterHStack = styled(HStack)`
 
   &:before {
     position: absolute;
-    content: url(../../../nisselue.svg);
+    content: url(src/assets/images/nisselue.svg);
     transform: scale(2.3) rotate(45deg);
     top: 2px;
     left: 50px;
