@@ -1,24 +1,13 @@
-import { Alert, BodyLong, Button, HelpText, Loader, Tag, SortState } from '@navikt/ds-react'
+import {Alert, BodyLong, Button, HelpText, Loader, Tag, SortState, VStack, HStack, Spacer} from '@navikt/ds-react'
 import { typePeriode } from 'src/applications/P5000/P5000.labels'
 import Select from 'src/components/Select/Select'
-import { HorizontalLineSeparator } from 'src/components/StyledComponents'
+import {HiddenDiv, HorizontalLineSeparator} from 'src/components/StyledComponents'
 import { Labels, LocalStorageEntry, Option } from 'src/declarations/app'
 import { SakTypeMap, SakTypeValue, Sed } from 'src/declarations/buc.d'
 import { P5000sFromRinaMap, P5000SED, P5000SumRow, P5000SumRows } from 'src/declarations/p5000'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { standardLogger } from 'src/metrics/loggers'
-
-import {
-  AlignEndRow,
-  Column,
-  FlexDiv,
-  FlexEndSpacedDiv,
-  HiddenDiv,
-  HorizontalSeparatorDiv,
-  PileCenterDiv,
-  VerticalSeparatorDiv
-} from '@navikt/hoykontrast'
 import PT from 'prop-types'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -176,139 +165,120 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   const hasMoreWarnings = has40aar || has45 || has5152diffs
 
   return (
-    <>
-      <PileCenterDiv>
-        <AlignEndRow style={{ width: '100%' }}>
-          <Column />
-          <Column flex='2'>
-            {sakType === SakTypeMap.GJENLEV && (
-              <>
-                <Alert variant='warning'>
-                  {t('p5000:warning-P5000SumGjenlevende')}
-                </Alert>
-                <VerticalSeparatorDiv />
-              </>
-            )}
-            {!!sakType && (
-              <Alert variant='warning'>
-                <FlexDiv>
-                  {t('p5000:warning-P5000Sum-instructions-title')}
-                  <HorizontalSeparatorDiv size='0.5' />
-                  <HelpText>
-                      {t('p5000:warning-P5000Sum-instructions-title-help')}
-                  </HelpText>
-                </FlexDiv>
-                <BodyLong>
-                  <strong>
-                    {t('p5000:warning-P5000Sum-instructions-title-obs')}
-                  </strong>
-                </BodyLong>
-                {hasMoreWarnings && (
-                  <div>
-                    <VerticalSeparatorDiv />
-                    <HorizontalLineSeparator />
-                    <VerticalSeparatorDiv size='0.7' />
-                    {t('p5000:warning-P5000Sum-instructions-header')}
-                    <VerticalSeparatorDiv />
-                  </div>
-                )}
-                <ul>
-                  {has5152diffs && (
-                    <li>
-                      {t('p5000:warning-P5000Sum-instructions-5152')}
-                      <VerticalSeparatorDiv size='0.5' />
-                    </li>
-                  )}
-                  {has40aar && (
-                    <li>
-                      {t('p5000:warning-P5000Sum-instructions-40')}
-                      <VerticalSeparatorDiv size='0.5' />
-                    </li>
-                  )}
-                  {has45 && (
-                    <li>
-                      {t('p5000:warning-P5000Sum-instructions-45')}
-                      <VerticalSeparatorDiv size='0.5' />
-                    </li>
-                  )}
-                </ul>
-              </Alert>
-            )}
-          </Column>
-          <Column />
-        </AlignEndRow>
-        <VerticalSeparatorDiv />
-        <AlignEndRow style={{ width: '100%' }}>
-          <Column />
-          <Column>
-            <FlexEndSpacedDiv style={{ flexDirection: 'row-reverse' }}>
-              <ReactToPrint
-                documentTitle='P5000Sum'
-                onAfterPrint={afterPrintOut}
-                onBeforePrint={beforePrintOut}
-                onBeforeGetContent={prepareContent}
-                trigger={() =>
-                  <Button
-                    variant='secondary'
-                    disabled={_printDialogOpen}
-                  >
-                    {_printDialogOpen && <Loader />}
-                    {t('ui:print')}
-                  </Button>}
-                content={() => {
-                  return componentRef.current
-                }}
-              />
-            </FlexEndSpacedDiv>
-          </Column>
-        </AlignEndRow>
-        <VerticalSeparatorDiv />
-        <HorizontalLineSeparator />
-        <VerticalSeparatorDiv />
-        <Table<P5000SumRow>
-          animatable={false}
-          items={items}
-          searchable={false}
-          selectable={false}
-          editable={!_.isNil(mainSed)}
-          allowNewRows={false}
-          sortable={false}
-          onColumnSort={(sort: any) => {
-            standardLogger('buc.view.tools.P5000.summary.sort', { sort })
-            _setTableSort(sort)
-          }}
-          onRowsChanged={onRowsChanged}
-          itemsPerPage={_itemsPerPage}
-          labels={{}}
-          categories={categories}
-          columns={columns}
-        />
-        <VerticalSeparatorDiv />
-        {renderPrintTable && (
-          <HiddenDiv>
-            <div ref={componentRef} id='printJS-form'>
-              <Table<P5000SumRow>
-              // important to it re-renders when sorting changes
-                key={JSON.stringify(_tableSort)}
-                className='print-version'
-                items={items}
-                animatable={false}
-                searchable={false}
-                selectable={false}
-                editable={false}
-                sortable={false}
-                sort={_tableSort}
-                itemsPerPage={9999}
-                labels={{}}
-                categories={categories}
-                columns={columns}
-              />
-            </div>
-          </HiddenDiv>
+    <VStack gap="4">
+      <HStack gap="4">
+        <Spacer/>
+        <VStack gap="4">
+        {sakType === SakTypeMap.GJENLEV && (
+          <Alert variant='warning'>
+            {t('p5000:warning-P5000SumGjenlevende')}
+          </Alert>
         )}
-      </PileCenterDiv>
-      <VerticalSeparatorDiv size='3' />
-    </>
+        {!!sakType && (
+          <Alert variant='warning'>
+            <VStack gap="4">
+              <HStack wrap={false}>
+                {t('p5000:warning-P5000Sum-instructions-title')}
+                <HelpText>
+                    {t('p5000:warning-P5000Sum-instructions-title-help')}
+                </HelpText>
+              </HStack>
+              <BodyLong>
+                <strong>
+                  {t('p5000:warning-P5000Sum-instructions-title-obs')}
+                </strong>
+              </BodyLong>
+              {hasMoreWarnings && (
+                <>
+                  <HorizontalLineSeparator />
+                  {t('p5000:warning-P5000Sum-instructions-header')}
+                  <ul style={{marginTop: 0}}>
+                    {has5152diffs && (
+                      <li>
+                        {t('p5000:warning-P5000Sum-instructions-5152')}
+                      </li>
+                    )}
+                    {has40aar && (
+                      <li>
+                        {t('p5000:warning-P5000Sum-instructions-40')}
+                      </li>
+                    )}
+                    {has45 && (
+                      <li>
+                        {t('p5000:warning-P5000Sum-instructions-45')}
+                      </li>
+                    )}
+                  </ul>
+                </>
+              )}
+            </VStack>
+          </Alert>
+        )}
+        </VStack>
+        <Spacer/>
+      </HStack>
+      <HStack gap="4">
+        <Spacer/>
+        <ReactToPrint
+          documentTitle='P5000Sum'
+          onAfterPrint={afterPrintOut}
+          onBeforePrint={beforePrintOut}
+          onBeforeGetContent={prepareContent}
+          trigger={() =>
+            <Button
+              variant='secondary'
+              disabled={_printDialogOpen}
+            >
+              {_printDialogOpen && <Loader />}
+              {t('ui:print')}
+            </Button>}
+          content={() => {
+            return componentRef.current
+          }}
+        />
+      </HStack>
+      <HorizontalLineSeparator />
+      <Table<P5000SumRow>
+        animatable={false}
+        items={items}
+        searchable={false}
+        selectable={false}
+        editable={!_.isNil(mainSed)}
+        allowNewRows={false}
+        sortable={false}
+        onColumnSort={(sort: any) => {
+          standardLogger('buc.view.tools.P5000.summary.sort', { sort })
+          _setTableSort(sort)
+        }}
+        onRowsChanged={onRowsChanged}
+        itemsPerPage={_itemsPerPage}
+        labels={{}}
+        categories={categories}
+        columns={columns}
+      />
+      {renderPrintTable && (
+        <HiddenDiv>
+          <div ref={componentRef} id='printJS-form'>
+            <Table<P5000SumRow>
+            // important to it re-renders when sorting changes
+              key={JSON.stringify(_tableSort)}
+              className='print-version'
+              items={items}
+              animatable={false}
+              searchable={false}
+              selectable={false}
+              editable={false}
+              sortable={false}
+              sort={_tableSort}
+              itemsPerPage={9999}
+              labels={{}}
+              categories={categories}
+              columns={columns}
+            />
+          </div>
+        </HiddenDiv>
+      )}
+    </VStack>
   )
 }
 
