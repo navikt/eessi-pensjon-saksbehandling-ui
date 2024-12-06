@@ -1,9 +1,9 @@
-import {Box, Heading, Panel} from '@navikt/ds-react'
+import { Box, Heading, HStack, Panel } from '@navikt/ds-react'
 import { saveEntries } from 'src/actions/localStorage'
 import { getP5000FromS3, getSed, resetSentP5000info } from 'src/actions/p5000'
 import { getWorkingCopy, updateP5000WorkingCopies } from 'src/applications/P5000/utils/entriesUtils'
 import P5000Controls from 'src/applications/P5000/P5000Controls'
-import {FlexCenterDiv, SpinnerDiv} from 'src/components/StyledComponents'
+import { SpinnerDiv } from 'src/components/StyledComponents'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import { BUCMode, LocalStorageEntriesMap, FeatureToggles, LocalStorageEntry } from 'src/declarations/app'
 import { Buc, Sed, Seds } from 'src/declarations/buc'
@@ -96,7 +96,9 @@ const P5000: React.FC<P5000Props> = ({
   const renderP5000EditHeader = () => {
     if (!mainSed) return null
     return (
-      <FlexCenterDiv>
+      <HStack
+        align="center"
+      >
         <Heading size='small' style={{ display: 'flex' }}>
           {t('p5000:edit-title')}
         </Heading>
@@ -107,7 +109,7 @@ const P5000: React.FC<P5000Props> = ({
           -
         </Box>
         <P5000SedLabel sed={mainSed} />
-      </FlexCenterDiv>
+      </HStack>
     )
   }
 

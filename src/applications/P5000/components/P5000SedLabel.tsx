@@ -2,10 +2,10 @@ import { ExclamationmarkTriangleIcon } from '@navikt/aksel-icons'
 import Flag from '@navikt/flagg-ikoner'
 import SEDStatus from 'src/applications/BUC/components/SEDStatus/SEDStatus'
 import { getSedSender } from 'src/applications/P5000/utils/conversionUtils'
-import {FlexCenterDiv, SeparatorSpan} from 'src/components/StyledComponents'
+import { SeparatorSpan } from 'src/components/StyledComponents'
 import { SedSender } from 'src/declarations/p5000'
 import { useTranslation } from 'react-i18next'
-import { Box } from "@navikt/ds-react";
+import {Box, HStack} from "@navikt/ds-react";
 
 const P5000SedLabel = ({
   sed,
@@ -14,14 +14,19 @@ const P5000SedLabel = ({
   const { t } = useTranslation()
   const sender: SedSender | undefined = getSedSender(sed)
   return (
-    <FlexCenterDiv style={{ flexWrap: 'wrap' }}>
+    <HStack
+      align="center"
+      style={{ flexWrap: 'wrap' }}
+    >
       <span>
         {t('buc:form-dateP5000', { date: sender?.date })}
       </span>
       <SeparatorSpan>-</SeparatorSpan>
       {sender
         ? (
-          <FlexCenterDiv>
+          <HStack
+            align="center"
+          >
             <Flag
               animate
               country={sender?.country}
@@ -39,7 +44,7 @@ const P5000SedLabel = ({
                 status={sed.status}
               />
             </Box>
-          </FlexCenterDiv>
+          </HStack>
           )
         : sed.id}
       {warning && (
@@ -47,7 +52,7 @@ const P5000SedLabel = ({
           <ExclamationmarkTriangleIcon  fontSize="1.5rem" />
         </Box>
       )}
-    </FlexCenterDiv>
+    </HStack>
   )
 }
 

@@ -61,10 +61,6 @@ export const HorizontalLineSeparator = styled.div`
   margin-right: 2rem;
 `
 
-export const FlexCenterDiv= styled(HStack)`
-  align-items: center;
-`
-
 export const WithErrorBox = styled(Box)`
   background-color: transparent;
   border: none;
