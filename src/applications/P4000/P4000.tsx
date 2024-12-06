@@ -44,7 +44,7 @@ import {
 import ReactToPrint from "react-to-print";
 import WaitingPanel from "../../components/WaitingPanel/WaitingPanel";
 import styled from "styled-components";
-import {WaitingPanelDiv} from "src/components/StyledComponents";
+import {HiddenDiv, WaitingPanelDiv} from "src/components/StyledComponents";
 
 export interface P4000Props {
   buc: Buc
@@ -67,10 +67,6 @@ const mapState = (state: State): P4000Selector => ({
 
 export const BottomAlignedHStack = styled(HStack)`
   align-items: end;
-`
-
-export const HiddenDiv = styled.div`
-  display: none;
 `
 
 const P4000: React.FC<P4000Props> = ({
