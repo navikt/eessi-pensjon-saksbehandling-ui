@@ -1,10 +1,4 @@
-import {Alert, BodyLong, Box, Button, HelpText, HStack, Loader, Select, Switch} from '@navikt/ds-react'
-import {
-  AlignEndRow,
-  Column,
-  Row,
-  VerticalSeparatorDiv
-} from '@navikt/hoykontrast'
+import {Alert, BodyLong, Button, HelpText, HStack, Loader, Select, Spacer, Switch} from '@navikt/ds-react'
 import { sendP5000ToS3 } from 'src/actions/p5000'
 import { informasjonOmBeregningLabels, typePeriode } from 'src/applications/P5000/P5000.labels'
 import { convertFromP5000ListRowsIntoPesysPeriods } from 'src/applications/P5000/utils/pesysUtils'
@@ -125,104 +119,95 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
   return (
     <>
       {pesysWarning && currentTabKey === 'pesys' && (
-        <>
-          <Row style={{ width: '100%' }}>
-            <Column />
-            <Column flex='2'>
-              <Alert
-                variant='warning'
-              >
-                {pesysWarning}
-              </Alert>
-            </Column>
-            <Column />
-          </Row>
-          <VerticalSeparatorDiv />
-        </>
+        <HStack
+          paddingBlock="0 4"
+        >
+          <Spacer />
+          <Alert
+            variant='warning'
+            style={{ width: '50%' }}
+          >
+            {pesysWarning}
+          </Alert>
+          <Spacer />
+        </HStack>
       )}
       {!_.isNil(p5000FromS3) && (
-        <AlignEndRow style={{ width: '100%' }}>
-          <Column>
+        <HStack style={{ width: '100%' }}>
             <BodyLong>{t('message:alert-p5000sFromS3', { x: "" })}</BodyLong>
-          </Column>
-        </AlignEndRow>
+        </HStack>
       )}
-      <AlignEndRow style={{ width: '100%' }}>
-        <Column flex='2'>
-          <HStack
-            align="end"
-          >
-            <Switch
-              checked={mergePeriods}
-              id='a_buc_c_sedstart--p5000-overview-merge-checkbox'
-              data-testid='a_buc_c_sedstart--p5000-overview-merge-checkbox'
-              onChange={() => {
-                setMergePeriods(!mergePeriods)
-                setPagination(!pagination)
-              }}
-            >
-              <HStack gap="2">
-                <OneLineSpan>
-                  {t('p5000:merge-periods')}
-                </OneLineSpan>
+      <HStack
+        paddingBlock="0 4"
+        gap="4"
+        style={{ width: '100%' }}
+        align="end"
+      >
+        <Switch
+          checked={mergePeriods}
+          id='a_buc_c_sedstart--p5000-overview-merge-checkbox'
+          data-testid='a_buc_c_sedstart--p5000-overview-merge-checkbox'
+          onChange={() => {
+            setMergePeriods(!mergePeriods)
+            setPagination(!pagination)
+          }}
+        >
+          <HStack gap="2">
+            <OneLineSpan>
+              {t('p5000:merge-periods')}
+            </OneLineSpan>
+            <HelpText>
+                {t('p5000:help-merge-1') + t('p5000:help-merge-2')}
+            </HelpText>
+          </HStack>
+        </Switch>
+        {mergePeriods && (
+          <MultipleSelect<Option>
+            ariaLabel={t('p5000:merge-period-type')}
+            aria-describedby='help-tags'
+            data-testid='a_buc_c_p5000overview--types-select-id'
+            id='a_buc_c_p5000overview--types-select-id'
+            hideSelectedOptions={false}
+            onSelect={onMergeTypesChange}
+            options={mergeTypeOptions}
+            label={(
+              <HStack
+                gap="2"
+                align="end"
+              >
+                {t('p5000:merge-period-type')}
                 <HelpText>
-                    {t('p5000:help-merge-1') + t('p5000:help-merge-2')}
+                  {t('p5000:help-merge-period-type')}
                 </HelpText>
               </HStack>
-            </Switch>
-            {mergePeriods && (
-              <Box paddingInline="8 0">
-                <MultipleSelect<Option>
-                  ariaLabel={t('p5000:merge-period-type')}
-                  aria-describedby='help-tags'
-                  data-testid='a_buc_c_p5000overview--types-select-id'
-                  id='a_buc_c_p5000overview--types-select-id'
-                  hideSelectedOptions={false}
-                  onSelect={onMergeTypesChange}
-                  options={mergeTypeOptions}
-                  label={(
-                    <HStack
-                      gap="2"
-                      align="end"
-                    >
-                      {t('p5000:merge-period-type')}
-                      <HelpText>
-                        {t('p5000:help-merge-period-type')}
-                      </HelpText>
-                    </HStack>
-                  )}
-                  values={_.filter(mergeTypeOptions, (m: unknown) => mergePeriodTypes ? mergePeriodTypes.indexOf((m as Option).value) >= 0 : false)}
-                />
-              </Box>
             )}
-            {mergePeriods && (
-              <Box paddingInline="8 0">
-                <MultipleSelect<Option>
-                  ariaLabel={t('p5000:merge-period-beregning')}
-                  aria-describedby='help-tags'
-                  data-testid='a_buc_c_p5000overview--beregnings-select-id'
-                  id='a_buc_c_p5000overview--beregnings-select-id'
-                  hideSelectedOptions={false}
-                  onSelect={onMergeBeregningsChange}
-                  options={mergeBeregningOptions}
-                  label={(
-                    <HStack
-                      gap="2"
-                      align="end"
-                    >
-                      {t('p5000:merge-period-beregning')}
-                      <HelpText>
-                        {t('p5000:help-merge-period-beregning')}
-                      </HelpText>
-                    </HStack>
-                  )}
-                  values={_.filter(mergeBeregningOptions, (m: unknown) => mergePeriodBeregnings ? mergePeriodBeregnings.indexOf((m as Option).value) >= 0 : false)}
-                />
-              </Box>
+            values={_.filter(mergeTypeOptions, (m: unknown) => mergePeriodTypes ? mergePeriodTypes.indexOf((m as Option).value) >= 0 : false)}
+          />
+        )}
+        {mergePeriods && (
+          <MultipleSelect<Option>
+            ariaLabel={t('p5000:merge-period-beregning')}
+            aria-describedby='help-tags'
+            data-testid='a_buc_c_p5000overview--beregnings-select-id'
+            id='a_buc_c_p5000overview--beregnings-select-id'
+            hideSelectedOptions={false}
+            onSelect={onMergeBeregningsChange}
+            options={mergeBeregningOptions}
+            label={(
+              <HStack
+                gap="2"
+                align="end"
+              >
+                {t('p5000:merge-period-beregning')}
+                <HelpText>
+                  {t('p5000:help-merge-period-beregning')}
+                </HelpText>
+              </HStack>
             )}
-          </HStack>
-        </Column>
-        <Column>
+            values={_.filter(mergeBeregningOptions, (m: unknown) => mergePeriodBeregnings ? mergePeriodBeregnings.indexOf((m as Option).value) >= 0 : false)}
+          />
+        )}
+        <Spacer />
           <HStack
             gap="4"
             align="end"
@@ -269,33 +254,26 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
               </Select>
             )}
           </HStack>
-        </Column>
-      </AlignEndRow>
-      <VerticalSeparatorDiv />
+      </HStack>
       {hasGermanRows && mergePeriods && (
-        <>
-          <AlignEndRow style={{ width: '100%' }}>
-            <Column>
-              <HStack
-                gap="2"
-                align="center"
-              >
-                <Switch
-                  checked={useGermanRules}
-                  id='a_buc_c_sedstart--p5000-overview-usegerman-switch'
-                  data-testid='a_buc_c_sedstart--p5000-overview-usegerman-switch'
-                  onChange={() => setUseGermanRules(!useGermanRules)}
-                >
-                  {t('message:warning-german-alert')}
-                </Switch>
-                <HelpText>
-                    {t('p5000:help-german-alert')}
-                </HelpText>
-              </HStack>
-            </Column>
-          </AlignEndRow>
-          <VerticalSeparatorDiv />
-        </>
+        <HStack
+          paddingBlock="0 4"
+          gap="2"
+          align="center"
+          style={{ width: '100%' }}
+        >
+          <Switch
+            checked={useGermanRules}
+            id='a_buc_c_sedstart--p5000-overview-usegerman-switch'
+            data-testid='a_buc_c_sedstart--p5000-overview-usegerman-switch'
+            onChange={() => setUseGermanRules(!useGermanRules)}
+          >
+            {t('message:warning-german-alert')}
+          </Switch>
+          <HelpText>
+              {t('p5000:help-german-alert')}
+          </HelpText>
+        </HStack>
       )}
     </>
   )
