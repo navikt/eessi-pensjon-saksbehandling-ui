@@ -1,10 +1,7 @@
-import { Alert, BodyLong, Button, HelpText, Loader, Select, Switch } from '@navikt/ds-react'
+import {Alert, BodyLong, Box, Button, HelpText, HStack, Loader, Select, Switch} from '@navikt/ds-react'
 import {
   AlignEndRow,
   Column,
-  FlexCenterDiv,
-  FlexEndDiv,
-  HorizontalSeparatorDiv,
   Row,
   VerticalSeparatorDiv
 } from '@navikt/hoykontrast'
@@ -152,7 +149,9 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
       )}
       <AlignEndRow style={{ width: '100%' }}>
         <Column flex='2'>
-          <FlexEndDiv>
+          <HStack
+            align="end"
+          >
             <Switch
               checked={mergePeriods}
               id='a_buc_c_sedstart--p5000-overview-merge-checkbox'
@@ -162,19 +161,17 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                 setPagination(!pagination)
               }}
             >
-              <FlexCenterDiv>
+              <HStack gap="2">
                 <OneLineSpan>
                   {t('p5000:merge-periods')}
                 </OneLineSpan>
-                <HorizontalSeparatorDiv size='0.5' />
                 <HelpText>
                     {t('p5000:help-merge-1') + t('p5000:help-merge-2')}
                 </HelpText>
-              </FlexCenterDiv>
+              </HStack>
             </Switch>
             {mergePeriods && (
-              <>
-                <HorizontalSeparatorDiv size='2' />
+              <Box paddingInline="8 0">
                 <MultipleSelect<Option>
                   ariaLabel={t('p5000:merge-period-type')}
                   aria-describedby='help-tags'
@@ -184,21 +181,22 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                   onSelect={onMergeTypesChange}
                   options={mergeTypeOptions}
                   label={(
-                    <FlexEndDiv>
+                    <HStack
+                      gap="2"
+                      align="end"
+                    >
                       {t('p5000:merge-period-type')}
-                      <HorizontalSeparatorDiv size='0.5' />
                       <HelpText>
                         {t('p5000:help-merge-period-type')}
                       </HelpText>
-                    </FlexEndDiv>
+                    </HStack>
                   )}
                   values={_.filter(mergeTypeOptions, (m: unknown) => mergePeriodTypes ? mergePeriodTypes.indexOf((m as Option).value) >= 0 : false)}
                 />
-              </>
+              </Box>
             )}
             {mergePeriods && (
-              <>
-                <HorizontalSeparatorDiv size='2' />
+              <Box paddingInline="8 0">
                 <MultipleSelect<Option>
                   ariaLabel={t('p5000:merge-period-beregning')}
                   aria-describedby='help-tags'
@@ -208,22 +206,28 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                   onSelect={onMergeBeregningsChange}
                   options={mergeBeregningOptions}
                   label={(
-                    <FlexEndDiv>
+                    <HStack
+                      gap="2"
+                      align="end"
+                    >
                       {t('p5000:merge-period-beregning')}
-                      <HorizontalSeparatorDiv size='0.5' />
                       <HelpText>
                         {t('p5000:help-merge-period-beregning')}
                       </HelpText>
-                    </FlexEndDiv>
+                    </HStack>
                   )}
                   values={_.filter(mergeBeregningOptions, (m: unknown) => mergePeriodBeregnings ? mergePeriodBeregnings.indexOf((m as Option).value) >= 0 : false)}
                 />
-              </>
+              </Box>
             )}
-          </FlexEndDiv>
+          </HStack>
         </Column>
         <Column>
-          <FlexEndDiv style={{ flexDirection: 'row-reverse' }}>
+          <HStack
+            gap="4"
+            align="end"
+            style={{ flexDirection: 'row-reverse' }}
+          >
             <ReactToPrint
               documentTitle='P5000'
               onAfterPrint={afterPrintOut}
@@ -241,7 +245,6 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                 return componentRef.current
               }}
             />
-            <HorizontalSeparatorDiv />
             <Button
               variant='primary'
               disabled={sendingToPesys || currentTabKey !== 'pesys'}
@@ -250,7 +253,6 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
               {sendingToPesys && <Loader />}
               {sendingToPesys ? t('ui:sending') : t('buc:form-send-to-PESYS')}
             </Button>
-            <HorizontalSeparatorDiv />
             {pagination && (
               <Select
                 id='itemsPerPage'
@@ -266,7 +268,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                 <option value='all'>{t('ui:all')}</option>
               </Select>
             )}
-          </FlexEndDiv>
+          </HStack>
         </Column>
       </AlignEndRow>
       <VerticalSeparatorDiv />
@@ -274,7 +276,10 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
         <>
           <AlignEndRow style={{ width: '100%' }}>
             <Column>
-              <FlexCenterDiv>
+              <HStack
+                gap="2"
+                align="center"
+              >
                 <Switch
                   checked={useGermanRules}
                   id='a_buc_c_sedstart--p5000-overview-usegerman-switch'
@@ -283,11 +288,10 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                 >
                   {t('message:warning-german-alert')}
                 </Switch>
-                <HorizontalSeparatorDiv size='0.5' />
                 <HelpText>
                     {t('p5000:help-german-alert')}
                 </HelpText>
-              </FlexCenterDiv>
+              </HStack>
             </Column>
           </AlignEndRow>
           <VerticalSeparatorDiv />
