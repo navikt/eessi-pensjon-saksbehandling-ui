@@ -7,7 +7,7 @@ import {
   Loader,
   Radio,
   RadioGroup,
-  Select as NavSelect,
+  Select as NavSelect, Spacer,
   VStack
 } from '@navikt/ds-react'
 import { resetSentP5000info, sendP5000toRina, setGjpBpWarning } from 'src/actions/p5000'
@@ -18,10 +18,9 @@ import P5000HelpModal from 'src/applications/P5000/components/P5000HelpModal'
 import Modal from 'src/components/Modal/Modal'
 import Select from 'src/components/Select/Select'
 import {
-  FlexTwoDiv,
   FullWidthDiv,
   MarginBothDiv,
-  MarginLeftDiv, MarginOneLeftDiv,
+  MarginOneLeftDiv,
   OneLineSpan
 } from 'src/components/StyledComponents'
 import * as constants from 'src/constants/constants'
@@ -466,9 +465,11 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
       />
       <Box paddingBlock="0 4">
         <HStack>
-          <MarginLeftDiv />
-          <FlexTwoDiv >
-            <Alert variant='warning'>
+          <Spacer />
+            <Alert
+              variant='warning'
+              style={{ width: '50%' }}
+            >
               <HStack
                 gap="2"
                 align="center"
@@ -479,8 +480,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                 </HelpText>
               </HStack>
             </Alert>
-          </FlexTwoDiv>
-          <MarginLeftDiv />
+          <Spacer />
         </HStack>
       </Box>
       <Box paddingBlock="0 4">
