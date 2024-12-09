@@ -525,7 +525,6 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
           </RadioGroup>
         </HStack>
         <HStack
-          paddingInline="0 2"
           gap="4"
           align="end"
           justify="end"
