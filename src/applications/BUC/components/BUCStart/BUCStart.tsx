@@ -657,13 +657,13 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
         </div>
       </Box>
       {!hasNoValidationErrors(_validation) && (
-        <>
-          <Box paddingBlock="4 0">
-            <HGrid columns={2}>
-                  <ValidationBox heading={t('message:error-validationbox-bucstart')} validation={_validation} />
-            </HGrid>
-          </Box>
-        </>
+        <HGrid
+          paddingBlock="4 0"
+          columns={2}
+        >
+          <ValidationBox heading={t('message:error-validationbox-bucstart')} validation={_validation} />
+        </HGrid>
+
       )}
     </div>
   )
