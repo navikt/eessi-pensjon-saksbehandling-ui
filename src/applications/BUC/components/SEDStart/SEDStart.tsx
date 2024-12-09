@@ -42,10 +42,7 @@ import SEDP6000 from 'src/applications/BUC/components/SEDP6000/SEDP6000'
 import JoarkBrowser from 'src/components/JoarkBrowser/JoarkBrowser'
 import MultipleSelect from 'src/components/MultipleSelect/MultipleSelect'
 import Select from 'src/components/Select/Select'
-import {
-  FullWidthDiv,
-  HorizontalLineSeparator,
-} from 'src/components/StyledComponents'
+import { HorizontalLineSeparator } from 'src/components/StyledComponents'
 import ValidationBox from 'src/components/ValidationBox/ValidationBox'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import * as constants from 'src/constants/constants'
@@ -999,22 +996,22 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       </Heading>
       <HorizontalLineSeparator />
       {!vedtakId && _sed === 'P6000' && pesysContext !== GJENNY && (
-        <FullWidthDiv>
-          <AlertDiv>
-            <Alert variant='warning'>
-              {t('message:alert-noVedtakId-for-p6000')}
-            </Alert>
-          </AlertDiv>
-        </FullWidthDiv>
+        <AlertDiv
+          style={{ width: '100%' }}
+        >
+          <Alert variant='warning'>
+            {t('message:alert-noVedtakId-for-p6000')}
+          </Alert>
+        </AlertDiv>
       )}
       {_buc?.type === 'P_BUC_06' && !vedtakId && _sed === 'P7000' && pesysContext !== GJENNY && (
-        <FullWidthDiv>
-          <AlertDiv>
-            <Alert variant='warning'>
-              {t('message:alert-noVedtakId-for-p7000')}
-            </Alert>
-          </AlertDiv>
-        </FullWidthDiv>
+        <AlertDiv
+          style={{ width: '100%' }}
+        >
+          <Alert variant='warning'>
+            {t('message:alert-noVedtakId-for-p7000')}
+          </Alert>
+        </AlertDiv>
       )}
       <HGrid columns={2} gap="4">
         <VStack gap="4">

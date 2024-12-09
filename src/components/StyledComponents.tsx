@@ -1,10 +1,6 @@
 import styled from 'styled-components'
 import {Box, HGrid, HStack, RadioGroup} from '@navikt/ds-react'
 
-export const FullWidthDiv = styled.div`
-  width: 100%;
-`
-
 export const OneLineSpan = styled.span`
   white-space: nowrap;
 `
