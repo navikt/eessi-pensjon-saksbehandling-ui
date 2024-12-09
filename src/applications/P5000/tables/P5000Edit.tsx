@@ -13,7 +13,7 @@ import {
 import P5000EditControls from 'src/applications/P5000/tables/P5000EditControls'
 import Input from 'src/components/Forms/Input'
 import Select from 'src/components/Select/Select'
-import {HiddenDiv, HorizontalLineSeparator, MarginOneLeftDiv} from 'src/components/StyledComponents'
+import { HiddenDiv, HorizontalLineSeparator } from 'src/components/StyledComponents'
 import { LocalStorageEntry, Option } from 'src/declarations/app.d'
 import { Sed } from 'src/declarations/buc.d'
 import { P5000sFromRinaMap } from 'src/declarations/p5000.d'
@@ -867,36 +867,34 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         paddingBlock="0 12"
         align="center"
       >
-        <MarginOneLeftDiv>
-          <Box
-            width="100%"
-            paddingBlock="0 4"
-          >
-            <P5000EditControls
-              items={_items}
-              caseId={caseId}
-              componentRef={componentRef}
-              ytelseOption={_ytelseOption}
-              setYtelseOption={_setYtelseOption}
-              forsikringEllerBosetningsperioder={_forsikringEllerBosetningsperioder}
-              setForsikringEllerBosetningsperioder={_setForsikringEllerBosetningsperioder}
-              itemsPerPage={_itemsPerPage}
-              onBackClick={onBackClick}
-              onSave={onSave}
-              performValidation={_performValidation}
-              p5000WorkingCopy={p5000WorkingCopy}
-              p5000sFromRinaMap={p5000sFromRinaMap}
-              p5000changed={sourceStatus !== 'rina'}
-              resetValidation={_resetValidation}
-              setItemsPerPage={_setItemsPerPage}
-              setRenderPrintTable={setRenderPrintTable}
-              validation={_validation}
-              sedId={mainSed.id}
-              editingRow={Object.keys(_itemsEditing).length > 0 || _addRowEditing}
-            />
-            <HorizontalLineSeparator />
-          </Box>
-        </MarginOneLeftDiv>
+        <Box
+          width="100%"
+          paddingBlock="0 4"
+        >
+          <P5000EditControls
+            items={_items}
+            caseId={caseId}
+            componentRef={componentRef}
+            ytelseOption={_ytelseOption}
+            setYtelseOption={_setYtelseOption}
+            forsikringEllerBosetningsperioder={_forsikringEllerBosetningsperioder}
+            setForsikringEllerBosetningsperioder={_setForsikringEllerBosetningsperioder}
+            itemsPerPage={_itemsPerPage}
+            onBackClick={onBackClick}
+            onSave={onSave}
+            performValidation={_performValidation}
+            p5000WorkingCopy={p5000WorkingCopy}
+            p5000sFromRinaMap={p5000sFromRinaMap}
+            p5000changed={sourceStatus !== 'rina'}
+            resetValidation={_resetValidation}
+            setItemsPerPage={_setItemsPerPage}
+            setRenderPrintTable={setRenderPrintTable}
+            validation={_validation}
+            sedId={mainSed.id}
+            editingRow={Object.keys(_itemsEditing).length > 0 || _addRowEditing}
+          />
+          <HorizontalLineSeparator />
+        </Box>
         <Table<P5000ListRow, P5000TableContext>
           id={tableId}
           animatable={false}
