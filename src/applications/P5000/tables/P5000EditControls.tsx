@@ -2,7 +2,7 @@ import {
   Alert,
   Box,
   Button,
-  HelpText, HStack,
+  HelpText, HGrid, HStack,
   Link,
   Loader,
   Radio,
@@ -17,12 +17,7 @@ import { ytelseType } from 'src/applications/P5000/P5000.labels'
 import P5000HelpModal from 'src/applications/P5000/components/P5000HelpModal'
 import Modal from 'src/components/Modal/Modal'
 import Select from 'src/components/Select/Select'
-import {
-  FullWidthDiv,
-  MarginBothDiv,
-  MarginOneLeftDiv,
-  OneLineSpan
-} from 'src/components/StyledComponents'
+import { OneLineSpan } from 'src/components/StyledComponents'
 import * as constants from 'src/constants/constants'
 import { LocalStorageEntry, Option, Validation } from 'src/declarations/app'
 import { SakTypeMap, SakTypeValue } from 'src/declarations/buc.d'
@@ -40,14 +35,7 @@ import {GJENNY, VEDTAKSKONTEKST} from "src/constants/constants";
 import {sendP5000toRinaGjenny} from "../../../actions/gjenny";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat"
-import styled from "styled-components";
 dayjs.extend(customParseFormat)
-
-const AlignEndRow = styled(HStack)`
-  width: 100%;
-  margin-left: -0.5rem;
-  margin-right: -0.5rem;
-`
 
 export interface P5000EditControlsSelector {
   gettingUft: boolean
@@ -463,151 +451,152 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         open={_showHelpModal}
         onClose={() => _setShowHelpModal(false)}
       />
-      <Box paddingBlock="0 4">
-        <HStack>
-          <Spacer />
-            <Alert
-              variant='warning'
-              style={{ width: '50%' }}
-            >
-              <HStack
-                gap="2"
-                align="center"
-              >
-                {t('p5000:warning-P5000Edit-instructions-li1')}
-                <HelpText>
-                    {t('p5000:warning-P5000Edit-instructions-li1-help')}
-                </HelpText>
-              </HStack>
-            </Alert>
-          <Spacer />
-        </HStack>
-      </Box>
-      <Box paddingBlock="0 4">
-        <AlignEndRow>
-          <MarginBothDiv>
-            <FullWidthDiv>
-              <Select
-                key={'ytelse' + ytelseOption}
-                className='P5000Edit-ytelse-select'
-                error={validation['P5000Edit-ytelse-select']?.feilmelding}
-                id='P5000Edit-ytelse-select'
-                label={t('p5000:4-1-title')}
-                menuPortalTarget={document.body}
-                options={ytelseOptions}
-                onChange={_setYtelseOption}
-                defaultValue={_.find(ytelseOptions, y => y.value === ytelseOption) ?? null}
-                value={_.find(ytelseOptions, y => y.value === ytelseOption) ?? null}
-              />
-            </FullWidthDiv>
-          </MarginBothDiv>
-          <MarginOneLeftDiv>
+      <HStack
+        paddingBlock="0 4"
+      >
+        <Spacer />
+          <Alert
+            variant='warning'
+            style={{ width: '50%' }}
+          >
             <HStack
+              gap="2"
               align="center"
             >
-              <RadioGroup
-                value={forsikringEllerBosetningsperioder}
-                error={validation['P5000Edit-forsikringEllerBosetningsperioder']?.feilmelding}
-                id='P5000Edit-forsikringEllerBosetningsperioder'
-                onChange={_setForsikringEllerBosetningsperioder}
-                legend={(
-                  <HStack
-                    gap="4"
-                    align="center"
-                  >
-                    <OneLineSpan>
-                      {t('p5000:4-2-title')}
-                    </OneLineSpan>
-                    <HelpText>
-                        {t('p5000:help-1') + t('p5000:help-2')}
-                    </HelpText>
-                  </HStack>
-                )}
-              >
-                <HStack
-                  gap="12"
-                  align="end"
-                >
-                  <Radio value='1'>
-                    {t('ui:yes')}
-                  </Radio>
-                  <Radio value='0'>
-                    {t('ui:no')}
-                  </Radio>
-                </HStack>
-              </RadioGroup>
+              {t('p5000:warning-P5000Edit-instructions-li1')}
+              <HelpText>
+                  {t('p5000:warning-P5000Edit-instructions-li1-help')}
+              </HelpText>
             </HStack>
-          </MarginOneLeftDiv>
-          <MarginBothDiv>
-            <HStack
-              gap="4"
-              align="end"
-              justify="end"
-            >
-              <NavSelect
-                id='itemsPerPage'
-                label={t('ui:itemsPerPage')}
-                onChange={itemsPerPageChanged}
-                value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
+          </Alert>
+        <Spacer />
+      </HStack>
+      <HGrid
+        paddingBlock="0 4"
+        columns={3}
+        style={{ width: '100%' }}
+      >
+        <Select
+          key={'ytelse' + ytelseOption}
+          className='P5000Edit-ytelse-select'
+          error={validation['P5000Edit-ytelse-select']?.feilmelding}
+          id='P5000Edit-ytelse-select'
+          label={t('p5000:4-1-title')}
+          menuPortalTarget={document.body}
+          options={ytelseOptions}
+          onChange={_setYtelseOption}
+          defaultValue={_.find(ytelseOptions, y => y.value === ytelseOption) ?? null}
+          value={_.find(ytelseOptions, y => y.value === ytelseOption) ?? null}
+        />
+        <HStack
+          paddingInline="6 0"
+          align="start"
+        >
+          <RadioGroup
+            value={forsikringEllerBosetningsperioder}
+            error={validation['P5000Edit-forsikringEllerBosetningsperioder']?.feilmelding}
+            id='P5000Edit-forsikringEllerBosetningsperioder'
+            onChange={_setForsikringEllerBosetningsperioder}
+            legend={(
+              <HStack
+                gap="4"
+                align="center"
               >
-                <option value='10'>10</option>
-                <option value='15'>15</option>
-                <option value='20'>20</option>
-                <option value='30'>30</option>
-                <option value='50'>50</option>
-                <option value='all'>{t('ui:all')}</option>
-              </NavSelect>
-              <Button
-                variant='primary'
-                disabled={sendingP5000info || editingRow || _.isNil(p5000WorkingCopy)}
-                onClick={handleOverforTilRina}
-              >
-                {sendingP5000info && <Loader />}
-                {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
-              </Button>
-              <ReactToPrint
-                documentTitle='P5000Sum'
-                onAfterPrint={afterPrintOut}
-                onBeforePrint={beforePrintOut}
-                onBeforeGetContent={prepareContent}
-                trigger={() => (
-                  <Button
-                    variant='secondary'
-                    disabled={_printDialogOpen}
-                  >
-                    {_printDialogOpen && <Loader />}
-                    {t('ui:print')}
-                  </Button>
-                )}
-                content={() => componentRef.current}
-              />
-            </HStack>
-          </MarginBothDiv>
-        </AlignEndRow>
-      </Box>
-      <Box paddingBlock="0 4">
-        <AlignEndRow>
-          <MarginBothDiv />
-          <MarginBothDiv style={{ textAlign: 'end' }}>
-            {p5000changed && (
-              <div style={{ whiteSpace: 'nowrap' }}>
-                <HStack gap="2"
-                justify="end"
-                >
-                  <span>
-                    {t('p5000:saved-working-copy')}
-                  </span>
-                    <Link style={{ display: 'inline-block' }} href='#' onClick={() => _setShowHelpModal(true)}>
-                      {t('ui:hva-betyr-det')}
-                    </Link>
-                </HStack>
-              </div>
+                <OneLineSpan>
+                  {t('p5000:4-2-title')}
+                </OneLineSpan>
+                <HelpText>
+                    {t('p5000:help-1') + t('p5000:help-2')}
+                </HelpText>
+              </HStack>
             )}
-          </MarginBothDiv>
-        </AlignEndRow>
-      </Box>
-      <AlignEndRow>
-        <MarginBothDiv>
+          >
+            <HStack
+              gap="12"
+              align="end"
+            >
+              <Radio value='1'>
+                {t('ui:yes')}
+              </Radio>
+              <Radio value='0'>
+                {t('ui:no')}
+              </Radio>
+            </HStack>
+          </RadioGroup>
+        </HStack>
+        <HStack
+          paddingInline="0 2"
+          gap="4"
+          align="end"
+          justify="end"
+        >
+          <NavSelect
+            id='itemsPerPage'
+            label={t('ui:itemsPerPage')}
+            onChange={itemsPerPageChanged}
+            value={itemsPerPage === 9999 ? 'all' : '' + itemsPerPage}
+          >
+            <option value='10'>10</option>
+            <option value='15'>15</option>
+            <option value='20'>20</option>
+            <option value='30'>30</option>
+            <option value='50'>50</option>
+            <option value='all'>{t('ui:all')}</option>
+          </NavSelect>
+          <Button
+            variant='primary'
+            disabled={sendingP5000info || editingRow || _.isNil(p5000WorkingCopy)}
+            onClick={handleOverforTilRina}
+          >
+            {sendingP5000info && <Loader />}
+            {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
+          </Button>
+          <ReactToPrint
+            documentTitle='P5000Sum'
+            onAfterPrint={afterPrintOut}
+            onBeforePrint={beforePrintOut}
+            onBeforeGetContent={prepareContent}
+            trigger={() => (
+              <Button
+                variant='secondary'
+                disabled={_printDialogOpen}
+              >
+                {_printDialogOpen && <Loader />}
+                {t('ui:print')}
+              </Button>
+            )}
+            content={() => componentRef.current}
+          />
+        </HStack>
+      </HGrid>
+      <HStack
+        paddingBlock="0 4"
+        paddingInline="0 2"
+        gap="4"
+        align="end"
+        justify="end"
+      >
+        <div />
+        <Spacer />
+        <div style={{ textAlign: 'end' }}>
+          {p5000changed && (
+            <div style={{ whiteSpace: 'nowrap' }}>
+              <HStack gap="2"
+              justify="end"
+              >
+                <span>
+                  {t('p5000:saved-working-copy')}
+                </span>
+                  <Link style={{ display: 'inline-block' }} href='#' onClick={() => _setShowHelpModal(true)}>
+                    {t('ui:hva-betyr-det')}
+                  </Link>
+              </HStack>
+            </div>
+          )}
+        </div>
+      </HStack>
+      <HStack>
+        <div>
           {sakType === SakTypeMap.UFOREP && pesysContext === constants.VEDTAKSKONTEKST && (
              <HStack
                gap="4"
@@ -650,15 +639,15 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                 </HelpText>
               </HStack>
               {!_.isNil(gjpbpwarning) && (
-                <>
+                <Box paddingBlock="0 4">
                   <Alert variant={gjpbpwarning.type}>{gjpbpwarning.message}</Alert>
-                </>
+                </Box>
               )}
             </>
           )}
-        </MarginBothDiv>
-        <MarginBothDiv />
-      </AlignEndRow>
+        </div>
+        <Spacer />
+      </HStack>
     </>
   )
 }
