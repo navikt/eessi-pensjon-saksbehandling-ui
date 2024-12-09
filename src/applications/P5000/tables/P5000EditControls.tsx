@@ -393,7 +393,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         onModalClose={modalClose}
         modal={{
           modalContent: (
-            <div>
+            <>
               {_.isNull(sentP5000info) && (
                 <VStack
                   align="center"
@@ -406,7 +406,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                   <HStack
                     justify="space-between"
                   >
-                    <div />
+                    <Spacer />
                     <Button
                       variant='primary'
                       onClick={() => {
@@ -414,7 +414,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                       }}
                     >OK
                     </Button>
-                    <div />
+                    <Spacer />
                   </HStack>
                 </VStack>
               )}
@@ -443,7 +443,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                   </HStack>
               </VStack>
               )}
-            </div>
+            </>
           )
         }}
       />
@@ -455,20 +455,20 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         paddingBlock="0 4"
       >
         <Spacer />
-          <Alert
-            variant='warning'
-            style={{ width: '50%' }}
+        <Alert
+          variant='warning'
+          style={{ width: '50%' }}
+        >
+          <HStack
+            gap="2"
+            align="center"
           >
-            <HStack
-              gap="2"
-              align="center"
-            >
-              {t('p5000:warning-P5000Edit-instructions-li1')}
-              <HelpText>
-                  {t('p5000:warning-P5000Edit-instructions-li1-help')}
-              </HelpText>
-            </HStack>
-          </Alert>
+            {t('p5000:warning-P5000Edit-instructions-li1')}
+            <HelpText>
+                {t('p5000:warning-P5000Edit-instructions-li1-help')}
+            </HelpText>
+          </HStack>
+        </Alert>
         <Spacer />
       </HStack>
       <HGrid
@@ -572,11 +572,9 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
       <HStack
         paddingBlock="0 4"
         paddingInline="0 2"
-        gap="4"
         align="end"
         justify="end"
       >
-        <div />
         <Spacer />
         <div style={{ textAlign: 'end' }}>
           {p5000changed && (
