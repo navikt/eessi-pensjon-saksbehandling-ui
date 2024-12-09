@@ -1,12 +1,11 @@
 import { ChevronLeftIcon } from '@navikt/aksel-icons';
-import {Alert, BodyLong, Box, Button, Checkbox, HStack, VStack} from '@navikt/ds-react'
+import {Alert, BodyLong, Box, Button, Checkbox, HStack, Spacer, VStack} from '@navikt/ds-react'
 import { Sed } from 'src/declarations/buc'
 import { EmptyPeriodsReport } from 'src/declarations/p5000'
 import _ from 'lodash'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import P5000SedLabel from 'src/applications/P5000/components/P5000SedLabel'
-import {MarginLeftDiv, MarginRightDiv} from "src/components/StyledComponents";
 
 const P5000Controls = ({
   onBackClick,
@@ -30,7 +29,7 @@ const P5000Controls = ({
           gap="8"
           width="100%"
         >
-          <MarginRightDiv>
+          <div>
             <VStack>
               <BodyLong>
                 {t('p5000:active-seds')}:
@@ -49,14 +48,15 @@ const P5000Controls = ({
                 ))}
               </Box>
             </VStack>
-          </MarginRightDiv>
-          <MarginLeftDiv>
+          </div>
+          <Spacer />
+          <div>
             {warning && (
               <Alert variant='warning'>
                 {t('buc:form-P5000-warning')}
               </Alert>
             )}
-          </MarginLeftDiv>
+          </div>
         </HStack>
       </Box>
       <div style={{ display: 'inline-block' }}>
