@@ -40,7 +40,6 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { BUCStartIndexProps, BUCStartSelector, mapBUCStartState } from "./BUCStartIndex";
-import { MarginLeftDiv, MarginRightDiv } from "src/components/StyledComponents";
 
 const FlexDiv = styled.div`
   display: flex;
@@ -441,11 +440,14 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
 
   return (
     <div data-testid='a_buc_c_BUCStart'>
-      <HStack
+      <HGrid
         gap="8"
+        columns={2}
         width="100%"
       >
-        <MarginRightDiv>
+        <Box
+          paddingInline="0 2"
+        >
           <Box paddingBlock="8 0">
             <>
               <label className='navds-text-field--label navds-label'>
@@ -551,8 +553,10 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
               </Box>
             </>
           )}
-        </MarginRightDiv>
-        <MarginLeftDiv>
+        </Box>
+        <Box
+          paddingInline="2 0"
+        >
           <Box paddingBlock="8 0">
             <MultipleSelect<Option>
               ariaLabel={t('buc:form-tagsForBUC')}
@@ -579,8 +583,8 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
               values={_tags}
             />
           </Box>
-        </MarginLeftDiv>
-      </HStack>
+        </Box>
+      </HGrid>
       {_showWarningBucDeceased && (
         <>
           <Box paddingBlock="8 0">

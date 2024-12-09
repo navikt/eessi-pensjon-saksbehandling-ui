@@ -23,7 +23,6 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import {createBucGjenny, getBucOptionsGjenny} from "src/actions/gjenny";
 import {BUCStartIndexProps, BUCStartSelector, mapBUCStartState} from "./BUCStartIndex";
-import {MarginLeftDiv, MarginRightDiv} from "src/components/StyledComponents";
 
 const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
   onBucChanged,
@@ -191,11 +190,14 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
 
   return (
     <div data-testid='a_buc_c_BUCStart'>
-      <HStack
+      <HGrid
         gap="8"
+        columns={2}
         width="100%"
       >
-        <MarginRightDiv>
+        <Box
+          paddingInline="0 2"
+        >
           <Box paddingBlock="8 0">
             <label className='navds-text-field--label navds-label'>
               {t('buc:form-chooseSubjectArea')}
@@ -227,9 +229,11 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
               value={_.find(bucListOptions, (b: Option) => b.value === _buc)}
             />
           </Box>
-        </MarginRightDiv>
-        <MarginLeftDiv />
-      </HStack>
+        </Box>
+        <Box
+          paddingInline="2 0"
+        />
+      </HGrid>
       {_showWarningBucDeceased && (
         <>
           <Box paddingBlock="8 0">
