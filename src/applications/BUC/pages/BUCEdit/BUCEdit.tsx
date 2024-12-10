@@ -25,11 +25,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { animationClose, animationOpen } from "src/components/Animations/Animations";
 
-const Row = styled(HStack)`
-  margin-left: -0.5rem;
-  margin-right: -0.5rem;
-`
-
 export const BUCEditDiv = styled.div`
 `
 const BUCEditHeader = styled.div`
@@ -40,9 +35,8 @@ const BUCEditHeader = styled.div`
   min-height: 40px;
 `
 const ContentDiv = styled.div`
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
   flex: 3;
+  margin-right: 0.5rem;
 `
 const NoSedsDiv = styled.div`
   text-align: center;
@@ -74,7 +68,6 @@ const WidgetDiv = styled.div`
   flex: 1;
   max-width: 400px;
   margin-left: 0.5rem;
-  margin-right: 0.5rem;
 `
 
 export interface BUCEditProps {
@@ -295,7 +288,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           </Box>
         </SEDStartDiv>
       </VStack>
-      <Row>
+      <HStack>
         <ContentDiv>
           <SEDSearch
             onSearch={onSearch}
@@ -365,7 +358,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             />
           </VStack>
         </WidgetDiv>
-      </Row>
+      </HStack>
     </BUCEditDiv>
   )
 }
