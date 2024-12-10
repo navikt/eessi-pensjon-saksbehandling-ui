@@ -14,39 +14,13 @@ import { FlagItems, FlagList } from '@navikt/flagg-ikoner'
 import _ from 'lodash'
 import { linkLogger } from 'src/metrics/loggers'
 import moment from 'moment'
-import { LinkPanel, BodyLong, Link, Heading, Tag, Box, HStack } from '@navikt/ds-react'
+import {LinkPanel, BodyLong, Link, Heading, Tag, Box, HGrid, HStack} from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 
-const Row = styled(HStack)`
-  display: flex;
-  flex-direction: column;
-  @media (min-width: 768px) {
-    flex-direction: row;
-  }
-`
-const FlexRow = styled(Row)`
-  width: 100%;
-  @media (min-width: 768px) {
-   align-items: center;
-  }
-  align-items: flex-start;
-  justify-content: space-between;
-`
-export const IconsDiv = styled(Box)`
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex: 1;
-`
-const LabelsDiv = styled(Box)`
-  flex: 1;
-`
 const NumberOfSedsDiv = styled.div`
   border-width: ${(props: any) => props['data-icon-size'] === 'XL' ? '3' : '2'}px;
   border-style: solid;
@@ -178,8 +152,11 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
         </Heading>
       </LinkPanel.Title>
       <LinkPanel.Description>
-        <FlexRow>
-          <LabelsDiv
+        <HGrid
+          columns={{ xs: 1, sm: 1, md: 2, lg: 3 }}
+          align="center"
+        >
+          <div
             data-testid='a_buc_c_BUCHeader--label_id'
           >
             <PropertyDiv
@@ -234,8 +211,9 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                     )}
               </PropertyDiv>
             )}
-          </LabelsDiv>
-          <IconsDiv
+          </div>
+          <HStack
+            align="center"
             data-testid='a_buc_c_BUCHeader--icon_id'
           >
             {!_.isEmpty(flagItems) && (
@@ -264,19 +242,17 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 </NumberOfSedsDiv>
               </PopoverCustomized>
             )}
-          </IconsDiv>
-          <LabelsDiv>
-            <TagsDiv>
-              {bucInfo?.tags?.map((tag: string) => (
-                <div key={tag}>
-                  <Box paddingInline="0 2">
-                    <Tag variant='info' size='small'>{t('buc:' + tag)}</Tag>
-                  </Box>
-                </div>
-              ))}
-            </TagsDiv>
-          </LabelsDiv>
-        </FlexRow>
+          </HStack>
+          <TagsDiv>
+            {bucInfo?.tags?.map((tag: string) => (
+              <div key={tag}>
+                <Box paddingInline="0 2">
+                  <Tag variant='info' size='small'>{t('buc:' + tag)}</Tag>
+                </Box>
+              </div>
+            ))}
+          </TagsDiv>
+        </HGrid>
       </LinkPanel.Description>
     </>
   )
