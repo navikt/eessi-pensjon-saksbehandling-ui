@@ -805,7 +805,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const beforeRowAdded = (newRowValues: NewRowValues, context: P5000TableContext): ItemErrors | undefined => {
     const errors: ItemErrors = {}
-    const typeValue = newRowValues.type?.value
+    const typeValue = newRowValues.type
     const startdatovalue: string | undefined = newRowValues.startdato
     const sluttdatovalue: string | undefined = newRowValues.sluttdato
 
