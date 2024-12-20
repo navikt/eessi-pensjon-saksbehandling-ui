@@ -94,7 +94,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
         }
         {!parentEditMode &&
           <>
-            <HGrid gap="4" columns={2}>
+            <HGrid gap="4" columns={3}>
               <FormTextBox padding="0"
                 error={v[namespace + '-etternavn']?.feilmelding}
                 id={namespace + '-etternavn'}
@@ -115,7 +115,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
               </FormTextBox>
             </HGrid>
 
-            <HGrid gap="4" columns={2}>
+            <HGrid gap="4" columns={3}>
               <FormTextBox padding="0"
                 id={namespace + '-foedselsdato'}
                 error={v[namespace + '-foedselsdato']?.feilmelding}

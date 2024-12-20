@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {useTranslation} from "react-i18next";
-import {Box, Heading, Radio, RadioGroup, VStack} from "@navikt/ds-react";
+import {Box, Button, Heading, Radio, RadioGroup, VStack} from "@navikt/ds-react";
 import {State} from "src/declarations/reducers";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useAppSelector} from "src/store";
@@ -129,6 +129,15 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
     }
   }
 
+  const resetBankInfo = () => {
+    _setSepaIkkeSepa("")
+    dispatch(updatePSED(`${target}.konto.ikkesepa`, undefined))
+    dispatch(updatePSED(`${target}.konto.sepa`, undefined))
+    dispatch(updatePSED(`${target}.konto.kontonr`, undefined))
+    dispatch(updatePSED(`${target}.navn`, undefined))
+    dispatch(updatePSED(`${target}.adresse`, undefined))
+  }
+
   useEffect(() => {
     if(bank?.konto?.sepa){
       _setSepaIkkeSepa("sepa")
@@ -178,7 +187,7 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
           />
         </TopAlignedGrid>
         <Heading size='medium'>
-          Bankinformasjon
+          Bankinformasjon <Button size="small" variant="tertiary" onClick={resetBankInfo}>Nullstill</Button>
         </Heading>
         <TopAlignedGrid gap="4" columns={2}>
           <RadioGroup
