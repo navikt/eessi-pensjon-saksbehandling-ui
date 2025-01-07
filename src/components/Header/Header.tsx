@@ -9,15 +9,6 @@ import {GJENNY} from "src/constants/constants";
 
 export const CenterHStack = styled(HStack)`
   align-items: center;
-
-  &:before {
-    position: absolute;
-    content: url("/static/nisselue.svg");
-    transform: scale(2.3) rotate(45deg);
-    top: 2px;
-    left: 50px;
-
-  }
 `
 
 export interface HeaderProps {
