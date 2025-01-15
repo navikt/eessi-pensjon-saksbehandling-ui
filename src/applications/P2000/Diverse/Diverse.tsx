@@ -1,5 +1,5 @@
 import {Box, Checkbox, CheckboxGroup, Heading, Radio, VStack} from "@navikt/ds-react";
-import React from "react";
+import React, {useEffect} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import _ from "lodash";
 import {State} from "src/declarations/reducers";
@@ -45,6 +45,12 @@ const Diverse: React.FC<MainFormProps> = ({
     dispatch(setValidation(clonedvalidation))
   })
 
+  useEffect(() => {
+    if(!pensjon?.etterspurtedokumenter || pensjon?.etterspurtedokumenter === ""){
+      setPensjonProperty('etterspurtedokumenter', t('p2000:form-diverse-pensjon-etterspurtedokumenter-text'))
+    }
+  }, [])
+
   const setPensjonProperty = (property: string, value: string | undefined) => {
     dispatch(updatePSED(`${target}.${property}`, value))
   }
@@ -68,6 +74,17 @@ const Diverse: React.FC<MainFormProps> = ({
         <Heading size='medium'>
           {label}
         </Heading>
+        <TopAlignedGrid columns={2} gap="4">
+          <DateField
+            id={namespace + '-kravDato'}
+            index={0}
+            label={t('p2000:form-diverse-pensjon-kravdato')}
+            error={validation[namespace + '-kravDato']?.feilmelding}
+            namespace={namespace}
+            onChanged={(v) => setPensjonProperty("kravDato", v)}
+            dateValue={pensjon?.kravDato ?? ''}
+          />
+        </TopAlignedGrid>
         <TopAlignedGrid columns={2} gap="4">
           <DateField
             id={namespace + '-forespurtstartdato'}
@@ -145,7 +162,7 @@ const Diverse: React.FC<MainFormProps> = ({
           id='etterspurtedokumenter'
           label={t('p2000:form-diverse-pensjon-etterspurtedokumenter')}
           onChanged={(v) => setPensjonProperty('etterspurtedokumenter', v)}
-          value={pensjon?.etterspurtedokumenter ?? ''}
+          value={pensjon?.etterspurtedokumenter ?? t('p2000:form-diverse-pensjon-etterspurtedokumenter-text')}
           maxLength={255}
         />
         <TextArea
