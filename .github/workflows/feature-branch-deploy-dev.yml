@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [18.x]
     steps:
       - name: 'Pull repo'
         uses: actions/checkout@v2
@@ -37,7 +37,7 @@ jobs:
       - name: 'Setup Node'
         uses: actions/setup-node@v2.1.2
         with:
-          node-version: 16.x
+          node-version: 18.x
           registry-url: https://npm.pkg.github.com/
           scope: "@navikt"
 
