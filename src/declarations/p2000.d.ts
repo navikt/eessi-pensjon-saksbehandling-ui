@@ -201,6 +201,7 @@ export interface Pensjon {
   vedleggandre?: string
   forespurtstartdato?: string
   angitidligstdato?: string
+  kravDato?: string
 }
 
 export interface P2000SED extends BaseSED{
