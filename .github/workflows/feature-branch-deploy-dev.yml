@@ -18,7 +18,7 @@ jobs:
         node-version: [18.x]
     steps:
       - name: 'Pull repo'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: 'Setter dato og commit variabel'
         run: |
