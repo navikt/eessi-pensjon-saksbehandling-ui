@@ -1,4 +1,4 @@
-import {Box, Heading, VStack} from "@navikt/ds-react";
+import {Box, Heading, HGrid, VStack} from "@navikt/ds-react";
 import React from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {Person} from "src/declarations/p2000";
@@ -15,6 +15,10 @@ import {validateForsikretPerson, ValidationForsikretPersonProps} from "./validat
 import Telefon from "../Telefon/Telefon";
 import Epost from "../Epost/Epost";
 import Statsborgerskap from "src/applications/P2000/Statsborgerskap/Statsborgerskap";
+import Input from "src/components/Forms/Input";
+import {useTranslation} from "react-i18next";
+import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
+import {Country} from "@navikt/land-verktoy";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -27,6 +31,7 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
   updatePSED,
 }: MainFormProps): JSX.Element => {
 
+  const {t} = useTranslation()
   const dispatch = useDispatch()
   const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-forsikretperson`
@@ -43,12 +48,46 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
     dispatch(setValidation(clonedvalidation))
   })
 
+  const setPersonProperty = (property: string, value: string | undefined) => {
+    dispatch(updatePSED(`${target}.person.${property}`, value))
+  }
+
   return (
     <Box padding="4">
       <VStack gap="4">
         <Heading size='medium'>
           {label}
         </Heading>
+        <HGrid columns={3}>
+          <Input
+            error={validation[namespace + '-etternavnvedfoedsel']?.feilmelding}
+            namespace={namespace + '-etternavnvedfoedsel'}
+            id='etternavnvedfoedsel'
+            label={t('p2000:form-person-etternavnvedfoedsel')}
+            onChanged={(v) => setPersonProperty("etternavnvedfoedsel", v !== "" ? v : undefined)}
+            value={(forsikretPerson?.etternavnvedfoedsel) ?? ''}
+          />
+        </HGrid>
+        <HGrid columns={3}>
+          <Input
+            error={validation[namespace + '-foedested-by']?.feilmelding}
+            namespace={namespace + '-foedested-by'}
+            id='foedested-by'
+            label={t('p2000:form-person-foedested')}
+            onChanged={(v) => setPersonProperty("foedested.by", v !== "" ? v : undefined)}
+            value={(forsikretPerson?.foedested?.by) ?? ''}
+          />
+        </HGrid>
+        <HGrid columns={3}>
+          <CountryDropdown
+            error={validation[namespace + '-foedested-land']?.feilmelding}
+            id="land"
+            countryCodeListName="verdensLandHistorisk"
+            label={t('p2000:form-person-foedested-land')}
+            onOptionSelected={(v: Country) => setPersonProperty("foedested.land", v.value)}
+            values={(forsikretPerson?.foedested?.land)  ?? ''}
+          />
+        </HGrid>
         <Box>
           <Statsborgerskap
             PSED={PSED}
