@@ -81,8 +81,8 @@ const Diverse: React.FC<MainFormProps> = ({
             label={t('p2000:form-diverse-pensjon-kravdato')}
             error={validation[namespace + '-kravDato']?.feilmelding}
             namespace={namespace}
-            onChanged={(v) => setNavProperty("krav.dato", v)}
-            dateValue={nav?.krav?.dato ?? ''}
+            onChanged={(v) => setPensjonProperty("kravDato.dato", v)}
+            dateValue={pensjon?.kravDato?.dato ?? ''}
           />
         </TopAlignedGrid>
         <TopAlignedGrid columns={2} gap="4">

@@ -206,7 +206,7 @@ export interface Pensjon {
   vedleggandre?: string
   forespurtstartdato?: string
   angitidligstdato?: string
-  kravDato?: string
+  kravDato?: Krav
 }
 
 export interface Nav {
