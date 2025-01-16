@@ -1,5 +1,5 @@
 import {Box, Checkbox, CheckboxGroup, Heading, Radio, VStack} from "@navikt/ds-react";
-import React, {useEffect} from "react";
+import React from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import _ from "lodash";
 import {State} from "src/declarations/reducers";
@@ -44,12 +44,6 @@ const Diverse: React.FC<MainFormProps> = ({
     )
     dispatch(setValidation(clonedvalidation))
   })
-
-  useEffect(() => {
-    if(!pensjon?.etterspurtedokumenter){
-      setPensjonProperty('etterspurtedokumenter', t('p2000:form-diverse-pensjon-etterspurtedokumenter-text'))
-    }
-  }, [])
 
   const setPensjonProperty = (property: string, value: string | undefined) => {
     dispatch(updatePSED(`${target}.${property}`, value))
@@ -162,7 +156,7 @@ const Diverse: React.FC<MainFormProps> = ({
           id='etterspurtedokumenter'
           label={t('p2000:form-diverse-pensjon-etterspurtedokumenter')}
           onChanged={(v) => setPensjonProperty('etterspurtedokumenter', v)}
-          value={pensjon?.etterspurtedokumenter ?? t('p2000:form-diverse-pensjon-etterspurtedokumenter-text')}
+          value={pensjon?.etterspurtedokumenter ?? ''}
           maxLength={255}
         />
         <TextArea
