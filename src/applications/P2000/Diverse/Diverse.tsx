@@ -46,7 +46,7 @@ const Diverse: React.FC<MainFormProps> = ({
   })
 
   useEffect(() => {
-    if(!pensjon?.etterspurtedokumenter || pensjon?.etterspurtedokumenter === ""){
+    if(!pensjon?.etterspurtedokumenter){
       setPensjonProperty('etterspurtedokumenter', t('p2000:form-diverse-pensjon-etterspurtedokumenter-text'))
     }
   }, [])
