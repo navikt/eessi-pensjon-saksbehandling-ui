@@ -186,6 +186,11 @@ export interface Utsettelse {
   tildato?: string
 }
 
+export interface Krav {
+  dato: string
+  type?: string
+}
+
 export interface Pensjon {
   utsettelse?: Array<Utsettelse>
   ytelser?: Array<Ytelse>
@@ -204,20 +209,22 @@ export interface Pensjon {
   kravDato?: string
 }
 
+export interface Nav {
+  eessisak: Array<{
+    institusjonsid?: string
+    institusjonsnavn?: string
+    saksnummer?: string
+    land?: string
+  }>
+  bruker : Bruker,
+  verge : Verge,
+  krav : Krav,
+  barn : Array<Barn>,
+  ektefelle: Ektefelle,
+}
+
 export interface P2000SED extends BaseSED{
-  nav: {
-    eessisak: Array<{
-      institusjonsid?: string
-      institusjonsnavn?: string
-      saksnummer?: string
-      land?: string
-    }>
-    bruker : Bruker,
-    verge : Verge,
-    krav : null,
-    barn : Array<Barn>,
-    ektefelle: Ektefelle,
-  },
+  nav: Nav,
   pensjon : Pensjon
 }
 

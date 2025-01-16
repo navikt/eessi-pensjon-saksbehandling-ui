@@ -11,7 +11,7 @@ import performValidation from "src/utils/performValidation";
 import {validateDiverse, ValidationDiverseProps} from "./validation";
 import DateField from "../DateField/DateField";
 import {useTranslation} from "react-i18next";
-import {P2000SED, Pensjon} from "src/declarations/p2000";
+import {Nav, P2000SED, Pensjon} from "src/declarations/p2000";
 import {HorizontalRadioGroup, TopAlignedGrid} from "src/components/StyledComponents";
 import Utsettelse from "../Utsettelse/Utsettelse";
 import Institusjon from "../Institusjon/Institusjon";
@@ -34,6 +34,8 @@ const Diverse: React.FC<MainFormProps> = ({
   const namespace = `${parentNamespace}-diverse-pensjon`
   const target = 'pensjon'
   const pensjon: Pensjon = _.get(PSED as P2000SED, target)
+  const nav: Nav = _.get(PSED as P2000SED, "nav")
+
 
   useUnmount(() => {
     const clonedvalidation = _.cloneDeep(validation)
@@ -47,6 +49,10 @@ const Diverse: React.FC<MainFormProps> = ({
 
   const setPensjonProperty = (property: string, value: string | undefined) => {
     dispatch(updatePSED(`${target}.${property}`, value))
+  }
+
+  const setNavProperty  = (property: string, value: string | undefined)=>{
+    dispatch(updatePSED(`nav.${property}`, value))
   }
 
   const setPensjonArrayProperty = (prop: string, value: string[]) => {
@@ -75,8 +81,8 @@ const Diverse: React.FC<MainFormProps> = ({
             label={t('p2000:form-diverse-pensjon-kravdato')}
             error={validation[namespace + '-kravDato']?.feilmelding}
             namespace={namespace}
-            onChanged={(v) => setPensjonProperty("kravDato", v)}
-            dateValue={pensjon?.kravDato ?? ''}
+            onChanged={(v) => setNavProperty("krav.dato", v)}
+            dateValue={nav?.krav?.dato ?? ''}
           />
         </TopAlignedGrid>
         <TopAlignedGrid columns={2} gap="4">
