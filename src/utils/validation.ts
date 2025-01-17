@@ -98,7 +98,7 @@ export const checkIfValidSwift = (v: Validation, {
 export const checkIfValidIban = (v: Validation, {
   needle, id, message, extra
 }: ValidateValueParams): boolean => {
-  const ibanPattern = /^[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[a-zA-Z0-9]{7}([a-zA-Z0-9]?){0,16}/
+  const ibanPattern = /^[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[a-zA-Z0-9]{7}([a-zA-Z0-9]?){0,16}$/
   const ibanPatternNO = /^[a-zA-Z]{2}[0-9]{13}$/
   if (!_.isEmpty(needle) && !(needle!.match(needle.substring(0,2).toUpperCase() === "NO" ? ibanPatternNO : ibanPattern))) {
     return addError(v, { id, message, extra })
