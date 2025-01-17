@@ -11,18 +11,16 @@ import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import {buttonLogger} from 'src/metrics/loggers'
 import moment from 'moment'
-import {Alert, Detail, BodyLong, Button, Panel, HStack, Loader} from '@navikt/ds-react'
+import {Alert, Detail, BodyLong, Button, Panel, HStack, VStack} from '@navikt/ds-react'
 import {ChevronRightIcon, ChevronDownIcon, ChevronUpIcon, PaperclipIcon} from '@navikt/aksel-icons'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import {useDispatch, useSelector} from 'react-redux'
+import {useSelector} from 'react-redux'
 import styled from 'styled-components'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 import { slideInFromLeft } from "src/components/Animations/Animations";
 import {JoarkPreview} from "src/declarations/joark";
-import {getSedPreviewPDF, resetSedPreviewPDF} from "src/actions/buc";
-import File from "@navikt/forhandsvisningsfil";
-import Modal from "src/components/Modal/Modal";
+import PreviewSED from "src/components/PreviewSED/PreviewSED";
 
 const SEDListActionsDiv = styled.div`
   flex: 2;
@@ -123,9 +121,8 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   toggleOpen,
   toggleState
 }: SEDHeaderProps): JSX.Element => {
-  const { locale, storageEntries, featureToggles, gettingPreviewPDF, previewPDF }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
+  const { locale, storageEntries, featureToggles }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
-  const dispatch = useDispatch()
   const followUpSeds: Array<Sed> = buc.seds!.filter(_sed => _sed.parentDocumentId === sed.id && _sed.status === 'empty')
   const isAdmin: boolean = featureToggles.ADMIN_NOTIFICATION_MESSAGE === true
 
@@ -173,43 +170,11 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
       : undefined
   )
 
-  const handlePreviewPdf = (bucId: string, docId: string) => {
-    dispatch(getSedPreviewPDF(bucId, docId))
-  }
-
-  const handleResetPreviewPdf = () => {
-    dispatch(resetSedPreviewPDF())
-  }
-
   return (
     <SEDHeaderPanel
       style={style}
       className={className}
     >
-      <Modal
-        open={!_.isNil(previewPDF)}
-        onModalClose={handleResetPreviewPdf}
-        modal={{
-          modalContent: (
-            <div style={{ cursor: 'pointer' }}>
-              <File
-                scale={2}
-                file={{
-                  size: previewPDF?.filInnhold?.length ?? 0,
-                  name: previewPDF?.fileName ?? '',
-                  mimetype: 'application/pdf',
-                  content: {
-                    base64: previewPDF?.filInnhold
-                  }
-                }}
-                width={1000}
-                tema='simple'
-                viewOnePage={false}
-              />
-            </div>
-          )
-        }}
-      />
       <SEDHeaderContent>
         <SEDListStatusDiv>
           <Detail
@@ -336,42 +301,37 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           </div>
           {isAdmin && sed.type === 'P2000' && (sed.status !== 'received') &&
             <>
-              <Button
-                variant='secondary'
-                data-amplitude='buc.view.p2000.edit'
-                data-testid='a_buc_c_sedheader--p2000-button-id'
-                onClick={(e) => {
-                  buttonLogger(e)
-                  setMode('p2000', 'forward', undefined, (
-                    <P2000
-                      buc={buc}
-                      setMode={setMode}
-                      sed={sed}
-                    />
-                  ))
-                  window.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: 'smooth'
-                  })
-                }}
-                iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
-              >
-                Oppdater P2000
-              </Button>
-              <Button
-                variant='tertiary'
-                data-testid={'a_buc_c_sedheader--p2000-preview-' + sed.id}
-                onClick={() => handlePreviewPdf(buc.caseId!, sed.id)}
-                disabled={gettingPreviewPDF}
-              >
-                {gettingPreviewPDF && (
-                  <>
-                    <Loader />
-                  </>
-                )}
-                {gettingPreviewPDF ? t('ui:loading') : "PDF"}
-              </Button>
+              <VStack gap={"2"}>
+                <Button
+                  variant='secondary'
+                  data-amplitude='buc.view.p2000.edit'
+                  data-testid='a_buc_c_sedheader--p2000-button-id'
+                  onClick={(e) => {
+                    buttonLogger(e)
+                    setMode('p2000', 'forward', undefined, (
+                      <P2000
+                        buc={buc}
+                        setMode={setMode}
+                        sed={sed}
+                      />
+                    ))
+                    window.scrollTo({
+                      top: 0,
+                      left: 0,
+                      behavior: 'smooth'
+                    })
+                  }}
+                  iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
+                >
+                  Oppdater P2000
+                </Button>
+                <PreviewSED
+                  size='small'
+                  bucId={buc.caseId!}
+                  sedId={sed.id}
+                  disabled={false}
+                />
+              </VStack>
             </>
           }
           {sedCanHaveAttachments(sed) && toggleOpen &&

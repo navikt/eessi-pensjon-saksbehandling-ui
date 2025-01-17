@@ -20,4 +20,5 @@ export interface ModalContent {
   modalContent ?: JSX.Element |string |null
   modalText ?: string |null
   modalButtons?: Array<ModalButton> |null
+  closeButton?: boolean | null
 }
