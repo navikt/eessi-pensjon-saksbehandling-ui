@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitest/config'
+
 export default defineConfig({
   test: {
     setupFiles: './vitest-setup.ts',
@@ -6,6 +7,12 @@ export default defineConfig({
     environment: 'jsdom',
     coverage: {
       reporter: ['text', 'json', 'html'],
+    },
+  },
+  base: "/",
+  resolve: {
+    alias: {
+      src: "/src",
     },
   },
 })
