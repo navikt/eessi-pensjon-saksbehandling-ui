@@ -10,10 +10,7 @@ export default defineConfig({
   ],
   server: {
     open: true,
-    port: 3000,
-    fs: {
-      cachedChecks: false
-    }
+    port: 3000
   },
   define: {
     'process.env': process.env
