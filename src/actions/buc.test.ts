@@ -320,7 +320,7 @@ describe('src/actions/buc', () => {
         success: types.BUC_GET_P6000PDF_SUCCESS,
         failure: types.BUC_GET_P6000PDF_FAILURE
       },
-      url: sprintf(urls.BUC_GET_P6000PDF_URL, { rinaCaseId: mockRinaCaseId, documentId: mockDocumentId })
+      url: sprintf(urls.BUC_GET_PDF_URL, { rinaCaseId: mockRinaCaseId, documentId: mockDocumentId })
     }))
   })
 

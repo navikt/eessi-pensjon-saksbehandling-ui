@@ -75,7 +75,7 @@ export const BUC_PUT_SED_URL = SED_URL + '/put/%(caseId)s/%(sedId)s'
 export const P5000_GET_URL = SED_URL + '/get/%(caseId)s/%(sedId)s'
 export const P5000_PUT_URL = SED_URL + '/put/%(caseId)s/%(sedId)s'
 export const BUC_GET_P6000_URL = SED_URL + '/getP6000/%(rinaCaseId)s'
-export const BUC_GET_P6000PDF_URL = SED_URL + '/get/%(rinaCaseId)s/%(documentId)s/pdf'
+export const BUC_GET_PDF_URL = SED_URL + '/get/%(rinaCaseId)s/%(documentId)s/pdf'
 
 //GjennyController
 export const GJENNY_GET_BUCSLIST_GJENLEVENDE_URL = GJENNY_URL + '/rinasaker/%(aktoerId)s'
