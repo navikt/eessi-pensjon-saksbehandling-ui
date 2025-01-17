@@ -3,7 +3,7 @@ import { render } from '@testing-library/react'
 import { stageSelector } from 'src/setupTests'
 import SEDP6000, { SEDP6000Props, SEDP6000Selector } from './SEDP6000'
 import mockP6000s from 'src/mocks/buc/p6000'
-import mockP6000PDF from 'src/mocks/buc/p6000pdf'
+import mockP6000PDF from 'src/mocks/buc/previewpdf'
 
 const defaultSelector: SEDP6000Selector = {
   gettingP6000PDF: false,

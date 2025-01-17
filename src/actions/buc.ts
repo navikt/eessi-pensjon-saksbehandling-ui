@@ -38,7 +38,7 @@ import mockKravDato from 'src/mocks/buc/kravDato'
 import mockP2000 from 'src/mocks/buc/sed_P2000'
 import mockP6000 from 'src/mocks/buc/p6000'
 import mockP4000 from 'src/mocks/buc/p4000'
-import mockP6000pdf from 'src/mocks/buc/p6000pdf'
+import mockPreviewPdf from 'src/mocks/buc/previewpdf'
 //import mockSed from  'src/mocks/buc/sed'
 import mockRinaUrl from 'src/mocks/buc/rinaUrl'
 import mockSakType from 'src/mocks/buc/sakType'
@@ -431,9 +431,9 @@ export const getSedP6000PDF = (
   rinaCaseId: string, documentId: string
 ): Action => {
   return call({
-    url: sprintf(urls.BUC_GET_P6000PDF_URL, { rinaCaseId, documentId }),
+    url: sprintf(urls.BUC_GET_PDF_URL, { rinaCaseId, documentId }),
     cascadeFailureError: true,
-    expectedPayload: mockP6000pdf,
+    expectedPayload: mockPreviewPdf,
     type: {
       request: types.BUC_GET_P6000PDF_REQUEST,
       success: types.BUC_GET_P6000PDF_SUCCESS,
@@ -444,6 +444,25 @@ export const getSedP6000PDF = (
 
 export const resetSedP6000PDF: ActionCreator<Action> = (): Action => ({
   type: types.BUC_P6000PDF_RESET
+})
+
+export const getSedPreviewPDF = (
+  rinaCaseId: string, documentId: string
+): Action => {
+  return call({
+    url: sprintf(urls.BUC_GET_PDF_URL, { rinaCaseId, documentId }),
+    cascadeFailureError: true,
+    expectedPayload: mockPreviewPdf,
+    type: {
+      request: types.BUC_GET_PREVIEWPDF_REQUEST,
+      success: types.BUC_GET_PREVIEWPDF_SUCCESS,
+      failure: types.BUC_GET_PREVIEWPDF_FAILURE
+    }
+  })
+}
+
+export const resetSedPreviewPDF: ActionCreator<Action> = (): Action => ({
+  type: types.BUC_PREVIEWPDF_RESET
 })
 
 export const getRinaUrl = (

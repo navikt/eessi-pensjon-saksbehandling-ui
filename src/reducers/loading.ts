@@ -26,6 +26,7 @@ export const initialLoadingState: LoadingState = {
   gettingP4000: false,
   gettingP6000: false,
   gettingP6000PDF: false,
+  gettingPreviewPDF: false,
   gettingSakType: false,
   gettingSedList: false,
   gettingTagList: false,
@@ -375,6 +376,21 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
       return {
         ...state,
         gettingP6000PDF: false
+      }
+
+    case types.BUC_GET_PREVIEWPDF_REQUEST:
+
+      return {
+        ...state,
+        gettingPreviewPDF: true
+      }
+
+    case types.BUC_GET_PREVIEWPDF_SUCCESS:
+    case types.BUC_GET_PREVIEWPDF_FAILURE:
+
+      return {
+        ...state,
+        gettingPreviewPDF: false
       }
 
     case types.BUC_GET_KRAVDATO_REQUEST:

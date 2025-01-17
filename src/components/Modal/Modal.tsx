@@ -49,6 +49,7 @@ export interface ModalProps {
   open: boolean,
   header?: string
   modal: ModalContent | undefined
+  width?: string | undefined
 }
 
 const ModalFC: React.FC<ModalProps> = ({
@@ -58,7 +59,8 @@ const ModalFC: React.FC<ModalProps> = ({
   onBeforeClose = () => true,
   open,
   header,
-  modal
+  modal,
+  width
 }: ModalProps): JSX.Element => {
 
   return (
@@ -69,6 +71,7 @@ const ModalFC: React.FC<ModalProps> = ({
       onBeforeClose={onBeforeClose}
       header={{ heading: header ? header : "" }}
       portal={true}
+      width={width}
     >
       <Modal.Body>
         {icon && (

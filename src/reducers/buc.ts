@@ -47,6 +47,7 @@ export interface BucState {
   PSEDChanged: boolean
   PSEDSendResponse: any | null | undefined
   PSEDSavedResponse: any | null | undefined
+  previewPDF: JoarkPreview | null | undefined
   followUpSeds: Array<Sed> | undefined
   howManyBucLists: number
   kravDato: string | null | undefined
@@ -84,6 +85,7 @@ export const initialBucState: BucState = {
   PSEDChanged: false,
   PSEDSendResponse: undefined,
   PSEDSavedResponse: undefined,
+  previewPDF: undefined,
   followUpSeds: undefined,
   institutionList: undefined,
   institutionNames: {},
@@ -640,6 +642,27 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         ...state,
         p6000PDF: (action as ActionWithPayload).payload
       }
+
+
+    case types.BUC_PREVIEWPDF_RESET:
+    case types.BUC_GET_PREVIEWPDF_REQUEST:
+      return {
+        ...state,
+        previewPDF: undefined
+      }
+
+    case types.BUC_GET_PREVIEWPDF_FAILURE:
+      return {
+        ...state,
+        previewPDF: null
+      }
+
+    case types.BUC_GET_PREVIEWPDF_SUCCESS:
+      return {
+        ...state,
+        previewPDF: (action as ActionWithPayload).payload
+      }
+
 
     case types.BUC_SAVE_BUCSINFO_REQUEST:
     case types.BUC_SAVE_BUCSINFO_FAILURE:

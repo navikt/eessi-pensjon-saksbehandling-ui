@@ -11,14 +11,16 @@ import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import {buttonLogger} from 'src/metrics/loggers'
 import moment from 'moment'
-import {Alert, Detail, BodyLong, Button, Panel, HStack} from '@navikt/ds-react'
+import {Alert, Detail, BodyLong, Button, Panel, HStack, VStack} from '@navikt/ds-react'
 import {ChevronRightIcon, ChevronDownIcon, ChevronUpIcon, PaperclipIcon} from '@navikt/aksel-icons'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
+import {useSelector} from 'react-redux'
 import styled from 'styled-components'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 import { slideInFromLeft } from "src/components/Animations/Animations";
+import {JoarkPreview} from "src/declarations/joark";
+import PreviewSED from "src/components/PreviewSED/PreviewSED";
 
 const SEDListActionsDiv = styled.div`
   flex: 2;
@@ -96,13 +98,18 @@ export interface SEDListSelector {
   locale: AllowedLocaleString
   featureToggles: FeatureToggles
   storageEntries: LocalStorageEntriesMap
+  gettingPreviewPDF: boolean
+  previewPDF: JoarkPreview | null | undefined
 }
 
 const mapState = (state: State): SEDListSelector => ({
   locale: state.ui.locale,
   featureToggles: state.app.featureToggles,
-  storageEntries: state.localStorage.entries
+  storageEntries: state.localStorage.entries,
+  gettingPreviewPDF: state.loading.gettingPreviewPDF,
+  previewPDF: state.buc.previewPDF
 })
+
 
 const SEDHeader: React.FC<SEDHeaderProps> = ({
   buc,
@@ -294,29 +301,37 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           </div>
           {isAdmin && sed.type === 'P2000' && (sed.status !== 'received') &&
             <>
-              <Button
-                variant='secondary'
-                data-amplitude='buc.view.p2000.edit'
-                data-testid='a_buc_c_sedheader--p2000-button-id'
-                onClick={(e) => {
-                  buttonLogger(e)
-                  setMode('p2000', 'forward', undefined, (
-                    <P2000
-                      buc={buc}
-                      setMode={setMode}
-                      sed={sed}
-                    />
-                  ))
-                  window.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: 'smooth'
-                  })
-                }}
-                iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
-              >
-                Oppdater P2000
-              </Button>
+              <VStack gap={"2"}>
+                <Button
+                  variant='secondary'
+                  data-amplitude='buc.view.p2000.edit'
+                  data-testid='a_buc_c_sedheader--p2000-button-id'
+                  onClick={(e) => {
+                    buttonLogger(e)
+                    setMode('p2000', 'forward', undefined, (
+                      <P2000
+                        buc={buc}
+                        setMode={setMode}
+                        sed={sed}
+                      />
+                    ))
+                    window.scrollTo({
+                      top: 0,
+                      left: 0,
+                      behavior: 'smooth'
+                    })
+                  }}
+                  iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
+                >
+                  Oppdater P2000
+                </Button>
+                <PreviewSED
+                  size='small'
+                  bucId={buc.caseId!}
+                  sedId={sed.id}
+                  disabled={false}
+                />
+              </VStack>
             </>
           }
           {sedCanHaveAttachments(sed) && toggleOpen &&
