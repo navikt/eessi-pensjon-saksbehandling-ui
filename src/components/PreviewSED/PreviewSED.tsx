@@ -98,7 +98,6 @@ const PreviewSED: React.FC<PreviewSedProps> = ({
       const newPSED = _.cloneDeep(PSED)
       //cleanReplySed(newPSED)
       delete newPSED.sak
-      delete newPSED.sed
       delete newPSED.attachments
       delete newPSED.originalSed
       dispatch(getPreviewFile(newPSED))

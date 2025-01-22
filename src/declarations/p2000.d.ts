@@ -232,6 +232,5 @@ export interface BaseSED {
   sed: string
   sedGVer: string
   sedVer: string
-  sedType: string
   originalSed: Sed // removed before SAVE
 }
