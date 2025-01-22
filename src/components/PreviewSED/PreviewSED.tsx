@@ -116,10 +116,10 @@ const PreviewSED: React.FC<PreviewSedProps> = ({
         open={!_.isNil(previewModal)}
         modal={previewModal}
         onModalClose={handleModalClose}
-        width='fit-content'
+        width='1200px'
       />
       <Button
-        variant='secondary'
+        variant='tertiary'
         size={size}
         disabled={gettingPreviewPDF || gettingPreviewSed || disabled}
         data-amplitude='svarsed.editor.preview'

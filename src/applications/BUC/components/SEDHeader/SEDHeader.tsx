@@ -21,6 +21,7 @@ import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 import { slideInFromLeft } from "src/components/Animations/Animations";
 import {JoarkPreview} from "src/declarations/joark";
 import PreviewSED from "src/components/PreviewSED/PreviewSED";
+import {CenterHStack} from "src/components/StyledComponents";
 
 const SEDListActionsDiv = styled.div`
   flex: 2;
@@ -177,11 +178,20 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
     >
       <SEDHeaderContent>
         <SEDListStatusDiv>
-          <Detail
-            data-testid='a_buc_c_sedheader--name-id'
-          >
-            {sed.type}{sedLabel ? ' - ' + sedLabel : ''}
-          </Detail>
+          <CenterHStack>
+            <Detail
+              data-testid='a_buc_c_sedheader--name-id'
+            >
+              {sed.type}{sedLabel ? ' - ' + sedLabel : ''}
+            </Detail>
+            <PreviewSED
+              size='small'
+              short={true}
+              bucId={buc.caseId!}
+              sedId={sed.id}
+              disabled={false}
+            />
+          </CenterHStack>
           <SEDListStatusItemDiv>
             <HStack gap="4">
               <PopoverCustomized
@@ -301,37 +311,29 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           </div>
           {isAdmin && sed.type === 'P2000' && (sed.status !== 'received') &&
             <>
-              <VStack gap={"2"}>
-                <Button
-                  variant='secondary'
-                  data-amplitude='buc.view.p2000.edit'
-                  data-testid='a_buc_c_sedheader--p2000-button-id'
-                  onClick={(e) => {
-                    buttonLogger(e)
-                    setMode('p2000', 'forward', undefined, (
-                      <P2000
-                        buc={buc}
-                        setMode={setMode}
-                        sed={sed}
-                      />
-                    ))
-                    window.scrollTo({
-                      top: 0,
-                      left: 0,
-                      behavior: 'smooth'
-                    })
-                  }}
-                  iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
-                >
-                  Oppdater P2000
-                </Button>
-                <PreviewSED
-                  size='small'
-                  bucId={buc.caseId!}
-                  sedId={sed.id}
-                  disabled={false}
-                />
-              </VStack>
+              <Button
+                variant='secondary'
+                data-amplitude='buc.view.p2000.edit'
+                data-testid='a_buc_c_sedheader--p2000-button-id'
+                onClick={(e) => {
+                  buttonLogger(e)
+                  setMode('p2000', 'forward', undefined, (
+                    <P2000
+                      buc={buc}
+                      setMode={setMode}
+                      sed={sed}
+                    />
+                  ))
+                  window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                  })
+                }}
+                iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
+              >
+                Oppdater P2000
+              </Button>
             </>
           }
           {sedCanHaveAttachments(sed) && toggleOpen &&
