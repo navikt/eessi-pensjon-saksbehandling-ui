@@ -848,7 +848,8 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         ...state,
         PSED: {
           ...payload,
-          originalSed: sed
+          originalSed: sed,
+          sedType: sed.type
         },
         PSEDChanged: false
       }
