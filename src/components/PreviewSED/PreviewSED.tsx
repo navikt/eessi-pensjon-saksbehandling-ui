@@ -100,6 +100,7 @@ const PreviewSED: React.FC<PreviewSedProps> = ({
       delete newPSED.sak
       delete newPSED.sed
       delete newPSED.attachments
+      delete newPSED.originalSed
       dispatch(getPreviewFile(newPSED))
     } else {
       if (sedId && bucId) {
