@@ -1,7 +1,7 @@
 import { EyeWithPupilIcon } from '@navikt/aksel-icons'
 import { Button } from '@navikt/ds-react'
 import File from "@navikt/forhandsvisningsfil";
-import { getSedPreviewPDF, resetSedPreviewPDF } from 'src/actions/buc'
+import {getPreviewFile, getSedPreviewPDF, resetSedPreviewPDF} from 'src/actions/buc'
 import Modal from 'src/components/Modal/Modal'
 import { ModalContent } from 'src/declarations/components'
 import { State } from 'src/declarations/reducers'
@@ -95,13 +95,12 @@ const PreviewSED: React.FC<PreviewSedProps> = ({
        2) I am choosing a SED, get PDF from RINA
      */
     if (PSED) {
-      /*const newReplySed = _.cloneDeep(PSED)
-      cleanReplySed(newReplySed)
-      const rinaSakId = newReplySed.sak!.sakId
-      delete newReplySed.sak
-      delete newReplySed.sed
-      delete newReplySed.attachments
-      dispatch(getPreviewFile(rinaSakId!, newReplySed))*/
+      const newPSED = _.cloneDeep(PSED)
+      //cleanReplySed(newPSED)
+      delete newPSED.sak
+      delete newPSED.sed
+      delete newPSED.attachments
+      dispatch(getPreviewFile(newPSED))
     } else {
       if (sedId && bucId) {
         dispatch(getSedPreviewPDF(bucId, sedId))
@@ -120,6 +119,7 @@ const PreviewSED: React.FC<PreviewSedProps> = ({
       />
       <Button
         variant='tertiary'
+        title="Forhåndsvis PDF"
         size={size}
         disabled={gettingPreviewPDF || gettingPreviewSed || disabled}
         data-amplitude='svarsed.editor.preview'
@@ -129,7 +129,7 @@ const PreviewSED: React.FC<PreviewSedProps> = ({
       >
         {!short && (
           <>
-            {gettingPreviewPDF ? t('label:laster-ned-filen') : "Vis PDF"}
+            {gettingPreviewPDF ? t('label:laster-ned-filen') : "Forhåndsvis PDF"}
           </>
         )}
       </Button>

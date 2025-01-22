@@ -30,6 +30,7 @@ import {resetEditingItems} from "src/actions/app";
 import SEDBody from "src/applications/BUC/components/SEDBody/SEDBody";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
 import {WaitingPanelDiv} from "src/components/StyledComponents";
+import PreviewSED from "src/components/PreviewSED/PreviewSED";
 
 
 export interface P2000Selector {
@@ -212,24 +213,27 @@ const P2000: React.FC<P2000Props> = ({
           background="bg-default"
           padding="4"
         >
-          <HStack gap="4">
-            <Button
-              variant='primary'
-              onClick={onSaveSed}
-              loading={savingSed}
-              disabled={disableSave}
-            >
-              {t('ui:save-sed')}
-            </Button>
-            <Button
-              variant='primary'
-              onClick={onSendSed}
-              loading={false}
-              disabled={disableSend}
-            >
-              {sendingSed ? t('message:loading-sendingSed') : t('ui:send-sed')}
-            </Button>
-          </HStack>
+          <VStack gap="4">
+            <HStack><PreviewSED PSED={currentPSED}/></HStack>
+            <HStack gap="4">
+              <Button
+                variant='primary'
+                onClick={onSaveSed}
+                loading={savingSed}
+                disabled={disableSave}
+              >
+                {t('ui:save-sed')}
+              </Button>
+              <Button
+                variant='primary'
+                onClick={onSendSed}
+                loading={false}
+                disabled={disableSend}
+              >
+                {sendingSed ? t('message:loading-sendingSed') : t('ui:send-sed')}
+              </Button>
+            </HStack>
+          </VStack>
         </Box>
       </VStack>
     </>
