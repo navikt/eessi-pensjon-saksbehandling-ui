@@ -451,7 +451,6 @@ export const getPreviewFile = (PSED: PSED): ActionWithPayload => {
     method: 'POST',
     url: sprintf(urls.BUC_PREVIEW_PDF_URL),
     expectedPayload: mockPreviewPdf,
-    responseType: 'pdf',
     type: {
       request: types.BUC_GET_PREVIEWPDF_REQUEST,
       success: types.BUC_GET_PREVIEWPDF_SUCCESS,
