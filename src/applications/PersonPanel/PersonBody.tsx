@@ -155,7 +155,7 @@ const PersonBody: React.FC<PersonBodyProps> = ({
       if (l.gyldigTilOgMed) {
         label += ' - ' + moment(l.gyldigTilOgMed).format('DD.MM.YYYY')
       }
-      return label + ')'
+      return label + (l.gyldigFraOgMed ? ')' : "")
     })
   }
 
