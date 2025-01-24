@@ -4,10 +4,6 @@ import { stageSelector } from 'src/setupTests'
 import mockPerson from 'src/mocks/person/personPdl'
 import ContextBanner, { ContextBannerProps, ContextBannerSelector } from './ContextBanner'
 
-jest.mock('applications/BUC/websocket/WebSocket', () => ({ title, children }: any) => (
-  <div title={title} className='websocket'>{children}</div>
-))
-
 const mockPesysContext = VEDTAKSKONTEKST
 const mockSakType = 'Generell'
 

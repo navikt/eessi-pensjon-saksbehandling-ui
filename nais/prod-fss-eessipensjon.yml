@@ -13,8 +13,6 @@ spec:
       value: https://www.nav.no
     - name: VITE_ZONE
       value: fss
-    - name: VITE_PUBLIC_WEBSOCKETURL
-      value: https://eessi-pensjon-frontend-api-fss.nais.adeo.no/
     - name: VITE_EESSI_PENSJON_FRONTEND_API_FSS_URL
       value: {{eessi_pensjon_frontend_api_fss_url}}
     - name: VITE_EESSI_PENSJON_FAGMODUL_URL
