@@ -230,7 +230,6 @@
       "render",
       "renderer",
       "shallow",
-      "WebSocket",
       "Window",
       "XMLHttpRequest"
     ]

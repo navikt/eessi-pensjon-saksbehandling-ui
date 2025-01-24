@@ -6,7 +6,6 @@ export const WS_BASE_URL = WS_HOST + (window.location.port ? ':' + window.locati
 
 const FRONTEND_API_URL = BASE_URL + '/frontend'
 const FAGMODUL_API_URL = BASE_URL + '/fagmodul'
-export const WEBSOCKET_URL = WS_BASE_URL + '/websocket'
 
 const API_URL = FRONTEND_API_URL + '/api'
 const SED_URL = FAGMODUL_API_URL + '/sed'
