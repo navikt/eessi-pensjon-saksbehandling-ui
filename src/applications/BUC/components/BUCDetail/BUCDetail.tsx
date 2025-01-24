@@ -123,6 +123,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
         style={{ borderRadius: '4px' }}
         className={className}
         data-testid='a_buc_c_BUCDetail--panel_id'
+        indent={false}
       >
         <Accordion.Item open={_open}>
           <Accordion.Header onClick={() => setOpen(!_open)} style={{ borderBottom: 'none' }}>
