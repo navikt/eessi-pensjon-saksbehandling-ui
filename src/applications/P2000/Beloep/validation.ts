@@ -1,7 +1,7 @@
 import {Validation} from "src/declarations/app";
 import {getIdx} from "../../../utils/namespace";
 import {Beloep} from "../../../declarations/p2000";
-import {checkIfDuplicate, checkIfNotEmpty, checkValidDateFormat} from "../../../utils/validation";
+import {checkIfDuplicate, checkIfNotEmpty, checkIfValidBeloep, checkValidDateFormat} from "../../../utils/validation";
 
 export interface ValidationBeloepProps {
   beloepArray: Array<Beloep> | null | undefined
@@ -25,6 +25,12 @@ export const validateBeloep = (
     needle: beloep?.beloep,
     id: namespace + idx + '-beloep',
     message: 'validation:missing-p2000-ytelse-beloep-beloep'
+  }))
+
+  hasErrors.push(checkIfValidBeloep(v, {
+    needle: beloep?.beloep,
+    id: namespace + idx + '-beloep',
+    message: 'validation:invalid-p2000-ytelse-beloep-beloep'
   }))
 
   hasErrors.push(checkIfNotEmpty(v, {
