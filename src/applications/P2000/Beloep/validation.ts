@@ -30,7 +30,7 @@ export const validateBeloep = (
   hasErrors.push(checkIfValidBeloep(v, {
     needle: beloep?.beloep,
     id: namespace + idx + '-beloep',
-    message: 'validation:invalid-p2000-ytelse-beloep-beloep'
+    message: 'validation:invalid-p2000-beloep'
   }))
 
   hasErrors.push(checkIfNotEmpty(v, {

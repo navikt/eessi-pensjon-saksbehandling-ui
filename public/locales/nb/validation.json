@@ -5,6 +5,7 @@
 
   "invalidDateFormat": "Ugyldig datoformat (DD.MM.YYYY / DD.MM.YY / DDMMYY)",
 
+  "invalid-p2000-beloep": "Ugyldig beløp",
   "invalid-p2000-bank-konto-ikkesepa-swift": "Ugyldig BIC/SWIFT",
   "invalid-p2000-bank-konto-sepa-iban": "Ugyldig IBAN",
   "invalid-p2000-bank-konto-sepa-swift": "Ugyldig BIC/SWIFT",
@@ -12,7 +13,6 @@
   "invalid-p2000-statsborgerskap-land": "Ugyldig land",
   "invalid-p2000-telefon-nummer": "Ugyldig telefonnummer",
   "invalid-p2000-utenlandskepin-land": "Ugyldig land",
-  "invalid-p2000-ytelse-beloep-beloep": "Ugyldig beløp",
 
   "missing-p2000-adresse-by": "Mangler by",
   "missing-p2000-adresse-gate": "Mangler gate",
