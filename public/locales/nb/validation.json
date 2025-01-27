@@ -5,6 +5,7 @@
 
   "invalidDateFormat": "Ugyldig datoformat (DD.MM.YYYY / DD.MM.YY / DDMMYY)",
 
+  "invalid-p2000-beloep": "Ugyldig beløp",
   "invalid-p2000-bank-konto-ikkesepa-swift": "Ugyldig BIC/SWIFT",
   "invalid-p2000-bank-konto-sepa-iban": "Ugyldig IBAN",
   "invalid-p2000-bank-konto-sepa-swift": "Ugyldig BIC/SWIFT",

@@ -1,7 +1,7 @@
 import {Validation} from "src/declarations/app";
 import {Ytelse} from "src/declarations/p2000";
 import {getIdx} from "src/utils/namespace";
-import {checkIfNotEmpty, checkValidDateFormat} from "src/utils/validation";
+import {checkIfNotEmpty, checkIfValidBeloep, checkValidDateFormat} from "src/utils/validation";
 
 export interface ValidationYtelserProps {
   ytelser: Array<Ytelse> | undefined
@@ -51,6 +51,18 @@ export const validateYtelse = (
     needle: ytelse?.startdatoretttilytelse,
     id: namespace + idx + '-startdatoretttilytelse',
     message: 'validation:invalidDateFormat',
+  }))
+
+  hasErrors.push(checkIfValidBeloep(v, {
+    needle: ytelse?.totalbruttobeloepbostedsbasert,
+    id: namespace + idx + '-totalbruttobeloepbostedsbasert',
+    message: 'validation:invalid-p2000-beloep'
+  }))
+
+  hasErrors.push(checkIfValidBeloep(v, {
+    needle: ytelse?.totalbruttobeloeparbeidsbasert,
+    id: namespace + idx + '-totalbruttobeloeparbeidsbasert',
+    message: 'validation:invalid-p2000-beloep'
   }))
 
 
