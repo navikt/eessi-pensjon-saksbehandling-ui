@@ -17,3 +17,11 @@ export const dateToString = (date: Date | undefined) => {
     return date
   }
 }
+
+export const removeWhiteSpaceAndSeperators = (str: String)=> {
+  const stringWithoutWhiteSpace = str.split(' ').join('');
+  const stringWithoutWhiteSpaceOrCommas = stringWithoutWhiteSpace.split(',').join('')
+  const stringWithoutWhiteSpaceOrCommasOrPeriods = stringWithoutWhiteSpaceOrCommas.split('.').join('')
+
+  return stringWithoutWhiteSpaceOrCommasOrPeriods
+}
