@@ -84,4 +84,10 @@ describe('utils/utils/removeWhiteSpaceAndCommasAndPeriods', () => {
       ''
     )
   })
+
+  it('Undefined should return empty undefined', () => {
+    expect(removeWhiteSpaceAndSeperators(undefined)).toEqual(
+      undefined
+    )
+  })
 })
