@@ -18,7 +18,7 @@ import CountrySelect from "@navikt/landvelger";
 import {Currency} from "@navikt/land-verktoy";
 import {useTranslation} from "react-i18next";
 import DateField from "../DateField/DateField";
-import {formatDate, removeWhiteSpaceAndSeperators} from "src/utils/utils";
+import {formatDate, removeWhiteSpace} from "src/utils/utils";
 import styled from "styled-components";
 
 const TopAlignedCell = styled(Table.DataCell)`
@@ -113,7 +113,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
   }
 
   const setBelop = (beloep: string, index: number) => {
-    setBeloepProperty("beloep", removeWhiteSpaceAndSeperators(beloep), index)
+    setBeloepProperty("beloep", removeWhiteSpace(beloep), index)
     const i = index < 0 ? _newBeloep : _editBeloep
     if(parseFloat(beloep) > 0){
       if(!i?.valuta || i?.valuta === "") {
