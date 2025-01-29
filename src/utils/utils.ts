@@ -18,14 +18,10 @@ export const dateToString = (date: Date | undefined) => {
   }
 }
 
-export const removeWhiteSpaceAndSeperators = (str: String | undefined)=> {
-  if(str) {
-    const stringWithoutWhiteSpace = str.split(' ').join('');
-    const stringWithoutWhiteSpaceOrCommas = stringWithoutWhiteSpace.split(',').join('')
-    const stringWithoutWhiteSpaceOrCommasOrPeriods = stringWithoutWhiteSpaceOrCommas.split('.').join('')
+export const removeWhiteSpaceAndSeperators = (str: String)=> {
+  const stringWithoutWhiteSpace = str.split(' ').join('');
+  const stringWithoutWhiteSpaceOrCommas = stringWithoutWhiteSpace.split(',').join('')
+  const stringWithoutWhiteSpaceOrCommasOrPeriods = stringWithoutWhiteSpaceOrCommas.split('.').join('')
 
-    return stringWithoutWhiteSpaceOrCommasOrPeriods
-  }
-  else
-    return str
+  return stringWithoutWhiteSpaceOrCommasOrPeriods
 }

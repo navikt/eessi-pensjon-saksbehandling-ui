@@ -36,7 +36,7 @@ import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import BeloepRows from "../Beloep/BeloepRows";
-import {formatDate} from "src/utils/utils";
+import {formatDate, removeWhiteSpaceAndSeperators} from "src/utils/utils";
 import Input from "../../../components/Forms/Input";
 import DateField from "../DateField/DateField";
 import ErrorLabel from "src/components/Forms/ErrorLabel";
@@ -370,7 +370,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                   namespace={_namespace}
                   id={_namespace + '-totalbruttobeloepbostedsbasert'}
                   label={t('p2000:form-ytelse-bruttobeloep-bostedsbasert')}
-                  onChanged={(e) => setYtelseProperty("totalbruttobeloepbostedsbasert", e, index)}
+                  onChanged={(e) => setYtelseProperty("totalbruttobeloepbostedsbasert", removeWhiteSpaceAndSeperators(e), index)}
                   value={_ytelse?.totalbruttobeloepbostedsbasert ?? ''}
                 />
                 <Input
@@ -378,7 +378,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                   namespace={_namespace}
                   id={_namespace + '-totalbruttobeloeparbeidsbasert'}
                   label={t('p2000:form-ytelse-bruttobeloep-arbeidsrelatert')}
-                  onChanged={(e) => setYtelseProperty("totalbruttobeloeparbeidsbasert", e, index)}
+                  onChanged={(e) => setYtelseProperty("totalbruttobeloeparbeidsbasert", removeWhiteSpaceAndSeperators(e), index)}
                   value={_ytelse?.totalbruttobeloeparbeidsbasert ?? ''}
                 />
               </HGrid>

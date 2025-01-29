@@ -18,7 +18,7 @@ import CountrySelect from "@navikt/landvelger";
 import {Currency} from "@navikt/land-verktoy";
 import {useTranslation} from "react-i18next";
 import DateField from "../DateField/DateField";
-import {formatDate} from "src/utils/utils";
+import {formatDate, removeWhiteSpaceAndSeperators} from "src/utils/utils";
 import styled from "styled-components";
 
 
@@ -113,7 +113,7 @@ const InntektRows: React.FC<InntektProps> = ({
   }
 
   const setBelop = (beloep: string, index: number) => {
-    setInntektProperty("beloep", beloep, index)
+    setInntektProperty("beloep", removeWhiteSpaceAndSeperators(beloep), index)
     const i = index < 0 ? _newInntekt : _editInntekt
     if(parseFloat(beloep) > 0){
       if(!i?.valuta || i?.valuta === "") {
