@@ -2,16 +2,17 @@ import * as constants from 'constants/constants'
 import { P4000SED } from 'declarations/p4000'
 import { P5000SED } from 'declarations/p5000'
 import { P2000SED } from "declarations/p2000";
+import { P8000SED } from "declarations/p8000";
 import { Sort } from '@navikt/tabell'
 import {SimpleCountry} from "@navikt/landvelger";
 
 export type AllowedLocaleString = 'en' | 'nb'
 
-export type BUCMode = 'buclist' | 'bucedit' | 'bucnew' | 'sednew' | 'p4000' | 'p5000' | 'p2000'
+export type BUCMode = 'buclist' | 'bucedit' | 'bucnew' | 'sednew' | 'p4000' | 'p5000' | 'p2000' | 'p8000'
 
 export type SedType = 'P4000' | 'P5000'
 
-export type PSED = P2000SED | P4000SED | P5000SED
+export type PSED = P2000SED | P4000SED | P5000SED | P8000SED
 
 export type LocalStorageEntriesMap<T extends PSED = PSED> = { [caseId in string]: Array<LocalStorageEntry<T>> } | null | undefined
 

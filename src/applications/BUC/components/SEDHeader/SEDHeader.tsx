@@ -22,6 +22,7 @@ import { slideInFromLeft } from "src/components/Animations/Animations";
 import {JoarkPreview} from "src/declarations/joark";
 import PreviewSED from "src/components/PreviewSED/PreviewSED";
 import {CenterHStack} from "src/components/StyledComponents";
+import P8000 from "src/applications/P8000/P8000";
 
 const SEDListActionsDiv = styled.div`
   flex: 2;
@@ -122,10 +123,10 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   toggleOpen,
   toggleState
 }: SEDHeaderProps): JSX.Element => {
-  const { locale, storageEntries }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
+  const { locale, storageEntries, featureToggles }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
   const followUpSeds: Array<Sed> = buc.seds!.filter(_sed => _sed.parentDocumentId === sed.id && _sed.status === 'empty')
-  //const isAdmin: boolean = featureToggles.ADMIN_NOTIFICATION_MESSAGE === true
+  const isAdmin: boolean = featureToggles.ADMIN_NOTIFICATION_MESSAGE === true
 
   const sedCanHaveAttachments = (sed: Sed): boolean => {
     return !buc.readOnly && sed !== undefined && sed.allowsAttachments && _.includes(['new', 'active'], sed.status)
@@ -333,6 +334,33 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
               >
                 Oppdater P2000
+              </Button>
+            </>
+          }
+          {isAdmin && sed.type === 'P8000' && (sed.status !== 'received') &&
+            <>
+              <Button
+                variant='secondary'
+                data-amplitude='buc.view.p8000.edit'
+                data-testid='a_buc_c_sedheader--p8000-button-id'
+                onClick={(e) => {
+                  buttonLogger(e)
+                  setMode('p8000', 'forward', undefined, (
+                    <P8000
+                      buc={buc}
+                      setMode={setMode}
+                      sed={sed}
+                    />
+                  ))
+                  window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                  })
+                }}
+                iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
+              >
+                Oppdater P8000
               </Button>
             </>
           }
