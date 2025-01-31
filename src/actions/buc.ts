@@ -36,6 +36,7 @@ import mockCreateSed from 'src/mocks/buc/createSed'
 import mockInstitutions from 'src/mocks/buc/institutions'
 import mockKravDato from 'src/mocks/buc/kravDato'
 import mockP2000 from 'src/mocks/buc/sed_P2000'
+import mockP8000 from 'src/mocks/buc/sed_P8000'
 import mockP6000 from 'src/mocks/buc/p6000'
 import mockP4000 from 'src/mocks/buc/p4000'
 import mockPreviewPdf from 'src/mocks/buc/previewpdf'
@@ -316,11 +317,30 @@ export const getInstitutionsListForBucAndCountry = (
 export const getSed = (
   caseId: string, sed: Sed
 ): Action => {
+
   return call({
     url: sprintf(urls.BUC_GET_SED_URL, { caseId, sedId: sed.id }),
     cascadeFailureError: true,
-    //expectedPayload: mockSed(sed.type),
     expectedPayload: mockP2000,
+    context: {
+      sed: sed
+    },
+    type: {
+      request: types.BUC_GET_SED_REQUEST,
+      success: types.BUC_GET_SED_SUCCESS,
+      failure: types.BUC_GET_SED_FAILURE
+    }
+  })
+}
+
+export const getSedP8000 = (
+  caseId: string, sed: Sed
+): Action => {
+
+  return call({
+    url: sprintf(urls.BUC_GET_SED_URL, { caseId, sedId: sed.id }),
+    cascadeFailureError: true,
+    expectedPayload: mockP8000,
     context: {
       sed: sed
     },
