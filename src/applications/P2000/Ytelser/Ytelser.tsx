@@ -36,7 +36,7 @@ import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import BeloepRows from "../Beloep/BeloepRows";
-import {formatDate, removeWhiteSpace} from "src/utils/utils";
+import {formatDate, removeWhiteSpaceAndReplaceCommas, replacePeriodsWithCommas} from "src/utils/utils";
 import Input from "../../../components/Forms/Input";
 import DateField from "../DateField/DateField";
 import ErrorLabel from "src/components/Forms/ErrorLabel";
@@ -370,16 +370,16 @@ const Ytelser: React.FC<MainFormProps> = ({
                   namespace={_namespace}
                   id={_namespace + '-totalbruttobeloepbostedsbasert'}
                   label={t('p2000:form-ytelse-bruttobeloep-bostedsbasert')}
-                  onChanged={(e) => setYtelseProperty("totalbruttobeloepbostedsbasert", removeWhiteSpace(e), index)}
-                  value={_ytelse?.totalbruttobeloepbostedsbasert ?? ''}
+                  onChanged={(e) => setYtelseProperty("totalbruttobeloepbostedsbasert", removeWhiteSpaceAndReplaceCommas(e), index)}
+                  value={replacePeriodsWithCommas(_ytelse?.totalbruttobeloepbostedsbasert ?? '')}
                 />
                 <Input
                   error={_v[_namespace + '-totalbruttobeloeparbeidsbasert']?.feilmelding}
                   namespace={_namespace}
                   id={_namespace + '-totalbruttobeloeparbeidsbasert'}
                   label={t('p2000:form-ytelse-bruttobeloep-arbeidsrelatert')}
-                  onChanged={(e) => setYtelseProperty("totalbruttobeloeparbeidsbasert", removeWhiteSpace(e), index)}
-                  value={_ytelse?.totalbruttobeloeparbeidsbasert ?? ''}
+                  onChanged={(e) => setYtelseProperty("totalbruttobeloeparbeidsbasert", removeWhiteSpaceAndReplaceCommas(e), index)}
+                  value={replacePeriodsWithCommas(_ytelse?.totalbruttobeloeparbeidsbasert ?? '')}
                 />
               </HGrid>
               <HStack>
@@ -467,7 +467,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                 <VStack>
                   <Label>{t('p2000:form-ytelse-bruttobeloep-bostedsbasert')}</Label>
                   <BodyLong>
-                    {_ytelse?.totalbruttobeloepbostedsbasert}
+                    {replacePeriodsWithCommas(_ytelse?.totalbruttobeloepbostedsbasert)}
                   </BodyLong>
                 </VStack>
               }
@@ -475,7 +475,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                 <VStack>
                   <Label>{t('p2000:form-ytelse-bruttobeloep-arbeidsrelatert')}</Label>
                   <BodyLong>
-                    {_ytelse?.totalbruttobeloeparbeidsbasert}
+                    {replacePeriodsWithCommas(_ytelse?.totalbruttobeloeparbeidsbasert)}
                   </BodyLong>
                 </VStack>
               }

@@ -18,7 +18,7 @@ import CountrySelect from "@navikt/landvelger";
 import {Currency} from "@navikt/land-verktoy";
 import {useTranslation} from "react-i18next";
 import DateField from "../DateField/DateField";
-import {formatDate, removeWhiteSpace} from "src/utils/utils";
+import {formatDate, removeWhiteSpaceAndReplaceCommas, replacePeriodsWithCommas} from "src/utils/utils";
 import styled from "styled-components";
 
 
@@ -113,7 +113,7 @@ const InntektRows: React.FC<InntektProps> = ({
   }
 
   const setBelop = (beloep: string, index: number) => {
-    setInntektProperty("beloep", removeWhiteSpace(beloep), index)
+    setInntektProperty("beloep", removeWhiteSpaceAndReplaceCommas(beloep), index)
     const i = index < 0 ? _newInntekt : _editInntekt
     if(parseFloat(beloep) > 0){
       if(!i?.valuta || i?.valuta === "") {
@@ -187,7 +187,7 @@ const InntektRows: React.FC<InntektProps> = ({
                     label={t('p2000:form-arbeidsforhold-inntekt-belop')}
                     hideLabel={true}
                     onChanged={(e) => setBelop(e, index)}
-                    value={_inntekt?.beloep ?? ''}
+                    value={replacePeriodsWithCommas(_inntekt?.beloep ?? '')}
                   />
                 </TopAlignedCell>
                 <TopAlignedCell width={"20%"}>
@@ -252,7 +252,7 @@ const InntektRows: React.FC<InntektProps> = ({
           : (
             <Table.Row>
               <Table.DataCell width={"10%"}>
-                {inntekt?.beloep}
+                {replacePeriodsWithCommas(inntekt?.beloep)}
               </Table.DataCell>
               <Table.DataCell width={"10%"}>
                 {inntekt?.valuta}

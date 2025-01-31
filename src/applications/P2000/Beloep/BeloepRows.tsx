@@ -18,7 +18,7 @@ import CountrySelect from "@navikt/landvelger";
 import {Currency} from "@navikt/land-verktoy";
 import {useTranslation} from "react-i18next";
 import DateField from "../DateField/DateField";
-import {formatDate, removeWhiteSpace} from "src/utils/utils";
+import {formatDate, removeWhiteSpaceAndReplaceCommas, replacePeriodsWithCommas} from "src/utils/utils";
 import styled from "styled-components";
 
 const TopAlignedCell = styled(Table.DataCell)`
@@ -113,7 +113,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
   }
 
   const setBelop = (beloep: string, index: number) => {
-    setBeloepProperty("beloep", removeWhiteSpace(beloep), index)
+    setBeloepProperty("beloep", removeWhiteSpaceAndReplaceCommas(beloep), index)
     const i = index < 0 ? _newBeloep : _editBeloep
     if(parseFloat(beloep) > 0){
       if(!i?.valuta || i?.valuta === "") {
@@ -189,7 +189,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
                 label={t('p2000:form-ytelse-beloep-beloep')}
                 hideLabel={true}
                 onChanged={(e) => setBelop(e, index)}
-                value={_beloep?.beloep ?? ''}
+                value={replacePeriodsWithCommas(_beloep?.beloep ?? '')}
               />
             </TopAlignedCell>
             <TopAlignedCell width={"10%"}>
@@ -266,7 +266,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
         : (
           <Table.Row>
             <Table.DataCell width={"10%"}>
-              {beloep?.beloep}
+              {replacePeriodsWithCommas(beloep?.beloep)}
             </Table.DataCell>
             <Table.DataCell width={"10%"}>
               {beloep?.valuta}

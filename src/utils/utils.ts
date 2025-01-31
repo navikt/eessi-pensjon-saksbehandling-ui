@@ -21,3 +21,20 @@ export const dateToString = (date: Date | undefined) => {
 export const removeWhiteSpace = (str: String)=> {
   return str.split(' ').join('');
 }
+
+export const replaceCommasWithPeriods = (str: String)=> {
+  return str.split(',').join('.');
+}
+
+export const replacePeriodsWithCommas = (str: String | undefined)=> {
+  if(str) {
+    return str.split('.').join(',');
+  }
+  else {
+    return str
+  }
+}
+
+export const removeWhiteSpaceAndReplaceCommas = (str: String)=> {
+  return replaceCommasWithPeriods(removeWhiteSpace(str))
+}
