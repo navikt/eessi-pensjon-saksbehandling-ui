@@ -9,7 +9,7 @@ import {WaitingPanelDiv} from "src/components/StyledComponents";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
 import {P8000SED} from "src/declarations/p8000";
 import {State} from "src/declarations/reducers";
-import {Box, Button, Checkbox, Heading, Spacer, VStack} from "@navikt/ds-react";
+import {Box, Button, Heading, Spacer, VStack} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import {
@@ -28,6 +28,8 @@ import {
   YTELSESHISTORIKK
 } from "src/constants/p8000";
 import {InntektFoerUfoerhetIUtlandet} from "src/applications/P8000/components/InntektFoerUfoerhetIUtlandet";
+import {CheckBoxField} from "src/applications/P8000/components/CheckboxField";
+import {P8000Fields} from "src/applications/P8000/P8000Fields";
 
 export interface P8000Props {
   buc: Buc
@@ -131,23 +133,6 @@ const P8000: React.FC<P8000Props> = ({
     EO_NO_05: []
   }
 
-  const P8000Fields = {
-    [P4000]: {
-      component: <Checkbox
-        checked={currentPSED && currentPSED.ofteEtterspurtInformasjon ? !!currentPSED.ofteEtterspurtInformasjon["P4000"].value : false}
-        value={P4000}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCheckbox(P4000, e.target.checked)}>{P4000}
-      </Checkbox>
-    },
-    [INNTEKT_FOER_UFOERHET_I_UTLANDET]: {
-      component: <InntektFoerUfoerhetIUtlandet label="Inntekt før uførhet i utlandet" value={INNTEKT_FOER_UFOERHET_I_UTLANDET}/>
-    }
-  }
-
-  const setCheckbox = (field: string, checked: boolean) => {
-    dispatch(updatePSED(`ofteEtterspurtInformasjon.${field}.value`, checked))
-  }
-
   return (
     <>
       <VStack gap="4">
@@ -172,14 +157,20 @@ const P8000: React.FC<P8000Props> = ({
         >
           <Heading level="1" size="medium">P8000</Heading>
           <Spacer/>
-          {
-            P8000Variants.UT_UTL_03.ofteEtterspurtInformasjon.map((field:string) => {
-              return(
-                P8000Fields[field as keyof typeof P8000Fields] ? P8000Fields[field as keyof typeof P8000Fields].component : <p>{field}</p>
-              )
-            })
-          }
-
+          <P8000Fields
+            fields={[
+              {label: P4000, value: P4000, component: CheckBoxField},
+              {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: InntektFoerUfoerhetIUtlandet},
+              {label: "Brukers adresse", value: BRUKERS_ADRESSE, component: CheckBoxField},
+              {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: CheckBoxField},
+              {label: "Opplysninger om tiltak", value: TILTAK, component: CheckBoxField},
+            ]}
+            variant={P8000Variants.UT_UTL_03.ofteEtterspurtInformasjon}
+            PSED={currentPSED}
+            updatePSED={updatePSED}
+            namespace={namespace + '-ofteEtterspurtInformasjon'}
+            target='ofteEtterspurtInformasjon'
+          />
         </Box>
       </VStack>
     </>
