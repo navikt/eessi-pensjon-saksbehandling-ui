@@ -3,6 +3,7 @@ import {PSED} from "src/declarations/app";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
 import _ from "lodash";
+import {Box} from "@navikt/ds-react";
 
 export interface P8000FieldsProps {
   fields: Array<Field>
@@ -47,8 +48,8 @@ export const P8000Fields: React.FC<P8000FieldsProps> = ({
   }
 
   return (
-    <>
+    <Box>
       {variant.map((v) => getField(v))}
-    </>
+    </Box>
   )
 }

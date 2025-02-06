@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Buc, Sed} from "src/declarations/buc";
 import {BUCMode, Validation} from "src/declarations/app";
 import {useDispatch, useSelector} from "react-redux";
@@ -7,9 +7,9 @@ import {resetValidation} from "src/actions/validation";
 import {fetchBuc, updatePSED, getSedP8000} from "src/actions/buc";
 import {WaitingPanelDiv} from "src/components/StyledComponents";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
-import {P8000SED} from "src/declarations/p8000";
+import {InformasjonSomKanLeggesInn, OfteEtterspurtInformasjon, P8000SED} from "src/declarations/p8000";
 import {State} from "src/declarations/reducers";
-import {Box, Button, Heading, Spacer, VStack} from "@navikt/ds-react";
+import {Box, Button, Heading, Textarea, VStack} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import {
@@ -30,6 +30,7 @@ import {
 import {InntektFoerUfoerhetIUtlandet} from "src/applications/P8000/components/InntektFoerUfoerhetIUtlandet";
 import {CheckBoxField} from "src/applications/P8000/components/CheckboxField";
 import {P8000Fields} from "src/applications/P8000/P8000Fields";
+import CountryData from "@navikt/land-verktoy";
 
 export interface P8000Props {
   buc: Buc
@@ -72,6 +73,11 @@ const P8000: React.FC<P8000Props> = ({
   const { gettingSed, currentPSED }: P8000Selector = useSelector<State, P8000Selector>(mapState)
   const namespace = "p8000"
 
+  const [_ytterligereInformasjon, setYtterligereInformasjon] = useState<string>()
+
+  const countryData = CountryData.getCountryInstance('nb')
+
+
   useEffect(() => {
     if(sed){
       dispatch(resetEditingItems())
@@ -80,6 +86,51 @@ const P8000: React.FC<P8000Props> = ({
     }
 
   }, [sed])
+
+  useEffect(() => {
+    if(currentPSED && currentPSED.ofteEtterspurtInformasjon){
+      let text = ""
+
+      //TODO: USE SELECTED VARIANT
+      P8000Variants.UT_UTL_03.ofteEtterspurtInformasjon?.map((field) => {
+        const ofteEtterspurtInformasjon: OfteEtterspurtInformasjon = currentPSED?.ofteEtterspurtInformasjon
+        const key: keyof OfteEtterspurtInformasjon = field as keyof OfteEtterspurtInformasjon
+
+        if(ofteEtterspurtInformasjon && ofteEtterspurtInformasjon[key] && ofteEtterspurtInformasjon[key]?.value){
+          const country = countryData.findByValue(ofteEtterspurtInformasjon[key]?.landkode)
+          const extra = {
+            landkode: country?.label,
+            periodeFra: ofteEtterspurtInformasjon[key]?.periodeFra,
+            periodeTil: ofteEtterspurtInformasjon[key]?.periodeTil,
+            antallMaaneder: ofteEtterspurtInformasjon[key]?.antallMaaneder
+          }
+          text = text + t('p8000:' + field, extra) + "\n\n"
+        }
+      })
+
+      P8000Variants.UT_UTL_03.informasjonSomKanLeggesInn?.map((field) => {
+        const informasjonSomKanLeggesInn: InformasjonSomKanLeggesInn = currentPSED?.informasjonSomKanLeggesInn
+        const key: keyof InformasjonSomKanLeggesInn = field as keyof InformasjonSomKanLeggesInn
+
+        if(informasjonSomKanLeggesInn && informasjonSomKanLeggesInn[key] && informasjonSomKanLeggesInn[key]?.value){
+          const country = countryData.findByValue(informasjonSomKanLeggesInn[key]?.landkode)
+          const extra = {
+            landkode: country?.label,
+            periodeFra: informasjonSomKanLeggesInn[key]?.periodeFra,
+            periodeTil: informasjonSomKanLeggesInn[key]?.periodeTil,
+            antallMaaneder: informasjonSomKanLeggesInn[key]?.antallMaaneder
+          }
+          text = text + t('p8000:' + field, extra) + "\n\n"
+        }
+      })
+
+      setYtterligereInformasjon(text)
+    }
+  }, [currentPSED])
+
+  useEffect(() => {
+    dispatch(updatePSED(`pensjon.ytterligeinformasjon`, _ytterligereInformasjon))
+  }, [_ytterligereInformasjon])
 
   const onBackClick = () => {
     dispatch(resetEditingItems())
@@ -148,29 +199,42 @@ const P8000: React.FC<P8000Props> = ({
           </Button>
         </div>
         <Box
-          as="header"
           borderWidth="1"
           borderRadius="medium"
           borderColor="border-default"
           background="bg-default"
           padding="4"
         >
-          <Heading level="1" size="medium">P8000</Heading>
-          <Spacer/>
-          <P8000Fields
-            fields={[
-              {label: P4000, value: P4000, component: CheckBoxField},
-              {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: InntektFoerUfoerhetIUtlandet},
-              {label: "Brukers adresse", value: BRUKERS_ADRESSE, component: CheckBoxField},
-              {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: CheckBoxField},
-              {label: "Opplysninger om tiltak", value: TILTAK, component: CheckBoxField},
-            ]}
-            variant={P8000Variants.UT_UTL_03.ofteEtterspurtInformasjon}
-            PSED={currentPSED}
-            updatePSED={updatePSED}
-            namespace={namespace + '-ofteEtterspurtInformasjon'}
-            target='ofteEtterspurtInformasjon'
-          />
+          <VStack gap="4">
+            <Heading level="1" size="medium">P8000</Heading>
+            <Heading level="2" size="small">Ofte etterspurt informasjon</Heading>
+            <P8000Fields
+              fields={[
+                {label: P4000, value: P4000, component: CheckBoxField} ,
+                {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: InntektFoerUfoerhetIUtlandet},
+                {label: "Brukers adresse", value: BRUKERS_ADRESSE, component: CheckBoxField},
+                {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: CheckBoxField},
+                {label: "Opplysninger om tiltak", value: TILTAK, component: CheckBoxField},
+              ]}
+              variant={P8000Variants.UT_UTL_03.ofteEtterspurtInformasjon}
+              PSED={currentPSED}
+              updatePSED={updatePSED}
+              namespace={namespace + '-ofteEtterspurtInformasjon'}
+              target='ofteEtterspurtInformasjon'
+            />
+            <Heading level="2" size="small">Annen informasjon som kan legges inn</Heading>
+            <P8000Fields
+              fields={[
+                {label: SAKSBEHANDLINGSTID, value: SAKSBEHANDLINGSTID, component: CheckBoxField},
+              ]}
+              variant={P8000Variants.UT_UTL_03.informasjonSomKanLeggesInn}
+              PSED={currentPSED}
+              updatePSED={updatePSED}
+              namespace={namespace + '-informasjonSomKanLeggesInn'}
+              target='informasjonSomKanLeggesInn'
+            />
+            <Textarea label="Ytterligere informasjon" value={currentPSED?.pensjon?.ytterligeinformasjon ?? ""}/>
+          </VStack>
         </Box>
       </VStack>
     </>

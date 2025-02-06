@@ -55,11 +55,9 @@ export default {
     },
     "inntektFoerUfoerhetIUtlandet": {
       value: true,
-      extras: {
-        land: "NO",
-        periodeFra: "1980",
-        periodeTil: "2025"
-      }
+      landkode: "NO",
+      periodeFra: "1980",
+      periodeTil: "2025"
     }
   },
   "sedGVer": "4",

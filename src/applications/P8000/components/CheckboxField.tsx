@@ -4,7 +4,6 @@ import {PSED} from "src/declarations/app";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
 import {useDispatch} from "react-redux";
-import {P4000} from "src/constants/p8000";
 import _ from "lodash";
 
 export interface CheckboxFieldProps {
@@ -29,7 +28,7 @@ export const CheckBoxField: React.FC<CheckboxFieldProps> = ({
     <Checkbox
       checked={targetField && targetField[value] ? targetField[value].value : false}
       value={value}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCheckbox(P4000, e.target.checked)}
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCheckbox(value, e.target.checked)}
     >
       {label}
     </Checkbox>

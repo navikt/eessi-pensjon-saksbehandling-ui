@@ -1,0 +1,19 @@
+{
+  "P5000Fra": "Vennligst send oss følgende SED-er: P5000 [landkode hvis land er valgt]",
+  "P4000": "Vennligst send oss følgende SED-er: P4000",
+  "P6000": "Vennligst send oss følgende SED-er: P6000",
+  "brukersAdresse": "Brukers adresse",
+  "medisinskInformasjon": "Fullstendig oversikt over perioder med stønad ved sykdom, rehabilitering og arbeidsledighet. Vennligst inkluder informasjon om type ytelse og varighet",
+  "tiltak": "Har søker prøvd eller er det planlagt noen form for arbeidsrelatert rehabilitering, omskolering eller opplæring for en ny type jobb. Send i så fall detaljert informasjon",
+  "naavaerendeArbeid": "Dokumentasjon som bekrefter ansettelse i Norge, som tydelig viser når arbeidet startet og avsluttet. Som arbeidskontrakter, attester, \"lønns- og trekkoppgave\" fra norske arbeidsgivere",
+  "dokumentasjonPaaArbeidINorge": "Informasjon om arbeid i dag: antall arbeidstimer per uke, og månedslønn",
+  "ytelseshistorikk": "Informasjon om perioder med sykepenger, rehabiliteringspenger og arbeidsløshetsytelse. Vennligst inkluder opplysninger om type ytelse og varighet",
+  "inntektFoerUfoerhetIUtlandet": "Informasjon om søkerens årlige inntekt i {{landkode}} for årene {{periodeFra}} - {{periodeTil}}",
+  "ibanSwift": "Søkers bankinformasjon (IBAN og Swift)",
+  "folkbokfoering": "Folkebokføring",
+  "brukersSivilstand": "Søkers sivilstand og datoen den gjelder fra",
+  "opplysningerOmEPS": "Hvis søker er gift/har samboer, trenger vi fullt navn, fødselsdato, statsborgerskap, og [LAND] ID-nummer på denne personen",
+  "personUtenPNRDNR": "Person uten PNR/DNR",
+  "saksbehandlingstid": "Vår saksbehandlingstid er anslått til å være [MÅNEDER]",
+  "P5000ForP5000NO": "For å sende P5000 trenger vi deres P5000 først."
+}
