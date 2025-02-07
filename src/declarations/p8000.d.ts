@@ -1,5 +1,4 @@
 import {Sed} from "src/declarations/buc";
-import {string} from "prop-types";
 import {
   BRUKERS_ADRESSE,
   BRUKERS_SIVILSTAND,
@@ -10,14 +9,20 @@ import {
   MEDISINSK_INFORMASJON,
   NAAVAERENDE_ARBEID, OPPLYSNINGER_OM_EPS,
   P4000, P5000_FOR_P5000NO,
-  P5000_FRA,
+  P5000,
   P6000, PERSON_UTEN_PNR_DNR, SAKSBEHANDLINGSTID,
   TILTAK,
   YTELSESHISTORIKK
 } from "src/constants/p8000";
 
 
+export interface SendFolgendeSEDer {
+  sendFolgendeSEDer: Array<string>
+}
 export interface Pensjon {
+  anmodning: {
+    seder: Array<SendFolgendeSEDer>
+  }
   ytterligeinformasjon: string | undefined
 }
 
@@ -34,7 +39,7 @@ export interface P8000Field {
 }
 
 export interface OfteEtterspurtInformasjon {
-  [P5000_FRA]: P8000Field
+  [P5000]: P8000Field
   [P4000]: P8000Field
   [P6000]: P8000Field
   [BRUKERS_ADRESSE]: P8000Field

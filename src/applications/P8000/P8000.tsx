@@ -22,7 +22,7 @@ import {
   MEDISINSK_INFORMASJON,
   NAAVAERENDE_ARBEID, OPPLYSNINGER_OM_EPS,
   P4000, P5000_FOR_P5000NO,
-  P5000_FRA,
+  P5000,
   P6000, PERSON_UTEN_PNR_DNR, SAKSBEHANDLINGSTID,
   TILTAK,
   YTELSESHISTORIKK
@@ -31,6 +31,7 @@ import {InntektFoerUfoerhetIUtlandet} from "src/applications/P8000/components/In
 import {CheckBoxField} from "src/applications/P8000/components/CheckboxField";
 import {P8000Fields} from "src/applications/P8000/P8000Fields";
 import CountryData from "@navikt/land-verktoy";
+import {SendFolgendeSEDer} from "src/applications/P8000/components/SendFolgendeSEDer";
 
 export interface P8000Props {
   buc: Buc
@@ -73,7 +74,7 @@ const P8000: React.FC<P8000Props> = ({
   const { gettingSed, currentPSED }: P8000Selector = useSelector<State, P8000Selector>(mapState)
   const namespace = "p8000"
 
-  const [_ytterligereInformasjon, setYtterligereInformasjon] = useState<string>()
+  const [_ytterligereInformasjon, setYtterligereInformasjon] = useState<string | undefined>(currentPSED.pensjon.ytterligeinformasjon)
 
   const countryData = CountryData.getCountryInstance('nb')
 
@@ -150,7 +151,7 @@ const P8000: React.FC<P8000Props> = ({
   const P8000Variants = {
     UT_UTL_03: {
       ofteEtterspurtInformasjon: [
-        P5000_FRA,
+        P5000,
         P4000,
         P6000,
         BRUKERS_ADRESSE,
@@ -210,11 +211,13 @@ const P8000: React.FC<P8000Props> = ({
             <Heading level="2" size="small">Ofte etterspurt informasjon</Heading>
             <P8000Fields
               fields={[
-                {label: P4000, value: P4000, component: CheckBoxField} ,
-                {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: InntektFoerUfoerhetIUtlandet},
+                {label: P5000, value: P5000, component: SendFolgendeSEDer},
+                {label: P4000, value: P4000, component: SendFolgendeSEDer} ,
+                {label: P6000, value: P6000, component: SendFolgendeSEDer} ,
                 {label: "Brukers adresse", value: BRUKERS_ADRESSE, component: CheckBoxField},
                 {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: CheckBoxField},
                 {label: "Opplysninger om tiltak", value: TILTAK, component: CheckBoxField},
+                {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: InntektFoerUfoerhetIUtlandet},
               ]}
               variant={P8000Variants.UT_UTL_03.ofteEtterspurtInformasjon}
               PSED={currentPSED}
@@ -233,7 +236,7 @@ const P8000: React.FC<P8000Props> = ({
               namespace={namespace + '-informasjonSomKanLeggesInn'}
               target='informasjonSomKanLeggesInn'
             />
-            <Textarea label="Ytterligere informasjon" value={currentPSED?.pensjon?.ytterligeinformasjon ?? ""}/>
+            <Textarea label="Ytterligere informasjon" value={_ytterligereInformasjon ?? ""}/>
           </VStack>
         </Box>
       </VStack>
