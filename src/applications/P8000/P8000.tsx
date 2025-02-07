@@ -74,9 +74,17 @@ const P8000: React.FC<P8000Props> = ({
   const { gettingSed, currentPSED }: P8000Selector = useSelector<State, P8000Selector>(mapState)
   const namespace = "p8000"
 
-  const [_ytterligereInformasjon, setYtterligereInformasjon] = useState<string | undefined>(currentPSED?.pensjon?.ytterligeinformasjon)
+  const [_ytterligereInformasjon, setYtterligereInformasjon] = useState<string | undefined>(undefined)
 
   const countryData = CountryData.getCountryInstance('nb')
+
+  useEffect(() => {
+    if(currentPSED){
+      setYtterligereInformasjon(currentPSED?.pensjon?.ytterligeinformasjon)
+    } else {
+      setYtterligereInformasjon(undefined)
+    }
+  }, [])
 
   useEffect(() => {
     if(sed){
