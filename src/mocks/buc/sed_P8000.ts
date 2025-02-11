@@ -45,12 +45,16 @@ export default {
   },
   "pensjon": {
     "gjenlevende": null,
-    "anmodning": null,
+    "anmodning": {
+      seder: [
+        {sendFolgendeSEDer: ["P5000"]}
+      ]
+    },
     "ytterligeinformasjon": "test",
     "vedlegg": null
   },
   "ofteEtterspurtInformasjon": {
-    "P4000": {
+    "tiltak": {
       value: true
     },
     "inntektFoerUfoerhetIUtlandet": {

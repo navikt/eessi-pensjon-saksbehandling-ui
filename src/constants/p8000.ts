@@ -1,4 +1,4 @@
-export const P5000_FRA = "P5000Fra"
+export const P5000 = "P5000"
 export const P4000 = "P4000"
 export const P6000 = "P6000"
 export const BRUKERS_ADRESSE = "brukersAdresse"
