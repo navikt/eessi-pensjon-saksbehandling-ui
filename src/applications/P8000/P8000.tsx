@@ -236,18 +236,26 @@ const P8000: React.FC<P8000Props> = ({
                 {label: "Brukers adresse", value: BRUKERS_ADRESSE, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
                 {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
                 {label: "Opplysninger om tiltak", value: TILTAK, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                {label: "Dokumentasjon på arbeid i Norge", value: DOKUMENTASJON_PAA_ARBEID_I_NORGE, component: CheckboxWithCountryAndPeriods, target: 'ofteEtterspurtInformasjon', options: {hideCountry: true}},
-                {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: CheckboxWithCountryAndPeriods, target: 'ofteEtterspurtInformasjon'},
+                {label: "Nåværende arbeid: Arbeidstimer per uke og månedsinntekt", value: NAAVAERENDE_ARBEID, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                {label: "Dokumentasjon på arbeid i Norge", value: DOKUMENTASJON_PAA_ARBEID_I_NORGE, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                {label: "Ytelseshistorikk adresse", value: YTELSESHISTORIKK, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: CheckboxWithCountryAndPeriods, target: 'ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: true, showMonths: false}},
+                {label: "IBAN og SWIFT", value: IBAN_SWIFT, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                {label: "Folkbokföring (SE)", value: FOLKBOKFOERING, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                {label: "Brukers sivilstand", value: BRUKERS_SIVILSTAND, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                {label: "Opplysninger om EPS", value: OPPLYSNINGER_OM_EPS, component: CheckboxWithCountryAndPeriods, target: 'ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: false, showMonths: false}},
+                {label: "Person uten p.nr/d.nr", value: PERSON_UTEN_PNR_DNR, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
               ]}
               variant={P8000Variants.UT_UTL_03.ofteEtterspurtInformasjon}
               PSED={currentPSED}
               updatePSED={updatePSED}
               namespace={namespace + '-ofteEtterspurtInformasjon'}
             />
-            <Heading level="2" size="small">Annen informasjon som kan legges inn</Heading>
+            <Heading level="2" size="small">Informasjon som kan legges inn i SED (valgfritt)</Heading>
             <P8000Fields
               fields={[
-                {label: SAKSBEHANDLINGSTID, value: SAKSBEHANDLINGSTID, component: CheckBoxField, target: 'informasjonSomKanLeggesInn'},
+                {label: "Legg til saksbehandlingstid", value: SAKSBEHANDLINGSTID, component: CheckboxWithCountryAndPeriods, target: 'informasjonSomKanLeggesInn', options: {showCountry: false, showPeriod: false, showMonths: true}},
+                {label: "P5000 trengs for å fylle ut P5000NO", value: P5000_FOR_P5000NO, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
               ]}
               variant={P8000Variants.UT_UTL_03.informasjonSomKanLeggesInn}
               PSED={currentPSED}

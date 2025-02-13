@@ -33,7 +33,7 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
         namespace={namespace}
         target={target}
       />
-      {!options?.hideCountry &&
+      {options?.showCountry &&
         <CountryDiv>
           <CountryDropdown
             error={undefined}
@@ -46,10 +46,15 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
           />
         </CountryDiv>
       }
-      {!options?.hidePeriod &&
+      {options?.showPeriod &&
         <>
           <TextField label="Fra" hideLabel={true} value={field?.periodeFra} onChange={(e) => setProperty('periodeFra', e.target.value)}/>
           <TextField label="Til" hideLabel={true} value={field?.periodeTil} onChange={(e) => setProperty('periodeTil', e.target.value)}/>
+        </>
+      }
+      {options?.showMonths &&
+        <>
+          <TextField label="Antall måneder" hideLabel={true} value={field?.antallMaaneder} onChange={(e) => setProperty('antallMaaneder', e.target.value)}/>
         </>
       }
     </HGrid>
