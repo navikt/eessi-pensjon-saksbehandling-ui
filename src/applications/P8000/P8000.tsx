@@ -27,7 +27,7 @@ import {
   TILTAK,
   YTELSESHISTORIKK
 } from "src/constants/p8000";
-import {InntektFoerUfoerhetIUtlandet} from "src/applications/P8000/components/InntektFoerUfoerhetIUtlandet";
+import {CheckboxWithCountryAndPeriods} from "src/applications/P8000/components/CheckboxWithCountryAndPeriods";
 import {CheckBoxField} from "src/applications/P8000/components/CheckboxField";
 import {P8000Fields} from "src/applications/P8000/P8000Fields";
 import CountryData from "@navikt/land-verktoy";
@@ -48,6 +48,7 @@ export interface P8000FieldComponentProps {
   label: string
   value: string
   target: string
+  options?: any
 }
 
 export interface P8000Selector {
@@ -118,7 +119,7 @@ const P8000: React.FC<P8000Props> = ({
         if(ofteEtterspurtInformasjon && ofteEtterspurtInformasjon[key] && ofteEtterspurtInformasjon[key]?.value){
           const country = countryData.findByValue(ofteEtterspurtInformasjon[key]?.landkode)
           const extra = {
-            landkode: country?.label,
+            land: country?.label,
             periodeFra: ofteEtterspurtInformasjon[key]?.periodeFra,
             periodeTil: ofteEtterspurtInformasjon[key]?.periodeTil,
             antallMaaneder: ofteEtterspurtInformasjon[key]?.antallMaaneder
@@ -134,7 +135,7 @@ const P8000: React.FC<P8000Props> = ({
         if(informasjonSomKanLeggesInn && informasjonSomKanLeggesInn[key] && informasjonSomKanLeggesInn[key]?.value){
           const country = countryData.findByValue(informasjonSomKanLeggesInn[key]?.landkode)
           const extra = {
-            landkode: country?.label,
+            land: country?.label,
             periodeFra: informasjonSomKanLeggesInn[key]?.periodeFra,
             periodeTil: informasjonSomKanLeggesInn[key]?.periodeTil,
             antallMaaneder: informasjonSomKanLeggesInn[key]?.antallMaaneder
@@ -235,7 +236,8 @@ const P8000: React.FC<P8000Props> = ({
                 {label: "Brukers adresse", value: BRUKERS_ADRESSE, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
                 {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
                 {label: "Opplysninger om tiltak", value: TILTAK, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: InntektFoerUfoerhetIUtlandet, target: 'ofteEtterspurtInformasjon'},
+                {label: "Dokumentasjon på arbeid i Norge", value: DOKUMENTASJON_PAA_ARBEID_I_NORGE, component: CheckboxWithCountryAndPeriods, target: 'ofteEtterspurtInformasjon', options: {hideCountry: true}},
+                {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: CheckboxWithCountryAndPeriods, target: 'ofteEtterspurtInformasjon'},
               ]}
               variant={P8000Variants.UT_UTL_03.ofteEtterspurtInformasjon}
               PSED={currentPSED}

@@ -3,7 +3,7 @@ import {PSED} from "src/declarations/app";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
 import _ from "lodash";
-import {Box} from "@navikt/ds-react";
+import {Box, VStack} from "@navikt/ds-react";
 
 export interface P8000FieldsProps {
   PSED: PSED | null | undefined
@@ -18,6 +18,7 @@ export interface Field {
   label: string,
   value: string
   target?: string
+  options?: any
 }
 
 export const P8000Fields: React.FC<P8000FieldsProps> = ({
@@ -37,6 +38,7 @@ export const P8000Fields: React.FC<P8000FieldsProps> = ({
           value={field.value}
           label={field.label}
           target={field.target}
+          options={field.options}
           parentNamespace={namespace}
           PSED={PSED}
           updatePSED={updatePSED}
@@ -48,7 +50,9 @@ export const P8000Fields: React.FC<P8000FieldsProps> = ({
 
   return (
     <Box>
-      {variant.map((v) => getField(v))}
+      <VStack gap="4">
+        {variant.map((v) => getField(v))}
+      </VStack>
     </Box>
   )
 }

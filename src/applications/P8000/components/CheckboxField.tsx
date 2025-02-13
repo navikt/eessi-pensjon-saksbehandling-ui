@@ -13,6 +13,7 @@ export const CheckBoxField: React.FC<P8000FieldComponentProps> = ({
   const setCheckbox = (field: string, checked: boolean) => {
     dispatch(updatePSED(`${target}.${field}.value`, checked))
   }
+
   return (
     <Checkbox
       checked={targetField && targetField[value] ? targetField[value].value : false}
