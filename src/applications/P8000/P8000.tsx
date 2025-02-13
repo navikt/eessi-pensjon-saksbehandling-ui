@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Buc, Sed} from "src/declarations/buc";
-import {BUCMode, Validation} from "src/declarations/app";
+import {BUCMode, PSED, Validation} from "src/declarations/app";
 import {useDispatch, useSelector} from "react-redux";
 import {resetEditingItems} from "src/actions/app";
 import {resetValidation} from "src/actions/validation";
@@ -32,11 +32,22 @@ import {CheckBoxField} from "src/applications/P8000/components/CheckboxField";
 import {P8000Fields} from "src/applications/P8000/P8000Fields";
 import CountryData from "@navikt/land-verktoy";
 import {SendFolgendeSEDer} from "src/applications/P8000/components/SendFolgendeSEDer";
+import {ActionWithPayload} from "@navikt/fetch";
+import {UpdateSedPayload} from "src/declarations/types";
 
 export interface P8000Props {
   buc: Buc
   sed?: Sed,
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
+}
+
+export interface P8000FieldComponentProps {
+  PSED: PSED | null | undefined
+  updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
+  namespace: string
+  label: string
+  value: string
+  target: string
 }
 
 export interface P8000Selector {
@@ -218,30 +229,28 @@ const P8000: React.FC<P8000Props> = ({
             <Heading level="2" size="small">Ofte etterspurt informasjon</Heading>
             <P8000Fields
               fields={[
-                {label: P5000, value: P5000, component: SendFolgendeSEDer},
-                {label: P4000, value: P4000, component: SendFolgendeSEDer} ,
-                {label: P6000, value: P6000, component: SendFolgendeSEDer} ,
-                {label: "Brukers adresse", value: BRUKERS_ADRESSE, component: CheckBoxField},
-                {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: CheckBoxField},
-                {label: "Opplysninger om tiltak", value: TILTAK, component: CheckBoxField},
-                {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: InntektFoerUfoerhetIUtlandet},
+                {label: P5000, value: P5000, component: SendFolgendeSEDer, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'},
+                {label: P4000, value: P4000, component: SendFolgendeSEDer, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'} ,
+                {label: P6000, value: P6000, component: SendFolgendeSEDer, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'} ,
+                {label: "Brukers adresse", value: BRUKERS_ADRESSE, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                {label: "Opplysninger om tiltak", value: TILTAK, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: InntektFoerUfoerhetIUtlandet, target: 'ofteEtterspurtInformasjon'},
               ]}
               variant={P8000Variants.UT_UTL_03.ofteEtterspurtInformasjon}
               PSED={currentPSED}
               updatePSED={updatePSED}
               namespace={namespace + '-ofteEtterspurtInformasjon'}
-              target='ofteEtterspurtInformasjon'
             />
             <Heading level="2" size="small">Annen informasjon som kan legges inn</Heading>
             <P8000Fields
               fields={[
-                {label: SAKSBEHANDLINGSTID, value: SAKSBEHANDLINGSTID, component: CheckBoxField},
+                {label: SAKSBEHANDLINGSTID, value: SAKSBEHANDLINGSTID, component: CheckBoxField, target: 'informasjonSomKanLeggesInn'},
               ]}
               variant={P8000Variants.UT_UTL_03.informasjonSomKanLeggesInn}
               PSED={currentPSED}
               updatePSED={updatePSED}
               namespace={namespace + '-informasjonSomKanLeggesInn'}
-              target='informasjonSomKanLeggesInn'
             />
             <Textarea label="Ytterligere informasjon" value={_ytterligereInformasjon ?? ""}/>
           </VStack>

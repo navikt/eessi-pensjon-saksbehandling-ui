@@ -1,23 +1,12 @@
 import React from "react";
 import {Checkbox} from "@navikt/ds-react";
-import {PSED} from "src/declarations/app";
-import {ActionWithPayload} from "@navikt/fetch";
-import {UpdateSedPayload} from "src/declarations/types";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
+import {P8000FieldComponentProps} from "src/applications/P8000/P8000";
 
-export interface CheckboxFieldProps {
-  label: string
-  value: string
-  PSED: PSED | null | undefined
-  updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
-  namespace: string
-  target: string
-}
-
-export const CheckBoxField: React.FC<CheckboxFieldProps> = ({
+export const CheckBoxField: React.FC<P8000FieldComponentProps> = ({
   label, value, target, PSED, updatePSED
-}: CheckboxFieldProps): JSX.Element => {
+}: P8000FieldComponentProps): JSX.Element => {
   const dispatch = useDispatch()
   const targetField = _.get(PSED, target)
 

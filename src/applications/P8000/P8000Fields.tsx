@@ -6,18 +6,18 @@ import _ from "lodash";
 import {Box} from "@navikt/ds-react";
 
 export interface P8000FieldsProps {
-  fields: Array<Field>
-  variant: Array<string>
   PSED: PSED | null | undefined
   updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
   namespace: string
-  target: string
+  fields: Array<Field>
+  variant: Array<string>
 }
 
 export interface Field {
   component: any
   label: string,
   value: string
+  target?: string
 }
 
 export const P8000Fields: React.FC<P8000FieldsProps> = ({
@@ -26,7 +26,6 @@ export const P8000Fields: React.FC<P8000FieldsProps> = ({
   PSED,
   updatePSED,
   namespace,
-  target
 }: P8000FieldsProps): JSX.Element => {
 
   const getField = (type: string): JSX.Element | null => {
@@ -37,7 +36,7 @@ export const P8000Fields: React.FC<P8000FieldsProps> = ({
         <Component
           value={field.value}
           label={field.label}
-          target={target}
+          target={field.target}
           parentNamespace={namespace}
           PSED={PSED}
           updatePSED={updatePSED}
