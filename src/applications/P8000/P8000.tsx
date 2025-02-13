@@ -255,7 +255,7 @@ const P8000: React.FC<P8000Props> = ({
             <P8000Fields
               fields={[
                 {label: "Legg til saksbehandlingstid", value: SAKSBEHANDLINGSTID, component: CheckboxWithCountryAndPeriods, target: 'informasjonSomKanLeggesInn', options: {showCountry: false, showPeriod: false, showMonths: true}},
-                {label: "P5000 trengs for å fylle ut P5000NO", value: P5000_FOR_P5000NO, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                {label: "P5000 trengs for å fylle ut P5000NO", value: P5000_FOR_P5000NO, component: CheckBoxField, target: 'informasjonSomKanLeggesInn'},
               ]}
               variant={P8000Variants.UT_UTL_03.informasjonSomKanLeggesInn}
               PSED={currentPSED}
