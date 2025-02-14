@@ -54,7 +54,6 @@ export default {
     "vedlegg": null
   },
   type: {
-    ytelse: "UT",
     bosettingsstatus: "UTL",
     spraak: "no"
   },

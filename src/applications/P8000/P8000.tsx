@@ -99,14 +99,19 @@ const P8000: React.FC<P8000Props> = ({
       setYtterligereInformasjon(undefined)
     }
 
-    if(bucType === "03"){
-      console.log("SETTING YTELSE")
-      setTypeProperty("ytelse", "UT")
-    } else if(bucType === "01"){
-      setTypeProperty("ytelse", "AP")
-    }
+
 
   }, [])
+
+  useEffect(() => {
+    if(currentPSED && !currentPSED?.type?.ytelse){
+      if(bucType === "03"){
+        setTypeProperty("ytelse", "UT")
+      } else if(bucType === "01"){
+        setTypeProperty("ytelse", "AP")
+      }
+    }
+  }, [currentPSED, bucType])
 
   useEffect(() => {
     const P8000Type: P8000Type = currentPSED?.type
@@ -175,6 +180,10 @@ const P8000: React.FC<P8000Props> = ({
     setMode('bucedit', 'back')
   }
 
+  const setTypeProperty = (property: string, propValue: string) => {
+    dispatch(updatePSED(`type.${property}`, propValue))
+  }
+
   if(gettingSed){
     return(
       <WaitingPanelDiv>
@@ -183,9 +192,7 @@ const P8000: React.FC<P8000Props> = ({
     )
   }
 
-  const setTypeProperty = (property: string, propValue: string) => {
-    dispatch(updatePSED(`type.${property}`, propValue))
-  }
+
 
   const P8000Variants: { [key:string]: any} = {
     UT_UTL_03: {
