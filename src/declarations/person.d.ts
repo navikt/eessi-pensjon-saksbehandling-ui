@@ -152,8 +152,8 @@ export interface PersonPDL {
   bostedsadresse?: Bostedsadresse
   oppholdsadresse?: Oppholdsadresse
   statsborgerskap: Array<Statsborgerskap>
-  foedselsdato: Array<Foedselsdato>
-  foedested: Array<Foedested>
+  foedselsdato: Foedselsdato
+  foedested: Foedested
   geografiskTilknytning?: GeografiskTilknytning
   kjoenn?: Kjoenn
   doedsfall?: Doedsfall

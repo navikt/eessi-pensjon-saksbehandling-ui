@@ -140,8 +140,8 @@ const PersonBody: React.FC<PersonBodyProps> = ({
   const bostedsadresse: Array<JSX.Element | string> = getAddress(person, 'bostedsadresse')
   const oppholdsadresse: Array<JSX.Element | string> = getAddress(person, 'oppholdsadresse')
 
-  if (_.get(person, 'foedselsdato[0].foedselsdato')) {
-    birthDateString = moment(person.foedselsdato[0].foedselsdato).format('DD.MM.YYYY')
+  if (_.get(person, 'foedselsdato.foedselsdato')) {
+    birthDateString = moment(person.foedselsdato.foedselsdato).format('DD.MM.YYYY')
   }
   if (_.get(person, 'doedsfall.doedsdato')) {
     deathDateString = moment(person.doedsfall.doedsdato).format('DD.MM.YYYY')

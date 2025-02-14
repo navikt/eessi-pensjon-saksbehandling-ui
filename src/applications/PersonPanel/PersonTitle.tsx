@@ -38,8 +38,8 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
     )
   }
 
-  if (_.get(person, 'foedselsdato[0].foedselsdato')) {
-    birthDate = moment(person.foedselsdato[0].foedselsdato)?.toDate()
+  if (_.get(person, 'foedselsdato.foedselsdato')) {
+    birthDate = moment(person.foedselsdato.foedselsdato)?.toDate()
   }
   if (_.get(person, 'doedsfall.doedsdato')) {
     deathDate = moment(person.doedsfall?.doedsdato)?.toDate()
