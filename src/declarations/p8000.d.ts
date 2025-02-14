@@ -61,11 +61,18 @@ export interface InformasjonSomKanLeggesInn {
   [P5000_FOR_P5000NO]: P8000Field
 }
 
+export interface P8000Type {
+  ytelse: "AP" | "UT" | "EO"
+  bosettingsstatus: "NO" | "UTL"
+  spraak: "no" | "en"
+}
+
 export interface P8000SED extends BaseSED{
   nav: Nav,
   pensjon: Pensjon
   ofteEtterspurtInformasjon: OfteEtterspurtInformasjon
   informasjonSomKanLeggesInn: InformasjonSomKanLeggesInn
+  type: P8000Type
 }
 
 export interface BaseSED {

@@ -51,7 +51,7 @@ export const P8000Fields: React.FC<P8000FieldsProps> = ({
   return (
     <Box>
       <VStack>
-        {variant.map((v) => getField(v))}
+        {variant?.map((v) => getField(v))}
       </VStack>
     </Box>
   )

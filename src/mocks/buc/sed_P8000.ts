@@ -53,6 +53,11 @@ export default {
     "ytterligeinformasjon": "test",
     "vedlegg": null
   },
+  type: {
+    ytelse: "UT",
+    bosettingsstatus: "UTL",
+    spraak: "no"
+  },
   "ofteEtterspurtInformasjon": {
     "tiltak": {
       value: true
