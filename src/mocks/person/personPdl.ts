@@ -52,19 +52,16 @@ export default {
       gyldigTilOgMed: undefined
     }
   ],
-  foedselsdato:
-    {
-      foedselsdato: '1980-02-09',
+  foedselsdato: {
+    foedselsdato: '1980-02-09',
+  },
+  foedested: {
+    foedeland: undefined,
+    foedested: undefined,
+    folkeregistermetadata: {
+      gyldighetstidspunkt: '2020-10-12T11:40:56'
     }
-  ,
-  foedested:
-    {
-      foedeland: undefined,
-      foedested: undefined,
-      folkeregistermetadata: {
-        gyldighetstidspunkt: '2020-10-12T11:40:56'
-      }    }
-  ,
+  },
 /*  foedsel: {
     foedselsdato: '1980-02-09',
     foedeland: undefined,
