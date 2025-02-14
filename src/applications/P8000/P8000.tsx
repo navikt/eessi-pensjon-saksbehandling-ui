@@ -119,7 +119,7 @@ const P8000: React.FC<P8000Props> = ({
   useEffect(() => {
     if(currentPSED && currentPSED.ofteEtterspurtInformasjon){
       let text = ""
-      
+
       P8000Variants[_type]?.ofteEtterspurtInformasjon?.map((field: string) => {
         const ofteEtterspurtInformasjon: OfteEtterspurtInformasjon = currentPSED?.ofteEtterspurtInformasjon
         const key: keyof OfteEtterspurtInformasjon = field as keyof OfteEtterspurtInformasjon
@@ -240,7 +240,6 @@ const P8000: React.FC<P8000Props> = ({
           <VStack gap="4">
             <Heading level="1" size="medium">P8000</Heading>
             <HStack gap="4">
-              <Spacer/>
               <ToggleGroup value={currentPSED?.type?.ytelse} onChange={(v)=> setTypeProperty("ytelse", v)} label="Velg ytelse">
                 <ToggleGroup.Item value="AP" label="Alderspensjon" />
                 <ToggleGroup.Item value="UT" label="Uføretrygd" />
@@ -249,12 +248,23 @@ const P8000: React.FC<P8000Props> = ({
                 <ToggleGroup.Item value="NO" label="Norge" />
                 <ToggleGroup.Item value="UTL" label="Utland" />
               </ToggleGroup>
+            </HStack>
+            <HStack gap="4">
               <ToggleGroup value={currentPSED?.type?.spraak} onChange={(v)=> setTypeProperty("spraak", v)} label="Velg språk">
                 <ToggleGroup.Item value="no" label="Norsk" />
                 <ToggleGroup.Item value="en" label="Engelsk" />
               </ToggleGroup>
-              <Spacer/>
             </HStack>
+          </VStack>
+        </Box>
+        <Box
+          borderWidth="1"
+             borderRadius="medium"
+             borderColor="border-default"
+             background="bg-default"
+             padding="4"
+        >
+          <VStack gap="4">
             {_type &&
               <>
                 <Heading level="2" size="small">Ofte etterspurt informasjon</Heading>
@@ -281,6 +291,20 @@ const P8000: React.FC<P8000Props> = ({
                   updatePSED={updatePSED}
                   namespace={namespace + '-ofteEtterspurtInformasjon'}
                 />
+              </>
+            }
+          </VStack>
+        </Box>
+        <Box
+          borderWidth="1"
+          borderRadius="medium"
+          borderColor="border-default"
+          background="bg-default"
+          padding="4"
+        >
+          <VStack gap="4">
+            {_type &&
+              <>
                 <Heading level="2" size="small">Informasjon som kan legges inn i SED (valgfritt)</Heading>
                 <P8000Fields
                   fields={[
@@ -292,9 +316,20 @@ const P8000: React.FC<P8000Props> = ({
                   updatePSED={updatePSED}
                   namespace={namespace + '-informasjonSomKanLeggesInn'}
                 />
-                <Textarea label="Ytterligere informasjon" value={_ytterligereInformasjon ?? ""}/>
+
               </>
             }
+          </VStack>
+        </Box>
+        <Box
+          borderWidth="1"
+          borderRadius="medium"
+          borderColor="border-default"
+          background="bg-default"
+          padding="4"
+        >
+          <VStack gap="4">
+            <Textarea label="Ytterligere informasjon" value={_ytterligereInformasjon ?? ""}/>
           </VStack>
         </Box>
       </VStack>
