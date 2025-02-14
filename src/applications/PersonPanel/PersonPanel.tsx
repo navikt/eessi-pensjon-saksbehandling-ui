@@ -4,7 +4,7 @@ import { AllowedLocaleString, FeatureToggles, PesysContext } from 'src/declarati
 import { PersonPDL } from 'src/declarations/person'
 import { PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
-import { timeDiffLogger } from 'src/metrics/loggers'
+import {standardLogger, timeDiffLogger} from 'src/metrics/loggers'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PersonBody from './PersonBody'
@@ -41,6 +41,7 @@ export const PersonPanel = (): JSX.Element => {
     useSelector<State, PersonPanelSelector>(mapState)
   const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
+  const [openPersonBody, setOpenPersonBody] = useState(false);
 
   useEffect(() => {
     return () => {
@@ -74,8 +75,15 @@ export const PersonPanel = (): JSX.Element => {
       onMouseLeave={onMouseLeave}
     >
       <Accordion style={{ borderRadius: '4px' }} data-testid='w-PersonPanel-id'>
-        <Accordion.Item>
-          <Accordion.Header>
+        <Accordion.Item
+          open={openPersonBody}
+        >
+          <Accordion.Header
+            onClick={() => {
+              !openPersonBody && standardLogger('PersonPanel.expandingPanel.open')
+              setOpenPersonBody(!openPersonBody);
+            }}
+          >
             <PersonTitle
               gettingPersonInfo={gettingPersonInfo}
               person={personPdl}
