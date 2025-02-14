@@ -9,7 +9,7 @@ import {WaitingPanelDiv} from "src/components/StyledComponents";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
 import {InformasjonSomKanLeggesInn, OfteEtterspurtInformasjon, P8000SED, P8000Type} from "src/declarations/p8000";
 import {State} from "src/declarations/reducers";
-import {Box, Button, Heading, HStack, Spacer, Textarea, ToggleGroup, VStack} from "@navikt/ds-react";
+import {Box, Button, Heading, HStack, Textarea, ToggleGroup, VStack} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import {
