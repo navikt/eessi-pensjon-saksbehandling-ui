@@ -89,14 +89,26 @@ interface Statsborgerskap {
   gyldigTilOgMed?: string
 }
 
-interface Foedsel {
+interface Foedselsdato {
   foedselsdato?: string
+}
+
+interface Foedested {
   foedeland?: string,
   foedested?: string,
   folkeregistermetadata?: {
     gyldighetstidspunkt: string
   }
 }
+
+/*interface Foedsel {
+  foedselsdato?: Foedselsdato
+  foedeland?: string,
+  foedested?: string,
+  folkeregistermetadata?: {
+    gyldighetstidspunkt: string
+  }
+}*/
 
 type GtType = 'KOMMUNE' | 'BYDEL' | 'UTLAND' | 'UDEFINERT'
 
@@ -140,7 +152,8 @@ export interface PersonPDL {
   bostedsadresse?: Bostedsadresse
   oppholdsadresse?: Oppholdsadresse
   statsborgerskap: Array<Statsborgerskap>
-  foedsel: Foedsel
+  foedselsdato: Array<Foedselsdato>
+  foedested: Array<Foedested>
   geografiskTilknytning?: GeografiskTilknytning
   kjoenn?: Kjoenn
   doedsfall?: Doedsfall

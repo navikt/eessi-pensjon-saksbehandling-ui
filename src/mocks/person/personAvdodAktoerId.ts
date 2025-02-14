@@ -52,14 +52,27 @@ export default {
       gyldigTilOgMed: undefined
     }
   ],
-  foedsel: {
-    foedselsdato: '1980-02-09',
-    foedeland: undefined,
-    foedested: undefined,
-    folkeregistermetadata: {
-      gyldighetstidspunkt: '2020-10-12T11:40:56'
+  foedselsdato:  [
+    {
+      foedselsdato: '1980-02-09',
     }
-  },
+  ],
+  foedested:  [
+    {
+      foedeland: undefined,
+      foedested: undefined,
+      folkeregistermetadata: {
+        gyldighetstidspunkt: '2020-10-12T11:40:56'
+      }    }
+  ],
+  /*  foedsel: {
+      foedselsdato: '1980-02-09',
+      foedeland: undefined,
+      foedested: undefined,
+      folkeregistermetadata: {
+        gyldighetstidspunkt: '2020-10-12T11:40:56'
+      }
+    },*/
   geografiskTilknytning: undefined,
   kjoenn: {
     kjoenn: 'MANN' as KjoennType,
