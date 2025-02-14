@@ -7,9 +7,9 @@ import {resetValidation} from "src/actions/validation";
 import {fetchBuc, updatePSED, getSedP8000} from "src/actions/buc";
 import {WaitingPanelDiv} from "src/components/StyledComponents";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
-import {InformasjonSomKanLeggesInn, OfteEtterspurtInformasjon, P8000SED} from "src/declarations/p8000";
+import {InformasjonSomKanLeggesInn, OfteEtterspurtInformasjon, P8000SED, P8000Type} from "src/declarations/p8000";
 import {State} from "src/declarations/reducers";
-import {Box, Button, Heading, Textarea, VStack} from "@navikt/ds-react";
+import {Box, Button, Heading, HStack, Textarea, ToggleGroup, VStack} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import {
@@ -79,7 +79,7 @@ const mapState = (state: State): P8000Selector => ({
 const P8000: React.FC<P8000Props> = ({
  buc,
  sed,
- setMode
+ setMode,
 }: P8000Props): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useDispatch()
@@ -87,6 +87,8 @@ const P8000: React.FC<P8000Props> = ({
   const namespace = "p8000"
 
   const [_ytterligereInformasjon, setYtterligereInformasjon] = useState<string | undefined>(undefined)
+  const [_type, setType] = useState<string>("")
+  const bucType = buc.type?.split("_")[2]
 
   const countryData = CountryData.getCountryInstance('nb')
 
@@ -97,6 +99,13 @@ const P8000: React.FC<P8000Props> = ({
       setYtterligereInformasjon(undefined)
     }
   }, [])
+
+  useEffect(() => {
+    const P8000Type: P8000Type = currentPSED?.type
+    if(P8000Type && bucType && P8000Type.ytelse && P8000Type.bosettingsstatus && P8000Type.spraak){
+      setType(P8000Type.ytelse + "_" + P8000Type.bosettingsstatus + "_" + bucType)
+    }
+  }, [currentPSED, currentPSED?.type])
 
   useEffect(() => {
     if(sed){
@@ -111,8 +120,7 @@ const P8000: React.FC<P8000Props> = ({
     if(currentPSED && currentPSED.ofteEtterspurtInformasjon){
       let text = ""
 
-      //TODO: USE SELECTED VARIANT
-      P8000Variants.UT_UTL_03.ofteEtterspurtInformasjon?.map((field) => {
+      P8000Variants[_type]?.ofteEtterspurtInformasjon?.map((field: string) => {
         const ofteEtterspurtInformasjon: OfteEtterspurtInformasjon = currentPSED?.ofteEtterspurtInformasjon
         const key: keyof OfteEtterspurtInformasjon = field as keyof OfteEtterspurtInformasjon
 
@@ -128,7 +136,7 @@ const P8000: React.FC<P8000Props> = ({
         }
       })
 
-      P8000Variants.UT_UTL_03.informasjonSomKanLeggesInn?.map((field) => {
+      P8000Variants[_type]?.informasjonSomKanLeggesInn?.map((field: string) => {
         const informasjonSomKanLeggesInn: InformasjonSomKanLeggesInn = currentPSED?.informasjonSomKanLeggesInn
         const key: keyof InformasjonSomKanLeggesInn = field as keyof InformasjonSomKanLeggesInn
 
@@ -167,7 +175,11 @@ const P8000: React.FC<P8000Props> = ({
     )
   }
 
-  const P8000Variants = {
+  const setTypeProperty = (property: string, propValue: string) => {
+    dispatch(updatePSED(`type.${property}`, propValue))
+  }
+
+  const P8000Variants: { [key:string]: any} = {
     UT_UTL_03: {
       ofteEtterspurtInformasjon: [
         P5000,
@@ -227,41 +239,96 @@ const P8000: React.FC<P8000Props> = ({
         >
           <VStack gap="4">
             <Heading level="1" size="medium">P8000</Heading>
-            <Heading level="2" size="small">Ofte etterspurt informasjon</Heading>
-            <P8000Fields
-              fields={[
-                {label: P5000, value: P5000, component: SendFolgendeSEDer, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'},
-                {label: P4000, value: P4000, component: SendFolgendeSEDer, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'} ,
-                {label: P6000, value: P6000, component: SendFolgendeSEDer, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'} ,
-                {label: "Brukers adresse", value: BRUKERS_ADRESSE, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                {label: "Opplysninger om tiltak", value: TILTAK, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                {label: "Nåværende arbeid: Arbeidstimer per uke og månedsinntekt", value: NAAVAERENDE_ARBEID, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                {label: "Dokumentasjon på arbeid i Norge", value: DOKUMENTASJON_PAA_ARBEID_I_NORGE, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                {label: "Ytelseshistorikk adresse", value: YTELSESHISTORIKK, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: CheckboxWithCountryAndPeriods, target: 'ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: true, showMonths: false}},
-                {label: "IBAN og SWIFT", value: IBAN_SWIFT, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                {label: "Folkbokföring (SE)", value: FOLKBOKFOERING, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                {label: "Brukers sivilstand", value: BRUKERS_SIVILSTAND, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                {label: "Opplysninger om EPS", value: OPPLYSNINGER_OM_EPS, component: CheckboxWithCountryAndPeriods, target: 'ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: false, showMonths: false}},
-                {label: "Person uten p.nr/d.nr", value: PERSON_UTEN_PNR_DNR, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-              ]}
-              variant={P8000Variants.UT_UTL_03.ofteEtterspurtInformasjon}
-              PSED={currentPSED}
-              updatePSED={updatePSED}
-              namespace={namespace + '-ofteEtterspurtInformasjon'}
-            />
-            <Heading level="2" size="small">Informasjon som kan legges inn i SED (valgfritt)</Heading>
-            <P8000Fields
-              fields={[
-                {label: "Legg til saksbehandlingstid", value: SAKSBEHANDLINGSTID, component: CheckboxWithCountryAndPeriods, target: 'informasjonSomKanLeggesInn', options: {showCountry: false, showPeriod: false, showMonths: true}},
-                {label: "P5000 trengs for å fylle ut P5000NO", value: P5000_FOR_P5000NO, component: CheckBoxField, target: 'informasjonSomKanLeggesInn'},
-              ]}
-              variant={P8000Variants.UT_UTL_03.informasjonSomKanLeggesInn}
-              PSED={currentPSED}
-              updatePSED={updatePSED}
-              namespace={namespace + '-informasjonSomKanLeggesInn'}
-            />
+            <HStack gap="4">
+              <ToggleGroup value={currentPSED?.type?.ytelse} onChange={(v)=> setTypeProperty("ytelse", v)} label="Velg ytelse">
+                <ToggleGroup.Item value="AP" label="Alderspensjon" />
+                <ToggleGroup.Item value="UT" label="Uføretrygd" />
+              </ToggleGroup>
+              <ToggleGroup value={currentPSED?.type?.bosettingsstatus} onChange={(v)=> setTypeProperty("bosettingsstatus", v)} label="Velg bosettingsstatus">
+                <ToggleGroup.Item value="NO" label="Norge" />
+                <ToggleGroup.Item value="UTL" label="Utland" />
+              </ToggleGroup>
+            </HStack>
+            <HStack gap="4">
+              <ToggleGroup value={currentPSED?.type?.spraak} onChange={(v)=> setTypeProperty("spraak", v)} label="Velg språk">
+                <ToggleGroup.Item value="no" label="Norsk" />
+                <ToggleGroup.Item value="en" label="Engelsk" />
+              </ToggleGroup>
+            </HStack>
+          </VStack>
+        </Box>
+        <Box
+          borderWidth="1"
+             borderRadius="medium"
+             borderColor="border-default"
+             background="bg-default"
+             padding="4"
+        >
+          <VStack gap="4">
+            {_type &&
+              <>
+                <Heading level="2" size="small">Ofte etterspurt informasjon</Heading>
+                <P8000Fields
+                  fields={[
+                    {label: P5000, value: P5000, component: SendFolgendeSEDer, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'},
+                    {label: P4000, value: P4000, component: SendFolgendeSEDer, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'} ,
+                    {label: P6000, value: P6000, component: SendFolgendeSEDer, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'} ,
+                    {label: "Brukers adresse", value: BRUKERS_ADRESSE, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                    {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                    {label: "Opplysninger om tiltak", value: TILTAK, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                    {label: "Nåværende arbeid: Arbeidstimer per uke og månedsinntekt", value: NAAVAERENDE_ARBEID, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                    {label: "Dokumentasjon på arbeid i Norge", value: DOKUMENTASJON_PAA_ARBEID_I_NORGE, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                    {label: "Ytelseshistorikk adresse", value: YTELSESHISTORIKK, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                    {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: CheckboxWithCountryAndPeriods, target: 'ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: true, showMonths: false}},
+                    {label: "IBAN og SWIFT", value: IBAN_SWIFT, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                    {label: "Folkbokföring (SE)", value: FOLKBOKFOERING, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                    {label: "Brukers sivilstand", value: BRUKERS_SIVILSTAND, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                    {label: "Opplysninger om EPS", value: OPPLYSNINGER_OM_EPS, component: CheckboxWithCountryAndPeriods, target: 'ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: false, showMonths: false}},
+                    {label: "Person uten p.nr/d.nr", value: PERSON_UTEN_PNR_DNR, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                  ]}
+                  variant={P8000Variants[_type].ofteEtterspurtInformasjon}
+                  PSED={currentPSED}
+                  updatePSED={updatePSED}
+                  namespace={namespace + '-ofteEtterspurtInformasjon'}
+                />
+              </>
+            }
+          </VStack>
+        </Box>
+        <Box
+          borderWidth="1"
+          borderRadius="medium"
+          borderColor="border-default"
+          background="bg-default"
+          padding="4"
+        >
+          <VStack gap="4">
+            {_type &&
+              <>
+                <Heading level="2" size="small">Informasjon som kan legges inn i SED (valgfritt)</Heading>
+                <P8000Fields
+                  fields={[
+                    {label: "Legg til saksbehandlingstid", value: SAKSBEHANDLINGSTID, component: CheckboxWithCountryAndPeriods, target: 'informasjonSomKanLeggesInn', options: {showCountry: false, showPeriod: false, showMonths: true}},
+                    {label: "P5000 trengs for å fylle ut P5000NO", value: P5000_FOR_P5000NO, component: CheckBoxField, target: 'informasjonSomKanLeggesInn'},
+                  ]}
+                  variant={P8000Variants[_type].informasjonSomKanLeggesInn}
+                  PSED={currentPSED}
+                  updatePSED={updatePSED}
+                  namespace={namespace + '-informasjonSomKanLeggesInn'}
+                />
+
+              </>
+            }
+          </VStack>
+        </Box>
+        <Box
+          borderWidth="1"
+          borderRadius="medium"
+          borderColor="border-default"
+          background="bg-default"
+          padding="4"
+        >
+          <VStack gap="4">
             <Textarea label="Ytterligere informasjon" value={_ytterligereInformasjon ?? ""}/>
           </VStack>
         </Box>
