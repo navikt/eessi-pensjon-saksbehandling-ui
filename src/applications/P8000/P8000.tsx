@@ -102,6 +102,8 @@ const P8000: React.FC<P8000Props> = ({
 
   useEffect(() => {
     if(currentPSED && !currentPSED?.type?.ytelse){
+      setTypeProperty("spraak", "no")
+      setTypeProperty("bosettingsstatus", "UTL")
       if(bucType === "03"){
         setTypeProperty("ytelse", "UT")
       } else if(bucType === "01"){
