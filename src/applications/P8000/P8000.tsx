@@ -129,9 +129,8 @@ const P8000: React.FC<P8000Props> = ({
   }, [sed])
 
   useEffect(() => {
+    let text = ""
     if(currentPSED && currentPSED.ofteEtterspurtInformasjon){
-      let text = ""
-
       P8000Variants[_type]?.ofteEtterspurtInformasjon?.map((field: string) => {
         const ofteEtterspurtInformasjon: OfteEtterspurtInformasjon = currentPSED?.ofteEtterspurtInformasjon
         const key: keyof OfteEtterspurtInformasjon = field as keyof OfteEtterspurtInformasjon
@@ -147,7 +146,8 @@ const P8000: React.FC<P8000Props> = ({
           text = text + t('p8000:' + field, extra) + "\n\n"
         }
       })
-
+    }
+    if(currentPSED && currentPSED.informasjonSomKanLeggesInn){
       P8000Variants[_type]?.informasjonSomKanLeggesInn?.map((field: string) => {
         const informasjonSomKanLeggesInn: InformasjonSomKanLeggesInn = currentPSED?.informasjonSomKanLeggesInn
         const key: keyof InformasjonSomKanLeggesInn = field as keyof InformasjonSomKanLeggesInn
@@ -163,9 +163,8 @@ const P8000: React.FC<P8000Props> = ({
           text = text + t('p8000:' + field, extra) + "\n\n"
         }
       })
-
-      setYtterligereInformasjon(text)
     }
+    setYtterligereInformasjon(text)
   }, [currentPSED])
 
   useEffect(() => {
@@ -181,6 +180,19 @@ const P8000: React.FC<P8000Props> = ({
 
   const setTypeProperty = (property: string, propValue: string) => {
     dispatch(updatePSED(`type.${property}`, propValue))
+  }
+
+  const resetP8000 = () => {
+    dispatch(updatePSED("pensjon.anmodning.seder[0].sendFolgendeSEDer", []))
+    dispatch(updatePSED("ofteEtterspurtInformasjon", undefined))
+    dispatch(updatePSED("informasjonSomKanLeggesInn", undefined))
+  }
+
+  const onToggle = (property: string, propValue: string) => {
+    setTypeProperty(property, propValue)
+    if(property !== 'spraak'){
+      resetP8000()
+    }
   }
 
   if(gettingSed){
@@ -255,17 +267,17 @@ const P8000: React.FC<P8000Props> = ({
             <Heading level="1" size="medium">P8000</Heading>
             {currentPSED && currentPSED.type &&
               <HStack gap="4">
-                <ToggleGroup value={currentPSED?.type?.spraak} onChange={(v)=> setTypeProperty("spraak", v)} label="Velg språk">
+                <ToggleGroup value={currentPSED?.type?.spraak} onChange={(v)=> onToggle("spraak", v)} label="Velg språk">
                   <ToggleGroup.Item value="no" label="Norsk" />
                   <ToggleGroup.Item value="en" label="Engelsk" />
                 </ToggleGroup>
                 {bucType !== "03" && bucType !== "01" &&
-                  <ToggleGroup value={currentPSED?.type?.ytelse} onChange={(v)=> setTypeProperty("ytelse", v)} label="Velg ytelse">
+                  <ToggleGroup value={currentPSED?.type?.ytelse} onChange={(v)=> onToggle("ytelse", v)} label="Velg ytelse">
                     <ToggleGroup.Item value="AP" label="Alderspensjon" />
                     <ToggleGroup.Item value="UT" label="Uføretrygd" />
                   </ToggleGroup>
                 }
-                <ToggleGroup value={currentPSED?.type?.bosettingsstatus} onChange={(v)=> setTypeProperty("bosettingsstatus", v)} label="Velg bosettingsstatus">
+                <ToggleGroup value={currentPSED?.type?.bosettingsstatus} onChange={(v)=> onToggle("bosettingsstatus", v)} label="Velg bosettingsstatus">
                   <ToggleGroup.Item value="NO" label="Norge" />
                   <ToggleGroup.Item value="UTL" label="Utland" />
                 </ToggleGroup>
