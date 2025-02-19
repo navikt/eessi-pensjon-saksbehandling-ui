@@ -98,13 +98,12 @@ const P8000: React.FC<P8000Props> = ({
     } else {
       setYtterligereInformasjon(undefined)
     }
-
-
-
   }, [])
 
   useEffect(() => {
     if(currentPSED && !currentPSED?.type?.ytelse){
+      setTypeProperty("spraak", "no")
+      setTypeProperty("bosettingsstatus", "UTL")
       if(bucType === "03"){
         setTypeProperty("ytelse", "UT")
       } else if(bucType === "01"){
@@ -130,9 +129,8 @@ const P8000: React.FC<P8000Props> = ({
   }, [sed])
 
   useEffect(() => {
+    let text = ""
     if(currentPSED && currentPSED.ofteEtterspurtInformasjon){
-      let text = ""
-
       P8000Variants[_type]?.ofteEtterspurtInformasjon?.map((field: string) => {
         const ofteEtterspurtInformasjon: OfteEtterspurtInformasjon = currentPSED?.ofteEtterspurtInformasjon
         const key: keyof OfteEtterspurtInformasjon = field as keyof OfteEtterspurtInformasjon
@@ -148,7 +146,8 @@ const P8000: React.FC<P8000Props> = ({
           text = text + t('p8000:' + field, extra) + "\n\n"
         }
       })
-
+    }
+    if(currentPSED && currentPSED.informasjonSomKanLeggesInn){
       P8000Variants[_type]?.informasjonSomKanLeggesInn?.map((field: string) => {
         const informasjonSomKanLeggesInn: InformasjonSomKanLeggesInn = currentPSED?.informasjonSomKanLeggesInn
         const key: keyof InformasjonSomKanLeggesInn = field as keyof InformasjonSomKanLeggesInn
@@ -164,9 +163,8 @@ const P8000: React.FC<P8000Props> = ({
           text = text + t('p8000:' + field, extra) + "\n\n"
         }
       })
-
-      setYtterligereInformasjon(text)
     }
+    setYtterligereInformasjon(text)
   }, [currentPSED])
 
   useEffect(() => {
@@ -182,6 +180,19 @@ const P8000: React.FC<P8000Props> = ({
 
   const setTypeProperty = (property: string, propValue: string) => {
     dispatch(updatePSED(`type.${property}`, propValue))
+  }
+
+  const resetP8000 = () => {
+    dispatch(updatePSED("pensjon.anmodning.seder[0].sendFolgendeSEDer", []))
+    dispatch(updatePSED("ofteEtterspurtInformasjon", undefined))
+    dispatch(updatePSED("informasjonSomKanLeggesInn", undefined))
+  }
+
+  const onToggle = (property: string, propValue: string) => {
+    setTypeProperty(property, propValue)
+    if(property !== 'spraak'){
+      resetP8000()
+    }
   }
 
   if(gettingSed){
@@ -254,24 +265,24 @@ const P8000: React.FC<P8000Props> = ({
         >
           <VStack gap="4">
             <Heading level="1" size="medium">P8000</Heading>
-            <HStack gap="4">
-              {bucType !== "03" && bucType !== "01" &&
-                <ToggleGroup value={currentPSED?.type?.ytelse} onChange={(v)=> setTypeProperty("ytelse", v)} label="Velg ytelse">
-                  <ToggleGroup.Item value="AP" label="Alderspensjon" />
-                  <ToggleGroup.Item value="UT" label="Uføretrygd" />
+            {currentPSED && currentPSED.type &&
+              <HStack gap="4">
+                <ToggleGroup value={currentPSED?.type?.spraak} onChange={(v)=> onToggle("spraak", v)} label="Velg språk">
+                  <ToggleGroup.Item value="no" label="Norsk" />
+                  <ToggleGroup.Item value="en" label="Engelsk" />
                 </ToggleGroup>
-              }
-              <ToggleGroup value={currentPSED?.type?.bosettingsstatus} onChange={(v)=> setTypeProperty("bosettingsstatus", v)} label="Velg bosettingsstatus">
-                <ToggleGroup.Item value="NO" label="Norge" />
-                <ToggleGroup.Item value="UTL" label="Utland" />
-              </ToggleGroup>
-            </HStack>
-            <HStack gap="4">
-              <ToggleGroup value={currentPSED?.type?.spraak} onChange={(v)=> setTypeProperty("spraak", v)} label="Velg språk">
-                <ToggleGroup.Item value="no" label="Norsk" />
-                <ToggleGroup.Item value="en" label="Engelsk" />
-              </ToggleGroup>
-            </HStack>
+                {bucType !== "03" && bucType !== "01" &&
+                  <ToggleGroup value={currentPSED?.type?.ytelse} onChange={(v)=> onToggle("ytelse", v)} label="Velg ytelse">
+                    <ToggleGroup.Item value="AP" label="Alderspensjon" />
+                    <ToggleGroup.Item value="UT" label="Uføretrygd" />
+                  </ToggleGroup>
+                }
+                <ToggleGroup value={currentPSED?.type?.bosettingsstatus} onChange={(v)=> onToggle("bosettingsstatus", v)} label="Velg bosettingsstatus">
+                  <ToggleGroup.Item value="NO" label="Norge" />
+                  <ToggleGroup.Item value="UTL" label="Utland" />
+                </ToggleGroup>
+              </HStack>
+            }
           </VStack>
         </Box>
         {_type &&
@@ -303,7 +314,7 @@ const P8000: React.FC<P8000Props> = ({
                     {label: "Opplysninger om EPS", value: OPPLYSNINGER_OM_EPS, component: CheckboxWithCountryAndPeriods, target: 'ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: false, showMonths: false}},
                     {label: "Person uten p.nr/d.nr", value: PERSON_UTEN_PNR_DNR, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
                   ]}
-                  variant={P8000Variants[_type].ofteEtterspurtInformasjon}
+                  variant={P8000Variants[_type]?.ofteEtterspurtInformasjon}
                   PSED={currentPSED}
                   updatePSED={updatePSED}
                   namespace={namespace + '-ofteEtterspurtInformasjon'}
@@ -324,7 +335,7 @@ const P8000: React.FC<P8000Props> = ({
                     {label: "Legg til saksbehandlingstid", value: SAKSBEHANDLINGSTID, component: CheckboxWithCountryAndPeriods, target: 'informasjonSomKanLeggesInn', options: {showCountry: false, showPeriod: false, showMonths: true}},
                     {label: "P5000 trengs for å fylle ut P5000NO", value: P5000_FOR_P5000NO, component: CheckBoxField, target: 'informasjonSomKanLeggesInn'},
                   ]}
-                  variant={P8000Variants[_type].informasjonSomKanLeggesInn}
+                  variant={P8000Variants[_type]?.informasjonSomKanLeggesInn}
                   PSED={currentPSED}
                   updatePSED={updatePSED}
                   namespace={namespace + '-informasjonSomKanLeggesInn'}

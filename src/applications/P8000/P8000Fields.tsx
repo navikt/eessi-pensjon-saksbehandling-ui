@@ -34,15 +34,17 @@ export const P8000Fields: React.FC<P8000FieldsProps> = ({
     if (field) {
       const Component = field.component
       return (
-        <Component
-          value={field.value}
-          label={field.label}
-          target={field.target}
-          options={field.options}
-          parentNamespace={namespace}
-          PSED={PSED}
-          updatePSED={updatePSED}
-        />
+        <React.Fragment key={field.value}>
+          <Component
+            value={field.value}
+            label={field.label}
+            target={field.target}
+            options={field.options}
+            parentNamespace={namespace}
+            PSED={PSED}
+            updatePSED={updatePSED}
+          />
+        </React.Fragment>
       )
     }
     return null
