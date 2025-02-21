@@ -55,7 +55,7 @@ export default {
   },
   type: {
     bosettingsstatus: "UTL",
-    spraak: "no"
+    spraak: "nb"
   },
   "ofteEtterspurtInformasjon": {
     "tiltak": {
