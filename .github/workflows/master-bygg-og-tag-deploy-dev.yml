@@ -42,7 +42,7 @@ jobs:
       - name: 'Bygg'
         run: npm run build
 
-      - name: 'Sjekker at bygget kjører'
+      - name: 'Set GITHUB_TOKEN and TZ'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -73,7 +73,7 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: nais/dev-gcp.yml
-          IMAGE: ${{ env.IMAGE }}
+          IMAGE: ${{ steps.docker-push.outputs.image }}
           VARS: nais/dev-gcp-nais-vars.yml
 
       # DEPLOYER TIL NAIS Q1
@@ -83,11 +83,11 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: nais/dev-gcp-q1.yml
-          IMAGE: ${{ env.IMAGE }}
+          IMAGE: ${{ steps.docker-push.outputs.image }}
           VARS: nais/dev-gcp-nais-vars-q1.yml
 
       - name: 'Echo Image Name'
         run: |
           echo "## Image name:" >> $GITHUB_STEP_SUMMARY
-          echo "${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_STEP_SUMMARY
+          echo "### Image Name ${{ steps.docker-push.outputs.image }}" >> $GITHUB_STEP_SUMMARY
 
