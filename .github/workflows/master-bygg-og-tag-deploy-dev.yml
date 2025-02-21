@@ -16,6 +16,9 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
 
       - name: 'Pull repo'
@@ -50,13 +53,19 @@ jobs:
       - name: 'Bygg'
         run: npm run build
 
-      - name: 'Build and publish Docker image'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${{ secrets.GITHUB_TOKEN }}
-          docker build --tag ${{ env.IMAGE }} .
-          docker push ${{ env.IMAGE }}
+      - name: 'Push docker image to GAR'
+        uses: nais/docker-build-push@v0
+        id: docker-build-push
+        with:
+          team: eessipensjon
+          tag: ${{ github.event.repository.name }}
+          pull: true
+          image_suffix: ${{ env.DATE }}${{ env.COMMIT_HASH }} # optional, default empty
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+
+      - name: 'Deploy image'
+        run: echo "IMAGE=${{ steps.docker-push.outputs.image }}"
 
       # OPPRETTER GIT TAG
       - name: 'Opprett git tag'
