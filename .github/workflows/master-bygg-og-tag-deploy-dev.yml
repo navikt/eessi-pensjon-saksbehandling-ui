@@ -93,6 +93,6 @@ jobs:
           IMAGE: ${{ steps.docker-push.outputs.image }}
           VARS: nais/dev-gcp-nais-vars-q1.yml
 
-      - name: 'Echo Image Name'
+      - name: 'Echo Version'
         run: echo "### Version ${{ steps.versions.outputs.version }}" >> $GITHUB_STEP_SUMMARY
 
