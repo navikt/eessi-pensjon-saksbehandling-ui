@@ -17,10 +17,23 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
 
       - name: 'Pull repo'
         uses: actions/checkout@v3
+
+      - name: 'Setter dato og commit variabel'
+        run: |
+          export TZ=CET
+          echo "DATE=$(date "+%Y-%m-%d--%H-%M-%S")" >> $GITHUB_ENV
+          echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+      - name: 'Setter Image'
+        id: versions
+        run: echo "version=${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_OUTPUT
+
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -42,21 +55,18 @@ jobs:
       - name: 'Bygg'
         run: npm run build
 
-      - name: 'Set GITHUB_TOKEN and TZ'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          export TZ=CET
-
       - uses: nais/docker-build-push@v0
         id: docker-push
         with:
           team: eessipensjon
-          tag: ${{ github.event.repository.name }}
+          tag: ${{ steps.versions.outputs.version }}
           pull: true
-          image_suffix: ${{ env.DATE }}${{ env.COMMIT_HASH }} # optional, default empty
+          image_suffix: ${{ env.DATE }}---${{ env.COMMIT_HASH }} # optional, default empty
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # required, but is defined as an organization variable
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # required, but is defined as an organization secret
+
+      - name: Echo Version
+        run: echo "### Version ${{ steps.versions.outputs.version }}" >> $GITHUB_STEP_SUMMARY
 
       - name: 'Deploy image'
         run: echo "IMAGE=${{ steps.docker-push.outputs.image }}"
@@ -88,6 +98,6 @@ jobs:
 
       - name: 'Echo Image Name'
         run: |
-          echo "## Image name:" >> $GITHUB_STEP_SUMMARY
           echo "### Image Name ${{ steps.docker-push.outputs.image }}" >> $GITHUB_STEP_SUMMARY
+          echo "### Version ${{ steps.versions.outputs.version }}" >> $GITHUB_STEP_SUMMARY
 
