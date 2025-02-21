@@ -24,6 +24,9 @@ jobs:
       - name: 'Pull repo'
         uses: actions/checkout@v3
 
+      - name: 'Setup Git User'
+        uses: fregante/setup-git-user@v2
+
       - name: 'Setter dato og commit variabel'
         run: |
           export TZ=CET
