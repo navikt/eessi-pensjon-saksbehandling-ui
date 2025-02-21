@@ -1,5 +1,5 @@
 {
-  "P5000Fra": "Vennligst send oss følgende SED-er: P5000 [landkode hvis land er valgt]",
+  "P5000Fra": "Vennligst send oss følgende SED-er: P5000 {{land}}",
   "P4000": "Vennligst send oss følgende SED-er: P4000",
   "P6000": "Vennligst send oss følgende SED-er: P6000",
   "brukersAdresse": "Brukers adresse",

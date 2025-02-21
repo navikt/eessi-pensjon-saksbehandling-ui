@@ -81,7 +81,7 @@ const P8000: React.FC<P8000Props> = ({
  sed,
  setMode,
 }: P8000Props): JSX.Element => {
-  const {t} = useTranslation()
+  const {t, i18n} = useTranslation()
   const dispatch = useDispatch()
   const { gettingSed, currentPSED }: P8000Selector = useSelector<State, P8000Selector>(mapState)
   const namespace = "p8000"
@@ -102,8 +102,8 @@ const P8000: React.FC<P8000Props> = ({
 
   useEffect(() => {
     if(currentPSED && !currentPSED?.type?.ytelse){
-      setTypeProperty("spraak", "no")
-      setTypeProperty("bosettingsstatus", "UTL")
+      currentPSED?.type?.spraak ? setTypeProperty("spraak", currentPSED?.type?.spraak) : setTypeProperty("spraak", "nb")
+      currentPSED?.type?.bosettingsstatus ? setTypeProperty("bosettingsstatus", currentPSED?.type?.bosettingsstatus) : setTypeProperty("bosettingsstatus", "UTL")
       if(bucType === "03"){
         setTypeProperty("ytelse", "UT")
       } else if(bucType === "01"){
@@ -129,6 +129,10 @@ const P8000: React.FC<P8000Props> = ({
   }, [sed])
 
   useEffect(() => {
+    if(i18n.language !== currentPSED?.type?.spraak){
+      i18n.changeLanguage(currentPSED?.type?.spraak)
+    }
+
     let text = ""
     if(currentPSED && currentPSED.ofteEtterspurtInformasjon){
       P8000Variants[_type]?.ofteEtterspurtInformasjon?.map((field: string) => {
@@ -143,6 +147,7 @@ const P8000: React.FC<P8000Props> = ({
             periodeTil: ofteEtterspurtInformasjon[key]?.periodeTil,
             antallMaaneder: ofteEtterspurtInformasjon[key]?.antallMaaneder
           }
+
           text = text + t('p8000:' + field, extra) + "\n\n"
         }
       })
@@ -268,7 +273,7 @@ const P8000: React.FC<P8000Props> = ({
             {currentPSED && currentPSED.type &&
               <HStack gap="4">
                 <ToggleGroup value={currentPSED?.type?.spraak} onChange={(v)=> onToggle("spraak", v)} label="Velg språk">
-                  <ToggleGroup.Item value="no" label="Norsk" />
+                  <ToggleGroup.Item value="nb" label="Norsk" />
                   <ToggleGroup.Item value="en" label="Engelsk" />
                 </ToggleGroup>
                 {bucType !== "03" && bucType !== "01" &&

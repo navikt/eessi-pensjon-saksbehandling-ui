@@ -12,10 +12,13 @@ jobs:
       deployments: write
       packages: write
       contents: write
+      id-token: write
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [18.x]
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: 'Pull repo'
         uses: actions/checkout@v3
@@ -26,8 +29,9 @@ jobs:
           echo "DATE=$(date "+%Y-%m-%d--%H-%M-%S")" >> $GITHUB_ENV
           echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
-      - name: 'Setter Image'
-        run: echo "IMAGE=docker.pkg.github.com/${{ github.repository }}/eessi-pensjon-frontend-ui:${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_ENV
+      - name: 'Setter Version'
+        id: versions
+        run: echo "version=${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_OUTPUT
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -49,13 +53,18 @@ jobs:
       - name: 'Bygg'
         run: npm run build
 
-      - name: 'Build and publish Docker image'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${{ secrets.GITHUB_TOKEN }}
-          docker build --tag ${{ env.IMAGE }} .
-          docker push ${{ env.IMAGE }}
+      - uses: nais/docker-build-push@v0
+        id: docker-push
+        with:
+          team: eessipensjon
+          tag: ${{ steps.versions.outputs.version }}
+          pull: true
+          image_suffix: ${{ env.DATE }}---${{ env.COMMIT_HASH }} # optional, default empty
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # required, but is defined as an organization variable
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # required, but is defined as an organization secret
+
+      - name: 'Deploy image'
+        run: echo "IMAGE=${{ steps.docker-push.outputs.image }}"
 
       # DEPLOYER TIL NAIS
       - name: 'Deploy to NAIS Q2'
@@ -64,10 +73,8 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: nais/dev-gcp.yml
-          IMAGE: ${{ env.IMAGE }}
+          IMAGE: ${{ steps.docker-push.outputs.image }}
           VARS: nais/dev-gcp-nais-vars.yml
 
-      - name: 'Echo Image Name'
-        run: |
-          echo "## Image name:" >> $GITHUB_STEP_SUMMARY
-          echo "${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_STEP_SUMMARY
+      - name: 'Echo Version'
+        run: echo "### Version ${{ steps.versions.outputs.version }}" >> $GITHUB_STEP_SUMMARY
