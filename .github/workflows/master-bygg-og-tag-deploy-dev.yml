@@ -30,7 +30,7 @@ jobs:
           echo "DATE=$(date "+%Y-%m-%d--%H-%M-%S")" >> $GITHUB_ENV
           echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
-      - name: 'Setter Image'
+      - name: 'Setter Version'
         id: versions
         run: echo "version=${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_OUTPUT
 
