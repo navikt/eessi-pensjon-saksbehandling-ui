@@ -21,6 +21,15 @@ jobs:
       - name: 'Pull repo'
         uses: actions/checkout@v3
 
+      - name: 'Setter dato og commit variabel'
+        run: |
+          export TZ=CET
+          echo "DATE=$(date "+%Y-%m-%d--%H-%M-%S")" >> $GITHUB_ENV
+          echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+      - name: 'Setter Image'
+        run: echo "IMAGE=docker.pkg.github.com/${{ github.repository }}/eessi-pensjon-frontend-ui:${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_ENV
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -41,24 +50,13 @@ jobs:
       - name: 'Bygg'
         run: npm run build
 
-      - name: 'Sjekker at bygget kjører'
+      - name: 'Build and publish Docker image'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          export TZ=CET
-
-      - uses: nais/docker-build-push@v0
-        id: docker-push
-        with:
-          team: eessipensjon
-          tag: ${{ github.event.repository.name }}
-          pull: true
-          image_suffix: ${{ env.DATE }}${{ env.COMMIT_HASH }} # optional, default empty
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # required, but is defined as an organization variable
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # required, but is defined as an organization secret
-
-      - name: 'Deploy image'
-        run: echo "IMAGE=${{ steps.docker-push.outputs.image }}"
+          docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${{ secrets.GITHUB_TOKEN }}
+          docker build --tag ${{ env.IMAGE }} .
+          docker push ${{ env.IMAGE }}
 
       # OPPRETTER GIT TAG
       - name: 'Opprett git tag'
