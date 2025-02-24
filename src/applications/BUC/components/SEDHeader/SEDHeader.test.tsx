@@ -20,7 +20,9 @@ jest.mock('src/constants/environment.ts', () => {
 const defaultSelector: SEDListSelector = {
   locale: 'nb',
   featureToggles: mockFeatureToggles,
-  storageEntries: undefined
+  storageEntries: undefined,
+  gettingPreviewPDF: false,
+  previewPDF: undefined
 }
 
 describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
