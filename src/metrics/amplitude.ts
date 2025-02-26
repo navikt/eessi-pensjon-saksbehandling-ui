@@ -1,4 +1,4 @@
-import amplitude from 'amplitude-js'
+import * as amplitude from "@amplitude/analytics-browser";
 
 const isProduction = () => {
   const host = window?.location?.hostname || ''
@@ -19,20 +19,19 @@ const getApiKey = () => {
 const debug = false
 
 const config = {
-  apiEndpoint: 'amplitude.nav.no/collect',
-  saveEvents: true,
-  includeUtm: false,
+  serverUrl: 'https://amplitude.nav.no/collect-auto',
+  saveEvents: false,
+  includeUtm: true,
   includeReferrer: true,
+  defaultTracking: false,
   trackingOptions: {
-    city: false,
-    ip_address: false,
-    region: false
+    ipAddress: false
   }
 }
 
 export const init = () => {
   if (!isLocalhost()) {
-    amplitude.getInstance().init(getApiKey(), undefined, config)
+    amplitude.init(getApiKey(), undefined, config)
   }
 }
 
@@ -45,6 +44,6 @@ export const amplitudeLogger = (name: string, values?: object) => {
     console.log('Amplitude:', key, data)
   }
   if (!isLocalhost()) {
-    amplitude.getInstance().logEvent(key, data)
+    amplitude.track(key, data)
   }
 }

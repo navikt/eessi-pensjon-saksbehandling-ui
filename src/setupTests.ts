@@ -41,7 +41,7 @@ Object.defineProperty(window, 'getComputedStyle', {
   })
 })
 
-jest.mock('amplitude-js', () => ({
+jest.mock('@amplitude/analytics-browser', () => ({
   getInstance: () => ({
     init: jest.fn(),
     logEvent: jest.fn()
