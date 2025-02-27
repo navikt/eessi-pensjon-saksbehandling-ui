@@ -29,7 +29,7 @@
     "@navikt/fetch": "^4.0.5",
     "@navikt/flagg-ikoner": "^9.0.7",
     "@navikt/fnrvalidator": "^1.3.0",
-    "@navikt/forhandsvisningsfil": "8.0.6",
+    "@navikt/forhandsvisningsfil": "8.0.7",
     "@navikt/land-verktoy": "^9.0.8",
     "@navikt/landvelger": "^9.0.6",
     "@navikt/tabell": "^6.1.6",
