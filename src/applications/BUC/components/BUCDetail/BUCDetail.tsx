@@ -17,8 +17,8 @@ import { useTranslation } from 'react-i18next'
 import {useDispatch, useSelector} from 'react-redux'
 import styled from 'styled-components'
 import { useState } from 'react'
-import {FilesIcon , FilesFillIcon} from "@navikt/aksel-icons";
 import {copyToClipboard} from "../../../../actions/app";
+import {CopyFilledWithMargin, CopyWithMargin} from "src/components/StyledComponents";
 
 const Dd = styled.dd`
   width: 50%;
@@ -49,21 +49,6 @@ const DtTwoColumn = styled.dt`
     margin-left: 0.5rem;
   }
 `
-
-const CopyWithMargin = styled(FilesIcon)`
-  position: relative;
-  top: 2px;
-  left: 5px;
-  cursor: pointer;
-`
-
-const CopyFilledWithMargin = styled(FilesFillIcon)`
-  position: relative;
-  top: 2px;
-  left: 5px;
-  cursor: pointer;
-`
-
 
 const InstitutionListDiv = styled.div`
   padding: 0.5rem;

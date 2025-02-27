@@ -77,6 +77,7 @@
     "oppholdsadresse" : "Oppholdsadresse",
     "optional": "Valgtfri",
     "page-notification-title" : "Admin Page notification",
+    "person-kopier-pid" : "Kopier person-identifikator",
     "pin": "PIN",
     "pleaseWaitXSeconds": "Vennligst vent {{cooldown}} sekund(er)",
     "postadresse" : "Postadresse",

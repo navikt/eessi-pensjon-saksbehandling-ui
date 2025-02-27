@@ -6,11 +6,16 @@ import { PersonPDL } from 'src/declarations/person'
 import { PersonPropType } from 'src/declarations/person.pt'
 import _ from 'lodash'
 import moment from 'moment'
-import {Heading, HStack} from '@navikt/ds-react'
+import {Heading, HStack, Link} from '@navikt/ds-react'
 import PT from 'prop-types'
 import styled from 'styled-components'
 import {getFnr, getNPID} from 'src/applications/BUC/components/BUCUtils/BUCUtils'
 import LoadingImage from "src/components/Loading/LoadingImage";
+import {copyToClipboard} from "src/actions/app";
+import {useDispatch} from "react-redux";
+import {useState} from "react";
+import {useTranslation} from "react-i18next";
+import {CopyFilledWithMargin, CopyWithMargin} from "src/components/StyledComponents";
 
 export const Title = styled(HStack)`
   align-items: center;
@@ -27,6 +32,10 @@ export interface PersonTitleProps {
 const PersonTitle: React.FC<PersonTitleProps> = ({
   gettingPersonInfo, person
 }: PersonTitleProps): JSX.Element => {
+  const [hover, isHover] = useState<boolean>(false);
+  const dispatch = useDispatch()
+  const { t } = useTranslation()
+
   let birthDate: Date | undefined
   let deathDate: Date | undefined
 
@@ -61,6 +70,8 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
     src = mann
   }
 
+  const pid : string | undefined = getFnr(person) ? getFnr(person) : getNPID(person)
+
   return (
     <Title gap="4">
       <img
@@ -71,7 +82,18 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
         width={40}
       />
       <Heading size='medium'>
-        {person.navn?.sammensattNavn} ({age}) - {getFnr(person) ? getFnr(person) : getNPID(person)}
+        {person.navn?.sammensattNavn} ({age}) - {pid}
+        <Link
+          onMouseEnter={() => isHover(true)}
+          onMouseLeave={() => isHover(false)}
+          title={t('ui:person-kopier-pid')} onClick={(e: any) => {
+          e.preventDefault()
+          e.stopPropagation()
+          pid && dispatch(copyToClipboard(pid))
+        }}
+        >
+          {hover ? <CopyFilledWithMargin fontSize="1.5rem"/> : <CopyWithMargin fontSize="1.5rem"/>}
+        </Link>
       </Heading>
     </Title>
   )
