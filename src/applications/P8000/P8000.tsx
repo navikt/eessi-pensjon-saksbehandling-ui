@@ -269,22 +269,22 @@ const P8000: React.FC<P8000Props> = ({
           padding="4"
         >
           <VStack gap="4">
-            <Heading level="1" size="medium">P8000</Heading>
+            <Heading level="1" size="medium">{t('p8000:form-heading-p8000')} ({buc.type?.toUpperCase()} - {t('buc:buc-' + buc.type?.toUpperCase())})</Heading>
             {currentPSED && currentPSED.type &&
               <HStack gap="4">
-                <ToggleGroup value={currentPSED?.type?.spraak} onChange={(v)=> onToggle("spraak", v)} label="Velg språk">
-                  <ToggleGroup.Item value="nb" label="Norsk" />
-                  <ToggleGroup.Item value="en" label="Engelsk" />
+                <ToggleGroup value={currentPSED?.type?.spraak} onChange={(v)=> onToggle("spraak", v)} label={t('p8000:form-label-velg-spraak')}>
+                  <ToggleGroup.Item value="nb" label={t('p8000:form-label-spraak-norsk')} />
+                  <ToggleGroup.Item value="en" label={t('p8000:form-label-spraak-engelsk')} />
                 </ToggleGroup>
                 {bucType !== "03" && bucType !== "01" &&
-                  <ToggleGroup value={currentPSED?.type?.ytelse} onChange={(v)=> onToggle("ytelse", v)} label="Velg ytelse">
-                    <ToggleGroup.Item value="AP" label="Alderspensjon" />
-                    <ToggleGroup.Item value="UT" label="Uføretrygd" />
+                  <ToggleGroup value={currentPSED?.type?.ytelse} onChange={(v)=> onToggle("ytelse", v)} label={t('p8000:form-label-velg-ytelse')}>
+                    <ToggleGroup.Item value="AP" label={t('p8000:form-label-ytelse-alderspensjon')} />
+                    <ToggleGroup.Item value="UT" label={t('p8000:form-label-ytelse-ufoere')} />
                   </ToggleGroup>
                 }
-                <ToggleGroup value={currentPSED?.type?.bosettingsstatus} onChange={(v)=> onToggle("bosettingsstatus", v)} label="Velg bosettingsstatus">
-                  <ToggleGroup.Item value="NO" label="Norge" />
-                  <ToggleGroup.Item value="UTL" label="Utland" />
+                <ToggleGroup value={currentPSED?.type?.bosettingsstatus} onChange={(v)=> onToggle("bosettingsstatus", v)} label={t('p8000:form-label-velg-bosettingsstatus')}>
+                  <ToggleGroup.Item value="NO" label={t('p8000:form-label-bosettingsstatus-norge')} />
+                  <ToggleGroup.Item value="UTL" label={t('p8000:form-label-bosettingsstatus-utland')} />
                 </ToggleGroup>
               </HStack>
             }
@@ -300,7 +300,7 @@ const P8000: React.FC<P8000Props> = ({
                  padding="4"
             >
               <VStack gap="4">
-                <Heading level="2" size="small">Ofte etterspurt informasjon</Heading>
+                <Heading level="2" size="small">{t('p8000:form-heading-ofte-etterspurt-informasjon')}</Heading>
                 <P8000Fields
                   fields={[
                     {label: P5000, value: P5000, component: SendFolgendeSEDer, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'},
@@ -334,7 +334,7 @@ const P8000: React.FC<P8000Props> = ({
               padding="4"
             >
               <VStack gap="4">
-                <Heading level="2" size="small">Informasjon som kan legges inn i SED (valgfritt)</Heading>
+                <Heading level="2" size="small">{t('p8000:form-heading-informasjon-som-kan-legges-inn')}</Heading>
                 <P8000Fields
                   fields={[
                     {label: "Legg til saksbehandlingstid", value: SAKSBEHANDLINGSTID, component: CheckboxWithCountryAndPeriods, target: 'informasjonSomKanLeggesInn', options: {showCountry: false, showPeriod: false, showMonths: true}},
@@ -355,7 +355,7 @@ const P8000: React.FC<P8000Props> = ({
               padding="4"
             >
               <VStack gap="4">
-                <Textarea label="Ytterligere informasjon" value={_ytterligereInformasjon ?? ""}/>
+                <Textarea label={t('p8000:form-forhaandsvisning-av-tekst')} value={_ytterligereInformasjon ?? ""}/>
               </VStack>
             </Box>
           </>
