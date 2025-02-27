@@ -87,18 +87,11 @@ const P8000: React.FC<P8000Props> = ({
   const namespace = "p8000"
 
   const [_ytterligereInformasjon, setYtterligereInformasjon] = useState<string | undefined>(undefined)
+  const [_fritekst, setFritekst] = useState<string | undefined>()
   const [_type, setType] = useState<string>("")
   const bucType = buc.type?.split("_")[2]
 
   const countryData = CountryData.getCountryInstance('nb')
-
-  useEffect(() => {
-    if(currentPSED){
-      setYtterligereInformasjon(currentPSED?.pensjon?.ytterligeinformasjon)
-    } else {
-      setYtterligereInformasjon(undefined)
-    }
-  }, [])
 
   useEffect(() => {
     if(currentPSED && !currentPSED?.type?.ytelse){
@@ -169,8 +162,9 @@ const P8000: React.FC<P8000Props> = ({
         }
       })
     }
+    text = _fritekst ? text + "***********************\n" + _fritekst : text
     setYtterligereInformasjon(text)
-  }, [currentPSED])
+  }, [currentPSED, _fritekst])
 
   useEffect(() => {
     dispatch(updatePSED(`pensjon.ytterligeinformasjon`, _ytterligereInformasjon))
@@ -355,6 +349,7 @@ const P8000: React.FC<P8000Props> = ({
               padding="4"
             >
               <VStack gap="4">
+                <Textarea label={t('p8000:form-legg-til-fritekst')} value={_fritekst ?? ""} onChange={(e) => setFritekst(e.target.value)}/>
                 <Textarea label={t('p8000:form-forhaandsvisning-av-tekst')} value={_ytterligereInformasjon ?? ""}/>
               </VStack>
             </Box>
