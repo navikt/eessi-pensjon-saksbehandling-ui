@@ -15,5 +15,19 @@
   "opplysningerOmEPS": "Hvis søker er gift/har samboer, trenger vi fullt navn, fødselsdato, statsborgerskap, og ID-nummer fra {{land}} på denne personen",
   "personUtenPNRDNR": "Person uten PNR/DNR",
   "saksbehandlingstid": "Vår saksbehandlingstid er anslått til å være {{antallMaaneder}} måneder",
-  "P5000ForP5000NO": "For å sende P5000 trenger vi deres P5000 først."
+  "P5000ForP5000NO": "For å sende P5000 trenger vi deres P5000 først.",
+
+  "form-heading-p8000": "Bestill P8000 til Ad hoc anmodning om pensjonsopplysninger",
+  "form-forhaandsvisning-av-tekst": "Forhåndsvisning av informasjonen som blir lagt inn i JINA (kan ikke redigeres her, fjern avkrysning for å endre)",
+  "form-heading-informasjon-som-kan-legges-inn": "Informasjon som kan legges inn i SED (valgfritt)",
+  "form-heading-ofte-etterspurt-informasjon": "Ofte etterspurt informasjon",
+  "form-label-bosettingsstatus-norge": "Norge",
+  "form-label-bosettingsstatus-utland": "Utland",
+  "form-label-spraak-norsk": "Norsk",
+  "form-label-spraak-engelsk": "Engelsk",
+  "form-label-ytelse-alderspensjon": "Alderspensjon",
+  "form-label-ytelse-ufoere": "Uføre",
+  "form-label-velg-bosettingsstatus": "Velg bosettingsstatus",
+  "form-label-velg-spraak": "Velg språk",
+  "form-label-velg-ytelse": "Velg ytelse"
 }
