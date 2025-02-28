@@ -357,7 +357,7 @@ const P8000: React.FC<P8000Props> = ({
             >
               <VStack gap="4">
                 <Textarea label={t('p8000:form-legg-til-fritekst')} value={_fritekst ?? ""} onChange={(e) => setFritekst(e.target.value)}/>
-                <Textarea label={t('p8000:form-forhaandsvisning-av-tekst')} value={_ytterligereInformasjon ?? ""}/>
+                <Textarea label={t('p8000:form-forhaandsvisning-av-tekst')} value={_ytterligereInformasjon ?? ""} maxLength={2500}/>
               </VStack>
             </Box>
           </>
