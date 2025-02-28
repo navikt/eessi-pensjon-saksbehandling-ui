@@ -11,7 +11,7 @@ export const SendFolgendeSEDer: React.FC<P8000FieldComponentProps> = ({
   const sendFolgendeSEDer: Array<string> = _.get(PSED, target)
 
   const setCheckbox = (sed: string, checked: boolean) => {
-    let sedArr = [...sendFolgendeSEDer]
+    let sedArr = sendFolgendeSEDer ? [...sendFolgendeSEDer] : []
     if(checked){
       sedArr.push(value)
     } else {
