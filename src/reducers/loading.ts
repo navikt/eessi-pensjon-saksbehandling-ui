@@ -528,6 +528,7 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
       }
 
     case types.BUC_GET_SED_REQUEST:
+    case types.BUC_GET_P8000SED_REQUEST:
 
       return {
         ...state,
@@ -535,6 +536,8 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
       }
 
     case types.BUC_GET_SED_SUCCESS:
+    case types.BUC_GET_P8000SED_SUCCESS:
+    case types.BUC_GET_P8000SED_FAILURE:
     case types.BUC_GET_SED_FAILURE:
 
       return {

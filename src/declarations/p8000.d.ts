@@ -73,6 +73,7 @@ export interface P8000SED extends BaseSED{
   ofteEtterspurtInformasjon: OfteEtterspurtInformasjon
   informasjonSomKanLeggesInn: InformasjonSomKanLeggesInn
   type: P8000Type
+  fritekst?: string // Remove before save
 }
 
 export interface BaseSED {

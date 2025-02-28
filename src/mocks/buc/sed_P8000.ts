@@ -50,7 +50,7 @@ export default {
         {sendFolgendeSEDer: ["P5000"]}
       ]
     },
-    "ytterligeinformasjon": "test",
+    "ytterligeinformasjon": "SOME PREDEFINED TEXTS HERE \n\n SOME MORE PREDEFINED TEXTS HERE *********\n ADDITIONAL TEXT COME HERE",
     "vedlegg": null
   },
   type: {

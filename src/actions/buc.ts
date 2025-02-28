@@ -345,9 +345,9 @@ export const getSedP8000 = (
       sed: sed
     },
     type: {
-      request: types.BUC_GET_SED_REQUEST,
-      success: types.BUC_GET_SED_SUCCESS,
-      failure: types.BUC_GET_SED_FAILURE
+      request: types.BUC_GET_P8000SED_REQUEST,
+      success: types.BUC_GET_P8000SED_SUCCESS,
+      failure: types.BUC_GET_P8000SED_FAILURE
     }
   })
 }

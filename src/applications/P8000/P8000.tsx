@@ -88,12 +88,19 @@ const P8000: React.FC<P8000Props> = ({
 
   const [_ytterligereInformasjon, setYtterligereInformasjon] = useState<string | undefined>(undefined)
   const [_fritekst, setFritekst] = useState<string | undefined>()
+  const [_fritekstLoaded, setFritekstLoaded] = useState<boolean>(false)
+
   const [_type, setType] = useState<string>("")
   const bucType = buc.type?.split("_")[2]
 
   const countryData = CountryData.getCountryInstance('nb')
 
   useEffect(() => {
+    if(currentPSED && currentPSED.fritekst && !_fritekstLoaded){
+      setFritekst(currentPSED.fritekst)
+      setFritekstLoaded(true)
+    }
+
     if(currentPSED && !currentPSED?.type?.ytelse){
       currentPSED?.type?.spraak ? setTypeProperty("spraak", currentPSED?.type?.spraak) : setTypeProperty("spraak", "nb")
       currentPSED?.type?.bosettingsstatus ? setTypeProperty("bosettingsstatus", currentPSED?.type?.bosettingsstatus) : setTypeProperty("bosettingsstatus", "UTL")

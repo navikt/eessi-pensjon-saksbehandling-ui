@@ -32,6 +32,7 @@ import { standardLogger } from 'src/metrics/loggers'
 import { AnyAction } from 'redux'
 import { P5000sFromRinaMap } from 'src/declarations/p5000'
 import {P4000SED} from "../declarations/p4000"
+import {P8000SED} from "src/declarations/p8000";
 
 export interface BucState {
   attachmentsError: boolean
@@ -835,12 +836,14 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         bucsList: _.isNil(state.bucsList) ? null : state.bucsList
       }
 
-    case types.BUC_GET_SED_REQUEST: {
+    case types.BUC_GET_SED_REQUEST:
+    case types.BUC_GET_P8000SED_REQUEST: {
       return {
         ...state,
         PSED: undefined
       }
     }
+
     case types.BUC_GET_SED_SUCCESS: {
       const payload = (action as ActionWithPayload).payload
       const sed = (action as ActionWithPayload).context.sed
@@ -853,7 +856,27 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         PSEDChanged: false
       }
     }
-    case types.BUC_GET_SED_FAILURE: {
+
+    case types.BUC_GET_P8000SED_SUCCESS: {
+      const payload = (action as ActionWithPayload).payload
+      const sed = (action as ActionWithPayload).context.sed
+
+      const fritekstArray: string[] | undefined = (payload as P8000SED).pensjon?.ytterligeinformasjon?.split(/\*+/)
+        .map(part => part.trim()) // Remove whitespace and newlines
+        .filter(Boolean); // Remove empty strings
+
+      return {
+        ...state,
+        PSED: {
+          ...payload,
+          fritekst: fritekstArray && fritekstArray.length === 2 ? fritekstArray[1] : undefined,
+          originalSed: sed,
+        },
+        PSEDChanged: false
+      }
+    }
+    case types.BUC_GET_SED_FAILURE:
+    case types.BUC_GET_P8000SED_FAILURE: {
       return {
         ...state,
         PSED: null
