@@ -93,8 +93,11 @@ const P8000: React.FC<P8000Props> = ({
   const [_type, setType] = useState<string>("")
   const bucType = buc.type?.split("_")[2]
 
-  const countryData = CountryData.getCountryInstance('nb')
-
+  const countryData = {
+    "nb": CountryData.getCountryInstance('nb'),
+    "en": CountryData.getCountryInstance('en'),
+  }
+  
   useEffect(() => {
     if(currentPSED && currentPSED.fritekst && !_fritekstLoaded){
       setFritekst(currentPSED.fritekst)
@@ -142,7 +145,7 @@ const P8000: React.FC<P8000Props> = ({
         const key: keyof OfteEtterspurtInformasjon = field as keyof OfteEtterspurtInformasjon
 
         if(ofteEtterspurtInformasjon && ofteEtterspurtInformasjon[key] && ofteEtterspurtInformasjon[key]?.value){
-          const country = countryData.findByValue(ofteEtterspurtInformasjon[key]?.landkode)
+          const country = countryData[i18n.language as keyof typeof countryData].findByValue(ofteEtterspurtInformasjon[key]?.landkode)
           const extra = {
             land: country?.label,
             periodeFra: ofteEtterspurtInformasjon[key]?.periodeFra,
@@ -160,7 +163,7 @@ const P8000: React.FC<P8000Props> = ({
         const key: keyof InformasjonSomKanLeggesInn = field as keyof InformasjonSomKanLeggesInn
 
         if(informasjonSomKanLeggesInn && informasjonSomKanLeggesInn[key] && informasjonSomKanLeggesInn[key]?.value){
-          const country = countryData.findByValue(informasjonSomKanLeggesInn[key]?.landkode)
+          const country = countryData[i18n.language as keyof typeof countryData].findByValue(informasjonSomKanLeggesInn[key]?.landkode)
           const extra = {
             land: country?.label,
             periodeFra: informasjonSomKanLeggesInn[key]?.periodeFra,
