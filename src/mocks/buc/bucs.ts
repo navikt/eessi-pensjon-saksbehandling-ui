@@ -2656,7 +2656,64 @@ const mockBuc = [
       name: 'Norwegian institution 02',
       acronym: 'DEMONO02'
     }],
-    seds: []
+    seds: [
+      {
+        "attachments": [],
+        "displayName": "Request for additional information",
+        "type": "P8000",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "87eb0138ed074c02b2018fa1d6454f51",
+        "direction": "OUT",
+        "creationDate": 1740666174199,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": true,
+        "versions": null,
+        "lastUpdate": 1740666174652,
+        "parentDocumentId": null,
+        "status": "new",
+        "participants": [
+          {
+            "role": "Sender",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-02-27T14:22:54.199+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-02-27T14:22:54.199+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      }
+    ]
   },
   {
     cdm: "4.2",

@@ -108,6 +108,8 @@ const P8000: React.FC<P8000Props> = ({
         setTypeProperty("ytelse", "UT")
       } else if(bucType === "01"){
         setTypeProperty("ytelse", "AP")
+      } else {
+        setTypeProperty("ytelse", "DUMMY")
       }
     }
   }, [currentPSED, bucType])
@@ -360,6 +362,7 @@ const P8000: React.FC<P8000Props> = ({
                 <Textarea label={t('p8000:form-forhaandsvisning-av-tekst')} value={_ytterligereInformasjon ?? ""} maxLength={2500}/>
               </VStack>
             </Box>
+
           </>
         }
       </VStack>
