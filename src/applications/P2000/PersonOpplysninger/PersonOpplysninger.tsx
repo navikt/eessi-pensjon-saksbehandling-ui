@@ -6,11 +6,11 @@ import {useAppSelector} from "src/store";
 import Input from "src/components/Forms/Input";
 import DateField from "../DateField/DateField";
 import {BodyLong, HGrid, Label, Radio, VStack} from "@navikt/ds-react";
-import {Person} from "src/declarations/p2000";
 import {  formatDate} from "src/utils/utils";
 import {HorizontalRadioGroup} from "src/components/StyledComponents";
 import {Validation} from "src/declarations/app";
 import FormTextBox from "src/components/Forms/FormTextBox";
+import {Person} from "src/declarations/sed";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status

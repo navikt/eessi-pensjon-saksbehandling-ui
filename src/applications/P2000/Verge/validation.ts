@@ -1,9 +1,9 @@
 import {Validation} from "src/declarations/app";
 import {checkIfNotEmpty, checkLength} from 'src/utils/validation'
-import {Verge} from "src/declarations/p2000";
 import _ from "lodash";
 import {validateAdresse, ValidationAdresseProps} from "../Adresse/validation";
 import performValidation from "../../../utils/performValidation";
+import {Verge} from "src/declarations/sed";
 
 export interface ValidationVergeProps {
   verge: Verge

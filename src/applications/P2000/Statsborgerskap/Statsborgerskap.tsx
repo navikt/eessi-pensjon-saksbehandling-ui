@@ -17,7 +17,6 @@ import {
   validateStatsborgerskap,
   ValidationStatsborgerskapProps,
 } from './validation'
-import {Person, Statsborgerskap as P2000Statsborgerskap} from "src/declarations/p2000";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
 import {PSED, Validation} from "src/declarations/app";
@@ -27,6 +26,7 @@ import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
 import FormTextBox from "src/components/Forms/FormTextBox";
+import {Person, Statsborgerskap as P2000Statsborgerskap} from "src/declarations/sed";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status

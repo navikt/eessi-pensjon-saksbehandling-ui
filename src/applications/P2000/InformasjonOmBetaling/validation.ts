@@ -1,9 +1,9 @@
 import {Validation} from "src/declarations/app";
 import {checkIfNotEmpty, checkIfValidIban, checkIfValidSwift, checkLength} from 'src/utils/validation'
-import {Bank  } from "src/declarations/p2000";
 import _ from 'lodash'
 import performValidation from "../../../utils/performValidation";
 import {validateAdresse, ValidationAdresseProps} from "../Adresse/validation";
+import {Bank} from "src/declarations/sed";
 
 export interface ValidationBankProps {
   bank: Bank | undefined

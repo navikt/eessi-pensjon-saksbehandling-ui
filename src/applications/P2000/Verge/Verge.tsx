@@ -1,6 +1,5 @@
 import React from "react";
 import {useDispatch} from "react-redux";
-import {Verge as P2000Verge} from "../../../declarations/p2000";
 import Input from "../../../components/Forms/Input";
 import _ from "lodash";
 import {Box, Heading, VStack} from "@navikt/ds-react";
@@ -17,6 +16,7 @@ import {useTranslation} from "react-i18next";
 import Adresse from "../Adresse/Adresse";
 import TextArea from "../../../components/Forms/TextArea";
 import {TopAlignedGrid} from "src/components/StyledComponents";
+import {Verge as P2000Verge} from "src/declarations/sed";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,

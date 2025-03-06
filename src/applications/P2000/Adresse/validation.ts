@@ -1,6 +1,7 @@
 import {Validation} from "src/declarations/app";
 import {checkIfNotEmpty, checkLength} from 'src/utils/validation'
-import {Adresse} from "src/declarations/p2000";
+
+import {Adresse} from "src/declarations/sed";
 
 export interface ValidationAdresseProps {
   adresse?: Adresse

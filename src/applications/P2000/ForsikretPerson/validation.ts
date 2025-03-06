@@ -1,5 +1,4 @@
 import {Validation} from "src/declarations/app";
-import {Person, PIN} from "src/declarations/p2000";
 import performValidation from "src/utils/performValidation";
 import {
   validateUtenlandskePINs,
@@ -15,6 +14,7 @@ import {
   ValidationTelefonNumreProps
 } from "src/applications/P2000/Telefon/validation";
 import {validateEpostAdresser, ValidationEpostAdresserProps} from "src/applications/P2000/Epost/validation";
+import {Person, PIN} from "src/declarations/sed";
 
 export interface ValidationForsikretPersonProps {
   forsikretPerson: Person | undefined

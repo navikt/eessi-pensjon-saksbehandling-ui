@@ -5,7 +5,6 @@ import {Box, Button, Heading, Radio, RadioGroup, VStack} from "@navikt/ds-react"
 import {State} from "src/declarations/reducers";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useAppSelector} from "src/store";
-import {Bank} from "src/declarations/p2000";
 import _ from "lodash";
 import Input from "../../../components/Forms/Input";
 import Adresse from "../Adresse/Adresse";
@@ -21,6 +20,7 @@ import {
   ValidationSwiftProps
 } from "./validation";
 import {TopAlignedGrid} from "src/components/StyledComponents";
+import {Bank} from "src/declarations/sed";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status

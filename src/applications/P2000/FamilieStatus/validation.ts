@@ -1,7 +1,7 @@
 import {Validation} from "src/declarations/app";
 import {checkIfNotEmpty, checkValidDateFormat} from 'src/utils/validation'
-import {Sivilstand} from "src/declarations/p2000";
 import {getIdx} from "src/utils/namespace";
+import {Sivilstand} from "src/declarations/sed";
 
 export interface ValidationFamilieStatusArrayProps {
   sivilstandArray: Array<Sivilstand> | undefined

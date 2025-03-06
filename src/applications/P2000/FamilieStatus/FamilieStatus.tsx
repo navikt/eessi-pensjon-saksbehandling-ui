@@ -3,7 +3,6 @@ import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
-import {Sivilstand} from "src/declarations/p2000";
 import {getIdx} from "src/utils/namespace";
 import {RepeatableBox, TopAlignedGrid} from "src/components/StyledComponents";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
@@ -25,6 +24,7 @@ import {hasNamespaceWithErrors} from "src/utils/validation";
 import ErrorLabel from "src/components/Forms/ErrorLabel";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
 import FormTextBox from "src/components/Forms/FormTextBox";
+import {Sivilstand} from "src/declarations/sed";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status

@@ -1,6 +1,6 @@
 import {Validation} from "src/declarations/app";
-import {Person} from "src/declarations/p2000";
 import {checkIfNotEmpty, checkLength, checkValidDateFormat} from "src/utils/validation";
+import {Person} from "src/declarations/sed";
 
 export interface ValidationPersonProps {
   person: Person | undefined

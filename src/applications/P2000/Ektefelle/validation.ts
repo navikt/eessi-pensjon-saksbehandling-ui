@@ -1,10 +1,10 @@
 import {Validation} from "src/declarations/app";
-import {Ektefelle, Person} from "src/declarations/p2000";
 import _ from "lodash";
 import performValidation from "../../../utils/performValidation";
 import {validateFoedested, ValidationFoedestedProps} from "../Foedested/validation";
 import {validatePerson, ValidationPersonProps} from "../PersonOpplysninger/validation";
 import {addError} from "src/utils/validation";
+import {Ektefelle, Person} from "src/declarations/sed";
 
 
 

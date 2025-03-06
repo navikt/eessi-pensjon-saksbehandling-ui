@@ -1,7 +1,6 @@
 import {VStack, Heading, Radio, RadioGroup, Box} from "@navikt/ds-react";
 import React, {useEffect} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
-import {Ektefelle as P2000Ektefelle} from "src/declarations/p2000";
 import _ from "lodash";
 import {State} from "src/declarations/reducers";
 import {useDispatch} from "react-redux";
@@ -16,6 +15,7 @@ import PersonOpplysninger from "../PersonOpplysninger/PersonOpplysninger";
 import FoedestedFC from "../Foedested/Foedested";
 import Statsborgerskap from "../Statsborgerskap/Statsborgerskap";
 import {deletePSEDProp} from "src/actions/buc";
+import {Ektefelle as P2000Ektefelle} from "src/declarations/sed";
 
 
 const mapState = (state: State): MainFormSelector => ({

@@ -4,7 +4,6 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import {useAppSelector} from "src/store";
 import Input from "src/components/Forms/Input";
-import {Person} from "src/declarations/p2000";
 import {BodyLong, Heading, Label, VStack} from "@navikt/ds-react";
 import {Country} from "@navikt/land-verktoy";
 import {Validation} from "src/declarations/app";
@@ -12,6 +11,7 @@ import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import {TopAlignedGrid} from "src/components/StyledComponents";
 import FormTextBox from "src/components/Forms/FormTextBox";
+import {Person} from "src/declarations/sed";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status

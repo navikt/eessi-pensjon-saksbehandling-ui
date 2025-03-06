@@ -1,7 +1,7 @@
-import {PIN} from "../../../declarations/p2000";
 import { Validation} from 'src/declarations/app'
 import { getIdx } from 'src/utils/namespace'
 import {checkIfDuplicate, checkIfNotEmpty, checkIfNotGB, checkLength} from 'src/utils/validation'
+import {PIN} from "src/declarations/sed";
 
 export interface ValidationUtenlandskPINProps {
   pin: PIN | null | undefined

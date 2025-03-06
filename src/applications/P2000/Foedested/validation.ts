@@ -1,7 +1,7 @@
-import {Foedested} from 'src/declarations/p2000'
 import {Validation} from "src/declarations/app";
 import {checkIfNotEmpty, checkLength} from 'src/utils/validation'
 import _ from "lodash";
+import {Foedested} from "src/declarations/sed";
 
 export interface ValidationFoedestedProps {
   foedested: Foedested | null | undefined,

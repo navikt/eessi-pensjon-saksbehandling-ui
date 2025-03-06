@@ -1,7 +1,6 @@
 import {Box, Heading, HGrid, VStack} from "@navikt/ds-react";
 import React from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
-import {Person} from "src/declarations/p2000";
 import _ from "lodash";
 import {State} from "src/declarations/reducers";
 import {useDispatch} from "react-redux";
@@ -19,6 +18,7 @@ import Input from "src/components/Forms/Input";
 import {useTranslation} from "react-i18next";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import {Country} from "@navikt/land-verktoy";
+import {Person} from "src/declarations/sed";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,

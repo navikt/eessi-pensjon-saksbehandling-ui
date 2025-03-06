@@ -1,7 +1,7 @@
 import {Validation} from "src/declarations/app";
 import {checkIfNotEmail, checkIfNotEmpty} from 'src/utils/validation'
-import {Email} from "src/declarations/p2000";
 import {getIdx} from "src/utils/namespace";
+import {Email} from "src/declarations/sed";
 
 export interface ValidationEpostProps {
   epost: Email | undefined

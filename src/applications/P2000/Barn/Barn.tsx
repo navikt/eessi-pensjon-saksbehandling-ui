@@ -5,7 +5,6 @@ import React, {Fragment, useEffect, useState} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useTranslation} from "react-i18next";
 import {useAppSelector} from "src/store";
-import {Barn as P2000Barn} from "../../../declarations/p2000";
 import {getIdx} from "src/utils/namespace";
 import {State} from "src/declarations/reducers";
 import PersonOpplysninger from "../PersonOpplysninger/PersonOpplysninger";
@@ -27,6 +26,7 @@ import {Validation} from "src/declarations/app";
 import useUnmount from "../../../hooks/useUnmount";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
 import FormTextBox from "src/components/Forms/FormTextBox";
+import {Barn as P2000Barn} from "src/declarations/sed";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
