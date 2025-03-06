@@ -97,16 +97,16 @@ const P8000: React.FC<P8000Props> = ({
     "nb": CountryData.getCountryInstance('nb'),
     "en": CountryData.getCountryInstance('en'),
   }
-  
+
   useEffect(() => {
     if(currentPSED && currentPSED.fritekst && !_fritekstLoaded){
       setFritekst(currentPSED.fritekst)
       setFritekstLoaded(true)
     }
 
-    if(currentPSED && !currentPSED?.type?.ytelse){
-      currentPSED?.type?.spraak ? setTypeProperty("spraak", currentPSED?.type?.spraak) : setTypeProperty("spraak", "nb")
-      currentPSED?.type?.bosettingsstatus ? setTypeProperty("bosettingsstatus", currentPSED?.type?.bosettingsstatus) : setTypeProperty("bosettingsstatus", "UTL")
+    if(currentPSED && !currentPSED?.options?.type?.ytelse){
+      currentPSED?.options?.type?.spraak ? setTypeProperty("spraak", currentPSED?.options?.type?.spraak) : setTypeProperty("spraak", "nb")
+      currentPSED?.options?.type?.bosettingsstatus ? setTypeProperty("bosettingsstatus", currentPSED?.options?.type?.bosettingsstatus) : setTypeProperty("bosettingsstatus", "UTL")
       if(bucType === "03"){
         setTypeProperty("ytelse", "UT")
       } else if(bucType === "01"){
@@ -118,11 +118,11 @@ const P8000: React.FC<P8000Props> = ({
   }, [currentPSED, bucType])
 
   useEffect(() => {
-    const P8000Type: P8000Type = currentPSED?.type
+    const P8000Type: P8000Type | undefined = currentPSED?.options?.type
     if(P8000Type && bucType && P8000Type.ytelse && P8000Type.bosettingsstatus && P8000Type.spraak){
       setType(P8000Type.ytelse + "_" + P8000Type.bosettingsstatus + "_" + bucType)
     }
-  }, [currentPSED, currentPSED?.type])
+  }, [currentPSED?.options?.type])
 
   useEffect(() => {
     if(sed){
@@ -134,14 +134,14 @@ const P8000: React.FC<P8000Props> = ({
   }, [sed])
 
   useEffect(() => {
-    if(i18n.language !== currentPSED?.type?.spraak){
-      i18n.changeLanguage(currentPSED?.type?.spraak)
+    if(i18n.language !== currentPSED?.options?.type?.spraak){
+      i18n.changeLanguage(currentPSED?.options?.type?.spraak)
     }
 
     let text = ""
-    if(currentPSED && currentPSED.ofteEtterspurtInformasjon){
+    if(currentPSED && currentPSED.options?.ofteEtterspurtInformasjon){
       P8000Variants[_type]?.ofteEtterspurtInformasjon?.map((field: string) => {
-        const ofteEtterspurtInformasjon: OfteEtterspurtInformasjon = currentPSED?.ofteEtterspurtInformasjon
+        const ofteEtterspurtInformasjon: OfteEtterspurtInformasjon | undefined = currentPSED?.options?.ofteEtterspurtInformasjon
         const key: keyof OfteEtterspurtInformasjon = field as keyof OfteEtterspurtInformasjon
 
         if(ofteEtterspurtInformasjon && ofteEtterspurtInformasjon[key] && ofteEtterspurtInformasjon[key]?.value){
@@ -157,9 +157,9 @@ const P8000: React.FC<P8000Props> = ({
         }
       })
     }
-    if(currentPSED && currentPSED.informasjonSomKanLeggesInn){
+    if(currentPSED && currentPSED.options?.informasjonSomKanLeggesInn){
       P8000Variants[_type]?.informasjonSomKanLeggesInn?.map((field: string) => {
-        const informasjonSomKanLeggesInn: InformasjonSomKanLeggesInn = currentPSED?.informasjonSomKanLeggesInn
+        const informasjonSomKanLeggesInn: InformasjonSomKanLeggesInn | undefined = currentPSED?.options?.informasjonSomKanLeggesInn
         const key: keyof InformasjonSomKanLeggesInn = field as keyof InformasjonSomKanLeggesInn
 
         if(informasjonSomKanLeggesInn && informasjonSomKanLeggesInn[key] && informasjonSomKanLeggesInn[key]?.value){
@@ -190,13 +190,13 @@ const P8000: React.FC<P8000Props> = ({
   }
 
   const setTypeProperty = (property: string, propValue: string) => {
-    dispatch(updatePSED(`type.${property}`, propValue))
+    dispatch(updatePSED(`options.type.${property}`, propValue))
   }
 
   const resetP8000 = () => {
     dispatch(updatePSED("pensjon.anmodning.seder[0].sendFolgendeSEDer", []))
-    dispatch(updatePSED("ofteEtterspurtInformasjon", undefined))
-    dispatch(updatePSED("informasjonSomKanLeggesInn", undefined))
+    dispatch(updatePSED("options.ofteEtterspurtInformasjon", undefined))
+    dispatch(updatePSED("options.informasjonSomKanLeggesInn", undefined))
   }
 
   const onToggle = (property: string, propValue: string) => {
@@ -276,19 +276,19 @@ const P8000: React.FC<P8000Props> = ({
         >
           <VStack gap="4">
             <Heading level="1" size="medium">{t('p8000:form-heading-p8000')} ({buc.type?.toUpperCase()} - {t('buc:buc-' + buc.type?.toUpperCase())})</Heading>
-            {currentPSED && currentPSED.type &&
+            {currentPSED && currentPSED.options && currentPSED.options.type &&
               <HStack gap="4">
-                <ToggleGroup value={currentPSED?.type?.spraak} onChange={(v)=> onToggle("spraak", v)} label={t('p8000:form-label-velg-spraak')}>
+                <ToggleGroup value={currentPSED?.options?.type?.spraak} onChange={(v)=> onToggle("spraak", v)} label={t('p8000:form-label-velg-spraak')}>
                   <ToggleGroup.Item value="nb" label={t('p8000:form-label-spraak-norsk')} />
                   <ToggleGroup.Item value="en" label={t('p8000:form-label-spraak-engelsk')} />
                 </ToggleGroup>
                 {bucType !== "03" && bucType !== "01" &&
-                  <ToggleGroup value={currentPSED?.type?.ytelse} onChange={(v)=> onToggle("ytelse", v)} label={t('p8000:form-label-velg-ytelse')}>
+                  <ToggleGroup value={currentPSED?.options?.type?.ytelse} onChange={(v)=> onToggle("ytelse", v)} label={t('p8000:form-label-velg-ytelse')}>
                     <ToggleGroup.Item value="AP" label={t('p8000:form-label-ytelse-alderspensjon')} />
                     <ToggleGroup.Item value="UT" label={t('p8000:form-label-ytelse-ufoere')} />
                   </ToggleGroup>
                 }
-                <ToggleGroup value={currentPSED?.type?.bosettingsstatus} onChange={(v)=> onToggle("bosettingsstatus", v)} label={t('p8000:form-label-velg-bosettingsstatus')}>
+                <ToggleGroup value={currentPSED?.options?.type?.bosettingsstatus} onChange={(v)=> onToggle("bosettingsstatus", v)} label={t('p8000:form-label-velg-bosettingsstatus')}>
                   <ToggleGroup.Item value="NO" label={t('p8000:form-label-bosettingsstatus-norge')} />
                   <ToggleGroup.Item value="UTL" label={t('p8000:form-label-bosettingsstatus-utland')} />
                 </ToggleGroup>
@@ -312,18 +312,18 @@ const P8000: React.FC<P8000Props> = ({
                     {label: P5000, value: P5000, component: SendFolgendeSEDer, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'},
                     {label: P4000, value: P4000, component: SendFolgendeSEDer, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'} ,
                     {label: P6000, value: P6000, component: SendFolgendeSEDer, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'} ,
-                    {label: "Brukers adresse", value: BRUKERS_ADRESSE, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                    {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                    {label: "Opplysninger om tiltak", value: TILTAK, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                    {label: "Nåværende arbeid: Arbeidstimer per uke og månedsinntekt", value: NAAVAERENDE_ARBEID, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                    {label: "Dokumentasjon på arbeid i Norge", value: DOKUMENTASJON_PAA_ARBEID_I_NORGE, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                    {label: "Ytelseshistorikk adresse", value: YTELSESHISTORIKK, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                    {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: CheckboxWithCountryAndPeriods, target: 'ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: true, showMonths: false}},
-                    {label: "IBAN og SWIFT", value: IBAN_SWIFT, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                    {label: "Folkbokföring (SE)", value: FOLKBOKFOERING, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                    {label: "Brukers sivilstand", value: BRUKERS_SIVILSTAND, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
-                    {label: "Opplysninger om EPS", value: OPPLYSNINGER_OM_EPS, component: CheckboxWithCountryAndPeriods, target: 'ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: false, showMonths: false}},
-                    {label: "Person uten p.nr/d.nr", value: PERSON_UTEN_PNR_DNR, component: CheckBoxField, target: 'ofteEtterspurtInformasjon'},
+                    {label: "Brukers adresse", value: BRUKERS_ADRESSE, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                    {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                    {label: "Opplysninger om tiltak", value: TILTAK, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                    {label: "Nåværende arbeid: Arbeidstimer per uke og månedsinntekt", value: NAAVAERENDE_ARBEID, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                    {label: "Dokumentasjon på arbeid i Norge", value: DOKUMENTASJON_PAA_ARBEID_I_NORGE, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                    {label: "Ytelseshistorikk adresse", value: YTELSESHISTORIKK, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                    {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: true, showMonths: false}},
+                    {label: "IBAN og SWIFT", value: IBAN_SWIFT, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                    {label: "Folkbokföring (SE)", value: FOLKBOKFOERING, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                    {label: "Brukers sivilstand", value: BRUKERS_SIVILSTAND, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                    {label: "Opplysninger om EPS", value: OPPLYSNINGER_OM_EPS, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: false, showMonths: false}},
+                    {label: "Person uten p.nr/d.nr", value: PERSON_UTEN_PNR_DNR, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
                   ]}
                   variant={P8000Variants[_type]?.ofteEtterspurtInformasjon}
                   PSED={currentPSED}
@@ -343,8 +343,8 @@ const P8000: React.FC<P8000Props> = ({
                 <Heading level="2" size="small">{t('p8000:form-heading-informasjon-som-kan-legges-inn')}</Heading>
                 <P8000Fields
                   fields={[
-                    {label: "Legg til saksbehandlingstid", value: SAKSBEHANDLINGSTID, component: CheckboxWithCountryAndPeriods, target: 'informasjonSomKanLeggesInn', options: {showCountry: false, showPeriod: false, showMonths: true}},
-                    {label: "P5000 trengs for å fylle ut P5000NO", value: P5000_FOR_P5000NO, component: CheckBoxField, target: 'informasjonSomKanLeggesInn'},
+                    {label: "Legg til saksbehandlingstid", value: SAKSBEHANDLINGSTID, component: CheckboxWithCountryAndPeriods, target: 'options.informasjonSomKanLeggesInn', options: {showCountry: false, showPeriod: false, showMonths: true}},
+                    {label: "P5000 trengs for å fylle ut P5000NO", value: P5000_FOR_P5000NO, component: CheckBoxField, target: 'options.informasjonSomKanLeggesInn'},
                   ]}
                   variant={P8000Variants[_type]?.informasjonSomKanLeggesInn}
                   PSED={currentPSED}

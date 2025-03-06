@@ -47,26 +47,28 @@ export default {
     "gjenlevende": null,
     "anmodning": {
       seder: [
-        {sendFolgendeSEDer: ["P5000"]}
+        {sendFolgendeSEDer: ["p5000"]}
       ]
     },
     "ytterligeinformasjon": "SOME PREDEFINED TEXTS HERE \n\n SOME MORE PREDEFINED TEXTS HERE *********\n ADDITIONAL TEXT COME HERE",
     "vedlegg": null
   },
-  type: {
-    bosettingsstatus: "UTL",
-    spraak: "nb"
-  },
-  "ofteEtterspurtInformasjon": {
-    "tiltak": {
-      value: true
+  "options": {
+    "type": {
+      bosettingsstatus: "UTL",
+      spraak: "nb"
     },
-    "inntektFoerUfoerhetIUtlandet": {
-      value: true,
-      landkode: "NO",
-      periodeFra: "1980",
-      periodeTil: "2025"
-    }
+    "ofteEtterspurtInformasjon": {
+      "tiltak": {
+        value: true
+      },
+      "inntektFoerUfoerhetIUtlandet": {
+        value: true,
+        landkode: "NO",
+        periodeFra: "1980",
+        periodeTil: "2025"
+      }
+    },
   },
   "sedGVer": "4",
   "sedVer": "3"
