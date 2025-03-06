@@ -22,8 +22,8 @@ export const SendFolgendeSEDer: React.FC<P8000FieldComponentProps> = ({
   }
   return (
     <Checkbox
-      checked={!!_.find(sendFolgendeSEDer, (sed) => sed === value)}
-      value={value}
+      checked={!!_.find(sendFolgendeSEDer, (sed) => sed === value.toLowerCase())}
+      value={value.toLowerCase()}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCheckbox(value, e.target.checked)}
     >
       {label}
