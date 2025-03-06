@@ -1,4 +1,5 @@
-import {Sed} from "src/declarations/buc";
+import {BaseSED, Nav, Pensjon} from "src/declarations/sed";
+
 import {
   BRUKERS_ADRESSE,
   BRUKERS_SIVILSTAND,
@@ -19,15 +20,12 @@ import {
 export interface SendFolgendeSEDer {
   sendFolgendeSEDer: Array<string>
 }
-export interface Pensjon {
+
+export interface P8000Pensjon extends Pensjon{
   anmodning: {
     seder: Array<SendFolgendeSEDer>
   }
   ytterligeinformasjon: string | undefined
-}
-
-export interface Nav {
-
 }
 
 export interface P8000Field {
@@ -69,16 +67,11 @@ export interface P8000Type {
 
 export interface P8000SED extends BaseSED{
   nav: Nav,
-  pensjon: Pensjon
-  ofteEtterspurtInformasjon: OfteEtterspurtInformasjon
-  informasjonSomKanLeggesInn: InformasjonSomKanLeggesInn
-  type: P8000Type
+  pensjon: P8000Pensjon
+  options?: {
+    ofteEtterspurtInformasjon: OfteEtterspurtInformasjon
+    informasjonSomKanLeggesInn: InformasjonSomKanLeggesInn
+    type?: P8000Type
+  }
   fritekst?: string // Remove before save
-}
-
-export interface BaseSED {
-  sed: string
-  sedGVer: string
-  sedVer: string
-  originalSed: Sed // removed before SAVE
 }
