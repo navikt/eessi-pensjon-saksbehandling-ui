@@ -141,5 +141,16 @@
     "youComeFrom": "Du kommer fra ",
     "yrke": "Yrke",
 
+    "editingItem-epost": "Epost",
+    "editingItem-telefon": "Telefon",
+    "editingItem-statsborgerskap": "Statsborgerskap",
+    "editingItem-utenlandskepin": "Utenlandske PIN",
+    "editingItem-barn": "Barn",
+    "editingItem-ytelse": "Ytelse",
+    "editingItem-arbeidsforhold": "Arbeidsforhold",
+    "editingItem-utsettelse": "Utsettelse",
+    "editingItem-institusjon": "Institusjon",
+    "editingItem-sivilstand": "Familiestatus",
+
     "placeholder-date-default": "DD.MM.ÅÅÅÅ"
 }
