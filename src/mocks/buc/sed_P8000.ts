@@ -14,6 +14,14 @@ export default {
             "identifikator": "16446208164",
             "land": "NO",
             "institusjon": null
+          },
+          {
+            "institusjonsnavn": null,
+            "institusjonsid": null,
+            "sektor": null,
+            "identifikator": "16446208165",
+            "land": "SE",
+            "institusjon": null
           }
         ],
         "pinland": null,

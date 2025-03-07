@@ -6,7 +6,7 @@ import {State} from "src/declarations/reducers";
 import {useDispatch} from "react-redux";
 import {resetValidation, setValidation} from "src/actions/validation";
 import {useAppSelector} from "src/store";
-import UtenlandskePin from "../UtenlandskePin/UtenlandskePin";
+import UtenlandskePin from "src/components/UtenlandskePin/UtenlandskePin";
 import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
 import {validateEktefelle, ValidationEktefelleProps} from "./validation";

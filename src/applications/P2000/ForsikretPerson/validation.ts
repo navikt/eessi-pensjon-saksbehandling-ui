@@ -3,7 +3,7 @@ import performValidation from "src/utils/performValidation";
 import {
   validateUtenlandskePINs,
   ValidationUtenlandskePINsProps
-} from "src/applications/P2000/UtenlandskePin/validation";
+} from "src/components/UtenlandskePin/validation";
 import _ from "lodash";
 import {
   validateFamilieStatusArray,

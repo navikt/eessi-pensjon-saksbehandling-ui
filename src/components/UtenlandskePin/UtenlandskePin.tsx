@@ -19,12 +19,16 @@ import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
 import {PSED, Validation} from "src/declarations/app";
 import {State} from "src/declarations/reducers";
-import {MainFormSelector} from "../MainForm";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
 import FormTextBox from "src/components/Forms/FormTextBox";
 import {Person, PIN} from "src/declarations/sed";
+
+export interface MainFormSelector {
+  validation: Validation
+  editingItems?: any
+}
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
