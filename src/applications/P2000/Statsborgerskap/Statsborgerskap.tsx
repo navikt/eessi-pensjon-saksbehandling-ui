@@ -205,7 +205,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
                 id={_namespace + '-land'}
                 countryCodeListName="statsborgerskap"
                 hideLabel={index >= 0}
-                label={t('p2000:form-utenlandske-pin-land')}
+                label={t('buc:form-utenlandske-pin-land')}
                 onOptionSelected={(e: Country) => setStatsborgerskapLand(e.value, index)}
                 values={_statsborgerskap?.land}
               />
