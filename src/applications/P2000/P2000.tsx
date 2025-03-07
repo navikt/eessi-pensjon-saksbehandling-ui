@@ -23,7 +23,7 @@ import Ektefelle from "./Ektefelle/Ektefelle";
 import Barn from "./Barn/Barn";
 import InformasjonOmBetaling from "./InformasjonOmBetaling/InformasjonOmBetaling";
 import SakInfo from "./SakInfo/SakInfo";
-import SaveSEDModal from "./SaveSEDModal";
+import SaveSEDModal from "../../components/SaveAndSendSED/SaveSEDModal";
 import Diverse from "./Diverse/Diverse";
 import WarningModal from "src/applications/P2000/WarningModal";
 import {resetEditingItems} from "src/actions/app";

@@ -357,6 +357,9 @@ export const saveSed = (
 ): Action => {
   const copyPSED = _.cloneDeep(payload)
   delete copyPSED.originalSed
+  if(copyPSED.fritekst){
+    delete copyPSED.fritekst
+  }
   return call({
     url: sprintf(urls.BUC_PUT_SED_URL, { caseId, sedId }),
     method: 'PUT',

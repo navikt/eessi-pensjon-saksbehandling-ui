@@ -35,6 +35,7 @@ import {SendFolgendeSEDer} from "src/applications/P8000/components/SendFolgendeS
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
 import UtenlandskePin from "src/components/UtenlandskePin/UtenlandskePin";
+import SaveAndSendSED from "src/components/SaveAndSendSED/SaveAndSendSED";
 
 export interface P8000Props {
   buc: Buc
@@ -380,9 +381,16 @@ const P8000: React.FC<P8000Props> = ({
                 <Textarea label={t('p8000:form-forhaandsvisning-av-tekst')} value={_ytterligereInformasjon ?? ""} maxLength={2500}/>
               </VStack>
             </Box>
-
           </>
         }
+        <SaveAndSendSED
+          namespace={namespace}
+          sakId={buc!.caseId!}
+          sedId={sed!.id}
+          sedType={sed!.type}
+          setMode={setMode}
+          validateCurrentPSED={() => {console.log("VALIDATE TRUE"); return false}}
+        />
       </VStack>
     </>
   )
