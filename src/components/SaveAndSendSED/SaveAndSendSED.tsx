@@ -9,7 +9,7 @@ import {P8000SED} from "src/declarations/p8000";
 import _ from "lodash";
 import {fetchBuc, saveSed, sendSed} from "src/actions/buc";
 import {State} from "src/declarations/reducers";
-import WarningModal from "src/applications/P2000/WarningModal";
+import WarningModal from "src/components/SaveAndSendSED/WarningModal";
 import {resetValidation} from "src/actions/validation";
 import {resetEditingItems} from "src/actions/app";
 import {BUCMode} from "src/declarations/app";
