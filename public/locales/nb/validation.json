@@ -1,7 +1,7 @@
 {
   "duplicate-p2000-ytelse-beloep": "Duplikat beløp",
   "duplicate-p2000-statsborgerskap-land": "Land allerede lagt til",
-  "duplicate-p2000-utenlandskepin-land": "Land allerede lagt til",
+  "duplicate-utenlandskepin-land": "Land allerede lagt til",
 
   "invalidDateFormat": "Ugyldig datoformat (DD.MM.YYYY / DD.MM.YY / DDMMYY)",
 
@@ -12,7 +12,7 @@
   "invalid-p2000-epost-adresse": "Ugyldig epost",
   "invalid-p2000-statsborgerskap-land": "Ugyldig land",
   "invalid-p2000-telefon-nummer": "Ugyldig telefonnummer",
-  "invalid-p2000-utenlandskepin-land": "Ugyldig land",
+  "invalid-utenlandskepin-land": "Ugyldig land",
 
   "missing-p2000-adresse-by": "Mangler by",
   "missing-p2000-adresse-gate": "Mangler gate",
@@ -46,8 +46,6 @@
   "missing-p2000-statsborgerskap-land": "Mangler land",
   "missing-p2000-telefon-nummer": "Mangler telefonnummer",
   "missing-p2000-telefon-type": "Mangler telefontype",
-  "missing-p2000-utenlandskepin-id": "Mangler identifikator",
-  "missing-p2000-utenlandskepin-land": "Mangler land",
   "missing-p2000-verge-person-etternavn": "Mangler etternavn",
   "missing-p2000-verge-person-fornavn": "Mangler fornavn",
   "missing-p2000-ytelse-beloep-beloep": "Mangler beløp",
@@ -57,6 +55,8 @@
   "missing-p2000-ytelse-ytelse": "Mangler ytelse",
   "missing-p2000-ytelse-status": "Mangler status",
   "missing-p2000-ytelse-mottasbasertpaa": "Mangler hva pensjonen mottas basert på",
+  "missing-utenlandskepin-id": "Mangler identifikator",
+  "missing-utenlandskepin-land": "Mangler land",
 
   "textOverX": "Tekststørrelse over {{x}} tegn"
 }

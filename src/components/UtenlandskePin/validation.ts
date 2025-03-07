@@ -28,7 +28,7 @@ export const validateUtenlandskPIN = (
   hasErrors.push(checkIfNotEmpty(v, {
     needle: pin?.identifikator,
     id: namespace + idx + '-identifikator',
-    message: 'validation:missing-p2000-utenlandskepin-id'
+    message: 'validation:missing-utenlandskepin-id'
   }))
 
   hasErrors.push(checkLength(v, {
@@ -41,13 +41,13 @@ export const validateUtenlandskPIN = (
   hasErrors.push(checkIfNotEmpty(v, {
     needle: pin?.land,
     id: namespace + idx + '-land',
-    message: 'validation:missing-p2000-utenlandskepin-land'
+    message: 'validation:missing-utenlandskepin-land'
   }))
 
   hasErrors.push(checkIfNotGB(v, {
     needle: pin?.land,
     id: namespace + idx + '-land',
-    message: 'validation:invalid-p2000-utenlandskepin-land'
+    message: 'validation:invalid-utenlandskepin-land'
   }))
 
   hasErrors.push(checkIfDuplicate(v, {
@@ -56,7 +56,7 @@ export const validateUtenlandskPIN = (
     matchFn: (_pin: PIN) => _pin.land === pin?.land,
     index,
     id: namespace + idx + '-land',
-    message: 'validation:duplicate-p2000-utenlandskepin-land',
+    message: 'validation:duplicate-utenlandskepin-land',
   }))
 
   return hasErrors.find(value => value) !== undefined
