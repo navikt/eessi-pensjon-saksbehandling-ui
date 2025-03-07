@@ -13,7 +13,7 @@ import {useDispatch} from "react-redux";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import classNames from "classnames";
 import {RepeatableBoxWithBorder} from "src/components/StyledComponents";
-import UtenlandskePin from "../UtenlandskePin/UtenlandskePin";
+import UtenlandskePin from "src/components/UtenlandskePin/UtenlandskePin";
 import Foedested from "../Foedested/Foedested";
 import Statsborgerskap from "../Statsborgerskap/Statsborgerskap";
 import DateField from "../DateField/DateField";

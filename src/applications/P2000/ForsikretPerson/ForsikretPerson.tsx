@@ -6,7 +6,7 @@ import {State} from "src/declarations/reducers";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "src/store";
 import {setValidation} from "src/actions/validation";
-import UtenlandskePin from "../UtenlandskePin/UtenlandskePin";
+import UtenlandskePin from "src/components/UtenlandskePin/UtenlandskePin";
 import FamilieStatus from "../FamilieStatus/FamilieStatus";
 import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";

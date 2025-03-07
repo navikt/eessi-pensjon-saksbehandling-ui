@@ -34,6 +34,7 @@ import CountryData from "@navikt/land-verktoy";
 import {SendFolgendeSEDer} from "src/applications/P8000/components/SendFolgendeSEDer";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
+import UtenlandskePin from "src/components/UtenlandskePin/UtenlandskePin";
 
 export interface P8000Props {
   buc: Buc
@@ -352,6 +353,20 @@ const P8000: React.FC<P8000Props> = ({
                   namespace={namespace + '-informasjonSomKanLeggesInn'}
                 />
               </VStack>
+            </Box>
+            <Box
+              borderWidth="1"
+              borderRadius="medium"
+              borderColor="border-default"
+              background="bg-default"
+              padding="4"
+            >
+              <UtenlandskePin
+                PSED={currentPSED}
+                parentNamespace={namespace}
+                parentTarget="nav.bruker"
+                updatePSED={updatePSED}
+              />
             </Box>
             <Box
               borderWidth="1"
