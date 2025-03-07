@@ -36,6 +36,7 @@ import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
 import UtenlandskePin from "src/components/UtenlandskePin/UtenlandskePin";
 import UtenlandskeSaksnr from "src/applications/P8000/components/UtenlandskeSaksnr/UtenlandskeSaksnr";
+import SaveAndSendSED from "src/components/SaveAndSendSED/SaveAndSendSED";
 
 export interface P8000Props {
   buc: Buc
@@ -54,24 +55,14 @@ export interface P8000FieldComponentProps {
 }
 
 export interface P8000Selector {
-  PSEDChanged: boolean
   currentPSED: P8000SED
-  savingSed: boolean
-  sendingSed: boolean
-  PSEDSendResponse: any | null | undefined
-  PSEDSavedResponse: any | null | undefined
   gettingSed: boolean
   validation: Validation
   aktoerId: string
 }
 
 const mapState = (state: State): P8000Selector => ({
-  PSEDChanged: state.buc.PSEDChanged,
   currentPSED: state.buc.PSED as P8000SED,
-  savingSed: state.loading.savingSed,
-  sendingSed: state.loading.sendingSed,
-  PSEDSendResponse: state.buc.PSEDSendResponse,
-  PSEDSavedResponse: state.buc.PSEDSavedResponse,
   gettingSed: state.loading.gettingSed,
   validation: state.validation.status,
   aktoerId: state.app.params.aktoerId
@@ -395,9 +386,16 @@ const P8000: React.FC<P8000Props> = ({
                 <Textarea label={t('p8000:form-forhaandsvisning-av-tekst')} value={_ytterligereInformasjon ?? ""} maxLength={2500}/>
               </VStack>
             </Box>
-
           </>
         }
+        <SaveAndSendSED
+          namespace={namespace}
+          sakId={buc!.caseId!}
+          sedId={sed!.id}
+          sedType={sed!.type}
+          setMode={setMode}
+          validateCurrentPSED={() => {return false}}
+        />
       </VStack>
     </>
   )

@@ -10,12 +10,12 @@ export const SendFolgendeSEDer: React.FC<P8000FieldComponentProps> = ({
   const dispatch = useDispatch()
   const sendFolgendeSEDer: Array<string> = _.get(PSED, target)
 
-  const setCheckbox = (sed: string, checked: boolean) => {
+  const setCheckbox = (sType: string, checked: boolean) => {
     let sedArr = sendFolgendeSEDer ? [...sendFolgendeSEDer] : []
     if(checked){
-      sedArr.push(value)
+      sedArr.push(sType)
     } else {
-      sedArr = sedArr.filter((sedType: string) => sedType !== value)
+      sedArr = sedArr.filter((sedType: string) => sedType !== sType)
     }
 
     dispatch(updatePSED(`${target}`, sedArr))
@@ -24,7 +24,7 @@ export const SendFolgendeSEDer: React.FC<P8000FieldComponentProps> = ({
     <Checkbox
       checked={!!_.find(sendFolgendeSEDer, (sed) => sed === value.toLowerCase())}
       value={value.toLowerCase()}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCheckbox(value, e.target.checked)}
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCheckbox(value.toLowerCase(), e.target.checked)}
     >
       {label}
     </Checkbox>

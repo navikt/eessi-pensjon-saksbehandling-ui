@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import {useAppSelector} from "src/store";
 import {State} from "src/declarations/reducers";
-import WarningModal from "src/applications/P2000/WarningModal";
+import WarningModal from "src/components/SaveAndSendSED/WarningModal";
 
 const LeftDiv = styled.div`
   flex: 1;
