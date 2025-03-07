@@ -2,6 +2,7 @@
   "duplicate-p2000-ytelse-beloep": "Duplikat beløp",
   "duplicate-p2000-statsborgerskap-land": "Land allerede lagt til",
   "duplicate-utenlandskepin-land": "Land allerede lagt til",
+  "duplicate-utenlandskesaksnr-land": "Land allerede lagt til",
 
   "invalidDateFormat": "Ugyldig datoformat (DD.MM.YYYY / DD.MM.YY / DDMMYY)",
 
@@ -13,6 +14,7 @@
   "invalid-p2000-statsborgerskap-land": "Ugyldig land",
   "invalid-p2000-telefon-nummer": "Ugyldig telefonnummer",
   "invalid-utenlandskepin-land": "Ugyldig land",
+  "invalid-utenlandskesaksnr-land": "Ugyldig land",
 
   "missing-p2000-adresse-by": "Mangler by",
   "missing-p2000-adresse-gate": "Mangler gate",
@@ -57,6 +59,8 @@
   "missing-p2000-ytelse-mottasbasertpaa": "Mangler hva pensjonen mottas basert på",
   "missing-utenlandskepin-id": "Mangler identifikator",
   "missing-utenlandskepin-land": "Mangler land",
+  "missing-utenlandskesaksnr-saksnr": "Mangler saksnr",
+  "missing-utenlandskesaksnr-land": "Mangler land",
 
   "textOverX": "Tekststørrelse over {{x}} tegn"
 }
