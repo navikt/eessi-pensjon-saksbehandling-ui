@@ -8,12 +8,7 @@ export interface BaseSED {
 }
 
 export interface Nav {
-  eessisak: Array<{
-    institusjonsid?: string
-    institusjonsnavn?: string
-    saksnummer?: string
-    land?: string
-  }>
+  eessisak: Array<PIN>
   bruker: Bruker,
   verge: Verge,
   krav: Krav,

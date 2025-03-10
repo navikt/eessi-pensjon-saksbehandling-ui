@@ -370,7 +370,7 @@ const P8000: React.FC<P8000Props> = ({
               <UtenlandskeSaksnr
                 PSED={currentPSED}
                 parentNamespace={namespace}
-                parentTarget="nav.bruker"
+                parentTarget="nav"
                 updatePSED={updatePSED}
               />
             </Box>

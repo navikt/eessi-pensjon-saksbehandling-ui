@@ -23,7 +23,7 @@ import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
 import FormTextBox from "src/components/Forms/FormTextBox";
-import {Person, PIN} from "src/declarations/sed";
+import {Nav, PIN} from "src/declarations/sed";
 
 export interface MainFormSelector {
   validation: Validation
@@ -43,7 +43,7 @@ export interface UtenlandskeSaksnrProps {
   parentEditMode?: boolean
   updatePSED?: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
   setPersonOpplysninger?: any
-  person?: Person | undefined
+  parentObject?: Nav | undefined
 }
 
 const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
@@ -55,16 +55,16 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
   PSED,
   updatePSED,
   setPersonOpplysninger,
-  person,
+  parentObject
 }: UtenlandskeSaksnrProps): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-pin`
-  const target = `${parentTarget}.person.pin`
+  const target = `${parentTarget}.eessisak`
 
-  const _person:  Person | undefined = person ? person : _.get(PSED, `${parentTarget}.person`)
-  const utenlandskePINs: Array<PIN> = _.filter(_person?.pin, p => p.land !== 'NO')
+  const _parentObject: Nav | undefined = parentObject ? parentObject : _.get(PSED, `${parentTarget}`)
+  const utenlandskePINs: Array<PIN> = _.filter(_parentObject?.eessisak, p => p.land !== 'NO')
 
   const getId = (p: PIN | null): string => p ? p.land + '-' + p.identifikator : 'new'
 
@@ -96,7 +96,7 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
     if (_.isNil(pins)) {
       pins = []
     }
-    const norskPin: PIN | undefined = _person ? _.find(_person.pin, p => p.land === 'NO') : undefined
+    const norskPin: PIN | undefined = _parentObject ? _.find(_parentObject.eessisak, p => p.land === 'NO') : undefined
     if (!_.isEmpty(norskPin)) {
       pins.unshift(norskPin!)
     }
@@ -292,7 +292,7 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
         ? (
           <Box paddingBlock="2">
             <BodyLong>
-              <em>{t('message:warning-no-utenlandskepin')}</em>
+              <em>{t('message:warning-no-utenlandskesaksnr')}</em>
             </BodyLong>
           </Box>
           )

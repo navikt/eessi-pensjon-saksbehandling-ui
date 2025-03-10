@@ -1,7 +1,24 @@
 export default {
   "sed": "P8000",
   "nav": {
-    "eessisak": null,
+    "eessisak": [
+      {
+        "institusjonsnavn": null,
+        "institusjonsid": null,
+        "sektor": null,
+        "identifikator": "16446208166",
+        "land": "NO",
+        "institusjon": null
+      },
+      {
+        "institusjonsnavn": null,
+        "institusjonsid": null,
+        "sektor": null,
+        "identifikator": "16446208167",
+        "land": "DK",
+        "institusjon": null
+      }
+    ],
     "bruker": {
       "mor": null,
       "far": null,
