@@ -1,16 +1,16 @@
 import { Validation} from 'src/declarations/app'
 import { getIdx } from 'src/utils/namespace'
 import {checkIfDuplicate, checkIfNotEmpty, checkIfNotGB, checkLength} from 'src/utils/validation'
-import {PIN} from "src/declarations/sed";
+import {Eessisak, PIN} from "src/declarations/sed";
 
 export interface ValidationUtenlandskSaksnrProps {
-  pin: PIN | null | undefined
-  utenlandskePINs: Array<PIN> | undefined
+  pin: Eessisak | null | undefined
+  utenlandskePINs: Array<Eessisak> | undefined
   index ?: number
 }
 
 export interface ValidationUtenlandskeSaksnrProps {
-  utenlandskePINs: Array<PIN> | undefined
+  utenlandskePINs: Array<Eessisak> | undefined
 }
 
 export const validateUtenlandskSaksnr = (
@@ -26,13 +26,13 @@ export const validateUtenlandskSaksnr = (
   const idx = getIdx(index)
 
   hasErrors.push(checkIfNotEmpty(v, {
-    needle: pin?.identifikator,
+    needle: pin?.saksnummer,
     id: namespace + idx + '-identifikator',
     message: 'validation:missing-utenlandskesaksnr-saksnr'
   }))
 
   hasErrors.push(checkLength(v, {
-    needle: pin?.identifikator,
+    needle: pin?.saksnummer,
     id: namespace + idx + '-identifikator',
     max: 65,
     message: 'validation:textOverX'
@@ -70,7 +70,7 @@ export const validateUtenlandskeSaksnr = (
   }: ValidationUtenlandskeSaksnrProps
 ): boolean => {
 
-  const hasErrors: Array<boolean> = utenlandskePINs?.map((pin: PIN, index: number) => {
+  const hasErrors: Array<boolean> = utenlandskePINs?.map((pin: Eessisak, index: number) => {
     return validateUtenlandskSaksnr(v, namespace, {
       index,
       pin,
