@@ -35,7 +35,7 @@ import {SendFolgendeSEDer} from "src/applications/P8000/components/SendFolgendeS
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
 import UtenlandskePin from "src/components/UtenlandskePin/UtenlandskePin";
-import UtenlandskeSaksnr from "src/applications/P8000/components/UtenlandskeSaksnr/UtenlandskeSaksnr";
+import UtenlandskeSaksnr from "src/components/UtenlandskeSaksnr/UtenlandskeSaksnr";
 import SaveAndSendSED from "src/components/SaveAndSendSED/SaveAndSendSED";
 
 export interface P8000Props {
