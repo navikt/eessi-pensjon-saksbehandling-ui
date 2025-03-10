@@ -5,16 +5,14 @@ export default {
       {
         "institusjonsnavn": null,
         "institusjonsid": null,
-        "sektor": null,
-        "identifikator": "16446208166",
+        "saksnummer": "1644",
         "land": "NO",
         "institusjon": null
       },
       {
         "institusjonsnavn": null,
         "institusjonsid": null,
-        "sektor": null,
-        "identifikator": "16446208167",
+        "saksnummer": "08167",
         "land": "DK",
         "institusjon": null
       }

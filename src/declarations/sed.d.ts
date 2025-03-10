@@ -7,8 +7,15 @@ export interface BaseSED {
   originalSed: Sed // removed before SAVE
 }
 
+export interface Eessisak {
+  institusjonsnavn?: string
+  institusjonsid?: string
+  saksnummer?: string
+  land?: string
+}
+
 export interface Nav {
-  eessisak: Array<PIN>
+  eessisak: Array<Eessisak>
   bruker: Bruker,
   verge: Verge,
   krav: Krav,
