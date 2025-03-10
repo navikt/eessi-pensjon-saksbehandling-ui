@@ -172,7 +172,7 @@ const P8000: React.FC<P8000Props> = ({
   }, [currentPSED, _fritekst])
 
   useEffect(() => {
-    dispatch(updatePSED(`pensjon.ytterligeinformasjon`, _ytterligereInformasjon))
+    dispatch(updatePSED(`pensjon.ytterligeinformasjon`, "\n" + _ytterligereInformasjon))
   }, [_ytterligereInformasjon])
 
   const onBackClick = () => {
