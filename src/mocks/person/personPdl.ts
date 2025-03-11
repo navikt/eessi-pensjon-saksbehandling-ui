@@ -47,8 +47,18 @@ export default {
   },
   statsborgerskap: [
     {
+      land: 'DNK',
+      gyldigFraOgMed: undefined,
+      gyldigTilOgMed: undefined
+    },
+    {
       land: 'NOR',
       gyldigFraOgMed: '1980-02-09',
+      gyldigTilOgMed: '1981-02-09'
+    },
+    {
+      land: 'BEL',
+      gyldigFraOgMed: undefined,
       gyldigTilOgMed: undefined
     }
   ],

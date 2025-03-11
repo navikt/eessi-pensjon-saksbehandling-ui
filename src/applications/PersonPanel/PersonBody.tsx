@@ -147,8 +147,10 @@ const PersonBody: React.FC<PersonBodyProps> = ({
     deathDateString = moment(person.doedsfall.doedsdato).format('DD.MM.YYYY')
   }
   if (!_.isEmpty(person.statsborgerskap)) {
+    let order = 0
     nationality = person.statsborgerskap.map((l: any) => {
-      let label = getCountry(l.land)
+      order += 1
+      let label = (order>1 ? ', ' : "") + getCountry(l.land)
       if (l.gyldigFraOgMed) {
         label += ' (' + moment(l.gyldigFraOgMed).format('DD.MM.YYYY')
       }
