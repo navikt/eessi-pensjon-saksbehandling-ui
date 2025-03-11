@@ -116,14 +116,14 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
         ..._newEessisak,
         saksnummer: newSaksnr.trim()
       })
-      _resetValidation(namespace + '-identifikator')
+      _resetValidation(namespace + '-saksnummer')
       return
     }
     _setEditEessisak({
       ..._editEessisak,
       saksnummer: newSaksnr.trim()
     })
-    dispatch(resetValidation(namespace + getIdx(index) + '-identifikator'))
+    dispatch(resetValidation(namespace + getIdx(index) + '-saksnummer'))
   }
 
   const setUtenlandskLand = (newLand: string, index: number) => {
@@ -167,8 +167,8 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
     const clonedValidation = _.cloneDeep(validation)
     const hasErrors = performValidation<ValidationUtenlandskSaksnrProps>(
       clonedValidation, namespace, validateUtenlandskSaksnr, {
-        pin: _editEessisak,
-        utenlandskePINs: eessisaks,
+        eessisak: _editEessisak,
+        utenlandskeSaksnr: eessisaks,
         index: _editIndex,
       })
     if (_editIndex !== undefined && !!_editEessisak && !hasErrors) {
@@ -188,8 +188,8 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
 
   const onAddNew = () => {
     const valid: boolean = _performValidation({
-      pin: _newEessisak,
-      utenlandskePINs: eessisaks,
+      eessisak: _newEessisak,
+      utenlandskeSaksnr: eessisaks,
     })
     if (!!_newEessisak && valid) {
       let newUtenlandskeSaksnr: Array<Eessisak> = _.cloneDeep(eessisaks) as Array<Eessisak>
@@ -245,8 +245,8 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
           {inEditMode
             ? (
               <Input
-                error={_v[_namespace + '-identifikator']?.feilmelding}
-                id='identifikator'
+                error={_v[_namespace + '-saksnummer']?.feilmelding}
+                id='saksnummer'
                 label={t('buc:form-utenlandske-saksnr-saksnr')}
                 hideLabel={index >= 0}
                 namespace={_namespace}
@@ -256,8 +256,8 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
               )
             : (
               <FormTextBox
-                id={_namespace + '-identifikator'}
-                error={_v[_namespace + '-identifikator']?.feilmelding}
+                id={_namespace + '-saksnummer'}
+                error={_v[_namespace + '-saksnummer']?.feilmelding}
               >
                 <BodyLong>{_eessisak?.saksnummer}</BodyLong>
               </FormTextBox>

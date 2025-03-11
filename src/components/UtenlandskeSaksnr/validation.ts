@@ -1,24 +1,24 @@
 import { Validation} from 'src/declarations/app'
 import { getIdx } from 'src/utils/namespace'
 import {checkIfDuplicate, checkIfNotEmpty, checkIfNotGB, checkLength} from 'src/utils/validation'
-import {Eessisak, PIN} from "src/declarations/sed";
+import {Eessisak} from "src/declarations/sed";
 
 export interface ValidationUtenlandskSaksnrProps {
-  pin: Eessisak | null | undefined
-  utenlandskePINs: Array<Eessisak> | undefined
+  eessisak: Eessisak | null | undefined
+  utenlandskeSaksnr: Array<Eessisak> | undefined
   index ?: number
 }
 
 export interface ValidationUtenlandskeSaksnrProps {
-  utenlandskePINs: Array<Eessisak> | undefined
+  utenlandskeSaksnr: Array<Eessisak> | undefined
 }
 
 export const validateUtenlandskSaksnr = (
   v: Validation,
   namespace: string | undefined,
   {
-    pin,
-    utenlandskePINs,
+    eessisak,
+    utenlandskeSaksnr,
     index
   }: ValidationUtenlandskSaksnrProps
 ): boolean => {
@@ -26,34 +26,34 @@ export const validateUtenlandskSaksnr = (
   const idx = getIdx(index)
 
   hasErrors.push(checkIfNotEmpty(v, {
-    needle: pin?.saksnummer,
-    id: namespace + idx + '-identifikator',
+    needle: eessisak?.saksnummer,
+    id: namespace + idx + '-saksnummer',
     message: 'validation:missing-utenlandskesaksnr-saksnr'
   }))
 
   hasErrors.push(checkLength(v, {
-    needle: pin?.saksnummer,
-    id: namespace + idx + '-identifikator',
+    needle: eessisak?.saksnummer,
+    id: namespace + idx + '-saksnummer',
     max: 65,
     message: 'validation:textOverX'
   }))
 
   hasErrors.push(checkIfNotEmpty(v, {
-    needle: pin?.land,
+    needle: eessisak?.land,
     id: namespace + idx + '-land',
     message: 'validation:missing-utenlandskesaksnr-land'
   }))
 
   hasErrors.push(checkIfNotGB(v, {
-    needle: pin?.land,
+    needle: eessisak?.land,
     id: namespace + idx + '-land',
     message: 'validation:invalid-utenlandskesaksnr-land'
   }))
 
   hasErrors.push(checkIfDuplicate(v, {
-    needle: pin?.land,
-    haystack: utenlandskePINs,
-    matchFn: (_pin: PIN) => _pin.land === pin?.land,
+    needle: eessisak?.land,
+    haystack: utenlandskeSaksnr,
+    matchFn: (_eessisak: Eessisak) => _eessisak.land === eessisak?.land,
     index,
     id: namespace + idx + '-land',
     message: 'validation:duplicate-utenlandskesaksnr-land',
@@ -66,15 +66,15 @@ export const validateUtenlandskeSaksnr = (
   v: Validation,
   namespace: string,
   {
-    utenlandskePINs,
+    utenlandskeSaksnr,
   }: ValidationUtenlandskeSaksnrProps
 ): boolean => {
 
-  const hasErrors: Array<boolean> = utenlandskePINs?.map((pin: Eessisak, index: number) => {
+  const hasErrors: Array<boolean> = utenlandskeSaksnr?.map((eessisak: Eessisak, index: number) => {
     return validateUtenlandskSaksnr(v, namespace, {
       index,
-      pin,
-      utenlandskePINs,
+      eessisak: eessisak,
+      utenlandskeSaksnr: utenlandskeSaksnr,
     })
   }) ?? []
 
