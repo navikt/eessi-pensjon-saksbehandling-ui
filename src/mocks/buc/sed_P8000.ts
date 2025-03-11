@@ -6,15 +6,13 @@ export default {
         "institusjonsnavn": null,
         "institusjonsid": null,
         "saksnummer": "1644",
-        "land": "NO",
-        "institusjon": null
+        "land": "NO"
       },
       {
         "institusjonsnavn": null,
         "institusjonsid": null,
         "saksnummer": "08167",
-        "land": "DK",
-        "institusjon": null
+        "land": "DK"
       }
     ],
     "bruker": {
