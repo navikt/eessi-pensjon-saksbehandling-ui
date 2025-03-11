@@ -60,106 +60,106 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const { validation } = useAppSelector(mapState)
-  const namespace = `${parentNamespace}-pin`
+  const namespace = `${parentNamespace}-saksnr`
   const target = `${parentTarget}.eessisak`
 
   const _parentObject: Nav | undefined = parentObject ? parentObject : _.get(PSED, `${parentTarget}`)
-  const utenlandskePINs: Array<Eessisak> = _.filter(_parentObject?.eessisak, p => p.land !== 'NO')
+  const eessisaks: Array<Eessisak> = _.filter(_parentObject?.eessisak, p => p.land !== 'NO')
 
-  const getId = (p: Eessisak | null): string => p ? p.land + '-' + p.saksnummer : 'new'
+  const getSaksnr = (p: Eessisak | null): string => p ? p.land + '-' + p.saksnummer : 'new'
 
-  const [_newPin, _setNewPin] = useState<Eessisak | undefined>(undefined)
-  const [_editPin, _setEditPin] = useState<Eessisak | undefined>(undefined)
+  const [_newEessisak, _setNewEessisak] = useState<Eessisak | undefined>(undefined)
+  const [_editEessisak, _setEditEessisak] = useState<Eessisak | undefined>(undefined)
 
   const [_editIndex, _setEditIndex] = useState<number | undefined>(undefined)
   const [_newForm, _setNewForm] = useState<boolean>(false)
   const [_validation, _resetValidation, _performValidation] = useValidation<ValidationUtenlandskSaksnrProps>(validateUtenlandskSaksnr, namespace)
 
   useEffect(() => {
-    if(_newForm || _editPin){
-      dispatch(addEditingItem("utenlandskepin"))
-    } else if (!_newForm && !_editPin){
-      dispatch(deleteEditingItem("utenlandskepin"))
+    if(_newForm || _editEessisak){
+      dispatch(addEditingItem("utenlandskesaksnr"))
+    } else if (!_newForm && !_editEessisak){
+      dispatch(deleteEditingItem("utenlandskesaksnr"))
     }
-  }, [_newForm, _editPin])
+  }, [_newForm, _editEessisak])
 
   useEffect(() => {
     if(!parentEditMode){
       _setNewForm(false)
-      _setEditPin(undefined)
+      _setEditEessisak(undefined)
       _setEditIndex(undefined)
     }
   }, [parentEditMode])
 
-  const setUtenlandskePin = (newPins: Array<Eessisak>) => {
-    let pins: Array<Eessisak> | undefined = _.cloneDeep(newPins)
-    if (_.isNil(pins)) {
-      pins = []
+  const setUtenlandskeSaksnr = (newEessisaks: Array<Eessisak>) => {
+    let eessisaks: Array<Eessisak> | undefined = _.cloneDeep(newEessisaks)
+    if (_.isNil(eessisaks)) {
+      eessisaks = []
     }
-    const norskPin: Eessisak | undefined = _parentObject ? _.find(_parentObject.eessisak, p => p.land === 'NO') : undefined
-    if (!_.isEmpty(norskPin)) {
-      pins.unshift(norskPin!)
+    const norskEessisak: Eessisak | undefined = _parentObject ? _.find(_parentObject.eessisak, p => p.land === 'NO') : undefined
+    if (!_.isEmpty(norskEessisak)) {
+      eessisaks.unshift(norskEessisak!)
     }
 
     if(setPersonOpplysninger){
-      setPersonOpplysninger("pin", pins, parentIndex)
+      setPersonOpplysninger("pin", eessisaks, parentIndex)
     } else if (updatePSED) {
-      dispatch(updatePSED(`${target}`, pins))
+      dispatch(updatePSED(`${target}`, eessisaks))
     }
 
     dispatch(resetValidation(namespace))
   }
 
-  const setUtenlandskeIdentifikator = (newIdentifikator: string, index: number) => {
+  const setUtenlandskSaksnr = (newSaksnr: string, index: number) => {
     if (index < 0) {
-      _setNewPin({
-        ..._newPin,
-        saksnummer: newIdentifikator.trim()
+      _setNewEessisak({
+        ..._newEessisak,
+        saksnummer: newSaksnr.trim()
       })
       _resetValidation(namespace + '-identifikator')
       return
     }
-    _setEditPin({
-      ..._editPin,
-      saksnummer: newIdentifikator.trim()
+    _setEditEessisak({
+      ..._editEessisak,
+      saksnummer: newSaksnr.trim()
     })
     dispatch(resetValidation(namespace + getIdx(index) + '-identifikator'))
   }
 
-  const setUtenlandskeLand = (newLand: string, index: number) => {
+  const setUtenlandskLand = (newLand: string, index: number) => {
     if (index < 0) {
-      _setNewPin({
-        ..._newPin,
+      _setNewEessisak({
+        ..._newEessisak,
         land: newLand.trim()
       })
       _resetValidation(namespace + '-land')
       return
     }
-    _setEditPin({
-      ..._editPin,
+    _setEditEessisak({
+      ..._editEessisak,
       land: newLand.trim()
     })
     dispatch(resetValidation(namespace + getIdx(index) + '-land'))
   }
 
   const onCloseEdit = (namespace: string) => {
-    _setEditPin(undefined)
+    _setEditEessisak(undefined)
     _setEditIndex(undefined)
     dispatch(resetValidation(namespace))
   }
 
   const onCloseNew = () => {
-    _setNewPin(undefined)
+    _setNewEessisak(undefined)
     _setNewForm(false)
     _resetValidation()
   }
 
-  const onStartEdit = (pin: Eessisak, index: number) => {
+  const onStartEdit = (eessisak: Eessisak, index: number) => {
     // reset any validation that exists from a cancelled edited item
     if (_editIndex !== undefined) {
       dispatch(resetValidation(namespace + getIdx(_editIndex)))
     }
-    _setEditPin(pin)
+    _setEditEessisak(eessisak)
     _setEditIndex(index)
   }
 
@@ -167,50 +167,50 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
     const clonedValidation = _.cloneDeep(validation)
     const hasErrors = performValidation<ValidationUtenlandskSaksnrProps>(
       clonedValidation, namespace, validateUtenlandskSaksnr, {
-        pin: _editPin,
-        utenlandskePINs: utenlandskePINs,
+        pin: _editEessisak,
+        utenlandskePINs: eessisaks,
         index: _editIndex,
       })
-    if (_editIndex !== undefined && !!_editPin && !hasErrors) {
-      const newPins: Array<Eessisak> = _.cloneDeep(utenlandskePINs) as Array<Eessisak>
-      newPins[_editIndex] = _editPin
-      setUtenlandskePin(newPins)
+    if (_editIndex !== undefined && !!_editEessisak && !hasErrors) {
+      const newEessisaks: Array<Eessisak> = _.cloneDeep(eessisaks) as Array<Eessisak>
+      newEessisaks[_editIndex] = _editEessisak
+      setUtenlandskeSaksnr(newEessisaks)
       onCloseEdit(namespace + getIdx(_editIndex))
     } else {
       dispatch(setValidation(clonedValidation))
     }
   }
 
-  const onRemove = (removedPin: Eessisak) => {
-    const newUtenlandskePins: Array<Eessisak> = _.reject(utenlandskePINs, (pin: Eessisak) => _.isEqual(removedPin, pin))
-    setUtenlandskePin(newUtenlandskePins)
+  const onRemove = (removedEessisak: Eessisak) => {
+    const newUtenlandskeSaksnr: Array<Eessisak> = _.reject(eessisaks, (eessisak: Eessisak) => _.isEqual(removedEessisak, eessisak))
+    setUtenlandskeSaksnr(newUtenlandskeSaksnr)
   }
 
   const onAddNew = () => {
     const valid: boolean = _performValidation({
-      pin: _newPin,
-      utenlandskePINs: utenlandskePINs,
+      pin: _newEessisak,
+      utenlandskePINs: eessisaks,
     })
-    if (!!_newPin && valid) {
-      let newUtenlandskePins: Array<Eessisak> = _.cloneDeep(utenlandskePINs) as Array<Eessisak>
-      if (_.isNil(newUtenlandskePins)) {
-        newUtenlandskePins = []
+    if (!!_newEessisak && valid) {
+      let newUtenlandskeSaksnr: Array<Eessisak> = _.cloneDeep(eessisaks) as Array<Eessisak>
+      if (_.isNil(newUtenlandskeSaksnr)) {
+        newUtenlandskeSaksnr = []
       }
-      newUtenlandskePins.push(_newPin)
-      setUtenlandskePin(newUtenlandskePins)
+      newUtenlandskeSaksnr.push(_newEessisak)
+      setUtenlandskeSaksnr(newUtenlandskeSaksnr)
       onCloseNew()
     }
   }
 
-  const renderRow = (pin: Eessisak | null, index: number) => {
+  const renderRow = (eessisak: Eessisak | null, index: number) => {
     const _namespace = namespace + getIdx(index)
     const _v: Validation = index < 0 ? _validation : validation
     const inEditMode = index < 0 || _editIndex === index
-    const _pin = index < 0 ? _newPin : (inEditMode ? _editPin : pin)
+    const _eessisak = index < 0 ? _newEessisak : (inEditMode ? _editEessisak : eessisak)
     return (
       <RepeatableBox
         id={'repeatablerow-' + _namespace}
-        key={getId(pin)}
+        key={getSaksnr(eessisak)}
         className={classNames({
           new: index < 0,
           error: hasNamespaceWithErrors(_v, _namespace)
@@ -230,8 +230,8 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
                 excludeNorway={true}
                 hideLabel={index >= 0}
                 label={t('buc:form-utenlandske-saksnr-land')}
-                onOptionSelected={(e: Country) => setUtenlandskeLand(e.value, index)}
-                values={_pin?.land}
+                onOptionSelected={(e: Country) => setUtenlandskLand(e.value, index)}
+                values={_eessisak?.land}
               />
               )
             : (
@@ -239,7 +239,7 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
                 error={_v[_namespace + '-land']?.feilmelding}
                 id={_namespace + '-land'}
               >
-                <FlagPanel land={_pin?.land}/>
+                <FlagPanel land={_eessisak?.land}/>
               </FormTextBox>
               )}
           {inEditMode
@@ -250,8 +250,8 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
                 label={t('buc:form-utenlandske-saksnr-saksnr')}
                 hideLabel={index >= 0}
                 namespace={_namespace}
-                onChanged={(id: string) => setUtenlandskeIdentifikator(id, index)}
-                value={_pin?.saksnummer}
+                onChanged={(id: string) => setUtenlandskSaksnr(id, index)}
+                value={_eessisak?.saksnummer}
               />
               )
             : (
@@ -259,7 +259,7 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
                 id={_namespace + '-identifikator'}
                 error={_v[_namespace + '-identifikator']?.feilmelding}
               >
-                <BodyLong>{_pin?.saksnummer}</BodyLong>
+                <BodyLong>{_eessisak?.saksnummer}</BodyLong>
               </FormTextBox>
               )
           }
@@ -267,7 +267,7 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
             <HStack>
               <Spacer/>
               <AddRemovePanel<Eessisak>
-                item={pin}
+                item={eessisak}
                 marginTop={index < 0}
                 index={index}
                 inEditMode={inEditMode}
@@ -288,7 +288,7 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
   return (
     <>
       <Heading size="small">{t('buc:form-utenlandske-saksnr')}</Heading>
-      {_.isEmpty(utenlandskePINs)
+      {_.isEmpty(eessisaks)
         ? (
           <Box paddingBlock="2">
             <BodyLong>
@@ -309,13 +309,13 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
                 <Spacer/>
               </HGrid>
             </Box>
-            {utenlandskePINs?.map(renderRow)}
+            {eessisaks?.map(renderRow)}
           </>
           )
       }
       {_newForm
         ? renderRow(null, -1)
-        : (utenlandskePINs?.length ?? 0) < limit && parentEditMode && (
+        : (eessisaks?.length ?? 0) < limit && parentEditMode && (
             <Button
               variant='tertiary'
               onClick={() => _setNewForm(true)}
