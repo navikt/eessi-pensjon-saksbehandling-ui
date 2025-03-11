@@ -115,6 +115,7 @@
   "warning-periodDoNotMatch"    : "OBS! Periodesum er mindre enn registrert periode",
 
   "warning-no-utenlandskepin"   : "Ingen utenlandske PIN registrert",
+  "warning-no-utenlandskesaksnr": "Ingen utenlandske saksnr registrert",
   "warning-no-statsborgerskap"   : "Ingen statsborgerskap registrert",
   "warning-no-institusjonennaaikkesoektompensjon"   : "Ingen institusjoner",
   "warning-no-utsettelse"   : "Ingen utsettelser registrert",

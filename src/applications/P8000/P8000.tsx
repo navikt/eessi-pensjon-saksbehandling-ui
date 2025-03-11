@@ -35,6 +35,7 @@ import {SendFolgendeSEDer} from "src/applications/P8000/components/SendFolgendeS
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
 import UtenlandskePin from "src/components/UtenlandskePin/UtenlandskePin";
+import UtenlandskeSaksnr from "src/components/UtenlandskeSaksnr/UtenlandskeSaksnr";
 import SaveAndSendSED from "src/components/SaveAndSendSED/SaveAndSendSED";
 
 export interface P8000Props {
@@ -356,6 +357,20 @@ const P8000: React.FC<P8000Props> = ({
                 PSED={currentPSED}
                 parentNamespace={namespace}
                 parentTarget="nav.bruker"
+                updatePSED={updatePSED}
+              />
+            </Box>
+            <Box
+              borderWidth="1"
+              borderRadius="medium"
+              borderColor="border-default"
+              background="bg-default"
+              padding="4"
+            >
+              <UtenlandskeSaksnr
+                PSED={currentPSED}
+                parentNamespace={namespace}
+                parentTarget="nav"
                 updatePSED={updatePSED}
               />
             </Box>
