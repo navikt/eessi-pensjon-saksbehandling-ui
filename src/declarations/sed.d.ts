@@ -5,6 +5,7 @@ export interface BaseSED {
   sedGVer: string
   sedVer: string
   originalSed: Sed // removed before SAVE
+  options?: any
 }
 
 export interface Eessisak {

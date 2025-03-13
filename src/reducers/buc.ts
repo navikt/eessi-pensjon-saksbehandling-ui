@@ -865,12 +865,15 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         .map(part => part.trim()) // Remove whitespace and newlines
         .filter(Boolean); // Remove empty strings
 
+      const options = JSON.parse(decodeURI(payload.options))
+
       return {
         ...state,
         PSED: {
           ...payload,
           fritekst: fritekstArray && fritekstArray.length === 2 ? fritekstArray[1] : undefined,
           originalSed: sed,
+          options: options
         },
         PSEDChanged: false
       }

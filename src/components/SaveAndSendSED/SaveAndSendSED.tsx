@@ -6,7 +6,7 @@ import {Box, Button, HStack, VStack} from "@navikt/ds-react";
 import PreviewSED from "src/components/PreviewSED/PreviewSED";
 import {P2000SED} from "src/declarations/p2000";
 import {P8000SED} from "src/declarations/p8000";
-import _ from "lodash";
+import _, {cloneDeep} from "lodash";
 import {fetchBuc, saveSed, sendSed} from "src/actions/buc";
 import {State} from "src/declarations/reducers";
 import WarningModal from "src/components/SaveAndSendSED/WarningModal";
@@ -76,9 +76,18 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
 
     const hasErrors = validateCurrentPSED()
 
+    let PSEDToSave = cloneDeep(currentPSED)
+    if(PSEDToSave.options){
+      const encodeOptionsString = encodeURI(JSON.stringify(currentPSED.options))
+      PSEDToSave = {
+        ...PSEDToSave,
+        options: encodeOptionsString
+      }
+    }
+
     if (!hasErrors) {
       setViewSaveSedModal(true)
-      dispatch(saveSed(sakId, sedId, sedType, currentPSED))
+      dispatch(saveSed(sakId, sedId, sedType, PSEDToSave))
     }
   }
 
