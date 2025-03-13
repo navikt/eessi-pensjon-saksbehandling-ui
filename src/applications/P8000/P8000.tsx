@@ -177,6 +177,7 @@ const P8000: React.FC<P8000Props> = ({
 
   const onBackClick = () => {
     setFritekst(undefined)
+    dispatch(updatePSED("fritekst", undefined))
     dispatch(resetEditingItems())
     dispatch(resetValidation(namespace))
     dispatch(fetchBuc(buc.caseId!))
