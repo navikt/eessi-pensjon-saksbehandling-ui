@@ -93,6 +93,7 @@ const P8000: React.FC<P8000Props> = ({
 
   useEffect(() => {
     if(currentPSED && currentPSED.fritekst && !_fritekstLoaded){
+      console.log("SETTING FRITEKST")
       setFritekst(currentPSED.fritekst)
       setFritekstLoaded(true)
     }
