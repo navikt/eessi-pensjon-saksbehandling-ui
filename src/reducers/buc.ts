@@ -865,8 +865,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         .map(part => part.trim()) // Remove whitespace and newlines
         .filter(Boolean); // Remove empty strings
 
-      console.log(fritekstArray)
-
       const options = payload.options ? JSON.parse(decodeURI(payload.options)) : undefined
 
       return {
