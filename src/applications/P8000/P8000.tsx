@@ -93,7 +93,6 @@ const P8000: React.FC<P8000Props> = ({
 
   useEffect(() => {
     if(currentPSED && currentPSED.fritekst && !_fritekstLoaded){
-      console.log("SETTING FRITEKST")
       setFritekst(currentPSED.fritekst)
       setFritekstLoaded(true)
     }
@@ -177,6 +176,7 @@ const P8000: React.FC<P8000Props> = ({
   }, [_ytterligereInformasjon])
 
   const onBackClick = () => {
+    setFritekst(undefined)
     dispatch(resetEditingItems())
     dispatch(resetValidation(namespace))
     dispatch(fetchBuc(buc.caseId!))
