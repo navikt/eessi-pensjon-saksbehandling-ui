@@ -54,17 +54,12 @@ jobs:
           team: eessipensjon
           tag: ${{ github.event.repository.name }}
           pull: true
-          image_suffix: ${{ env.DATE }}---${{ env.COMMIT_HASH }} # optional, default empty
+          image_suffix: ${{ env.DATE }}${{ env.COMMIT_HASH }} # optional, default empty
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # required, but is defined as an organization variable
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # required, but is defined as an organization secret
 
       - name: 'Deploy image'
         run: echo "IMAGE=${{ steps.docker-push.outputs.image }}"
-
-      # OPPRETTER GIT TAG
-      - name: 'Opprett git tag'
-        run: |
-          curl -v -s -X POST https://api.github.com/repos/${{ github.repository }}/git/refs -H "Authorization: token  ${{ secrets.GITHUB_TOKEN }}" -d '{ "ref": "refs/tags/${{ env.DATE }}---${{ env.COMMIT_HASH }}",  "sha": "${{ env.COMMIT_HASH }}" }'
 
       # DEPLOYER TIL NAIS Q2
       - name: 'Deploy to NAIS Q2'
@@ -86,6 +81,11 @@ jobs:
           IMAGE: ${{ steps.docker-push.outputs.image }}
           VARS: nais/dev-gcp-nais-vars-q1.yml
 
-      - name: 'Echo Version'
+      # OPPRETTER GIT TAG
+      - name: 'Opprett git tag'
+        run: |
+          curl -v -s -X POST https://api.github.com/repos/${{ github.repository }}/git/refs -H "Authorization: token  ${{ secrets.GITHUB_TOKEN }}" -d '{ "ref": "refs/tags/${{ env.DATE }}---${{ env.COMMIT_HASH }}",  "sha": "${{ env.COMMIT_HASH }}" }'
+
+      - name: 'Echo Image Name'
         run: echo "### Version ${{ steps.docker-push.outputs.image }}" >> $GITHUB_STEP_SUMMARY
 
