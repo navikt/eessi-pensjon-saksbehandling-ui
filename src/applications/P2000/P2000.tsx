@@ -5,7 +5,7 @@ import {Buc, Sed} from "src/declarations/buc";
 import {BUCMode, Validation} from "src/declarations/app";
 import {Box, Button, VStack} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
-import {fetchBuc, getSed, setPSED, updatePSED} from "src/actions/buc";
+import {fetchBuc, getSed, resetPSED, setPSED, updatePSED} from "src/actions/buc";
 import {resetValidation, setValidation} from 'src/actions/validation'
 import { State } from "src/declarations/reducers";
 import {P2000SED} from "src/declarations/p2000";
@@ -29,6 +29,7 @@ import SEDBody from "src/applications/BUC/components/SEDBody/SEDBody";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
 import {WaitingPanelDiv} from "src/components/StyledComponents";
 import SaveAndSendSED from "src/components/SaveAndSendSED/SaveAndSendSED";
+import useUnmount from "src/hooks/useUnmount";
 
 
 export interface P2000Selector {
@@ -66,6 +67,10 @@ const P2000: React.FC<P2000Props> = ({
     return !buc.readOnly && sed !== undefined && sed.allowsAttachments && _.includes(activeStatus, sed.status)
   }
 
+  useUnmount(() => {
+    dispatch(resetPSED())
+  })
+  
   useEffect(() => {
     if(sed){
       dispatch(resetEditingItems())
