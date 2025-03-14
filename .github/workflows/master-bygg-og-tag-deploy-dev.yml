@@ -27,6 +27,11 @@ jobs:
       - name: 'Setter dato og commit variabel'
         run: |
           export TZ=CET
+          echo "DATE=$(date "+%Y-%m-%d--%H-%M-%S")" >> $GITHUB_ENV
+
+      - name: 'Setter Version'
+        id: versions
+        run: echo "version=${{ env.DATE }}${{ env.COMMIT_HASH }}" >> $GITHUB_OUTPUT
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -86,6 +91,6 @@ jobs:
         run: |
           curl -v -s -X POST https://api.github.com/repos/${{ github.repository }}/git/refs -H "Authorization: token  ${{ secrets.GITHUB_TOKEN }}" -d '{ "ref": "refs/tags/${{ env.DATE }}---${{ env.COMMIT_HASH }}",  "sha": "${{ env.COMMIT_HASH }}" }'
 
-      - name: 'Echo Image Name'
-        run: echo "### Version ${{ steps.docker-push.outputs.image }}" >> $GITHUB_STEP_SUMMARY
+      - name: 'Echo Image Version'
+        run: echo "### Version ${{ steps.versions.outputs.version }}" >> $GITHUB_STEP_SUMMARY
 
