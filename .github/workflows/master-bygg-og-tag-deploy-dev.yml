@@ -59,7 +59,7 @@ jobs:
         id: docker-push
         with:
           team: eessipensjon
-          tag: ${{ steps.versions.outputs.version }}
+          tag: ${{ github.event.repository.name }}
           pull: true
           image_suffix: ${{ env.DATE }}---${{ env.COMMIT_HASH }} # optional, default empty
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # required, but is defined as an organization variable
