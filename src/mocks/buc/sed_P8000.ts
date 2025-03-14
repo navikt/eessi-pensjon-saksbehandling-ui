@@ -76,7 +76,6 @@ export default {
   },
   "options": {
     "type": {
-      bosettingsstatus: "UTL",
       spraak: "nb"
     },
     "ofteEtterspurtInformasjon": {

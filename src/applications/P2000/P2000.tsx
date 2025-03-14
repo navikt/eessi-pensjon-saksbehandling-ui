@@ -70,7 +70,7 @@ const P2000: React.FC<P2000Props> = ({
   useUnmount(() => {
     dispatch(resetPSED())
   })
-  
+
   useEffect(() => {
     if(sed){
       dispatch(resetEditingItems())

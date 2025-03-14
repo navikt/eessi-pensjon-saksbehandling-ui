@@ -30,11 +30,6 @@ jobs:
           echo "DATE=$(date "+%Y-%m-%d--%H-%M-%S")" >> $GITHUB_ENV
           echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
-      - name: 'Setter Version'
-        id: versions
-        run: echo "version=${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_OUTPUT
-
-
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -94,5 +89,5 @@ jobs:
           VARS: nais/dev-gcp-nais-vars-q1.yml
 
       - name: 'Echo Version'
-        run: echo "### Version ${{ steps.versions.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+        run: echo "### Version ${{ steps.docker-push.outputs.image }}" >> $GITHUB_STEP_SUMMARY
 

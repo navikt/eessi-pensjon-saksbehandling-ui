@@ -104,7 +104,7 @@ const P8000: React.FC<P8000Props> = ({
 
     if(currentPSED && !currentPSED?.options?.type?.ytelse){
       currentPSED?.options?.type?.spraak ? setTypeProperty("spraak", currentPSED?.options?.type?.spraak) : setTypeProperty("spraak", "nb")
-      currentPSED?.options?.type?.bosettingsstatus ? setTypeProperty("bosettingsstatus", currentPSED?.options?.type?.bosettingsstatus) : setTypeProperty("bosettingsstatus", "UTL")
+      currentPSED?.options?.type?.bosettingsstatus ? setTypeProperty("bosettingsstatus", currentPSED?.options?.type?.bosettingsstatus) : setTypeProperty("bosettingsstatus", "DUMMY")
       if(bucType === "03"){
         setTypeProperty("ytelse", "UT")
       } else if(bucType === "01"){
