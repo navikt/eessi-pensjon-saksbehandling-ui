@@ -74,7 +74,23 @@ export default {
     "ytterligeinformasjon": "SOME PREDEFINED TEXTS HERE \n\n SOME MORE PREDEFINED TEXTS HERE *********\n ADDITIONAL TEXT COME HERE",
     "vedlegg": null
   },
-  "options": "%7B%22type%22:%7B%22bosettingsstatus%22:%22UTL%22,%22spraak%22:%22nb%22,%22ytelse%22:%22UT%22%7D,%22ofteEtterspurtInformasjon%22:%7B%22tiltak%22:%7B%22value%22:true%7D,%22inntektFoerUfoerhetIUtlandet%22:%7B%22value%22:true,%22landkode%22:%22SE%22,%22periodeFra%22:%221980%22,%22periodeTil%22:%222025%22%7D%7D%7D",
+  "options": {
+    "type": {
+      bosettingsstatus: "UTL",
+      spraak: "nb"
+    },
+    "ofteEtterspurtInformasjon": {
+      "tiltak": {
+        value: true
+      },
+      "inntektFoerUfoerhetIUtlandet": {
+        value: true,
+        landkode: "NO",
+        periodeFra: "1980",
+        periodeTil: "2025"
+      }
+    },
+  },
   "sedGVer": "4",
   "sedVer": "3"
 }

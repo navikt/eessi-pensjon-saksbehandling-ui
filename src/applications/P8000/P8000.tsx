@@ -4,7 +4,7 @@ import {BUCMode, PSED, Validation} from "src/declarations/app";
 import {useDispatch, useSelector} from "react-redux";
 import {resetEditingItems} from "src/actions/app";
 import {resetValidation} from "src/actions/validation";
-import {fetchBuc, updatePSED, getSedP8000} from "src/actions/buc";
+import {fetchBuc, updatePSED, getSedP8000, resetPSED} from "src/actions/buc";
 import {WaitingPanelDiv} from "src/components/StyledComponents";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
 import {InformasjonSomKanLeggesInn, OfteEtterspurtInformasjon, P8000SED, P8000Type} from "src/declarations/p8000";
@@ -37,6 +37,7 @@ import {UpdateSedPayload} from "src/declarations/types";
 import UtenlandskePin from "src/components/UtenlandskePin/UtenlandskePin";
 import UtenlandskeSaksnr from "src/components/UtenlandskeSaksnr/UtenlandskeSaksnr";
 import SaveAndSendSED from "src/components/SaveAndSendSED/SaveAndSendSED";
+import useUnmount from "src/hooks/useUnmount";
 
 export interface P8000Props {
   buc: Buc
@@ -90,6 +91,10 @@ const P8000: React.FC<P8000Props> = ({
     "nb": CountryData.getCountryInstance('nb'),
     "en": CountryData.getCountryInstance('en'),
   }
+
+  useUnmount(() => {
+    dispatch(resetPSED())
+  })
 
   useEffect(() => {
     if(currentPSED && currentPSED.fritekst && !_fritekstLoaded){
@@ -176,8 +181,6 @@ const P8000: React.FC<P8000Props> = ({
   }, [_ytterligereInformasjon])
 
   const onBackClick = () => {
-    setFritekst(undefined)
-    dispatch(updatePSED("fritekst", undefined))
     dispatch(resetEditingItems())
     dispatch(resetValidation(namespace))
     dispatch(fetchBuc(buc.caseId!))

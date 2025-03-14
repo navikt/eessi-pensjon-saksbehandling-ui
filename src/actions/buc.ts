@@ -403,6 +403,10 @@ export const setPSED: ActionCreator<ActionWithPayload<PSED>> = (
   payload: PSED
 })
 
+export const resetPSED: ActionCreator<Action> = (): Action => ({
+  type: types.PSED_RESET
+})
+
 export const updatePSED: ActionCreator<ActionWithPayload<UpdateSedPayload>> = (
   needle: string, value: any
 ): ActionWithPayload<UpdateSedPayload> => ({

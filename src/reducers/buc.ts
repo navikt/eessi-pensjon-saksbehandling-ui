@@ -836,11 +836,13 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         bucsList: _.isNil(state.bucsList) ? null : state.bucsList
       }
 
+    case types.PSED_RESET:
     case types.BUC_GET_SED_REQUEST:
     case types.BUC_GET_P8000SED_REQUEST: {
       return {
         ...state,
-        PSED: undefined
+        PSED: undefined,
+        PSEDChanged: false
       }
     }
 
