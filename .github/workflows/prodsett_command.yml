@@ -29,5 +29,6 @@ jobs:
           VARS: nais/${{ github.event.client_payload.slash_command.arg2 }}-nais-vars.yml
 
       - name: 'Echo Image Name'
-        run: echo "### Image Name ${{ github.event.client_payload.slash_command.arg1 }}" >> $GITHUB_STEP_SUMMARY
+        run: echo "### Image Hash $(echo ${{ steps.docker-push.outputs.image }} | cut -d':' -f2)" >> $GITHUB_STEP_SUMMARY
+
 
