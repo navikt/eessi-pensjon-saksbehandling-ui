@@ -76,5 +76,5 @@ jobs:
           IMAGE: ${{ steps.docker-push.outputs.image }}
           VARS: nais/dev-gcp-nais-vars.yml
 
-      - name: 'Echo Version'
-        run: echo "### Version ${{ steps.versions.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+      - name: 'Echo Image Name'
+        run: echo "### Image Hash $(echo ${{ steps.docker-push.outputs.image }} | cut -d':' -f2)" >> $GITHUB_STEP_SUMMARY
