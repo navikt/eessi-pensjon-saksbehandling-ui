@@ -69,6 +69,7 @@ const PreviewSED: React.FC<PreviewSedProps> = ({
             file={previewPDF?.filInnhold}
             name={previewPDF?.fileName}
             size={previewPDF?.filInnhold?.length ?? 0}
+            width={800}
           />
         </div>
       )
@@ -106,7 +107,7 @@ const PreviewSED: React.FC<PreviewSedProps> = ({
         open={!_.isNil(previewModal)}
         modal={previewModal}
         onModalClose={handleModalClose}
-        width='1200px'
+        width='900px'
       />
       <Button
         variant='tertiary'

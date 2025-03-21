@@ -83,15 +83,9 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
           file={previewFile?.content.base64}
           name={previewFile?.name ?? ''}
           size={previewFile?.size ?? 0}
-        />
-        {/*
-        <File
-          file={previewFile}
           width={600}
           height={800}
-          tema='simple'
-          viewOnePage={false}
-        />*/}
+        />
       </div>
     )
   }, [previewFile])

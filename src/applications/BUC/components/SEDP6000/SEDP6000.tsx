@@ -72,21 +72,8 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
                 file={P6000PDF?.filInnhold}
                 name={P6000PDF?.fileName ?? ''}
                 size={P6000PDF?.filInnhold?.length ?? 0}
-              />
-              {/*<File
-                scale={2}
-                file={{
-                  size: P6000PDF?.filInnhold?.length ?? 0,
-                  name: P6000PDF?.fileName ?? '',
-                  mimetype: 'application/pdf',
-                  content: {
-                    base64: P6000PDF?.filInnhold
-                  }
-                }}
                 width={1000}
-                tema='simple'
-                viewOnePage={false}
-              />*/}
+              />
             </div>
           )
         }}
