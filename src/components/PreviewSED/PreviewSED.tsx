@@ -1,6 +1,5 @@
 import { EyeWithPupilIcon } from '@navikt/aksel-icons'
 import { Button } from '@navikt/ds-react'
-import File from "@navikt/forhandsvisningsfil";
 import {getPreviewFile, getSedPreviewPDF, resetSedPreviewPDF} from 'src/actions/buc'
 import Modal from 'src/components/Modal/Modal'
 import { ModalContent } from 'src/declarations/components'
@@ -12,6 +11,7 @@ import {useDispatch, useSelector} from 'react-redux'
 
 import {JoarkPreview} from "src/declarations/joark";
 import {PSED} from "src/declarations/app";
+import PDFViewer from "src/components/PDFViewer/PDFViewer";
 
 export interface PreviewSedProps {
   bucId?: string | undefined
@@ -65,19 +65,10 @@ const PreviewSED: React.FC<PreviewSedProps> = ({
       closeButton: true,
       modalContent: (
         <div style={{cursor: 'pointer'}}>
-          <File
-            scale={2}
-            file={{
-              size: previewPDF?.filInnhold?.length ?? 0,
-              name: previewPDF?.fileName ?? '',
-              mimetype: 'application/pdf',
-              content: {
-                base64: previewPDF?.filInnhold
-              }
-            }}
-            width={1000}
-            tema='simple'
-            viewOnePage={false}
+          <PDFViewer
+            file={previewPDF?.filInnhold}
+            name={previewPDF?.fileName}
+            size={previewPDF?.filInnhold?.length ?? 0}
           />
         </div>
       )

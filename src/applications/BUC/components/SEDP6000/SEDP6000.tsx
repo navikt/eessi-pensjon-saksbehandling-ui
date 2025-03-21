@@ -6,13 +6,14 @@ import { P6000 } from 'src/declarations/buc'
 import { JoarkPreview } from 'src/declarations/joark'
 import { State } from 'src/declarations/reducers'
 import Flag from '@navikt/flagg-ikoner'
-import File from '@navikt/forhandsvisningsfil'
+//import File from '@navikt/forhandsvisningsfil'
 import CountryData, { Country } from '@navikt/land-verktoy'
 import _ from 'lodash'
 import {Checkbox, Button, Loader, Box, HStack, Spacer, VStack} from '@navikt/ds-react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import PDFViewer from "src/components/PDFViewer/PDFViewer";
 
 export interface SEDP6000Props {
   feil: ErrorElement | undefined
@@ -67,7 +68,12 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
         modal={{
           modalContent: (
             <div style={{ cursor: 'pointer' }}>
-              <File
+              <PDFViewer
+                file={P6000PDF?.filInnhold}
+                name={P6000PDF?.fileName ?? ''}
+                size={P6000PDF?.filInnhold?.length ?? 0}
+              />
+              {/*<File
                 scale={2}
                 file={{
                   size: P6000PDF?.filInnhold?.length ?? 0,
@@ -80,7 +86,7 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
                 width={1000}
                 tema='simple'
                 viewOnePage={false}
-              />
+              />*/}
             </div>
           )
         }}

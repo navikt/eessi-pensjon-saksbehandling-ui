@@ -5,12 +5,13 @@ import {JoarkBrowserItems, JoarkBrowserItemWithContent} from 'src/declarations/j
 import { JoarkBrowserItemsFileType } from 'src/declarations/joark.pt'
 import { State } from 'src/declarations/reducers'
 import PT from 'prop-types'
-import {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import {useDispatch, useSelector} from 'react-redux'
 import { Alert } from '@navikt/ds-react'
-import File from "@navikt/forhandsvisningsfil";
+//import File from "@navikt/forhandsvisningsfil";
 import {setJoarkItemPreview} from "../../../../actions/joark";
+import PDFViewer from "src/components/PDFViewer/PDFViewer";
 
 export interface SEDAttachmentModalProps {
   onFinishedSelection: (jbi: JoarkBrowserItems) => void
@@ -78,13 +79,19 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
       <div
         style={{ cursor: 'pointer'}}
       >
+        <PDFViewer
+          file={previewFile?.content.base64}
+          name={previewFile?.name ?? ''}
+          size={previewFile?.size ?? 0}
+        />
+        {/*
         <File
           file={previewFile}
           width={600}
           height={800}
           tema='simple'
           viewOnePage={false}
-        />
+        />*/}
       </div>
     )
   }, [previewFile])

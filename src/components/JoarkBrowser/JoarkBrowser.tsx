@@ -15,17 +15,18 @@ import {
 } from 'src/declarations/joark'
 import { JoarkBrowserItemFileType } from 'src/declarations/joark.pt'
 import { State } from 'src/declarations/reducers'
-import File from '@navikt/forhandsvisningsfil'
+//import File from '@navikt/forhandsvisningsfil'
 import _ from 'lodash'
 import { Button, Loader, Label, Select } from '@navikt/ds-react'
 import PT from 'prop-types'
-import { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Table, { RenderOptions } from '@navikt/tabell'
 import md5 from 'md5'
 import { TrashIcon, EyeWithPupilFillIcon } from '@navikt/aksel-icons'
+import PDFViewer from "src/components/PDFViewer/PDFViewer";
 
 const ButtonsDiv = styled.div`
   display: flex;
@@ -351,13 +352,19 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             <div
               style={{ cursor: 'pointer' }}
             >
+              <PDFViewer
+                file={previewFile?.content.base64}
+                name={previewFile?.name ?? ''}
+                size={previewFile?.size ?? 0}
+              />
+              {/*
               <File
                 file={previewFile}
                 width={600}
                 height={800}
                 tema='simple'
                 viewOnePage={false}
-              />
+              />*/}
             </div>
           )
         })

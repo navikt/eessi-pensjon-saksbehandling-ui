@@ -8,7 +8,6 @@ import 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/nb'
 import '@navikt/ds-css'
-import 'react-pdf/dist/esm/Page/TextLayer.css';
 import Pages from 'src/pages'
 import { Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -22,6 +21,8 @@ import i18n from './i18n'
 
 import store from './store'
 import {GJENNY, PESYS} from "./constants/constants";
+import {pdfjs} from "react-pdf";
+
 
 if (!IS_PRODUCTION) {
 
@@ -32,6 +33,11 @@ if (!IS_PRODUCTION) {
   Sentry.init()
   Amplitude.init()
 }
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/build/pdf.worker.min.mjs',
+  import.meta.url,
+).toString();
 
 const container = document.getElementById('root') as HTMLElement
 const root = createRoot(container)
