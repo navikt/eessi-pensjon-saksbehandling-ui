@@ -83,8 +83,8 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
           file={previewFile?.content.base64}
           name={previewFile?.name ?? ''}
           size={previewFile?.size ?? 0}
-          width={600}
-          height={800}
+          width={900}
+          height={1200}
         />
       </div>
     )
@@ -125,6 +125,7 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
       }}
       onModalClose={onModalClose}
       onBeforeClose={_preview ? resetPreview : resetPreviewAndReturnTrue}
+      width={"900"}
     />
   )
 }

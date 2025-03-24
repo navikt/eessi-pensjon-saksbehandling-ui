@@ -356,8 +356,8 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
                 file={previewFile?.content.base64}
                 name={previewFile?.name ?? ''}
                 size={previewFile?.size ?? 0}
-                width={600}
-                height={800}
+                width={900}
+                height={1200}
               />
             </div>
           )
@@ -376,6 +376,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           open={!_.isNil(_modal)}
           modal={_modal}
           onModalClose={handleModalClose}
+          width={"900"}
         />
       }
       {mode === "select" &&
