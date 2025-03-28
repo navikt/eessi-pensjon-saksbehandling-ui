@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'master'
-
 jobs:
   tag_build_and_deploy:
     name: 'Build'
@@ -22,7 +21,7 @@ jobs:
     steps:
 
       - name: 'Pull repo'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 'Setter dato og commit variabel'
         run: |
@@ -63,7 +62,7 @@ jobs:
 
       # DEPLOYER TIL NAIS Q2
       - name: 'Deploy to NAIS Q2'
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@v2
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
@@ -73,7 +72,7 @@ jobs:
 
       # DEPLOYER TIL NAIS Q1
       - name: 'Deploy to NAIS Q1'
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@v2
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
