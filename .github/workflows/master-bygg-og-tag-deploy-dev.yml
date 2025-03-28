@@ -64,7 +64,6 @@ jobs:
       - name: 'Deploy to NAIS Q2'
         uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: nais/dev-gcp.yml
           IMAGE: ${{ steps.docker-push.outputs.image }}
@@ -74,7 +73,6 @@ jobs:
       - name: 'Deploy to NAIS Q1'
         uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: nais/dev-gcp-q1.yml
           IMAGE: ${{ steps.docker-push.outputs.image }}
