@@ -2161,6 +2161,45 @@ const mockBuc = [
     }, {
       id: '3fe845d1142742a5a7a28f339e5d5b30',
       parentDocumentId: null,
+      type: 'P2200',
+      status: 'received',
+      direction: 'IN' as Direction,
+      creationDate: 1557392992767,
+      lastUpdate: 1557392992767,
+      displayName: 'Old age pension claim',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          acronym: '12348',
+          countryCode: 'NO',
+          name: 'DEMO002',
+          id: 'NO:DEMO002'
+        },
+        selected: true
+      }, {
+        role: 'Receiver',
+        organisation: {
+          acronym: '12347',
+          countryCode: 'NO',
+          name: 'DEMO001',
+          id: 'NO:DEMO001'
+        },
+        selected: false
+      }],
+      attachments: [],
+      version: '1',
+      firstVersion: {
+        id: '1',
+        date: 1557392992767
+      },
+      lastVersion: {
+        id: '1',
+        date: 1557392992767
+      },
+      allowsAttachments: true
+    }, {
+      id: '3fe845d1142742a5a7a28f339e5d5b30',
+      parentDocumentId: null,
       type: 'P2000',
       status: 'sent',
       direction: 'IN' as Direction,

@@ -83,6 +83,8 @@ const P8000: React.FC<P8000Props> = ({
   const [_ytterligereInformasjon, setYtterligereInformasjon] = useState<string | undefined>(undefined)
   const [_fritekst, setFritekst] = useState<string | undefined>()
   const [_fritekstLoaded, setFritekstLoaded] = useState<boolean>(false)
+  const [_hideBosettingsStatus, setHideBosettingsStatus] = useState<boolean>(false)
+
 
   const [_type, setType] = useState<string>("")
   const bucType = buc.type?.split("_")[2]
@@ -102,9 +104,30 @@ const P8000: React.FC<P8000Props> = ({
       setFritekstLoaded(true)
     }
 
+    if(buc.seds && currentPSED && !currentPSED?.options?.type?.bosettingsstatus){
+      const receivedP2200 = buc.seds.find((b) => {
+        return b.type === "P2200" && b.status === "received"
+      })
+      const sentP2200 = buc.seds.find((b) => {
+        return b.type === "P2200" && b.status === "sent"
+      })
+
+      if(receivedP2200){
+        setTypeProperty("bosettingsstatus", "UTL")
+        setHideBosettingsStatus(true)
+      } else if (sentP2200) {
+        setTypeProperty("bosettingsstatus", "NO")
+        setHideBosettingsStatus(true)
+      } else {
+        setTypeProperty("bosettingsstatus", "DUMMY")
+      }
+    }
+
+    if(currentPSED && !currentPSED?.options?.type?.spraak){
+      setTypeProperty("spraak", "nb")
+    }
+
     if(currentPSED && !currentPSED?.options?.type?.ytelse){
-      currentPSED?.options?.type?.spraak ? setTypeProperty("spraak", currentPSED?.options?.type?.spraak) : setTypeProperty("spraak", "nb")
-      currentPSED?.options?.type?.bosettingsstatus ? setTypeProperty("bosettingsstatus", currentPSED?.options?.type?.bosettingsstatus) : setTypeProperty("bosettingsstatus", "DUMMY")
       if(bucType === "03"){
         setTypeProperty("ytelse", "UT")
       } else if(bucType === "01"){
@@ -286,10 +309,12 @@ const P8000: React.FC<P8000Props> = ({
                     <ToggleGroup.Item value="UT" label={t('p8000:form-label-ytelse-ufoere')} />
                   </ToggleGroup>
                 }
-                <ToggleGroup value={currentPSED?.options?.type?.bosettingsstatus} onChange={(v)=> onToggle("bosettingsstatus", v)} label={t('p8000:form-label-velg-bosettingsstatus')}>
-                  <ToggleGroup.Item value="NO" label={t('p8000:form-label-bosettingsstatus-norge')} />
-                  <ToggleGroup.Item value="UTL" label={t('p8000:form-label-bosettingsstatus-utland')} />
-                </ToggleGroup>
+                {!_hideBosettingsStatus &&
+                  <ToggleGroup value={currentPSED?.options?.type?.bosettingsstatus} onChange={(v)=> onToggle("bosettingsstatus", v)} label={t('p8000:form-label-velg-bosettingsstatus')}>
+                    <ToggleGroup.Item value="NO" label={t('p8000:form-label-bosettingsstatus-norge')} />
+                    <ToggleGroup.Item value="UTL" label={t('p8000:form-label-bosettingsstatus-utland')} />
+                  </ToggleGroup>
+                }
               </HStack>
             }
           </VStack>
