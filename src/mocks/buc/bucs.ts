@@ -2703,7 +2703,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "87eb0138ed074c02b2018fa1d6454f51",
-        "direction": "OUT",
+        "direction": "OUT" as Direction,
         "creationDate": 1740666174199,
         "receiveDate": null,
         "typeVersion": null,
@@ -2739,15 +2739,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-02-27T14:22:54.199+00:00",
+          "date": 1557393087051,
           "id": "1"
         },
         "lastVersion": {
-          "date": "2025-02-27T14:22:54.199+00:00",
+          "date": 1557393087051,
           "id": "1"
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
