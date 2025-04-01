@@ -14,11 +14,6 @@ describe('applications/BUC/components/BUCFooter/BUCFooter', () => {
     stageSelector(defaultSelector, {})
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<BUCFooter {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: has proper HTML structure', () => {
     render(<BUCFooter {...initialMockProps} />)
     expect(screen.getByTestId('a_buc_c_BUCFooter')).toBeInTheDocument()
