@@ -69,9 +69,6 @@ jobs:
       # DEPLOYER TIL NAIS
       - name: 'Deploy to NAIS Q2'
         uses: nais/deploy/actions/deploy@v2
-        permissions:
-          contents: read
-          id-token: write
         env:
           CLUSTER: dev-gcp
           RESOURCE: nais/dev-gcp.yml
