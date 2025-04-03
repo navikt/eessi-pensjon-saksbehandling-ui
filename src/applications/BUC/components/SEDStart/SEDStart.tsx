@@ -692,19 +692,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const convertInstitutionIDsToInstitutionObjects = (): Institutions => {
     const institutions: Institutions = []
     _institutions.forEach(item => {
-      if (item === 'NO:NAVAT06') {
+      if (item === 'NO:NAVAT05') {
         institutions.push({
-          acronym: 'NAVAT06',
+          acronym: 'NAVAT05',
           institution: item,
           country: 'NO',
-          name: 'NAV ACCEPTANCE TEST 06'
-        } as Institution)
-      } else if (item === 'NO:NAVAT08') {
-        institutions.push({
-          acronym: 'NAVAT08',
-          institution: item,
-          country: 'NO',
-          name: 'NAV ACCEPTANCE TEST 08'
+          name: 'NAV ACCEPTANCE TEST 05'
         } as Institution)
       } else {
         Object.keys(institutionList!).forEach((landkode: string) => {
