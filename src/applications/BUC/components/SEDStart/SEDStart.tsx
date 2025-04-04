@@ -369,7 +369,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     const countries: RawList = bucs[currentBuc!].institusjon
       ? bucs[currentBuc!].institusjon!
         .filter((inst: Institution) => (inst.country !== 'NO' || inst.institution === "NO:NAVAT05"))
-        .map((inst: Institution) => inst.country)
+        .map((inst: Institution) => {
+          return inst.institution === "NO:NAVAT05" ? "DK" : inst.country})
       : []
     return _.uniq(countries)
   }
