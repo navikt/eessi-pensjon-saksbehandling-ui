@@ -1,8 +1,8 @@
 import PT from 'prop-types'
-import { ExclamationmarkTriangleIcon, PersonSuitFillIcon } from '@navikt/aksel-icons'
+import {MenuGridIcon, ExternalLinkIcon} from '@navikt/aksel-icons'
 import { useTranslation } from 'react-i18next'
 import NavLogoTransparent from 'src/assets/images/NavLogoTransparent'
-import {Loader, HStack, Spacer, InternalHeader} from '@navikt/ds-react'
+import {ActionMenu, HStack, Spacer, InternalHeader} from '@navikt/ds-react'
 import styled from 'styled-components'
 import {GJENNY} from "src/constants/constants";
 
@@ -19,10 +19,6 @@ export interface HeaderProps {
   username?: string
   indexType?: string
 }
-
-const SaksbehandlerUser = styled.div`
-   color: white;
-`
 
 const Title = styled.div`
   align-items: center;
@@ -49,6 +45,26 @@ const Header: React.FC<HeaderProps> = ({
         <span>{indexType === GJENNY ? t('ui:app-headerTitle-gjenny') : t('ui:app-headerTitle')}</span>
       </Title>
       <Spacer />
+      <ActionMenu>
+        <ActionMenu.Trigger>
+          <InternalHeader.Button>
+            <MenuGridIcon
+              style={{fontSize: "1.5rem"}}
+              title="Systemer og oppslagsverk"
+            />
+          </InternalHeader.Button>
+        </ActionMenu.Trigger>
+        <ActionMenu.Content>
+          <ActionMenu.Group label="Systemer og oppslagsverk">
+            <ActionMenu.Item as="a" target="_blank" href="https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03" icon={<ExternalLinkIcon aria-hidden/>}>
+              {t('ui:lawsource')}
+            </ActionMenu.Item>
+            <ActionMenu.Item as="a" target="_blank" href="https://navno.sharepoint.com/sites/fag-og-ytelser-regelverk-og-rutiner/SitePages/Pensjon-.aspx" icon={<ExternalLinkIcon aria-hidden/>}>
+              {t('ui:help')}
+            </ActionMenu.Item>
+          </ActionMenu.Group>
+        </ActionMenu.Content>
+      </ActionMenu>
       <InternalHeader.User
         name={
           gettingUserInfo ?
@@ -58,21 +74,6 @@ const Header: React.FC<HeaderProps> = ({
               t('ui:unknown')
         }
       />
-      <CenterHStack>
-        {isLoggingOut
-          ? <Loader type='xsmall' />
-          : (
-            <>
-              <SaksbehandlerUser>
-                { username
-                  ? <PersonSuitFillIcon fontSize="1.25rem" />
-                  : <ExclamationmarkTriangleIcon fontSize="1.25rem" />
-                }
-              </SaksbehandlerUser>
-            </>
-          )
-        }
-      </CenterHStack>
     </InternalHeader>
   )
 }
