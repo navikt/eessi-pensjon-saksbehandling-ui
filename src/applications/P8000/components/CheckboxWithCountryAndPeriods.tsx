@@ -1,5 +1,5 @@
 import React from "react";
-import {HGrid, TextField, VStack} from "@navikt/ds-react";
+import {HGrid, HStack, TextField, VStack} from "@navikt/ds-react";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import {Country} from "@navikt/land-verktoy";
 import styled from "styled-components";
@@ -57,10 +57,13 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
               </CountryDiv>
             }
             {options?.showPeriod &&
-              <>
+              <HStack
+                gap="4"
+                wrap={false}
+              >
                 <TextField label="Fra" hideLabel={false} value={field?.periodeFra} onChange={(e) => setProperty('periodeFra', e.target.value)}/>
                 <TextField label="Til" hideLabel={false} value={field?.periodeTil} onChange={(e) => setProperty('periodeTil', e.target.value)}/>
-              </>
+              </HStack>
             }
             {options?.showMonths &&
               <>
