@@ -280,6 +280,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_validation, setValidation] = useState<Validation>({})
   const [_vedtakId, setVedtakId] = useState<string | null | undefined>(vedtakId)
 
+  //const [_limitedInstitutions, setLimitedInstitutions] = useState<Array<GroupBase<Option>> | undefined>(undefined)
+
   // BEGIN QUESTIONS
 
   // norway as case owner (except some mock institutions that should simulate foreign institutions)
@@ -369,7 +371,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     const countries: RawList = bucs[currentBuc!].institusjon
       ? bucs[currentBuc!].institusjon!
         .filter((inst: Institution) => (inst.country !== 'NO' || inst.institution === "NO:NAVAT05"))
-        .map((inst: Institution) => inst.country)
+        .map((inst: Institution) => {
+          return inst.institution === "NO:NAVAT05" ? "DK" : inst.country})
       : []
     return _.uniq(countries)
   }
@@ -382,6 +385,45 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       : []
     return _.uniq(institutions)
   }
+
+  const getReceiverCountries = (): CountryRawList => {
+    const countries: RawList = bucs[currentBuc!].institusjon
+      ? bucs[currentBuc!].institusjon!
+        .filter((inst: Institution) => inst.institution !== bucs[currentBuc!].creator?.institution)
+        .map((inst: Institution) => {
+          return inst.institution === "NO:NAVAT05" ? "DK" : inst.country})
+      : []
+    return _.uniq(countries)
+  }
+
+  const getReceiverInstitutions = (): CountryRawList => {
+    const institutions: RawList = bucs[currentBuc!].institusjon
+      ? bucs[currentBuc!].institusjon!
+        .filter((inst: Institution) => inst.institution !== bucs[currentBuc!].creator?.institution)
+        .map((inst: Institution) => inst.institution)
+      : []
+    return _.uniq(institutions)
+  }
+
+/*  const getReceiverInstitutionObjectList = (): Array<GroupBase<Option>> => {
+    const _institutionObjectListLimited: any = []
+    bucs[currentBuc!].institusjon!
+      .filter((inst: Institution) => inst.institution !== bucs[currentBuc!].creator?.institution)
+      .map((inst: Institution) => {
+        const country: Country | undefined = _countryData.findByValue(inst.country)
+        if (country) {
+          _institutionObjectListLimited.push({
+            label: country.label,
+            options: {
+              label: inst.acronym + " – " + inst.name + "(" + inst.institution + ")",
+              value: inst.institution
+            }
+          })
+        }
+      })
+
+    return _.uniq(_institutionObjectListLimited)
+  }*/
 
   const isDisabled = _sed ? !isNorwayCaseOwner() && sedFreezesCountriesAndInstitutions.indexOf(_sed) >= 0 : false
 
@@ -612,7 +654,13 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       const countries: CountryRawList = getParticipantCountriesWithoutNorway()
       fetchInstitutionsForSelectedCountries(countries)
       setInstitutions(getParticipantInstitutionsWithoutNorway())
+    } else if (isNorwayCaseOwner() && ["P8000", "P10000"].indexOf(newSed) >= 0){
+      const countries: CountryRawList = getReceiverCountries()
+      fetchInstitutionsForSelectedCountries(countries)
+      setInstitutions(getReceiverInstitutions())
+      //setLimitedInstitutions(getReceiverInstitutionObjectList())
     }
+
     if (sedNeedsKravOm(newSed)) {
       setDefaultKravOm()
     }
