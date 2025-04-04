@@ -632,9 +632,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       const countries: CountryRawList = getParticipantCountriesWithoutNorway()
       fetchInstitutionsForSelectedCountries(countries)
       setInstitutions(getParticipantInstitutionsWithoutNorway())
-    } else if (isNorwayCaseOwner() && "P8000".indexOf(newSed) >= 0){
+    } else if (isNorwayCaseOwner() && ["P8000", "P10000"].indexOf(newSed) >= 0){
       const countries: CountryRawList = getReceiverCountries()
-      fetchInstitutionsForSelectedCountries(countries)
+      setCountries(countries)
+      updateValidation('country', validateCountries(countries))
+      //fetchInstitutionsForSelectedCountries(countries)
       setInstitutions(getReceiverInstitutions())
     }
 
