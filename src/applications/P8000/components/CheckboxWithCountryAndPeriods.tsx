@@ -1,5 +1,5 @@
 import React from "react";
-import {HGrid, TextField} from "@navikt/ds-react";
+import {HGrid, TextField, VStack} from "@navikt/ds-react";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import {Country} from "@navikt/land-verktoy";
 import styled from "styled-components";
@@ -19,12 +19,14 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
   const dispatch = useDispatch()
   const field: P8000Field = _.get(PSED, `${target}.${value}`)
 
+  const checked= field ? field.value : false
+
   const setProperty = (property: string, propValue: string) => {
     dispatch(updatePSED(`${target}.${value}.${property}`, propValue))
   }
 
   return (
-    <HGrid columns={4} gap="4">
+    <VStack>
       <CheckBoxField
         label={label}
         value={value}
@@ -33,31 +35,42 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
         namespace={namespace}
         target={target}
       />
-      {options?.showCountry &&
-        <CountryDiv>
-          <CountryDropdown
-            error={undefined}
-            id="land"
-            countryCodeListName="euEftaLand"
-            label="Land"
-            hideLabel={true}
-            onOptionSelected={(c: Country) => {setProperty('landkode', c.value)}}
-            values={field?.landkode  ?? ''}
-          />
-        </CountryDiv>
+      {checked &&
+        <HGrid
+          columns={4}
+          gap="4"
+          paddingBlock="0 4"
+          paddingInline="4 0"
+        >
+          <VStack gap="4">
+            {options?.showCountry &&
+              <CountryDiv>
+                <CountryDropdown
+                  error={undefined}
+                  id="land"
+                  countryCodeListName="euEftaLand"
+                  label="Land"
+                  hideLabel={false}
+                  onOptionSelected={(c: Country) => {setProperty('landkode', c.value)}}
+                  values={field?.landkode  ?? ''}
+                />
+              </CountryDiv>
+            }
+            {options?.showPeriod &&
+              <>
+                <TextField label="Fra" hideLabel={false} value={field?.periodeFra} onChange={(e) => setProperty('periodeFra', e.target.value)}/>
+                <TextField label="Til" hideLabel={false} value={field?.periodeTil} onChange={(e) => setProperty('periodeTil', e.target.value)}/>
+              </>
+            }
+            {options?.showMonths &&
+              <>
+                <TextField label="Antall måneder" hideLabel={true} value={field?.antallMaaneder} onChange={(e) => setProperty('antallMaaneder', e.target.value)}/>
+              </>
+            }
+           </VStack>
+        </HGrid>
       }
-      {options?.showPeriod &&
-        <>
-          <TextField label="Fra" hideLabel={true} value={field?.periodeFra} onChange={(e) => setProperty('periodeFra', e.target.value)}/>
-          <TextField label="Til" hideLabel={true} value={field?.periodeTil} onChange={(e) => setProperty('periodeTil', e.target.value)}/>
-        </>
-      }
-      {options?.showMonths &&
-        <>
-          <TextField label="Antall måneder" hideLabel={true} value={field?.antallMaaneder} onChange={(e) => setProperty('antallMaaneder', e.target.value)}/>
-        </>
-      }
-    </HGrid>
+    </VStack>
   )
 }
 
