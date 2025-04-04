@@ -67,7 +67,7 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
             }
             {options?.showMonths &&
               <>
-                <TextField label="Antall måneder" hideLabel={true} value={field?.antallMaaneder} onChange={(e) => setProperty('antallMaaneder', e.target.value)}/>
+                <TextField label="Antall måneder" hideLabel={false} value={field?.antallMaaneder} onChange={(e) => setProperty('antallMaaneder', e.target.value)}/>
               </>
             }
            </VStack>
