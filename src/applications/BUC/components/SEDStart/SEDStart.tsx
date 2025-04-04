@@ -280,6 +280,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_validation, setValidation] = useState<Validation>({})
   const [_vedtakId, setVedtakId] = useState<string | null | undefined>(vedtakId)
 
+  const [_limitedInstitutions, setLimitedInstitutions] = useState<Array<GroupBase<Option>> | undefined>(undefined)
+
   // BEGIN QUESTIONS
 
   // norway as case owner (except some mock institutions that should simulate foreign institutions)
@@ -413,7 +415,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
           _institutionObjectListLimited.push({
             label: country.label,
             options: {
-              label: inst.acronym + "–" + inst.name + "(" + inst.institution + ")",
+              label: inst.acronym + " – " + inst.name + "(" + inst.institution + ")",
               value: inst.institution
             }
           })
@@ -656,7 +658,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       const countries: CountryRawList = getReceiverCountries()
       fetchInstitutionsForSelectedCountries(countries)
       setInstitutions(getReceiverInstitutions())
-      console.log(getReceiverInstitutionObjectList())
+      setLimitedInstitutions(getReceiverInstitutionObjectList())
     }
 
     if (sedNeedsKravOm(newSed)) {
@@ -1181,7 +1183,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 id='a_buc_c_sedstart--institution-select-id'
                 isLoading={loading.gettingInstitutionList}
                 label={loading.gettingInstitutionList ? getSpinner('message:loading-institution') : t('buc:form-chooseInstitution')}
-                options={_institutionObjectList}
+                options={_limitedInstitutions ? _limitedInstitutions : _institutionObjectList}
                 onSelect={onInstitutionsChange}
                 values={_institutionValueList}
               />
