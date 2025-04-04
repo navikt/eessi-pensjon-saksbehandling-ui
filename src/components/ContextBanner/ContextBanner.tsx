@@ -26,9 +26,6 @@ export const Tag = styled(HStack)`
  font-size: var(--a-font-size-small)
 `
 
-export interface ContextBannerProps {
-}
-
 export interface ContextBannerSelector {
   gettingSakType: boolean
   personPdl: PersonPDL | undefined
@@ -43,8 +40,7 @@ const mapState = (state: State): ContextBannerSelector => ({
   sakType: state.app.params.sakType as SakTypeValue | undefined | null
 })
 
-const ContextBanner: React.FC<ContextBannerProps> = ({
-}: ContextBannerProps): JSX.Element => {
+const ContextBanner: React.FC = (): JSX.Element => {
   const { t } = useTranslation()
   const { gettingSakType, pesysContext, sakType }: ContextBannerSelector = useSelector<State, ContextBannerSelector>(mapState)
 
