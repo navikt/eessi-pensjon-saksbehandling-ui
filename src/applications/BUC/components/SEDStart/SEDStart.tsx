@@ -368,7 +368,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const getParticipantCountriesWithoutNorway = (): CountryRawList => {
     const countries: RawList = bucs[currentBuc!].institusjon
       ? bucs[currentBuc!].institusjon!
-        .filter((inst: Institution) => (inst.country !== 'NO' || inst.institution !== "NO:NAVAT05"))
+        .filter((inst: Institution) => (inst.country !== 'NO' || inst.institution === "NO:NAVAT05"))
         .map((inst: Institution) => inst.country)
       : []
     return _.uniq(countries)
@@ -377,7 +377,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const getParticipantInstitutionsWithoutNorway = (): InstitutionRawList => {
     const institutions: RawList = bucs[currentBuc!].institusjon
       ? bucs[currentBuc!].institusjon!
-        .filter((inst: Institution) => (inst.country !== 'NO' || inst.institution !== "NO:NAVAT05"))
+        .filter((inst: Institution) => (inst.country !== 'NO' || inst.institution === "NO:NAVAT05"))
         .map((inst: Institution) => inst.institution)
       : []
     return _.uniq(institutions)
@@ -698,7 +698,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         institutions.push({
           acronym: 'NAVAT05',
           institution: item,
-          country: 'NO',
+          country: 'DK',
           name: 'NAV ACCEPTANCE TEST 05'
         } as Institution)
       } else {
