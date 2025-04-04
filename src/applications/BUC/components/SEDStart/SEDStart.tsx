@@ -283,7 +283,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   // BEGIN QUESTIONS
 
   // norway as case owner (except some mock institutions that should simulate foreign institutions)
-  const isNorwayCaseOwner = (): boolean => _buc?.creator?.country === 'NO'
+  const isNorwayCaseOwner = (): boolean => _buc?.creator?.country === 'NO' &&  _buc?.creator?.institution !== 'NO:NAVAT05'
     // Used for simulating sending to/from Norway to/from DK/FI (Q2-->Q1/Q1-->Q2)
     //&& (_buc?.creator?.institution !== 'NO:NAVAT06' && _buc?.creator?.institution !== 'NO:NAVAT08')
 
@@ -367,15 +367,17 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const getParticipantCountriesWithoutNorway = (): CountryRawList => {
     const countries: RawList = bucs[currentBuc!].institusjon
-      ? bucs[currentBuc!].institusjon!.map((inst: Institution) => inst.country)
+      ? bucs[currentBuc!].institusjon!
+        .filter((inst: Institution) => (inst.country !== 'NO' || inst.institution === "NO:NAVAT05"))
+        .map((inst: Institution) => inst.country)
       : []
-    return _.uniq(_.filter(countries, (c: string) => c !== 'NO'))
+    return _.uniq(countries)
   }
 
   const getParticipantInstitutionsWithoutNorway = (): InstitutionRawList => {
     const institutions: RawList = bucs[currentBuc!].institusjon
       ? bucs[currentBuc!].institusjon!
-        .filter((inst: Institution) => inst.country !== 'NO')
+        .filter((inst: Institution) => (inst.country !== 'NO' || inst.institution === "NO:NAVAT05"))
         .map((inst: Institution) => inst.institution)
       : []
     return _.uniq(institutions)
@@ -692,19 +694,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const convertInstitutionIDsToInstitutionObjects = (): Institutions => {
     const institutions: Institutions = []
     _institutions.forEach(item => {
-      if (item === 'NO:NAVAT06') {
+      if (item === 'NO:NAVAT05') {
         institutions.push({
-          acronym: 'NAVAT06',
+          acronym: 'NAVAT05',
           institution: item,
-          country: 'NO',
-          name: 'NAV ACCEPTANCE TEST 06'
-        } as Institution)
-      } else if (item === 'NO:NAVAT08') {
-        institutions.push({
-          acronym: 'NAVAT08',
-          institution: item,
-          country: 'NO',
-          name: 'NAV ACCEPTANCE TEST 08'
+          country: 'DK',
+          name: 'NAV ACCEPTANCE TEST 05'
         } as Institution)
       } else {
         Object.keys(institutionList!).forEach((landkode: string) => {
