@@ -68,7 +68,7 @@ const ContextBanner: React.FC = (): JSX.Element => {
           {gettingSakType && (
             <WaitingPanel size='xsmall' oneLine />
           )}
-          {sakType && Object.values(SakTypeMap).indexOf(sakType) >= 0 && (
+          {sakType && (sakType ?? Object.values(SakTypeMap).indexOf(sakType) >= 0) && (
             <strong>{sakType}</strong>
           )}
         </Tag>
