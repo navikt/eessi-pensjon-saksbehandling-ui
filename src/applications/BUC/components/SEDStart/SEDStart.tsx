@@ -384,6 +384,25 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return _.uniq(institutions)
   }
 
+  const getReceiverCountries = (): CountryRawList => {
+    const countries: RawList = bucs[currentBuc!].institusjon
+      ? bucs[currentBuc!].institusjon!
+        .filter((inst: Institution) => inst.institution !== bucs[currentBuc!].creator?.institution)
+        .map((inst: Institution) => {
+          return inst.institution === "NO:NAVAT05" ? "DK" : inst.country})
+      : []
+    return _.uniq(countries)
+  }
+
+  const getReceiverInstitutions = (): CountryRawList => {
+    const institutions: RawList = bucs[currentBuc!].institusjon
+      ? bucs[currentBuc!].institusjon!
+        .filter((inst: Institution) => inst.institution !== bucs[currentBuc!].creator?.institution)
+        .map((inst: Institution) => inst.institution)
+      : []
+    return _.uniq(institutions)
+  }
+
   const isDisabled = _sed ? !isNorwayCaseOwner() && sedFreezesCountriesAndInstitutions.indexOf(_sed) >= 0 : false
 
   const _countryIncludeList: CountryRawList = countryList
@@ -613,7 +632,12 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       const countries: CountryRawList = getParticipantCountriesWithoutNorway()
       fetchInstitutionsForSelectedCountries(countries)
       setInstitutions(getParticipantInstitutionsWithoutNorway())
+    } else if (isNorwayCaseOwner() && "P8000".indexOf(newSed) >= 0){
+      const countries: CountryRawList = getReceiverCountries()
+      fetchInstitutionsForSelectedCountries(countries)
+      setInstitutions(getReceiverInstitutions())
     }
+
     if (sedNeedsKravOm(newSed)) {
       setDefaultKravOm()
     }
