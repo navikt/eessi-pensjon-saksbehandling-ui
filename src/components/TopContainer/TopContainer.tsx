@@ -83,7 +83,6 @@ export interface TopContainerSelector {
   error: any | undefined
   footerOpen: boolean
   gettingUserInfo: boolean
-  isLoggingOut: boolean
   modal: ModalContent | undefined
   params: Params
   size: WidthSize | undefined
@@ -99,7 +98,6 @@ const mapState = (state: State): TopContainerSelector => ({
   username: state.app.username,
 
   gettingUserInfo: state.loading.gettingUserInfo,
-  isLoggingOut: state.loading.isLoggingOut,
 
   footerOpen: state.ui.footerOpen,
   modal: state.ui.modal,
@@ -111,7 +109,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
 }: TopContainerProps): JSX.Element => {
   const {
     bannerStatus, bannerMessage, error,
-    gettingUserInfo, isLoggingOut, modal, size, username
+    gettingUserInfo, modal, size, username
   } = useSelector(mapState)
   const dispatch = useDispatch()
 
@@ -165,7 +163,6 @@ export const TopContainer: React.FC<TopContainerProps> = ({
             <Header
               username={username}
               gettingUserInfo={gettingUserInfo}
-              isLoggingOut={isLoggingOut}
               key="topContainer-header"
               indexType={indexType}
             />

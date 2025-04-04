@@ -1,4 +1,3 @@
-import PT from 'prop-types'
 import {MenuGridIcon, ExternalLinkIcon} from '@navikt/aksel-icons'
 import { useTranslation } from 'react-i18next'
 import NavLogoTransparent from 'src/assets/images/NavLogoTransparent'
@@ -11,11 +10,9 @@ export const CenterHStack = styled(HStack)`
 `
 
 export interface HeaderProps {
-  className ?: string
   children?: JSX.Element | Array<JSX.Element | null>
   gettingUserInfo?: boolean
   header?: JSX.Element | string
-  isLoggingOut?: boolean
   username?: string
   indexType?: string
 }
@@ -29,7 +26,7 @@ const Title = styled.div`
 `
 
 const Header: React.FC<HeaderProps> = ({
-  className, gettingUserInfo, isLoggingOut, username, indexType = "PESYS"
+  gettingUserInfo, username, indexType = "PESYS"
 }: HeaderProps): JSX.Element => {
   const { t } = useTranslation()
 
@@ -76,14 +73,6 @@ const Header: React.FC<HeaderProps> = ({
       />
     </InternalHeader>
   )
-}
-
-Header.propTypes = {
-  className: PT.string,
-  gettingUserInfo: PT.bool,
-  header: PT.oneOfType([PT.element, PT.string]),
-  isLoggingOut: PT.bool,
-  username: PT.string
 }
 
 export default Header

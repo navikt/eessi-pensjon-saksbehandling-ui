@@ -29,7 +29,6 @@ const defaultSelector: TopContainerSelector = {
   error: undefined,
   footerOpen: false,
   gettingUserInfo: false,
-  isLoggingOut: false,
   modal: undefined,
   params: {},
   size: 'lg',
