@@ -1,13 +1,7 @@
 import {MenuGridIcon, ExternalLinkIcon} from '@navikt/aksel-icons'
 import { useTranslation } from 'react-i18next'
-import NavLogoTransparent from 'src/assets/images/NavLogoTransparent'
-import {ActionMenu, HStack, Spacer, InternalHeader} from '@navikt/ds-react'
-import styled from 'styled-components'
+import {ActionMenu, Spacer, InternalHeader} from '@navikt/ds-react'
 import {GJENNY} from "src/constants/constants";
-
-export const CenterHStack = styled(HStack)`
-  align-items: center;
-`
 
 export interface HeaderProps {
   children?: JSX.Element | Array<JSX.Element | null>
@@ -17,14 +11,6 @@ export interface HeaderProps {
   indexType?: string
 }
 
-const Title = styled.div`
-  align-items: center;
-  color: var(--a-white);
-  display: flex;
-  font-size: 13pt;
-  padding-left: 15px;
-`
-
 const Header: React.FC<HeaderProps> = ({
   gettingUserInfo, username, indexType = "PESYS"
 }: HeaderProps): JSX.Element => {
@@ -32,15 +18,9 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <InternalHeader>
-      <InternalHeader.Title
-      >
-        <CenterHStack>
-          <NavLogoTransparent width='80' height='36' color='white' />
-        </CenterHStack>
+      <InternalHeader.Title as="h1">
+        {indexType === GJENNY ? t('ui:app-headerTitle-gjenny') : t('ui:app-headerTitle')}
       </InternalHeader.Title>
-      <Title>
-        <span>{indexType === GJENNY ? t('ui:app-headerTitle-gjenny') : t('ui:app-headerTitle')}</span>
-      </Title>
       <Spacer />
       <ActionMenu>
         <ActionMenu.Trigger>
