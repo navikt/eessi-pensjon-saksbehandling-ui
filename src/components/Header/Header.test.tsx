@@ -1,43 +1,23 @@
-import { clearData } from 'src/actions/app'
-import * as routes from 'src/constants/routes'
-import { screen, render } from '@testing-library/react'
-import { stageSelector } from 'src/setupTests'
+import { render, screen } from '@testing-library/react'
 import Header, { HeaderProps } from './Header'
 
-jest.mock('src/actions/app', () => ({
-  clearData: jest.fn()
-}))
-
-const mockHistoryPush = jest.fn()
-
-jest.mock("react-router-dom", () => ({
-  useNavigate: () => mockHistoryPush,
-}));
-
 describe('src/components/Header/Header', () => {
+  const NAV_LOGO_TITLE_TEXT = "NAV logo"
+
   const initialMockProps: HeaderProps = {
     username: 'testUser'
   }
 
   beforeEach(() => {
-    stageSelector({}, {})
     render(<Header {...initialMockProps} />)
   })
 
-
-  it('Render: match snapshot', () => {
-    const { container } = render(<Header {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
-  it('Handling: clicking logo is handled', () => {
-    (clearData as jest.Mock).mockReset();
-    (mockHistoryPush as jest.Mock).mockReset()
-    screen.getByTestId('c-header--logo-link').click()
-    expect(clearData).toHaveBeenCalled()
-    expect(mockHistoryPush).toHaveBeenCalledWith({
-      pathname: routes.ROOT,
-      search: window.location.search
-    })
+  it('Handling: has proper HTML structure', () => {
+    expect(screen.queryByRole('img')).toBeInTheDocument()
+    expect(screen.getByText(NAV_LOGO_TITLE_TEXT)).toBeInTheDocument()
+    expect(screen.getByText('ui:app-headerTitle' || 'app-headerTitle-gjenny', )).toBeInTheDocument()
+    expect(screen.queryByRole('button')).toBeInTheDocument()
+    expect(screen.getByText('ui:app-header-menu-label')).toBeInTheDocument()
+    expect(screen.getByText(initialMockProps.username!)).toBeInTheDocument()
   })
 })

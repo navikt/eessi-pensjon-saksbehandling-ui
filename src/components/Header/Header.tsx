@@ -47,12 +47,12 @@ const Header: React.FC<HeaderProps> = ({
           <InternalHeader.Button>
             <MenuGridIcon
               style={{fontSize: "1.5rem"}}
-              title="Systemer og oppslagsverk"
+              title={t('ui:app-header-menu-label')}
             />
           </InternalHeader.Button>
         </ActionMenu.Trigger>
         <ActionMenu.Content>
-          <ActionMenu.Group label="Systemer og oppslagsverk">
+          <ActionMenu.Group label={t('ui:app-header-menu-label')}>
             <ActionMenu.Item as="a" target="_blank" href="https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03" icon={<ExternalLinkIcon aria-hidden/>}>
               {t('ui:lawsource')}
             </ActionMenu.Item>

@@ -1,6 +1,7 @@
 {
     "app-headerTitle" : "EESSI Pensjon",
     "app-headerTitle-gjenny": "EESSI Pensjon - Gjenny",
+    "app-header-menu-label": "Systemer og oppslagsverk",
 
     "add" : "Legg til",
     "add-new-x": "Legg til {{x}}",
