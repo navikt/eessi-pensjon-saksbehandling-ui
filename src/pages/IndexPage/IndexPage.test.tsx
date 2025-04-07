@@ -1,13 +1,6 @@
 import {  screen, render } from '@testing-library/react'
-import { BUCMode } from 'src/declarations/app.d'
 
-import { stageSelector } from 'src/setupTests'
-import { IndexPage, IndexPageProps, IndexPageSelector } from './IndexPage'
-
-const defaultSelector: IndexPageSelector = {
-  mode: 'buclist' as BUCMode,
-  username: 'mockUsername',
-}
+import { IndexPage, IndexPageProps } from './IndexPage'
 
 jest.mock('components/TopContainer/TopContainer', () => {
   return ({ children }: {children: JSX.Element}) => (
@@ -28,7 +21,6 @@ describe('pages/IndexPage', () => {
   const initialMockProps: IndexPageProps = {}
 
   beforeEach(() => {
-    stageSelector(defaultSelector, {})
     render(<IndexPage {...initialMockProps} />)
   })
 
