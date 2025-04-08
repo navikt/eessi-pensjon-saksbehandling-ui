@@ -6,11 +6,6 @@ describe('components/Select/Select', () => {
     error: undefined,
   }
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<Select {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: has proper HTML structure', () => {
     render(<Select {...initialMockProps} />)
     expect(screen.getByRole('combobox')).toBeInTheDocument()

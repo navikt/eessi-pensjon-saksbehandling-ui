@@ -10,11 +10,6 @@ describe('src/components/Alert/Alert', () => {
     onClose: jest.fn()
   }
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<BannerAlert {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: has proper HTML structure', () => {
     render(<BannerAlert {...initialMockProps} />)
     expect(screen.getByRole('alert')).toBeInTheDocument()

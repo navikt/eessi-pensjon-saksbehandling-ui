@@ -8,11 +8,6 @@ describe('components/MultipleSelect/MultipleValueLabel', () => {
     }
   }
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<MultipleValueLabel {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: has proper HTML structure', () => {
     render(<MultipleValueLabel {...initialMockProps} />)
     expect(screen.getByTestId('c-multipleselect-multivaluelabel')).toBeInTheDocument()

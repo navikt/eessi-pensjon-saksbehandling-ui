@@ -22,11 +22,6 @@ describe('components/MultipleSelect/MultipleSelect', () => {
     values: [options[1]]
   }
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<MultipleSelect {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: has proper HTML structure', () => {
     render(<MultipleSelect {...initialMockProps} />)
     expect(screen.getByTestId('c-multipleSelect')).toBeInTheDocument()

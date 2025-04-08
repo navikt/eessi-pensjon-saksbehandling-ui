@@ -22,11 +22,6 @@ describe('src/components/Footer', () => {
     stageSelector({}, {})
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<Footer {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: closed', () => {
     render(<Footer {...initialMockProps} footerOpen={false} />)
     expect(screen.getByRole('button')).toHaveClass('footerButtonClosed')

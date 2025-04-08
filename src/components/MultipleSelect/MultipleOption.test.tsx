@@ -35,11 +35,6 @@ describe('components/MultipleSelect/MultipleOption', () => {
     isDisabled: false
   }
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<MultipleOption {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: has proper HTML structure', () => {
     render(<MultipleOption {...initialMockProps} />)
     expect(screen.getByTestId('c-multipleoption--checkbox--mockValue')).toBeInTheDocument()

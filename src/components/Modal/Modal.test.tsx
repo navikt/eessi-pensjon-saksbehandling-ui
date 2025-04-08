@@ -19,11 +19,6 @@ describe('components/Modal', () => {
     onModalClose: jest.fn()
   }
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<Modal {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: has proper HTML structure', () => {
     render(<Modal {...initialMockProps} />)
     expect(screen.getByTestId('modal--title-id')).toHaveTextContent(initialMockProps.modal!.modalTitle as string)

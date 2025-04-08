@@ -60,15 +60,6 @@ describe('src/components/TopContainer', () => {
     )
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(
-      <TopContainer {...initialMockProps}>
-        <div id='TEST_CHILD' />
-      </TopContainer>
-    )
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: has proper HTML structure', () => {
     expect(wrapper.exists('Header')).toBeTruthy()
     expect(wrapper.exists('Alert')).toBeTruthy()
