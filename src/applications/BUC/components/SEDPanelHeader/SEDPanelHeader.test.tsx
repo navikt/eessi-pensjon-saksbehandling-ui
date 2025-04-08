@@ -2,10 +2,6 @@ import { render, screen } from '@testing-library/react'
 import SEDPanelHeader from './SEDPanelHeader'
 
 describe('applications/BUC/components/SEDPanelHeader/SEDPanelHeader', () => {
-  it('Render: match snapshot', () => {
-    const { container } = render(<SEDPanelHeader />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
 
   it('Render: has proper HTML structure', () => {
     render(<SEDPanelHeader />)

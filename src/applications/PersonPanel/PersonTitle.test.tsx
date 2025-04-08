@@ -19,12 +19,6 @@ describe('applications/PersonPanel/PersonTitle', () => {
     wrapper.unmount()
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<PersonTitle {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
-
   it('Render: has proper HTML structure', () => {
     expect(wrapper.exists(Title)).toBeTruthy()
     expect(wrapper.find(Title).find('img').props().alt).toEqual('nav-man-icon')

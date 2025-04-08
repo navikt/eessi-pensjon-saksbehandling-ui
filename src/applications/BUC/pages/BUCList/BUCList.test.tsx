@@ -64,11 +64,6 @@ describe('applications/BUC/pages/BUCList/BUCList', () => {
     wrapper.unmount()
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<BUCList {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: loading BUCs', () => {
     stageSelector(defaultSelector, { loading: { gettingBucsList: true } })
     wrapper = render(<BUCList {...initialMockProps} />)

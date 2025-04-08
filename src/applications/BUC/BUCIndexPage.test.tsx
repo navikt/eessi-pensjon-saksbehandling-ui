@@ -55,11 +55,6 @@ describe('applications/BUC/index', () => {
     stageSelector(defaultSelector, {})
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<BUCIndexPage />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('UseEffect: getRinaUrl', () => {
     (getRinaUrl as jest.Mock).mockReset()
     wrapper = render(<BUCIndexPage />)

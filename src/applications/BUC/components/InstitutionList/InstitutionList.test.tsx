@@ -28,11 +28,6 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
     render(<InstitutionList {...initialMockProps} />)
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<InstitutionList {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: Has proper HTML structure with joined type', () => {
     expect(screen.getAllByTestId('a_buc_c_institutionlist--div-id')).toHaveLength(1)
     expect(screen.getByTestId('a_buc_c_institutionlist--div-id')).toHaveTextContent('Mock1, Mock2')

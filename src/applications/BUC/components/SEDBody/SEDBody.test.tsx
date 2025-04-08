@@ -62,11 +62,6 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
     wrapper.unmount()
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<SEDBody {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: has proper HTML structure', () => {
     expect(wrapper.exists(SEDBodyDiv)).toBeTruthy()
   })

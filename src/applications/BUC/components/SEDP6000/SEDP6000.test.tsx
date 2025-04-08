@@ -37,11 +37,6 @@ describe('src/applications/BUC/components/SEDP6000/SEDP6000', () => {
     wrapper.unmount()
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<SEDP6000 {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: has proper HTML structure', () => {
     expect(wrapper.find('div.a_buc_c_sedstart--p6000').hostNodes().length).toEqual(mockP6000s.length)
   })

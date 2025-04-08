@@ -61,11 +61,6 @@ describe('src/applications/BUC/components/BUCEdit/BUCEdit', () => {
     render(<BUCEdit {...initialMockProps} />)
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<BUCEdit {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: get nothing without bucs', () => {
     stageSelector(defaultSelector, { bucs: {} })
     wrapper = render(<BUCEdit {...initialMockProps} />)

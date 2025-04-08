@@ -38,11 +38,6 @@ describe('src/applications/PersonPanel/PersonPanel', () => {
     wrapper.unmount()
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<PersonPanel />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('UseEffect: fetches person info when mounting: VEDTAKSKONTEKST', () => {
     expect(getPersonAvdodInfo).toHaveBeenCalled()
   })

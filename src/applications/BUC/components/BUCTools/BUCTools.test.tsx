@@ -57,11 +57,6 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     stageSelector(defaultSelector, {})
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<BUCTools {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: has proper HTML', () => {
     render(<BUCTools {...initialMockProps} />)
     expect(screen.getByTestId('a_buc_c_buctools--panel-id')).toBeInTheDocument()

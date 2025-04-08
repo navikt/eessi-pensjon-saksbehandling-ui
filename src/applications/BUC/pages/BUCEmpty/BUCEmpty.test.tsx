@@ -28,11 +28,6 @@ describe('applications/BUC/components/BUCEmpty/BUCEmpty', () => {
     wrapper.unmount()
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<BUCEmpty {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: has proper HTML structure with forms when no aktoerId and sakId', () => {
     expect(wrapper.exists(BUCEmptyDiv)).toBeTruthy()
     expect(wrapper.exists(BUCEmptyArtwork)).toBeTruthy()

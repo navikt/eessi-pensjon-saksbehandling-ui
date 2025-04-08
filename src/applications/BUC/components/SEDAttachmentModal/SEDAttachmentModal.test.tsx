@@ -39,11 +39,6 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
     stageSelector(defaultSelector, {})
   })
 
-  it('Render: match snapshot', () => {
-    render(<SEDAttachmentModal {...initialMockProps} />)
-    //expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: Has proper HTML structure', () => {
     render(<SEDAttachmentModal {...initialMockProps} />)
     expect(screen.getByTestId('a_buc_c_sedattachmentmodal--joarkbrowser-id')).toBeTruthy()

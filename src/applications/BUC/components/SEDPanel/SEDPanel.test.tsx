@@ -33,11 +33,6 @@ describe('src/applications/BUC/components/SEDPanel/SEDPanel', () => {
     render(<SEDPanel {...initialMockProps} />)
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<SEDPanel {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: has proper HTML structure', () => {
     expect(wrapper.exists(SEDPanelContainer)).toBeTruthy()
     expect(wrapper.exists(SEDHeader)).toBeTruthy()

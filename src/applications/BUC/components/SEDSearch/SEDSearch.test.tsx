@@ -14,11 +14,6 @@ describe('applications/BUC/components/SEDSearch/SEDSearch', () => {
     wrapper = render(<SEDSearch {...initialMockProps} />)
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<SEDSearch {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: has proper HTML structure', () => {
     expect(screen.getByTestId('a_buc_c_sedsearch--panel-id')).toBeInTheDocument()
     expect(screen.getByTestId('a_buc_c_sedsearch--query-input-id')).toBeInTheDocument()

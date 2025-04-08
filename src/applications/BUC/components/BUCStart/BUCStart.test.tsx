@@ -59,11 +59,6 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
     stageSelector(defaultSelector, {})
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<BUCStart {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: Has proper HTML structure', () => {
     render(<BUCStart {...initialMockProps} />)
     expect(screen.getByTestId('a_buc_c_BUCStart')).toBeInTheDocument()

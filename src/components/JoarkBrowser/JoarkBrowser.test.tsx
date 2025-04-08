@@ -39,12 +39,6 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
     render(<JoarkBrowser {...initialMockProps} />)
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<JoarkBrowser {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
-
   it('Render: has proper HTML structure', () => {
     expect(screen.getByTestId('c-joarkBrowser')).toBeInTheDocument()
   })

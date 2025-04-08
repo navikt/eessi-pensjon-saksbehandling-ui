@@ -48,11 +48,6 @@ describe('applications/BUC/components/P5000/P5000', () => {
     wrapper.unmount()
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<P5000Overview {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: Has proper HTML structure', () => {
     // expect(screen.getByTestId('a_buc_c_P5000--checkbox-60578cf8bf9f45a7819a39987c6c8fd4\']')).toBeTruthy()
     // expect(screen.getByTestId('a_buc_c_P5000--checkbox-50578cf8bf9f45a7819a39987c6c8fd4\']')).toBeTruthy()

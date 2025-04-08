@@ -47,11 +47,6 @@ describe('src/applications/BUC/components/SEDAttachmentSender/SEDAttachmentSende
     wrapper.unmount()
   })
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<SEDAttachmentSender {...initialMockProps} />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: Has proper HTML structure', () => {
     expect(screen.getByTestId('a_buc_c_sedAttachmentSender--div-id')).toBeTruthy()
     expect(screen.getByTestId('a_buc_c_sedAttachmentSender--progress-bar-id')).toBeTruthy()

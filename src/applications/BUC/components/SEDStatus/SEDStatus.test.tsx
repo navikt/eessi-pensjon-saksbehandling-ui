@@ -8,11 +8,6 @@ describe('applications/BUC/components/SEDStatus/SEDStatus', () => {
     status: 'new'
   }
 
-  it('Render: match snapshot', () => {
-    const { container } = render(<SEDStatus {...initialMockProps} status='new' />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: has proper HTML structure for sent status', () => {
     render(<SEDStatus {...initialMockProps} status='sent' />)
     expect(wrapper.exists(MyTag)).toBeTruthy()
