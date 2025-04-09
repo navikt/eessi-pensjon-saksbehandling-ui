@@ -449,6 +449,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         }
       }
     })
+    console.log(_institutionObjectList)
   }
 
   if (institutionList && _institutions) {
@@ -661,7 +662,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       setLimitedInstitutions(getReceiverInstitutionObjectList())
 
       console.log(getReceiverInstitutionObjectList())
-      console.log(_institutionObjectList)
     }
 
     if (sedNeedsKravOm(newSed)) {
