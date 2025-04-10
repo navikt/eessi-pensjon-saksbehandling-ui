@@ -281,6 +281,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_vedtakId, setVedtakId] = useState<string | null | undefined>(vedtakId)
 
   const [_limitedInstitutions, setLimitedInstitutions] = useState<Array<GroupBase<Option>> | undefined>(undefined)
+  const [_limitedCountries, setLimitedCountries] = useState<CountryRawList | undefined>(undefined)
 
   // BEGIN QUESTIONS
 
@@ -407,20 +408,31 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const getReceiverInstitutionObjectList = (): Array<GroupBase<Option>> => {
     const _institutionObjectListLimited: any = []
-    bucs[currentBuc!].institusjon!
+
+    const institutionsByCountry = bucs[currentBuc!].institusjon!
       .filter((inst: Institution) => inst.institution !== bucs[currentBuc!].creator?.institution)
-      .map((inst: Institution) => {
-        const country: Country | undefined = _countryData.findByValue(inst.country)
-        if (country) {
-          _institutionObjectListLimited.push({
-            label: country.label,
-            options: {
-              label: inst.acronym + " – " + inst.name + "(" + inst.institution + ")",
-              value: inst.institution
-            }
-          })
-        }
-      })
+      .reduce<Record<string, Institution[]>>((acc, institution: Institution) => {
+      const { country } = institution;
+      if (!acc[country]) {
+        acc[country] = [];
+      }
+      acc[country].push(institution);
+      return acc;
+    }, {});
+
+    Object.keys(institutionsByCountry).forEach((landkode: string) => {
+      const country: Country | undefined = _countryData.findByValue(landkode)
+      if (country) {
+        _institutionObjectListLimited.push({
+          label: country.label,
+          options: institutionsByCountry[landkode].filter(_notHostInstitution).map((institution: Institution) => ({
+            label: `${institution.acronym} – ${institution.name} (${institution.institution})`,
+            value: institution.institution
+          }))
+        })
+      }
+
+    })
 
     return _.uniq(_institutionObjectListLimited)
   }
@@ -430,6 +442,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const _countryIncludeList: CountryRawList = countryList
     ? (isNorwayCaseOwner() ? countryList : getParticipantCountriesWithoutNorway())
     : []
+
   const _countryValueList = _countries ? _countryData.filterByValueOnArray(_countries).sort(labelSorter) : []
   const _institutionObjectList: Array<GroupBase<Option>> = []
   let _institutionValueList: Array<Option> = []
@@ -449,7 +462,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         }
       }
     })
-    console.log(_institutionObjectList)
   }
 
   if (institutionList && _institutions) {
@@ -651,6 +663,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     setValidation({
       sed: validateSed(newSed)
     })
+    setLimitedInstitutions(undefined)
+    setLimitedCountries(undefined)
     if (!isNorwayCaseOwner() && sedPrefillsCountriesAndInstitutions.indexOf(newSed) >= 0) {
       const countries: CountryRawList = getParticipantCountriesWithoutNorway()
       fetchInstitutionsForSelectedCountries(countries)
@@ -658,10 +672,9 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     } else if (isNorwayCaseOwner() && ["P8000", "P10000"].indexOf(newSed) >= 0){
       const countries: CountryRawList = getReceiverCountries()
       fetchInstitutionsForSelectedCountries(countries)
+      setLimitedCountries(countries)
       setInstitutions(getReceiverInstitutions())
       setLimitedInstitutions(getReceiverInstitutionObjectList())
-
-      console.log(getReceiverInstitutionObjectList())
     }
 
     if (sedNeedsKravOm(newSed)) {
@@ -1169,7 +1182,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 flagType='circle'
                 hideSelectedOptions={false}
                 id='a_buc_c_sedstart--country-select-id'
-                includeList={_countryIncludeList}
+                includeList={_limitedCountries ? _limitedCountries : _countryIncludeList}
                 values={_countryValueList}
                 isLoading={loading.gettingCountryList}
                 isMulti
@@ -1186,7 +1199,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 id='a_buc_c_sedstart--institution-select-id'
                 isLoading={loading.gettingInstitutionList}
                 label={loading.gettingInstitutionList ? getSpinner('message:loading-institution') : t('buc:form-chooseInstitution')}
-                options={_institutionObjectList}
+                options={_limitedInstitutions ? _limitedInstitutions : _institutionObjectList}
                 onSelect={onInstitutionsChange}
                 values={_institutionValueList}
               />
