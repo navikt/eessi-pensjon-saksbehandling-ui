@@ -5,6 +5,2220 @@ const later = new Date(1970, 0, 1).getTime()
 
 const mockBuc = [
   {
+    "type": "P_BUC_03",
+    "caseId": "1451925",
+    "internationalId": "49898ddf0128475f8b8561f4d0f1c450",
+    "creator": {
+      "country": "NO",
+      "institution": "NO:NAVAT07",
+      "name": "NAV ACC 07",
+      "acronym": "NAVAT07"
+    },
+    "sakType": null,
+    "status": "open",
+    "startDate": "2025-04-03T12:17:58.360+00:00",
+    "lastUpdate": "2025-04-04T07:32:43.589+00:00",
+    "institusjon": [
+      {
+        "country": "NO",
+        "institution": "NO:NAVAT07",
+        "name": "NAV ACC 07",
+        "acronym": "NAVAT07"
+      },
+      {
+        "country": "NO",
+        "institution": "NO:NAVAT01",
+        "name": "NAV ACC 01",
+        "acronym": "NAVAT01"
+      },
+      {
+        "country": "NO",
+        "institution": "NO:NAVAT02",
+        "name": "NAV ACC 02",
+        "acronym": "NAVAT02"
+      },
+      {
+        "country": "NO",
+        "institution": "NO:NAVAT03",
+        "name": "NAV ACC 03",
+        "acronym": "NAVAT03"
+      },
+      {
+        "country": "NO",
+        "institution": "NO:NAVAT04",
+        "name": "NAV ACC 04",
+        "acronym": "NAVAT04"
+      },
+      {
+        "country": "NO",
+        "institution": "NO:NAVAT05",
+        "name": "NAV ACC 05",
+        "acronym": "NAVAT05"
+      },
+      {
+        "country": "NO",
+        "institution": "NO:NAVAT06",
+        "name": "NAV ACC 06",
+        "acronym": "NAVAT06"
+      },
+      {
+        "country": "NO",
+        "institution": "NO:NAVAT08",
+        "name": "NAV ACC 08",
+        "acronym": "NAVAT08"
+      }
+    ],
+    "seds": [
+      {
+        "attachments": [],
+        "displayName": "Invalidity pension claim",
+        "type": "P2200",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "0b988b1c20b34ecfb6b91d9aa304aaaf",
+        "direction": "OUT",
+        "creationDate": 1743683683205,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": true,
+        "versions": null,
+        "lastUpdate": 1743751963626,
+        "parentDocumentId": null,
+        "status": "sent",
+        "participants": [
+          {
+            "role": "Sender",
+            "organisation": {
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07",
+              "identifier": null,
+              "contactTypeIdentifier": null,
+              "authority": null,
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT04",
+              "countryCode": "NO",
+              "name": "NAV ACC 04",
+              "id": "NO:NAVAT04"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT06",
+              "countryCode": "NO",
+              "name": "NAV ACC 06",
+              "id": "NO:NAVAT06"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT03",
+              "countryCode": "NO",
+              "name": "NAV ACC 03",
+              "id": "NO:NAVAT03"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-04-03T12:34:43.205+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-04-03T12:34:43.205+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      },
+      {
+        "attachments": [],
+        "displayName": "Invalidate Sed",
+        "type": "X008",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "45e14691cd0e43af96e19523ff9238d9",
+        "direction": "OUT",
+        "creationDate": 1743751963599,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": false,
+        "versions": null,
+        "lastUpdate": 1743751963611,
+        "parentDocumentId": "0b988b1c20b34ecfb6b91d9aa304aaaf",
+        "status": "empty",
+        "participants": [
+          {
+            "role": "Sender",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT01",
+              "countryCode": "NO",
+              "name": "NAV ACC 01",
+              "id": "NO:NAVAT01"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT02",
+              "countryCode": "NO",
+              "name": "NAV ACC 02",
+              "id": "NO:NAVAT02"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT03",
+              "countryCode": "NO",
+              "name": "NAV ACC 03",
+              "id": "NO:NAVAT03"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT04",
+              "countryCode": "NO",
+              "name": "NAV ACC 04",
+              "id": "NO:NAVAT04"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT06",
+              "countryCode": "NO",
+              "name": "NAV ACC 06",
+              "id": "NO:NAVAT06"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT08",
+              "countryCode": "NO",
+              "name": "NAV ACC 08",
+              "id": "NO:NAVAT08"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-04-04T07:32:43.615+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-04-04T07:32:43.615+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      },
+      {
+        "attachments": [],
+        "displayName": "Country specific information",
+        "type": "P3000_NO",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "697467568f83432ab5b24972ff8a1d06",
+        "direction": "OUT",
+        "creationDate": 1743751963694,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": true,
+        "versions": null,
+        "lastUpdate": 1743751963700,
+        "parentDocumentId": null,
+        "status": "empty",
+        "participants": [
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT01",
+              "countryCode": "NO",
+              "name": "NAV ACC 01",
+              "id": "NO:NAVAT01"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT02",
+              "countryCode": "NO",
+              "name": "NAV ACC 02",
+              "id": "NO:NAVAT02"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT03",
+              "countryCode": "NO",
+              "name": "NAV ACC 03",
+              "id": "NO:NAVAT03"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT04",
+              "countryCode": "NO",
+              "name": "NAV ACC 04",
+              "id": "NO:NAVAT04"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT06",
+              "countryCode": "NO",
+              "name": "NAV ACC 06",
+              "id": "NO:NAVAT06"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT08",
+              "countryCode": "NO",
+              "name": "NAV ACC 08",
+              "id": "NO:NAVAT08"
+            },
+            "selected": false
+          },
+          {
+            "role": "Sender",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-04-04T07:32:43.703+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-04-04T07:32:43.703+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      },
+      {
+        "attachments": [],
+        "displayName": "Report on insurance history",
+        "type": "P4000",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "fb7ab268b3ee4710bbc164efbda8a18f",
+        "direction": "OUT",
+        "creationDate": 1743751963730,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": true,
+        "versions": null,
+        "lastUpdate": 1743751963736,
+        "parentDocumentId": null,
+        "status": "empty",
+        "participants": [
+          {
+            "role": "Sender",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT01",
+              "countryCode": "NO",
+              "name": "NAV ACC 01",
+              "id": "NO:NAVAT01"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT02",
+              "countryCode": "NO",
+              "name": "NAV ACC 02",
+              "id": "NO:NAVAT02"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT03",
+              "countryCode": "NO",
+              "name": "NAV ACC 03",
+              "id": "NO:NAVAT03"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT04",
+              "countryCode": "NO",
+              "name": "NAV ACC 04",
+              "id": "NO:NAVAT04"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT06",
+              "countryCode": "NO",
+              "name": "NAV ACC 06",
+              "id": "NO:NAVAT06"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT08",
+              "countryCode": "NO",
+              "name": "NAV ACC 08",
+              "id": "NO:NAVAT08"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-04-04T07:32:43.739+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-04-04T07:32:43.739+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      },
+      {
+        "attachments": [],
+        "displayName": "Insurance/residence periods",
+        "type": "P5000",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "6b69d83e6d024f61a96386184bef3fd2",
+        "direction": "OUT",
+        "creationDate": 1743751963759,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": false,
+        "versions": null,
+        "lastUpdate": 1743751963765,
+        "parentDocumentId": null,
+        "status": "empty",
+        "participants": [
+          {
+            "role": "Sender",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT01",
+              "countryCode": "NO",
+              "name": "NAV ACC 01",
+              "id": "NO:NAVAT01"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT02",
+              "countryCode": "NO",
+              "name": "NAV ACC 02",
+              "id": "NO:NAVAT02"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT03",
+              "countryCode": "NO",
+              "name": "NAV ACC 03",
+              "id": "NO:NAVAT03"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT04",
+              "countryCode": "NO",
+              "name": "NAV ACC 04",
+              "id": "NO:NAVAT04"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT06",
+              "countryCode": "NO",
+              "name": "NAV ACC 06",
+              "id": "NO:NAVAT06"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT08",
+              "countryCode": "NO",
+              "name": "NAV ACC 08",
+              "id": "NO:NAVAT08"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-04-04T07:32:43.768+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-04-04T07:32:43.768+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      },
+      {
+        "attachments": [],
+        "displayName": "Pension decision",
+        "type": "P6000",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "adc41c9f713b40038d77f4de3bba296d",
+        "direction": "OUT",
+        "creationDate": 1743751963787,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": true,
+        "versions": null,
+        "lastUpdate": 1743751963792,
+        "parentDocumentId": null,
+        "status": "empty",
+        "participants": [
+          {
+            "role": "Sender",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT01",
+              "countryCode": "NO",
+              "name": "NAV ACC 01",
+              "id": "NO:NAVAT01"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT02",
+              "countryCode": "NO",
+              "name": "NAV ACC 02",
+              "id": "NO:NAVAT02"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT03",
+              "countryCode": "NO",
+              "name": "NAV ACC 03",
+              "id": "NO:NAVAT03"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT04",
+              "countryCode": "NO",
+              "name": "NAV ACC 04",
+              "id": "NO:NAVAT04"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT06",
+              "countryCode": "NO",
+              "name": "NAV ACC 06",
+              "id": "NO:NAVAT06"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT08",
+              "countryCode": "NO",
+              "name": "NAV ACC 08",
+              "id": "NO:NAVAT08"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-04-04T07:32:43.795+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-04-04T07:32:43.795+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      },
+      {
+        "attachments": [],
+        "displayName": "Notification of Summary note",
+        "type": "P7000",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "37542eae19ff4079bf457c1584393702",
+        "direction": "OUT",
+        "creationDate": 1743751963815,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": false,
+        "versions": null,
+        "lastUpdate": 1743751963822,
+        "parentDocumentId": null,
+        "status": "empty",
+        "participants": [
+          {
+            "role": "Sender",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT01",
+              "countryCode": "NO",
+              "name": "NAV ACC 01",
+              "id": "NO:NAVAT01"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT02",
+              "countryCode": "NO",
+              "name": "NAV ACC 02",
+              "id": "NO:NAVAT02"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT03",
+              "countryCode": "NO",
+              "name": "NAV ACC 03",
+              "id": "NO:NAVAT03"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT04",
+              "countryCode": "NO",
+              "name": "NAV ACC 04",
+              "id": "NO:NAVAT04"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT06",
+              "countryCode": "NO",
+              "name": "NAV ACC 06",
+              "id": "NO:NAVAT06"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT08",
+              "countryCode": "NO",
+              "name": "NAV ACC 08",
+              "id": "NO:NAVAT08"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-04-04T07:32:43.824+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-04-04T07:32:43.824+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      },
+      {
+        "attachments": [],
+        "displayName": "Request for additional information",
+        "type": "P8000",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "31a9a05fc4e842e39c056658dffdb4ff",
+        "direction": "OUT",
+        "creationDate": 1743751963843,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": true,
+        "versions": null,
+        "lastUpdate": 1743751963848,
+        "parentDocumentId": null,
+        "status": "empty",
+        "participants": [
+          {
+            "role": "Sender",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT01",
+              "countryCode": "NO",
+              "name": "NAV ACC 01",
+              "id": "NO:NAVAT01"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT02",
+              "countryCode": "NO",
+              "name": "NAV ACC 02",
+              "id": "NO:NAVAT02"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT03",
+              "countryCode": "NO",
+              "name": "NAV ACC 03",
+              "id": "NO:NAVAT03"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT04",
+              "countryCode": "NO",
+              "name": "NAV ACC 04",
+              "id": "NO:NAVAT04"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT06",
+              "countryCode": "NO",
+              "name": "NAV ACC 06",
+              "id": "NO:NAVAT06"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT08",
+              "countryCode": "NO",
+              "name": "NAV ACC 08",
+              "id": "NO:NAVAT08"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-04-04T07:32:43.851+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-04-04T07:32:43.851+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      },
+      {
+        "attachments": [],
+        "displayName": "Transfer of additional information",
+        "type": "P10000",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "6d6e16dc2d904419afd57bc16824a3cd",
+        "direction": "OUT",
+        "creationDate": 1743751963874,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": true,
+        "versions": null,
+        "lastUpdate": 1743751963881,
+        "parentDocumentId": null,
+        "status": "empty",
+        "participants": [
+          {
+            "role": "Sender",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT01",
+              "countryCode": "NO",
+              "name": "NAV ACC 01",
+              "id": "NO:NAVAT01"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT02",
+              "countryCode": "NO",
+              "name": "NAV ACC 02",
+              "id": "NO:NAVAT02"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT03",
+              "countryCode": "NO",
+              "name": "NAV ACC 03",
+              "id": "NO:NAVAT03"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT04",
+              "countryCode": "NO",
+              "name": "NAV ACC 04",
+              "id": "NO:NAVAT04"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT06",
+              "countryCode": "NO",
+              "name": "NAV ACC 06",
+              "id": "NO:NAVAT06"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT08",
+              "countryCode": "NO",
+              "name": "NAV ACC 08",
+              "id": "NO:NAVAT08"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-04-04T07:32:43.883+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-04-04T07:32:43.883+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      },
+      {
+        "attachments": [],
+        "displayName": "Reminder",
+        "type": "X009",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "80af84bfcd924ad2b3a4855fcb14a201",
+        "direction": "OUT",
+        "creationDate": 1743751963899,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": false,
+        "versions": null,
+        "lastUpdate": 1743751963905,
+        "parentDocumentId": null,
+        "status": "empty",
+        "participants": [
+          {
+            "role": "Sender",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT01",
+              "countryCode": "NO",
+              "name": "NAV ACC 01",
+              "id": "NO:NAVAT01"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT02",
+              "countryCode": "NO",
+              "name": "NAV ACC 02",
+              "id": "NO:NAVAT02"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT03",
+              "countryCode": "NO",
+              "name": "NAV ACC 03",
+              "id": "NO:NAVAT03"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT04",
+              "countryCode": "NO",
+              "name": "NAV ACC 04",
+              "id": "NO:NAVAT04"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT06",
+              "countryCode": "NO",
+              "name": "NAV ACC 06",
+              "id": "NO:NAVAT06"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT08",
+              "countryCode": "NO",
+              "name": "NAV ACC 08",
+              "id": "NO:NAVAT08"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-04-04T07:32:43.908+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-04-04T07:32:43.908+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      },
+      {
+        "attachments": [],
+        "displayName": "Add New Participant",
+        "type": "X005",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "de29d510f85447aa9ef63235bd1004e9",
+        "direction": "OUT",
+        "creationDate": 1743751963924,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": false,
+        "versions": null,
+        "lastUpdate": 1743751963930,
+        "parentDocumentId": null,
+        "status": "empty",
+        "participants": [
+          {
+            "role": "Sender",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT01",
+              "countryCode": "NO",
+              "name": "NAV ACC 01",
+              "id": "NO:NAVAT01"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT02",
+              "countryCode": "NO",
+              "name": "NAV ACC 02",
+              "id": "NO:NAVAT02"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT03",
+              "countryCode": "NO",
+              "name": "NAV ACC 03",
+              "id": "NO:NAVAT03"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT04",
+              "countryCode": "NO",
+              "name": "NAV ACC 04",
+              "id": "NO:NAVAT04"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT06",
+              "countryCode": "NO",
+              "name": "NAV ACC 06",
+              "id": "NO:NAVAT06"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT08",
+              "countryCode": "NO",
+              "name": "NAV ACC 08",
+              "id": "NO:NAVAT08"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-04-04T07:32:43.933+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-04-04T07:32:43.933+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      },
+      {
+        "attachments": [],
+        "displayName": "Remove Participant",
+        "type": "X006",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "39c50668e2f342d38974644a5738c9af",
+        "direction": "OUT",
+        "creationDate": 1743751963948,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": false,
+        "versions": null,
+        "lastUpdate": 1743751963953,
+        "parentDocumentId": null,
+        "status": "empty",
+        "participants": [
+          {
+            "role": "Sender",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT01",
+              "countryCode": "NO",
+              "name": "NAV ACC 01",
+              "id": "NO:NAVAT01"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT02",
+              "countryCode": "NO",
+              "name": "NAV ACC 02",
+              "id": "NO:NAVAT02"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT03",
+              "countryCode": "NO",
+              "name": "NAV ACC 03",
+              "id": "NO:NAVAT03"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT04",
+              "countryCode": "NO",
+              "name": "NAV ACC 04",
+              "id": "NO:NAVAT04"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT06",
+              "countryCode": "NO",
+              "name": "NAV ACC 06",
+              "id": "NO:NAVAT06"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT08",
+              "countryCode": "NO",
+              "name": "NAV ACC 08",
+              "id": "NO:NAVAT08"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-04-04T07:32:43.956+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-04-04T07:32:43.956+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      },
+      {
+        "attachments": [],
+        "displayName": "Forward Case",
+        "type": "X007",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "6a0e27b2f200498d8fb8a575120f7bce",
+        "direction": "OUT",
+        "creationDate": 1743751963973,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": false,
+        "versions": null,
+        "lastUpdate": 1743751963980,
+        "parentDocumentId": null,
+        "status": "empty",
+        "participants": [
+          {
+            "role": "Sender",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT01",
+              "countryCode": "NO",
+              "name": "NAV ACC 01",
+              "id": "NO:NAVAT01"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT02",
+              "countryCode": "NO",
+              "name": "NAV ACC 02",
+              "id": "NO:NAVAT02"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT03",
+              "countryCode": "NO",
+              "name": "NAV ACC 03",
+              "id": "NO:NAVAT03"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT04",
+              "countryCode": "NO",
+              "name": "NAV ACC 04",
+              "id": "NO:NAVAT04"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT06",
+              "countryCode": "NO",
+              "name": "NAV ACC 06",
+              "id": "NO:NAVAT06"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT08",
+              "countryCode": "NO",
+              "name": "NAV ACC 08",
+              "id": "NO:NAVAT08"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-04-04T07:32:43.982+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-04-04T07:32:43.982+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      },
+      {
+        "attachments": [],
+        "displayName": "Claim for - Reimbursement - Administrative Check /Medical information",
+        "type": "H020",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "a21d51f04a004c1fb164f2e9d555fc02",
+        "direction": "OUT",
+        "creationDate": 1743751963998,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": true,
+        "versions": null,
+        "lastUpdate": 1743751964004,
+        "parentDocumentId": null,
+        "status": "empty",
+        "participants": [
+          {
+            "role": "Sender",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT01",
+              "countryCode": "NO",
+              "name": "NAV ACC 01",
+              "id": "NO:NAVAT01"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT02",
+              "countryCode": "NO",
+              "name": "NAV ACC 02",
+              "id": "NO:NAVAT02"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT03",
+              "countryCode": "NO",
+              "name": "NAV ACC 03",
+              "id": "NO:NAVAT03"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT04",
+              "countryCode": "NO",
+              "name": "NAV ACC 04",
+              "id": "NO:NAVAT04"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT06",
+              "countryCode": "NO",
+              "name": "NAV ACC 06",
+              "id": "NO:NAVAT06"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT08",
+              "countryCode": "NO",
+              "name": "NAV ACC 08",
+              "id": "NO:NAVAT08"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-04-04T07:32:44.008+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-04-04T07:32:44.008+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      },
+      {
+        "attachments": [],
+        "displayName": "Notification of death",
+        "type": "H070",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "6c7255f3357445af9bed5a6ad499434a",
+        "direction": "OUT",
+        "creationDate": 1743751964026,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": true,
+        "versions": null,
+        "lastUpdate": 1743751964033,
+        "parentDocumentId": null,
+        "status": "empty",
+        "participants": [
+          {
+            "role": "Sender",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT01",
+              "countryCode": "NO",
+              "name": "NAV ACC 01",
+              "id": "NO:NAVAT01"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT02",
+              "countryCode": "NO",
+              "name": "NAV ACC 02",
+              "id": "NO:NAVAT02"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT03",
+              "countryCode": "NO",
+              "name": "NAV ACC 03",
+              "id": "NO:NAVAT03"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT04",
+              "countryCode": "NO",
+              "name": "NAV ACC 04",
+              "id": "NO:NAVAT04"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT06",
+              "countryCode": "NO",
+              "name": "NAV ACC 06",
+              "id": "NO:NAVAT06"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT08",
+              "countryCode": "NO",
+              "name": "NAV ACC 08",
+              "id": "NO:NAVAT08"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-04-04T07:32:44.036+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-04-04T07:32:44.036+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      },
+      {
+        "attachments": [],
+        "displayName": "Request for Medical Information",
+        "type": "H120",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "437b34ce16a14962a89eeb738d852470",
+        "direction": "OUT",
+        "creationDate": 1743751964056,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": true,
+        "versions": null,
+        "lastUpdate": 1743751964067,
+        "parentDocumentId": null,
+        "status": "empty",
+        "participants": [
+          {
+            "role": "Sender",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT01",
+              "countryCode": "NO",
+              "name": "NAV ACC 01",
+              "id": "NO:NAVAT01"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT02",
+              "countryCode": "NO",
+              "name": "NAV ACC 02",
+              "id": "NO:NAVAT02"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT03",
+              "countryCode": "NO",
+              "name": "NAV ACC 03",
+              "id": "NO:NAVAT03"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT04",
+              "countryCode": "NO",
+              "name": "NAV ACC 04",
+              "id": "NO:NAVAT04"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT06",
+              "countryCode": "NO",
+              "name": "NAV ACC 06",
+              "id": "NO:NAVAT06"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT08",
+              "countryCode": "NO",
+              "name": "NAV ACC 08",
+              "id": "NO:NAVAT08"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-04-04T07:32:44.071+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-04-04T07:32:44.071+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      },
+      {
+        "attachments": [],
+        "displayName": "Notification of Medical Information / Reply to request for Medical Information",
+        "type": "H121",
+        "conversations": null,
+        "isSendExecuted": null,
+        "id": "4a70bd3a5750407291e814baf167db41",
+        "direction": "OUT",
+        "creationDate": 1743751964090,
+        "receiveDate": null,
+        "typeVersion": null,
+        "allowsAttachments": true,
+        "versions": null,
+        "lastUpdate": 1743751964096,
+        "parentDocumentId": null,
+        "status": "empty",
+        "participants": [
+          {
+            "role": "Sender",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT07",
+              "countryCode": "NO",
+              "name": "NAV ACC 07",
+              "id": "NO:NAVAT07"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT01",
+              "countryCode": "NO",
+              "name": "NAV ACC 01",
+              "id": "NO:NAVAT01"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT02",
+              "countryCode": "NO",
+              "name": "NAV ACC 02",
+              "id": "NO:NAVAT02"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT03",
+              "countryCode": "NO",
+              "name": "NAV ACC 03",
+              "id": "NO:NAVAT03"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2021-03-27T00:00:00.000+00:00",
+              "acronym": "NAVAT04",
+              "countryCode": "NO",
+              "name": "NAV ACC 04",
+              "id": "NO:NAVAT04"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT05",
+              "countryCode": "NO",
+              "name": "NAV ACC 05",
+              "id": "NO:NAVAT05"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT06",
+              "countryCode": "NO",
+              "name": "NAV ACC 06",
+              "id": "NO:NAVAT06"
+            },
+            "selected": false
+          },
+          {
+            "role": "Receiver",
+            "organisation": {
+              "address": null,
+              "activeSince": "2018-08-27T00:00:00.000+00:00",
+              "acronym": "NAVAT08",
+              "countryCode": "NO",
+              "name": "NAV ACC 08",
+              "id": "NO:NAVAT08"
+            },
+            "selected": false
+          }
+        ],
+        "firstVersion": {
+          "date": "2025-04-04T07:32:44.100+00:00",
+          "id": "1"
+        },
+        "lastVersion": {
+          "date": "2025-04-04T07:32:44.100+00:00",
+          "id": "1"
+        },
+        "version": "1",
+        "message": null,
+        "name": null,
+        "mimeType": null,
+        "creator": null
+      }
+    ],
+    "error": null,
+    "readOnly": false,
+    "subject": null,
+    "cdm": "4.3"
+  },
+  {
     "cdm": "4.3",
     "type": "P_BUC_01",
     "caseId": "999999",
