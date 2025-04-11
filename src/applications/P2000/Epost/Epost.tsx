@@ -150,7 +150,8 @@ const Epost: React.FC<EpostProps> = ({
           new: index < 0,
           error: hasNamespaceWithErrors(_v, _namespace)
         })}
-        padding="4"
+        paddingBlock={inEditMode ? "4 4" : "1 1"}
+        paddingInline="4 4"
       >
         <HGrid columns={2} gap="4">
           {inEditMode

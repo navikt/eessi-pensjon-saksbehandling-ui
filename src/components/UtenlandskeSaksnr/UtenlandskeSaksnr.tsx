@@ -1,5 +1,5 @@
 import {PlusCircleIcon} from "@navikt/aksel-icons";
-import {BodyLong, Box, Button, Heading, HGrid, HStack, Label, Spacer} from '@navikt/ds-react'
+import {BodyLong, Box, Button, Heading, HStack, Spacer} from '@navikt/ds-react'
 import { Country } from '@navikt/land-verktoy'
 import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
@@ -215,9 +215,13 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
           new: index < 0,
           error: hasNamespaceWithErrors(_v, _namespace)
         })}
+        paddingBlock={inEditMode ? "4 4" : "1 1"}
         padding="4"
       >
-        <TopAlignedGrid columns={3} gap="4">
+        <TopAlignedGrid
+          columns={3}
+          gap="4"
+        >
           {inEditMode
             ? (
               <CountryDropdown
@@ -228,7 +232,7 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
                 id={_namespace + '-land'}
                 countryCodeListName="euEftaLand"
                 excludeNorway={true}
-                hideLabel={index >= 0}
+                hideLabel={index > 0}
                 label={t('buc:form-utenlandske-saksnr-land')}
                 onOptionSelected={(e: Country) => setUtenlandskLand(e.value, index)}
                 values={_eessisak?.land}
@@ -238,6 +242,8 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
               <FormTextBox
                 error={_v[_namespace + '-land']?.feilmelding}
                 id={_namespace + '-land'}
+                label={index === 0 ? t('buc:form-utenlandske-saksnr-land') : ""}
+                padding={0}
               >
                 <FlagPanel land={_eessisak?.land}/>
               </FormTextBox>
@@ -248,7 +254,7 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
                 error={_v[_namespace + '-saksnummer']?.feilmelding}
                 id='saksnummer'
                 label={t('buc:form-utenlandske-saksnr-saksnr')}
-                hideLabel={index >= 0}
+                hideLabel={index > 0}
                 namespace={_namespace}
                 onChanged={(id: string) => setUtenlandskSaksnr(id, index)}
                 value={_eessisak?.saksnummer}
@@ -258,6 +264,8 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
               <FormTextBox
                 id={_namespace + '-saksnummer'}
                 error={_v[_namespace + '-saksnummer']?.feilmelding}
+                label={index === 0 ? t('buc:form-utenlandske-saksnr-saksnr') : ""}
+                padding={0}
               >
                 <BodyLong>{_eessisak?.saksnummer}</BodyLong>
               </FormTextBox>
@@ -298,17 +306,6 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
           )
         : (
           <>
-            <Box paddingBlock="2" paddingInline="4">
-              <HGrid columns={3} gap="4">
-                <Label>
-                  {t('buc:form-utenlandske-saksnr-land')}
-                </Label>
-                <Label>
-                  {t('buc:form-utenlandske-saksnr-saksnr')}
-                </Label>
-                <Spacer/>
-              </HGrid>
-            </Box>
             {eessisaks?.map(renderRow)}
           </>
           )

@@ -1,7 +1,7 @@
 import {PlusCircleIcon} from "@navikt/aksel-icons";
-import {BodyLong, Box, Button, Heading, HGrid, HStack, Label, Spacer} from '@navikt/ds-react'
-import { Country } from '@navikt/land-verktoy'
-import { resetValidation, setValidation } from 'src/actions/validation'
+import {BodyLong, Box, Button, Heading, HStack, Spacer} from '@navikt/ds-react'
+import {Country} from '@navikt/land-verktoy'
+import {resetValidation, setValidation} from 'src/actions/validation'
 import classNames from 'classnames'
 import AddRemovePanel from 'src/components/AddRemovePanel/AddRemovePanel'
 import Input from 'src/components/Forms/Input'
@@ -9,11 +9,11 @@ import {RepeatableBox, TopAlignedGrid} from 'src/components/StyledComponents'
 import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
 import React, {useEffect, useState} from 'react'
-import { useTranslation } from 'react-i18next'
+import {useTranslation} from 'react-i18next'
 import {useAppDispatch, useAppSelector} from 'src/store'
-import { getIdx } from 'src/utils/namespace'
+import {getIdx} from 'src/utils/namespace'
 import performValidation from 'src/utils/performValidation'
-import { hasNamespaceWithErrors } from 'src/utils/validation'
+import {hasNamespaceWithErrors} from 'src/utils/validation'
 import {validateUtenlandskPIN, ValidationUtenlandskPINProps} from './validation'
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
@@ -215,52 +215,61 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
           new: index < 0,
           error: hasNamespaceWithErrors(_v, _namespace)
         })}
-        padding="4"
+        paddingBlock={inEditMode ? "4 4" : "1 1"}
+        paddingInline="4 4"
       >
-        <TopAlignedGrid columns={3} gap="4">
+        <TopAlignedGrid
+          columns={3}
+          gap="4"
+        >
           {inEditMode
             ? (
-              <CountryDropdown
-                closeMenuOnSelect
-                data-testid={_namespace + '-land'}
-                error={_v[_namespace + '-land']?.feilmelding}
-                flagWave
-                id={_namespace + '-land'}
-                countryCodeListName="euEftaLand"
-                excludeNorway={true}
-                hideLabel={index >= 0}
-                label={t('buc:form-utenlandske-pin-land')}
-                onOptionSelected={(e: Country) => setUtenlandskeLand(e.value, index)}
-                values={_pin?.land}
-              />
+                <CountryDropdown
+                  closeMenuOnSelect
+                  data-testid={_namespace + '-land'}
+                  error={_v[_namespace + '-land']?.feilmelding}
+                  flagWave
+                  id={_namespace + '-land'}
+                  countryCodeListName="euEftaLand"
+                  excludeNorway={true}
+                  hideLabel={index > 0}
+                  label={t('buc:form-utenlandske-pin-land')}
+                  onOptionSelected={(e: Country) => setUtenlandskeLand(e.value, index)}
+                  values={_pin?.land}
+                />
               )
             : (
-              <FormTextBox
-                error={_v[_namespace + '-land']?.feilmelding}
-                id={_namespace + '-land'}
-              >
-                <FlagPanel land={_pin?.land}/>
-              </FormTextBox>
+                <FormTextBox
+                  error={_v[_namespace + '-land']?.feilmelding}
+                  id={_namespace + '-land'}
+                  label={index === 0 ? t('buc:form-utenlandske-pin-land') : ""}
+                  padding={0}
+                >
+
+                  <FlagPanel land={_pin?.land}/>
+                </FormTextBox>
               )}
           {inEditMode
             ? (
-              <Input
-                error={_v[_namespace + '-identifikator']?.feilmelding}
-                id='identifikator'
-                label={t('buc:form-utenlandske-pin-pin')}
-                hideLabel={index >= 0}
-                namespace={_namespace}
-                onChanged={(id: string) => setUtenlandskeIdentifikator(id, index)}
-                value={_pin?.identifikator}
-              />
+                <Input
+                  error={_v[_namespace + '-identifikator']?.feilmelding}
+                  id='identifikator'
+                  label={t('buc:form-utenlandske-pin-pin')}
+                  hideLabel={index > 0}
+                  namespace={_namespace}
+                  onChanged={(id: string) => setUtenlandskeIdentifikator(id, index)}
+                  value={_pin?.identifikator}
+                />
               )
             : (
-              <FormTextBox
-                id={_namespace + '-identifikator'}
-                error={_v[_namespace + '-identifikator']?.feilmelding}
-              >
-                <BodyLong>{_pin?.identifikator}</BodyLong>
-              </FormTextBox>
+                <FormTextBox
+                  id={_namespace + '-identifikator'}
+                  error={_v[_namespace + '-identifikator']?.feilmelding}
+                  label={index === 0 ? t('buc:form-utenlandske-pin-pin') : ""}
+                  padding={0}
+                >
+                  <BodyLong>{_pin?.identifikator}</BodyLong>
+                </FormTextBox>
               )
           }
           {parentEditMode &&
@@ -298,17 +307,6 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
           )
         : (
           <>
-            <Box paddingBlock="2" paddingInline="4">
-              <HGrid columns={3} gap="4">
-                <Label>
-                  {t('buc:form-utenlandske-pin-land')}
-                </Label>
-                <Label>
-                  {t('buc:form-utenlandske-pin-pin')}
-                </Label>
-                <Spacer/>
-              </HGrid>
-            </Box>
             {utenlandskePINs?.map(renderRow)}
           </>
           )
