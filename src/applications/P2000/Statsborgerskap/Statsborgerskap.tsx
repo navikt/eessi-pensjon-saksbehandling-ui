@@ -1,5 +1,5 @@
 import {PlusCircleIcon} from "@navikt/aksel-icons";
-import {BodyLong, Box, Button, Heading, HGrid, HStack, Label, Spacer} from '@navikt/ds-react'
+import {BodyLong, Box, Button, Heading, HGrid, HStack, Spacer} from '@navikt/ds-react'
 import { Country } from '@navikt/land-verktoy'
 import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
@@ -192,7 +192,8 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
           new: index < 0 && parentEditMode,
           error: hasNamespaceWithErrors(_v, _namespace)
         })}
-        padding="4"
+        paddingBlock={inEditMode ? "4 4" : "1 1"}
+        paddingInline="4 4"
       >
         <HGrid columns={2}>
           {inEditMode
@@ -214,6 +215,8 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
               <FormTextBox
                 error={_validation[_namespace + '-land']?.feilmelding}
                 id={_namespace + '-land'}
+                label={index === 0 ? t('p2000:form-person-statsborgerskap-land') : ""}
+                padding={0}
               >
                 <FlagPanel land={_statsborgerskap?.land}/>
               </FormTextBox>
@@ -254,11 +257,6 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
           )
         : (
           <>
-            <Box paddingBlock="2" paddingInline="4">
-              <Label>
-                {t('p2000:form-person-statsborgerskap-land')}
-              </Label>
-            </Box>
             {statsborgerskap?.map(renderRow)}
           </>
           )
