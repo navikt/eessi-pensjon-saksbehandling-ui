@@ -437,7 +437,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return _.uniq(_institutionObjectListLimited)
   }
 
-  const isDisabled = _sed ? !isNorwayCaseOwner() && sedFreezesCountriesAndInstitutions.indexOf(_sed) >= 0 : false
+  const isDisabled = _sed ?
+    (!isNorwayCaseOwner() && sedFreezesCountriesAndInstitutions.indexOf(_sed) >= 0) ||
+    (isNorwayCaseOwner() && ["P8000"].indexOf(_sed) && _buc.type === "P_BUC_05" && _buc.deltakere)
+    : false
 
   const _countryIncludeList: CountryRawList = countryList
     ? (isNorwayCaseOwner() ? countryList : getParticipantCountriesWithoutNorway())
