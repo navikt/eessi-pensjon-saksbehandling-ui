@@ -302,7 +302,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const sedPrefillsCountriesAndInstitutions = ['P4000', 'P5000', 'P6000', 'P7000', 'P8000', 'P10000', 'H020', 'H070', 'H120', 'H121']
 
-  const sedFreezesCountriesAndInstitutions = ['P4000', 'P5000', 'P6000', 'P7000', 'P8000', 'P10000', 'H020', 'H070', 'H120', 'H121']
+  const sedFreezesCountriesAndInstitutions = ['P4000', 'P5000', 'P6000', 'P7000', 'H020', 'H070', 'H120', 'H121']
 
   const sedNeedsKravOm = (sed: string) => ['P15000'].indexOf(sed) >= 0
 
@@ -437,6 +437,39 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
     return _.uniq(_institutionObjectListLimited)
   }
+
+  const getParticipantInstitutionsWithoutNorwayObjectList = (): Array<GroupBase<Option>> => {
+    const _institutionObjectListLimited: any = []
+
+    const institutionsByCountry = bucs[currentBuc!].institusjon!
+      .filter((inst: Institution) => (inst.country !== 'NO' || inst.institution === "NO:NAVAT05"))
+      .reduce<Record<string, Institution[]>>((acc, institution: Institution) => {
+        const { country } = institution;
+        if (!acc[country]) {
+          acc[country] = [];
+        }
+        acc[country].push(institution);
+        return acc;
+      }, {});
+
+    Object.keys(institutionsByCountry).forEach((landkode: string) => {
+      const country: Country | undefined = _countryData.findByValue(landkode)
+      if (country) {
+        _institutionObjectListLimited.push({
+          label: country.label,
+          options: institutionsByCountry[landkode].filter(_notHostInstitution).map((institution: Institution) => ({
+            label: `${institution.acronym} – ${institution.name} (${institution.institution})`,
+            value: institution.institution
+          }))
+        })
+      }
+
+    })
+
+    return _.uniq(_institutionObjectListLimited)
+  }
+
+
 
   const isDisabled = _sed ? (!isNorwayCaseOwner() && sedFreezesCountriesAndInstitutions.indexOf(_sed) >= 0) : false
 
@@ -671,6 +704,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       const countries: CountryRawList = getParticipantCountriesWithoutNorway()
       fetchInstitutionsForSelectedCountries(countries)
       setInstitutions(getParticipantInstitutionsWithoutNorway())
+      setLimitedInstitutions(getParticipantInstitutionsWithoutNorwayObjectList)
     } else if (isNorwayCaseOwner() && _buc.deltakere && ["P8000", "P10000"].indexOf(newSed) >= 0){
       if(_buc.type === "P_BUC_05"){
         setDisableForPBUC05(true)
