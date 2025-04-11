@@ -665,12 +665,11 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     })
     setLimitedInstitutions(undefined)
     setLimitedCountries(undefined)
-    console.log(_buc)
     if (!isNorwayCaseOwner() && sedPrefillsCountriesAndInstitutions.indexOf(newSed) >= 0) {
       const countries: CountryRawList = getParticipantCountriesWithoutNorway()
       fetchInstitutionsForSelectedCountries(countries)
       setInstitutions(getParticipantInstitutionsWithoutNorway())
-    } else if (isNorwayCaseOwner() && ["P8000", "P10000"].indexOf(newSed) >= 0){
+    } else if (isNorwayCaseOwner() && _buc.deltakere && ["P8000", "P10000"].indexOf(newSed) >= 0){
       // LIMIT COUNTRIES AND INSTITUTIONS TO THE ONES IN BUC
       const countries: CountryRawList = getReceiverCountries()
       fetchInstitutionsForSelectedCountries(countries)
