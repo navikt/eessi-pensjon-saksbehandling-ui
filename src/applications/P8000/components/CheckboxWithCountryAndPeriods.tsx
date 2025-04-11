@@ -59,7 +59,7 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
                 gap="4"
               >
                 <TextField style={{width: "5rem"}} label="Fra" hideLabel={false} value={field?.periodeFra} onChange={(e) => setProperty('periodeFra', e.target.value)}/>
-                <TextField style={{width: "5rem"}}label="Til" hideLabel={false} value={field?.periodeTil} onChange={(e) => setProperty('periodeTil', e.target.value)}/>
+                <TextField style={{width: "5rem"}} label="Til" hideLabel={false} value={field?.periodeTil} onChange={(e) => setProperty('periodeTil', e.target.value)}/>
                 {options?.showMonths &&
                   <TextField label="Antall måneder" hideLabel={false} value={field?.antallMaaneder} onChange={(e) => setProperty('antallMaaneder', e.target.value)}/>
                 }
