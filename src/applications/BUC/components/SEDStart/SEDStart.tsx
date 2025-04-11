@@ -282,6 +282,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const [_limitedInstitutions, setLimitedInstitutions] = useState<Array<GroupBase<Option>> | undefined>(undefined)
   const [_limitedCountries, setLimitedCountries] = useState<CountryRawList | undefined>(undefined)
+  const [_disableForPBUC05, setDisableForPBUC05] = useState<boolean>(false)
 
   // BEGIN QUESTIONS
 
@@ -437,10 +438,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return _.uniq(_institutionObjectListLimited)
   }
 
-  const isDisabled = _sed ?
-    (!isNorwayCaseOwner() && sedFreezesCountriesAndInstitutions.indexOf(_sed) >= 0) ||
-    (isNorwayCaseOwner() && ["P8000"].indexOf(_sed) && _buc.type === "P_BUC_05" && _buc.deltakere)
-    : false
+  const isDisabled = _sed ? (!isNorwayCaseOwner() && sedFreezesCountriesAndInstitutions.indexOf(_sed) >= 0) : false
 
   const _countryIncludeList: CountryRawList = countryList
     ? (isNorwayCaseOwner() ? countryList : getParticipantCountriesWithoutNorway())
@@ -668,11 +666,15 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     })
     setLimitedInstitutions(undefined)
     setLimitedCountries(undefined)
+    setDisableForPBUC05(false)
     if (!isNorwayCaseOwner() && sedPrefillsCountriesAndInstitutions.indexOf(newSed) >= 0) {
       const countries: CountryRawList = getParticipantCountriesWithoutNorway()
       fetchInstitutionsForSelectedCountries(countries)
       setInstitutions(getParticipantInstitutionsWithoutNorway())
     } else if (isNorwayCaseOwner() && _buc.deltakere && ["P8000", "P10000"].indexOf(newSed) >= 0){
+      if(_buc.type === "P_BUC_05"){
+        setDisableForPBUC05(true)
+      }
       // LIMIT COUNTRIES AND INSTITUTIONS TO THE ONES IN BUC
       const countries: CountryRawList = getReceiverCountries()
       fetchInstitutionsForSelectedCountries(countries)
@@ -1181,7 +1183,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 aria-describedby='help-country'
                 closeMenuOnSelect={false}
                 data-testid='a_buc_c_sedstart--country-select-id'
-                isDisabled={loading.gettingCountryList || isDisabled}
+                isDisabled={loading.gettingCountryList || isDisabled || _disableForPBUC05}
                 error={_validation.country ? t(_validation.country.feilmelding) : null}
                 flagType='circle'
                 hideSelectedOptions={false}
@@ -1197,7 +1199,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 ariaLabel={t('ui:institution')}
                 aria-describedby='help-institution'
                 data-testid='a_buc_c_sedstart--institution-select-id'
-                isDisabled={loading.gettingInstitutionList || isDisabled}
+                isDisabled={loading.gettingInstitutionList || isDisabled || _disableForPBUC05}
                 error={_validation.institution ? t(_validation.institution.feilmelding) : undefined}
                 hideSelectedOptions={false}
                 id='a_buc_c_sedstart--institution-select-id'
