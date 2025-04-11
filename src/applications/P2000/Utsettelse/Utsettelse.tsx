@@ -155,7 +155,8 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
           new: index < 0,
           error: hasNamespaceWithErrors(_v, _namespace)
         })}
-        padding="4"
+        paddingBlock={inEditMode ? "4 4" : "1 1"}
+        paddingInline="4 4"
       >
         <TopAlignedGrid gap="4" columns={4}>
           {inEditMode
@@ -198,6 +199,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
                 <FormTextBox
                   error={validation[_namespace + '-land']?.feilmelding}
                   id={_namespace + '-land'}
+                  padding={0}
                 >
                   <Label hidden={index>0}>
                     {t('p2000:form-diverse-utsettelse-land')}
@@ -207,6 +209,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
                 <FormTextBox
                   error={validation[_namespace + '-institusjonsnavn']?.feilmelding}
                   id={_namespace + '-institusjonsnavn'}
+                  padding={0}
                 >
                   <Label hidden={index>0}>
                     {t('p2000:form-diverse-utsettelse-institusjonsnavn')}
@@ -216,6 +219,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
                 <FormTextBox
                   error={validation[_namespace + '-tildato']?.feilmelding}
                   id={_namespace + '-tildato'}
+                  padding={0}
                 >
                   <Label hidden={index>0}>
                     {t('p2000:form-diverse-utsettelse-tildato')}

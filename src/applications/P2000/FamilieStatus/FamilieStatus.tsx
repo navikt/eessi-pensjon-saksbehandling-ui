@@ -1,4 +1,4 @@
-import {BodyLong, Box, Button, Heading, HGrid, HStack, Label, Select, Spacer} from "@navikt/ds-react";
+import {BodyLong, Box, Button, Heading, HStack, Select, Spacer} from "@navikt/ds-react";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
@@ -185,7 +185,8 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
           new: index < 0,
           error: hasNamespaceWithErrors(_v, _namespace)
         })}
-        padding="4"
+        paddingBlock={inEditMode ? "4 4" : "1 1"}
+        paddingInline="4 4"
       >
         <TopAlignedGrid columns={3} gap="4">
           {inEditMode
@@ -219,17 +220,25 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
                 <FormTextBox
                   id={_namespace + '-status'}
                   error={_v[_namespace + '-status']?.feilmelding}
+                  label={index === 0 ? t('p2000:form-familiestatus-status') : ""}
+                  padding={0}
                 >
-                  {sivilstandStatusOptions.filter((s) => {
-                    return s.value === _sivilstand?.status
-                  })[0]?.label}
+                  <BodyLong>
+                    {sivilstandStatusOptions.filter((s) => {
+                      return s.value === _sivilstand?.status
+                    })[0]?.label}
+                  </BodyLong>
                   <ErrorLabel error={_v[_namespace + '-status']?.feilmelding}/>
                 </FormTextBox>
                 <FormTextBox
                   id={_namespace + '-fradato'}
                   error={_v[_namespace + '-fradato']?.feilmelding}
+                  label={index === 0 ? t('p2000:form-familiestatus-fradato') : ""}
+                  padding={0}
                 >
-                  {formatDate(_sivilstand?.fradato)}
+                  <BodyLong>
+                    {formatDate(_sivilstand?.fradato)}
+                  </BodyLong>
                   <ErrorLabel error={_v[_namespace + '-fradato']?.feilmelding}/>
                 </FormTextBox>
               </>
@@ -268,17 +277,6 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
         )
         : (
           <>
-            <Box paddingBlock="2" paddingInline="5">
-              <HGrid columns={3} gap="4">
-                <Label>
-                  {t('p2000:form-familiestatus-status')}
-                </Label>
-                <Label>
-                  {t('p2000:form-familiestatus-fradato')}
-                </Label>
-                <Spacer/>
-              </HGrid>
-            </Box>
             {sivilstandList?.map(renderSivilstand)}
           </>
         )

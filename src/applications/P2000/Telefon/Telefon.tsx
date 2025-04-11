@@ -167,7 +167,8 @@ const Telefon: React.FC<TelefonProps> = ({
           new: index < 0,
           error: hasNamespaceWithErrors(_v, _namespace)
         })}
-        padding="4"
+        paddingBlock={inEditMode ? "4 4" : "1 1"}
+        paddingInline="4 4"
       >
         <TopAlignedGrid columns={3} gap="4">
           {inEditMode
