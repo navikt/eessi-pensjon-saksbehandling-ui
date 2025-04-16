@@ -1288,7 +1288,14 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 variant={_sed === 'P7000' && _.isEmpty(_p6000s) ? 'secondary' : 'primary'}
                 data-amplitude='sed.new.create'
                 data-testid='a_buc_c_sedstart--forward-button-id'
-                disabled={loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)}
+                disabled={
+                (
+                  loading.creatingSed
+                  || _sendingAttachments
+                  || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
+                  || (_limitedInstitutions && _limitedInstitutions?.length > 0 && _institutions.length < 1)
+                )
+              }
                 onClick={onForwardButtonClick}
               >
                 {(loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)) && <Loader />}
