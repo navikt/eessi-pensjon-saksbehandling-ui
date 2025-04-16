@@ -160,6 +160,7 @@ const P8000: React.FC<P8000Props> = ({
     }
 
     let text = ""
+    let textArray: Array<string> =  []
     if(currentPSED && currentPSED.options?.ofteEtterspurtInformasjon){
       P8000Variants[_type]?.ofteEtterspurtInformasjon?.map((field: string) => {
         const ofteEtterspurtInformasjon: OfteEtterspurtInformasjon | undefined = currentPSED?.options?.ofteEtterspurtInformasjon
@@ -175,6 +176,7 @@ const P8000: React.FC<P8000Props> = ({
           }
 
           text = text + t('p8000:' + field, extra) + "\n\n"
+          textArray.push(t('p8000:' + field, extra))
         }
       })
     }
@@ -192,11 +194,25 @@ const P8000: React.FC<P8000Props> = ({
             antallMaaneder: informasjonSomKanLeggesInn[key]?.antallMaaneder
           }
           text = text + t('p8000:' + field, extra) + "\n\n"
+          textArray.push(t('p8000:' + field, extra))
         }
       })
     }
     text = _fritekst ? text + "***********************\n" + _fritekst : text
-    setYtterligereInformasjon(text)
+    if(_fritekst){
+      textArray.push("***********************")
+      textArray.push(_fritekst)
+    }
+
+    const fritekstIndex = textArray.indexOf("***********************")
+    const numberedTextArray = textArray.map((t: string, idx: number) => {
+      if(fritekstIndex > 0 && idx < fritekstIndex || fritekstIndex < 0){
+        return (idx+1) + ") " + t + "\n\n"
+      } else {
+        return t + "\n"
+      }
+    })
+    setYtterligereInformasjon(numberedTextArray.join(""))
   }, [currentPSED, _fritekst])
 
   useEffect(() => {
