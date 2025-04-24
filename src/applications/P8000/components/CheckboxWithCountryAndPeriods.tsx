@@ -7,11 +7,13 @@ import {P8000FieldComponentProps} from "src/applications/P8000/P8000";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {P8000Field} from "src/declarations/p8000";
+import {useTranslation} from "react-i18next";
 
 export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> = ({
   label, value, PSED, updatePSED, namespace, target, options
 }: P8000FieldComponentProps): JSX.Element => {
   const dispatch = useDispatch()
+  const {t} = useTranslation()
   const field: P8000Field = _.get(PSED, `${target}.${value}`)
 
   const checked= field ? field.value : false
@@ -39,16 +41,13 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
           borderColor="border-subtle"
           background="surface-subtle"
         >
-          <HGrid
-            columns={3}
-            gap="4"
-          >
+          <HGrid columns={3} gap="4">
             {options?.showCountry &&
               <CountryDropdown
                 error={undefined}
                 id="land"
                 countryCodeListName="euEftaLand"
-                label="Land"
+                label={t('p8000:form-label-land')}
                 hideLabel={false}
                 onOptionSelected={(c: Country) => {setProperty('landkode', c.value)}}
                 values={field?.landkode  ?? ''}
@@ -58,12 +57,30 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
               <HStack
                 gap="4"
               >
-                <TextField style={{width: "5rem"}} label="Fra" hideLabel={false} value={field?.periodeFra} onChange={(e) => setProperty('periodeFra', e.target.value)}/>
-                <TextField style={{width: "5rem"}} label="Til" hideLabel={false} value={field?.periodeTil} onChange={(e) => setProperty('periodeTil', e.target.value)}/>
+                <TextField
+                  style={{width: "5rem"}}
+                  label={t('p8000:form-label-fra')}
+                  hideLabel={false}
+                  value={field?.periodeFra}
+                  onChange={(e) => setProperty('periodeFra', e.target.value)}
+                />
+                <TextField
+                  style={{width: "5rem"}}
+                  label={t('p8000:form-label-til')}
+                  hideLabel={false}
+                  value={field?.periodeTil}
+                  onChange={(e) => setProperty('periodeTil', e.target.value)}
+                />
               </HStack>
             }
             {options?.showMonths &&
-              <TextField label="Antall måneder" hideLabel={false} value={field?.antallMaaneder} onChange={(e) => setProperty('antallMaaneder', e.target.value)}/>
+              <TextField
+                style={{width: "5rem"}}
+                label={t('p8000:form-label-antall-maaneder')}
+                hideLabel={false}
+                value={field?.antallMaaneder}
+                onChange={(e) => setProperty('antallMaaneder', e.target.value)}
+              />
             }
             <Spacer/>
           </HGrid>
