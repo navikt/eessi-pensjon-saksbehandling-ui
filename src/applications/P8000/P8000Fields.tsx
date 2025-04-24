@@ -29,9 +29,6 @@ export const P8000Fields: React.FC<P8000FieldsProps> = ({
   namespace,
 }: P8000FieldsProps): JSX.Element => {
 
-  console.log(variant)
-  console.log(fields)
-  
   const getField = (type: string): JSX.Element | null => {
     let field: Field | undefined = _.find(fields, o => o.value === type)
     if (field) {

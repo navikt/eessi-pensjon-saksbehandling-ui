@@ -312,27 +312,33 @@ const P8000: React.FC<P8000Props> = ({
           padding="4"
         >
           <VStack gap="4">
-            <Heading level="1" size="medium">{t('p8000:form-heading-p8000')} ({buc.type?.toUpperCase()} - {t('buc:buc-' + buc.type?.toUpperCase())})</Heading>
+            <Heading level="1"
+                     size="medium">{t('p8000:form-heading-p8000')} ({buc.type?.toUpperCase()} - {t('buc:buc-' + buc.type?.toUpperCase())})</Heading>
             {currentPSED && currentPSED.options && currentPSED.options.type &&
               <HStack gap="4">
-                <ToggleGroup value={currentPSED?.options?.type?.spraak} onChange={(v)=> onToggle("spraak", v)} label={t('p8000:form-label-velg-spraak')}>
-                  <ToggleGroup.Item value="nb" label={t('p8000:form-label-spraak-norsk')} />
-                  <ToggleGroup.Item value="en" label={t('p8000:form-label-spraak-engelsk')} />
+                <ToggleGroup value={currentPSED?.options?.type?.spraak} onChange={(v) => onToggle("spraak", v)}
+                             label={t('p8000:form-label-velg-spraak')}>
+                  <ToggleGroup.Item value="nb" label={t('p8000:form-label-spraak-norsk')}/>
+                  <ToggleGroup.Item value="en" label={t('p8000:form-label-spraak-engelsk')}/>
                 </ToggleGroup>
                 {bucType !== "03" && bucType !== "01" &&
-                  <ToggleGroup value={currentPSED?.options?.type?.ytelse} onChange={(v)=> onToggle("ytelse", v)} label={t('p8000:form-label-velg-ytelse')}>
-                    <ToggleGroup.Item value="AP" label={t('p8000:form-label-ytelse-alderspensjon')} />
-                    <ToggleGroup.Item value="UT" label={t('p8000:form-label-ytelse-ufoere')} />
+                  <ToggleGroup value={currentPSED?.options?.type?.ytelse} onChange={(v) => onToggle("ytelse", v)}
+                               label={t('p8000:form-label-velg-ytelse')}>
+                    <ToggleGroup.Item value="AP" label={t('p8000:form-label-ytelse-alderspensjon')}/>
+                    <ToggleGroup.Item value="UT" label={t('p8000:form-label-ytelse-ufoere')}/>
                   </ToggleGroup>
                 }
                 {!_hideBosettingsStatus &&
-                  <ToggleGroup value={currentPSED?.options?.type?.bosettingsstatus} onChange={(v)=> onToggle("bosettingsstatus", v)} label={t('p8000:form-label-velg-bosettingsstatus')}>
-                    <ToggleGroup.Item value="NO" label={t('p8000:form-label-bosettingsstatus-norge')} />
-                    <ToggleGroup.Item value="UTL" label={t('p8000:form-label-bosettingsstatus-utland')} />
+                  <ToggleGroup value={currentPSED?.options?.type?.bosettingsstatus}
+                               onChange={(v) => onToggle("bosettingsstatus", v)}
+                               label={t('p8000:form-label-velg-bosettingsstatus')}>
+                    <ToggleGroup.Item value="NO" label={t('p8000:form-label-bosettingsstatus-norge')}/>
+                    <ToggleGroup.Item value="UTL" label={t('p8000:form-label-bosettingsstatus-utland')}/>
                   </ToggleGroup>
                 }
               </HStack>
             }
+            <b>{_type}</b>
           </VStack>
         </Box>
         {_type &&
