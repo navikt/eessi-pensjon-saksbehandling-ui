@@ -3,7 +3,7 @@ import {Buc, Sed} from "src/declarations/buc";
 import {BUCMode, PSED, Validation} from "src/declarations/app";
 import {useDispatch, useSelector} from "react-redux";
 import {resetEditingItems} from "src/actions/app";
-import {resetValidation} from "src/actions/validation";
+import {resetValidation, setValidation} from "src/actions/validation";
 import {fetchBuc, updatePSED, getSedP8000, resetPSED} from "src/actions/buc";
 import {WaitingPanelDiv} from "src/components/StyledComponents";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
@@ -38,6 +38,10 @@ import UtenlandskePin from "src/components/UtenlandskePin/UtenlandskePin";
 import UtenlandskeSaksnr from "src/components/UtenlandskeSaksnr/UtenlandskeSaksnr";
 import SaveAndSendSED from "src/components/SaveAndSendSED/SaveAndSendSED";
 import useUnmount from "src/hooks/useUnmount";
+import {validateP8000, ValidationP8000Props} from "src/applications/P8000/validateP8000";
+import _ from "lodash";
+import performValidation from "src/utils/performValidation";
+import ValidationBox from "src/components/ValidationBox/ValidationBox";
 
 export interface P8000Props {
   buc: Buc
@@ -77,7 +81,7 @@ const P8000: React.FC<P8000Props> = ({
 }: P8000Props): JSX.Element => {
   const {t, i18n} = useTranslation()
   const dispatch = useDispatch()
-  const { gettingSed, currentPSED }: P8000Selector = useSelector<State, P8000Selector>(mapState)
+  const { gettingSed, currentPSED, validation }: P8000Selector = useSelector<State, P8000Selector>(mapState)
   const namespace = "p8000"
 
   const [_ytterligereInformasjon, setYtterligereInformasjon] = useState<string | undefined>(undefined)
@@ -243,6 +247,18 @@ const P8000: React.FC<P8000Props> = ({
     }
   }
 
+  const validateP8000Sed = () => {
+    const newP8000SED: P8000SED = _.cloneDeep(currentPSED)
+    const clonedValidation = _.cloneDeep(validation)
+    const hasErrors = performValidation<ValidationP8000Props>(clonedValidation, namespace, validateP8000, {
+      P8000SED: newP8000SED
+    })
+
+    dispatch(setValidation(clonedValidation))
+
+    return hasErrors
+  }
+
   if(gettingSed){
     return(
       <WaitingPanelDiv>
@@ -312,8 +328,7 @@ const P8000: React.FC<P8000Props> = ({
           padding="4"
         >
           <VStack gap="4">
-            <Heading level="1"
-                     size="medium">{t('p8000:form-heading-p8000')} ({buc.type?.toUpperCase()} - {t('buc:buc-' + buc.type?.toUpperCase())})</Heading>
+            <Heading level="1" size="medium">{t('p8000:form-heading-p8000')} ({buc.type?.toUpperCase()} - {t('buc:buc-' + buc.type?.toUpperCase())})</Heading>
             {currentPSED && currentPSED.options && currentPSED.options.type &&
               <HStack gap="4">
                 <ToggleGroup value={currentPSED?.options?.type?.spraak} onChange={(v) => onToggle("spraak", v)}
@@ -338,7 +353,6 @@ const P8000: React.FC<P8000Props> = ({
                 }
               </HStack>
             }
-            <b>{_type}</b>
           </VStack>
         </Box>
         {_type &&
@@ -440,13 +454,14 @@ const P8000: React.FC<P8000Props> = ({
             </Box>
           </>
         }
+        <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
         <SaveAndSendSED
           namespace={namespace}
           sakId={buc!.caseId!}
           sedId={sed!.id}
           sedType={sed!.type}
           setMode={setMode}
-          validateCurrentPSED={() => {return false}}
+          validateCurrentPSED={validateP8000Sed}
         />
       </VStack>
     </>

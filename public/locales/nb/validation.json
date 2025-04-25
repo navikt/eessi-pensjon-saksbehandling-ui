@@ -57,10 +57,27 @@
   "missing-p2000-ytelse-ytelse": "Mangler ytelse",
   "missing-p2000-ytelse-status": "Mangler status",
   "missing-p2000-ytelse-mottasbasertpaa": "Mangler hva pensjonen mottas basert på",
+  "missing-p8000-antallMaaneder": "Antall måneder mangler",
+  "missing-p8000-land": "Land mangler",
+  "missing-p8000-periodeFra": "Periode fra mangler",
+  "missing-p8000-periodeTil": "Periode til mangler",
   "missing-utenlandskepin-id": "Mangler identifikator",
   "missing-utenlandskepin-land": "Mangler land",
   "missing-utenlandskesaksnr-saksnr": "Mangler saksnr",
   "missing-utenlandskesaksnr-land": "Mangler land",
+
+  "notanumber-p8000-periodeFra": "Periode fra er ikke et heltall",
+  "notanumber-p8000-periodeTil": "Periode til er ikke et heltall",
+  "notanumber-p8000-antallMaaneder": "Antall måneder er ikke et heltall",
+  "notfourdigits-p8000-periodeFra": "Periode fra må ha fire siffer",
+  "notfourdigits-p8000-periodeTil": "Periode til må ha fire siffer",
+  "notinrange-p8000-antallMaaneder": "Antall måneder må være mellom 1 og 24",
+  "notinrange-p8000-periodeTilPeriodeFra": "Periode til må være senere enn periode fra",
+
+
+
+
+
 
   "textOverX": "Tekststørrelse over {{x}} tegn"
 }

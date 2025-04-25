@@ -40,7 +40,7 @@ export const P8000Fields: React.FC<P8000FieldsProps> = ({
             label={field.label}
             target={field.target}
             options={field.options}
-            parentNamespace={namespace}
+            namespace={namespace}
             PSED={PSED}
             updatePSED={updatePSED}
           />
