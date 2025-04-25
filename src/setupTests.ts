@@ -56,10 +56,12 @@ jest.mock('i18next', () => {
   const use = jest.fn()
   const init = jest.fn()
   const loadLanguages = jest.fn()
+  const t = jest.fn()
   const result = {
     use,
     init,
-    loadLanguages
+    loadLanguages,
+    t
   }
   use.mockImplementation(() => result)
   return result
