@@ -76,18 +76,14 @@ export default {
   },
   "options": {
     "type": {
-      spraak: "nb"
+      spraak: "" +
+        ""
     },
     "ofteEtterspurtInformasjon": {
       "tiltak": {
         value: true
       },
-      "inntektFoerUfoerhetIUtlandet": {
-        value: true,
-        landkode: "NO",
-        periodeFra: "1980",
-        periodeTil: "2025"
-      }
+      "inntektFoerUfoerhetIUtlandet": null
     },
   },
   "sedGVer": "4",

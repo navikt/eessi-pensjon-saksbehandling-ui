@@ -17,8 +17,25 @@ export interface ValidateLengthParams extends ValidateValueParams {
   max: number
 }
 
+export const isInteger = (v: any): boolean => {
+  return v!.match(/^[0-9]*$/)
+}
+
+export const hasFourDigits = (v: any): boolean => {
+  return v.toString().length === 4
+}
+
 export const checkIfNotEmpty = (v: Validation, { needle, id, message, extra }: ValidateValueParams): boolean => {
   if (_.isEmpty(_.isString(needle) ? needle.trim() : needle)) {
+    return addError(v, { id, message, extra })
+  }
+  return false
+}
+
+export const checkIfInteger = (v: Validation, {
+  needle, id, message, extra
+}: ValidateValueParams): boolean => {
+  if (!_.isEmpty(needle) && !(isInteger(needle))) {
     return addError(v, { id, message, extra })
   }
   return false
