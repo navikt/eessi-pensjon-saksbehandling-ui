@@ -1,4 +1,10 @@
-import {checkIfDuplicate, checkIfNotEmpty, checkLength} from "src/utils/validation";
+import {
+  checkIfDuplicate,
+  checkIfNotEmail,
+  checkIfNotEmpty, checkIfNotGB, checkIfNotTelephoneNumber, checkIfValidBeloep, checkIfValidSwift,
+  checkLength,
+  checkValidDateFormat
+} from "src/utils/validation";
 
 interface MockObject {
   property1: string
@@ -201,4 +207,505 @@ describe('validation/checkIfDuplicate', () => {
       .toEqual(false)
   })
 })
+
+describe('validation/checkValidDateFormat', () => {
+  it('Should return false when date needle is YYYY-MM-DD', () => {
+    expect(checkValidDateFormat(
+      mockValidation,
+      {
+        needle: "2025-09-02",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return false when date needle is DD.MM.YYYY', () => {
+    expect(checkValidDateFormat(
+      mockValidation,
+      {
+        needle: "01.01.2025",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return false when date needle is DD.MM.YY', () => {
+    expect(checkValidDateFormat(
+      mockValidation,
+      {
+        needle: "30.12.24",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return false when date needle is DDMMYY', () => {
+    expect(checkValidDateFormat(
+      mockValidation,
+      {
+        needle: "010203",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+
+  it('Should return false when date needle is undefined', () => {
+    expect(checkValidDateFormat(
+      mockValidation,
+      {
+        needle: undefined,
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return true when date needle is D.M.YY', () => {
+    expect(checkValidDateFormat(
+      mockValidation,
+      {
+        needle: "2.4.72",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+
+  it('Should return true when date needle is not a date string at all', () => {
+    expect(checkValidDateFormat(
+      mockValidation,
+      {
+        needle: "Petter",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+})
+
+describe('validation/checkIfNotEmail', () => {
+  it('Should return false when needle is of valid dateformat', () => {
+    expect(checkIfNotEmail(
+      mockValidation,
+      {
+        needle: "123@123.no",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return true when email needle lacks dot', () => {
+    expect(checkIfNotEmail(
+      mockValidation,
+      {
+        needle: "123@123no",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+
+  it('Should return true when email needle lacks alpha', () => {
+    expect(checkIfNotEmail(
+      mockValidation,
+      {
+        needle: "123123.no",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+
+  it('Should return true when email needle has nothing left of alpha', () => {
+    expect(checkIfNotEmail(
+      mockValidation,
+      {
+        needle: "@123.no",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+})
+
+describe('validation/checkIfNotTelephoneNumber', () => {
+  it('Should return false when phone needle is eighth digits without white spaces', () => {
+    expect(checkIfNotTelephoneNumber(
+      mockValidation,
+      {
+        needle: "12345678",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return false when phone needle is eighth digits and has white spaces', () => {
+    expect(checkIfNotTelephoneNumber(
+      mockValidation,
+      {
+        needle: "12 345 678",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return false when phone needle is eighth digits, has white spaces and land prefix', () => {
+    expect(checkIfNotTelephoneNumber(
+      mockValidation,
+      {
+        needle: "+47 12 345 678",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return false when phone needle has dashs', () => {
+    expect(checkIfNotTelephoneNumber(
+      mockValidation,
+      {
+        needle: "+47-12-345-678",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return false when phone needle has dots', () => {
+    expect(checkIfNotTelephoneNumber(
+      mockValidation,
+      {
+        needle: "+47.12.345.678",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return false when phone needle is empty string', () => {
+    expect(checkIfNotTelephoneNumber(
+      mockValidation,
+      {
+        needle: "",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return true when phone needle has commas', () => {
+    expect(checkIfNotTelephoneNumber(
+      mockValidation,
+      {
+        needle: "+47,12,345,678",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+
+  it('Should return true when phone needle has letters', () => {
+    expect(checkIfNotTelephoneNumber(
+      mockValidation,
+      {
+        needle: "p47.12.345.678",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+})
+
+describe('validation/checkIfValidBeloep', () => {
+  it('Should return false when beloep needle only has digits', () => {
+    expect(checkIfValidBeloep(
+      mockValidation,
+      {
+        needle: "12345678",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return false when beloep has single dot', () => {
+    expect(checkIfValidBeloep(
+      mockValidation,
+      {
+        needle: "123456.78",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return false when beloep is an empty string', () => {
+    expect(checkIfValidBeloep(
+      mockValidation,
+      {
+        needle: "",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return true when beloep has white space', () => {
+    expect(checkIfValidBeloep(
+      mockValidation,
+      {
+        needle: "123 456.78",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+
+  it('Should return true when beloep has comma', () => {
+    expect(checkIfValidBeloep(
+      mockValidation,
+      {
+        needle: "123456,78",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+
+  it('Should return true when beloep has multiple dots', () => {
+    expect(checkIfValidBeloep(
+      mockValidation,
+      {
+        needle: "123.456.78",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+
+  it('Should return true when beloep has other characters than numbers and a single dot', () => {
+    expect(checkIfValidBeloep(
+      mockValidation,
+      {
+        needle: "123456.78f",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+})
+
+describe('validation/checkIfValidSwift', () => {
+  it('Should return false when swift needle meets all criterias and has nothing extra', () => {
+    expect(checkIfValidSwift(
+      mockValidation,
+      {
+        needle: "ABCDefg1123",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return false when swift needle meets all criterias and has nothing extra 2', () => {
+    expect(checkIfValidSwift(
+      mockValidation,
+      {
+        needle: "AAAAaa11111 ",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return false when swift needle meets all criterias, but is shorter than max length', () => {
+    expect(checkIfValidSwift(
+      mockValidation,
+      {
+        needle: "ABCDefg1 ",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return false when swift needle is an empty string', () => {
+    expect(checkIfValidSwift(
+      mockValidation,
+      {
+        needle: "",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return true when swift needle has dot', () => {
+    expect(checkIfValidSwift(
+      mockValidation,
+      {
+        needle: "AAAAaa.11111 ",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+
+  it('Should return true when swift needle has comma', () => {
+    expect(checkIfValidSwift(
+      mockValidation,
+      {
+        needle: "AAAAaa,11111 ",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+
+  it('Should return true when swift needle has white space', () => {
+    expect(checkIfValidSwift(
+      mockValidation,
+      {
+        needle: "AAAAaa,11111 ",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+
+  it('Should return true when swift is shorter than 6 characters', () => {
+    expect(checkIfValidSwift(
+      mockValidation,
+      {
+        needle: "AAAAa ",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+
+  it('Should return true when order of letters and numbers are wrong', () => {
+    expect(checkIfValidSwift(
+      mockValidation,
+      {
+        needle: "11111AAAAaa",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+})
+
+describe('validation/checkIfNotGB', () => {
+  it('Should return true when needle is gb in small letters', () => {
+    expect(checkIfNotGB(
+      mockValidation,
+      {
+        needle: "gb",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+
+  it('Should return true when needle is gb in large letters', () => {
+    expect(checkIfNotGB(
+      mockValidation,
+      {
+        needle: "GB",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+
+  it('Should return false when needle is not gb', () => {
+    expect(checkIfNotGB(
+      mockValidation,
+      {
+        needle: "BG",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return false when needle is gb multiple times', () => {
+    expect(checkIfNotGB(
+      mockValidation,
+      {
+        needle: "GBGB",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+
+  it('Should return false when needle is an empty string', () => {
+    expect(checkIfNotGB(
+      mockValidation,
+      {
+        needle: "",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
+})
+
+
+
+
+
+
+
+
 
