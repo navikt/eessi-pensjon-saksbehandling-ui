@@ -375,7 +375,7 @@ const P8000: React.FC<P8000Props> = ({
                     {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
                     {label: "Opplysninger om tiltak", value: TILTAK, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
                     {label: "Nåværende arbeid: Arbeidstimer per uke og månedsinntekt", value: NAAVAERENDE_ARBEID, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                    {label: "Dokumentasjon på arbeid i Norge", value: DOKUMENTASJON_PAA_ARBEID_I_NORGE, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                    {label: "Dokumentasjon på arbeid i Norge", value: DOKUMENTASJON_PAA_ARBEID_I_NORGE, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: false, showPeriod: true, showMonths: false}},
                     {label: "Ytelseshistorikk", value: YTELSESHISTORIKK, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
                     {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: true, showMonths: false}},
                     {label: "IBAN og SWIFT", value: IBAN_SWIFT, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},

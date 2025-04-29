@@ -18,6 +18,60 @@ export const validateP8000 = (
   const ofteEtterspurtInformasjon = P8000SED.options?.ofteEtterspurtInformasjon
   const informasjonSomKanLeggesInn = P8000SED.options?.informasjonSomKanLeggesInn
 
+  if(ofteEtterspurtInformasjon?.dokumentasjonPaaArbeidINorge){
+    const arbeidINorge: P8000Field = ofteEtterspurtInformasjon?.dokumentasjonPaaArbeidINorge
+
+    hasErrors.push(checkIfNotEmpty(v, {
+      needle: arbeidINorge.periodeFra,
+      id: namespace + '-ofteEtterspurtInformasjon' + '-dokumentasjonPaaArbeidINorge' + '-periodeFra',
+      message: 'validation:missing-p8000-periodeFra'
+    }))
+
+    hasErrors.push(checkIfNotEmpty(v, {
+      needle: arbeidINorge.periodeTil,
+      id: namespace + '-ofteEtterspurtInformasjon' + '-dokumentasjonPaaArbeidINorge' + '-periodeTil',
+      message: 'validation:missing-p8000-periodeTil'
+    }))
+
+    hasErrors.push(checkIfInteger(v, {
+      needle: arbeidINorge.periodeFra,
+      id: namespace + '-ofteEtterspurtInformasjon' + '-dokumentasjonPaaArbeidINorge' + '-periodeFra',
+      message: 'validation:notanumber-p8000-periodeFra'
+    }))
+
+    hasErrors.push(checkIfInteger(v, {
+      needle: arbeidINorge.periodeTil,
+      id: namespace + '-ofteEtterspurtInformasjon' + '-dokumentasjonPaaArbeidINorge' + '-periodeTil',
+      message: 'validation:notanumber-p8000-periodeTil'
+    }))
+
+    if(arbeidINorge.periodeFra && !hasFourDigits(arbeidINorge.periodeFra)){
+      hasErrors.push(addError(v, {
+        id: namespace + '-ofteEtterspurtInformasjon' + '-dokumentasjonPaaArbeidINorge' + '-periodeFra',
+        message: 'validation:notfourdigits-p8000-periodeFra',
+      }))
+    }
+
+    if(arbeidINorge.periodeTil && !hasFourDigits(arbeidINorge.periodeTil)){
+      hasErrors.push(addError(v, {
+        id: namespace + '-ofteEtterspurtInformasjon' + '-dokumentasjonPaaArbeidINorge' + '-periodeTil',
+        message: 'validation:notfourdigits-p8000-periodeTil',
+      }))
+    }
+
+    if(!_.isEmpty(arbeidINorge.periodeFra) && !_.isEmpty(arbeidINorge.periodeTil) &&
+      isInteger(arbeidINorge.periodeFra) && isInteger(arbeidINorge.periodeTil) &&
+      hasFourDigits(arbeidINorge.periodeFra) && hasFourDigits(arbeidINorge.periodeTil))
+    {
+      if(arbeidINorge.periodeFra > arbeidINorge.periodeTil){
+        hasErrors.push(addError(v, {
+          id: namespace + '-ofteEtterspurtInformasjon' + '-dokumentasjonPaaArbeidINorge' + '-periodeTil',
+          message: 'validation:notinrange-p8000-periodeTilPeriodeFra',
+        }))
+      }
+    }
+  }
+
   if(ofteEtterspurtInformasjon?.inntektFoerUfoerhetIUtlandet){
     const inntekt: P8000Field = ofteEtterspurtInformasjon?.inntektFoerUfoerhetIUtlandet
     hasErrors.push(checkIfNotEmpty(v, {
