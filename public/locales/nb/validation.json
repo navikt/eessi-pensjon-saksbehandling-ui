@@ -72,6 +72,8 @@
   "notfourdigits-p8000-periodeFra": "Periode fra må ha fire siffer",
   "notfourdigits-p8000-periodeTil": "Periode til må ha fire siffer",
   "notinrange-p8000-antallMaaneder": "Antall måneder må være mellom 1 og 24",
+  "notinrange-p8000-periodeFra": "Periode fra må være mellom 1960 og 2035",
+  "notinrange-p8000-periodeTil": "Periode til må være mellom 1960 og 2035",
   "notinrange-p8000-periodeTilPeriodeFra": "Periode til må være senere enn periode fra",
 
 

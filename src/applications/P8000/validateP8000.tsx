@@ -59,6 +59,30 @@ export const validateP8000 = (
       }))
     }
 
+    if(!_.isEmpty(arbeidINorge.periodeFra) &&
+      isInteger(arbeidINorge.periodeFra) &&
+      hasFourDigits(arbeidINorge.periodeFra))
+    {
+      if(isOutOfRange(arbeidINorge.periodeFra,1960,2035)){
+        hasErrors.push(addError(v, {
+          id: namespace + '-ofteEtterspurtInformasjon' + '-dokumentasjonPaaArbeidINorge' + '-periodeFra',
+          message: 'validation:notinrange-p8000-periodeFra',
+        }))
+      }
+    }
+
+    if(!_.isEmpty(arbeidINorge.periodeTil) &&
+      isInteger(arbeidINorge.periodeTil) &&
+      hasFourDigits(arbeidINorge.periodeTil))
+    {
+      if(isOutOfRange(arbeidINorge.periodeTil,1960,2035)){
+        hasErrors.push(addError(v, {
+          id: namespace + '-ofteEtterspurtInformasjon' + '-dokumentasjonPaaArbeidINorge' + '-periodeTil',
+          message: 'validation:notinrange-p8000-periodeTil',
+        }))
+      }
+    }
+
     if(!_.isEmpty(arbeidINorge.periodeFra) && !_.isEmpty(arbeidINorge.periodeTil) &&
       isInteger(arbeidINorge.periodeFra) && isInteger(arbeidINorge.periodeTil) &&
       hasFourDigits(arbeidINorge.periodeFra) && hasFourDigits(arbeidINorge.periodeTil))
@@ -116,6 +140,30 @@ export const validateP8000 = (
         id: namespace + '-ofteEtterspurtInformasjon' + '-inntektFoerUfoerhetIUtlandet' + '-periodeTil',
         message: 'validation:notfourdigits-p8000-periodeTil',
       }))
+    }
+
+    if(!_.isEmpty(inntekt.periodeFra) &&
+      isInteger(inntekt.periodeFra) &&
+      hasFourDigits(inntekt.periodeFra))
+    {
+      if(isOutOfRange(inntekt.periodeFra,1960,2035)){
+        hasErrors.push(addError(v, {
+          id: namespace + '-ofteEtterspurtInformasjon' + '-inntektFoerUfoerhetIUtlandet' + '-periodeFra',
+          message: 'validation:notinrange-p8000-periodeFra',
+        }))
+      }
+    }
+
+    if(!_.isEmpty(inntekt.periodeTil) &&
+      isInteger(inntekt.periodeTil) &&
+      hasFourDigits(inntekt.periodeTil))
+    {
+      if(isOutOfRange(inntekt.periodeTil,1960,2035)){
+        hasErrors.push(addError(v, {
+          id: namespace + '-ofteEtterspurtInformasjon' + '-inntektFoerUfoerhetIUtlandet' + '-periodeTil',
+          message: 'validation:notinrange-p8000-periodeTil',
+        }))
+      }
     }
 
     if(!_.isEmpty(inntekt.periodeFra) && !_.isEmpty(inntekt.periodeTil) &&
