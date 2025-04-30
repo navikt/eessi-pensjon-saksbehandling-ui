@@ -25,6 +25,10 @@ export const hasFourDigits = (v: any): boolean => {
   return v.toString().length === 4
 }
 
+export const isOutOfRange = (num: any, from: any, to: any): boolean => {
+  return (parseInt(num) < from) || (parseInt(num) > to)
+}
+
 export const checkIfNotEmpty = (v: Validation, { needle, id, message, extra }: ValidateValueParams): boolean => {
   if (_.isEmpty(_.isString(needle) ? needle.trim() : needle)) {
     return addError(v, { id, message, extra })

@@ -1,6 +1,6 @@
 import {Validation} from "src/declarations/app";
 import {P8000Field, P8000SED} from "src/declarations/p8000";
-import {addError, checkIfInteger, checkIfNotEmpty, hasFourDigits, isInteger} from "src/utils/validation";
+import {addError, checkIfInteger, checkIfNotEmpty, hasFourDigits, isInteger, isOutOfRange} from "src/utils/validation";
 import _ from "lodash";
 
 export interface ValidationP8000Props {
@@ -155,7 +155,7 @@ export const validateP8000 = (
     if(!_.isEmpty(informasjonSomKanLeggesInn?.saksbehandlingstid.antallMaaneder) &&
       isInteger(informasjonSomKanLeggesInn?.saksbehandlingstid.antallMaaneder))
     {
-      if(parseInt(informasjonSomKanLeggesInn?.saksbehandlingstid.antallMaaneder) < 1 || parseInt(informasjonSomKanLeggesInn?.saksbehandlingstid.antallMaaneder) > 24){
+      if(isOutOfRange(informasjonSomKanLeggesInn?.saksbehandlingstid.antallMaaneder,1,24)){
         hasErrors.push(addError(v, {
           id: namespace + '-informasjonSomKanLeggesInn' + '-saksbehandlingstid' + '-antallMaaneder',
           message: 'validation:notinrange-p8000-antallMaaneder',

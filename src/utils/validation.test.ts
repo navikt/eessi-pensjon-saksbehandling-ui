@@ -1,9 +1,14 @@
 import {
   checkIfDuplicate,
   checkIfNotEmail,
-  checkIfNotEmpty, checkIfNotGB, checkIfNotTelephoneNumber, checkIfValidBeloep, checkIfValidSwift,
+  checkIfNotEmpty,
+  checkIfNotGB,
+  checkIfNotTelephoneNumber,
+  checkIfValidBeloep,
+  checkIfValidSwift,
   checkLength,
-  checkValidDateFormat
+  checkValidDateFormat,
+  isOutOfRange
 } from "src/utils/validation";
 
 interface MockObject {
@@ -17,6 +22,52 @@ const mockValidation =       {
     "feilmelding": "ok"
   }
 }
+
+describe('validation/isOutOfRange', () => {
+  it('Should return true when num is bigger than max', () => {
+    const min = 1
+    const max = 2
+    const num = 3
+
+    expect(
+      isOutOfRange(num, min, max)
+    )
+      .toEqual(true)
+  })
+
+  it('Should return true when num is smaller than min', () => {
+    const min = 10
+    const max = 20
+    const num = 2
+
+    expect(
+      isOutOfRange(num, min, max)
+    )
+      .toEqual(true)
+  })
+
+  it('Should return false when num is between min and max', () => {
+    const min = 1000
+    const max = 3000
+    const num = 2000
+
+    expect(
+      isOutOfRange(num, min, max)
+    )
+      .toEqual(false)
+  })
+
+  it('Should return false when all parameters are 0', () => {
+    const min = 0
+    const max = 0
+    const num = 0
+
+    expect(
+      isOutOfRange(num, min, max)
+    )
+      .toEqual(false)
+  })
+})
 
 describe('validation/checkIfNotEmpty', () => {
   it('Should return true when needle is empty', () => {
