@@ -1,7 +1,7 @@
 import {Validation} from "src/declarations/app";
 import {getIdx} from "../../../utils/namespace";
 import {Beloep} from "../../../declarations/p2000";
-import {checkIfDuplicate, checkIfNotEmpty, checkIfValidBeloep, checkValidDateFormat} from "../../../utils/validation";
+import {checkIfDuplicate, checkIfNotEmpty, checkIfNotValidBeloep, checkIfNotValidDateFormat} from "../../../utils/validation";
 
 export interface ValidationBeloepProps {
   beloepArray: Array<Beloep> | null | undefined
@@ -27,7 +27,7 @@ export const validateBeloep = (
     message: 'validation:missing-p2000-ytelse-beloep-beloep'
   }))
 
-  hasErrors.push(checkIfValidBeloep(v, {
+  hasErrors.push(checkIfNotValidBeloep(v, {
     needle: beloep?.beloep,
     id: namespace + idx + '-beloep',
     message: 'validation:invalid-p2000-beloep'
@@ -45,7 +45,7 @@ export const validateBeloep = (
     message: 'validation:missing-p2000-ytelse-beloep-gjeldendesiden'
   }))
 
-  hasErrors.push(checkValidDateFormat(v, {
+  hasErrors.push(checkIfNotValidDateFormat(v, {
     needle: beloep?.gjeldendesiden,
     id: namespace + idx + '-gjeldendesiden  ',
     message: 'validation:invalidDateFormat',

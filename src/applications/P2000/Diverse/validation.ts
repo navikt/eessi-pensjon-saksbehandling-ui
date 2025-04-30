@@ -1,6 +1,6 @@
 import {Validation} from "src/declarations/app";
 import _ from "lodash";
-import {checkIfNotEmpty, checkLength, checkValidDateFormat} from "src/utils/validation";
+import {checkIfNotEmpty, checkIfTooLong, checkIfNotValidDateFormat} from "src/utils/validation";
 import {P2000Pensjon} from "src/declarations/p2000";
 
 export interface ValidationDiverseProps {
@@ -25,7 +25,7 @@ export const validateDiverse = (
   }
 
   if (!_.isEmpty(pensjon?.vedleggandre)) {
-    hasErrors.push(checkLength(v, {
+    hasErrors.push(checkIfTooLong(v, {
       needle: pensjon.vedleggandre,
       max: 255,
       id: namespace + '-vedleggandre',
@@ -34,7 +34,7 @@ export const validateDiverse = (
   }
 
   if (!_.isEmpty(pensjon?.etterspurtedokumenter)) {
-    hasErrors.push(checkLength(v, {
+    hasErrors.push(checkIfTooLong(v, {
       needle: pensjon.etterspurtedokumenter,
       max: 255,
       id: namespace + '-etterspurtedokumenter',
@@ -43,7 +43,7 @@ export const validateDiverse = (
   }
 
   if (!_.isEmpty(pensjon?.ytterligeinformasjon)) {
-    hasErrors.push(checkLength(v, {
+    hasErrors.push(checkIfTooLong(v, {
       needle: pensjon.ytterligeinformasjon,
       max: 500,
       id: namespace + '-ytterligeinformasjon',
@@ -51,7 +51,7 @@ export const validateDiverse = (
     }))
   }
 
-  hasErrors.push(checkValidDateFormat(v, {
+  hasErrors.push(checkIfNotValidDateFormat(v, {
     needle: pensjon?.forespurtstartdato,
     id: namespace + '-forespurtstartdato  ',
     message: 'validation:invalidDateFormat',

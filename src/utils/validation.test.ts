@@ -2,12 +2,12 @@ import {
   checkIfDuplicate,
   checkIfNotEmail,
   checkIfNotEmpty,
-  checkIfNotGB,
+  checkIfGB,
   checkIfNotTelephoneNumber,
-  checkIfValidBeloep,
-  checkIfValidSwift,
-  checkLength,
-  checkValidDateFormat,
+  checkIfNotValidBeloep,
+  checkIfNotValidSwift,
+  checkIfTooLong,
+  checkIfNotValidDateFormat,
   isOutOfRange
 } from "src/utils/validation";
 
@@ -105,9 +105,9 @@ describe('validation/checkIfNotEmpty', () => {
   })
 })
 
-describe('validation/checkLength', () => {
+describe('validation/checkIfTooLong', () => {
   it('Should return false when needle has length shorter then max', () => {
-    expect(checkLength(
+    expect(checkIfTooLong(
       mockValidation,
       {
         needle: "1234567890",
@@ -119,7 +119,7 @@ describe('validation/checkLength', () => {
       .toEqual(false)
   })
   it('Should return false when needle has same length as max', () => {
-    expect(checkLength(
+    expect(checkIfTooLong(
       mockValidation,
       {
         needle: "12345678901234567890123456789012345678901234567890123456789012345",
@@ -131,7 +131,7 @@ describe('validation/checkLength', () => {
       .toEqual(false)
   })
   it('Should return true when length is more than max', () => {
-    expect(checkLength(
+    expect(checkIfTooLong(
       mockValidation,
       {
         needle: "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890",
@@ -143,7 +143,7 @@ describe('validation/checkLength', () => {
       .toEqual(true)
   })
   it('Should return false when needle is an empty string', () => {
-    expect(checkLength(
+    expect(checkIfTooLong(
       mockValidation,
       {
         needle: "",
@@ -259,9 +259,9 @@ describe('validation/checkIfDuplicate', () => {
   })
 })
 
-describe('validation/checkValidDateFormat', () => {
+describe('validation/checkIfNotValidDateFormat', () => {
   it('Should return false when date needle is YYYY-MM-DD', () => {
-    expect(checkValidDateFormat(
+    expect(checkIfNotValidDateFormat(
       mockValidation,
       {
         needle: "2025-09-02",
@@ -273,7 +273,7 @@ describe('validation/checkValidDateFormat', () => {
   })
 
   it('Should return false when date needle is DD.MM.YYYY', () => {
-    expect(checkValidDateFormat(
+    expect(checkIfNotValidDateFormat(
       mockValidation,
       {
         needle: "01.01.2025",
@@ -285,7 +285,7 @@ describe('validation/checkValidDateFormat', () => {
   })
 
   it('Should return false when date needle is DD.MM.YY', () => {
-    expect(checkValidDateFormat(
+    expect(checkIfNotValidDateFormat(
       mockValidation,
       {
         needle: "30.12.24",
@@ -297,7 +297,7 @@ describe('validation/checkValidDateFormat', () => {
   })
 
   it('Should return false when date needle is DDMMYY', () => {
-    expect(checkValidDateFormat(
+    expect(checkIfNotValidDateFormat(
       mockValidation,
       {
         needle: "010203",
@@ -310,7 +310,7 @@ describe('validation/checkValidDateFormat', () => {
 
 
   it('Should return false when date needle is undefined', () => {
-    expect(checkValidDateFormat(
+    expect(checkIfNotValidDateFormat(
       mockValidation,
       {
         needle: undefined,
@@ -322,7 +322,7 @@ describe('validation/checkValidDateFormat', () => {
   })
 
   it('Should return true when date needle is D.M.YY', () => {
-    expect(checkValidDateFormat(
+    expect(checkIfNotValidDateFormat(
       mockValidation,
       {
         needle: "2.4.72",
@@ -334,7 +334,7 @@ describe('validation/checkValidDateFormat', () => {
   })
 
   it('Should return true when date needle is not a date string at all', () => {
-    expect(checkValidDateFormat(
+    expect(checkIfNotValidDateFormat(
       mockValidation,
       {
         needle: "Petter",
@@ -494,9 +494,9 @@ describe('validation/checkIfNotTelephoneNumber', () => {
   })
 })
 
-describe('validation/checkIfValidBeloep', () => {
+describe('validation/checkIfNotValidBeloep', () => {
   it('Should return false when beloep needle only has digits', () => {
-    expect(checkIfValidBeloep(
+    expect(checkIfNotValidBeloep(
       mockValidation,
       {
         needle: "12345678",
@@ -508,7 +508,7 @@ describe('validation/checkIfValidBeloep', () => {
   })
 
   it('Should return false when beloep has single dot', () => {
-    expect(checkIfValidBeloep(
+    expect(checkIfNotValidBeloep(
       mockValidation,
       {
         needle: "123456.78",
@@ -520,7 +520,7 @@ describe('validation/checkIfValidBeloep', () => {
   })
 
   it('Should return false when beloep is an empty string', () => {
-    expect(checkIfValidBeloep(
+    expect(checkIfNotValidBeloep(
       mockValidation,
       {
         needle: "",
@@ -532,7 +532,7 @@ describe('validation/checkIfValidBeloep', () => {
   })
 
   it('Should return true when beloep has white space', () => {
-    expect(checkIfValidBeloep(
+    expect(checkIfNotValidBeloep(
       mockValidation,
       {
         needle: "123 456.78",
@@ -544,7 +544,7 @@ describe('validation/checkIfValidBeloep', () => {
   })
 
   it('Should return true when beloep has comma', () => {
-    expect(checkIfValidBeloep(
+    expect(checkIfNotValidBeloep(
       mockValidation,
       {
         needle: "123456,78",
@@ -556,7 +556,7 @@ describe('validation/checkIfValidBeloep', () => {
   })
 
   it('Should return true when beloep has multiple dots', () => {
-    expect(checkIfValidBeloep(
+    expect(checkIfNotValidBeloep(
       mockValidation,
       {
         needle: "123.456.78",
@@ -568,7 +568,7 @@ describe('validation/checkIfValidBeloep', () => {
   })
 
   it('Should return true when beloep has other characters than numbers and a single dot', () => {
-    expect(checkIfValidBeloep(
+    expect(checkIfNotValidBeloep(
       mockValidation,
       {
         needle: "123456.78f",
@@ -580,9 +580,9 @@ describe('validation/checkIfValidBeloep', () => {
   })
 })
 
-describe('validation/checkIfValidSwift', () => {
+describe('validation/checkIfNotValidSwift', () => {
   it('Should return false when swift needle meets all criterias and has nothing extra', () => {
-    expect(checkIfValidSwift(
+    expect(checkIfNotValidSwift(
       mockValidation,
       {
         needle: "ABCDefg1123",
@@ -594,7 +594,7 @@ describe('validation/checkIfValidSwift', () => {
   })
 
   it('Should return false when swift needle meets all criterias and has nothing extra 2', () => {
-    expect(checkIfValidSwift(
+    expect(checkIfNotValidSwift(
       mockValidation,
       {
         needle: "AAAAaa11111 ",
@@ -606,7 +606,7 @@ describe('validation/checkIfValidSwift', () => {
   })
 
   it('Should return false when swift needle meets all criterias, but is shorter than max length', () => {
-    expect(checkIfValidSwift(
+    expect(checkIfNotValidSwift(
       mockValidation,
       {
         needle: "ABCDefg1 ",
@@ -618,7 +618,7 @@ describe('validation/checkIfValidSwift', () => {
   })
 
   it('Should return false when swift needle is an empty string', () => {
-    expect(checkIfValidSwift(
+    expect(checkIfNotValidSwift(
       mockValidation,
       {
         needle: "",
@@ -630,7 +630,7 @@ describe('validation/checkIfValidSwift', () => {
   })
 
   it('Should return true when swift needle has dot', () => {
-    expect(checkIfValidSwift(
+    expect(checkIfNotValidSwift(
       mockValidation,
       {
         needle: "AAAAaa.11111 ",
@@ -642,7 +642,7 @@ describe('validation/checkIfValidSwift', () => {
   })
 
   it('Should return true when swift needle has comma', () => {
-    expect(checkIfValidSwift(
+    expect(checkIfNotValidSwift(
       mockValidation,
       {
         needle: "AAAAaa,11111 ",
@@ -654,7 +654,7 @@ describe('validation/checkIfValidSwift', () => {
   })
 
   it('Should return true when swift needle has white space', () => {
-    expect(checkIfValidSwift(
+    expect(checkIfNotValidSwift(
       mockValidation,
       {
         needle: "AAAAaa,11111 ",
@@ -666,7 +666,7 @@ describe('validation/checkIfValidSwift', () => {
   })
 
   it('Should return true when swift is shorter than 6 characters', () => {
-    expect(checkIfValidSwift(
+    expect(checkIfNotValidSwift(
       mockValidation,
       {
         needle: "AAAAa ",
@@ -678,7 +678,7 @@ describe('validation/checkIfValidSwift', () => {
   })
 
   it('Should return true when order of letters and numbers are wrong', () => {
-    expect(checkIfValidSwift(
+    expect(checkIfNotValidSwift(
       mockValidation,
       {
         needle: "11111AAAAaa",
@@ -690,9 +690,9 @@ describe('validation/checkIfValidSwift', () => {
   })
 })
 
-describe('validation/checkIfNotGB', () => {
+describe('validation/checkIfGB', () => {
   it('Should return true when needle is gb in small letters', () => {
-    expect(checkIfNotGB(
+    expect(checkIfGB(
       mockValidation,
       {
         needle: "gb",
@@ -704,7 +704,7 @@ describe('validation/checkIfNotGB', () => {
   })
 
   it('Should return true when needle is gb in large letters', () => {
-    expect(checkIfNotGB(
+    expect(checkIfGB(
       mockValidation,
       {
         needle: "GB",
@@ -716,7 +716,7 @@ describe('validation/checkIfNotGB', () => {
   })
 
   it('Should return false when needle is not gb', () => {
-    expect(checkIfNotGB(
+    expect(checkIfGB(
       mockValidation,
       {
         needle: "BG",
@@ -728,7 +728,7 @@ describe('validation/checkIfNotGB', () => {
   })
 
   it('Should return false when needle is gb multiple times', () => {
-    expect(checkIfNotGB(
+    expect(checkIfGB(
       mockValidation,
       {
         needle: "GBGB",
@@ -740,7 +740,7 @@ describe('validation/checkIfNotGB', () => {
   })
 
   it('Should return false when needle is an empty string', () => {
-    expect(checkIfNotGB(
+    expect(checkIfGB(
       mockValidation,
       {
         needle: "",

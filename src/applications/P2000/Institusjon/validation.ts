@@ -1,5 +1,5 @@
 import {Validation} from "src/declarations/app";
-import {checkIfNotEmpty, checkLength} from 'src/utils/validation'
+import {checkIfNotEmpty, checkIfTooLong} from 'src/utils/validation'
 import {getIdx} from "../../../utils/namespace";
 
 export interface ValidationInstitusjonProps {
@@ -24,7 +24,7 @@ export const validateInstitusjon = (
     message: 'validation:missing-p2000-pensjon-institusjonennaaikkesoektompensjon'
   }))
 
-  hasErrors.push(checkLength(v, {
+  hasErrors.push(checkIfTooLong(v, {
     needle: institusjon,
     id: namespace + idx,
     max: 155,

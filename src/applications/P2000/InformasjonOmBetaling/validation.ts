@@ -1,5 +1,5 @@
 import {Validation} from "src/declarations/app";
-import {checkIfNotEmpty, checkIfValidIban, checkIfValidSwift, checkLength} from 'src/utils/validation'
+import {checkIfNotEmpty, checkIfNotValidIban, checkIfNotValidSwift, checkIfTooLong} from 'src/utils/validation'
 import _ from 'lodash'
 import performValidation from "../../../utils/performValidation";
 import {validateAdresse, ValidationAdresseProps} from "../Adresse/validation";
@@ -28,7 +28,7 @@ export const validateBank = (
 ): boolean => {
   const hasErrors: Array<boolean> = []
 
-  hasErrors.push(checkLength(v, {
+  hasErrors.push(checkIfTooLong(v, {
     needle: bank?.konto?.innehaver?.navn,
     id: namespace + '-konto-innehaver-navn',
     max: 255,
@@ -100,7 +100,7 @@ export const validateSwift = (
 ): boolean => {
   const hasErrors: Array<boolean> = []
 
-  hasErrors.push(checkIfValidSwift(v,{
+  hasErrors.push(checkIfNotValidSwift(v,{
       needle: swift,
       id: namespace,
       message: 'validation:invalid-p2000-bank-konto-ikkesepa-swift'
@@ -119,7 +119,7 @@ export const validateIban = (
 ): boolean => {
   const hasErrors: Array<boolean> = []
 
-  hasErrors.push(checkIfValidIban(v,{
+  hasErrors.push(checkIfNotValidIban(v,{
       needle: iban,
       id: namespace,
       message: 'validation:invalid-p2000-bank-konto-sepa-iban'

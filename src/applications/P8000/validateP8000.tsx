@@ -1,6 +1,6 @@
 import {Validation} from "src/declarations/app";
 import {P8000Field, P8000SED} from "src/declarations/p8000";
-import {addError, checkIfInteger, checkIfNotEmpty, hasFourDigits, isInteger, isOutOfRange} from "src/utils/validation";
+import {addError, checkIfNotInteger, checkIfNotEmpty, hasFourDigits, isInteger, isOutOfRange} from "src/utils/validation";
 import _ from "lodash";
 
 export interface ValidationP8000Props {
@@ -33,13 +33,13 @@ export const validateP8000 = (
       message: 'validation:missing-p8000-periodeTil'
     }))
 
-    hasErrors.push(checkIfInteger(v, {
+    hasErrors.push(checkIfNotInteger(v, {
       needle: arbeidINorge.periodeFra,
       id: namespace + '-ofteEtterspurtInformasjon' + '-dokumentasjonPaaArbeidINorge' + '-periodeFra',
       message: 'validation:notanumber-p8000-periodeFra'
     }))
 
-    hasErrors.push(checkIfInteger(v, {
+    hasErrors.push(checkIfNotInteger(v, {
       needle: arbeidINorge.periodeTil,
       id: namespace + '-ofteEtterspurtInformasjon' + '-dokumentasjonPaaArbeidINorge' + '-periodeTil',
       message: 'validation:notanumber-p8000-periodeTil'
@@ -116,13 +116,13 @@ export const validateP8000 = (
       message: 'validation:missing-p8000-periodeTil'
     }))
 
-    hasErrors.push(checkIfInteger(v, {
+    hasErrors.push(checkIfNotInteger(v, {
       needle: inntekt.periodeFra,
       id: namespace + '-ofteEtterspurtInformasjon' + '-inntektFoerUfoerhetIUtlandet' + '-periodeFra',
       message: 'validation:notanumber-p8000-periodeFra'
     }))
 
-    hasErrors.push(checkIfInteger(v, {
+    hasErrors.push(checkIfNotInteger(v, {
       needle: inntekt.periodeTil,
       id: namespace + '-ofteEtterspurtInformasjon' + '-inntektFoerUfoerhetIUtlandet' + '-periodeTil',
       message: 'validation:notanumber-p8000-periodeTil'
@@ -194,7 +194,7 @@ export const validateP8000 = (
       message: 'validation:missing-p8000-antallMaaneder'
     }))
 
-    hasErrors.push(checkIfInteger(v, {
+    hasErrors.push(checkIfNotInteger(v, {
       needle: informasjonSomKanLeggesInn?.saksbehandlingstid.antallMaaneder,
       id: namespace + '-informasjonSomKanLeggesInn' + '-saksbehandlingstid' + '-antallMaaneder',
       message: 'validation:notanumber-p8000-antallMaaneder'

@@ -1,5 +1,5 @@
 import {Validation} from "src/declarations/app";
-import {checkIfNotEmpty, checkLength} from 'src/utils/validation'
+import {checkIfNotEmpty, checkIfTooLong} from 'src/utils/validation'
 import _ from "lodash";
 import {Foedested} from "src/declarations/sed";
 
@@ -35,14 +35,14 @@ export const validateFoedested = (
       message: 'validation:missing-p2000-person-foedested-land',
     }))
 
-    hasErrors.push(checkLength(v, {
+    hasErrors.push(checkIfTooLong(v, {
       needle: foedested?.by,
       id: namespace + '-by',
       max: 65,
       message: 'validation:textOverX'
     }))
 
-    hasErrors.push(checkLength(v, {
+    hasErrors.push(checkIfTooLong(v, {
       needle: foedested?.region,
       id: namespace + '-region',
       max: 65,

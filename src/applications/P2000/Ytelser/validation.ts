@@ -1,7 +1,7 @@
 import {Validation} from "src/declarations/app";
 import {Ytelse} from "src/declarations/p2000";
 import {getIdx} from "src/utils/namespace";
-import {checkIfNotEmpty, checkIfValidBeloep, checkValidDateFormat} from "src/utils/validation";
+import {checkIfNotEmpty, checkIfNotValidBeloep, checkIfNotValidDateFormat} from "src/utils/validation";
 
 export interface ValidationYtelserProps {
   ytelser: Array<Ytelse> | undefined
@@ -35,31 +35,31 @@ export const validateYtelse = (
     message: 'validation:missing-p2000-ytelse-status'
   }))
 
-  hasErrors.push(checkValidDateFormat(v, {
+  hasErrors.push(checkIfNotValidDateFormat(v, {
     needle: ytelse?.startdatoutbetaling,
     id: namespace + idx + '-startdatoutbetaling',
     message: 'validation:invalidDateFormat',
   }))
 
-  hasErrors.push(checkValidDateFormat(v, {
+  hasErrors.push(checkIfNotValidDateFormat(v, {
     needle: ytelse?.sluttdatoutbetaling,
     id: namespace + idx + '-sluttdatoutbetaling',
     message: 'validation:invalidDateFormat',
   }))
 
-  hasErrors.push(checkValidDateFormat(v, {
+  hasErrors.push(checkIfNotValidDateFormat(v, {
     needle: ytelse?.startdatoretttilytelse,
     id: namespace + idx + '-startdatoretttilytelse',
     message: 'validation:invalidDateFormat',
   }))
 
-  hasErrors.push(checkIfValidBeloep(v, {
+  hasErrors.push(checkIfNotValidBeloep(v, {
     needle: ytelse?.totalbruttobeloepbostedsbasert,
     id: namespace + idx + '-totalbruttobeloepbostedsbasert',
     message: 'validation:invalid-p2000-beloep'
   }))
 
-  hasErrors.push(checkIfValidBeloep(v, {
+  hasErrors.push(checkIfNotValidBeloep(v, {
     needle: ytelse?.totalbruttobeloeparbeidsbasert,
     id: namespace + idx + '-totalbruttobeloeparbeidsbasert',
     message: 'validation:invalid-p2000-beloep'

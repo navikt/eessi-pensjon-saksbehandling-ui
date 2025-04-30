@@ -1,7 +1,7 @@
 import {Validation} from "src/declarations/app";
 import {Utsettelse} from "src/declarations/p2000";
 import {getIdx} from "../../../utils/namespace";
-import {checkIfNotEmpty, checkLength, checkValidDateFormat} from "../../../utils/validation";
+import {checkIfNotEmpty, checkIfTooLong, checkIfNotValidDateFormat} from "../../../utils/validation";
 
 export interface ValidationUtsettelseProps {
   utsettelse: Utsettelse | undefined
@@ -31,13 +31,13 @@ export const validateUtsettelse = (
     message: 'validation:missing-p2000-pensjon-utsettelse-tildato',
   }))
 
-  hasErrors.push(checkValidDateFormat(v, {
+  hasErrors.push(checkIfNotValidDateFormat(v, {
     needle: utsettelse?.tildato,
     id: namespace + idx + '-tildato',
     message: 'validation:invalidDateFormat',
   }))
 
-  hasErrors.push(checkLength(v, {
+  hasErrors.push(checkIfTooLong(v, {
     needle: utsettelse?.institusjonsnavn,
     id: namespace + idx + '-institusjonsnavn',
     max: 155,

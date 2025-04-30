@@ -36,7 +36,7 @@ export const checkIfNotEmpty = (v: Validation, { needle, id, message, extra }: V
   return false
 }
 
-export const checkIfInteger = (v: Validation, {
+export const checkIfNotInteger = (v: Validation, {
   needle, id, message, extra
 }: ValidateValueParams): boolean => {
   if (!_.isEmpty(needle) && !(isInteger(needle))) {
@@ -45,7 +45,7 @@ export const checkIfInteger = (v: Validation, {
   return false
 }
 
-export const checkLength = (v: Validation, {
+export const checkIfTooLong = (v: Validation, {
   needle, max = 500, id, message, extra
 }: ValidateLengthParams): boolean => {
   if (!_.isEmpty(needle?.trim()) && needle?.trim().length > max) {
@@ -75,7 +75,7 @@ export const checkIfDuplicate = (v: Validation, {
 }
 
 
-export const checkValidDateFormat = (v: Validation, { needle, id, message, extra }: ValidateValueParams): boolean => {
+export const checkIfNotValidDateFormat = (v: Validation, { needle, id, message, extra }: ValidateValueParams): boolean => {
   if (isDateValidFormat(needle)){
     return false
   } else {
@@ -105,7 +105,7 @@ export const checkIfNotTelephoneNumber = (v: Validation, {
   return false
 }
 
-export const checkIfValidBeloep = (v: Validation, {
+export const checkIfNotValidBeloep = (v: Validation, {
   needle, id, message, extra
 }: ValidateValueParams): boolean => {
   const beloepPattern = /^\d+(\.\d+)?$/
@@ -116,7 +116,7 @@ export const checkIfValidBeloep = (v: Validation, {
   return false
 }
 
-export const checkIfValidSwift = (v: Validation, {
+export const checkIfNotValidSwift = (v: Validation, {
   needle, id, message, extra
 }: ValidateValueParams): boolean => {
   const swiftPattern = /([a-zA-Z]){4}([a-zA-Z]){2}([0-9a-zA-Z]){2}([0-9a-zA-Z]{3})?/
@@ -127,7 +127,7 @@ export const checkIfValidSwift = (v: Validation, {
   return false
 }
 
-export const checkIfValidIban = (v: Validation, {
+export const checkIfNotValidIban = (v: Validation, {
   needle, id, message, extra
 }: ValidateValueParams): boolean => {
   const ibanPattern = /^[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[a-zA-Z0-9]{7}([a-zA-Z0-9]?){0,16}$/
@@ -138,7 +138,7 @@ export const checkIfValidIban = (v: Validation, {
   return false
 }
 
-export const checkIfValidLand = (v: Validation, {
+export const checkIfNotValidLand = (v: Validation, {
   needle,
   id,
   message,
@@ -150,7 +150,7 @@ export const checkIfValidLand = (v: Validation, {
   return false
 }
 
-export const checkIfNotGB = (v: Validation, {
+export const checkIfGB = (v: Validation, {
   needle,
   id,
   message,

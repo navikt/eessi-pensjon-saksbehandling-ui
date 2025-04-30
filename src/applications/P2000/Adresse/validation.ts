@@ -1,5 +1,5 @@
 import {Validation} from "src/declarations/app";
-import {checkIfNotEmpty, checkLength} from 'src/utils/validation'
+import {checkIfNotEmpty, checkIfTooLong} from 'src/utils/validation'
 
 import {Adresse} from "src/declarations/sed";
 
@@ -42,28 +42,28 @@ export const validateAdresse = (
     message: 'validation:missing-p2000-adresse-land'
   }))
 
-  hasErrors.push(checkLength(v, {
+  hasErrors.push(checkIfTooLong(v, {
     needle: adresse?.gate,
     id: namespace + '-adresse-gate',
     max: 155,
     message: 'validation:textOverX'
   }))
 
-  hasErrors.push(checkLength(v, {
+  hasErrors.push(checkIfTooLong(v, {
     needle: usePostKode ? adresse?.postkode : adresse?.postnummer,
     id: namespace + '-adresse-postnummer',
     max: 25,
     message: 'validation:textOverX'
   }))
 
-  hasErrors.push(checkLength(v, {
+  hasErrors.push(checkIfTooLong(v, {
     needle: adresse?.by,
     id: namespace + '-adresse-by',
     max: 65,
     message: 'validation:textOverX'
   }))
 
-  hasErrors.push(checkLength(v, {
+  hasErrors.push(checkIfTooLong(v, {
     needle: adresse?.region,
     id: namespace + '-adresse-region',
     max: 65,

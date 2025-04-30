@@ -1,5 +1,5 @@
 import {Validation} from "src/declarations/app";
-import {checkIfNotEmpty, checkLength, checkValidDateFormat} from "src/utils/validation";
+import {checkIfNotEmpty, checkIfTooLong, checkIfNotValidDateFormat} from "src/utils/validation";
 import {Person} from "src/declarations/sed";
 
 export interface ValidationPersonProps {
@@ -39,21 +39,21 @@ export const validatePerson = (
     message: 'validation:missing-p2000-person-kjoenn'
   }))
 
-  hasErrors.push(checkLength(v, {
+  hasErrors.push(checkIfTooLong(v, {
     needle: person?.etternavn,
     id: namespace + '-person-etternavn',
     max: 155,
     message: 'validation:textOverX'
   }))
 
-  hasErrors.push(checkLength(v, {
+  hasErrors.push(checkIfTooLong(v, {
     needle: person?.fornavn,
     id: namespace + '-person-fornavn',
     max: 155,
     message: 'validation:textOverX'
   }))
 
-  hasErrors.push(checkValidDateFormat(v, {
+  hasErrors.push(checkIfNotValidDateFormat(v, {
     needle: person?.foedselsdato,
     id: namespace + '-person-foedselsdato',
     message: 'validation:invalidDateFormat',

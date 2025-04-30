@@ -1,6 +1,6 @@
 import { Validation} from 'src/declarations/app'
 import { getIdx } from 'src/utils/namespace'
-import {checkIfDuplicate, checkIfNotEmpty, checkIfNotGB, checkLength} from 'src/utils/validation'
+import {checkIfDuplicate, checkIfNotEmpty, checkIfGB, checkIfTooLong} from 'src/utils/validation'
 import {Eessisak} from "src/declarations/sed";
 
 export interface ValidationUtenlandskSaksnrProps {
@@ -31,7 +31,7 @@ export const validateUtenlandskSaksnr = (
     message: 'validation:missing-utenlandskesaksnr-saksnr'
   }))
 
-  hasErrors.push(checkLength(v, {
+  hasErrors.push(checkIfTooLong(v, {
     needle: eessisak?.saksnummer,
     id: namespace + idx + '-saksnummer',
     max: 65,
@@ -44,7 +44,7 @@ export const validateUtenlandskSaksnr = (
     message: 'validation:missing-utenlandskesaksnr-land'
   }))
 
-  hasErrors.push(checkIfNotGB(v, {
+  hasErrors.push(checkIfGB(v, {
     needle: eessisak?.land,
     id: namespace + idx + '-land',
     message: 'validation:invalid-utenlandskesaksnr-land'
