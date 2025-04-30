@@ -1,7 +1,7 @@
 import {Validation} from "src/declarations/app";
 import {Arbeidsforhold} from "src/declarations/p2000";
 import {getIdx} from "src/utils/namespace";
-import {checkIfNotEmpty} from "src/utils/validation";
+import {checkIfEmpty} from "src/utils/validation";
 
 export interface ValidationYrkesaktivitetProps {
   arbeidsforholdArray: Array<Arbeidsforhold> | undefined
@@ -23,7 +23,7 @@ export const validateArbeidsforhold = (
   const hasErrors: Array<boolean> = []
   const idx = getIdx(index)
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: arbeidsforhold?.type,
     id: namespace + idx + '-yrkesaktivitet',
     message: 'validation:missing-p2000-arbeidsforhold-yrkesaktivitet'

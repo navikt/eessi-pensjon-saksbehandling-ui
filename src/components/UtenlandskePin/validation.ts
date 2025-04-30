@@ -1,6 +1,6 @@
 import { Validation} from 'src/declarations/app'
 import { getIdx } from 'src/utils/namespace'
-import {checkIfDuplicate, checkIfNotEmpty, checkIfGB, checkIfTooLong} from 'src/utils/validation'
+import {checkIfDuplicate, checkIfEmpty, checkIfGB, checkIfTooLong} from 'src/utils/validation'
 import {PIN} from "src/declarations/sed";
 
 export interface ValidationUtenlandskPINProps {
@@ -25,7 +25,7 @@ export const validateUtenlandskPIN = (
   const hasErrors: Array<boolean> = []
   const idx = getIdx(index)
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: pin?.identifikator,
     id: namespace + idx + '-identifikator',
     message: 'validation:missing-utenlandskepin-id'
@@ -38,7 +38,7 @@ export const validateUtenlandskPIN = (
     message: 'validation:textOverX'
   }))
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: pin?.land,
     id: namespace + idx + '-land',
     message: 'validation:missing-utenlandskepin-land'

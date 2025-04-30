@@ -1,5 +1,5 @@
 import {Validation} from "src/declarations/app";
-import {checkIfNotEmpty, checkIfTooLong} from 'src/utils/validation'
+import {checkIfEmpty, checkIfTooLong} from 'src/utils/validation'
 import _ from "lodash";
 import {Foedested} from "src/declarations/sed";
 
@@ -23,13 +23,13 @@ export const validateFoedested = (
   )
 
   if(!_.isEmpty(foedested) && !emptyFoedsted){
-    hasErrors.push(checkIfNotEmpty(v, {
+    hasErrors.push(checkIfEmpty(v, {
       needle: foedested?.by,
       id: namespace + '-by',
       message: 'validation:missing-p2000-person-foedested-by',
     }))
 
-    hasErrors.push(checkIfNotEmpty(v, {
+    hasErrors.push(checkIfEmpty(v, {
       needle: foedested?.land,
       id: namespace + '-land',
       message: 'validation:missing-p2000-person-foedested-land',

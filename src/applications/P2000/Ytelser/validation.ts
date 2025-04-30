@@ -1,7 +1,7 @@
 import {Validation} from "src/declarations/app";
 import {Ytelse} from "src/declarations/p2000";
 import {getIdx} from "src/utils/namespace";
-import {checkIfNotEmpty, checkIfNotValidBeloep, checkIfNotValidDateFormat} from "src/utils/validation";
+import {checkIfEmpty, checkIfNotValidBeloep, checkIfNotValidDateFormat} from "src/utils/validation";
 
 export interface ValidationYtelserProps {
   ytelser: Array<Ytelse> | undefined
@@ -23,13 +23,13 @@ export const validateYtelse = (
   const hasErrors: Array<boolean> = []
   const idx = getIdx(index)
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: ytelse?.ytelse,
     id: namespace + idx + '-ytelse',
     message: 'validation:missing-p2000-ytelse-ytelse'
   }))
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: ytelse?.status,
     id: namespace + idx + '-status',
     message: 'validation:missing-p2000-ytelse-status'

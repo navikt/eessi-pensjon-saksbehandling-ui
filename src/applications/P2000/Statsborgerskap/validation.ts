@@ -1,6 +1,6 @@
 import { Validation} from 'src/declarations/app'
 import { getIdx } from 'src/utils/namespace'
-import { checkIfDuplicate, checkIfNotEmpty } from 'src/utils/validation'
+import { checkIfDuplicate, checkIfEmpty } from 'src/utils/validation'
 import {Statsborgerskap} from "src/declarations/sed";
 
 export interface ValidationStatsborgerskapProps {
@@ -25,7 +25,7 @@ export const validateStatsborgerskap = (
   const hasErrors: Array<boolean> = []
   const idx = getIdx(index)
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: statsborgerskap?.land,
     id: namespace + idx + '-land',
     message: 'validation:missing-p2000-statsborgerskap-land'

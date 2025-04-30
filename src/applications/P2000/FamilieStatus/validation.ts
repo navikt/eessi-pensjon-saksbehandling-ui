@@ -1,5 +1,5 @@
 import {Validation} from "src/declarations/app";
-import {checkIfNotEmpty, checkIfNotValidDateFormat} from 'src/utils/validation'
+import {checkIfEmpty, checkIfNotValidDateFormat} from 'src/utils/validation'
 import {getIdx} from "src/utils/namespace";
 import {Sivilstand} from "src/declarations/sed";
 
@@ -23,13 +23,13 @@ export const validateFamilieStatus = (
   const hasErrors: Array<boolean> = []
   const idx = getIdx(index)
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: sivilstand?.status,
     id: namespace + idx + '-status',
     message: 'validation:missing-p2000-forsikret-person-sivilstand-status'
   }))
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: sivilstand?.fradato,
     id: namespace + idx +  '-fradato',
     message: 'validation:missing-p2000-forsikret-person-sivilstand-fradato'

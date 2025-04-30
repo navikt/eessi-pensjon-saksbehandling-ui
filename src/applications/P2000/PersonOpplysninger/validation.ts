@@ -1,5 +1,5 @@
 import {Validation} from "src/declarations/app";
-import {checkIfNotEmpty, checkIfTooLong, checkIfNotValidDateFormat} from "src/utils/validation";
+import {checkIfEmpty, checkIfTooLong, checkIfNotValidDateFormat} from "src/utils/validation";
 import {Person} from "src/declarations/sed";
 
 export interface ValidationPersonProps {
@@ -15,25 +15,25 @@ export const validatePerson = (
 ): boolean => {
   const hasErrors: Array<boolean> = []
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: person?.etternavn,
     id: namespace + '-person-etternavn',
     message: 'validation:missing-p2000-person-etternavn'
   }))
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: person?.fornavn,
     id: namespace + '-person-fornavn',
     message: 'validation:missing-p2000-person-fornavn'
   }))
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: person?.foedselsdato,
     id: namespace + '-person-foedselsdato',
     message: 'validation:missing-p2000-person-foedselsdato'
   }))
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: person?.kjoenn,
     id: namespace + '-person-kjoenn',
     message: 'validation:missing-p2000-person-kjoenn'

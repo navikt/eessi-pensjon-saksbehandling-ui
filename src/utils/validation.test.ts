@@ -1,7 +1,7 @@
 import {
   checkIfDuplicate,
   checkIfNotEmail,
-  checkIfNotEmpty,
+  checkIfEmpty,
   checkIfGB,
   checkIfNotTelephoneNumber,
   checkIfNotValidBeloep,
@@ -69,9 +69,9 @@ describe('validation/isOutOfRange', () => {
   })
 })
 
-describe('validation/checkIfNotEmpty', () => {
+describe('validation/checkIfEmpty', () => {
   it('Should return true when needle is empty', () => {
-    expect(checkIfNotEmpty(
+    expect(checkIfEmpty(
       mockValidation,
       {
         needle: "",
@@ -82,7 +82,7 @@ describe('validation/checkIfNotEmpty', () => {
       .toEqual(true)
   })
   it('Should return false when needle is not empty', () => {
-    expect(checkIfNotEmpty(
+    expect(checkIfEmpty(
       mockValidation,
       {
         needle: "not empty",
@@ -93,7 +93,7 @@ describe('validation/checkIfNotEmpty', () => {
       .toEqual(false)
   })
   it('Should return true when needle is not a string', () => {
-    expect(checkIfNotEmpty(
+    expect(checkIfEmpty(
       mockValidation,
       {
         needle: 23,

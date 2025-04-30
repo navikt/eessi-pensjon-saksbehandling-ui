@@ -1,6 +1,6 @@
 import {Validation} from "src/declarations/app";
 import {P8000Field, P8000SED} from "src/declarations/p8000";
-import {addError, checkIfNotInteger, checkIfNotEmpty, hasFourDigits, isInteger, isOutOfRange} from "src/utils/validation";
+import {addError, checkIfNotInteger, checkIfEmpty, hasFourDigits, isInteger, isOutOfRange} from "src/utils/validation";
 import _ from "lodash";
 
 export interface ValidationP8000Props {
@@ -21,13 +21,13 @@ export const validateP8000 = (
   if(ofteEtterspurtInformasjon?.dokumentasjonPaaArbeidINorge){
     const arbeidINorge: P8000Field = ofteEtterspurtInformasjon?.dokumentasjonPaaArbeidINorge
 
-    hasErrors.push(checkIfNotEmpty(v, {
+    hasErrors.push(checkIfEmpty(v, {
       needle: arbeidINorge.periodeFra,
       id: namespace + '-ofteEtterspurtInformasjon' + '-dokumentasjonPaaArbeidINorge' + '-periodeFra',
       message: 'validation:missing-p8000-periodeFra'
     }))
 
-    hasErrors.push(checkIfNotEmpty(v, {
+    hasErrors.push(checkIfEmpty(v, {
       needle: arbeidINorge.periodeTil,
       id: namespace + '-ofteEtterspurtInformasjon' + '-dokumentasjonPaaArbeidINorge' + '-periodeTil',
       message: 'validation:missing-p8000-periodeTil'
@@ -98,19 +98,19 @@ export const validateP8000 = (
 
   if(ofteEtterspurtInformasjon?.inntektFoerUfoerhetIUtlandet){
     const inntekt: P8000Field = ofteEtterspurtInformasjon?.inntektFoerUfoerhetIUtlandet
-    hasErrors.push(checkIfNotEmpty(v, {
+    hasErrors.push(checkIfEmpty(v, {
       needle: inntekt.landkode,
       id: namespace + '-ofteEtterspurtInformasjon' + '-inntektFoerUfoerhetIUtlandet' + '-land',
       message: 'validation:missing-p8000-land'
     }))
 
-    hasErrors.push(checkIfNotEmpty(v, {
+    hasErrors.push(checkIfEmpty(v, {
       needle: inntekt.periodeFra,
       id: namespace + '-ofteEtterspurtInformasjon' + '-inntektFoerUfoerhetIUtlandet' + '-periodeFra',
       message: 'validation:missing-p8000-periodeFra'
     }))
 
-    hasErrors.push(checkIfNotEmpty(v, {
+    hasErrors.push(checkIfEmpty(v, {
       needle: inntekt.periodeTil,
       id: namespace + '-ofteEtterspurtInformasjon' + '-inntektFoerUfoerhetIUtlandet' + '-periodeTil',
       message: 'validation:missing-p8000-periodeTil'
@@ -180,7 +180,7 @@ export const validateP8000 = (
   }
 
   if(ofteEtterspurtInformasjon?.opplysningerOmEPS){
-    hasErrors.push(checkIfNotEmpty(v, {
+    hasErrors.push(checkIfEmpty(v, {
       needle: ofteEtterspurtInformasjon?.opplysningerOmEPS.landkode,
       id: namespace + '-ofteEtterspurtInformasjon' + '-opplysningerOmEPS' + '-land',
       message: 'validation:missing-p8000-land'
@@ -188,7 +188,7 @@ export const validateP8000 = (
   }
 
   if(informasjonSomKanLeggesInn?.saksbehandlingstid){
-    hasErrors.push(checkIfNotEmpty(v, {
+    hasErrors.push(checkIfEmpty(v, {
       needle: informasjonSomKanLeggesInn?.saksbehandlingstid.antallMaaneder,
       id: namespace + '-informasjonSomKanLeggesInn' + '-saksbehandlingstid' + '-antallMaaneder',
       message: 'validation:missing-p8000-antallMaaneder'

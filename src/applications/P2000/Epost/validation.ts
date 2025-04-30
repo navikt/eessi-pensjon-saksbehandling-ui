@@ -1,5 +1,5 @@
 import {Validation} from "src/declarations/app";
-import {checkIfNotEmail, checkIfNotEmpty} from 'src/utils/validation'
+import {checkIfNotEmail, checkIfEmpty} from 'src/utils/validation'
 import {getIdx} from "src/utils/namespace";
 import {Email} from "src/declarations/sed";
 
@@ -23,7 +23,7 @@ export const validateEpost = (
   const hasErrors: Array<boolean> = []
   const idx = getIdx(index)
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: epost?.adresse,
     id: namespace + idx + '-adresse',
     message: 'validation:missing-p2000-epost-adresse'

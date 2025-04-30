@@ -1,5 +1,5 @@
 import {Validation} from "src/declarations/app";
-import {checkIfNotEmpty, checkIfNotValidIban, checkIfNotValidSwift, checkIfTooLong} from 'src/utils/validation'
+import {checkIfEmpty, checkIfNotValidIban, checkIfNotValidSwift, checkIfTooLong} from 'src/utils/validation'
 import _ from 'lodash'
 import performValidation from "../../../utils/performValidation";
 import {validateAdresse, ValidationAdresseProps} from "../Adresse/validation";
@@ -36,13 +36,13 @@ export const validateBank = (
   }))
 
   if(sepaIkkeSepa === "sepa"){
-    hasErrors.push(checkIfNotEmpty(v, {
+    hasErrors.push(checkIfEmpty(v, {
       needle: bank?.konto?.sepa?.iban,
       id: namespace + '-konto-sepa-iban',
       message: 'validation:missing-p2000-bank-konto-sepa-iban'
     }))
 
-    hasErrors.push(checkIfNotEmpty(v, {
+    hasErrors.push(checkIfEmpty(v, {
       needle: bank?.konto?.sepa?.swift,
       id: namespace + '-konto-sepa-swift',
       message: 'validation:missing-p2000-bank-konto-sepa-swift'
@@ -64,19 +64,19 @@ export const validateBank = (
       usePostKode: true
     }, true))
 
-    hasErrors.push(checkIfNotEmpty(v, {
+    hasErrors.push(checkIfEmpty(v, {
       needle: bank?.konto?.kontonr,
       id: namespace + '-konto-kontonr',
       message: 'validation:missing-p2000-bank-konto-kontonr'
     }))
 
-    hasErrors.push(checkIfNotEmpty(v, {
+    hasErrors.push(checkIfEmpty(v, {
       needle: bank?.konto?.ikkesepa?.swift,
       id: namespace + '-konto-ikkesepa-swift',
       message: 'validation:missing-p2000-bank-konto-ikkesepa-swift'
     }))
 
-    hasErrors.push(checkIfNotEmpty(v, {
+    hasErrors.push(checkIfEmpty(v, {
       needle: bank?.navn,
       id: namespace + '-bank-navn',
       message: 'validation:missing-p2000-bank-navn'

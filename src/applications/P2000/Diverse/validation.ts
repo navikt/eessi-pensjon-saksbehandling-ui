@@ -1,6 +1,6 @@
 import {Validation} from "src/declarations/app";
 import _ from "lodash";
-import {checkIfNotEmpty, checkIfTooLong, checkIfNotValidDateFormat} from "src/utils/validation";
+import {checkIfEmpty, checkIfTooLong, checkIfNotValidDateFormat} from "src/utils/validation";
 import {P2000Pensjon} from "src/declarations/p2000";
 
 export interface ValidationDiverseProps {
@@ -17,7 +17,7 @@ export const validateDiverse = (
   const hasErrors: Array<boolean> = []
 
   if(pensjon?.vedlegg?.some(v => v==="annet")){
-    hasErrors.push(checkIfNotEmpty(v, {
+    hasErrors.push(checkIfEmpty(v, {
       needle: pensjon.vedleggandre,
       id: namespace + '-vedleggandre',
       message: 'validation:missing-p2000-pensjon-vedleggandre'

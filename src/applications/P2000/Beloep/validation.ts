@@ -1,7 +1,7 @@
 import {Validation} from "src/declarations/app";
 import {getIdx} from "../../../utils/namespace";
 import {Beloep} from "../../../declarations/p2000";
-import {checkIfDuplicate, checkIfNotEmpty, checkIfNotValidBeloep, checkIfNotValidDateFormat} from "../../../utils/validation";
+import {checkIfDuplicate, checkIfEmpty, checkIfNotValidBeloep, checkIfNotValidDateFormat} from "../../../utils/validation";
 
 export interface ValidationBeloepProps {
   beloepArray: Array<Beloep> | null | undefined
@@ -21,7 +21,7 @@ export const validateBeloep = (
   const hasErrors: Array<boolean> = []
   const idx = getIdx(index)
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: beloep?.beloep,
     id: namespace + idx + '-beloep',
     message: 'validation:missing-p2000-ytelse-beloep-beloep'
@@ -33,13 +33,13 @@ export const validateBeloep = (
     message: 'validation:invalid-p2000-beloep'
   }))
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: beloep?.valuta,
     id: namespace + idx + '-valuta',
     message: 'validation:missing-p2000-ytelse-beloep-valuta'
   }))
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: beloep?.gjeldendesiden,
     id: namespace + idx + '-gjeldendesiden',
     message: 'validation:missing-p2000-ytelse-beloep-gjeldendesiden'
@@ -51,7 +51,7 @@ export const validateBeloep = (
     message: 'validation:invalidDateFormat',
   }))
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: beloep?.betalingshyppighetytelse,
     id: namespace + idx + '-betalingshyppighetytelse',
     message: 'validation:missing-p2000-ytelse-beloep-betalingshyppighetytelse'

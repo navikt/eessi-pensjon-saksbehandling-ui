@@ -1,5 +1,5 @@
 import {Validation} from "src/declarations/app";
-import {checkIfNotEmpty, checkIfTooLong} from 'src/utils/validation'
+import {checkIfEmpty, checkIfTooLong} from 'src/utils/validation'
 
 import {Adresse} from "src/declarations/sed";
 
@@ -18,25 +18,25 @@ export const validateAdresse = (
 ): boolean => {
   const hasErrors: Array<boolean> = []
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: adresse?.gate,
     id: namespace + '-adresse-gate',
     message: 'validation:missing-p2000-adresse-gate'
   }))
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: usePostKode ? adresse?.postkode : adresse?.postnummer,
     id: namespace + '-adresse-postnummer',
     message: 'validation:missing-p2000-adresse-postnummer'
   }))
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: adresse?.by,
     id: namespace + '-adresse-by',
     message: 'validation:missing-p2000-adresse-by'
   }))
 
-  hasErrors.push(checkIfNotEmpty(v, {
+  hasErrors.push(checkIfEmpty(v, {
     needle: adresse?.land,
     id: namespace + '-adresse-land',
     message: 'validation:missing-p2000-adresse-land'

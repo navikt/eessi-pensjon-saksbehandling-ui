@@ -1,5 +1,5 @@
 import {Validation} from "src/declarations/app";
-import {checkIfNotEmpty, checkIfTooLong} from 'src/utils/validation'
+import {checkIfEmpty, checkIfTooLong} from 'src/utils/validation'
 import _ from "lodash";
 import {validateAdresse, ValidationAdresseProps} from "../Adresse/validation";
 import performValidation from "../../../utils/performValidation";
@@ -23,13 +23,13 @@ export const validateVerge = (
       adresse: verge?.adresse
     }, true))
 
-    hasErrors.push(checkIfNotEmpty(v, {
+    hasErrors.push(checkIfEmpty(v, {
       needle: verge?.person?.etternavn,
       id: namespace + '-person-etternavn',
       message: 'validation:missing-p2000-verge-person-etternavn'
     }))
 
-    hasErrors.push(checkIfNotEmpty(v, {
+    hasErrors.push(checkIfEmpty(v, {
       needle: verge?.person?.fornavn,
       id: namespace + '-person-fornavn',
       message: 'validation:missing-p2000-verge-person-fornavn'
