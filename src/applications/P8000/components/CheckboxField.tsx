@@ -15,6 +15,7 @@ export const CheckBoxField: React.FC<P8000FieldComponentProps> = ({
     dispatch(updatePSED(`${target}.${field}.value`, checked))
     if (!checked) {
       dispatch(resetValidation(namespace + '-' + field))
+      dispatch(updatePSED(`${target}.${field}`, undefined))
     }
   }
 
