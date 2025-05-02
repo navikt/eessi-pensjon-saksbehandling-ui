@@ -18,7 +18,7 @@ export const validateP8000 = (
   const ofteEtterspurtInformasjon = P8000SED.options?.ofteEtterspurtInformasjon
   const informasjonSomKanLeggesInn = P8000SED.options?.informasjonSomKanLeggesInn
 
-  if(ofteEtterspurtInformasjon?.dokumentasjonPaaArbeidINorge){
+  if(ofteEtterspurtInformasjon?.dokumentasjonPaaArbeidINorge && ofteEtterspurtInformasjon?.dokumentasjonPaaArbeidINorge.value){
     const arbeidINorge: P8000Field = ofteEtterspurtInformasjon?.dokumentasjonPaaArbeidINorge
 
     hasErrors.push(checkIfEmpty(v, {
@@ -96,7 +96,7 @@ export const validateP8000 = (
     }
   }
 
-  if(ofteEtterspurtInformasjon?.inntektFoerUfoerhetIUtlandet){
+  if(ofteEtterspurtInformasjon?.inntektFoerUfoerhetIUtlandet && ofteEtterspurtInformasjon?.inntektFoerUfoerhetIUtlandet.value){
     const inntekt: P8000Field = ofteEtterspurtInformasjon?.inntektFoerUfoerhetIUtlandet
     hasErrors.push(checkIfEmpty(v, {
       needle: inntekt.landkode,
@@ -179,7 +179,7 @@ export const validateP8000 = (
     }
   }
 
-  if(ofteEtterspurtInformasjon?.opplysningerOmEPS){
+  if(ofteEtterspurtInformasjon?.opplysningerOmEPS && ofteEtterspurtInformasjon?.opplysningerOmEPS.value){
     hasErrors.push(checkIfEmpty(v, {
       needle: ofteEtterspurtInformasjon?.opplysningerOmEPS.landkode,
       id: namespace + '-ofteEtterspurtInformasjon' + '-opplysningerOmEPS' + '-land',
@@ -187,7 +187,7 @@ export const validateP8000 = (
     }))
   }
 
-  if(informasjonSomKanLeggesInn?.saksbehandlingstid){
+  if(informasjonSomKanLeggesInn?.saksbehandlingstid && informasjonSomKanLeggesInn?.saksbehandlingstid.value){
     hasErrors.push(checkIfEmpty(v, {
       needle: informasjonSomKanLeggesInn?.saksbehandlingstid.antallMaaneder,
       id: namespace + '-informasjonSomKanLeggesInn' + '-saksbehandlingstid' + '-antallMaaneder',
