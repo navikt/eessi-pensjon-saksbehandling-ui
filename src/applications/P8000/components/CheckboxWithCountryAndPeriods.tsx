@@ -11,39 +11,10 @@ import {useTranslation} from "react-i18next";
 import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "src/applications/P2000/MainForm";
 import {useAppSelector} from "src/store";
-import classNames from "classnames";
-import styled from "styled-components";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
 })
-
-
-const TextFieldWithErrorBorder = styled(TextField)`
-  &.error > input {
-    border-color: var(--a-border-danger);
-    box-shadow: 0 0 0 1px var(--a-border-danger);
-  }
-
-  &.error > input:hover {
-    border-color: var(--a-border-action-hover);
-    box-shadow: 0 0 0 0 var(--a-border-danger);
-  }
-`
-
-const CountryDropdownWithErrorBorder = styled(CountryDropdown)`
-  &.error .c-countrySelect__select__control {
-    border-color: var(--a-border-danger);
-    box-shadow: 0 0 0 1px var(--a-border-danger);
-  }
-
-  &.error .c-countrySelect__select__control:hover {
-    border-color: var(--a-border-action-hover);
-    box-shadow: 0 0 0 0 var(--a-border-danger);
-  }
-`
-
-
 
 export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> = ({
   label, value, PSED, updatePSED, namespace, target, options
@@ -59,6 +30,7 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
     dispatch(updatePSED(`${target}.${value}.${property}`, propValue))
   }
 
+  // @ts-ignore
   return (
     <VStack>
       <CheckBoxField
@@ -82,9 +54,9 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
             <HStack gap="4">
               {options?.showCountry &&
                 <Box width="30%">
-                  <CountryDropdownWithErrorBorder
+                  <CountryDropdown
                     id={namespace + "-" + value + "-land"}
-                    className={classNames({ error: validation[namespace + "-" + value + "-land"]?.feilmelding})}
+                    error={!!validation[namespace + "-" + value + "-land"]?.feilmelding}
                     countryCodeListName="euEftaLand"
                     label={t('p8000:form-label-land')}
                     hideLabel={false}
@@ -98,18 +70,18 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
                   gap="4"
                   align="start"
                 >
-                  <TextFieldWithErrorBorder
+                  <TextField
                     id={namespace + "-" + value + "-periodeFra"}
-                    className={classNames({ error: validation[namespace + "-" + value + "-periodeFra"]?.feilmelding})}
+                    error={!!validation[namespace + "-" + value + "-periodeFra"]?.feilmelding}
                     style={{maxWidth: "5rem"}}
                     label={t('p8000:form-label-fra')}
                     hideLabel={false}
                     value={field?.periodeFra}
                     onChange={(e) => setProperty('periodeFra', e.target.value)}
                   />
-                  <TextFieldWithErrorBorder
+                  <TextField
                     id={namespace + "-" + value + "-periodeTil"}
-                    className={classNames({ error: validation[namespace + "-" + value + "-periodeTil"]?.feilmelding  })}
+                    error={!!validation[namespace + "-" + value + "-periodeTil"]?.feilmelding}
                     style={{maxWidth: "5rem"}}
                     label={t('p8000:form-label-til')}
                     hideLabel={false}
@@ -119,9 +91,9 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
                 </HStack>
               }
               {options?.showMonths &&
-                <TextFieldWithErrorBorder
+                <TextField
                   id={namespace + "-" + value + "-antallMaaneder"}
-                  className={classNames({ error: validation[namespace + "-" + value + "-antallMaaneder"]?.feilmelding  })}
+                  error={!!validation[namespace + "-" + value + "-antallMaaneder"]?.feilmelding}
                   style={{maxWidth: "5rem"}}
                   label={t('p8000:form-label-antall-maaneder')}
                   hideLabel={false}
