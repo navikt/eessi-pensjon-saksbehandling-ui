@@ -34,6 +34,7 @@ export interface P8000Field {
   periodeFra: string
   periodeTil: string
   antallMaaneder: string
+  begrunnelseForKravet: string
 }
 
 export interface OfteEtterspurtInformasjon {

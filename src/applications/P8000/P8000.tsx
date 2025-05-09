@@ -25,7 +25,8 @@ import {
   P5000,
   P6000, PERSON_UTEN_PNR_DNR, SAKSBEHANDLINGSTID,
   TILTAK,
-  YTELSESHISTORIKK
+  YTELSESHISTORIKK,
+  P5000_MED_BEGRUNNELSE
 } from "src/constants/p8000";
 import {CheckboxWithCountryAndPeriods} from "src/applications/P8000/components/CheckboxWithCountryAndPeriods";
 import {CheckBoxField} from "src/applications/P8000/components/CheckboxField";
@@ -42,6 +43,7 @@ import {validateP8000, ValidationP8000Props} from "src/applications/P8000/valida
 import _ from "lodash";
 import performValidation from "src/utils/performValidation";
 import ValidationBox from "src/components/ValidationBox/ValidationBox";
+import {SendFolgendeSEDerWithBegrunnelse} from "src/applications/P8000/components/SendFolgendeSEDerWithBegrunnelse";
 
 export interface P8000Props {
   buc: Buc
@@ -52,10 +54,10 @@ export interface P8000Props {
 export interface P8000FieldComponentProps {
   PSED: PSED | null | undefined
   updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
-  namespace: string
+  namespace?: string
   label: string
   value: string
-  target: string
+  target?: string
   options?: any
 }
 
@@ -293,8 +295,14 @@ const P8000: React.FC<P8000Props> = ({
         P5000_FOR_P5000NO
       ]
     },
-    UT_UTL_05: [],
-    UT_NO_03: [],
+    UT_NO_03: {
+      ofteEtterspurtInformasjon: [
+        P5000_MED_BEGRUNNELSE,
+        P6000,
+      ],
+      informasjonSomKanLeggesInn: []
+    },
+    UT_UTL_05: {},
     UT_NO_05: [],
     AP_UTL_01: [],
     AP_UTL_05: [],
@@ -368,9 +376,10 @@ const P8000: React.FC<P8000Props> = ({
                 <Heading level="2" size="small">{t('p8000:form-heading-ofte-etterspurt-informasjon')}</Heading>
                 <P8000Fields
                   fields={[
-                    {label: P5000, value: P5000, component: SendFolgendeSEDer, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'},
-                    {label: P4000, value: P4000, component: SendFolgendeSEDer, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'} ,
-                    {label: P6000, value: P6000, component: SendFolgendeSEDer, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'} ,
+                    {label: P5000, value: P5000, component: SendFolgendeSEDer},
+                    {label: P5000, value: P5000_MED_BEGRUNNELSE, component: SendFolgendeSEDerWithBegrunnelse, options: {sed: P5000, radioLabel: "P5000 trengs for"}},
+                    {label: P4000, value: P4000, component: SendFolgendeSEDer} ,
+                    {label: P6000, value: P6000, component: SendFolgendeSEDer} ,
                     {label: "Brukers adresse", value: BRUKERS_ADRESSE, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
                     {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
                     {label: "Opplysninger om tiltak", value: TILTAK, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},

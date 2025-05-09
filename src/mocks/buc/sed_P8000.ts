@@ -83,6 +83,10 @@ export default {
       "tiltak": {
         value: true
       },
+      "P5000MedBegrunnelse": {
+        value: true,
+        begrunnelseForKravet: "sammenligning"
+      },
       "inntektFoerUfoerhetIUtlandet": null
     },
   },

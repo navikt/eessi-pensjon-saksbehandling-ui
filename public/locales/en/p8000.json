@@ -15,5 +15,8 @@
   "opplysningerOmEPS": "If claimant is married/co-habiliting, we need full name, date of birth, nationality and national ID-number from {{land}} of the spouse/partner.",
   "personUtenPNRDNR": "Person without PNR/DNR",
   "saksbehandlingstid": "The processing time is estimated to {{antallMaaneder}} months",
-  "P5000ForP5000NO": "In order to issue P5000 NO, we need your P5000 first."
+  "P5000ForP5000NO": "In order to issue P5000 NO, we need your P5000 first.",
+
+  "P5000-begrunnelse-sammenligning": "For the aggregation of periods to assess the right to disability benefit from Norway.",
+  "P5000-begrunnelse-endelig-beregning": "For the final calculation of disability benefit from Norway."
 }

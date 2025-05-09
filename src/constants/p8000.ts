@@ -1,4 +1,5 @@
 export const P5000 = "P5000"
+export const P5000_MED_BEGRUNNELSE = "P5000MedBegrunnelse"
 export const P4000 = "P4000"
 export const P6000 = "P6000"
 export const BRUKERS_ADRESSE = "brukersAdresse"
