@@ -48,6 +48,7 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
 
   if(checked && !field){
     dispatch(updatePSED(`${targetOptions}.${value}.value`, true))
+    dispatch(updatePSED(`${targetOptions}.${value}.doNotGenerateFritekst`, true))
   }
 
   useEffect(() => {

@@ -30,6 +30,7 @@ export interface P8000Pensjon extends Pensjon{
 
 export interface P8000Field {
   value: string
+  doNotGenerateFritekst: boolean
   landkode: string
   periodeFra: string
   periodeTil: string
