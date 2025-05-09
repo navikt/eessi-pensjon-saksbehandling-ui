@@ -70,6 +70,62 @@ const mockBuc = [
     ],
     "seds": [
       {
+        id: 'cac9db2726d54f2c9b51d1562b7b0a79',
+        parentDocumentId: null,
+        type: 'P8000',
+        status: 'new',
+        direction: 'IN' as Direction,
+        creationDate: 1557825747269,
+        lastUpdate: 1558362934400,
+        displayName: 'Request for additional information',
+        participants: [{
+          role: 'Sender',
+          organisation: {
+            acronym: '12348',
+            countryCode: 'NO',
+            name: 'DEMO002',
+            id: 'NO:DEMO002'
+          },
+          selected: false
+        }, {
+          role: 'Receiver',
+          organisation: {
+            acronym: '12347',
+            countryCode: 'NO',
+            name: 'DEMO001',
+            id: 'NO:DEMO001'
+          },
+          selected: false
+        }],
+        attachments: [{
+          id: '58828e7ff57943779ab7b24c522b1a3f',
+          name: 'balrog.png',
+          fileName: 'balrog.png',
+          mimeType: 'image/png',
+          documentId: 'cac9db2726d54f2c9b51d1562b7b0a79',
+          lastUpdate: 1558361547000,
+          medical: false
+        }, {
+          id: '1e5b8c0cf3c94b2f9a4192abb4818cc1',
+          name: 'balrog.png',
+          fileName: 'balrog.png',
+          mimeType: 'image/png',
+          documentId: 'cac9db2726d54f2c9b51d1562b7b0a79',
+          lastUpdate: 1558361557000,
+          medical: false
+        }],
+        version: '2',
+        firstVersion: {
+          id: '1',
+          date: 1557825747269
+        },
+        lastVersion: {
+          id: '2',
+          date: 1558362934400
+        },
+        allowsAttachments: true
+      },
+      {
         "attachments": [],
         "displayName": "Invalidity pension claim",
         "type": "P2200",
