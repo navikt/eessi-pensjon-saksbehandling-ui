@@ -5,9 +5,10 @@ import _ from "lodash";
 import {P8000FieldComponentProps} from "src/applications/P8000/P8000";
 
 export const SendFolgendeSEDer: React.FC<P8000FieldComponentProps> = ({
-  label, value, PSED, updatePSED, target
+  label, value, PSED, updatePSED
 }: P8000FieldComponentProps): JSX.Element => {
   const dispatch = useDispatch()
+  const target = "pensjon.anmodning.seder[0].sendFolgendeSEDer"
   const sendFolgendeSEDer: Array<string> = _.get(PSED, target)
 
   const setCheckbox = (sType: string, checked: boolean) => {
