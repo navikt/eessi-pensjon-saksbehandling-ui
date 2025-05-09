@@ -299,6 +299,12 @@ const P8000: React.FC<P8000Props> = ({
       ofteEtterspurtInformasjon: [
         P5000_MED_BEGRUNNELSE,
         P6000,
+        BRUKERS_ADRESSE,
+        YTELSESHISTORIKK,
+        INNTEKT_FOER_UFOERHET_I_UTLANDET,
+        FOLKBOKFOERING,
+        OPPLYSNINGER_OM_EPS,
+        BRUKERS_SIVILSTAND
       ],
       informasjonSomKanLeggesInn: []
     },
@@ -400,27 +406,29 @@ const P8000: React.FC<P8000Props> = ({
                 />
               </VStack>
             </Box>
-            <Box
-              borderWidth="1"
-              borderRadius="medium"
-              borderColor="border-default"
-              background="bg-default"
-              padding="4"
-            >
-              <VStack gap="4">
-                <Heading level="2" size="small">{t('p8000:form-heading-informasjon-som-kan-legges-inn')}</Heading>
-                <P8000Fields
-                  fields={[
-                    {label: "Legg til saksbehandlingstid", value: SAKSBEHANDLINGSTID, component: CheckboxWithCountryAndPeriods, target: 'options.informasjonSomKanLeggesInn', options: {showCountry: false, showPeriod: false, showMonths: true}},
-                    {label: "P5000 trengs for å fylle ut P5000NO", value: P5000_FOR_P5000NO, component: CheckBoxField, target: 'options.informasjonSomKanLeggesInn'},
-                  ]}
-                  variant={P8000Variants[_type]?.informasjonSomKanLeggesInn}
-                  PSED={currentPSED}
-                  updatePSED={updatePSED}
-                  namespace={namespace + '-informasjonSomKanLeggesInn'}
-                />
-              </VStack>
-            </Box>
+            {P8000Variants[_type]?.informasjonSomKanLeggesInn.length > 0 &&
+              <Box
+                borderWidth="1"
+                borderRadius="medium"
+                borderColor="border-default"
+                background="bg-default"
+                padding="4"
+              >
+                <VStack gap="4">
+                  <Heading level="2" size="small">{t('p8000:form-heading-informasjon-som-kan-legges-inn')}</Heading>
+                  <P8000Fields
+                    fields={[
+                      {label: "Legg til saksbehandlingstid", value: SAKSBEHANDLINGSTID, component: CheckboxWithCountryAndPeriods, target: 'options.informasjonSomKanLeggesInn', options: {showCountry: false, showPeriod: false, showMonths: true}},
+                      {label: "P5000 trengs for å fylle ut P5000NO", value: P5000_FOR_P5000NO, component: CheckBoxField, target: 'options.informasjonSomKanLeggesInn'},
+                    ]}
+                    variant={P8000Variants[_type]?.informasjonSomKanLeggesInn}
+                    PSED={currentPSED}
+                    updatePSED={updatePSED}
+                    namespace={namespace + '-informasjonSomKanLeggesInn'}
+                  />
+                </VStack>
+              </Box>
+            }
             <Box
               borderWidth="1"
               borderRadius="medium"
