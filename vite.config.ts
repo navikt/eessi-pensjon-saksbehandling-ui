@@ -12,9 +12,6 @@ export default defineConfig({
     open: true,
     port: 3000
   },
-  define: {
-    'process.env': process.env
-  },
   optimizeDeps: {
     esbuildOptions: {
       loader: {
