@@ -9,7 +9,7 @@ export const CheckBoxField: React.FC<P8000FieldComponentProps> = ({
   label, value, target, PSED, updatePSED, namespace
 }: P8000FieldComponentProps): JSX.Element => {
   const dispatch = useDispatch()
-  const targetField = _.get(PSED, target)
+  const targetField = _.get(PSED, target!)
 
   const setCheckbox = (field: string, checked: boolean) => {
     dispatch(updatePSED(`${target}.${field}.value`, checked))
