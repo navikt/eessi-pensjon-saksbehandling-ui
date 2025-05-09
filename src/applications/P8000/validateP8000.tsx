@@ -18,6 +18,14 @@ export const validateP8000 = (
   const ofteEtterspurtInformasjon = P8000SED.options?.ofteEtterspurtInformasjon
   const informasjonSomKanLeggesInn = P8000SED.options?.informasjonSomKanLeggesInn
 
+  if(ofteEtterspurtInformasjon?.P5000MedBegrunnelse && ofteEtterspurtInformasjon?.P5000MedBegrunnelse.value){
+    hasErrors.push(checkIfEmpty(v, {
+      needle: ofteEtterspurtInformasjon?.P5000MedBegrunnelse.begrunnelseForKravet,
+      id: namespace + '-ofteEtterspurtInformasjon' + '-P5000MedBegrunnelse' + '-begrunnelseForKravet',
+      message: 'validation:missing-p8000-begrunnelseForKravet'
+    }))
+  }
+
   if(ofteEtterspurtInformasjon?.dokumentasjonPaaArbeidINorge && ofteEtterspurtInformasjon?.dokumentasjonPaaArbeidINorge.value){
     const arbeidINorge: P8000Field = ofteEtterspurtInformasjon?.dokumentasjonPaaArbeidINorge
 

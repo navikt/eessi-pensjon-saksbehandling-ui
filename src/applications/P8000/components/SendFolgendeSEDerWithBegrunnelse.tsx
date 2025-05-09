@@ -7,6 +7,14 @@ import {Box, HStack, Radio, RadioGroup, VStack} from "@navikt/ds-react";
 import {P8000Field} from "src/declarations/p8000";
 import {useTranslation} from "react-i18next";
 import i18n from "i18next";
+import {State} from "src/declarations/reducers";
+import {MainFormSelector} from "src/applications/P2000/MainForm";
+import {useAppSelector} from "src/store";
+import {resetValidation} from "src/actions/validation";
+
+const mapState = (state: State): MainFormSelector => ({
+  validation: state.validation.status,
+})
 
 export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps> = ({
   label, PSED, updatePSED, options, value, namespace
@@ -17,6 +25,7 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
   const targetBegrunnelse = "pensjon.anmodning.seder[0].begrunnelse"
   const targetOptions = "options.ofteEtterspurtInformasjon"
   const sendFolgendeSEDer: Array<string> = _.get(PSED, target)
+  const { validation } = useAppSelector(mapState)
 
   const field: P8000Field = _.get(PSED, `${targetOptions}.${value}`)
 
@@ -34,6 +43,11 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
   if(!checked && field){
     dispatch(updatePSED(`${targetOptions}.${value}`, undefined))
     dispatch(updatePSED(`${targetBegrunnelse}`, undefined))
+    dispatch(resetValidation(namespace + '-' + value))
+  }
+
+  if(checked && !field){
+    dispatch(updatePSED(`${targetOptions}.${value}.value`, true))
   }
 
   useEffect(() => {
@@ -67,7 +81,7 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
           <RadioGroup
             legend={options.radioLabel}
             value={field?.begrunnelseForKravet ?? ''}
-            error={false}
+            error={validation[namespace + "-" + value + "-begrunnelseForKravet"]?.feilmelding}
             id={namespace + '-' + value + '-begrunnelseForKravet'}
             name={namespace + '-' + value + '-begrunnelseForKravet'}
             onChange={setBegrunnelse}

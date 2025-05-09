@@ -58,6 +58,7 @@
   "missing-p2000-ytelse-status": "Mangler status",
   "missing-p2000-ytelse-mottasbasertpaa": "Mangler hva pensjonen mottas basert på",
   "missing-p8000-antallMaaneder": "Antall måneder mangler",
+  "missing-p8000-begrunnelseForKravet": "Begrunnelse for kravet mangler",
   "missing-p8000-land": "Land mangler",
   "missing-p8000-periodeFra": "Periode fra mangler",
   "missing-p8000-periodeTil": "Periode til mangler",
