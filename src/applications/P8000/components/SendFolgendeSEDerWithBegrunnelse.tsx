@@ -45,7 +45,7 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
     } else if (field.begrunnelseForKravet && field.begrunnelseForKravet === "endelig_beregning"){
       dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-endelig-beregning')))
     }
-  }, [PSED.options.type.spraak])
+  }, [PSED?.options?.type?.spraak])
 
   return (
     <VStack>
