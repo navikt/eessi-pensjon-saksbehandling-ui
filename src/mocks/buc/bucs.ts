@@ -16,8 +16,8 @@ const mockBuc = [
     },
     "sakType": null,
     "status": "open",
-    "startDate": "2025-04-03T12:17:58.360+00:00",
-    "lastUpdate": "2025-04-04T07:32:43.589+00:00",
+    "startDate": 1571818170586,
+    "lastUpdate": 1571818170586,
     "institusjon": [
       {
         "country": "NO",
@@ -76,7 +76,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "0b988b1c20b34ecfb6b91d9aa304aaaf",
-        "direction": "OUT",
+        "direction": "OUT"  as Direction,
         "creationDate": 1743683683205,
         "receiveDate": null,
         "typeVersion": null,
@@ -151,15 +151,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-04-03T12:34:43.205+00:00",
-          "id": "1"
+          id: '1',
+          date: 1571818194896
         },
         "lastVersion": {
-          "date": "2025-04-03T12:34:43.205+00:00",
-          "id": "1"
+          id: '3',
+          date: 1571818294896
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
@@ -171,7 +171,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "45e14691cd0e43af96e19523ff9238d9",
-        "direction": "OUT",
+        "direction": "OUT" as Direction,
         "creationDate": 1743751963599,
         "receiveDate": null,
         "typeVersion": null,
@@ -279,15 +279,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-04-04T07:32:43.615+00:00",
-          "id": "1"
+          id: '1',
+          date: 1571818194896
         },
         "lastVersion": {
-          "date": "2025-04-04T07:32:43.615+00:00",
-          "id": "1"
+          id: '3',
+          date: 1571818294896
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
@@ -299,7 +299,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "697467568f83432ab5b24972ff8a1d06",
-        "direction": "OUT",
+        "direction": "OUT" as Direction,
         "creationDate": 1743751963694,
         "receiveDate": null,
         "typeVersion": null,
@@ -407,15 +407,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-04-04T07:32:43.703+00:00",
-          "id": "1"
+          id: '1',
+          date: 1571818194896
         },
         "lastVersion": {
-          "date": "2025-04-04T07:32:43.703+00:00",
-          "id": "1"
+          id: '3',
+          date: 1571818294896
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
@@ -427,7 +427,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "fb7ab268b3ee4710bbc164efbda8a18f",
-        "direction": "OUT",
+        "direction": "OUT" as Direction,
         "creationDate": 1743751963730,
         "receiveDate": null,
         "typeVersion": null,
@@ -535,15 +535,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-04-04T07:32:43.739+00:00",
-          "id": "1"
+          id: '1',
+          date: 1571818194896
         },
         "lastVersion": {
-          "date": "2025-04-04T07:32:43.739+00:00",
-          "id": "1"
+          id: '3',
+          date: 1571818294896
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
@@ -555,7 +555,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "6b69d83e6d024f61a96386184bef3fd2",
-        "direction": "OUT",
+        "direction": "OUT" as Direction,
         "creationDate": 1743751963759,
         "receiveDate": null,
         "typeVersion": null,
@@ -663,15 +663,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-04-04T07:32:43.768+00:00",
-          "id": "1"
+          id: '1',
+          date: 1571818194896
         },
         "lastVersion": {
-          "date": "2025-04-04T07:32:43.768+00:00",
-          "id": "1"
+          id: '3',
+          date: 1571818294896
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
@@ -683,7 +683,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "adc41c9f713b40038d77f4de3bba296d",
-        "direction": "OUT",
+        "direction": "OUT" as Direction,
         "creationDate": 1743751963787,
         "receiveDate": null,
         "typeVersion": null,
@@ -791,15 +791,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-04-04T07:32:43.795+00:00",
-          "id": "1"
+          id: '1',
+          date: 1571818194896
         },
         "lastVersion": {
-          "date": "2025-04-04T07:32:43.795+00:00",
-          "id": "1"
+          id: '3',
+          date: 1571818294896
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
@@ -811,7 +811,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "37542eae19ff4079bf457c1584393702",
-        "direction": "OUT",
+        "direction": "OUT" as Direction,
         "creationDate": 1743751963815,
         "receiveDate": null,
         "typeVersion": null,
@@ -919,15 +919,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-04-04T07:32:43.824+00:00",
-          "id": "1"
+          id: '1',
+          date: 1571818194896
         },
         "lastVersion": {
-          "date": "2025-04-04T07:32:43.824+00:00",
-          "id": "1"
+          id: '3',
+          date: 1571818294896
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
@@ -939,7 +939,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "31a9a05fc4e842e39c056658dffdb4ff",
-        "direction": "OUT",
+        "direction": "OUT" as Direction,
         "creationDate": 1743751963843,
         "receiveDate": null,
         "typeVersion": null,
@@ -1047,15 +1047,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-04-04T07:32:43.851+00:00",
-          "id": "1"
+          id: '1',
+          date: 1571818194896
         },
         "lastVersion": {
-          "date": "2025-04-04T07:32:43.851+00:00",
-          "id": "1"
+          id: '3',
+          date: 1571818294896
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
@@ -1067,7 +1067,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "6d6e16dc2d904419afd57bc16824a3cd",
-        "direction": "OUT",
+        "direction": "OUT" as Direction,
         "creationDate": 1743751963874,
         "receiveDate": null,
         "typeVersion": null,
@@ -1175,15 +1175,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-04-04T07:32:43.883+00:00",
-          "id": "1"
+          id: '1',
+          date: 1571818194896
         },
         "lastVersion": {
-          "date": "2025-04-04T07:32:43.883+00:00",
-          "id": "1"
+          id: '3',
+          date: 1571818294896
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
@@ -1195,7 +1195,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "80af84bfcd924ad2b3a4855fcb14a201",
-        "direction": "OUT",
+        "direction": "OUT" as Direction,
         "creationDate": 1743751963899,
         "receiveDate": null,
         "typeVersion": null,
@@ -1303,15 +1303,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-04-04T07:32:43.908+00:00",
-          "id": "1"
+          id: '1',
+          date: 1571818194896
         },
         "lastVersion": {
-          "date": "2025-04-04T07:32:43.908+00:00",
-          "id": "1"
+          id: '3',
+          date: 1571818294896
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
@@ -1323,7 +1323,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "de29d510f85447aa9ef63235bd1004e9",
-        "direction": "OUT",
+        "direction": "OUT" as Direction,
         "creationDate": 1743751963924,
         "receiveDate": null,
         "typeVersion": null,
@@ -1431,15 +1431,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-04-04T07:32:43.933+00:00",
-          "id": "1"
+          id: '1',
+          date: 1571818194896
         },
         "lastVersion": {
-          "date": "2025-04-04T07:32:43.933+00:00",
-          "id": "1"
+          id: '3',
+          date: 1571818294896
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
@@ -1451,7 +1451,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "39c50668e2f342d38974644a5738c9af",
-        "direction": "OUT",
+        "direction": "OUT" as Direction,
         "creationDate": 1743751963948,
         "receiveDate": null,
         "typeVersion": null,
@@ -1559,15 +1559,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-04-04T07:32:43.956+00:00",
-          "id": "1"
+          id: '1',
+          date: 1571818194896
         },
         "lastVersion": {
-          "date": "2025-04-04T07:32:43.956+00:00",
-          "id": "1"
+          id: '3',
+          date: 1571818294896
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
@@ -1579,7 +1579,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "6a0e27b2f200498d8fb8a575120f7bce",
-        "direction": "OUT",
+        "direction": "OUT" as Direction,
         "creationDate": 1743751963973,
         "receiveDate": null,
         "typeVersion": null,
@@ -1687,15 +1687,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-04-04T07:32:43.982+00:00",
-          "id": "1"
+          id: '1',
+          date: 1571818194896
         },
         "lastVersion": {
-          "date": "2025-04-04T07:32:43.982+00:00",
-          "id": "1"
+          id: '3',
+          date: 1571818294896
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
@@ -1707,7 +1707,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "a21d51f04a004c1fb164f2e9d555fc02",
-        "direction": "OUT",
+        "direction": "OUT" as Direction,
         "creationDate": 1743751963998,
         "receiveDate": null,
         "typeVersion": null,
@@ -1815,15 +1815,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-04-04T07:32:44.008+00:00",
-          "id": "1"
+          id: '1',
+          date: 1571818194896
         },
         "lastVersion": {
-          "date": "2025-04-04T07:32:44.008+00:00",
-          "id": "1"
+          id: '3',
+          date: 1571818294896
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
@@ -1835,7 +1835,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "6c7255f3357445af9bed5a6ad499434a",
-        "direction": "OUT",
+        "direction": "OUT" as Direction,
         "creationDate": 1743751964026,
         "receiveDate": null,
         "typeVersion": null,
@@ -1943,15 +1943,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-04-04T07:32:44.036+00:00",
-          "id": "1"
+          id: '1',
+          date: 1571818194896
         },
         "lastVersion": {
-          "date": "2025-04-04T07:32:44.036+00:00",
-          "id": "1"
+          id: '3',
+          date: 1571818294896
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
@@ -1963,7 +1963,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "437b34ce16a14962a89eeb738d852470",
-        "direction": "OUT",
+        "direction": "OUT" as Direction,
         "creationDate": 1743751964056,
         "receiveDate": null,
         "typeVersion": null,
@@ -2071,15 +2071,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-04-04T07:32:44.071+00:00",
-          "id": "1"
+          id: '1',
+          date: 1571818194896
         },
         "lastVersion": {
-          "date": "2025-04-04T07:32:44.071+00:00",
-          "id": "1"
+          id: '3',
+          date: 1571818294896
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
@@ -2091,7 +2091,7 @@ const mockBuc = [
         "conversations": null,
         "isSendExecuted": null,
         "id": "4a70bd3a5750407291e814baf167db41",
-        "direction": "OUT",
+        "direction": "OUT" as Direction,
         "creationDate": 1743751964090,
         "receiveDate": null,
         "typeVersion": null,
@@ -2199,15 +2199,15 @@ const mockBuc = [
           }
         ],
         "firstVersion": {
-          "date": "2025-04-04T07:32:44.100+00:00",
-          "id": "1"
+          id: '1',
+          date: 1571818194896
         },
         "lastVersion": {
-          "date": "2025-04-04T07:32:44.100+00:00",
-          "id": "1"
+          id: '3',
+          date: 1571818294896
         },
         "version": "1",
-        "message": null,
+        "message": undefined,
         "name": null,
         "mimeType": null,
         "creator": null
