@@ -61,6 +61,7 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
                     label={t('p8000:form-label-land')}
                     hideLabel={false}
                     onOptionSelected={(c: Country) => {setProperty('landkode', c.value)}}
+                    excludeNorway={options?.excludeNorway}
                     values={field?.landkode  ?? ''}
                   />
                 </Box>
