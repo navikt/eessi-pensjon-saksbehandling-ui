@@ -33,8 +33,8 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
 
   const setBegrunnelse = (propValue: string) => {
     dispatch(updatePSED(`${targetOptions}.${value}.begrunnelseForKravet`, propValue))
-    if(propValue === "sammenligning"){
-      dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-sammenligning')))
+    if(propValue === "sammenlegging"){
+      dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-sammenlegging')))
     } else if (propValue === "endelig_beregning"){
       dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-endelig-beregning')))
     }
@@ -55,8 +55,8 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
     if(i18n.language !== PSED?.options?.type?.spraak){
       i18n.changeLanguage(PSED?.options?.type?.spraak)
     }
-    if(field && field.begrunnelseForKravet && field.begrunnelseForKravet === "sammenligning"){
-      dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-sammenligning')))
+    if(field && field.begrunnelseForKravet && field.begrunnelseForKravet === "sammenlegging"){
+      dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-sammenlegging')))
     } else if (field && field.begrunnelseForKravet && field.begrunnelseForKravet === "endelig_beregning"){
       dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-endelig-beregning')))
     }
@@ -88,8 +88,8 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
             onChange={setBegrunnelse}
           >
             <HStack gap="4">
-              <Radio value='sammenligning'>
-                Sammenligning
+              <Radio value='sammenlegging'>
+                Sammenlegging
               </Radio>
               <Radio value='endelig_beregning'>
                 Endelig beregning
