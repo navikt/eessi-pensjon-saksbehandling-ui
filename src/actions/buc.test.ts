@@ -128,8 +128,8 @@ describe('src/actions/buc', () => {
   it('fetchBucsList()', () => {
     const mockAktoerId = '123'
     const mockSakId = '456'
-    const numberOfLists = 1
-    bucActions.fetchBucsList(mockAktoerId, mockSakId, numberOfLists)
+    const howManyBucLists = 1
+    bucActions.fetchBucsList(mockAktoerId, mockSakId, howManyBucLists)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUCSLIST_REQUEST,
@@ -137,7 +137,7 @@ describe('src/actions/buc', () => {
         failure: types.BUC_GET_BUCSLIST_FAILURE
       },
       context: {
-        numberOfLists
+        howManyBucLists
       },
       cascadeFailureError: true,
       url: sprintf(urls.BUC_GET_BUCSLIST_URL, { aktoerId: mockAktoerId, sakId: mockSakId })
@@ -195,9 +195,9 @@ describe('src/actions/buc', () => {
     bucActions.fetchBucsListWithVedtakId(mockAktoerId, mockSakId, mockVedtakId)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
-        request: types.BUC_GET_BUCSLIST_REQUEST,
-        success: types.BUC_GET_BUCSLIST_SUCCESS,
-        failure: types.BUC_GET_BUCSLIST_FAILURE
+        request: types.BUC_GET_BUCSLIST_VEDTAK_REQUEST,
+        success: types.BUC_GET_BUCSLIST_VEDTAK_SUCCESS,
+        failure: types.BUC_GET_BUCSLIST_VEDTAK_FAILURE
       },
       cascadeFailureError: true,
       url: sprintf(urls.BUC_GET_BUCSLIST_WITH_VEDTAKID_URL, { aktoerId: mockAktoerId, sakId: mockSakId, vedtakId: mockVedtakId })
@@ -248,7 +248,7 @@ describe('src/actions/buc', () => {
         success: types.BUC_GET_BUC_SUCCESS,
         failure: types.BUC_GET_BUC_FAILURE
       },
-      url: sprintf(urls.BUC_GET_BUC_WITH_AVDOD_URL, { rinaCaseId, aktoerId, sakId, avdodFnr })
+      url: sprintf(urls.BUC_GET_BUC_WITH_AVDOD_URL, { rinaCaseId, aktoerId, sakId, avdodFnr, kilde })
     }))
   })
 
