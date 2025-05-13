@@ -35,8 +35,8 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
 
   it('Render: Has proper HTML structure with separated type', () => {
     render(<InstitutionList {...initialMockProps} type='separated' />)
-    expect(screen.getAllByTestId('a_buc_c_institutionlist--div-id')).toHaveLength(2)
-    expect(screen.getAllByTestId('a_buc_c_institutionlist--div-id')[0]).toHaveTextContent('Mock1')
-    expect(screen.getAllByTestId('a_buc_c_institutionlist--div-id')[1]).toHaveTextContent('Mock2')
+    expect(screen.getAllByTestId('a_buc_c_institutionlist--div-id')).toHaveLength(3)
+    expect(screen.getAllByTestId('a_buc_c_institutionlist--div-id')[1]).toHaveTextContent('Mock1')
+    expect(screen.getAllByTestId('a_buc_c_institutionlist--div-id')[2]).toHaveTextContent('Mock2')
   })
 })
