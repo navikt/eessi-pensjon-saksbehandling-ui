@@ -21,7 +21,7 @@ module.exports = {
     '^.+\\.(jpg|jpeg|png|gif|svg|css|less)$': 'identity-obj-proxy'
   },
   setupFilesAfterEnv: [
-    '<rootDir>/src/setupTests.ts'
+    '<rootDir>/src/setupTests.tsx'
   ],
   coverageThreshold: {
     'global': {
