@@ -58,8 +58,9 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
   const [_viewSendToMottakereModal, setViewSendToMottakereModal] = useState<boolean>(false)
   const [_sendButtonClicked, _setSendButtonClicked] = useState<boolean>(false)
 
-  const [valgteMottakere, setValgteMottakere] = useState<Array<string> | undefined>(mottakere?.map((d) => {return d.institution}))
   const avsender: Participant | undefined = currentPSED?.originalSed?.participants?.find((p: Participant) => {return p.role.toLowerCase() === "sender"})
+  const mottakereUtenAvsender = mottakere?.filter((m) => {return m.institution !== avsender?.organisation.id})
+  const [valgteMottakere, setValgteMottakere] = useState<Array<string> | undefined>(mottakereUtenAvsender?.map((d) => {return d.institution}))
 
   const disableSave =  !PSEDChanged || savingSed
   const disableSend = !disableSave || sendingSed || (currentPSED?.originalSed?.status === "sent" && _.isEmpty(PSEDSavedResponse)) || !_.isEmpty(PSEDSendResponse)
@@ -104,10 +105,9 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
 
       if (!hasErrors) {
         _setSendButtonClicked(true)
-        if(valgteMottakere && avsender){
-          const mottakereUtenAvsender = valgteMottakere.filter((m) => {return m !== avsender.organisation.id})
+        if(valgteMottakere){
           setViewSendToMottakereModal(false)
-          dispatch(sendSedTo(sakId, sedId, mottakereUtenAvsender))
+          dispatch(sendSedTo(sakId, sedId, valgteMottakere))
         } else {
           dispatch(sendSed(sakId, sedId))
         }
@@ -127,11 +127,11 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
           setViewSaveSedModal(false)
         }}
       />
-      {mottakere &&
+      {mottakereUtenAvsender   &&
         <SendToMottakereModal
           onModalClose={() => setViewSendToMottakereModal(false)}
           open={_viewSendToMottakereModal}
-          mottakere={mottakere}
+          mottakere={mottakereUtenAvsender}
           valgteMottakere={valgteMottakere}
           setValgteMottakere={setValgteMottakere}
           onSendSed={onSendSed}
