@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Buc, Sed} from "src/declarations/buc";
+import {Buc, Bucs, Institutions, Sed} from "src/declarations/buc";
 import {BUCMode, PSED, Validation} from "src/declarations/app";
 import {useDispatch, useSelector} from "react-redux";
 import {resetEditingItems} from "src/actions/app";
@@ -63,6 +63,8 @@ export interface P8000FieldComponentProps {
 
 export interface P8000Selector {
   currentPSED: P8000SED
+  currentBuc: string
+  bucs: Bucs
   gettingSed: boolean
   validation: Validation
   aktoerId: string
@@ -70,6 +72,8 @@ export interface P8000Selector {
 
 const mapState = (state: State): P8000Selector => ({
   currentPSED: state.buc.PSED as P8000SED,
+  currentBuc: state.buc.currentBuc,
+  bucs: state.buc.bucs,
   gettingSed: state.loading.gettingSed,
   validation: state.validation.status,
   aktoerId: state.app.params.aktoerId
@@ -83,14 +87,14 @@ const P8000: React.FC<P8000Props> = ({
 }: P8000Props): JSX.Element => {
   const {t, i18n} = useTranslation()
   const dispatch = useDispatch()
-  const { gettingSed, currentPSED, validation }: P8000Selector = useSelector<State, P8000Selector>(mapState)
+  const { gettingSed, currentPSED, currentBuc, bucs, validation }: P8000Selector = useSelector<State, P8000Selector>(mapState)
   const namespace = "p8000"
 
   const [_ytterligereInformasjon, setYtterligereInformasjon] = useState<string | undefined>(undefined)
   const [_fritekst, setFritekst] = useState<string | undefined>()
   const [_fritekstLoaded, setFritekstLoaded] = useState<boolean>(false)
   const [_hideBosettingsStatus, setHideBosettingsStatus] = useState<boolean>(false)
-
+  const bucDeltakere: Institutions | null | undefined = bucs[currentBuc].deltakere
 
   const [_type, setType] = useState<string>("")
   const bucType = buc.type?.split("_")[2]
@@ -479,6 +483,7 @@ const P8000: React.FC<P8000Props> = ({
           sedType={sed!.type}
           setMode={setMode}
           validateCurrentPSED={validateP8000Sed}
+          mottakere={bucDeltakere!} // Check if allowed to modify receivers
         />
       </VStack>
     </>

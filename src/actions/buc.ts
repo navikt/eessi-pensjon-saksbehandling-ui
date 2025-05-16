@@ -394,7 +394,29 @@ export const sendSed = (
       success: types.BUC_SEND_SED_SUCCESS,
       failure: types.BUC_SEND_SED_FAILURE
     }
-  })}
+  })
+}
+
+export const sendSedTo = (
+  caseId: string, sedId: string, mottakere: Array<string>
+): Action => {
+  return call({
+    url: sprintf(urls.EUX_BUC_SED_SENDTO_URL, { caseId, sedId }),
+    method: 'POST',
+    body: {
+      mottakere: mottakere
+    },
+    cascadeFailureError: true,
+    expectedPayload: {
+      success: 'true'
+    },
+    type: {
+      request: types.BUC_SEND_SED_REQUEST,
+      success: types.BUC_SEND_SED_SUCCESS,
+      failure: types.BUC_SEND_SED_FAILURE
+    }
+  })
+}
 
 export const setPSED: ActionCreator<ActionWithPayload<PSED>> = (
   PSED: PSED

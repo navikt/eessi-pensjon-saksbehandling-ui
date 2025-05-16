@@ -89,10 +89,10 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
           >
             <HStack gap="4">
               <Radio value='sammenlegging'>
-                Sammenlegging
+                {t('p8000:form-label-sammenlegging')}
               </Radio>
               <Radio value='endelig_beregning'>
-                Endelig beregning
+                {t('p8000:form-label-endelig-beregning')}
               </Radio>
             </HStack>
           </RadioGroup>
