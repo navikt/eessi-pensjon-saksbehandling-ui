@@ -1,7 +1,7 @@
 import {useTranslation} from "react-i18next";
 import Modal from "src/components/Modal/Modal";
-import {Box, Button, Checkbox, HStack, VStack} from "@navikt/ds-react";
-import React, {Dispatch, SetStateAction} from "react";
+import {Box, Button, Checkbox, ErrorMessage, HStack, VStack} from "@navikt/ds-react";
+import React, {Dispatch, SetStateAction, useState} from "react";
 import _ from "lodash";
 import {Institutions} from "src/declarations/buc";
 
@@ -23,6 +23,7 @@ const SendToDeltakereModal: React.FC<SendToDeltakereModalProps> = ({
   onSendSed
 }: SendToDeltakereModalProps): JSX.Element => {
   const { t } = useTranslation()
+  const [_invalid, setInvalid] = useState<boolean>(false)
 
   const changeValgteMottakere = (mottaker: string, checked: boolean) => {
     let newValgteMottakere = _.cloneDeep(valgteMottakere)
@@ -34,6 +35,20 @@ const SendToDeltakereModal: React.FC<SendToDeltakereModalProps> = ({
     setValgteMottakere(newValgteMottakere)
   }
 
+  const sendSed = () => {
+    if(valgteMottakere && valgteMottakere?.length > 0){
+      setInvalid(false)
+      onSendSed()
+    } else {
+      setInvalid(true)
+    }
+  }
+
+  const onClose = () => {
+    setInvalid(false)
+    onModalClose()
+  }
+
   return (
     <Modal
       open={open}
@@ -42,7 +57,7 @@ const SendToDeltakereModal: React.FC<SendToDeltakereModalProps> = ({
       modal={{
         modalContent: (
           <VStack gap="4">
-            <Box borderWidth="1" borderColor="border-subtle" padding="4">
+            <Box borderWidth={_invalid ? "2" : "1"} borderColor={_invalid ? "border-danger" : "border-subtle"} padding="4">
               {mottakere?.map((m) => {
                 return(
                   <Checkbox
@@ -55,16 +70,19 @@ const SendToDeltakereModal: React.FC<SendToDeltakereModalProps> = ({
                 )
               })}
             </Box>
+            {_invalid &&
+              <ErrorMessage showIcon={true}>Ingen valgte mottakere</ErrorMessage>
+            }
             <HStack gap="4">
               <Button
                 variant='primary'
-                onClick={onSendSed}
+                onClick={sendSed}
               >
                 {t('ui:send-sed')}
               </Button>
               <Button
                 variant='secondary'
-                onClick={onModalClose}
+                onClick={onClose}
               >
                 {t('ui:close')}
               </Button>
@@ -73,7 +91,7 @@ const SendToDeltakereModal: React.FC<SendToDeltakereModalProps> = ({
 
         )
       }}
-      onModalClose={onModalClose}
+      onModalClose={onClose}
     />
   )
 }
