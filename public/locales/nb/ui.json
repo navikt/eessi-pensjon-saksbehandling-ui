@@ -99,6 +99,7 @@
     "sender"  :"Mottaker",
     "send" : "Sende",
     "send-sed" : "Send SED",
+    "send-til-valgte-mottakere" : "Send SED til valgte mottakere",
     "sending" : "Sender...",
     "sent" : "Sendt",
     "sentDocuments" : "Utsendte dokumenter",

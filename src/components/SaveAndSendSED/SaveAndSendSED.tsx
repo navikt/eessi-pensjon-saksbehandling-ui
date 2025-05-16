@@ -7,12 +7,14 @@ import PreviewSED from "src/components/PreviewSED/PreviewSED";
 import {P2000SED} from "src/declarations/p2000";
 import {P8000SED} from "src/declarations/p8000";
 import _, {cloneDeep} from "lodash";
-import {fetchBuc, saveSed, sendSed} from "src/actions/buc";
+import {fetchBuc, saveSed, sendSed, sendSedTo} from "src/actions/buc";
 import {State} from "src/declarations/reducers";
 import WarningModal from "src/components/SaveAndSendSED/WarningModal";
 import {resetValidation} from "src/actions/validation";
 import {resetEditingItems} from "src/actions/app";
 import {BUCMode} from "src/declarations/app";
+import {Institutions} from "src/declarations/buc";
+import SendToMottakereModal from "src/components/SaveAndSendSED/SendToMottakereModal";
 
 export interface SaveAndSendSEDProps {
   validateCurrentPSED: () => boolean
@@ -21,6 +23,7 @@ export interface SaveAndSendSEDProps {
   sedType: string
   namespace: string
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
+  mottakere?: Institutions
 }
 
 export interface SaveAndSendSelector {
@@ -44,7 +47,7 @@ const mapState = (state: State): SaveAndSendSelector => ({
 })
 
 const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
-  namespace, sakId, sedId, sedType, validateCurrentPSED, setMode
+  namespace, sakId, sedId, sedType, validateCurrentPSED, setMode, mottakere
 }: SaveAndSendSEDProps): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useDispatch()
@@ -52,7 +55,10 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
 
   const [_viewSaveSedModal, setViewSaveSedModal] = useState<boolean>(false)
   const [_viewWarningModal, setViewWarningModal] = useState<boolean>(false)
+  const [_viewSendToMottakereModal, setViewSendToMottakereModal] = useState<boolean>(false)
   const [_sendButtonClicked, _setSendButtonClicked] = useState<boolean>(false)
+
+  const [valgteMottakere, setValgteMottakere] = useState<Array<string> | undefined>(mottakere?.map((d) => {return d.institution}))
 
   const disableSave =  !PSEDChanged || savingSed
   const disableSend = !disableSave || sendingSed || (currentPSED?.originalSed?.status === "sent" && _.isEmpty(PSEDSavedResponse)) || !_.isEmpty(PSEDSendResponse)
@@ -97,11 +103,19 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
 
       if (!hasErrors) {
         _setSendButtonClicked(true)
-        dispatch(sendSed(sakId, sedId))
+        if(valgteMottakere){
+          setViewSendToMottakereModal(false)
+          dispatch(sendSedTo(sakId, sedId, valgteMottakere))
+        } else {
+          dispatch(sendSed(sakId, sedId))
+        }
       }
     }
   }
 
+  const onSendSedToMottakere = () => {
+    setViewSendToMottakereModal(true)
+  }
 
   return (
     <>
@@ -111,6 +125,16 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
           setViewSaveSedModal(false)
         }}
       />
+      {mottakere &&
+        <SendToMottakereModal
+          onModalClose={() => setViewSendToMottakereModal(false)}
+          open={_viewSendToMottakereModal}
+          mottakere={mottakere}
+          valgteMottakere={valgteMottakere}
+          setValgteMottakere={setValgteMottakere}
+          onSendSed={onSendSed}
+        />
+      }
       <WarningModal open={_viewWarningModal} onModalClose={() => setViewWarningModal(false)} elementKeys={Object.keys(editingItems)}/>
       <Box
         borderWidth="1"
@@ -132,7 +156,7 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
             </Button>
             <Button
               variant='primary'
-              onClick={onSendSed}
+              onClick={mottakere ? onSendSedToMottakere : onSendSed}
               loading={false}
               disabled={disableSend}
             >
