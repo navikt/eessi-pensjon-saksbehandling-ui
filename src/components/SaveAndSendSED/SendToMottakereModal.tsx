@@ -71,7 +71,7 @@ const SendToDeltakereModal: React.FC<SendToDeltakereModalProps> = ({
               })}
             </Box>
             {_invalid &&
-              <ErrorMessage showIcon={true}>Ingen valgte mottakere</ErrorMessage>
+              <ErrorMessage showIcon={true}>{t('validation:missing-mottakere')}</ErrorMessage>
             }
             <HStack gap="4">
               <Button
