@@ -13,7 +13,7 @@ import WarningModal from "src/components/SaveAndSendSED/WarningModal";
 import {resetValidation} from "src/actions/validation";
 import {resetEditingItems} from "src/actions/app";
 import {BUCMode} from "src/declarations/app";
-import {Institutions} from "src/declarations/buc";
+import {Institutions, Participant} from "src/declarations/buc";
 import SendToMottakereModal from "src/components/SaveAndSendSED/SendToMottakereModal";
 
 export interface SaveAndSendSEDProps {
@@ -59,6 +59,7 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
   const [_sendButtonClicked, _setSendButtonClicked] = useState<boolean>(false)
 
   const [valgteMottakere, setValgteMottakere] = useState<Array<string> | undefined>(mottakere?.map((d) => {return d.institution}))
+  const avsender: Participant | undefined = currentPSED?.originalSed?.participants?.find((p: Participant) => {return p.role.toLowerCase() === "sender"})
 
   const disableSave =  !PSEDChanged || savingSed
   const disableSend = !disableSave || sendingSed || (currentPSED?.originalSed?.status === "sent" && _.isEmpty(PSEDSavedResponse)) || !_.isEmpty(PSEDSendResponse)
@@ -103,9 +104,10 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
 
       if (!hasErrors) {
         _setSendButtonClicked(true)
-        if(valgteMottakere){
+        if(valgteMottakere && avsender){
+          const mottakereUtenAvsender = valgteMottakere.filter((m) => {return m !== avsender.organisation.id})
           setViewSendToMottakereModal(false)
-          dispatch(sendSedTo(sakId, sedId, valgteMottakere))
+          dispatch(sendSedTo(sakId, sedId, mottakereUtenAvsender))
         } else {
           dispatch(sendSed(sakId, sedId))
         }
