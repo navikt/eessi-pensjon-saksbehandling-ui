@@ -403,9 +403,7 @@ export const sendSedTo = (
   return call({
     url: sprintf(urls.EUX_BUC_SED_SENDTO_URL, { caseId, sedId }),
     method: 'POST',
-    body: {
-      mottakere: mottakere
-    },
+    body: mottakere,
     cascadeFailureError: true,
     expectedPayload: {
       success: 'true'

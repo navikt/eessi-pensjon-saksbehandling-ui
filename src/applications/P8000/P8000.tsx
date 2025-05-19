@@ -115,11 +115,11 @@ const P8000: React.FC<P8000Props> = ({
     }
 
     if(buc.seds && currentPSED && !currentPSED?.options?.type?.bosettingsstatus){
-      const receivedP2200 = buc.seds.find((b) => {
-        return b.type === "P2200" && b.status === "received"
+      const receivedP2200 = buc.seds.find((s) => {
+        return s.type === "P2200" && s.status === "received"
       })
-      const sentP2200 = buc.seds.find((b) => {
-        return b.type === "P2200" && b.status === "sent"
+      const sentP2200 = buc.seds.find((s) => {
+        return s.type === "P2200" && s.status === "sent"
       })
 
       if(receivedP2200){
@@ -448,7 +448,7 @@ const P8000: React.FC<P8000Props> = ({
           sedType={sed!.type}
           setMode={setMode}
           validateCurrentPSED={validateP8000Sed}
-          mottakere={bucDeltakere!} // Check if allowed to modify receivers
+          mottakere={currentPSED?.originalSed?.status === 'new' && buc?.type !== 'P_BUC_05' ? bucDeltakere! : undefined}
         />
       </VStack>
     </>

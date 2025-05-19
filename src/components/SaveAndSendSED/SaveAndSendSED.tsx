@@ -13,7 +13,7 @@ import WarningModal from "src/components/SaveAndSendSED/WarningModal";
 import {resetValidation} from "src/actions/validation";
 import {resetEditingItems} from "src/actions/app";
 import {BUCMode} from "src/declarations/app";
-import {Institutions} from "src/declarations/buc";
+import {Institutions, Participant} from "src/declarations/buc";
 import SendToMottakereModal from "src/components/SaveAndSendSED/SendToMottakereModal";
 
 export interface SaveAndSendSEDProps {
@@ -58,7 +58,9 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
   const [_viewSendToMottakereModal, setViewSendToMottakereModal] = useState<boolean>(false)
   const [_sendButtonClicked, _setSendButtonClicked] = useState<boolean>(false)
 
-  const [valgteMottakere, setValgteMottakere] = useState<Array<string> | undefined>(mottakere?.map((d) => {return d.institution}))
+  const avsender: Participant | undefined = currentPSED?.originalSed?.participants?.find((p: Participant) => {return p.role.toLowerCase() === "sender"})
+  const mottakereUtenAvsender = mottakere?.filter((m) => {return m.institution !== avsender?.organisation.id})
+  const [valgteMottakere, setValgteMottakere] = useState<Array<string> | undefined>(mottakereUtenAvsender?.map((d) => {return d.institution}))
 
   const disableSave =  !PSEDChanged || savingSed
   const disableSend = !disableSave || sendingSed || (currentPSED?.originalSed?.status === "sent" && _.isEmpty(PSEDSavedResponse)) || !_.isEmpty(PSEDSendResponse)
@@ -125,11 +127,11 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
           setViewSaveSedModal(false)
         }}
       />
-      {mottakere &&
+      {mottakereUtenAvsender   &&
         <SendToMottakereModal
           onModalClose={() => setViewSendToMottakereModal(false)}
           open={_viewSendToMottakereModal}
-          mottakere={mottakere}
+          mottakere={mottakereUtenAvsender}
           valgteMottakere={valgteMottakere}
           setValgteMottakere={setValgteMottakere}
           onSendSed={onSendSed}
