@@ -5,11 +5,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {resetEditingItems} from "src/actions/app";
 import {resetValidation, setValidation} from "src/actions/validation";
 import {fetchBuc, updatePSED, getSedP8000, resetPSED} from "src/actions/buc";
-import {WaitingPanelDiv} from "src/components/StyledComponents";
+import {WaitingPanelDiv, BoxWithBorderAndPadding} from "src/components/StyledComponents";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
 import {InformasjonSomKanLeggesInn, OfteEtterspurtInformasjon, P8000SED, P8000Type} from "src/declarations/p8000";
 import {State} from "src/declarations/reducers";
-import {Box, Button, Heading, HStack, Textarea, ToggleGroup, VStack} from "@navikt/ds-react";
+import {Button, Heading, HStack, Textarea, ToggleGroup, VStack} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import {
@@ -338,12 +338,7 @@ const P8000: React.FC<P8000Props> = ({
             </span>
           </Button>
         </div>
-        <Box
-          borderWidth="1"
-          borderRadius="medium"
-          borderColor="border-default"
-          background="bg-default"
-          padding="4"
+        <BoxWithBorderAndPadding
         >
           <VStack gap="4">
             <Heading level="1" size="medium">{t('p8000:form-heading-p8000')} ({buc.type?.toUpperCase()} - {t('buc:buc-' + buc.type?.toUpperCase())})</Heading>
@@ -372,16 +367,10 @@ const P8000: React.FC<P8000Props> = ({
               </HStack>
             }
           </VStack>
-        </Box>
+        </BoxWithBorderAndPadding>
         {_type &&
           <>
-            <Box
-              borderWidth="1"
-                 borderRadius="medium"
-                 borderColor="border-default"
-                 background="bg-default"
-                 padding="4"
-            >
+            <BoxWithBorderAndPadding>
               <VStack gap="4">
                 <Heading level="2" size="small">{t('p8000:form-heading-ofte-etterspurt-informasjon')}</Heading>
                 <P8000Fields
@@ -409,15 +398,9 @@ const P8000: React.FC<P8000Props> = ({
                   namespace={namespace + '-ofteEtterspurtInformasjon'}
                 />
               </VStack>
-            </Box>
+            </BoxWithBorderAndPadding>
             {P8000Variants[_type]?.informasjonSomKanLeggesInn.length > 0 &&
-              <Box
-                borderWidth="1"
-                borderRadius="medium"
-                borderColor="border-default"
-                background="bg-default"
-                padding="4"
-              >
+              <BoxWithBorderAndPadding>
                 <VStack gap="4">
                   <Heading level="2" size="small">{t('p8000:form-heading-informasjon-som-kan-legges-inn')}</Heading>
                   <P8000Fields
@@ -431,48 +414,30 @@ const P8000: React.FC<P8000Props> = ({
                     namespace={namespace + '-informasjonSomKanLeggesInn'}
                   />
                 </VStack>
-              </Box>
+              </BoxWithBorderAndPadding>
             }
-            <Box
-              borderWidth="1"
-              borderRadius="medium"
-              borderColor="border-default"
-              background="bg-default"
-              padding="4"
-            >
+            <BoxWithBorderAndPadding>
               <UtenlandskePin
                 PSED={currentPSED}
                 parentNamespace={namespace}
                 parentTarget="nav.bruker"
                 updatePSED={updatePSED}
               />
-            </Box>
-            <Box
-              borderWidth="1"
-              borderRadius="medium"
-              borderColor="border-default"
-              background="bg-default"
-              padding="4"
-            >
+            </BoxWithBorderAndPadding>
+            <BoxWithBorderAndPadding>
               <UtenlandskeSaksnr
                 PSED={currentPSED}
                 parentNamespace={namespace}
                 parentTarget="nav"
                 updatePSED={updatePSED}
               />
-            </Box>
-            <Box
-              borderWidth="1"
-              borderRadius="medium"
-              borderColor="border-default"
-              background="bg-default"
-              padding="4"
-            >
+            </BoxWithBorderAndPadding>
+            <BoxWithBorderAndPadding>
               <VStack gap="4">
                 <Textarea label={t('p8000:form-legg-til-fritekst')} value={_fritekst ?? ""} onChange={(e) => setFritekst(e.target.value)}/>
                 <Textarea label={t('p8000:form-forhaandsvisning-av-tekst')} value={_ytterligereInformasjon ?? ""} maxLength={2500}/>
               </VStack>
-            </Box>
+            </BoxWithBorderAndPadding>
           </>
         }
         <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
