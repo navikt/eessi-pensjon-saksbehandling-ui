@@ -22,10 +22,10 @@ export const resendDocument = (
 }
 
 export const resendDocumentList = (
-  intervall: string, documentList: string
+  documentList: string
 ): Action => {
   return call({
-    url: sprintf(urls.ADMIN_RESEND_DOCUMENT_LISTE_URL, { intervall }),
+    url: sprintf(urls.ADMIN_RESEND_DOCUMENT_LISTE_URL),
     cascadeFailureError: true,
     expectedPayload: { success: true },
     method: 'POST',

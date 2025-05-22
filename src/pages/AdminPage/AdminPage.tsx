@@ -39,7 +39,6 @@ export const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
   const [_missingValuesResendDocumentList, _setMissingValuesResendDocumentList] = useState<boolean>(false)
   const [_sakId, _setSakId] = useState<string>("")
   const [_dokumentId, _setDokumentId] = useState<string>("")
-  const [_intervall, _setIntevall] = useState<string>("")
   const [_dokumentListe, _setDokumentListe] = useState<string>("")
 
 
@@ -54,8 +53,8 @@ export const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
 
   const onResendDocumentList = () => {
     _setMissingValuesResendDocumentList(false)
-    if(_intervall !== "" && _dokumentListe !== ""){
-      dispatch(resendDocumentList(_intervall, _dokumentListe))
+    if(_dokumentListe !== ""){
+      dispatch(resendDocumentList(_dokumentListe))
     } else {
       _setMissingValuesResendDocumentList(true)
     }
@@ -89,17 +88,12 @@ export const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
                     <Heading size={"small"}>Resend dokument liste</Heading>
                     <BodyLong size="small">Resending av liste med SED'er for å journalføre.</BodyLong>
                   </div>
-                  <HStack gap="4">
-                    <VStack gap="4">
-                      <TextField label="Intervall (min)" style={{maxWidth: "5rem"}} onChange={(e) => _setIntevall(e.target.value)}/>
-                      <HStack gap="4" align="end">
-                        <Textarea label="Dokument liste" resize style={{width: "24.7rem", height: ""}} onChange={(e) => _setDokumentListe(e.target.value)}/>
-                        <Button variant="primary" onClick={onResendDocumentList} loading={resendingDocumentList}>Resend</Button>
-                      </HStack>
-                    </VStack>
+                  <HStack gap="4" align="end">
+                    <Textarea label="Dokument liste" resize style={{width: "24.7rem", height: ""}} onChange={(e) => _setDokumentListe(e.target.value)}/>
+                    <Button variant="primary" onClick={onResendDocumentList} loading={resendingDocumentList}>Resend</Button>
                   </HStack>
                   {_missingValuesResendDocumentList &&
-                    <ErrorMessage>Fyll ut begge felter</ErrorMessage>
+                    <ErrorMessage>Fyll ut</ErrorMessage>
                   }
                 </VStack>
               </Box>
