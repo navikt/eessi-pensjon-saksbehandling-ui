@@ -6,10 +6,10 @@ import * as types from "src/constants/actionTypes";
 import { sprintf } from 'sprintf-js';
 
 export const resendDocument = (
-  rinaCaseId: string, documentId: string
+  sakId: string, dokumentId: string
 ): Action => {
   return call({
-    url: sprintf(urls.ADMIN_RESEND_DOCUMENT_URL, { rinaCaseId, documentId }),
+    url: sprintf(urls.ADMIN_RESEND_DOCUMENT_URL, { sakId: sakId, dokumentId: dokumentId }),
     cascadeFailureError: true,
     expectedPayload: { success: true },
     method: 'POST',

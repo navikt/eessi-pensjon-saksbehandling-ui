@@ -29,7 +29,7 @@ export const EUX_BUC_SED_SEND_URL = EUX_URL + '/buc/%(caseId)s/sed/%(sedId)s/sen
 export const EUX_BUC_SED_SENDTO_URL = EUX_URL + '/buc/%(caseId)s/sed/%(sedId)s/sendto'
 
 // ADMIN
-export const ADMIN_RESEND_DOCUMENT_URL = EUX_URL + '/resend/buc/%(caseId)s/sed/%(sedId)s'
+export const ADMIN_RESEND_DOCUMENT_URL = EUX_URL + '/resend/buc/%(sakId)s/sed/%(dokumentId)s'
 export const ADMIN_RESEND_DOCUMENT_LISTE_URL = EUX_URL + '/resend/liste'
 
 // UserInfoController
