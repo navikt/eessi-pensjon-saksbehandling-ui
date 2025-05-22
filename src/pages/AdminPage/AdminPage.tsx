@@ -85,11 +85,11 @@ export const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
               <Box padding="4" width="1460px" borderWidth="1">
                 <VStack gap="4">
                   <div>
-                    <Heading size={"small"}>Resend dokument liste</Heading>
+                    <Heading size={"small"}>Resend dokumentliste</Heading>
                     <BodyLong size="small">Resending av liste med SED'er for å journalføre.</BodyLong>
                   </div>
                   <HStack gap="4" align="end">
-                    <Textarea label="Dokument liste" resize style={{width: "24.7rem", height: ""}} onChange={(e) => _setDokumentListe(e.target.value)}/>
+                    <Textarea label="Dokumentliste" resize style={{width: "24.7rem", height: ""}} onChange={(e) => _setDokumentListe(e.target.value)}/>
                     <Button variant="primary" onClick={onResendDocumentList} loading={resendingDocumentList}>Resend</Button>
                   </HStack>
                   {_missingValuesResendDocumentList &&
