@@ -75,7 +75,7 @@ export const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
                   <HStack gap="4" align="end">
                     <TextField label="Sak ID (Rina)" onChange={(e) => _setSakId(e.target.value)}/>
                     <TextField label="Dokument ID" onChange={(e) => _setDokumentId(e.target.value)}/>
-                    <Button variant="primary" onClick={onResendDocument} loading={resendingDocument}>Resend</Button>
+                    <Button variant="primary" onClick={onResendDocument} loading={resendingDocument} disabled={_sakId === "" || _dokumentId === ""}>Resend</Button>
                   </HStack>
                   {_missingValuesResendDocument &&
                     <ErrorMessage>Fyll ut begge felter</ErrorMessage>
@@ -90,7 +90,7 @@ export const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
                   </div>
                   <HStack gap="4" align="end">
                     <Textarea label="Dokumentliste" resize style={{width: "24.7rem", height: ""}} onChange={(e) => _setDokumentListe(e.target.value)}/>
-                    <Button variant="primary" onClick={onResendDocumentList} loading={resendingDocumentList}>Resend</Button>
+                    <Button variant="primary" onClick={onResendDocumentList} loading={resendingDocumentList} disabled={_dokumentListe === ""}>Resend</Button>
                   </HStack>
                   {_missingValuesResendDocumentList &&
                     <ErrorMessage>Fyll ut</ErrorMessage>
