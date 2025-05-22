@@ -73,8 +73,8 @@ export const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
                     <BodyLong size="small">Resending av SED for å journalføre.</BodyLong>
                   </div>
                   <HStack gap="4" align="end">
-                    <TextField label="Sak ID (Rina)" onChange={(e) => _setSakId(e.target.value)}/>
-                    <TextField label="Dokument ID" onChange={(e) => _setDokumentId(e.target.value)}/>
+                    <TextField style={{width: "7rem"}} label="Sak ID (Rina)" onChange={(e) => _setSakId(e.target.value)}/>
+                    <TextField style={{width: "20rem"}} label="Dokument ID" onChange={(e) => _setDokumentId(e.target.value)}/>
                     <Button variant="primary" onClick={onResendDocument} loading={resendingDocument} disabled={_sakId === "" || _dokumentId === ""}>Resend</Button>
                   </HStack>
                   {_missingValuesResendDocument &&
@@ -89,7 +89,7 @@ export const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
                     <BodyLong size="small">Resending av liste med SED'er for å journalføre.</BodyLong>
                   </div>
                   <HStack gap="4" align="end">
-                    <Textarea label="Dokumentliste" resize style={{width: "24.7rem", height: ""}} onChange={(e) => _setDokumentListe(e.target.value)}/>
+                    <Textarea label="Dokumentliste" resize style={{width: "28rem", height: ""}} onChange={(e) => _setDokumentListe(e.target.value)}/>
                     <Button variant="primary" onClick={onResendDocumentList} loading={resendingDocumentList} disabled={_dokumentListe === ""}>Resend</Button>
                   </HStack>
                   {_missingValuesResendDocumentList &&
