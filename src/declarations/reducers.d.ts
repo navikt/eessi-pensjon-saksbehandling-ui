@@ -1,3 +1,4 @@
+import { AdminState } from 'reducers/admin'
 import { AlertState } from 'reducers/alert'
 import { AppState } from 'reducers/app'
 import { BucState } from 'reducers/buc'
@@ -10,6 +11,7 @@ import { UiState } from 'reducers/ui'
 import { ValidationState } from 'reducers/validation'
 
 export interface State {
+  admin: AdminState
   alert: AlertState
   app: AppState
   buc: BucState

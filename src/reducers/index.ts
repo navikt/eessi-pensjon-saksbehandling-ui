@@ -1,3 +1,4 @@
+import admin from './admin'
 import alert from './alert'
 import app from './app'
 import buc from './buc'
@@ -11,5 +12,5 @@ import ui from './ui'
 import validation from './validation'
 
 export default {
-  alert, app, buc, joark, loading, localStorage, p5000, person, sentry, ui, validation
+  admin, alert, app, buc, joark, loading, localStorage, p5000, person, sentry, ui, validation
 }

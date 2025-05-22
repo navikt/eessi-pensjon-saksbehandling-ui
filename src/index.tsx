@@ -49,17 +49,24 @@ root.render(
           <Routes>
             <Route
               path='/' element={
-              <RequireAuth>
-                <Pages.IndexPage indexType={PESYS}/>
-              </RequireAuth>
-            }
+                <RequireAuth>
+                  <Pages.IndexPage indexType={PESYS}/>
+                </RequireAuth>
+              }
             />
             <Route
               path='/gjenny' element={
-              <RequireAuth context={GJENNY}>
-                <Pages.IndexPage indexType={GJENNY}/>
-              </RequireAuth>
-            }
+                <RequireAuth context={GJENNY}>
+                  <Pages.IndexPage indexType={GJENNY}/>
+                </RequireAuth>
+              }
+            />
+            <Route
+              path='/admin' element={
+                <RequireAuth>
+                  <Pages.AdminPage/>
+                </RequireAuth>
+              }
             />
             <Route path='/notlogged' element={<Pages.Error type='notLogged' />} />
             <Route path='/notinvited' element={<Pages.Error type='notInvited' />} />

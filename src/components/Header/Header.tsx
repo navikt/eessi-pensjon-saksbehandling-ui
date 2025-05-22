@@ -1,7 +1,10 @@
-import {MenuGridIcon, ExternalLinkIcon} from '@navikt/aksel-icons'
+import {MenuGridIcon, ExternalLinkIcon, WrenchIcon} from '@navikt/aksel-icons'
 import { useTranslation } from 'react-i18next'
 import {ActionMenu, Spacer, InternalHeader} from '@navikt/ds-react'
 import {GJENNY} from "src/constants/constants";
+import {FeatureToggles} from "src/declarations/app";
+import {State} from "src/declarations/reducers";
+import {useSelector} from "react-redux";
 
 export interface HeaderProps {
   children?: JSX.Element | Array<JSX.Element | null>
@@ -11,10 +14,21 @@ export interface HeaderProps {
   indexType?: string
 }
 
+export interface HeaderSelector {
+  featureToggles: FeatureToggles
+}
+
+const mapState = (state: State): HeaderSelector => ({
+  featureToggles: state.app.featureToggles,
+})
+
 const Header: React.FC<HeaderProps> = ({
   gettingUserInfo, username, indexType = "PESYS"
 }: HeaderProps): JSX.Element => {
+  const { featureToggles }: HeaderSelector = useSelector<State, HeaderSelector>(mapState)
   const { t } = useTranslation()
+
+  const isAdmin: boolean = featureToggles.ADMIN_NOTIFICATION_MESSAGE === true
 
   return (
     <InternalHeader>
@@ -32,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({
           </InternalHeader.Button>
         </ActionMenu.Trigger>
         <ActionMenu.Content>
-          <ActionMenu.Group label={t('ui:app-header-menu-label')}>
+          <ActionMenu.Group label={t('ui:app-header-menu-label-systemer-og-oppslagsverk')}>
             <ActionMenu.Item as="a" target="_blank" href="https://lovdata.no/pro/#document/NAV/rundskriv/v2-45-03" icon={<ExternalLinkIcon aria-hidden/>}>
               {t('ui:lawsource')}
             </ActionMenu.Item>
@@ -40,6 +54,16 @@ const Header: React.FC<HeaderProps> = ({
               {t('ui:help')}
             </ActionMenu.Item>
           </ActionMenu.Group>
+          {isAdmin &&
+            <>
+              <ActionMenu.Divider />
+              <ActionMenu.Group label={t('ui:app-header-menu-label-administrative-verktoy')}>
+                <ActionMenu.Item as="a" href="/admin" icon={<WrenchIcon aria-hidden/>}>
+                  {t('ui:admin-swaggerish')}
+                </ActionMenu.Item>
+              </ActionMenu.Group>
+            </>
+          }
         </ActionMenu.Content>
       </ActionMenu>
       <InternalHeader.User
