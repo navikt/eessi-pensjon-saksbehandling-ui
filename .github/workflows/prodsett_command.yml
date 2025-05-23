@@ -8,7 +8,7 @@ jobs:
     name: 'Build, push, and deploy'
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       id-token: write
     steps:
       # LOGGER VARIABLE
@@ -19,7 +19,7 @@ jobs:
           echo "cluster: ${{ github.event.client_payload.slash_command.arg2 }}"
           echo "resource: ${{ github.event.client_payload.slash_command.arg2 }}.yml"
           echo "vars: ${{ github.event.client_payload.slash_command.arg2 }}-nais-vars.yml"
-          echo "image: europe-north1-docker.pkg.dev/${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}/eessipensjon/${{ github.event.repository.name }}:${{ github.event.client_payload.slash_command.arg1 }}"
+          echo "image: europe-north1-docker.pkg.dev/nais-management-233d/eessipensjon/${{ github.event.repository.name }}:${{ github.event.client_payload.slash_command.arg1 }}"
 
       # DEPLOYER TIL NAIS
       - name: 'Deploy to NAIS'
@@ -27,7 +27,7 @@ jobs:
         env:
           CLUSTER: ${{ github.event.client_payload.slash_command.arg2 }}
           RESOURCE: nais/${{ github.event.client_payload.slash_command.arg2 }}.yml
-          IMAGE: europe-north1-docker.pkg.dev/${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}/eessipensjon/${{ github.event.repository.name }}:${{ github.event.client_payload.slash_command.arg1 }}
+          IMAGE: europe-north1-docker.pkg.dev/nais-management-233d/eessipensjon/${{ github.event.repository.name }}:${{ github.event.client_payload.slash_command.arg1 }}
           VARS: nais/${{ github.event.client_payload.slash_command.arg2 }}-nais-vars.yml
 
       - name: 'Echo Image Name'
