@@ -38,3 +38,7 @@ export const resendDocumentList = (
   })
 }
 
+export const adminResetSuccessMsg = () => ({
+  type: types.ADMIN_RESET_SUCCESS_MSG,
+})
+
