@@ -3,7 +3,7 @@ import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import * as constants from 'src/constants/constants'
 import * as routes from 'src/constants/routes'
 import {SakTypeKey, SakTypeMap} from 'src/declarations/buc.d'
-import {CountryCodes, Params} from 'src/declarations/app'
+import {CountryCodes, FeatureToggles, Params} from 'src/declarations/app'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
@@ -28,6 +28,7 @@ export interface RequireAuthSelector {
   gettingUserInfo: boolean
   isLoggingIn: boolean
   gettingCountryCodes: boolean
+  featureToggles: FeatureToggles
 }
 
 const mapState = (state: State): RequireAuthSelector => ({
@@ -37,7 +38,8 @@ const mapState = (state: State): RequireAuthSelector => ({
   countryCodes: state.app.countryCodes,
   gettingUserInfo: state.loading.gettingUserInfo,
   isLoggingIn: state.loading.isLoggingIn,
-  gettingCountryCodes: state.loading.gettingCountryCodes
+  gettingCountryCodes: state.loading.gettingCountryCodes,
+  featureToggles: state.app.featureToggles
 })
 
 const paramAliases: {[k: string]: string} = {
@@ -49,10 +51,12 @@ const paramAliases: {[k: string]: string} = {
 }
 
 const RequireAuth: React.FC<any> = (props) => {
-  const {context} = props
-  const { loggedIn, userRole, countryCodes, gettingUserInfo, gettingCountryCodes, isLoggingIn } = useSelector<State, RequireAuthSelector>(mapState)
+  const {context, adminOnly} = props
+  const { loggedIn, userRole, countryCodes, gettingUserInfo, gettingCountryCodes, isLoggingIn, featureToggles } = useSelector<State, RequireAuthSelector>(mapState)
   const dispatch = useDispatch()
   const location = useLocation()
+
+  const isAdmin: boolean = featureToggles.ADMIN_NOTIFICATION_MESSAGE === true
 
   const [_params, _setParams] = useState<Params>({})
 
@@ -109,7 +113,7 @@ const RequireAuth: React.FC<any> = (props) => {
     )
   }
 
-  if (userRole !== constants.SAKSBEHANDLER || loggedIn === false) {
+  if (userRole !== constants.SAKSBEHANDLER || !loggedIn || (adminOnly && !isAdmin)) {
     return (
       <Navigate to={routes.FORBIDDEN} />
     )
