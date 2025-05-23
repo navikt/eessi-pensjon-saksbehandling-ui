@@ -63,7 +63,7 @@ root.render(
             />
             <Route
               path='/admin' element={
-                <RequireAuth>
+                <RequireAuth adminOnly={true}>
                   <Pages.AdminPage/>
                 </RequireAuth>
               }
