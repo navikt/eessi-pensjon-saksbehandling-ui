@@ -30,9 +30,6 @@ export const resendDocumentList = (
     expectedPayload: { success: true },
     method: 'POST',
     body: documentList,
-    headers: {
-      'content-type': 'text/plain'
-    },
     type: {
       request: types.ADMIN_RESEND_DOCUMENT_LIST_REQUEST,
       success: types.ADMIN_RESEND_DOCUMENT_LIST_SUCCESS,
