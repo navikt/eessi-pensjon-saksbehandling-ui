@@ -1,6 +1,6 @@
 import * as types from "src/constants/actionTypes";
 import * as urls from "src/constants/urls";
-import {resendDocument, resendDocumentList} from "src/actions/admin";
+import {adminResetSuccessMsg, resendDocument, resendDocumentList} from "src/actions/admin";
 import {call as originalCall} from "@navikt/fetch";
 
 jest.mock('@navikt/fetch', () => ({
@@ -44,5 +44,11 @@ describe('actions/admin', () => {
       method: 'POST',
       url: sprintf(urls.ADMIN_RESEND_DOCUMENT_LISTE_URL)
     }))
+  })
+
+  it('alertSuccess()', () => {
+    expect(adminResetSuccessMsg()).toMatchObject({
+      type: types.ADMIN_RESET_SUCCESS_MSG,
+    })
   })
 })
