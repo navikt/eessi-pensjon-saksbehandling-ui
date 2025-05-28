@@ -1,12 +1,19 @@
 import { render, screen } from '@testing-library/react'
-import Header, { HeaderProps } from './Header'
+import Header, {HeaderProps, HeaderSelector} from './Header'
+import {stageSelector} from "src/setupTests";
+import mockFeatureToggles from "src/mocks/app/featureToggles";
 
 describe('src/components/Header/Header', () => {
   const initialMockProps: HeaderProps = {
     username: 'testUser'
   }
 
+  const defaultSelector: HeaderSelector = {
+    featureToggles: mockFeatureToggles
+  }
+
   beforeEach(() => {
+    stageSelector(defaultSelector, {})
     render(<Header {...initialMockProps} />)
   })
 
