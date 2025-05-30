@@ -1,12 +1,14 @@
 import { getUserInfo, setStatusParam } from 'src/actions/app'
 import { render } from '@testing-library/react'
-import {BrowserRouter, MemoryRouter, Route, Routes} from 'react-router-dom'
+import { BrowserRouter, MemoryRouter, Route, Routes } from 'react-router-dom'
 import { stageSelector } from 'src/setupTests'
 import RequireAuth, { RequireAuthSelector } from './RequireAuth'
+import mockFeatureToggles from "src/mocks/app/featureToggles";
 
 jest.mock('src/actions/app', () => ({
   getUserInfo: jest.fn(),
-  setStatusParam: jest.fn()
+  setStatusParam: jest.fn(),
+  getCountryCodeLists: jest.fn
 }))
 
 const defaultSelector: RequireAuthSelector = {
@@ -15,7 +17,8 @@ const defaultSelector: RequireAuthSelector = {
   countryCodes: undefined,
   gettingUserInfo: false,
   isLoggingIn: false,
-  gettingCountryCodes: false
+  gettingCountryCodes: false,
+  featureToggles: mockFeatureToggles
 }
 
 describe('src/components/RequireAuth/RequireAuth', () => {
