@@ -5,6 +5,8 @@ import {GJENNY} from "src/constants/constants";
 import {FeatureToggles} from "src/declarations/app";
 import {State} from "src/declarations/reducers";
 import {useSelector} from "react-redux";
+import * as routes from 'src/constants/routes'
+import {NavLink} from "react-router-dom";
 
 export interface HeaderProps {
   children?: JSX.Element | Array<JSX.Element | null>
@@ -29,13 +31,14 @@ const Header: React.FC<HeaderProps> = ({
   const { t } = useTranslation()
 
   const isAdmin: boolean = featureToggles.ADMIN_NOTIFICATION_MESSAGE === true
+  const href= indexType !== GJENNY ? routes.ROOT : routes.GJENNY
 
   return (
     <InternalHeader>
-      <InternalHeader.Title as="h1">
+      <InternalHeader.Title as={NavLink} to={href + window.location.search} reloadDocument>
         {indexType === GJENNY ? t('ui:app-headerTitle-gjenny') : t('ui:app-headerTitle')}
       </InternalHeader.Title>
-      <Spacer />
+      <Spacer/>
       <ActionMenu>
         <ActionMenu.Trigger>
           <InternalHeader.Button>
@@ -58,7 +61,7 @@ const Header: React.FC<HeaderProps> = ({
             <>
               <ActionMenu.Divider />
               <ActionMenu.Group label={t('ui:app-header-menu-label-administrative-verktoy')}>
-                <ActionMenu.Item as="a" href="/admin" icon={<WrenchIcon aria-hidden/>}>
+                <ActionMenu.Item as="a" href={"/admin" + window.location.search} icon={<WrenchIcon aria-hidden/>}>
                   {t('ui:admin-swaggerish')}
                 </ActionMenu.Item>
               </ActionMenu.Group>
