@@ -6,7 +6,7 @@
   "medisinskInformasjon": "Fullstendig oversikt over perioder med stønad ved sykdom, rehabilitering og arbeidsledighet. Vennligst inkluder informasjon om type ytelse og varighet",
   "tiltak": "Har søker prøvd eller er det planlagt noen form for arbeidsrelatert rehabilitering, omskolering eller opplæring for en ny type jobb. Send i så fall detaljert informasjon",
   "naavaerendeArbeid": "Informasjon om arbeid i dag: antall arbeidstimer per uke, og månedslønn",
-  "dokumentasjonPaaArbeidINorge": "Dokumentasjon som bekrefter ansettelse i Norge, som tydelig viser når arbeidet startet og avsluttet. Som arbeidskontrakter, attester, \"lønns- og trekkoppgave\" fra norske arbeidsgivere",
+  "dokumentasjonPaaArbeidINorge": "Dokumentasjon som bekrefter ansettelse i Norge, som tydelig viser når arbeidet startet og avsluttet. Som arbeidskontrakter, attester, \"lønns- og trekkoppgave\" fra norske arbeidsgivere. Vi ønsker opplysninger for perioden {{periodeFra}} - {{periodeTil}}.",
   "ytelseshistorikk": "Informasjon om perioder med sykepenger, rehabiliteringspenger og arbeidsløshetsytelse. Vennligst inkluder opplysninger om type ytelse og varighet",
   "inntektFoerUfoerhetIUtlandet": "Informasjon om søkerens årlige inntekt i {{land}} for årene {{periodeFra}} - {{periodeTil}}",
   "ibanSwift": "Søkers bankinformasjon (IBAN og Swift)",

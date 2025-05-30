@@ -6,7 +6,7 @@
   "medisinskInformasjon": "Complete overview of periods with benefit for sickness, rehabilitation and unemployment. Please include information on type of benefit and duration",
   "tiltak": "Has claimant tried or is there planned any type of work-related rehabilitation, re-schooling or training for a new type of job. If so, please send detailed information",
   "naavaerendeArbeid": "Information on current employment, including hours per week and monthly salary.",
-  "dokumentasjonPaaArbeidINorge": "Documentation confirming employment in Norway, which clearly shows when work began and ended. Such as working contracts, certificates, \"lønns- og trekkoppgave\" from Norwegian employers",
+  "dokumentasjonPaaArbeidINorge": "Documentation confirming employment in Norway, which clearly shows when work began and ended. Such as working contracts, certificates, \"lønns- og trekkoppgave\" from Norwegian employers. We want information on the period from {{periodeFra}} - {{periodeTil}}.",
   "ytelseshistorikk": "Complete overview of periods with benefit for sickness, rehabilitation and unemployment. Please include information on type of benefit and duration",
   "inntektFoerUfoerhetIUtlandet": "Information about the claimant's yearly income in {{land}} for the years {{periodeFra}} - {{periodeTil}}",
   "ibanSwift": "The claimant's bank information (IBAN and Swift)",
