@@ -22,7 +22,8 @@ const initialFeatureToggles: FeatureToggles = {
   P5000_UPDATES_VISIBLE: true,
   SED_PREFILL_INSTITUTIONS: false,
   NR_AVDOD: 0,
-  ADMIN_NOTIFICATION_MESSAGE: false
+  ADMIN_USER: false,
+  TEST_USER: false
 }
 
 export const initialAppState: AppState = {

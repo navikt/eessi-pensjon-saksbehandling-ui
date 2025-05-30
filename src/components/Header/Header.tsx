@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({
   const { featureToggles }: HeaderSelector = useSelector<State, HeaderSelector>(mapState)
   const { t } = useTranslation()
 
-  const isAdmin: boolean = featureToggles.ADMIN_NOTIFICATION_MESSAGE === true
+  const isAdmin: boolean = featureToggles.ADMIN_USER === true
   const href= indexType !== GJENNY ? routes.ROOT : routes.GJENNY
 
   return (

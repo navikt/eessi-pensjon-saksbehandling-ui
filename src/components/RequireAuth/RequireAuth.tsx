@@ -56,7 +56,7 @@ const RequireAuth: React.FC<any> = (props) => {
   const dispatch = useDispatch()
   const location = useLocation()
 
-  const isAdmin: boolean = featureToggles.ADMIN_NOTIFICATION_MESSAGE === true
+  const isAdmin: boolean = featureToggles.ADMIN_USER === true
 
   const [_params, _setParams] = useState<Params>({})
 

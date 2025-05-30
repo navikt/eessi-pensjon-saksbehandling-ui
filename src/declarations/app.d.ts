@@ -20,7 +20,8 @@ export type Feature =
   'P5000_UPDATES_VISIBLE' // for new P5000 developments
   | 'SED_PREFILL_INSTITUTIONS' // Prefill with institutions in new SED
   | 'NR_AVDOD' // for mock purposes
-  | 'ADMIN_NOTIFICATION_MESSAGE'
+  | 'ADMIN_USER'
+  | 'TEST_USER'
 
 export type FeatureToggles = {[key in Feature]: boolean | number}
 
