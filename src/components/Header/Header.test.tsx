@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import Header, {HeaderProps, HeaderSelector} from './Header'
 import {stageSelector} from "src/setupTests";
 import mockFeatureToggles from "src/mocks/app/featureToggles";
+import { BrowserRouter as Router } from 'react-router-dom';
 
 describe('src/components/Header/Header', () => {
   const initialMockProps: HeaderProps = {
@@ -14,7 +15,11 @@ describe('src/components/Header/Header', () => {
 
   beforeEach(() => {
     stageSelector(defaultSelector, {})
-    render(<Header {...initialMockProps} />)
+    render(
+      <Router>
+        <Header {...initialMockProps} />
+      </Router>
+    )
   })
 
   it('Handling: has proper HTML structure', () => {
