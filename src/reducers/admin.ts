@@ -20,6 +20,7 @@ const adminReducer = (state: AdminState = initialAdminState, action: AnyAction) 
   switch (action.type) {
     case types.ADMIN_RESET_SUCCESS_MSG:
       return {
+        ...state,
         resendingDocumentSuccess: false,
         resendingDocumentListSuccess: false
       }
