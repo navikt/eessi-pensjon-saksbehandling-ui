@@ -99,6 +99,5 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     render(<BUCTools {...initialMockProps} initialTab='P5000' />)
     fireEvent.click(screen.getByTestId('a_buc_c_buctools--P5000-button-id'))
     expect(initialMockProps.setMode).toHaveBeenCalled()
-    screen.debug()
   })
 })
