@@ -1,8 +1,8 @@
-import { /*createBuc,*/ getBucOptions, getTagList, saveBucsInfo } from 'src/actions/buc'
+import { createBuc, getBucOptions, getTagList, saveBucsInfo } from 'src/actions/buc'
 import * as constants from 'src/constants/constants'
 import { AllowedLocaleString } from 'src/declarations/app.d'
 import { BucsInfo } from 'src/declarations/buc'
-import { render, screen, fireEvent } from '@testing-library/react'
+import {render, screen, fireEvent} from '@testing-library/react'
 import { within } from '@testing-library/dom'
 import _ from 'lodash'
 import mockFeatureToggles from 'src/mocks/app/featureToggles'
@@ -143,12 +143,12 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
     expect(initialMockProps.onBucCreated).toHaveBeenCalled()
   })
 
-/*  it('Handling: invalid onForwardButtonClick(): nothing selected', () => {
-    const { container } = render(<BUCStart {...initialMockProps} />)
-    expect(container.querySelector('div.feiloppsummering')).not.toBeInTheDocument()
+  it('Handling: invalid onForwardButtonClick(): nothing selected', () => {
+    render(<BUCStart {...initialMockProps} />)
+    expect(screen.queryByText('message:error-validationbox-bucstart')).not.toBeInTheDocument()
     fireEvent.click(screen.getByTestId('a_buc_c_BUCStart--forward-button-id'))
-    expect(wrapper.exists('div.feiloppsummering')).toBeInTheDocument()
-    expect(wrapper.find('div.feiloppsummering').render().text()).toEqual('buc:form-feiloppsummering' + 'message:validation-chooseBuc')
+    expect(screen.getByText('message:error-validationbox-bucstart')).toBeInTheDocument()
+    screen.debug()
   })
 
   it('Handling: invalid onForwardButtonClick(): set warning for P_BUC_02 and no avdod', () => {
@@ -156,35 +156,38 @@ describe('applications/BUC/components/BUCStart/BUCStart', () => {
       personAvdods: []
     })
     render(<BUCStart {...initialMockProps} />)
-    expect(screen.getByTestId('a_buc_c_BUCStart--warning-id')).not.toBeInTheDocument()
-    const select = within(screen.getByTestId('a_buc_c_BUCStart--buc-select-id')).getByRole('input')
+    expect(screen.queryByTestId('a_buc_c_BUCStart--warning-id')).not.toBeInTheDocument()
+    const select = within(screen.getByTestId('a_buc_c_BUCStart--buc-select-id')).getByRole('combobox')
     fireEvent.keyDown(select, { key: 'ArrowDown' })
     fireEvent.keyDown(select, { key: 'ArrowDown' })
     fireEvent.keyDown(select, { key: 'Enter' })
     fireEvent.click(screen.getByTestId('a_buc_c_BUCStart--forward-button-id'))
     expect(screen.getByTestId('a_buc_c_BUCStart--warning-id')).toBeInTheDocument()
     expect(screen.getByTestId('a_buc_c_BUCStart--warning-id')).toHaveTextContent(
-      'advarsel' + 'message:alert-noDeceased'
+      'Advarsel' + 'message:alert-noDeceased'
     )
   })
 
   it('Handling: valid onForwardButtonClick()', () => {
     // select P_BUC_02
-    const select = wrapper.find('[data-testid=\'a_buc_c_BUCStart--buc-select-id\'] input').hostNodes()
-    select.simulate('keyDown', { key: 'ArrowDown' })
-    select.simulate('keyDown', { key: 'ArrowDown' })
-    select.simulate('keyDown', { key: 'Enter' })
-    wrapper.find('[data-testid=\'a_buc_c_BUCStart--forward-button-id').hostNodes().simulate('click')
+    stageSelector(defaultSelector, {
+    })
+    render(<BUCStart {...initialMockProps} />)
+    const select = within(screen.getByTestId('a_buc_c_BUCStart--buc-select-id')).getByRole('combobox')
+    fireEvent.keyDown(select, { key: 'ArrowDown' })
+    fireEvent.keyDown(select, { key: 'ArrowDown' })
+    fireEvent.keyDown(select, { key: 'Enter' })
+    fireEvent.click(screen.getByTestId('a_buc_c_BUCStart--forward-button-id'))
     expect(createBuc).toHaveBeenCalledWith({
       buc: 'P_BUC_02',
-      person: mockPerson,
       avdod: mockPersonAvdod![0]
     })
   })
 
-  it('Handling: onCancelButtonClick()', () => {
-    (initialMockProps.onBucCancelled as jest.Mock).mockReset()
-    wrapper.find('[data-testid=\'a_buc_c_BUCStart--cancel-button-id').hostNodes().simulate('click')
-    expect(initialMockProps.onBucCancelled).toHaveBeenCalled()
-  })*/
+    it('Handling: onCancelButtonClick()', () => {
+      (initialMockProps.onBucCancelled as jest.Mock).mockReset()
+      render(<BUCStart {...initialMockProps} />)
+      fireEvent.click(screen.getByTestId('a_buc_c_BUCStart--cancel-button-id'))
+      expect(initialMockProps.onBucCancelled).toHaveBeenCalled()
+    })
 })
