@@ -8,6 +8,7 @@ describe('reducers/admin', () => {
         type: types.ADMIN_RESET_SUCCESS_MSG
       })
     ).toEqual({
+      ...initialAdminState,
       resendingDocumentSuccess: false,
       resendingDocumentListSuccess: false
     })
