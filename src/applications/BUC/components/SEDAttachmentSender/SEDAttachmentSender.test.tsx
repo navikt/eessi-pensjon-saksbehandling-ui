@@ -1,9 +1,8 @@
 import { SavingAttachmentsJob } from 'src/declarations/buc'
-import { render, screen } from '@testing-library/react'
+import {fireEvent, render, screen} from '@testing-library/react'
 import { stageSelector } from 'src/setupTests'
 import SEDAttachmentSender, { SEDAttachmentSenderProps } from './SEDAttachmentSender'
 import joarkBrowserItems from 'src/mocks/joark/items'
-//import ProgressBar from "src/components/ProgressBar/ProgressBar";
 
 jest.mock('src/constants/environment.ts', () => {
   return {
@@ -43,21 +42,18 @@ describe('src/applications/BUC/components/SEDAttachmentSender/SEDAttachmentSende
     stageSelector(defaultSelector, {})
   })
 
-  afterEach(() => {
-    //wrapper.unmount()
-  })
-
   it('Render: Has proper HTML structure', () => {
     render(<SEDAttachmentSender {...initialMockProps} />)
     expect(screen.getByTestId('a_buc_c_sedAttachmentSender--div-id')).toBeTruthy()
     expect(screen.getByText('message:loading-sendingXofY')).toBeTruthy()
   })
 
-/*  it('Handling: cancel button pressed', () => {
+  it('Handling: cancel button pressed', () => {
     (initialMockProps.onCancel as jest.Mock).mockReset()
-    wrapper.find('[data-testid=\'a_buc_c_sedAttachmentSender--cancel-button-id').hostNodes().simulate('click')
+    render(<SEDAttachmentSender {...initialMockProps} />)
+    fireEvent.click(screen.getByTestId('a_buc_c_sedAttachmentSender--cancel-button-id'))
     expect(initialMockProps.onCancel).toHaveBeenCalled()
-  })*/
+  })
 
   it('Handling: finished when no more items', () => {
     const mockSavingAttachmentJob: SavingAttachmentsJob = {
