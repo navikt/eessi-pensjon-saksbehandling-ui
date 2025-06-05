@@ -12,6 +12,7 @@
     "start": "cross-env NODE_OPTIONS=--max-old-space-size=4096 vite",
     "test": "cross-env NODE_OPTIONS=--max-old-space-size=4096 NODE_ENV=test jest",
     "test:vitest": "cross-env NODE_OPTIONS=--max-old-space-size=4096 NODE_ENV=test vitest",
+    "test:filtered": "cross-env NODE_OPTIONS=--max-old-space-size=4096 NODE_ENV=test jest --config jest.filtered.config.cjs",
     "test:clear": "cross-env NODE_ENV=test jest test --clearCache",
     "test:ci": "cross-env NODE_OPTIONS=--max-old-space-size=4096 NODE_ENV=test jest test --watchAll=false --forceExit --updateSnapshot",
     "test:coverage": "cross-env NODE_ENV=test jest test --coverage  --watchAll=false",
