@@ -23,6 +23,7 @@ export interface SendFolgendeSEDer {
 
 export interface P8000Pensjon extends Pensjon{
   anmodning: {
+    referanseTilPerson: "01" | "02"
     seder: Array<SendFolgendeSEDer>
   }
   ytterligeinformasjon: string | undefined

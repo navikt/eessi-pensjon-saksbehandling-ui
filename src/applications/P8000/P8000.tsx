@@ -123,27 +123,31 @@ const P8000: React.FC<P8000Props> = ({
       })
 
       if(receivedP2200){
-        setTypeProperty("bosettingsstatus", "UTL")
+        setProperty("bosettingsstatus", "UTL")
         setHideBosettingsStatus(true)
       } else if (sentP2200) {
-        setTypeProperty("bosettingsstatus", "NO")
+        setProperty("bosettingsstatus", "NO")
         setHideBosettingsStatus(true)
       } else {
-        setTypeProperty("bosettingsstatus", "DUMMY")
+        setProperty("bosettingsstatus", "DUMMY")
       }
     }
 
     if(currentPSED && !currentPSED?.options?.type?.spraak){
-      setTypeProperty("spraak", "nb")
+      setProperty("spraak", "nb")
+    }
+
+    if(currentPSED && !currentPSED?.pensjon?.anmodning?.referanseTilPerson){
+      setProperty("referanseTilPerson", "01")
     }
 
     if(currentPSED && !currentPSED?.options?.type?.ytelse){
       if(bucType === "03"){
-        setTypeProperty("ytelse", "UT")
+        setProperty("ytelse", "UT")
       } else if(bucType === "01"){
-        setTypeProperty("ytelse", "AP")
+        setProperty("ytelse", "AP")
       } else {
-        setTypeProperty("ytelse", "DUMMY")
+        setProperty("ytelse", "DUMMY")
       }
     }
   }, [currentPSED, bucType])
@@ -236,8 +240,15 @@ const P8000: React.FC<P8000Props> = ({
     setMode('bucedit', 'back')
   }
 
-  const setTypeProperty = (property: string, propValue: string) => {
-    dispatch(updatePSED(`options.type.${property}`, propValue))
+  const setProperty = (property: string, propValue: string) => {
+    let propertyPath;
+    if (property === "referanseTilPerson") {
+      propertyPath = `pensjon.anmodning.${property}`
+    }
+    else {
+       propertyPath = `options.type.${property}`
+    }
+    dispatch(updatePSED(propertyPath, propValue))
   }
 
   const resetP8000 = () => {
@@ -247,7 +258,7 @@ const P8000: React.FC<P8000Props> = ({
   }
 
   const onToggle = (property: string, propValue: string) => {
-    setTypeProperty(property, propValue)
+    setProperty(property, propValue)
     if(property !== 'spraak'){
       resetP8000()
     }
@@ -343,26 +354,42 @@ const P8000: React.FC<P8000Props> = ({
             <Heading level="1" size="medium">{t('p8000:form-heading-p8000')} ({buc.type?.toUpperCase()} - {t('buc:buc-' + buc.type?.toUpperCase())})</Heading>
             {currentPSED && currentPSED.options && currentPSED.options.type &&
               <HStack gap="4">
-                <ToggleGroup value={currentPSED?.options?.type?.spraak} onChange={(v) => onToggle("spraak", v)}
-                             label={t('p8000:form-label-velg-spraak')}>
+                <ToggleGroup
+                  value={currentPSED?.options?.type?.spraak}
+                  onChange={(v) => onToggle("spraak", v)}
+                  label={t('p8000:form-label-velg-spraak')}
+                >
                   <ToggleGroup.Item value="nb" label={t('p8000:form-label-spraak-norsk')}/>
                   <ToggleGroup.Item value="en" label={t('p8000:form-label-spraak-engelsk')}/>
                 </ToggleGroup>
                 {bucType !== "03" && bucType !== "01" &&
-                  <ToggleGroup value={currentPSED?.options?.type?.ytelse} onChange={(v) => onToggle("ytelse", v)}
-                               label={t('p8000:form-label-velg-ytelse')}>
+                  <ToggleGroup
+                    value={currentPSED?.options?.type?.ytelse}
+                    onChange={(v) => onToggle("ytelse", v)}
+                    label={t('p8000:form-label-velg-ytelse')}
+                  >
                     <ToggleGroup.Item value="AP" label={t('p8000:form-label-ytelse-alderspensjon')}/>
                     <ToggleGroup.Item value="UT" label={t('p8000:form-label-ytelse-ufoere')}/>
                   </ToggleGroup>
                 }
                 {!_hideBosettingsStatus &&
-                  <ToggleGroup value={currentPSED?.options?.type?.bosettingsstatus}
-                               onChange={(v) => onToggle("bosettingsstatus", v)}
-                               label={t('p8000:form-label-velg-bosettingsstatus')}>
+                  <ToggleGroup
+                    value={currentPSED?.options?.type?.bosettingsstatus}
+                    onChange={(v) => onToggle("bosettingsstatus", v)}
+                    label={t('p8000:form-label-velg-bosettingsstatus')}
+                  >
                     <ToggleGroup.Item value="NO" label={t('p8000:form-label-bosettingsstatus-norge')}/>
                     <ToggleGroup.Item value="UTL" label={t('p8000:form-label-bosettingsstatus-utland')}/>
                   </ToggleGroup>
                 }
+                <ToggleGroup
+                  value={currentPSED?.pensjon?.anmodning?.referanseTilPerson}
+                  onChange={(v) => onToggle("referanseTilPerson", v)}
+                  label={t('p8000:form-label-velg-anmodning-referanseTilPerson')}
+                >
+                  <ToggleGroup.Item value="01" label={t('p8000:form-label-anmodning-referanseTilPerson-forsikret')}/>
+                  <ToggleGroup.Item value="02" label={t('p8000:form-label-andmodning-referanseTilPerson-annen')}/>
+                </ToggleGroup>
               </HStack>
             }
           </VStack>
