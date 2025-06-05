@@ -338,8 +338,7 @@ const P8000: React.FC<P8000Props> = ({
             </span>
           </Button>
         </div>
-        <BoxWithBorderAndPadding
-        >
+        <BoxWithBorderAndPadding>
           <VStack gap="4">
             <Heading level="1" size="medium">{t('p8000:form-heading-p8000')} ({buc.type?.toUpperCase()} - {t('buc:buc-' + buc.type?.toUpperCase())})</Heading>
             {currentPSED && currentPSED.options && currentPSED.options.type &&
