@@ -42,5 +42,6 @@
   "form-label-velg-bosettingsstatus": "Velg bosettingsstatus",
   "form-label-velg-spraak": "Velg språk",
   "form-label-velg-ytelse": "Velg ytelse",
-  "form-label-velg-anmodning-referanseTilPerson": "SED gjelder"
+  "form-label-velg-anmodning-referanseTilPerson": "SED gjelder",
+  "form-message-andmodning-referanseTilPerson-annen": "Du må fylle ut personopplysninger om annen person manuelt i RINA."
 }

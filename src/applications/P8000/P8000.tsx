@@ -9,7 +9,7 @@ import {WaitingPanelDiv, BoxWithBorderAndPadding} from "src/components/StyledCom
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
 import {InformasjonSomKanLeggesInn, OfteEtterspurtInformasjon, P8000SED, P8000Type} from "src/declarations/p8000";
 import {State} from "src/declarations/reducers";
-import {Button, Heading, HStack, Textarea, ToggleGroup, VStack} from "@navikt/ds-react";
+import {Alert, Button, Heading, HStack, Textarea, ToggleGroup, VStack} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import {
@@ -244,9 +244,8 @@ const P8000: React.FC<P8000Props> = ({
     let propertyPath;
     if (property === "referanseTilPerson") {
       propertyPath = `pensjon.anmodning.${property}`
-    }
-    else {
-       propertyPath = `options.type.${property}`
+    } else {
+      propertyPath = `options.type.${property}`
     }
     dispatch(updatePSED(propertyPath, propValue))
   }
@@ -259,7 +258,7 @@ const P8000: React.FC<P8000Props> = ({
 
   const onToggle = (property: string, propValue: string) => {
     setProperty(property, propValue)
-    if(property !== 'spraak'){
+    if(property !== 'spraak' && property !== 'referanseTilPerson'){
       resetP8000()
     }
   }
@@ -382,14 +381,21 @@ const P8000: React.FC<P8000Props> = ({
                     <ToggleGroup.Item value="UTL" label={t('p8000:form-label-bosettingsstatus-utland')}/>
                   </ToggleGroup>
                 }
-                <ToggleGroup
-                  value={currentPSED?.pensjon?.anmodning?.referanseTilPerson}
-                  onChange={(v) => onToggle("referanseTilPerson", v)}
-                  label={t('p8000:form-label-velg-anmodning-referanseTilPerson')}
-                >
-                  <ToggleGroup.Item value="01" label={t('p8000:form-label-anmodning-referanseTilPerson-forsikret')}/>
-                  <ToggleGroup.Item value="02" label={t('p8000:form-label-andmodning-referanseTilPerson-annen')}/>
-                </ToggleGroup>
+                <HStack gap="4" align={"end"}>
+                  <ToggleGroup
+                    value={currentPSED?.pensjon?.anmodning?.referanseTilPerson}
+                    onChange={(v) => onToggle("referanseTilPerson", v)}
+                    label={t('p8000:form-label-velg-anmodning-referanseTilPerson')}
+                  >
+                    <ToggleGroup.Item value="01" label={t('p8000:form-label-anmodning-referanseTilPerson-forsikret')}/>
+                    <ToggleGroup.Item value="02" label={t('p8000:form-label-andmodning-referanseTilPerson-annen')}/>
+                  </ToggleGroup>
+                  {currentPSED?.pensjon?.anmodning?.referanseTilPerson === "02" &&
+                    <Alert variant="info" size="small">
+                      {t('p8000:form-message-andmodning-referanseTilPerson-annen')}
+                    </Alert>
+                  }
+                </HStack>
               </HStack>
             }
           </VStack>
