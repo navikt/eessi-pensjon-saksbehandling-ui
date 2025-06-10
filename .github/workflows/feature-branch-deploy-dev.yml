@@ -51,7 +51,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: 'Run tests'
-        run: npm test:filtered
+        run: npm run test:filtered
 
       - name: 'Bygg'
         run: npm run build
