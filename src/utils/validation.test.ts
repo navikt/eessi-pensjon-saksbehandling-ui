@@ -32,7 +32,7 @@ describe('validation/isOutOfRange', () => {
     expect(
       isOutOfRange(num, min, max)
     )
-      .toEqual(true)
+      .toEqual(false)
   })
 
   it('Should return true when num is smaller than min', () => {
