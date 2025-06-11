@@ -115,7 +115,7 @@ describe('reducers/buc', () => {
       creator: {
         country: 'NO',
         institution: 'foo',
-        name: 'foo',
+        name: '',
         acronym: 'foo'
       },
       deltakere: [],
@@ -186,7 +186,7 @@ describe('reducers/buc', () => {
       creator: {
         country: 'NO',
         institution: 'foo',
-        name: 'foo',
+        name: '',
         acronym: 'foo'
       },
       deltakere: [],
@@ -278,7 +278,11 @@ describe('reducers/buc', () => {
         type: types.BUC_GET_BUCSLIST_SUCCESS,
         payload: null
       })
-    ).toEqual(initialBucState)
+    ).toEqual({
+      ...initialBucState,
+      bucsList: [],
+      howManyBucLists: -1
+    })
   })
 
   it('BUC_GET_BUCSLIST_SUCCESS', () => {
@@ -300,14 +304,10 @@ describe('reducers/buc', () => {
       })
     ).toEqual({
       ...initialBucState,
-      bucs: { 123456: mockBuc },
-      institutionNames: {
-        'NO:NAVAT07': {
-          country: 'NO',
-          institution: 'NO:NAVAT07',
-          name: 'NAV ACCEPTANCE TEST 07'
-        }
-      }
+      bucs: {},
+      institutionNames: {},
+      howManyBucLists: -1,
+      bucsList: [mockBuc]
     })
   })
 
@@ -323,7 +323,11 @@ describe('reducers/buc', () => {
       })
     ).toEqual({
       ...initialBucState,
-      bucs: null
+      bucs: {
+        123: mockBuc
+      },
+      howManyBucLists: -1,
+      bucsList: null,
     })
   })
 
