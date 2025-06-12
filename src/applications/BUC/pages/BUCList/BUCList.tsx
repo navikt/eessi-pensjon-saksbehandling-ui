@@ -7,13 +7,13 @@ import BUCStartIndex from 'src/applications/BUC/components/BUCStart/BUCStartInde
 import { bucFilter, bucSorter, pbuc02filter } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
 import classNames from 'classnames'
 import { HorizontalLineSeparator } from 'src/components/StyledComponents'
-import { AllowedLocaleString, BUCMode, PesysContext } from 'src/declarations/app.d'
+import {AllowedLocaleString, BUCMode, FeatureToggles, PesysContext} from 'src/declarations/app.d'
 import {
   Buc,
   BucInfo,
   BucListItem,
   Bucs,
-  BucsInfo,
+  BucsInfo, Institution,
   SakTypeMap,
   SakTypeValue
 } from 'src/declarations/buc.d'
@@ -21,7 +21,7 @@ import { PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'src/metrics/loggers'
-import {Alert, BodyLong, Heading, Button, Box} from '@navikt/ds-react'
+import {Alert, BodyLong, Heading, Button, Box, Spacer} from '@navikt/ds-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -36,6 +36,7 @@ import {
 import {BRUKERKONTEKST} from "src/constants/constants";
 import AvdodFnrSearch from "./AvdodFnrSearch";
 import ProgressBar from "src/components/ProgressBar/ProgressBar";
+import P5000FraATP from "src/applications/P5000FraATP/P5000FraATP";
 
 export interface BUCListProps {
   initialBucNew?: boolean
@@ -54,6 +55,7 @@ export interface BUCListSelector {
   personAvdods: PersonAvdods | undefined
   pesysContext: PesysContext | undefined
   sakType: SakTypeValue | null | undefined
+  featureToggles: FeatureToggles
 }
 
 const mapState = (state: State): BUCListSelector => ({
@@ -67,14 +69,15 @@ const mapState = (state: State): BUCListSelector => ({
   newlyCreatedBuc: state.buc.newlyCreatedBuc,
   personAvdods: state.person.personAvdods,
   pesysContext: state.app.pesysContext,
-  sakType: state.app.params.sakType as SakTypeValue
+  sakType: state.app.params.sakType as SakTypeValue,
+  featureToggles: state.app.featureToggles
 })
 
 const BUCList: React.FC<BUCListProps> = ({
   setMode, initialBucNew = undefined
 }: BUCListProps): JSX.Element => {
   const {
-    aktoerId, bucs, bucsList, bucsInfo, gettingBucs, gettingBucsList, newlyCreatedBuc, personAvdods, pesysContext, sakType
+    aktoerId, bucs, bucsList, bucsInfo, gettingBucs, gettingBucsList, newlyCreatedBuc, personAvdods, pesysContext, sakType, featureToggles
   } = useSelector<State, BUCListSelector>(mapState)
 
   const dispatch = useDispatch()
@@ -88,6 +91,11 @@ const BUCList: React.FC<BUCListProps> = ({
   const [_sortedBucs, _setSortedBucs] = useState<Array<Buc> | undefined>(undefined)
   const [_filteredBucs, _setFilteredBucs] = useState<Array<Buc> | undefined>(undefined)
   const [_pBuc02filteredBucs, _setPBuc02filteredBucs] = useState<Array<Buc> | undefined>(undefined)
+
+  const [_bestillP5000FraATPPanelOpen, setBestillP5000FraATPPanelOpen] = useState<boolean | undefined>(false)
+  const [_showBestillP5000FraATPButton, setShowBestillP5000FraATPButton] = useState<boolean>(false)
+
+  const isTestUser: boolean = featureToggles.TEST_USER === true
 
   useEffect(() => {
     standardLogger('buc.list.entrance')
@@ -107,7 +115,14 @@ const BUCList: React.FC<BUCListProps> = ({
 
   const onBUCNew = (e: React.MouseEvent<HTMLButtonElement>): void => {
     buttonLogger(e)
+    setBestillP5000FraATPPanelOpen(false)
     setNewBucPanelOpen(true)
+  }
+
+  const onBestillP5000FraATP = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    buttonLogger(e)
+    setNewBucPanelOpen(false)
+    setBestillP5000FraATPPanelOpen(true)
   }
 
   const onBUCEdit = (buc: Buc): void => {
@@ -128,6 +143,12 @@ const BUCList: React.FC<BUCListProps> = ({
       _setPBuc02filteredBucs(pBuc02filteredBucs)
       const sortedBucs = pBuc02filteredBucs.sort(bucSorter)
       _setSortedBucs(sortedBucs)
+
+      const kravBucs: Array<Buc> = sortedBucs.filter((b: Buc) => (b.type === 'P_BUC_01' || b.type === 'P_BUC_02' || b.type === 'P_BUC_03'))
+      const kravBucsWithDenmark: Array<Buc> = kravBucs.filter((b: Buc) => {
+        return b.deltakere && b.deltakere.filter((i: Institution) => i.country === "DK").length > 0
+      })
+      kravBucsWithDenmark.length > 0 ? setShowBestillP5000FraATPButton(true) : setShowBestillP5000FraATPButton(false)
     }
   }, [bucs])
 
@@ -141,7 +162,7 @@ const BUCList: React.FC<BUCListProps> = ({
     >
 
       <Box paddingBlock="0 4">
-        <BUCListHeader>
+        <BUCListHeader gap="4" align={"center"}>
           <Heading size='small'>
             {t('buc:form-buclist')}
           </Heading>
@@ -157,6 +178,7 @@ const BUCList: React.FC<BUCListProps> = ({
               </ProgressBar>
             )}
           </ProgressBarDiv>
+          <Spacer/>
           {!_newBucPanelOpen && (
             <Button
               variant='secondary'
@@ -167,6 +189,16 @@ const BUCList: React.FC<BUCListProps> = ({
               {t('buc:form-createNewCase')}
             </Button>
           )}
+          {isTestUser && !_bestillP5000FraATPPanelOpen && _showBestillP5000FraATPButton &&
+            <Button
+              variant='secondary'
+              data-amplitude='buc.list.newbuc'
+              data-testid='a-buc-p-buclist--newbuc-button-id'
+              onClick={onBestillP5000FraATP}
+            >
+              Bestill P50000 fra ATP
+            </Button>
+          }
         </BUCListHeader>
       </Box>
       <BUCStartDiv className={classNames({
@@ -191,6 +223,17 @@ const BUCList: React.FC<BUCListProps> = ({
               })
             }}
             onBucCancelled={() => setNewBucPanelOpen(false)}
+          />
+        </Box>
+      </BUCStartDiv>
+      <BUCStartDiv className={classNames({
+        open: _bestillP5000FraATPPanelOpen === true,
+        close: _bestillP5000FraATPPanelOpen === false
+      })}
+      >
+        <Box padding="8"  background="bg-default" borderWidth="1" borderColor="border-default">
+          <P5000FraATP
+            onCancel={() => setBestillP5000FraATPPanelOpen(false)}
           />
         </Box>
       </BUCStartDiv>

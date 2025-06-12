@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { LinkPanel } from "@navikt/ds-react";
-import { animationClose, animationOpen } from "src/components/Animations/Animations";
+import {HStack, LinkPanel} from "@navikt/ds-react";
 
 export const ProgressBarDiv = styled.div`
  flex: 2;
@@ -28,11 +27,7 @@ export const HiddenDiv = styled.div`
 
 export const BUCListDiv = styled.div``
 
-export const BUCListHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+export const BUCListHeader = styled(HStack)`
   min-height: 40px;
 `
 
@@ -65,11 +60,9 @@ export const BUCStartDiv = styled.div`
   &.close {
     will-change: max-height, height;
     max-height: 0;
-    animation: ${animationClose(150)} 400ms ease;
   }
   &.open {
     will-change: max-height, height;
     max-height: 50em;
-    animation: ${animationOpen(150)} 400ms ease;
   }
 `

@@ -20,7 +20,7 @@ const mockBuc = [
     "lastUpdate": 1571818170586,
     "institusjon": [
       {
-        "country": "NO",
+        "country": "DK",
         "institution": "NO:NAVAT07",
         "name": "NAV ACC 07",
         "acronym": "NAVAT07"
