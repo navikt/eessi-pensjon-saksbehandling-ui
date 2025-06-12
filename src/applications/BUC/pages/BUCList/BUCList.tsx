@@ -37,6 +37,7 @@ import {BRUKERKONTEKST} from "src/constants/constants";
 import AvdodFnrSearch from "./AvdodFnrSearch";
 import ProgressBar from "src/components/ProgressBar/ProgressBar";
 import P5000FraATP from "src/applications/P5000FraATP/P5000FraATP";
+import {IS_Q} from "src/constants/environment";
 
 export interface BUCListProps {
   initialBucNew?: boolean
@@ -146,7 +147,9 @@ const BUCList: React.FC<BUCListProps> = ({
 
       const kravBucs: Array<Buc> = sortedBucs.filter((b: Buc) => (b.type === 'P_BUC_01' || b.type === 'P_BUC_02' || b.type === 'P_BUC_03'))
       const kravBucsWithDenmark: Array<Buc> = kravBucs.filter((b: Buc) => {
-        return b.deltakere && b.deltakere.filter((i: Institution) => i.country === "DK").length > 0
+        return b.deltakere && b.deltakere.filter((i: Institution) => {
+          return IS_Q ? i.institution === "NO:NAVAT05" : i.country === "DK"
+        }).length > 0
       })
       kravBucsWithDenmark.length > 0 ? setShowBestillP5000FraATPButton(true) : setShowBestillP5000FraATPButton(false)
     }
