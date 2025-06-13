@@ -92,7 +92,7 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
       })
       dispatch(updatePSED(targetPerson + '.pin', filteredPINs))
     }
-    dispatch(updatePSED(targetSendFolgendeSEDer, "p5000"))
+    dispatch(updatePSED(targetSendFolgendeSEDer, ["p5000"]))
     dispatch(updatePSED(targetBegrunnelse, "Vennligst send informasjon om ATP-perioder."))
   }
 
