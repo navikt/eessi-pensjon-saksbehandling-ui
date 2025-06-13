@@ -1,5 +1,6 @@
 import alertReducer, { initialAlertState } from './alert'
 import * as types from 'src/constants/actionTypes'
+import i18n from "i18next";
 
 describe('reducers/alert', () => {
   it('ALERT_CLIENT_CLEAR', () => {
@@ -23,7 +24,9 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      serverErrorMessage: 'ui:serverInternalError',
+      type: types.SERVER_INTERNAL_ERROR,
+      bannerStatus : 'error',
+      bannerMessage: i18n.t('ui:serverInternalError'),
       error: 'mockPayload'
     })
   })
@@ -38,7 +41,9 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      serverErrorMessage: 'ui:serverAuthenticationError',
+      type: types.SERVER_UNAUTHORIZED_ERROR,
+      bannerStatus : 'error',
+      bannerMessage: i18n.t('ui:serverAuthenticationError'),
       error: 'mockPayload'
     })
   })
@@ -48,13 +53,14 @@ describe('reducers/alert', () => {
       alertReducer(initialAlertState, {
         type: 'SOMETHING/ERROR',
         payload: {
-          error: 'mockPayload'
+          message: 'mockErrorMessagePayload'
         }
       })
     ).toEqual({
       ...initialAlertState,
-      serverErrorMessage: 'ui:serverInternalError',
-      error: 'mockPayload'
+      type: "SOMETHING/ERROR",
+      bannerStatus : 'error',
+      bannerMessage: 'mockErrorMessagePayload',
     })
   })
 
@@ -65,8 +71,10 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'error',
-      clientErrorMessage: 'message:alert-createBucFailure'
+      type: types.BUC_CREATE_BUC_FAILURE,
+      stripeStatus : 'error',
+      stripeMessage : i18n.t('message:alert-createBucFailure'),
+      bannerMessage: i18n.t('message:alert-createBucFailure')
     })
   })
 
@@ -77,8 +85,8 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'error',
-      clientErrorMessage: 'message:alert-createSedFailure'
+      bannerStatus: 'error',
+      bannerMessage: 'message:alert-createSedFailure'
     })
   })
 
@@ -89,8 +97,8 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'error',
-      clientErrorMessage: 'message:alert-noBucOptions'
+      bannerStatus: 'error',
+      bannerMessage: 'message:alert-noBucOptions'
     })
   })
 
@@ -101,8 +109,8 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'error',
-      clientErrorMessage: 'message:alert-noBucs'
+      bannerStatus: 'error',
+      bannerMessage: 'message:alert-noBucs'
     })
   })
 
@@ -113,8 +121,8 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'error',
-      clientErrorMessage: 'message:alert-noBucsInfo'
+      bannerStatus: 'error',
+      bannerMessage: 'message:alert-noBucsInfo'
     })
   })
 
@@ -125,8 +133,8 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'error',
-      clientErrorMessage: 'message:alert-noBucsListInfo'
+      bannerStatus: 'error',
+      bannerMessage: 'message:alert-noBucsListInfo'
     })
   })
 
@@ -137,8 +145,8 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'error',
-      clientErrorMessage: 'message:alert-noCountryList'
+      bannerStatus: 'error',
+      bannerMessage: 'message:alert-noCountryList'
     })
   })
 
@@ -149,8 +157,8 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'error',
-      clientErrorMessage: 'message:alert-noInstitutionList'
+      bannerStatus: 'error',
+      bannerMessage: 'message:alert-noInstitutionList'
     })
   })
 
@@ -161,8 +169,8 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'error',
-      clientErrorMessage: 'message:alert-noSedList'
+      bannerStatus: 'error',
+      bannerMessage: 'message:alert-noSedList'
     })
   })
 
@@ -173,8 +181,8 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'error',
-      clientErrorMessage: 'message:alert-noTagList'
+      bannerStatus: 'error',
+      bannerMessage: 'message:alert-noTagList'
     })
   })
 
@@ -185,8 +193,8 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'error',
-      clientErrorMessage: 'message:alert-saveBucsInfoFailure'
+      bannerStatus: 'error',
+      bannerMessage: 'message:alert-saveBucsInfoFailure'
     })
   })
 
@@ -197,8 +205,8 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'error',
-      clientErrorMessage: 'message:alert-createAttachmentFailure'
+      bannerStatus: 'error',
+      bannerMessage: 'message:alert-createAttachmentFailure'
     })
   })
 
@@ -209,8 +217,8 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'error',
-      clientErrorMessage: 'message:alert-joarkListFailure'
+      bannerStatus: 'error',
+      bannerMessage: 'message:alert-joarkListFailure'
     })
   })
 
@@ -221,8 +229,8 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'error',
-      clientErrorMessage: 'message:alert-joarkPreviewFailure'
+      bannerStatus: 'error',
+      bannerMessage: 'message:alert-joarkPreviewFailure'
     })
   })
 
@@ -233,8 +241,8 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'error',
-      clientErrorMessage: 'ui:error'
+      bannerStatus: 'error',
+      bannerMessage: 'ui:error'
     })
   })
 
@@ -248,11 +256,11 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'OK',
-      clientErrorParam: {
+      bannerStatus: 'OK',
+/*      clientErrorParam: {
         type: 'mockType'
-      },
-      clientErrorMessage: 'message:alert-createdBuc'
+      },*/
+      bannerMessage: 'message:alert-createdBuc'
     })
   })
 
@@ -266,12 +274,12 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'OK',
-      clientErrorParam: {
+      bannerStatus: 'OK',
+/*      clientErrorParam: {
         message: '',
         sed: 'mockType'
-      },
-      clientErrorMessage: 'message:alert-createdSed'
+      },*/
+      bannerMessage: 'message:alert-createdSed'
     })
   })
 
@@ -285,12 +293,12 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      clientErrorStatus: 'OK',
-      clientErrorParam: {
-        message: '',
-        sed: 'mockType'
-      },
-      clientErrorMessage: 'message:alert-createdSed'
+      /*     clientErrorStatus: 'OK',
+           clientErrorParam: {
+             message: '',
+             sed: 'mockType'
+           },*/
+      bannerMessage: 'message:alert-createdSed'
     })
   })
 
