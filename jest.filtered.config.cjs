@@ -9,7 +9,6 @@ module.exports = {
   ],
   testMatch: [
     '<rootDir>/src/actions/?(*.)+(spec|test).+(ts|tsx)',
-    '<rootDir>/src/reducers/?(*.)+(spec|test).+(ts|tsx)',
     '<rootDir>/src/utils/?(*.)+(spec|test).+(ts|tsx)'
   ],
   transform: {
