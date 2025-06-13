@@ -237,6 +237,7 @@ const BUCList: React.FC<BUCListProps> = ({
         <Box padding="8"  background="bg-default" borderWidth="1" borderColor="border-default">
           <P5000FraATP
             onCancel={() => setBestillP5000FraATPPanelOpen(false)}
+            setMode={setMode}
           />
         </Box>
       </BUCStartDiv>

@@ -6,7 +6,12 @@ import {
   createBuc,
   createSed,
   getSedP8000,
-  resetNewSed, resetPSED,
+  resetNewSed,
+  resetPSED,
+  saveSed,
+  sendSed,
+  setCurrentBuc,
+  updatePSED,
 } from "src/actions/buc";
 import {Buc, NewBucPayload, NewSedPayload, Sed} from "src/declarations/buc";
 import {PersonPDL} from "src/declarations/person";
@@ -18,9 +23,11 @@ import {IS_Q} from "src/constants/environment";
 import {P8000SED} from "src/declarations/p8000";
 import {Person, PIN} from "src/declarations/sed";
 import _ from "lodash";
+import {BUCMode} from "src/declarations/app";
 
 export interface P5000FraATPProps {
   onCancel: () => void
+  setMode: (mode: BUCMode, s: string, callback?: any, content ?: JSX.Element) => void
 }
 
 export interface P5000FraATPSelector {
@@ -30,6 +37,10 @@ export interface P5000FraATPSelector {
   sakId?: string | null | undefined
   aktoerId?: string | null | undefined
   currentPSED: P8000SED
+  savingSed: boolean
+  sendingSed: boolean
+  PSEDSendResponse: any | null | undefined
+  PSEDSavedResponse: any | null | undefined
 }
 
 export const mapState = (state: State): P5000FraATPSelector => ({
@@ -39,19 +50,27 @@ export const mapState = (state: State): P5000FraATPSelector => ({
   sakId: state.app.params.sakId,
   aktoerId: state.app.params.aktoerId,
   currentPSED: state.buc.PSED as P8000SED,
+  savingSed: state.loading.savingSed,
+  sendingSed: state.loading.sendingSed,
+  PSEDSendResponse: state.buc.PSEDSendResponse,
+  PSEDSavedResponse: state.buc.PSEDSavedResponse
 })
 
 
 const P5000FraATP: React.FC<P5000FraATPProps> = ({
-  onCancel
+  onCancel, setMode
 }: P5000FraATPProps): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { personPdl, newlyCreatedBuc, newlyCreatedSed, sakId, aktoerId, currentPSED }: P5000FraATPSelector = useSelector<State, P5000FraATPSelector>(mapState)
+  const { personPdl, newlyCreatedBuc, newlyCreatedSed, sakId, aktoerId, currentPSED, PSEDSavedResponse, savingSed, sendingSed, PSEDSendResponse }: P5000FraATPSelector = useSelector<State, P5000FraATPSelector>(mapState)
   const [_isCreatingBuc, setIsCreatingBuc] = useState<boolean>(false)
   const [_isCreatingSed, setIsCreatingSed] = useState<boolean>(false)
   const [_isGettingSed, setIsGettingSed] = useState<boolean>(false)
   const [_danskPIN, setDanskPIN] = useState<string | undefined>(undefined)
+
+  const targetPerson = `nav.bruker.person`
+  const targetSendFolgendeSEDer = "pensjon.anmodning.seder[0].sendFolgendeSEDer"
+  const targetBegrunnelse = "pensjon.anmodning.seder[0].begrunnelse"
 
   const onCreateBucAndSed = () => {
     resetAll()
@@ -63,7 +82,22 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
     dispatch(createBuc(payload))
   }
 
-  const cancel = () => {
+  const onUpdateAndSend = () => {
+    const _person:  Person | undefined = _.get(currentPSED, targetPerson)
+    let filteredPINs: Array<PIN> = _.filter(_person?.pin, p => p.land !== 'DK')
+    if(_danskPIN && _danskPIN !== ""){
+      filteredPINs.push({
+        land: "DK",
+        identifikator: _danskPIN
+      })
+      dispatch(updatePSED(targetPerson + '.pin', filteredPINs))
+    }
+    dispatch(updatePSED(targetSendFolgendeSEDer, "p5000"))
+    dispatch(updatePSED(targetBegrunnelse, "Vennligst send informasjon om ATP-perioder."))
+    dispatch(saveSed(newlyCreatedBuc!.caseId!, newlyCreatedSed!.id, "P8000", currentPSED))
+  }
+
+  const resetAndClose = () => {
     resetAll()
     onCancel()
   }
@@ -117,11 +151,34 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
     if (currentPSED) {
       setIsGettingSed(false)
 
-      const _person:  Person | undefined = _.get(currentPSED, `nav.bruker.person`)
+      const _person:  Person | undefined = _.get(currentPSED, targetPerson)
       const danskePINs: Array<PIN> = _.filter(_person?.pin, p => p.land === 'DK')
       setDanskPIN(danskePINs && danskePINs.length > 0 ? danskePINs[0].identifikator : "")
     }
   }, [currentPSED])
+
+  useEffect(() => {
+    if (PSEDSavedResponse) {
+      dispatch(sendSed(newlyCreatedBuc!.caseId!, newlyCreatedSed!.id))
+    }
+  }, [PSEDSavedResponse])
+
+  useEffect(() => {
+    if (PSEDSendResponse) {
+      gotoBuc(newlyCreatedBuc!)
+    }
+  }, [PSEDSendResponse])
+
+  const gotoBuc = (buc: Buc): void => {
+    resetAndClose()
+    dispatch(setCurrentBuc(buc.caseId!))
+    setMode('bucedit' as BUCMode, 'forward')
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
+  }
 
   return(
     <VStack gap="4">
@@ -138,7 +195,7 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
         </Button>
         <Button
           variant='tertiary'
-          onClick={cancel}
+          onClick={resetAndClose}
         >{t('ui:cancel')}
         </Button>
       </HStack>
@@ -159,14 +216,14 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
         <HStack gap="4" align="end">
           <TextField
             id='identifikator'
-            label={t('buc:form-utenlandske-pin-pin')}
+            label={t('buc:form-utenlandske-pin-dansk-pin')}
             onChange={(e) => setDanskPIN(e.target.value)}
             value={_danskPIN}
           />
           <Button
             variant='primary'
-            onClick={()=>{}}
-            loading={false}
+            onClick={onUpdateAndSend}
+            loading={savingSed || sendingSed}
           >
             Send SED
           </Button>
