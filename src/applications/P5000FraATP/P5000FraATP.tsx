@@ -94,6 +94,8 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
     }
     dispatch(updatePSED(targetSendFolgendeSEDer, "p5000"))
     dispatch(updatePSED(targetBegrunnelse, "Vennligst send informasjon om ATP-perioder."))
+
+    console.log(currentPSED)
     dispatch(saveSed(newlyCreatedBuc!.caseId!, newlyCreatedSed!.id, "P8000", currentPSED))
   }
 
