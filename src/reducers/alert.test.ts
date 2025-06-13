@@ -74,7 +74,9 @@ describe('reducers/alert', () => {
       type: types.BUC_CREATE_BUC_FAILURE,
       stripeStatus : 'error',
       stripeMessage : i18n.t('message:alert-createBucFailure'),
-      bannerMessage: i18n.t('message:alert-createBucFailure')
+      bannerStatus: 'error',
+      bannerMessage: i18n.t('message:alert-createBucFailure'),
+      error: i18n.t('ui:error')
     })
   })
 
@@ -85,8 +87,12 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
+      type: types.BUC_CREATE_SED_FAILURE,
+      stripeStatus : 'error',
+      stripeMessage : i18n.t('message:alert-createSedFailure'),
       bannerStatus: 'error',
-      bannerMessage: 'message:alert-createSedFailure'
+      bannerMessage: i18n.t('message:alert-createSedFailure'),
+      error: i18n.t('ui:error')
     })
   })
 
@@ -97,8 +103,12 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
+      type: types.BUC_GET_BUC_OPTIONS_FAILURE,
+      stripeStatus : 'error',
+      stripeMessage : i18n.t('message:alert-noBucOptions'),
       bannerStatus: 'error',
-      bannerMessage: 'message:alert-noBucOptions'
+      bannerMessage: i18n.t('message:alert-noBucOptions'),
+      error: i18n.t('ui:error')
     })
   })
 
@@ -109,8 +119,12 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
+      type: types.BUC_GET_BUCSLIST_FAILURE,
+      stripeStatus : 'error',
+      stripeMessage : i18n.t('message:alert-noBucs'),
       bannerStatus: 'error',
-      bannerMessage: 'message:alert-noBucs'
+      bannerMessage: i18n.t('message:alert-noBucs'),
+      error: i18n.t('ui:error')
     })
   })
 
@@ -121,8 +135,12 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
+      type: types.BUC_GET_BUCSINFO_FAILURE,
+      stripeStatus : 'error',
+      stripeMessage : i18n.t('message:alert-noBucsInfo'),
       bannerStatus: 'error',
-      bannerMessage: 'message:alert-noBucsInfo'
+      bannerMessage: i18n.t('message:alert-noBucsInfo'),
+      error: i18n.t('ui:error')
     })
   })
 
@@ -133,8 +151,12 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
+      type: types.BUC_GET_BUCSINFO_LIST_FAILURE,
+      stripeStatus : 'error',
+      stripeMessage : i18n.t('message:alert-noBucsListInfo'),
       bannerStatus: 'error',
-      bannerMessage: 'message:alert-noBucsListInfo'
+      bannerMessage: i18n.t('message:alert-noBucsListInfo'),
+      error: i18n.t('ui:error')
     })
   })
 
@@ -145,8 +167,12 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
+      type: types.BUC_GET_COUNTRY_LIST_FAILURE,
+      stripeStatus : 'error',
+      stripeMessage : i18n.t('message:alert-noCountryList'),
       bannerStatus: 'error',
-      bannerMessage: 'message:alert-noCountryList'
+      bannerMessage: i18n.t('message:alert-noCountryList'),
+      error: i18n.t('ui:error')
     })
   })
 
@@ -157,8 +183,12 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
+      type: types.BUC_GET_INSTITUTION_LIST_FAILURE,
+      stripeStatus : 'error',
+      stripeMessage : i18n.t('message:alert-noInstitutionList'),
       bannerStatus: 'error',
-      bannerMessage: 'message:alert-noInstitutionList'
+      bannerMessage: i18n.t('message:alert-noInstitutionList'),
+      error: i18n.t('ui:error')
     })
   })
 
@@ -169,8 +199,12 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
+      type: types.BUC_GET_SED_LIST_FAILURE,
+      stripeStatus : 'error',
+      stripeMessage : i18n.t('message:alert-noSedList'),
       bannerStatus: 'error',
-      bannerMessage: 'message:alert-noSedList'
+      bannerMessage: i18n.t('message:alert-noSedList'),
+      error: i18n.t('ui:error')
     })
   })
 
@@ -181,8 +215,12 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
+      type: types.BUC_GET_TAG_LIST_FAILURE,
+      stripeStatus : 'error',
+      stripeMessage : i18n.t('message:alert-noTagList'),
       bannerStatus: 'error',
-      bannerMessage: 'message:alert-noTagList'
+      bannerMessage: i18n.t('message:alert-noTagList'),
+      error: i18n.t('ui:error')
     })
   })
 
@@ -193,8 +231,12 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
+      type: types.BUC_SAVE_BUCSINFO_FAILURE,
+      stripeStatus : 'error',
+      stripeMessage : i18n.t('message:alert-saveBucsInfoFailure'),
       bannerStatus: 'error',
-      bannerMessage: 'message:alert-saveBucsInfoFailure'
+      bannerMessage: i18n.t('message:alert-saveBucsInfoFailure'),
+      error: i18n.t('ui:error')
     })
   })
 
@@ -205,8 +247,12 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
+      type: types.BUC_SEND_ATTACHMENT_FAILURE,
+      stripeStatus : 'error',
+      stripeMessage : i18n.t('message:alert-createAttachmentFailure'),
       bannerStatus: 'error',
-      bannerMessage: 'message:alert-createAttachmentFailure'
+      bannerMessage: i18n.t('message:alert-createAttachmentFailure'),
+      error: i18n.t('ui:error')
     })
   })
 
@@ -217,8 +263,12 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
+      type: types.JOARK_LIST_FAILURE,
+      stripeStatus : 'error',
+      stripeMessage : i18n.t('message:alert-joarkListFailure'),
       bannerStatus: 'error',
-      bannerMessage: 'message:alert-joarkListFailure'
+      bannerMessage: i18n.t('message:alert-joarkListFailure'),
+      error: i18n.t('ui:error')
     })
   })
 
@@ -229,8 +279,12 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
+      type: types.JOARK_PREVIEW_FAILURE,
+      stripeStatus : 'error',
+      stripeMessage : i18n.t('message:alert-joarkPreviewFailure'),
       bannerStatus: 'error',
-      bannerMessage: 'message:alert-joarkPreviewFailure'
+      bannerMessage: i18n.t('message:alert-joarkPreviewFailure'),
+      error: i18n.t('ui:error')
     })
   })
 
@@ -241,8 +295,12 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
+      type: 'SOMETHING/FAILURE',
+      stripeStatus : 'error',
+      stripeMessage : i18n.t('ui:error'),
       bannerStatus: 'error',
-      bannerMessage: 'ui:error'
+      bannerMessage: i18n.t('ui:error'),
+      error: i18n.t('ui:error')
     })
   })
 
@@ -256,11 +314,9 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      bannerStatus: 'OK',
-/*      clientErrorParam: {
-        type: 'mockType'
-      },*/
-      bannerMessage: 'message:alert-createdBuc'
+      type: types.BUC_CREATE_BUC_SUCCESS,
+      bannerStatus: 'success',
+      bannerMessage: i18n.t('message:alert-createdBuc'),
     })
   })
 
@@ -274,12 +330,9 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      bannerStatus: 'OK',
-/*      clientErrorParam: {
-        message: '',
-        sed: 'mockType'
-      },*/
-      bannerMessage: 'message:alert-createdSed'
+      type: types.BUC_CREATE_SED_SUCCESS,
+      bannerStatus: 'success',
+      bannerMessage: i18n.t('message:alert-createdSed')
     })
   })
 
@@ -293,12 +346,9 @@ describe('reducers/alert', () => {
       })
     ).toEqual({
       ...initialAlertState,
-      /*     clientErrorStatus: 'OK',
-           clientErrorParam: {
-             message: '',
-             sed: 'mockType'
-           },*/
-      bannerMessage: 'message:alert-createdSed'
+      type: types.BUC_CREATE_REPLY_SED_SUCCESS,
+      bannerStatus: 'success',
+      bannerMessage: i18n.t('message:alert-createdSed')
     })
   })
 
