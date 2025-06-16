@@ -12,7 +12,7 @@ module.exports = {
     '<rootDir>/src/reducers/?(*.)+(spec|test).+(ts|tsx)',
     '<rootDir>/src/utils/?(*.)+(spec|test).+(ts|tsx)',
     '<rootDir>/src/applications/P5000/?(*.)+(spec|test).+(ts|tsx)',
-    '<rootDir>/src/applications/BUC/BUCUtils/?(*.)+(spec|test).+(ts|tsx)',
+    '<rootDir>/src/applications/BUC/components/BUCUtils/?(*.)+(spec|test).+(ts|tsx)'
   ],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest'
