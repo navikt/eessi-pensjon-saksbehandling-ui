@@ -151,7 +151,9 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
     if (newlyCreatedSed) {
       setIsCreatingSed(false)
       setIsGettingSed(true)
-      dispatch(getSedP8000(newlyCreatedBuc?.caseId!, newlyCreatedSed))
+      if(newlyCreatedBuc?.caseId) {
+        dispatch(getSedP8000(newlyCreatedBuc?.caseId, newlyCreatedSed))
+      }
     }
   }, [newlyCreatedSed])
 
@@ -167,7 +169,9 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
 
   useEffect(() => {
     if (PSEDSavedResponse) {
-      dispatch(sendSed(newlyCreatedBuc!.caseId!, newlyCreatedSed!.id))
+      if(newlyCreatedBuc?.caseId) {
+        dispatch(sendSed(newlyCreatedBuc!.caseId, newlyCreatedSed!.id))
+      }
     }
   }, [PSEDSavedResponse])
 
