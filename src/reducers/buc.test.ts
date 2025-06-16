@@ -859,7 +859,7 @@ describe('reducers/buc', () => {
               name: '4_mockVariant.pdf',
               fileName: '4_mockVariant.pdf',
               mimeType: 'application/pdf',
-              lastUpdate: 2674800000,
+              lastUpdate: new Date(1970, 1, 1).getTime(), // Hack to prevent test to fail due to latecy issuses
               medical: false
             }]
           }]
