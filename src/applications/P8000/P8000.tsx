@@ -94,7 +94,7 @@ const P8000: React.FC<P8000Props> = ({
   const [_fritekst, setFritekst] = useState<string | undefined>()
   const [_fritekstLoaded, setFritekstLoaded] = useState<boolean>(false)
   const [_hideBosettingsStatus, setHideBosettingsStatus] = useState<boolean>(false)
-  const bucDeltakere: Institutions | null | undefined = bucs[currentBuc].deltakere
+  const bucDeltakere: Institutions | null | undefined = bucs[currentBuc]?.deltakere
 
   const [_type, setType] = useState<string>("")
   const bucType = buc.type?.split("_")[2]

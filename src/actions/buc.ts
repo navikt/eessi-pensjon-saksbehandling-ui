@@ -54,6 +54,10 @@ export const cleanNewlyCreatedBuc: ActionCreator<Action> = (): Action => ({
   type: types.BUC_NEWLYCREATEDBUC_RESET
 })
 
+export const resetATP: ActionCreator<Action> = (): Action => ({
+  type: types.BUC_ATP_RESET
+})
+
 export const createBuc = (
   params: NewBucPayload
 ): Action => {
@@ -74,6 +78,22 @@ export const createBuc = (
       request: types.BUC_CREATE_BUC_REQUEST,
       success: types.BUC_CREATE_BUC_SUCCESS,
       failure: types.BUC_CREATE_BUC_FAILURE
+    }
+  })
+}
+
+export const createATPBuc = (
+  params: NewBucPayload
+): Action => {
+  return call({
+    url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: params.buc }),
+    method: 'POST',
+    cascadeFailureError: true,
+    expectedPayload: mockCreateBuc(params.buc),
+    type: {
+      request: types.BUC_CREATE_ATP_BUC_REQUEST,
+      success: types.BUC_CREATE_ATP_BUC_SUCCESS,
+      failure: types.BUC_CREATE_ATP_BUC_FAILURE
     }
   })
 }
@@ -116,6 +136,27 @@ export const createSed = (
       request: types.BUC_CREATE_SED_REQUEST,
       success: types.BUC_CREATE_SED_SUCCESS,
       failure: types.BUC_CREATE_SED_FAILURE
+    }
+  })
+}
+
+export const createATPSed = (
+  buc: Buc, payload: NewSedPayload
+): ActionWithPayload<Sed> => {
+  return call({
+    url: urls.BUC_CREATE_SED_URL,
+    payload,
+    context: {
+      buc,
+      sed: payload
+    },
+    expectedPayload: mockCreateSed(payload),
+    cascadeFailureError: true,
+    method: 'POST',
+    type: {
+      request: types.BUC_CREATE_ATP_SED_REQUEST,
+      success: types.BUC_CREATE_ATP_SED_SUCCESS,
+      failure: types.BUC_CREATE_ATP_SED_FAILURE
     }
   })
 }
