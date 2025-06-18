@@ -8,7 +8,7 @@ import { JoarkBrowser, JoarkBrowserProps, JoarkBrowserSelector } from './JoarkBr
 import _ from 'lodash'
 
 
-jest.mock('actions/joark', () => ({
+jest.mock('src/actions/joark', () => ({
   getJoarkItemPreview: jest.fn(),
   listJoarkItems: jest.fn()
 }))
@@ -24,7 +24,7 @@ const defaultSelector: JoarkBrowserSelector = {
   previewFile: undefined
 }
 
-describe('components/JoarkBrowser/JoarkBrowser', () => {
+describe('src/components/JoarkBrowser/JoarkBrowser', () => {
   const initialMockProps: JoarkBrowserProps = {
     existingItems: [],
     onRowSelectChange: jest.fn(),

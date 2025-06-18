@@ -1,6 +1,6 @@
 export default [
   {
-    date: new Date('2018-12-27T13:42:24.000Z'),
+    date: new Date('2019-01-08T14:42:24'),
     disabled: false,
     dokumentInfoId: '4',
     hasSubrows: false,
@@ -17,7 +17,7 @@ export default [
     },
     visible: undefined
   }, {
-    date: new Date('2018-12-27T13:42:24.000Z'),
+    date: new Date('2019-01-08T14:42:24'),
     disabled: false,
     dokumentInfoId: '5',
     hasSubrows: false,
@@ -34,7 +34,7 @@ export default [
     },
     visible: undefined
   }, {
-    date: new Date('2018-12-27T13:42:24.000Z'),
+    date: new Date('2019-01-08T14:42:24'),
     disabled: false,
     dokumentInfoId: '6',
     hasSubrows: false,
