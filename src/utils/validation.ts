@@ -119,7 +119,7 @@ export const checkIfNotValidBeloep = (v: Validation, {
 export const checkIfNotValidSwift = (v: Validation, {
   needle, id, message, extra
 }: ValidateValueParams): boolean => {
-  const swiftPattern = /([a-zA-Z]){4}([a-zA-Z]){2}([0-9a-zA-Z]){2}([0-9a-zA-Z]{3})?/
+  const swiftPattern = /^([a-zA-Z]){4}([a-zA-Z]){2}([0-9a-zA-Z]){2}([0-9a-zA-Z]{3})?$/
 
   if (!_.isEmpty(needle) && !(needle!.match(swiftPattern))) {
     return addError(v, { id, message, extra })
