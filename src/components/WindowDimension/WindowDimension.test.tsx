@@ -4,7 +4,7 @@ import { render, cleanup, screen } from '@testing-library/react'
 describe('components/WindowDimension/WindowDimension', () => {
   const MockElement: React.FC<any> = () => {
     const { height } = useWindowDimensions()
-    return (<div data-testid='mockelement' id={'' + height} />)
+    return (<div data-testid='mockelement'>{ height }</div>)
   }
 
   beforeEach(() => {
@@ -14,6 +14,6 @@ describe('components/WindowDimension/WindowDimension', () => {
   afterEach(cleanup)
 
   it('exists', () => {
-    expect(screen.findByTestId('mockelement')).toHaveAttribute('id', '768')
+    expect(screen.getByText('768')).toBeInTheDocument()
   })
 })
