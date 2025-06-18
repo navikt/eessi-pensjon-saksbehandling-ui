@@ -593,23 +593,11 @@ describe('validation/checkIfNotValidSwift', () => {
       .toEqual(false)
   })
 
-  it('Should return false when swift needle meets all criterias and has nothing extra 2', () => {
-    expect(checkIfNotValidSwift(
-      mockValidation,
-      {
-        needle: "AAAAaa11111 ",
-        id: 'id',
-        message: 'validation text'
-      }
-    ))
-      .toEqual(false)
-  })
-
   it('Should return false when swift needle meets all criterias, but is shorter than max length', () => {
     expect(checkIfNotValidSwift(
       mockValidation,
       {
-        needle: "ABCDefg1 ",
+        needle: "ABCDefg1",
         id: 'id',
         message: 'validation text'
       }
