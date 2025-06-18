@@ -161,6 +161,7 @@ const P8000: React.FC<P8000Props> = ({
 
   useEffect(() => {
     if(sed){
+      console.log("BUC: " + buc)
       dispatch(resetEditingItems())
       dispatch(resetValidation(namespace))
       dispatch(getSedP8000(buc.caseId!, sed))
