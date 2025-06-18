@@ -201,7 +201,7 @@ const BUCList: React.FC<BUCListProps> = ({
               data-testid='a-buc-p-buclist--newbuc-button-id'
               onClick={onBestillP5000FraATP}
             >
-              Bestill P50000 fra ATP
+              Bestill P5000 fra ATP
             </Button>
           }
         </BUCListHeader>

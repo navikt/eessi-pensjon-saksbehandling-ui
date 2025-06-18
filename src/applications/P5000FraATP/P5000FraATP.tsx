@@ -3,7 +3,7 @@ import {Button, Heading, HStack, Loader, TextField, VStack} from "@navikt/ds-rea
 import { useTranslation } from 'react-i18next'
 import {
   createATPBuc,
-  createATPSed,
+  createATPSed, fetchBuc,
   getSedP8000, resetATP,
   saveSed,
   sendSed,
@@ -14,7 +14,7 @@ import {Buc, NewBucPayload, NewSedPayload, Sed} from "src/declarations/buc";
 import {PersonPDL} from "src/declarations/person";
 import {State} from "src/declarations/reducers";
 import {useDispatch, useSelector} from "react-redux";
-import {CheckmarkCircleFillIcon} from "@navikt/aksel-icons";
+import {CheckmarkCircleFillIcon, CircleIcon} from "@navikt/aksel-icons";
 import {HorizontalLineSeparator} from "src/components/StyledComponents";
 import {IS_Q} from "src/constants/environment";
 import {P8000SED} from "src/declarations/p8000";
@@ -63,6 +63,8 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
   const [_isCreatingBuc, setIsCreatingBuc] = useState<boolean>(false)
   const [_isCreatingSed, setIsCreatingSed] = useState<boolean>(false)
   const [_isGettingSed, setIsGettingSed] = useState<boolean>(false)
+  const [_isSavingSed, setIsSavingSed] = useState<boolean>(false)
+  const [_isSendingSed, setIsSendingSed] = useState<boolean>(false)
   const [_danskPIN, setDanskPIN] = useState<string | undefined>(undefined)
 
   const targetPerson = `nav.bruker.person`
@@ -152,6 +154,7 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
       setDanskPIN(danskePINs && danskePINs.length > 0 ? danskePINs[0].identifikator : "")
 
       if(!PSEDSavedResponse && begrunnelse && begrunnelse!==""){
+        setIsSavingSed(true)
         dispatch(saveSed(newlyCreatedATPBuc!.caseId!, newlyCreatedATPSed!.id, "P8000", currentPSED))
       }
     }
@@ -159,17 +162,21 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
 
   useEffect(() => {
     if (PSEDSavedResponse && newlyCreatedATPBuc && newlyCreatedATPSed) {
+      setIsSavingSed(false)
+      setIsSendingSed(true)
       dispatch(sendSed(newlyCreatedATPBuc!.caseId!, newlyCreatedATPSed!.id))
     }
   }, [PSEDSavedResponse])
 
   useEffect(() => {
     if (PSEDSendResponse && newlyCreatedATPBuc && newlyCreatedATPSed) {
+      setIsSendingSed(false)
       gotoBuc(newlyCreatedATPBuc!)
     }
   }, [PSEDSendResponse])
 
   const gotoBuc = (buc: Buc): void => {
+    dispatch(fetchBuc(buc.caseId!))
     resetAndClose()
     dispatch(setCurrentBuc(buc.caseId!))
     setMode('bucedit' as BUCMode, 'forward')
@@ -201,16 +208,29 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
       </HStack>
       <HorizontalLineSeparator/>
       <HStack gap="2" align="center">
+        {!_isCreatingBuc && !newlyCreatedATPBuc && <><CircleIcon color="grey" fontSize="1.5em"/> Opprette P_BUC_05</>}
         {_isCreatingBuc && <><Loader/> Oppretter P_BUC_05</>}
         {newlyCreatedATPBuc && <><CheckmarkCircleFillIcon color="green" fontSize="1.5em"/> P_BUC_05 opprettet</>}
       </HStack>
       <HStack gap="2" align="center">
+        {!_isCreatingSed && !newlyCreatedATPSed && <><CircleIcon color="grey" fontSize="1.5em"/> Opprette P8000</>}
         {_isCreatingSed && <><Loader/> Oppretter P8000</>}
         {newlyCreatedATPSed && <><CheckmarkCircleFillIcon color="green" fontSize="1.5em"/> P8000 opprettet</>}
       </HStack>
       <HStack gap="2" align="center">
+        {!_isGettingSed && !currentPSED && <><CircleIcon color="grey" fontSize="1.5em"/> Hente P8000</>}
         {_isGettingSed && <><Loader/> Henter P8000</>}
         {currentPSED && <><CheckmarkCircleFillIcon color="green" fontSize="1.5em"/> P8000 hentet</>}
+      </HStack>
+      <HStack gap="2" align="center">
+        {!_isSavingSed && !PSEDSavedResponse && <><CircleIcon color="grey" fontSize="1.5em"/> Lagre P8000</>}
+        {_isSavingSed && <><Loader/> Lagrer P8000</>}
+        {PSEDSavedResponse && <><CheckmarkCircleFillIcon color="green" fontSize="1.5em"/> P8000 lagret</>}
+      </HStack>
+      <HStack gap="2" align="center">
+        {!_isSendingSed && !PSEDSendResponse && <><CircleIcon color="grey" fontSize="1.5em"/> Sende P8000</>}
+        {_isSendingSed && <><Loader/> Sender P8000</>}
+        {PSEDSendResponse && <><CheckmarkCircleFillIcon color="green" fontSize="1.5em"/> P8000 sendt</>}
       </HStack>
       {currentPSED &&
         <HStack gap="4" align="end">

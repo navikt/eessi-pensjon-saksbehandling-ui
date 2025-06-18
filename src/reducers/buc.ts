@@ -418,7 +418,10 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       const buc: Buc | undefined = (action as ActionWithPayload).payload
 
       if (!buc?.caseId || !buc?.type) {
-        bucs![(action as ActionWithPayload).context.rinaCaseId] = (action as ActionWithPayload).payload
+        if((action as ActionWithPayload).payload) {
+          // CAN BE UNDEFINED ON LOCALHOST
+          bucs![(action as ActionWithPayload).context.rinaCaseId] = (action as ActionWithPayload).payload
+        }
 
         return {
           ...state,
