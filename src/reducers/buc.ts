@@ -33,6 +33,7 @@ import { AnyAction } from 'redux'
 import { P5000sFromRinaMap } from 'src/declarations/p5000'
 import {P4000SED} from "../declarations/p4000"
 import {P8000SED} from "src/declarations/p8000";
+import {BUC_CREATE_ATP_SED_SUCCESS} from "src/constants/actionTypes";
 
 export interface BucState {
   attachmentsError: boolean
@@ -58,6 +59,8 @@ export interface BucState {
   newlyCreatedBuc: Buc | undefined
   newlyCreatedSed: Sed | undefined
   newlyCreatedSedTime: number | undefined
+  newlyCreatedATPBuc: Buc | undefined
+  newlyCreatedATPSed: Sed | undefined
   rinaId: string | undefined
   rinaUrl: RinaUrl | undefined
   savingAttachmentsJob: SavingAttachmentsJob | undefined
@@ -96,6 +99,8 @@ export const initialBucState: BucState = {
   newlyCreatedBuc: undefined,
   newlyCreatedSed: undefined,
   newlyCreatedSedTime: undefined,
+  newlyCreatedATPBuc: undefined,
+  newlyCreatedATPSed: undefined,
   rinaId: undefined,
   rinaUrl: undefined,
   savingAttachmentsJob: undefined,
@@ -129,7 +134,19 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         p5000sFromRinaMap: {}
       }
 
+
+    case types.BUC_ATP_RESET:
+      return {
+        ...state,
+        newlyCreatedATPBuc: undefined,
+        newlyCreatedATPSed: undefined,
+        PSED: undefined,
+        PSEDSavedResponse: undefined,
+        PSEDSendResponse: undefined
+      }
+
     case types.BUC_CREATE_BUC_REQUEST:
+    case types.BUC_CREATE_ATP_BUC_REQUEST:
     case types.GJENNY_CREATE_BUC_REQUEST:
       return {
         ...state,
@@ -199,7 +216,37 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
     }
 
+    case types.BUC_CREATE_ATP_BUC_SUCCESS:{
+      const bucs = _.cloneDeep(state.bucs)
+      const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
+      const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload)
+
+      // Cache seds allowing attachments
+      if (newBuc.seds) {
+        newBuc.seds.forEach((sed: Sed) => {
+          newSedsWithAttachments[sed.type] = sed.allowsAttachments
+        })
+      }
+
+      bucs![(action as ActionWithPayload).payload.caseId] = newBuc
+
+      return {
+        ...state,
+        currentBuc: newBuc.caseId,
+        sed: undefined,
+        countryList: undefined,
+        bucs,
+        kravDato: undefined,
+        newlyCreatedATPBuc: newBuc,
+        savingAttachmentsJob: undefined,
+        sedsWithAttachments: newSedsWithAttachments,
+        p6000s: undefined
+      }
+    }
+
+
     case types.BUC_CREATE_SED_FAILURE:
+    case types.BUC_CREATE_ATP_SED_FAILURE:
     case types.GJENNY_CREATE_SED_FAILURE:
       standardLogger('sed.new.create.failure')
       return state
@@ -256,12 +303,63 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
     }
 
+    case BUC_CREATE_ATP_SED_SUCCESS:{
+      const newSed: Sed = (action as ActionWithPayload).payload as Sed
+      const bucs = _.cloneDeep(state.bucs)
+      const contextSed: NewSedPayload = (action as ActionWithPayload).context.sed
+
+      newSed.status = 'new'
+      if (!newSed.participants) {
+        newSed.participants = []
+
+        if (bucs && bucs[state.currentBuc!]) {
+          newSed.participants.push({
+            role: 'Sender',
+            organisation: {
+              countryCode: bucs[state.currentBuc!].creator!.country,
+              name: bucs[state.currentBuc!].creator!.name || '',
+              id: bucs[state.currentBuc!].creator!.institution
+            },
+            selected: true
+          })
+        }
+
+        if (_.isArray(contextSed.institutions)) {
+          contextSed.institutions.forEach(inst => {
+            newSed.participants.push({
+              role: 'Receiver',
+              organisation: {
+                countryCode: inst.country,
+                name: inst.name || '',
+                id: inst.institution
+              },
+              selected: true
+            })
+          })
+        }
+      }
+
+      if (bucs) {
+        bucs[state.currentBuc!].seds!.push(newSed)
+      }
+      standardLogger('sed.new.create.success')
+      return {
+        ...state,
+        newlyCreatedATPSed: newSed,
+        newlyCreatedSedTime: Date.now(),
+        sed: newSed,
+        bucs
+      }
+    }
+
     case types.BUC_CURRENTBUC_SET: {
       const isNewlyCreatedBuc = state.newlyCreatedBuc && state.newlyCreatedBuc.caseId === (action as ActionWithPayload).payload
+      const isNewlyCreatedATPBuc = state.newlyCreatedATPBuc && state.newlyCreatedATPBuc.caseId === (action as ActionWithPayload).payload
 
       return {
         ...state,
         newlyCreatedBuc: isNewlyCreatedBuc ? undefined : state.newlyCreatedBuc,
+        newlyCreatedATPBuc: isNewlyCreatedATPBuc ? undefined : state.newlyCreatedATPBuc,
         currentBuc: (action as ActionWithPayload).payload,
         countryList: undefined,
         p6000s: undefined
@@ -768,6 +866,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       return {
         ...state,
         newlyCreatedSed: undefined,
+        newlyCreatedATPSed: undefined,
         newlyCreatedSedTime: undefined
       }
 
@@ -793,7 +892,8 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.BUC_NEWLYCREATEDBUC_RESET: {
       return {
         ...state,
-        newlyCreatedBuc: undefined
+        newlyCreatedBuc: undefined,
+        newlyCreatedATPBuc: undefined
       }
     }
 

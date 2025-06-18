@@ -2,12 +2,9 @@ import React, {useEffect, useState} from "react";
 import {Button, Heading, HStack, Loader, TextField, VStack} from "@navikt/ds-react";
 import { useTranslation } from 'react-i18next'
 import {
-  cleanNewlyCreatedBuc,
-  createBuc,
-  createSed,
-  getSedP8000,
-  resetNewSed,
-  resetPSED,
+  createATPBuc,
+  createATPSed,
+  getSedP8000, resetATP,
   saveSed,
   sendSed,
   setCurrentBuc,
@@ -32,8 +29,8 @@ export interface P5000FraATPProps {
 
 export interface P5000FraATPSelector {
   personPdl: PersonPDL | undefined
-  newlyCreatedBuc: Buc | undefined
-  newlyCreatedSed: Sed | undefined
+  newlyCreatedATPBuc: Buc | undefined
+  newlyCreatedATPSed: Sed | undefined
   sakId?: string | null | undefined
   aktoerId?: string | null | undefined
   currentPSED: P8000SED
@@ -45,8 +42,8 @@ export interface P5000FraATPSelector {
 
 export const mapState = (state: State): P5000FraATPSelector => ({
   personPdl: state.person.personPdl,
-  newlyCreatedBuc: state.buc.newlyCreatedBuc,
-  newlyCreatedSed: state.buc.newlyCreatedSed,
+  newlyCreatedATPBuc: state.buc.newlyCreatedATPBuc,
+  newlyCreatedATPSed: state.buc.newlyCreatedATPSed,
   sakId: state.app.params.sakId,
   aktoerId: state.app.params.aktoerId,
   currentPSED: state.buc.PSED as P8000SED,
@@ -62,7 +59,7 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
 }: P5000FraATPProps): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { personPdl, newlyCreatedBuc, newlyCreatedSed, sakId, aktoerId, currentPSED, PSEDSavedResponse, savingSed, sendingSed, PSEDSendResponse }: P5000FraATPSelector = useSelector<State, P5000FraATPSelector>(mapState)
+  const { personPdl, newlyCreatedATPBuc, newlyCreatedATPSed, sakId, aktoerId, currentPSED, PSEDSavedResponse, savingSed, sendingSed, PSEDSendResponse }: P5000FraATPSelector = useSelector<State, P5000FraATPSelector>(mapState)
   const [_isCreatingBuc, setIsCreatingBuc] = useState<boolean>(false)
   const [_isCreatingSed, setIsCreatingSed] = useState<boolean>(false)
   const [_isGettingSed, setIsGettingSed] = useState<boolean>(false)
@@ -79,7 +76,7 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
       buc: "P_BUC_05",
       person: personPdl!
     }
-    dispatch(createBuc(payload))
+    dispatch(createATPBuc(payload))
   }
 
   const onUpdateAndSend = () => {
@@ -96,28 +93,17 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
     dispatch(updatePSED(targetBegrunnelse, "Vennligst send informasjon om ATP-perioder."))
   }
 
-  useEffect(() => {
-    if (currentPSED) {
-      const begrunnelse = _.get(currentPSED, targetBegrunnelse)
-      if(!PSEDSavedResponse && begrunnelse && begrunnelse!==""){
-        dispatch(saveSed(newlyCreatedBuc!.caseId!, newlyCreatedSed!.id, "P8000", currentPSED))
-      }
-    }
-  }, [currentPSED])
-
   const resetAndClose = () => {
     resetAll()
     onCancel()
   }
 
   const resetAll = () => {
-    dispatch(cleanNewlyCreatedBuc())
-    dispatch(resetNewSed())
-    dispatch(resetPSED())
+    dispatch(resetATP())
   }
 
   useEffect(() => {
-    if (newlyCreatedBuc) {
+    if (newlyCreatedATPBuc) {
       setIsCreatingBuc(false)
       setIsCreatingSed(true)
       const payload: NewSedPayload = {
@@ -141,43 +127,45 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
             }
         ],
         aktoerId: aktoerId!,
-        euxCaseId: newlyCreatedBuc.caseId!
+        euxCaseId: newlyCreatedATPBuc.caseId!
       }
-      dispatch(createSed(newlyCreatedBuc, payload))
+      dispatch(createATPSed(newlyCreatedATPBuc, payload))
     }
-  }, [newlyCreatedBuc])
+  }, [newlyCreatedATPBuc])
 
   useEffect(() => {
-    if (newlyCreatedSed) {
+    if (newlyCreatedATPSed) {
       setIsCreatingSed(false)
       setIsGettingSed(true)
-      if(newlyCreatedBuc?.caseId) {
-        dispatch(getSedP8000(newlyCreatedBuc?.caseId, newlyCreatedSed))
-      }
+      dispatch(getSedP8000(newlyCreatedATPBuc!.caseId!, newlyCreatedATPSed))
     }
-  }, [newlyCreatedSed])
+  }, [newlyCreatedATPSed])
 
   useEffect(() => {
-    if (currentPSED) {
+    if (currentPSED && newlyCreatedATPBuc && newlyCreatedATPSed) {
       setIsGettingSed(false)
 
       const _person:  Person | undefined = _.get(currentPSED, targetPerson)
+      const begrunnelse = _.get(currentPSED, targetBegrunnelse)
+
       const danskePINs: Array<PIN> = _.filter(_person?.pin, p => p.land === 'DK')
       setDanskPIN(danskePINs && danskePINs.length > 0 ? danskePINs[0].identifikator : "")
+
+      if(!PSEDSavedResponse && begrunnelse && begrunnelse!==""){
+        dispatch(saveSed(newlyCreatedATPBuc!.caseId!, newlyCreatedATPSed!.id, "P8000", currentPSED))
+      }
     }
   }, [currentPSED])
 
   useEffect(() => {
-    if (PSEDSavedResponse) {
-      if(newlyCreatedBuc?.caseId) {
-        dispatch(sendSed(newlyCreatedBuc!.caseId, newlyCreatedSed!.id))
-      }
+    if (PSEDSavedResponse && newlyCreatedATPBuc && newlyCreatedATPSed) {
+      dispatch(sendSed(newlyCreatedATPBuc!.caseId!, newlyCreatedATPSed!.id))
     }
   }, [PSEDSavedResponse])
 
   useEffect(() => {
-    if (PSEDSendResponse) {
-      gotoBuc(newlyCreatedBuc!)
+    if (PSEDSendResponse && newlyCreatedATPBuc && newlyCreatedATPSed) {
+      gotoBuc(newlyCreatedATPBuc!)
     }
   }, [PSEDSendResponse])
 
@@ -214,11 +202,11 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
       <HorizontalLineSeparator/>
       <HStack gap="2" align="center">
         {_isCreatingBuc && <><Loader/> Oppretter P_BUC_05</>}
-        {newlyCreatedBuc && <><CheckmarkCircleFillIcon color="green" fontSize="1.5em"/> P_BUC_05 opprettet</>}
+        {newlyCreatedATPBuc && <><CheckmarkCircleFillIcon color="green" fontSize="1.5em"/> P_BUC_05 opprettet</>}
       </HStack>
       <HStack gap="2" align="center">
         {_isCreatingSed && <><Loader/> Oppretter P8000</>}
-        {newlyCreatedSed && <><CheckmarkCircleFillIcon color="green" fontSize="1.5em"/> P8000 opprettet</>}
+        {newlyCreatedATPSed && <><CheckmarkCircleFillIcon color="green" fontSize="1.5em"/> P8000 opprettet</>}
       </HStack>
       <HStack gap="2" align="center">
         {_isGettingSed && <><Loader/> Henter P8000</>}

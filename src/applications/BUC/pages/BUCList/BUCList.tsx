@@ -1,4 +1,5 @@
 import {
+  resetATP,
   setCurrentBuc
 } from 'src/actions/buc'
 import BUCFooter from 'src/applications/BUC/components/BUCFooter/BUCFooter'
@@ -36,7 +37,7 @@ import {
 import {BRUKERKONTEKST} from "src/constants/constants";
 import AvdodFnrSearch from "./AvdodFnrSearch";
 import ProgressBar from "src/components/ProgressBar/ProgressBar";
-//import P5000FraATP from "src/applications/P5000FraATP/P5000FraATP";
+import P5000FraATP from "src/applications/P5000FraATP/P5000FraATP";
 import {IS_Q} from "src/constants/environment";
 
 export interface BUCListProps {
@@ -122,6 +123,7 @@ const BUCList: React.FC<BUCListProps> = ({
 
   const onBestillP5000FraATP = (e: React.MouseEvent<HTMLButtonElement>): void => {
     buttonLogger(e)
+    dispatch(resetATP())
     setNewBucPanelOpen(false)
     setBestillP5000FraATPPanelOpen(true)
   }
@@ -235,7 +237,10 @@ const BUCList: React.FC<BUCListProps> = ({
       })}
       >
         <Box padding="8"  background="bg-default" borderWidth="1" borderColor="border-default">
-
+          <P5000FraATP
+            onCancel={() => setBestillP5000FraATPPanelOpen(false)}
+            setMode={setMode}
+          />
         </Box>
       </BUCStartDiv>
       <Box paddingBlock="4 0">
