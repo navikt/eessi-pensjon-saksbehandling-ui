@@ -45,7 +45,7 @@ export interface BucState {
   countryList: Array<string> | undefined
   currentBuc: string | undefined
   currentSed: Sed | undefined
-  PSED: PSED | undefined
+  PSED: PSED | undefined | null
   PSEDChanged: boolean
   PSEDSendResponse: any | null | undefined
   PSEDSavedResponse: any | null | undefined
@@ -59,8 +59,8 @@ export interface BucState {
   newlyCreatedBuc: Buc | undefined
   newlyCreatedSed: Sed | undefined
   newlyCreatedSedTime: number | undefined
-  newlyCreatedATPBuc: Buc | undefined
-  newlyCreatedATPSed: Sed | undefined
+  newlyCreatedATPBuc: Buc | undefined | null
+  newlyCreatedATPSed: Sed | undefined | null
   rinaId: string | undefined
   rinaUrl: RinaUrl | undefined
   savingAttachmentsJob: SavingAttachmentsJob | undefined
