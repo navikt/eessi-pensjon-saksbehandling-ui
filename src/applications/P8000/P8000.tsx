@@ -334,6 +334,10 @@ const P8000: React.FC<P8000Props> = ({
     EO_NO_05: []
   }
 
+  const isImplemented = (type: string): boolean => {
+    return type.indexOf("DUMMY") >= 0  || (P8000Variants[type]?.ofteEtterspurtInformasjon?.length > 0 || P8000Variants[type]?.informasjonSomKanLeggesInn?.length > 0);
+  }
+
   return (
     <>
       <VStack gap="4">
@@ -402,36 +406,41 @@ const P8000: React.FC<P8000Props> = ({
         </BoxWithBorderAndPadding>
         {_type &&
           <>
-            <BoxWithBorderAndPadding>
-              <VStack gap="4">
-                <Heading level="2" size="small">{t('p8000:form-heading-ofte-etterspurt-informasjon')}</Heading>
-                <P8000Fields
-                  fields={[
-                    {label: P5000, value: P5000, component: SendFolgendeSEDer},
-                    {label: P5000, value: P5000_MED_BEGRUNNELSE, component: SendFolgendeSEDerWithBegrunnelse, options: {sed: P5000, radioLabel: "P5000 trengs for"}},
-                    {label: P4000, value: P4000, component: SendFolgendeSEDer} ,
-                    {label: P6000, value: P6000, component: SendFolgendeSEDer} ,
-                    {label: "Brukers adresse", value: BRUKERS_ADRESSE, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                    {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                    {label: "Opplysninger om tiltak", value: TILTAK, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                    {label: "Nåværende arbeid: Arbeidstimer per uke og månedsinntekt", value: NAAVAERENDE_ARBEID, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                    {label: "Dokumentasjon på arbeid i Norge", value: DOKUMENTASJON_PAA_ARBEID_I_NORGE, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: false, showPeriod: true, showMonths: false, excludeNorway: false}},
-                    {label: "Ytelseshistorikk", value: YTELSESHISTORIKK, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                    {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: true, showMonths: false, excludeNorway: true}},
-                    {label: "IBAN og SWIFT", value: IBAN_SWIFT, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                    {label: "Folkbokföring (SE)", value: FOLKBOKFOERING, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                    {label: "Brukers sivilstand", value: BRUKERS_SIVILSTAND, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                    {label: "Opplysninger om EPS", value: OPPLYSNINGER_OM_EPS, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: false, showMonths: false, excludeNorway: true}},
-                    {label: "Person uten p.nr/d.nr", value: PERSON_UTEN_PNR_DNR, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                  ]}
-                  variant={P8000Variants[_type]?.ofteEtterspurtInformasjon}
-                  PSED={currentPSED}
-                  updatePSED={updatePSED}
-                  namespace={namespace + '-ofteEtterspurtInformasjon'}
-                />
-              </VStack>
-            </BoxWithBorderAndPadding>
-            {P8000Variants[_type]?.informasjonSomKanLeggesInn.length > 0 &&
+            {!isImplemented(_type) &&
+              <Alert variant="warning">Ikke implementert enda : {_type}</Alert>
+            }
+            {P8000Variants[_type]?.ofteEtterspurtInformasjon?.length > 0 &&
+              <BoxWithBorderAndPadding>
+                <VStack gap="4">
+                  <Heading level="2" size="small">{t('p8000:form-heading-ofte-etterspurt-informasjon')}</Heading>
+                  <P8000Fields
+                    fields={[
+                      {label: P5000, value: P5000, component: SendFolgendeSEDer},
+                      {label: P5000, value: P5000_MED_BEGRUNNELSE, component: SendFolgendeSEDerWithBegrunnelse, options: {sed: P5000, radioLabel: "P5000 trengs for"}},
+                      {label: P4000, value: P4000, component: SendFolgendeSEDer} ,
+                      {label: P6000, value: P6000, component: SendFolgendeSEDer} ,
+                      {label: "Brukers adresse", value: BRUKERS_ADRESSE, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                      {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                      {label: "Opplysninger om tiltak", value: TILTAK, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                      {label: "Nåværende arbeid: Arbeidstimer per uke og månedsinntekt", value: NAAVAERENDE_ARBEID, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                      {label: "Dokumentasjon på arbeid i Norge", value: DOKUMENTASJON_PAA_ARBEID_I_NORGE, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: false, showPeriod: true, showMonths: false, excludeNorway: false}},
+                      {label: "Ytelseshistorikk", value: YTELSESHISTORIKK, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                      {label: "Inntekt før uførhet i utlandet", value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: true, showMonths: false, excludeNorway: true}},
+                      {label: "IBAN og SWIFT", value: IBAN_SWIFT, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                      {label: "Folkbokföring (SE)", value: FOLKBOKFOERING, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                      {label: "Brukers sivilstand", value: BRUKERS_SIVILSTAND, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                      {label: "Opplysninger om EPS", value: OPPLYSNINGER_OM_EPS, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: false, showMonths: false, excludeNorway: true}},
+                      {label: "Person uten p.nr/d.nr", value: PERSON_UTEN_PNR_DNR, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                    ]}
+                    variant={P8000Variants[_type]?.ofteEtterspurtInformasjon}
+                    PSED={currentPSED}
+                    updatePSED={updatePSED}
+                    namespace={namespace + '-ofteEtterspurtInformasjon'}
+                  />
+                </VStack>
+              </BoxWithBorderAndPadding>
+            }
+            {P8000Variants[_type]?.informasjonSomKanLeggesInn?.length > 0 &&
               <BoxWithBorderAndPadding>
                 <VStack gap="4">
                   <Heading level="2" size="small">{t('p8000:form-heading-informasjon-som-kan-legges-inn')}</Heading>
