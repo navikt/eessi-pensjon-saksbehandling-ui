@@ -26,7 +26,7 @@ import {
   P6000, PERSON_UTEN_PNR_DNR, SAKSBEHANDLINGSTID,
   TILTAK,
   YTELSESHISTORIKK,
-  P5000_MED_BEGRUNNELSE
+  P5000_MED_BEGRUNNELSE, FORENKLET_FORESPOERSEL
 } from "src/constants/p8000";
 import {CheckboxWithCountryAndPeriods} from "src/applications/P8000/components/CheckboxWithCountryAndPeriods";
 import {CheckBoxField} from "src/applications/P8000/components/CheckboxField";
@@ -44,6 +44,7 @@ import _ from "lodash";
 import performValidation from "src/utils/performValidation";
 import ValidationBox from "src/components/ValidationBox/ValidationBox";
 import {SendFolgendeSEDerWithBegrunnelse} from "src/applications/P8000/components/SendFolgendeSEDerWithBegrunnelse";
+import {ForenkletForespoersel} from "src/applications/P8000/components/ForenkletForespoersel";
 
 export interface P8000Props {
   buc: Buc
@@ -322,12 +323,20 @@ const P8000: React.FC<P8000Props> = ({
       ],
       informasjonSomKanLeggesInn: []
     },
+    UT_NO_05: {
+      ofteEtterspurtInformasjon: [
+        FORENKLET_FORESPOERSEL
+      ]
+    },
+    AP_NO_05: {
+      ofteEtterspurtInformasjon: [
+        FORENKLET_FORESPOERSEL
+      ]
+    },
     UT_UTL_05: {},
-    UT_NO_05: [],
     AP_UTL_01: [],
     AP_UTL_05: [],
     AP_NO_01: [],
-    AP_NO_05: [],
     EO_UTL_02: [],
     EO_NO_02: [],
     EO_UTL_05: [],
@@ -417,6 +426,7 @@ const P8000: React.FC<P8000Props> = ({
                     fields={[
                       {label: P5000, value: P5000, component: SendFolgendeSEDer},
                       {label: P5000, value: P5000_MED_BEGRUNNELSE, component: SendFolgendeSEDerWithBegrunnelse, options: {sed: P5000, radioLabel: "P5000 trengs for"}},
+                      {label: "Forenklet forespørsel (anmodning om P5000)", value: FORENKLET_FORESPOERSEL, component: ForenkletForespoersel, options: {sed: P5000}},
                       {label: P4000, value: P4000, component: SendFolgendeSEDer} ,
                       {label: P6000, value: P6000, component: SendFolgendeSEDer} ,
                       {label: "Brukers adresse", value: BRUKERS_ADRESSE, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
