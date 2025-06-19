@@ -216,7 +216,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
     }
 
-    case types.BUC_CREATE_ATP_BUC_SUCCESS:{
+    case types.BUC_CREATE_ATP_BUC_SUCCESS: {
       const bucs = _.cloneDeep(state.bucs)
       const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
       const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload)
@@ -244,9 +244,19 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
     }
 
+    case types.BUC_CREATE_ATP_BUC_FAILURE:
+      return {
+        ...state,
+        newlyCreatedATPBuc: null
+      }
+
+    case types.BUC_CREATE_ATP_SED_FAILURE:
+      return {
+        ...state,
+        newlyCreatedATPSed: null
+      }
 
     case types.BUC_CREATE_SED_FAILURE:
-    case types.BUC_CREATE_ATP_SED_FAILURE:
     case types.GJENNY_CREATE_SED_FAILURE:
       standardLogger('sed.new.create.failure')
       return state

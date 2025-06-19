@@ -14,7 +14,7 @@ import {Buc, NewBucPayload, NewSedPayload, Sed} from "src/declarations/buc";
 import {PersonPDL} from "src/declarations/person";
 import {State} from "src/declarations/reducers";
 import {useDispatch, useSelector} from "react-redux";
-import {CheckmarkCircleFillIcon, CircleIcon} from "@navikt/aksel-icons";
+import {CheckmarkCircleFillIcon, CircleIcon, XMarkOctagonFillIcon} from "@navikt/aksel-icons";
 import {HorizontalLineSeparator} from "src/components/StyledComponents";
 import {IS_Q} from "src/constants/environment";
 import {P8000SED} from "src/declarations/p8000";
@@ -25,6 +25,15 @@ import {BUCMode} from "src/declarations/app";
 export interface P5000FraATPProps {
   onCancel: () => void
   setMode: (mode: BUCMode, s: string, callback?: any, content ?: JSX.Element) => void
+}
+
+interface ATPStepProps {
+  action: boolean
+  response: any
+  actionInitial: string
+  actionActive: string
+  actionSuccess: string
+  actionFailure: string
 }
 
 export interface P5000FraATPSelector {
@@ -132,6 +141,8 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
         euxCaseId: newlyCreatedATPBuc.caseId!
       }
       dispatch(createATPSed(newlyCreatedATPBuc, payload))
+    } else if (newlyCreatedATPBuc === null) {
+      setIsCreatingBuc(false)
     }
   }, [newlyCreatedATPBuc])
 
@@ -140,6 +151,8 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
       setIsCreatingSed(false)
       setIsGettingSed(true)
       dispatch(getSedP8000(newlyCreatedATPBuc!.caseId!, newlyCreatedATPSed))
+    } else if (newlyCreatedATPSed === null) {
+      setIsCreatingSed(false)
     }
   }, [newlyCreatedATPSed])
 
@@ -157,6 +170,8 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
         setIsSavingSed(true)
         dispatch(saveSed(newlyCreatedATPBuc!.caseId!, newlyCreatedATPSed!.id, "P8000", currentPSED))
       }
+    } else if (currentPSED === null) {
+      setIsGettingSed(false)
     }
   }, [currentPSED])
 
@@ -165,6 +180,8 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
       setIsSavingSed(false)
       setIsSendingSed(true)
       dispatch(sendSed(newlyCreatedATPBuc!.caseId!, newlyCreatedATPSed!.id))
+    } else if (PSEDSavedResponse === null) {
+      setIsSavingSed(false)
     }
   }, [PSEDSavedResponse])
 
@@ -172,6 +189,8 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
     if (PSEDSendResponse && newlyCreatedATPBuc && newlyCreatedATPSed) {
       setIsSendingSed(false)
       gotoBuc(newlyCreatedATPBuc!)
+    } else if (PSEDSendResponse === null) {
+      setIsSendingSed(false)
     }
   }, [PSEDSendResponse])
 
@@ -187,10 +206,23 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
     })
   }
 
+  const ATPStep: React.FC<ATPStepProps> =  ({
+    action, response, actionInitial, actionActive, actionSuccess, actionFailure
+  }: ATPStepProps): JSX.Element => {
+    return (
+      <HStack paddingInline="1" gap="2" align="center">
+        {!action && response === undefined && <><CircleIcon color="grey" fontSize="1.5em"/> {actionInitial}</>}
+        {action && <><Loader/> {actionActive}</>}
+        {response && <><CheckmarkCircleFillIcon color="green" fontSize="1.5em"/> {actionSuccess}</>}
+        {response === null && <><XMarkOctagonFillIcon color="var(--a-icon-danger)" fontSize="1.5em"/> {actionFailure}</>}
+      </HStack>
+    )
+  }
+
   return(
     <VStack gap="4">
       <Heading size='medium'>
-        Bestill P5000 fra ATP
+        {t('p8000:atp-label-bestill-p5000-fra-atp')}
       </Heading>
       <HStack gap="4">
         <Button
@@ -198,7 +230,7 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
           onClick={onCreateBucAndSed}
           loading={_isCreatingBuc || _isCreatingSed || _isGettingSed}
         >
-          Opprett P_BUC_05 og P8000
+          {t('p8000:atp-label-bestill')}
         </Button>
         <Button
           variant='tertiary'
@@ -207,31 +239,46 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
         </Button>
       </HStack>
       <HorizontalLineSeparator/>
-      <HStack gap="2" align="center">
-        {!_isCreatingBuc && !newlyCreatedATPBuc && <><CircleIcon color="grey" fontSize="1.5em"/> Opprette P_BUC_05</>}
-        {_isCreatingBuc && <><Loader/> Oppretter P_BUC_05</>}
-        {newlyCreatedATPBuc && <><CheckmarkCircleFillIcon color="green" fontSize="1.5em"/> P_BUC_05 opprettet</>}
-      </HStack>
-      <HStack gap="2" align="center">
-        {!_isCreatingSed && !newlyCreatedATPSed && <><CircleIcon color="grey" fontSize="1.5em"/> Opprette P8000</>}
-        {_isCreatingSed && <><Loader/> Oppretter P8000</>}
-        {newlyCreatedATPSed && <><CheckmarkCircleFillIcon color="green" fontSize="1.5em"/> P8000 opprettet</>}
-      </HStack>
-      <HStack gap="2" align="center">
-        {!_isGettingSed && !currentPSED && <><CircleIcon color="grey" fontSize="1.5em"/> Hente P8000</>}
-        {_isGettingSed && <><Loader/> Henter P8000</>}
-        {currentPSED && <><CheckmarkCircleFillIcon color="green" fontSize="1.5em"/> P8000 hentet</>}
-      </HStack>
-      <HStack gap="2" align="center">
-        {!_isSavingSed && !PSEDSavedResponse && <><CircleIcon color="grey" fontSize="1.5em"/> Lagre P8000</>}
-        {_isSavingSed && <><Loader/> Lagrer P8000</>}
-        {PSEDSavedResponse && <><CheckmarkCircleFillIcon color="green" fontSize="1.5em"/> P8000 lagret</>}
-      </HStack>
-      <HStack gap="2" align="center">
-        {!_isSendingSed && !PSEDSendResponse && <><CircleIcon color="grey" fontSize="1.5em"/> Sende P8000</>}
-        {_isSendingSed && <><Loader/> Sender P8000</>}
-        {PSEDSendResponse && <><CheckmarkCircleFillIcon color="green" fontSize="1.5em"/> P8000 sendt</>}
-      </HStack>
+      <ATPStep
+        action={_isCreatingBuc}
+        response={newlyCreatedATPBuc}
+        actionInitial={t('p8000:atp-opprette-buc-or-sed', {BUC_SED: "P_BUC_05"})}
+        actionActive={t('p8000:atp-oppretter-buc-or-sed', {BUC_SED: "P_BUC_05"})}
+        actionSuccess={t('p8000:atp-opprettet-buc-or-sed', {BUC_SED: "P_BUC_05"})}
+        actionFailure={t('p8000:atp-opprettelse-feilet-buc-or-sed', {BUC_SED: "P_BUC_05"})}
+      />
+      <ATPStep
+        action={_isCreatingSed}
+        response={newlyCreatedATPSed}
+        actionInitial={t('p8000:atp-opprette-buc-or-sed', {BUC_SED: "P8000"})}
+        actionActive={t('p8000:atp-oppretter-buc-or-sed', {BUC_SED: "P8000"})}
+        actionSuccess={t('p8000:atp-opprettet-buc-or-sed', {BUC_SED: "P8000"})}
+        actionFailure={t('p8000:atp-opprettelse-feilet-buc-or-sed', {BUC_SED: "P8000"})}
+      />
+      <ATPStep
+        action={_isGettingSed}
+        response={currentPSED}
+        actionInitial={t('p8000:atp-hente-buc-or-sed', {BUC_SED: "P8000"})}
+        actionActive={t('p8000:atp-henter-buc-or-sed', {BUC_SED: "P8000"})}
+        actionSuccess={t('p8000:atp-hentet-buc-or-sed', {BUC_SED: "P8000"})}
+        actionFailure={t('p8000:atp-henting-feilet-buc-or-sed', {BUC_SED: "P8000"})}
+      />
+      <ATPStep
+        action={_isSavingSed}
+        response={PSEDSavedResponse}
+        actionInitial={t('p8000:atp-lagre-buc-or-sed', {BUC_SED: "P8000"})}
+        actionActive={t('p8000:atp-lagrer-buc-or-sed', {BUC_SED: "P8000"})}
+        actionSuccess={t('p8000:atp-lagret-buc-or-sed', {BUC_SED: "P8000"})}
+        actionFailure={t('p8000:atp-lagring-feilet-buc-or-sed', {BUC_SED: "P8000"})}
+      />
+      <ATPStep
+        action={_isSendingSed}
+        response={PSEDSendResponse}
+        actionInitial={t('p8000:atp-sende-buc-or-sed', {BUC_SED: "P8000"})}
+        actionActive={t('p8000:atp-sender-buc-or-sed', {BUC_SED: "P8000"})}
+        actionSuccess={t('p8000:atp-sendt-buc-or-sed', {BUC_SED: "P8000"})}
+        actionFailure={t('p8000:atp-sending-feilet-buc-or-sed', {BUC_SED: "P8000"})}
+      />
       {currentPSED &&
         <HStack gap="4" align="end">
           <TextField
@@ -245,7 +292,7 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
             onClick={onUpdateAndSend}
             loading={savingSed || sendingSed}
           >
-            Send SED
+            {t('ui:send-sed')}
           </Button>
         </HStack>
       }

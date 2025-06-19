@@ -43,5 +43,28 @@
   "form-label-velg-spraak": "Velg språk",
   "form-label-velg-ytelse": "Velg ytelse",
   "form-label-velg-anmodning-referanseTilPerson": "SED gjelder",
-  "form-message-andmodning-referanseTilPerson-annen": "Du må fylle ut personopplysninger om annen person manuelt i RINA."
+  "form-message-andmodning-referanseTilPerson-annen": "Du må fylle ut personopplysninger om annen person manuelt i RINA.",
+
+  "atp-opprette-buc-or-sed": "Opprette {{BUC_SED}}",
+  "atp-oppretter-buc-or-sed": "Oppretter {{BUC_SED}}",
+  "atp-opprettet-buc-or-sed": "{{BUC_SED}} opprettet",
+  "atp-opprettelese-feilet-buc-or-sed": "Opprettelse av {{BUC_SED}} feilet",
+
+  "atp-hente-buc-or-sed": "Hente {{BUC_SED}}",
+  "atp-henter-buc-or-sed": "Henter {{BUC_SED}}",
+  "atp-hentet-buc-or-sed": "{{BUC_SED}} hentet",
+  "atp-henting-feilet-buc-or-sed": "Henting av {{BUC_SED}} feilet",
+
+  "atp-lagre-buc-or-sed": "Lagre {{BUC_SED}}",
+  "atp-lagrer-buc-or-sed": "Lagrer {{BUC_SED}}",
+  "atp-lagret-buc-or-sed": "{{BUC_SED}} lagret",
+  "atp-lagring-feilet-buc-or-sed": "Lagring av {{BUC_SED}} feilet",
+
+  "atp-sende-buc-or-sed": "Sende {{BUC_SED}}",
+  "atp-sender-buc-or-sed": "Sender {{BUC_SED}}",
+  "atp-sendt-buc-or-sed": "{{BUC_SED}} sendt",
+  "atp-sending-feilet-buc-or-sed": "Sending av {{BUC_SED}} feilet",
+
+  "atp-label-bestill": "Bestill",
+  "atp-label-bestill-p5000-fra-atp": "Bestill P5000 fra ATP"
 }
