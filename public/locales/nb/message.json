@@ -25,6 +25,10 @@
   "alert-updatedPageNotification" : "EP side melding oppdatert",
   "alert-X100"                    : "Saken er videresendt korrekt institusjon. Det er ikke nødvendig å opprette X005 for å videresende saken til den nye tyske institusjonen",
   "alert-p5000sFromS3"            : "Fant {{x}} P5000-perioder",
+  "alert-forenkletForespoersel"   : "Forenklet forespørsel",
+  "alert-forenkletForespoersel-txt": "Det er foreløpig kun mulig å sende forenklede forespørsler fra denne siden.",
+  "alert-notImplemented"          : "Ikke implementert enda",
+
 
   "error-noBuc"                               : "Feil å hente BUC",
   "error-noBucs"                              : "Feil å hente BUC-er",

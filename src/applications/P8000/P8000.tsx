@@ -416,12 +416,12 @@ const P8000: React.FC<P8000Props> = ({
         {_type &&
           <>
             {!isImplemented(_type) &&
-              <Alert variant="warning">Ikke implementert enda : {_type}</Alert>
+              <Alert variant="warning">{t('message:alert-notImplemented')}: {_type}</Alert>
             }
             {(_type === "UT_NO_05" || _type === "AP_NO_05") &&
               <Alert variant="info">
-                <Heading size={"small"}>Forenklet forespørsel</Heading>
-                Det er foreløpig kun mulig å sende forenklede forespørsler fra denne siden.
+                <Heading size={"small"}>{t('message:alert-forenkletForespoersel')}</Heading>
+                {t('message:alert-forenkletForespoersel-txt')}
               </Alert>
             }
             {P8000Variants[_type]?.ofteEtterspurtInformasjon?.length > 0 &&
