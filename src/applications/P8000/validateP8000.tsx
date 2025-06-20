@@ -220,5 +220,83 @@ export const validateP8000 = (
     }
   }
 
+  if(ofteEtterspurtInformasjon?.forenkletForespoersel && ofteEtterspurtInformasjon?.forenkletForespoersel.value){
+    const forenkletForespoersel: P8000Field = ofteEtterspurtInformasjon?.forenkletForespoersel
+
+    hasErrors.push(checkIfEmpty(v, {
+      needle: forenkletForespoersel.periodeFra,
+      id: namespace + '-ofteEtterspurtInformasjon' + '-forenkletForespoersel' + '-periodeFra',
+      message: 'validation:missing-p8000-periodeFra'
+    }))
+
+    hasErrors.push(checkIfEmpty(v, {
+      needle: forenkletForespoersel.periodeTil,
+      id: namespace + '-ofteEtterspurtInformasjon' + '-forenkletForespoersel' + '-periodeTil',
+      message: 'validation:missing-p8000-periodeTil'
+    }))
+
+    hasErrors.push(checkIfNotInteger(v, {
+      needle: forenkletForespoersel.periodeFra,
+      id: namespace + '-ofteEtterspurtInformasjon' + '-forenkletForespoersel' + '-periodeFra',
+      message: 'validation:notanumber-p8000-periodeFra'
+    }))
+
+    hasErrors.push(checkIfNotInteger(v, {
+      needle: forenkletForespoersel.periodeTil,
+      id: namespace + '-ofteEtterspurtInformasjon' + '-forenkletForespoersel' + '-periodeTil',
+      message: 'validation:notanumber-p8000-periodeTil'
+    }))
+
+    if(forenkletForespoersel.periodeFra && !hasFourDigits(forenkletForespoersel.periodeFra)){
+      hasErrors.push(addError(v, {
+        id: namespace + '-ofteEtterspurtInformasjon' + '-forenkletForespoersel' + '-periodeFra',
+        message: 'validation:notfourdigits-p8000-periodeFra',
+      }))
+    }
+
+    if(forenkletForespoersel.periodeTil && !hasFourDigits(forenkletForespoersel.periodeTil)){
+      hasErrors.push(addError(v, {
+        id: namespace + '-ofteEtterspurtInformasjon' + '-forenkletForespoersel' + '-periodeTil',
+        message: 'validation:notfourdigits-p8000-periodeTil',
+      }))
+    }
+
+    if(!_.isEmpty(forenkletForespoersel.periodeFra) &&
+      isInteger(forenkletForespoersel.periodeFra) &&
+      hasFourDigits(forenkletForespoersel.periodeFra))
+    {
+      if(isOutOfRange(forenkletForespoersel.periodeFra,1960,2035)){
+        hasErrors.push(addError(v, {
+          id: namespace + '-ofteEtterspurtInformasjon' + '-forenkletForespoersel' + '-periodeFra',
+          message: 'validation:notinrange-p8000-periodeFra',
+        }))
+      }
+    }
+
+    if(!_.isEmpty(forenkletForespoersel.periodeTil) &&
+      isInteger(forenkletForespoersel.periodeTil) &&
+      hasFourDigits(forenkletForespoersel.periodeTil))
+    {
+      if(isOutOfRange(forenkletForespoersel.periodeTil,1960,2035)){
+        hasErrors.push(addError(v, {
+          id: namespace + '-ofteEtterspurtInformasjon' + '-forenkletForespoersel' + '-periodeTil',
+          message: 'validation:notinrange-p8000-periodeTil',
+        }))
+      }
+    }
+
+    if(!_.isEmpty(forenkletForespoersel.periodeFra) && !_.isEmpty(forenkletForespoersel.periodeTil) &&
+      isInteger(forenkletForespoersel.periodeFra) && isInteger(forenkletForespoersel.periodeTil) &&
+      hasFourDigits(forenkletForespoersel.periodeFra) && hasFourDigits(forenkletForespoersel.periodeTil))
+    {
+      if(forenkletForespoersel.periodeFra > forenkletForespoersel.periodeTil){
+        hasErrors.push(addError(v, {
+          id: namespace + '-ofteEtterspurtInformasjon' + '-forenkletForespoersel' + '-periodeTil',
+          message: 'validation:notinrange-p8000-periodeTilPeriodeFra',
+        }))
+      }
+    }
+  }
+
   return hasErrors.find(value => value) !== undefined
 }
