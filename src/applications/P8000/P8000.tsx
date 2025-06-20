@@ -343,10 +343,26 @@ const P8000: React.FC<P8000Props> = ({
     EO_NO_05: []
   }
 
+  const variantDescription: {[key: string]: string} = {
+    "AP": "Alderspensjon",
+    "UT": "Uføretrygd",
+    "EO": "Gjenlevende",
+    "NO": "Bosatt Norge",
+    "UTL": "Bosatt utland",
+    "01": "P_BUC_01",
+    "03": "P_BUC_03",
+    "05": "P_BUC_05"
+  }
+
   const isImplemented = (type: string): boolean => {
     return type.indexOf("DUMMY") >= 0  || (P8000Variants[type]?.ofteEtterspurtInformasjon?.length > 0 || P8000Variants[type]?.informasjonSomKanLeggesInn?.length > 0);
   }
 
+  const getTypeDescription = (type: string): string => {
+    const typeParts = type.split('_')
+    return variantDescription[typeParts[0]] + ", " + variantDescription[typeParts[1]] + ", " + variantDescription[typeParts[2]]
+  }
+  
   return (
     <>
       <VStack gap="4">
@@ -416,7 +432,7 @@ const P8000: React.FC<P8000Props> = ({
         {_type &&
           <>
             {!isImplemented(_type) &&
-              <Alert variant="warning">{t('message:alert-notImplemented')}: {_type}</Alert>
+              <Alert variant="warning">{t('message:alert-notImplemented')}: {getTypeDescription(_type)}</Alert>
             }
             {(_type === "UT_NO_05" || _type === "AP_NO_05") &&
               <Alert variant="info">
