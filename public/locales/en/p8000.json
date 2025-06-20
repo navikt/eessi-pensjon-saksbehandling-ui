@@ -20,6 +20,6 @@
   "P5000-begrunnelse-endelig-beregning": "For the final calculation of disability benefit from Norway.",
 
   "forenkletForespoersel-AP": "We are processing a claim for old age pension in Norway. Has the person named in section 2 accumulated any periods under\n your insurance scheme? The person informs Nav they stayed in your country from {{periodeFra}} to {{periodeTil}}.  Please tell us if you require P2000.",
-  "forenkletForespoersel-UT": "We are processing a claim for disability benefit in Norway. Has the person named in section 2 accumulated any periods under\n your insurance scheme? The person informs Nav they stayed in your country from {{periodeFra}} to {{periodeTil}}.  Please tell us if you require P2000.",
+  "forenkletForespoersel-UT": "We are processing a claim for disability benefit in Norway. Has the person named in section 2 accumulated any periods under\n your insurance scheme? The person informs Nav they stayed in your country from {{periodeFra}} to {{periodeTil}}.  Please tell us if you require P2200.",
   "forenkletForespoersel-nopin": "The person tells us they never got a national identification number from your country."
 }
