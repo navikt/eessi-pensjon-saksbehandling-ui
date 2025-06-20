@@ -404,7 +404,6 @@ const P8000: React.FC<P8000Props> = ({
                   >
                     <ToggleGroup.Item value="AP" label={t('p8000:form-label-ytelse-alderspensjon')}/>
                     <ToggleGroup.Item value="UT" label={t('p8000:form-label-ytelse-ufoere')}/>
-                    <ToggleGroup.Item value="EO" label={t('p8000:form-label-ytelse-gjenlevende')}/>
                   </ToggleGroup>
                 }
                 {!_hideBosettingsStatus &&
