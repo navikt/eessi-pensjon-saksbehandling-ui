@@ -17,5 +17,9 @@
   "saksbehandlingstid": "The processing time is estimated to {{antallMaaneder}} months",
   "P5000ForP5000NO": "In order to issue P5000 NO, we need your P5000 first.",
   "P5000-begrunnelse-sammenlegging": "For the aggregation of periods to assess the right to disability benefit from Norway.",
-  "P5000-begrunnelse-endelig-beregning": "For the final calculation of disability benefit from Norway."
+  "P5000-begrunnelse-endelig-beregning": "For the final calculation of disability benefit from Norway.",
+
+  "forenkletForespoersel-AP": "We are processing a claim for old age pension in Norway. Has the person named in section 2 accumulated any periods under\n your insurance scheme? The person informs Nav they stayed in your country from {{periodeFra}} to {{periodeTil}}.  Please tell us if you require P2000.",
+  "forenkletForespoersel-UT": "We are processing a claim for disability benefit in Norway. Has the person named in section 2 accumulated any periods under\n your insurance scheme? The person informs Nav they stayed in your country from {{periodeFra}} to {{periodeTil}}.  Please tell us if you require P2000.",
+  "forenkletForespoersel-nopin": "The person tells us they never got a national identification number from your country."
 }

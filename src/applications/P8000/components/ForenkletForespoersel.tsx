@@ -11,6 +11,7 @@ import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "src/applications/P2000/MainForm";
 import {useAppSelector} from "src/store";
 import {resetValidation} from "src/actions/validation";
+import {hasFourDigits} from "src/utils/validation";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -25,6 +26,7 @@ export const ForenkletForespoersel: React.FC<P8000FieldComponentProps> = ({
   const targetBegrunnelse = "pensjon.anmodning.seder[0].begrunnelse"
   const targetOptions = "options.ofteEtterspurtInformasjon"
   const sendFolgendeSEDer: Array<string> = _.get(PSED, target)
+  const forenkletForespoersel: P8000Field = _.get(PSED, targetOptions + ".forenkletForespoersel")
   const { validation } = useAppSelector(mapState)
 
   const field: P8000Field = _.get(PSED, `${targetOptions}.${value}`)
@@ -33,10 +35,33 @@ export const ForenkletForespoersel: React.FC<P8000FieldComponentProps> = ({
 
   const setHarIkkeUtenlandskPIN = (propValue: boolean) => {
     dispatch(updatePSED(`${targetOptions}.${value}.harIkkeUtenlandskPIN`, propValue))
+    setBegrunnelse(propValue)
   }
 
   const setProperty = (property: string, propValue: string) => {
     dispatch(updatePSED(`${targetOptions}.${value}.${property}`, propValue))
+  }
+
+  const setBegrunnelse = (hasPin?: boolean) => {
+    if(forenkletForespoersel && forenkletForespoersel.periodeFra  && forenkletForespoersel.periodeTil){
+      const fra = forenkletForespoersel.periodeFra
+      const til = forenkletForespoersel.periodeTil
+      const harIkkeUtenlandskPIN = forenkletForespoersel.harIkkeUtenlandskPIN
+      const ytelse = PSED?.options?.type?.ytelse
+
+      if(hasFourDigits(fra) && hasFourDigits(til)){
+        const txt = t('p8000:forenkletForespoersel-' + ytelse, {periodeFra: fra, periodeTil: til})
+        let pinTxt = ""
+        if(hasPin !== undefined){
+          pinTxt = hasPin ? t('p8000:forenkletForespoersel-nopin') : ""
+        } else {
+          pinTxt = harIkkeUtenlandskPIN ? t('p8000:forenkletForespoersel-nopin') : ""
+        }
+
+        const begrunnelse = txt + " " + pinTxt
+        dispatch(updatePSED(`${targetBegrunnelse}`, begrunnelse))
+      }
+    }
   }
 
 
@@ -49,13 +74,13 @@ export const ForenkletForespoersel: React.FC<P8000FieldComponentProps> = ({
   if(checked && !field){
     dispatch(updatePSED(`${targetOptions}.${value}.value`, true))
     dispatch(updatePSED(`${targetOptions}.${value}.doNotGenerateFritekst`, true))
-    dispatch(updatePSED(`${targetBegrunnelse}`, "FORENKLET TEKST"))
   }
 
   useEffect(() => {
     if(i18n.language !== PSED?.options?.type?.spraak){
       i18n.changeLanguage(PSED?.options?.type?.spraak)
     }
+    setBegrunnelse()
   }, [PSED?.options?.type?.spraak])
 
   return (
@@ -88,6 +113,7 @@ export const ForenkletForespoersel: React.FC<P8000FieldComponentProps> = ({
                 hideLabel={false}
                 value={field?.periodeFra}
                 onChange={(e) => setProperty('periodeFra', e.target.value)}
+                onBlur={() => setBegrunnelse()}
               />
               <TextField
                 id={namespace + "-" + value + "-periodeTil"}
@@ -97,13 +123,14 @@ export const ForenkletForespoersel: React.FC<P8000FieldComponentProps> = ({
                 hideLabel={false}
                 value={field?.periodeTil}
                 onChange={(e) => setProperty('periodeTil', e.target.value)}
+                onBlur={() => setBegrunnelse()}
               />
             </HStack>
             <Checkbox
               checked={field?.harIkkeUtenlandskPIN ? field?.harIkkeUtenlandskPIN : false}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setHarIkkeUtenlandskPIN(e.target.checked)}
             >
-              Bruker har ikke utenlandsk PIN
+              {t('p8000:form-label-bruker-har-ikke-utenlandsk-pin')}
             </Checkbox>
           </VStack>
 
