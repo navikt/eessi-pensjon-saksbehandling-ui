@@ -84,8 +84,7 @@ export default {
   },
   "options": {
     "type": {
-      spraak: "" +
-        ""
+      spraak: ""
     },
     "ofteEtterspurtInformasjon": {
       "tiltak": {

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Buc, Bucs, Institutions, Sed} from "src/declarations/buc";
-import {BUCMode, PSED, Validation} from "src/declarations/app";
+import {BUCMode, PesysContext, PSED, Validation} from "src/declarations/app";
 import {useDispatch, useSelector} from "react-redux";
 import {resetEditingItems} from "src/actions/app";
 import {resetValidation, setValidation} from "src/actions/validation";
@@ -45,6 +45,7 @@ import performValidation from "src/utils/performValidation";
 import ValidationBox from "src/components/ValidationBox/ValidationBox";
 import {SendFolgendeSEDerWithBegrunnelse} from "src/applications/P8000/components/SendFolgendeSEDerWithBegrunnelse";
 import {ForenkletForespoersel} from "src/applications/P8000/components/ForenkletForespoersel";
+import {GJENNY} from "src/constants/constants";
 
 export interface P8000Props {
   buc: Buc
@@ -63,6 +64,7 @@ export interface P8000FieldComponentProps {
 }
 
 export interface P8000Selector {
+  context: PesysContext | undefined
   currentPSED: P8000SED
   currentBuc: string
   bucs: Bucs
@@ -72,6 +74,7 @@ export interface P8000Selector {
 }
 
 const mapState = (state: State): P8000Selector => ({
+  context: state.app.pesysContext,
   currentPSED: state.buc.PSED as P8000SED,
   currentBuc: state.buc.currentBuc,
   bucs: state.buc.bucs,
@@ -88,7 +91,7 @@ const P8000: React.FC<P8000Props> = ({
 }: P8000Props): JSX.Element => {
   const {t, i18n} = useTranslation()
   const dispatch = useDispatch()
-  const { gettingSed, currentPSED, currentBuc, bucs, validation }: P8000Selector = useSelector<State, P8000Selector>(mapState)
+  const { context, gettingSed, currentPSED, currentBuc, bucs, validation }: P8000Selector = useSelector<State, P8000Selector>(mapState)
   const namespace = "p8000"
 
   const [_ytterligereInformasjon, setYtterligereInformasjon] = useState<string | undefined>(undefined)
@@ -145,8 +148,10 @@ const P8000: React.FC<P8000Props> = ({
     if(currentPSED && !currentPSED?.options?.type?.ytelse){
       if(bucType === "03"){
         setProperty("ytelse", "UT")
-      } else if(bucType === "01"){
+      } else if(bucType === "01") {
         setProperty("ytelse", "AP")
+      } else if (context === GJENNY) {
+        setProperty("ytelse", "EO")
       } else {
         setProperty("ytelse", "DUMMY")
       }
@@ -350,6 +355,7 @@ const P8000: React.FC<P8000Props> = ({
     "NO": "Bosatt Norge",
     "UTL": "Bosatt utland",
     "01": "P_BUC_01",
+    "02": "P_BUC_02",
     "03": "P_BUC_03",
     "05": "P_BUC_05"
   }
@@ -362,7 +368,7 @@ const P8000: React.FC<P8000Props> = ({
     const typeParts = type.split('_')
     return variantDescription[typeParts[0]] + ", " + variantDescription[typeParts[1]] + ", " + variantDescription[typeParts[2]]
   }
-  
+
   return (
     <>
       <VStack gap="4">
@@ -390,7 +396,7 @@ const P8000: React.FC<P8000Props> = ({
                   <ToggleGroup.Item value="nb" label={t('p8000:form-label-spraak-norsk')}/>
                   <ToggleGroup.Item value="en" label={t('p8000:form-label-spraak-engelsk')}/>
                 </ToggleGroup>
-                {bucType !== "03" && bucType !== "01" &&
+                {bucType !== "03" && bucType !== "01" && context !== GJENNY &&
                   <ToggleGroup
                     value={currentPSED?.options?.type?.ytelse}
                     onChange={(v) => onToggle("ytelse", v)}
@@ -398,6 +404,7 @@ const P8000: React.FC<P8000Props> = ({
                   >
                     <ToggleGroup.Item value="AP" label={t('p8000:form-label-ytelse-alderspensjon')}/>
                     <ToggleGroup.Item value="UT" label={t('p8000:form-label-ytelse-ufoere')}/>
+                    <ToggleGroup.Item value="EO" label={t('p8000:form-label-ytelse-gjenlevende')}/>
                   </ToggleGroup>
                 }
                 {!_hideBosettingsStatus &&
