@@ -38,7 +38,6 @@ describe('components/MultipleSelect/MultipleOption', () => {
   it('Render: has proper HTML structure', () => {
     render(<MultipleOption {...initialMockProps} />)
     expect(screen.getByTestId('c-multipleoption--checkbox--mockValue')).toBeInTheDocument()
-    screen.debug()
   })
 
   it('Handling: Triggers innerProps.onClick', () => {
