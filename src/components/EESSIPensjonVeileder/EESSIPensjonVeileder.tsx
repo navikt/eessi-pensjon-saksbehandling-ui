@@ -1,6 +1,7 @@
 import PT from 'prop-types'
-import SmilendeOrangeVeileder from './veileder/navPensjonSmilendeOrangeVeileder.png'
-import TristOrangeVeileder from './veileder/navPensjonTristOrangeVeileder.png'
+
+const SmilendeOrangeVeileder = './veileder/navPensjonSmilendeOrangeVeileder.png'
+const TristOrangeVeileder = './veileder/navPensjonTristOrangeVeileder.png'
 
 export type Mood = 'smilende' |'trist'
 

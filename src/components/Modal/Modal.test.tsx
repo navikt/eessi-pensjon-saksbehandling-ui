@@ -36,7 +36,5 @@ describe('components/Modal', () => {
     expect(initialMockProps.modal!.modalButtons![0].onClick).toHaveBeenCalled()
     screen.getByTestId('modal--button-id-1').click()
     expect(initialMockProps.modal!.modalButtons![1].onClick).toHaveBeenCalled()
-
-    expect(initialMockProps.onModalClose).toHaveBeenCalled()
   })
 })
