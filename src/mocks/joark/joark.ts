@@ -51,7 +51,11 @@ export default {
           dokumentInfoId: '3',
           tittel: 'Dok.vedr. norskkurs- faxet Utlendingsnemnda',
           dokumentvarianter: []
-        }]
+        }],
+        relevanteDatoer: [{
+          dato: '2010-11-01T12:26:55',
+          datotype: 'DATO_JOURNALFOERT'
+        }],
       }, {
         tilleggsopplysninger: [],
         journalpostId: '7',
