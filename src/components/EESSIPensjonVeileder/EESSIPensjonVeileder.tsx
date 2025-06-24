@@ -1,7 +1,7 @@
 import PT from 'prop-types'
 
-const SmilendeOrangeVeileder = './veileder/navPensjonSmilendeOrangeVeileder.png'
-const TristOrangeVeileder = './veileder/navPensjonTristOrangeVeileder.png'
+const SmilendeOrangeVeileder = 'src/components/EESSIPensjonVeileder/veileder/navPensjonSmilendeOrangeVeileder.png'
+const TristOrangeVeileder = 'src/components/EESSIPensjonVeileder/veileder/navPensjonTristOrangeVeileder.png'
 
 export type Mood = 'smilende' |'trist'
 
