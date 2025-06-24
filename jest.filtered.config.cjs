@@ -14,7 +14,8 @@ module.exports = {
     '<rootDir>/src/applications/P5000/tables/?(*.)+(spec|test).+(ts|tsx)',
     '<rootDir>/src/applications/P5000/utils/?(*.)+(spec|test).+(ts|tsx)',
     '<rootDir>/src/applications/BUC/components/BUCUtils/?(*.)+(spec|test).+(ts|tsx)',
-    '<rootDir>/src/components/?(**/*.)+(spec|test).+(ts|tsx)'
+    '<rootDir>/src/components/?(**/*.)+(spec|test).+(ts|tsx)',
+    '<rootDir>/src/pages/?(**/*.)+(spec|test).+(ts|tsx)'
   ],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest'
