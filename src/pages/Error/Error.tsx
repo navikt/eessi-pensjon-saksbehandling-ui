@@ -61,7 +61,10 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
 
   return (
     <TopContainer>
-      <ErrorPageDiv gap="4">
+      <ErrorPageDiv
+        gap="4"
+        data-testid='p-error--top-container-id'
+      >
         <Veileder
           mood='trist'
           data-testid='p-error--veileder-id'

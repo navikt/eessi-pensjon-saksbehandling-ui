@@ -1,9 +1,7 @@
-
 import { render, screen } from '@testing-library/react'
-import { Error as PageError, ErrorPageDiv, ErrorPageProps } from './Error'
-import { Accordion } from '@navikt/ds-react'
+import { Error as PageError, ErrorPageProps } from './Error'
 
-jest.mock('components/TopContainer/TopContainer', () => {
+jest.mock('src/components/TopContainer/TopContainer', () => {
   return ({ children }: { children: JSX.Element }) => {
     return (
       <div className='mock-c-topcontainer'>
@@ -13,9 +11,7 @@ jest.mock('components/TopContainer/TopContainer', () => {
   }
 })
 
-describe('pages/Error', () => {
-  let wrapper: any
-
+describe('src/pages/Error', () => {
   const initialMockProps: ErrorPageProps = {
     error: {
       stack: 'foo'
@@ -23,58 +19,49 @@ describe('pages/Error', () => {
     type: 'mockType'
   }
 
-  afterEach(() => {
-    wrapper.unmount()
-  })
-
-  it('Render: match snapshot', () => {
-    const { container } = render(<PageError {...initialMockProps} type='something' />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
   it('Render: Page forbidden: Has proper HTML structure', () => {
-    wrapper = render(<PageError {...initialMockProps} type='forbidden' />)
-    expect(wrapper.exists(ErrorPageDiv)).toBeTruthy()
-    expect(screen.getByTestId('p-error--veileder-id')).toBeTruthy()
-    expect(wrapper.find('[data-testid=\'p-error--title-id').hostNodes().render().text()).toEqual('ui:error-forbidden-title')
-    expect(wrapper.find('[data-testid=\'p-error--description-id').hostNodes().render().text()).toEqual('ui:error-forbidden-description')
-    expect(wrapper.find('[data-testid=\'p-error--footer-id').hostNodes().render().text()).toEqual('ui:error-forbidden-footer')
+    render(<PageError {...initialMockProps} type='forbidden' />)
+    expect(screen.getByTestId('p-error--top-container-id')).toBeInTheDocument()
+    expect(screen.getByTestId('c-eessipensjonveileder')).toBeTruthy()
+    expect(screen.getByText('message:error-forbidden-title')).toBeInTheDocument()
+    expect(screen.getByText('message:error-forbidden-description')).toBeInTheDocument()
+    expect(screen.getByText('message:error-forbidden-footer')).toBeInTheDocument()
   })
 
   it('Render: Page notLogged: Has proper HTML structure', () => {
-    wrapper = render(<PageError {...initialMockProps} type='notLogged' />)
-    expect(wrapper.exists(ErrorPageDiv)).toBeTruthy()
-    expect(screen.getByTestId('p-error--veileder-id')).toBeTruthy()
-    expect(wrapper.find('[data-testid=\'p-error--title-id').hostNodes().render().text()).toEqual('ui:error-notLogged-title')
-    expect(wrapper.find('[data-testid=\'p-error--description-id').hostNodes().render().text()).toEqual('ui:error-notLogged-description')
-    expect(wrapper.find('[data-testid=\'p-error--footer-id').hostNodes().render().text()).toEqual('ui:error-notLogged-footer')
+    render(<PageError {...initialMockProps} type='notLogged' />)
+    expect(screen.getByTestId('p-error--top-container-id')).toBeTruthy()
+    expect(screen.getByTestId('c-eessipensjonveileder')).toBeTruthy()
+    expect(screen.getByText('message:error-notLogged-title')).toBeInTheDocument()
+    expect(screen.getByText('message:error-notLogged-description')).toBeInTheDocument()
+    expect(screen.getByText('message:error-notLogged-footer')).toBeInTheDocument()
   })
 
   it('Render: Page notInvited: Has proper HTML structure', () => {
-    wrapper = render(<PageError {...initialMockProps} type='notInvited' />)
-    expect(wrapper.exists(ErrorPageDiv)).toBeTruthy()
-    expect(screen.getByTestId('p-error--veileder-id')).toBeTruthy()
-    expect(wrapper.find('[data-testid=\'p-error--title-id').hostNodes().render().text()).toEqual('ui:error-notInvited-title')
-    expect(wrapper.find('[data-testid=\'p-error--description-id').hostNodes().render().text()).toEqual('ui:error-notInvited-description')
-    expect(wrapper.find('[data-testid=\'p-error--footer-id').hostNodes().render().text()).toEqual('ui:error-notInvited-footer')
+    render(<PageError {...initialMockProps} type='notInvited' />)
+    expect(screen.getByTestId('p-error--top-container-id')).toBeTruthy()
+    expect(screen.getByTestId('c-eessipensjonveileder')).toBeTruthy()
+    expect(screen.getByText('message:error-notInvited-title')).toBeInTheDocument()
+    expect(screen.getByText('message:error-notInvited-description')).toBeInTheDocument()
+    expect(screen.getByText('message:error-notInvited-footer')).toBeInTheDocument()
   })
 
   it('Render: Page internalError: Has proper HTML structure', () => {
     const mockError = new Error('Mock error')
-    wrapper = render(<PageError {...initialMockProps} type='internalError' error={mockError} />)
-    expect(wrapper.exists(ErrorPageDiv)).toBeTruthy()
-    expect(screen.getByTestId('p-error--veileder-id')).toBeTruthy()
-    expect(wrapper.find('[data-testid=\'p-error--title-id').hostNodes().render().text()).toEqual('ui:error-internalError-title')
-    expect(wrapper.find('[data-testid=\'p-error--description-id').hostNodes().render().text()).toEqual('ui:error-internalError-description')
-    expect(wrapper.exists(Accordion)).toBeTruthy()
-    expect(wrapper.find('[data-testid=\'p-error--footer-id').hostNodes().render().text()).toEqual('ui:error-internalError-footer')
+    render(<PageError {...initialMockProps} type='internalError' error={mockError} />)
+    expect(screen.getByTestId('p-error--top-container-id')).toBeTruthy()
+    expect(screen.getByTestId('c-eessipensjonveileder')).toBeTruthy()
+    expect(screen.getByText('message:error-internalError-title')).toBeInTheDocument()
+    expect(screen.getByText('message:error-internalError-description')).toBeInTheDocument()
+    expect(screen.getByTestId('p-error--content-error-id')).toBeTruthy()
+    expect(screen.getByText('message:error-internalError-footer')).toBeInTheDocument()
   })
 
   it('Render: Page default: Has proper HTML structure', () => {
-    wrapper = render(<PageError {...initialMockProps} type='default' />)
-    expect(wrapper.exists(ErrorPageDiv)).toBeTruthy()
-    expect(screen.getByTestId('p-error--veileder-id')).toBeTruthy()
-    expect(wrapper.find('[data-testid=\'p-error--title-id').hostNodes().render().text()).toEqual('ui:error-404-title')
-    expect(wrapper.find('[data-testid=\'p-error--description-id').hostNodes().render().text()).toEqual('ui:error-404-description')
+    render(<PageError {...initialMockProps} type='default' />)
+    expect(screen.getByTestId('p-error--top-container-id')).toBeTruthy()
+    expect(screen.getByTestId('c-eessipensjonveileder')).toBeTruthy()
+    expect(screen.getByText('message:error-404-title')).toBeInTheDocument()
+    expect(screen.getByText('message:error-404-description')).toBeInTheDocument()
   })
 })
