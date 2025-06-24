@@ -38,6 +38,5 @@ describe('pages/AdminPage', () => {
     expect(screen.getByText('Resending av liste med SED\'er for å journalføre.')).toBeInTheDocument()
     expect(screen.getByText('Dokumentliste')).toBeInTheDocument()
     expect(screen.getAllByText('Resend')).toBeTruthy()
-    screen.debug()
   })
 })
