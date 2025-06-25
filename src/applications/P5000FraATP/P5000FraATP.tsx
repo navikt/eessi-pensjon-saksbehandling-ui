@@ -19,7 +19,7 @@ import {HorizontalLineSeparator} from "src/components/StyledComponents";
 import {IS_Q} from "src/constants/environment";
 import {P8000SED} from "src/declarations/p8000";
 import {Person, PIN} from "src/declarations/sed";
-import _ from "lodash";
+import _, {cloneDeep} from "lodash";
 import {BUCMode} from "src/declarations/app";
 
 export interface P5000FraATPProps {
@@ -170,7 +170,16 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
 
       if(!PSEDSavedResponse && begrunnelse && begrunnelse!==""){
         setIsSavingSed(true)
-        dispatch(saveSed(newlyCreatedATPBuc!.caseId!, newlyCreatedATPSed!.id, "P8000", currentPSED))
+        let PSEDToSave = cloneDeep(currentPSED)
+        if(PSEDToSave.options){
+          const encodeOptionsString = encodeURI(JSON.stringify(currentPSED.options))
+          PSEDToSave = {
+            ...PSEDToSave,
+            options: encodeOptionsString
+          }
+        }
+
+        dispatch(saveSed(newlyCreatedATPBuc!.caseId!, newlyCreatedATPSed!.id, "P8000", PSEDToSave))
       }
     } else if (currentPSED === null) {
       setIsGettingSed(false)
