@@ -117,11 +117,12 @@ const P8000: React.FC<P8000Props> = ({
   })
 
   useEffect(() => {
-    if(isATP()) return
     if(currentPSED && currentPSED.fritekst && !_fritekstLoaded){
       setFritekst(currentPSED.fritekst)
       setFritekstLoaded(true)
     }
+
+    if(isATP()) return
 
     if(buc.seds && currentPSED && !currentPSED?.options?.type?.bosettingsstatus){
       const receivedP2200 = buc.seds.find((s) => {
