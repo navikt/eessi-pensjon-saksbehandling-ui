@@ -980,11 +980,19 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         .map(part => part.trim()) // Remove whitespace and newlines
         .filter(Boolean); // Remove empty strings
 
+      let fritekst = undefined
+      if(fritekstArray && fritekstArray.length === 2){
+        fritekst = fritekstArray[1]
+      } else if(fritekstArray && fritekstArray.length === 1){
+        // if first item is empty string (i.e. no options)
+        fritekst = fritekstArray[0]
+      }
+
       return {
         ...state,
         PSED: {
           ...payload,
-          fritekst: fritekstArray && fritekstArray.length === 2 ? fritekstArray[1] : undefined,
+          fritekst: fritekst,
           originalSed: sed
         },
         PSEDChanged: false
