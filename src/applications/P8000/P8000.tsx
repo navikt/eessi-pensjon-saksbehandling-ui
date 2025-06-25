@@ -108,11 +108,16 @@ const P8000: React.FC<P8000Props> = ({
     "en": CountryData.getCountryInstance('en'),
   }
 
+  const isATP = (): boolean => {
+    return !!(currentPSED && currentPSED.options && currentPSED.options.ATP)
+  }
+
   useUnmount(() => {
     dispatch(resetPSED())
   })
 
   useEffect(() => {
+    if(isATP()) return
     if(currentPSED && currentPSED.fritekst && !_fritekstLoaded){
       setFritekst(currentPSED.fritekst)
       setFritekstLoaded(true)
@@ -360,8 +365,8 @@ const P8000: React.FC<P8000Props> = ({
     "05": "P_BUC_05"
   }
 
-  const isImplemented = (type: string): boolean => {
-    return type.indexOf("DUMMY") >= 0  || (P8000Variants[type]?.ofteEtterspurtInformasjon?.length > 0 || P8000Variants[type]?.informasjonSomKanLeggesInn?.length > 0);
+  const isImplemented = (): boolean => {
+    return isATP() || ((P8000Variants[_type]?.ofteEtterspurtInformasjon?.length > 0 || P8000Variants[_type]?.informasjonSomKanLeggesInn?.length > 0));
   }
 
   const getTypeDescription = (type: string): string => {
@@ -386,7 +391,7 @@ const P8000: React.FC<P8000Props> = ({
         <BoxWithBorderAndPadding>
           <VStack gap="4">
             <Heading level="1" size="medium">{t('p8000:form-heading-p8000')} ({buc.type?.toUpperCase()} - {t('buc:buc-' + buc.type?.toUpperCase())})</Heading>
-            {currentPSED && currentPSED.options && currentPSED.options.type &&
+            {currentPSED && currentPSED.options && currentPSED.options.type && !isATP() &&
               <HStack gap="4">
                 <ToggleGroup
                   value={currentPSED?.options?.type?.spraak}
@@ -435,11 +440,11 @@ const P8000: React.FC<P8000Props> = ({
             }
           </VStack>
         </BoxWithBorderAndPadding>
-        {_type &&
+        {!isImplemented() && _type.indexOf("DUMMY") === -1  &&
+          <Alert variant="warning">{t('message:alert-notImplemented')}: {getTypeDescription(_type)}</Alert>
+        }
+        {isImplemented() &&
           <>
-            {!isImplemented(_type) &&
-              <Alert variant="warning">{t('message:alert-notImplemented')}: {getTypeDescription(_type)}</Alert>
-            }
             {(_type === "UT_NO_05" || _type === "AP_NO_05") &&
               <Alert variant="info">
                 <Heading size={"small"}>{t('message:alert-forenkletForespoersel')}</Heading>
@@ -495,6 +500,12 @@ const P8000: React.FC<P8000Props> = ({
                 </VStack>
               </BoxWithBorderAndPadding>
             }
+            {isATP() &&
+              <BoxWithBorderAndPadding>
+                <Heading size={"small"}>Anmodning om P5000 fra ATP</Heading>
+                <em>{currentPSED.pensjon.anmodning.seder[0].begrunnelse}</em>
+              </BoxWithBorderAndPadding>
+            }
             <BoxWithBorderAndPadding>
               <UtenlandskePin
                 PSED={currentPSED}
@@ -503,32 +514,34 @@ const P8000: React.FC<P8000Props> = ({
                 updatePSED={updatePSED}
               />
             </BoxWithBorderAndPadding>
-            <BoxWithBorderAndPadding>
-              <UtenlandskeSaksnr
-                PSED={currentPSED}
-                parentNamespace={namespace}
-                parentTarget="nav"
-                updatePSED={updatePSED}
-              />
-            </BoxWithBorderAndPadding>
+            {!isATP() &&
+              <BoxWithBorderAndPadding>
+                <UtenlandskeSaksnr
+                  PSED={currentPSED}
+                  parentNamespace={namespace}
+                  parentTarget="nav"
+                  updatePSED={updatePSED}
+                />
+              </BoxWithBorderAndPadding>
+            }
             <BoxWithBorderAndPadding>
               <VStack gap="4">
                 <Textarea label={t('p8000:form-legg-til-fritekst')} value={_fritekst ?? ""} onChange={(e) => setFritekst(e.target.value)}/>
                 <Textarea label={t('p8000:form-forhaandsvisning-av-tekst')} value={_ytterligereInformasjon ?? ""} maxLength={2500}/>
               </VStack>
             </BoxWithBorderAndPadding>
+            <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
+            <SaveAndSendSED
+              namespace={namespace}
+              sakId={buc!.caseId!}
+              sedId={sed!.id}
+              sedType={sed!.type}
+              setMode={setMode}
+              validateCurrentPSED={validateP8000Sed}
+              mottakere={currentPSED?.originalSed?.status === 'new' && buc?.type !== 'P_BUC_05' ? bucDeltakere! : undefined}
+            />
           </>
         }
-        <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
-        <SaveAndSendSED
-          namespace={namespace}
-          sakId={buc!.caseId!}
-          sedId={sed!.id}
-          sedType={sed!.type}
-          setMode={setMode}
-          validateCurrentPSED={validateP8000Sed}
-          mottakere={currentPSED?.originalSed?.status === 'new' && buc?.type !== 'P_BUC_05' ? bucDeltakere! : undefined}
-        />
       </VStack>
     </>
   )

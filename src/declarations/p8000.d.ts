@@ -18,6 +18,7 @@ import {
 
 export interface SendFolgendeSEDer {
   sendFolgendeSEDer: Array<string>
+  begrunnelse?: string
 }
 
 export interface P8000Pensjon extends Pensjon{
