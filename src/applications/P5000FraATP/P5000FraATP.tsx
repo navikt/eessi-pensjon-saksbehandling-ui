@@ -170,7 +170,7 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
 
       if(!PSEDSavedResponse && begrunnelse && begrunnelse!==""){
         setIsSavingSed(true)
-        let PSEDToSave = cloneDeep(currentPSED)
+        let PSEDToSave: any = cloneDeep(currentPSED)
         if(PSEDToSave.options){
           const encodeOptionsString = encodeURI(JSON.stringify(currentPSED.options))
           PSEDToSave = {
