@@ -79,6 +79,7 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
   const targetPerson = `nav.bruker.person`
   const targetSendFolgendeSEDer = "pensjon.anmodning.seder[0].sendFolgendeSEDer"
   const targetBegrunnelse = "pensjon.anmodning.seder[0].begrunnelse"
+  const targetOptionsATP = "options.ATP"
 
   const onCreateBucAndSed = () => {
     resetAll()
@@ -91,6 +92,7 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
   }
 
   const onUpdateAndSend = () => {
+    dispatch(updatePSED(targetOptionsATP, true))
     const _person:  Person | undefined = _.get(currentPSED, targetPerson)
     let filteredPINs: Array<PIN> = _.filter(_person?.pin, p => p.land !== 'DK')
     if(_danskPIN && _danskPIN !== ""){

@@ -16,7 +16,6 @@ import {
   YTELSESHISTORIKK, P5000_MED_BEGRUNNELSE, FORENKLET_FORESPOERSEL
 } from "src/constants/p8000";
 
-
 export interface SendFolgendeSEDer {
   sendFolgendeSEDer: Array<string>
 }
@@ -78,6 +77,7 @@ export interface P8000SED extends BaseSED{
     ofteEtterspurtInformasjon: OfteEtterspurtInformasjon
     informasjonSomKanLeggesInn: InformasjonSomKanLeggesInn
     type?: P8000Type
+    ATP?: boolean
   }
   fritekst?: string // Remove before save
 }
