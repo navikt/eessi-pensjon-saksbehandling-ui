@@ -14,7 +14,7 @@ import {Buc, NewBucPayload, NewSedPayload, Sed} from "src/declarations/buc";
 import {PersonPDL} from "src/declarations/person";
 import {State} from "src/declarations/reducers";
 import {useDispatch, useSelector} from "react-redux";
-import {CheckmarkCircleFillIcon, CircleIcon, XMarkOctagonFillIcon} from "@navikt/aksel-icons";
+import {CheckmarkCircleFillIcon, MenuElipsisHorizontalCircleIcon, XMarkOctagonFillIcon} from "@navikt/aksel-icons";
 import {HorizontalLineSeparator} from "src/components/StyledComponents";
 import {IS_Q} from "src/constants/environment";
 import {P8000SED} from "src/declarations/p8000";
@@ -222,10 +222,10 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
   }: ATPStepProps): JSX.Element => {
     return (
       <HStack paddingInline="1" gap="2" align="center">
-        {!action && response === undefined && <><CircleIcon color="grey" fontSize="1.5em"/> {actionInitial}</>}
-        {action && <><Loader/> {actionActive}</>}
-        {response && <><CheckmarkCircleFillIcon color="green" fontSize="1.5em"/> {actionSuccess}</>}
-        {response === null && <><XMarkOctagonFillIcon color="var(--a-icon-danger)" fontSize="1.5em"/> {actionFailure}</>}
+        {!action && response === undefined && <><MenuElipsisHorizontalCircleIcon color="grey" fontSize="1.2em"/> {actionInitial}</>}
+        {action && <><Loader fontSize="1.2"/> {actionActive}</>}
+        {response && <><CheckmarkCircleFillIcon color="green" fontSize="1.2em"/> {actionSuccess}</>}
+        {response === null && <><XMarkOctagonFillIcon color="var(--a-icon-danger)" fontSize="1.2em"/> {actionFailure}</>}
       </HStack>
     )
   }
