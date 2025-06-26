@@ -503,8 +503,7 @@ const P8000: React.FC<P8000Props> = ({
             }
             {isATP() &&
               <BoxWithBorderAndPadding>
-                <Heading size={"small"}>Anmodning om P5000 fra ATP</Heading>
-                <em>{currentPSED.pensjon.anmodning.seder[0].begrunnelse}</em>
+                <Heading size={"small"}>{t('p8000:form-heading-anmodning-om-atp-opplysninger')}</Heading>
               </BoxWithBorderAndPadding>
             }
             <BoxWithBorderAndPadding>

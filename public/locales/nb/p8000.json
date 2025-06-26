@@ -23,6 +23,7 @@
   "forenkletForespoersel-nopin": "Personen sier at PIN aldri ble mottatt fra ditt land.",
 
   "form-heading-p8000": "Bestill P8000 til Ad hoc anmodning om pensjonsopplysninger",
+  "form-heading-anmodning-om-atp-opplysninger": "Anmodning om ATP-opplysninger",
   "form-legg-til-fritekst": "Legg til fritekst: Kap. 11. Ytterligere informasjon (valgfritt)",
   "form-forhaandsvisning-av-tekst": "Forhåndsvisning av informasjonen som blir lagt inn i JINA (kan ikke redigeres her, fjern avkrysning for å endre)",
   "form-heading-informasjon-som-kan-legges-inn": "Informasjon som kan legges inn i SED (valgfritt)",
@@ -70,5 +71,5 @@
   "atp-sending-feilet-buc-or-sed": "Sending av {{BUC_SED}} feilet",
 
   "atp-label-bestill": "Bestill",
-  "atp-label-bestill-p5000-fra-atp": "Bestill P5000 fra ATP"
+  "atp-label-bestill-atp-opplysninger": "Bestill ATP-opplysninger"
 }

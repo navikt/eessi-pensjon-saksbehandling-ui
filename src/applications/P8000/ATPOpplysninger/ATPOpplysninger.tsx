@@ -22,7 +22,7 @@ import {Person, PIN} from "src/declarations/sed";
 import _, {cloneDeep} from "lodash";
 import {BUCMode} from "src/declarations/app";
 
-export interface P5000FraATPProps {
+export interface ATPOpplysningerProps {
   onCancel: () => void
   setMode: (mode: BUCMode, s: string, callback?: any, content ?: JSX.Element) => void
 }
@@ -36,7 +36,7 @@ interface ATPStepProps {
   actionFailure: string
 }
 
-export interface P5000FraATPSelector {
+export interface ATPOpplysningerSelector {
   personPdl: PersonPDL | undefined
   newlyCreatedATPBuc: Buc | undefined
   newlyCreatedATPSed: Sed | undefined
@@ -49,7 +49,7 @@ export interface P5000FraATPSelector {
   PSEDSavedResponse: any | null | undefined
 }
 
-export const mapState = (state: State): P5000FraATPSelector => ({
+export const mapState = (state: State): ATPOpplysningerSelector => ({
   personPdl: state.person.personPdl,
   newlyCreatedATPBuc: state.buc.newlyCreatedATPBuc,
   newlyCreatedATPSed: state.buc.newlyCreatedATPSed,
@@ -63,12 +63,12 @@ export const mapState = (state: State): P5000FraATPSelector => ({
 })
 
 
-const P5000FraATP: React.FC<P5000FraATPProps> = ({
+const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
   onCancel, setMode
-}: P5000FraATPProps): JSX.Element => {
+}: ATPOpplysningerProps): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { personPdl, newlyCreatedATPBuc, newlyCreatedATPSed, sakId, aktoerId, currentPSED, PSEDSavedResponse, savingSed, sendingSed, PSEDSendResponse }: P5000FraATPSelector = useSelector<State, P5000FraATPSelector>(mapState)
+  const { personPdl, newlyCreatedATPBuc, newlyCreatedATPSed, sakId, aktoerId, currentPSED, PSEDSavedResponse, savingSed, sendingSed, PSEDSendResponse }: ATPOpplysningerSelector = useSelector<State, ATPOpplysningerSelector>(mapState)
   const [_isCreatingBuc, setIsCreatingBuc] = useState<boolean>(false)
   const [_isCreatingSed, setIsCreatingSed] = useState<boolean>(false)
   const [_isGettingSed, setIsGettingSed] = useState<boolean>(false)
@@ -77,8 +77,7 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
   const [_danskPIN, setDanskPIN] = useState<string | undefined>(undefined)
 
   const targetPerson = `nav.bruker.person`
-  const targetSendFolgendeSEDer = "pensjon.anmodning.seder[0].sendFolgendeSEDer"
-  const targetBegrunnelse = "pensjon.anmodning.seder[0].begrunnelse"
+  const targetBegrunnelse = "pensjon.ytterligeinformasjon"
   const targetOptionsATP = "options.ATP"
 
   const onCreateBucAndSed = () => {
@@ -102,8 +101,7 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
       })
       dispatch(updatePSED(targetPerson + '.pin', filteredPINs))
     }
-    dispatch(updatePSED(targetSendFolgendeSEDer, ["p5000"]))
-    dispatch(updatePSED(targetBegrunnelse, "Vennligst send informasjon om ATP-perioder."))
+    dispatch(updatePSED(targetBegrunnelse, "Vennligst send oss ATP-opplysninger."))
   }
 
   const resetAndClose = () => {
@@ -233,7 +231,7 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
   return(
     <VStack gap="4">
       <Heading size='medium'>
-        {t('p8000:atp-label-bestill-p5000-fra-atp')}
+        {t('p8000:atp-label-bestill-atp-opplysninger')}
       </Heading>
       <HStack gap="4">
         <Button
@@ -311,4 +309,4 @@ const P5000FraATP: React.FC<P5000FraATPProps> = ({
   )
 }
 
-export default P5000FraATP
+export default ATPOpplysninger

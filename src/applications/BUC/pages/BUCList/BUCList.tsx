@@ -37,7 +37,7 @@ import {
 import {BRUKERKONTEKST, GJENNY} from "src/constants/constants";
 import AvdodFnrSearch from "./AvdodFnrSearch";
 import ProgressBar from "src/components/ProgressBar/ProgressBar";
-import P5000FraATP from "src/applications/P5000FraATP/P5000FraATP";
+import ATPOpplysninger from "src/applications/P8000/ATPOpplysninger/ATPOpplysninger";
 import {IS_Q} from "src/constants/environment";
 
 export interface BUCListProps {
@@ -202,7 +202,7 @@ const BUCList: React.FC<BUCListProps> = ({
               data-testid='a-buc-p-buclist--newbuc-button-id'
               onClick={onBestillP5000FraATP}
             >
-              {t('p8000:atp-label-bestill-p5000-fra-atp')}
+              {t('p8000:atp-label-bestill-atp-opplysninger')}
             </Button>
           }
         </BUCListHeader>
@@ -238,7 +238,7 @@ const BUCList: React.FC<BUCListProps> = ({
       })}
       >
         <Box padding="8"  background="bg-default" borderWidth="1" borderColor="border-default">
-          <P5000FraATP
+          <ATPOpplysninger
             onCancel={() => setBestillP5000FraATPPanelOpen(false)}
             setMode={setMode}
           />
