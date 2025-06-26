@@ -34,7 +34,7 @@ import {
   BUCStartDiv,
   ProgressBarDiv
 } from "../../CommonBucComponents";
-import {BRUKERKONTEKST} from "src/constants/constants";
+import {BRUKERKONTEKST, GJENNY} from "src/constants/constants";
 import AvdodFnrSearch from "./AvdodFnrSearch";
 import ProgressBar from "src/components/ProgressBar/ProgressBar";
 import P5000FraATP from "src/applications/P5000FraATP/P5000FraATP";
@@ -98,6 +98,7 @@ const BUCList: React.FC<BUCListProps> = ({
   const [_showBestillP5000FraATPButton, setShowBestillP5000FraATPButton] = useState<boolean>(false)
 
   const isTestUser: boolean = featureToggles.TEST_USER === true
+  const isGJENNY: boolean = pesysContext === GJENNY
 
   useEffect(() => {
     standardLogger('buc.list.entrance')
@@ -194,7 +195,7 @@ const BUCList: React.FC<BUCListProps> = ({
               {t('buc:form-createNewCase')}
             </Button>
           )}
-          {isTestUser && !_bestillP5000FraATPPanelOpen && _showBestillP5000FraATPButton &&
+          {isTestUser && !isGJENNY && !_bestillP5000FraATPPanelOpen && _showBestillP5000FraATPButton &&
             <Button
               variant='secondary'
               data-amplitude='buc.list.newbuc'
