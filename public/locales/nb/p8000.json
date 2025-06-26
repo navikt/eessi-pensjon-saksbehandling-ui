@@ -18,8 +18,8 @@
   "P5000ForP5000NO": "For å sende P5000 trenger vi deres P5000 først.",
   "P5000-begrunnelse-sammenlegging": "For å vurdere om sammenlegging av perioder gir rett til norsk uføyretrygd.",
   "P5000-begrunnelse-endelig-beregning": "For å gjøre en endelig beregning av norsk uføretrygd.",
-  "forenkletForespoersel-AP": "Vi behandler et krav om alderspensjon i Norge. Har personen som er nevnt i kapittel 2 opparbeidet seg noen perioder i din forsikringsordning? Personen informerer Nav om at de oppholdt seg der fra {{periodeFra}} til {{periodeTil}}. Vennligst si i fra dersom dere har behov for P2000.",
-  "forenkletForespoersel-UT": "Vi behandler et krav om uføretrygd i Norge. Har personen som er nevnt i kapittel 2 opparbeidet seg noen perioder i din forsikringsordning? Personen informerer Nav om at de oppholdt seg der fra {{periodeFra}} til {{periodeTil}}. Vennligst si i fra dersom dere har behov for P2200.",
+  "forenkletForespoersel-AP": "Vi behandler et krav om alderspensjon i Norge. Har personen som er nevnt i kapittel 2 opparbeidet seg noen perioder i din forsikringsordning? Personen informerer Nav om opphold i ditt land fra {{periodeFra}} til {{periodeTil}}. Vennligst si i fra dersom dere har behov for P2000.",
+  "forenkletForespoersel-UT": "Vi behandler et krav om uføretrygd i Norge. Har personen som er nevnt i kapittel 2 opparbeidet seg noen perioder i din forsikringsordning? Personen informerer Nav om opphold i ditt land fra {{periodeFra}} til {{periodeTil}}. Vennligst si i fra dersom dere har behov for P2200.",
   "forenkletForespoersel-nopin": "Personen sier at PIN aldri ble mottatt fra ditt land.",
 
   "form-heading-p8000": "Bestill P8000 til Ad hoc anmodning om pensjonsopplysninger",
