@@ -983,7 +983,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       let fritekst = undefined
       if(fritekstArray && fritekstArray.length === 2){
         fritekst = fritekstArray[1]
-      } else if(fritekstArray && fritekstArray.length === 1){
+      } else if(fritekstArray && fritekstArray.length === 1 && !fritekstArray[0].startsWith("1)")){
         // if first item is empty string (i.e. no options)
         fritekst = fritekstArray[0]
       }
