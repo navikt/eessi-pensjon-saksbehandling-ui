@@ -32,7 +32,7 @@ import {CheckboxWithCountryAndPeriods} from "src/applications/P8000/components/C
 import {CheckBoxField} from "src/applications/P8000/components/CheckboxField";
 import {P8000Fields} from "src/applications/P8000/P8000Fields";
 import CountryData from "@navikt/land-verktoy";
-import {SendFolgendeSEDer} from "src/applications/P8000/components/SendFolgendeSEDer";
+import {SendFolgendeSEDerEllerDokumenter} from "src/applications/P8000/components/SendFolgendeSEDerEllerDokumenter";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
 import UtenlandskePin from "src/components/UtenlandskePin/UtenlandskePin";
@@ -460,13 +460,13 @@ const P8000: React.FC<P8000Props> = ({
                   <Heading level="2" size="small">{t('p8000:form-heading-ofte-etterspurt-informasjon')}</Heading>
                   <P8000Fields
                     fields={[
-                      {label: P5000, value: P5000, component: SendFolgendeSEDer},
+                      {label: P5000, value: P5000, component: SendFolgendeSEDerEllerDokumenter, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'},
                       {label: P5000, value: P5000_MED_BEGRUNNELSE, component: SendFolgendeSEDerWithBegrunnelse, options: {sed: P5000, radioLabel: "P5000 trengs for"}},
                       {label: "Forenklet forespørsel (anmodning om P5000)", value: FORENKLET_FORESPOERSEL, component: ForenkletForespoersel, options: {sed: P5000}},
-                      {label: P4000, value: P4000, component: SendFolgendeSEDer} ,
-                      {label: P6000, value: P6000, component: SendFolgendeSEDer} ,
+                      {label: P4000, value: P4000, component: SendFolgendeSEDerEllerDokumenter, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'} ,
+                      {label: P6000, value: P6000, component: SendFolgendeSEDerEllerDokumenter, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'} ,
                       {label: "Brukers adresse", value: BRUKERS_ADRESSE, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                      {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                      {label: "Medisinsk informasjon", value: MEDISINSK_INFORMASJON, component: SendFolgendeSEDerEllerDokumenter, target: 'pensjon.vedlegg'},
                       {label: "Opplysninger om tiltak", value: TILTAK, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
                       {label: "Nåværende arbeid: Arbeidstimer per uke og månedsinntekt", value: NAAVAERENDE_ARBEID, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
                       {label: "Dokumentasjon på arbeid i Norge", value: DOKUMENTASJON_PAA_ARBEID_I_NORGE, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: false, showPeriod: true, showMonths: false, excludeNorway: false}},

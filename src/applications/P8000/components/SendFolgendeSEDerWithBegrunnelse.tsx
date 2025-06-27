@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {P8000FieldComponentProps} from "src/applications/P8000/P8000";
-import {SendFolgendeSEDer} from "src/applications/P8000/components/SendFolgendeSEDer";
+import {SendFolgendeSEDerEllerDokumenter} from "src/applications/P8000/components/SendFolgendeSEDerEllerDokumenter";
 import {Box, HStack, Radio, RadioGroup, VStack} from "@navikt/ds-react";
 import {P8000Field} from "src/declarations/p8000";
 import {useTranslation} from "react-i18next";
@@ -64,7 +64,7 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
 
   return (
     <VStack>
-      <SendFolgendeSEDer
+      <SendFolgendeSEDerEllerDokumenter
         PSED={PSED}
         updatePSED={updatePSED}
         label={label}

@@ -79,10 +79,11 @@ export default {
         {sendFolgendeSEDer: ["p5000"]}
       ]
     },
-    "ytterligeinformasjon": "SOME PREDEFINED TEXTS HERE \n\n SOME MORE PREDEFINED TEXTS HERE *********\n ADDITIONAL TEXT COME HERE",
-    "vedlegg": null
+    "ytterligeinformasjon": "Vennligst send oss ATP-opplysninger.",
+    "vedlegg": ["utførlig_medisinsk_rapport"]
   },
   "options": {
+    "ATP": false,
     "type": {
       spraak: ""
     },
