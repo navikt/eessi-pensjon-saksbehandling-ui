@@ -91,7 +91,7 @@ export default {
       "tiltak": {
         value: true
       },
-      "inntektFoerUfoerhetIUtlandet": null
+      "inntektFoerUfoerhetIUtlandet": true
     },
   },
   "sedGVer": "4",
