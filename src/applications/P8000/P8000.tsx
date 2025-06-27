@@ -118,7 +118,7 @@ const P8000: React.FC<P8000Props> = ({
 
   useEffect(() => {
     if(currentPSED && currentPSED.fritekst && !_fritekstLoaded){
-      setFritekst(currentPSED.fritekst)
+      isATP() ? setYtterligereInformasjon(currentPSED.fritekst) : setFritekst(currentPSED.fritekst)
       setFritekstLoaded(true)
     }
 
@@ -181,7 +181,7 @@ const P8000: React.FC<P8000Props> = ({
   }, [sed])
 
   useEffect(() => {
-
+    if(isATP()) return //DO NOT GENERATE FRITEKST FOR ATP VARIANT
 
     if(i18n.language !== currentPSED?.options?.type?.spraak){
       i18n.changeLanguage(currentPSED?.options?.type?.spraak)
@@ -528,10 +528,15 @@ const P8000: React.FC<P8000Props> = ({
             }
             <BoxWithBorderAndPadding>
               <VStack gap="4">
+                {!isATP() &&
                   <>
                     <Textarea label={t('p8000:form-legg-til-fritekst')} value={_fritekst ?? ""} onChange={(e) => setFritekst(e.target.value)}/>
                     <Textarea label={t('p8000:form-forhaandsvisning-av-tekst')} value={_ytterligereInformasjon ?? ""} maxLength={2500}/>
                   </>
+                }
+                {isATP() &&
+                  <Textarea label={t('p8000:form-legg-til-fritekst-atp')} value={_ytterligereInformasjon ?? ""} maxLength={2500} onChange={(e) => setYtterligereInformasjon(e.target.value)}/>
+                }
               </VStack>
             </BoxWithBorderAndPadding>
             <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
