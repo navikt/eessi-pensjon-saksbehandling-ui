@@ -79,7 +79,7 @@ const BUCList: React.FC<BUCListProps> = ({
   setMode, initialBucNew = undefined
 }: BUCListProps): JSX.Element => {
   const {
-    aktoerId, bucs, bucsList, bucsInfo, gettingBucs, gettingBucsList, newlyCreatedBuc, personAvdods, pesysContext, sakType, featureToggles
+    aktoerId, bucs, bucsList, bucsInfo, gettingBucs, gettingBucsList, newlyCreatedBuc, personAvdods, pesysContext, sakType
   } = useSelector<State, BUCListSelector>(mapState)
 
   const dispatch = useDispatch()
@@ -97,7 +97,6 @@ const BUCList: React.FC<BUCListProps> = ({
   const [_bestillP5000FraATPPanelOpen, setBestillP5000FraATPPanelOpen] = useState<boolean | undefined>(false)
   const [_showBestillP5000FraATPButton, setShowBestillP5000FraATPButton] = useState<boolean>(false)
 
-  const isTestUser: boolean = featureToggles.TEST_USER === true
   const isGJENNY: boolean = pesysContext === GJENNY
 
   useEffect(() => {
@@ -195,7 +194,7 @@ const BUCList: React.FC<BUCListProps> = ({
               {t('buc:form-createNewCase')}
             </Button>
           )}
-          {isTestUser && !isGJENNY && !_bestillP5000FraATPPanelOpen && _showBestillP5000FraATPButton &&
+          {!isGJENNY && !_bestillP5000FraATPPanelOpen && _showBestillP5000FraATPButton &&
             <Button
               variant='secondary'
               data-amplitude='buc.list.newbuc'

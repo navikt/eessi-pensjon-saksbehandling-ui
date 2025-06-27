@@ -123,10 +123,9 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   toggleOpen,
   toggleState
 }: SEDHeaderProps): JSX.Element => {
-  const { locale, storageEntries, featureToggles }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
+  const { locale, storageEntries }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
   const followUpSeds: Array<Sed> = buc.seds!.filter(_sed => _sed.parentDocumentId === sed.id && _sed.status === 'empty')
-  const isTestUser: boolean = featureToggles.TEST_USER === true
 
   const sedCanHaveAttachments = (sed: Sed): boolean => {
     return !buc.readOnly && sed !== undefined && sed.allowsAttachments && _.includes(['new', 'active'], sed.status)
@@ -337,7 +336,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               </Button>
             </>
           }
-          {isTestUser && sed.type === 'P8000' && (sed.status !== 'received') &&
+          {sed.type === 'P8000' && (sed.status !== 'received') &&
             <>
               <Button
                 variant='secondary'
