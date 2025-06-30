@@ -7,6 +7,7 @@ import { URLSearchParams } from 'url'
 import { Issuer } from 'openid-client'
 import * as jose from 'jose';
 import timeout from 'connect-timeout';
+import { getToken } from '@navikt/oasis';
 
 import { fileURLToPath } from 'url';
 
@@ -102,7 +103,7 @@ const mainPageAuth = async function(req, res, next) {
     res.redirect(loginPath)
   } else {
     // Validate token and continue to app
-    const token = authorization.split(" ")[1];
+    const token = getToken(authorization);
     if(await validateAuthorization(token)) {
       next();
     } else {
