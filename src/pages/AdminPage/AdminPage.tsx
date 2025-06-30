@@ -46,6 +46,8 @@ export const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
   const [_dokumentId, _setDokumentId] = useState<string>("")
   const [_dokumentListe, _setDokumentListe] = useState<string>("")
 
+  var dokumentListe = "Eks. 12345678_123456abc123456def123456abc123456d_1\n" +
+    "12345678_123456abc123456def123456abc123456d_1"
 
   const onResendDocument = () => {
     _setMissingValuesResendDocument(false)
@@ -84,6 +86,7 @@ export const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
                       <TextField
                         style={{width: "7rem"}}
                         label="Sak ID (Rina)"
+                        description="Eks. 12345678"
                         onChange={(e) => {
                           if(resendingDocumentSuccess) dispatch(adminResetSuccessMsg())
                           _setSakId(e.target.value)
@@ -93,12 +96,12 @@ export const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
                       <TextField
                         style={{width: "20rem"}}
                         label="Dokument ID"
+                        description="Eks. 123456abc123456def123456abc123456d"
                         onChange={(e) => {
                           if(resendingDocumentSuccess) dispatch(adminResetSuccessMsg())
                           _setDokumentId(e.target.value)
                         }}
                       />
-                      <Button variant="primary" onClick={onResendDocument} loading={resendingDocument} disabled={_sakId === "" || _dokumentId === ""}>Resend</Button>
                     </HStack>
                     {_missingValuesResendDocument &&
                       <ErrorMessage>Fyll ut begge felter</ErrorMessage>
@@ -108,6 +111,9 @@ export const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
                         Dokumentet ble funnet og sendt videre for ny registrering
                       </Alert>
                     }
+                  <HStack>
+                    <Button variant="primary" onClick={onResendDocument} loading={resendingDocument} disabled={_sakId === "" || _dokumentId === ""}>Resend</Button>
+                  </HStack>
                   </VStack>
                 </HStack>
               </Box>
@@ -121,6 +127,7 @@ export const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
                     <HStack gap="4" align="end">
                       <Textarea
                         label="Dokumentliste"
+                        description= {<div style={{whiteSpace: 'pre-line'}}>{dokumentListe}</div>}
                         resize
                         style={{width: "28rem", height: ""}}
                         onChange={(e) => {
@@ -128,7 +135,6 @@ export const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
                           _setDokumentListe(e.target.value)
                         }}
                       />
-                      <Button variant="primary" onClick={onResendDocumentList} loading={resendingDocumentList} disabled={_dokumentListe === ""}>Resend</Button>
                     </HStack>
                     {_missingValuesResendDocumentList &&
                       <ErrorMessage>Fyll ut</ErrorMessage>
@@ -138,6 +144,9 @@ export const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
                         Alle dokumenter ble funnet og sendt videre for ny registrering
                       </Alert>
                     }
+                    <HStack gap="4" align="end">
+                      <Button variant="primary" onClick={onResendDocumentList} loading={resendingDocumentList} disabled={_dokumentListe === ""}>Resend</Button>
+                    </HStack>
                   </VStack>
                 </HStack>
               </Box>
