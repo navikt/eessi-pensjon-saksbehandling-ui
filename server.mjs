@@ -69,9 +69,8 @@ async function issuer() {
   return _issuer;
 }
 
-const validateAuthorization = async (authorization) => {
+const validateAuthorization = async (token) => {
   try {
-    const token = authorization.split(" ")[1];
     const JWTVerifyResult = await validerToken(token);
     return !!JWTVerifyResult?.payload;
   } catch (e) {
@@ -103,7 +102,8 @@ const mainPageAuth = async function(req, res, next) {
     res.redirect(loginPath)
   } else {
     // Validate token and continue to app
-    if(await validateAuthorization(authorization)) {
+    const token = authorization.split(" ")[1];
+    if(await validateAuthorization(token)) {
       next();
     } else {
       logger.debug('mainPageAuth: auth Invalid, 302 to login ' + loginPath)
