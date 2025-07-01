@@ -71,17 +71,13 @@ async function issuer() {
 }*/
 
 const validateAuthorization = async (token) => {
-  // try {
-    const JWTVerifyResult = await validateToken(token);
-/*    return !!JWTVerifyResult?.payload;
-  } catch (e) {
-    logger.error('azure ad error', e);
-    return false;
-  }*/
+  const JWTVerifyResult = await validateToken(token);
   if (!JWTVerifyResult.ok) {
-    logger.error('azure ad error');
+    logger.error('azure ad error', JWTVerifyResult.error);
+    return false;
   }
-  logger.info('azure ad token fetched', JWTVerifyResult);
+  logger.info('azure ad token fetched');
+  return true;
 }
 
 const mainPageAuth = async function(req, res, next) {
