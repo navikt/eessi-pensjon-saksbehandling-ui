@@ -4,10 +4,10 @@ import { createProxyMiddleware } from 'http-proxy-middleware'
 import winston from 'winston'
 import fetch from 'cross-fetch'
 import { URLSearchParams } from 'url'
-import { Issuer } from 'openid-client'
-import * as jose from 'jose';
+/*import { Issuer } from 'openid-client'
+import * as jose from 'jose';*/
 import timeout from 'connect-timeout';
-import { getToken } from '@navikt/oasis';
+import { getToken, validateToken } from '@navikt/oasis';
 
 import { fileURLToPath } from 'url';
 
@@ -21,8 +21,8 @@ const azureAdConfig = {
   tokenEndpoint: process.env.AZURE_OPENID_CONFIG_TOKEN_ENDPOINT
 };
 
-let _issuer
-let _remoteJWKSet
+/*let _issuer
+let _remoteJWKSet*/
 
 const onBehalfOf = function(scope, assertion) {
   const params = new URLSearchParams();
@@ -47,7 +47,7 @@ const logger = winston.createLogger({
   exitOnError: false,
 });
 
-async function validerToken(token) {
+/*async function validerToken(token) {
   return jose.jwtVerify(token, await jwks(), {
     issuer: (await issuer()).metadata.issuer,
   });
@@ -68,15 +68,18 @@ async function issuer() {
     _issuer = await Issuer.discover(process.env.AZURE_APP_WELL_KNOWN_URL);
   }
   return _issuer;
-}
+}*/
 
 const validateAuthorization = async (token) => {
-  try {
-    const JWTVerifyResult = await validerToken(token);
-    return !!JWTVerifyResult?.payload;
+  // try {
+    const JWTVerifyResult = await validateToken(token);
+/*    return !!JWTVerifyResult?.payload;
   } catch (e) {
     logger.error('azure ad error', e);
     return false;
+  }*/
+  if (!JWTVerifyResult.ok) {
+    logger.error('azure ad error');
   }
 }
 
