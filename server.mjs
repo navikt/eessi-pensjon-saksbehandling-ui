@@ -4,8 +4,6 @@ import { createProxyMiddleware } from 'http-proxy-middleware'
 import winston from 'winston'
 import fetch from 'cross-fetch'
 import { URLSearchParams } from 'url'
-/*import { Issuer } from 'openid-client'
-import * as jose from 'jose';*/
 import timeout from 'connect-timeout';
 import { getToken, validateToken } from '@navikt/oasis';
 
@@ -20,9 +18,6 @@ const azureAdConfig = {
   clientSecret: process.env.AZURE_APP_CLIENT_SECRET,
   tokenEndpoint: process.env.AZURE_OPENID_CONFIG_TOKEN_ENDPOINT
 };
-
-/*let _issuer
-let _remoteJWKSet*/
 
 const onBehalfOf = function(scope, assertion) {
   const params = new URLSearchParams();
@@ -47,36 +42,12 @@ const logger = winston.createLogger({
   exitOnError: false,
 });
 
-/*async function validerToken(token) {
-  return jose.jwtVerify(token, await jwks(), {
-    issuer: (await issuer()).metadata.issuer,
-  });
-}
-
-async function jwks() {
-  if (typeof _remoteJWKSet === "undefined") {
-    _remoteJWKSet = jose.createRemoteJWKSet(new URL(process.env.AZURE_OPENID_CONFIG_JWKS_URI));
-  }
-
-  return _remoteJWKSet;
-}
-
-async function issuer() {
-  if (typeof _issuer === "undefined") {
-    if (!process.env.AZURE_APP_WELL_KNOWN_URL)
-      throw new Error(`Miljøvariabelen "AZURE_APP_WELL_KNOWN_URL" må være satt`);
-    _issuer = await Issuer.discover(process.env.AZURE_APP_WELL_KNOWN_URL);
-  }
-  return _issuer;
-}*/
-
 const validateAuthorization = async (token) => {
   const JWTVerifyResult = await validateToken(token);
   if (!JWTVerifyResult.ok) {
     logger.error('azure ad error', JWTVerifyResult.error);
     return false;
   }
-  logger.info('azure ad token fetched');
   return true;
 }
 
