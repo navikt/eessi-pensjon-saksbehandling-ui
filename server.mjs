@@ -81,6 +81,7 @@ const validateAuthorization = async (token) => {
   if (!JWTVerifyResult.ok) {
     logger.error('azure ad error');
   }
+  logger.info('azure ad token fetched', JWTVerifyResult);
 }
 
 const mainPageAuth = async function(req, res, next) {
@@ -107,6 +108,7 @@ const mainPageAuth = async function(req, res, next) {
   } else {
     // Validate token and continue to app
     const token = getToken(authorization);
+
     if(await validateAuthorization(token)) {
       next();
     } else {
