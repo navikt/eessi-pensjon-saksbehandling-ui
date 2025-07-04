@@ -42,9 +42,9 @@ describe('src/components/RequireAuth/RequireAuth', () => {
       </MemoryRouter>
     )
 
-    expect(setStatusParam).toBeCalledWith('a', 'b')
-    expect(setStatusParam).toBeCalledWith('sakId', '123')
-    expect(setStatusParam).toBeCalledWith('aktoerId', '456')
+    expect(setStatusParam).toHaveBeenCalledWith('a', 'b')
+    expect(setStatusParam).toHaveBeenCalledWith('sakId', '123')
+    expect(setStatusParam).toHaveBeenCalledWith('aktoerId', '456')
   })
 
   it('UseEffect: ask for userInfo', () => {
@@ -57,7 +57,7 @@ describe('src/components/RequireAuth/RequireAuth', () => {
         </Routes>
       </BrowserRouter>
     )
-    expect(getUserInfo).toBeCalled()
+    expect(getUserInfo).toHaveBeenCalledWith()
   })
 
 /*  it('Render: Has proper HTML structure: forbidden', () => {

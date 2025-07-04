@@ -28,7 +28,7 @@ describe('actions/app', () => {
 
   it('getUserInfo()', () => {
     appActions.getUserInfo()
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.APP_USERINFO_REQUEST,
         success: types.APP_USERINFO_SUCCESS,

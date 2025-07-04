@@ -22,7 +22,7 @@ describe('actions/app', () => {
     const mockAktoerId: string = '123'
     const mockVedtakId: string = '456'
     personActions.getPersonAvdodInfo(mockAktoerId, mockVedtakId, undefined)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.PERSON_AVDOD_REQUEST,
         success: types.PERSON_AVDOD_SUCCESS,
@@ -35,7 +35,7 @@ describe('actions/app', () => {
   it('getPersonInfo()', () => {
     const mockAktoerId: string = '123'
     personActions.getPersonInfo(mockAktoerId)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.PERSON_PDL_REQUEST,
         success: types.PERSON_PDL_SUCCESS,

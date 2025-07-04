@@ -50,7 +50,7 @@ describe('src/actions/buc', () => {
       kravDato: '1970-01-01'
     } as NewBucPayload
     bucActions.createBuc(mockBuc)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_CREATE_BUC_REQUEST,
         success: types.BUC_CREATE_BUC_SUCCESS,
@@ -74,7 +74,7 @@ describe('src/actions/buc', () => {
     const mockBuc = { type: 'mockBucType', caseId: '456' } as Buc
     const mockParentId = '123'
     bucActions.createReplySed(mockBuc, mockedPayload, mockParentId)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_CREATE_REPLY_SED_REQUEST,
         success: types.BUC_CREATE_REPLY_SED_SUCCESS,
@@ -101,7 +101,7 @@ describe('src/actions/buc', () => {
       euxCaseId: '456'
     } as NewSedPayload
     bucActions.createSed(mockBuc, mockedPayload)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_CREATE_SED_REQUEST,
         success: types.BUC_CREATE_SED_SUCCESS,
@@ -130,7 +130,7 @@ describe('src/actions/buc', () => {
     const mockSakId = '456'
     const howManyBucLists = 1
     bucActions.fetchBucsList(mockAktoerId, mockSakId, howManyBucLists)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUCSLIST_REQUEST,
         success: types.BUC_GET_BUCSLIST_SUCCESS,
@@ -149,7 +149,7 @@ describe('src/actions/buc', () => {
     const mockNamespace = 'mockNamespace'
     const mockFilename = 'mockFilename'
     bucActions.fetchBucsInfo(mockUserId, mockNamespace, mockFilename)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUCSINFO_REQUEST,
         success: types.BUC_GET_BUCSINFO_SUCCESS,
@@ -162,7 +162,7 @@ describe('src/actions/buc', () => {
   it('fetchBucsInfoList()', () => {
     const mockUserId = '123'
     bucActions.fetchBucsInfoList(mockUserId)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUCSINFO_LIST_REQUEST,
         success: types.BUC_GET_BUCSINFO_LIST_SUCCESS,
@@ -177,7 +177,7 @@ describe('src/actions/buc', () => {
     const mockSakId = '456'
     const mockAvdodFnr = '789'
     bucActions.fetchBucsListWithAvdodFnr(mockAktoerId, mockSakId, mockAvdodFnr)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUCSLIST_REQUEST,
         success: types.BUC_GET_BUCSLIST_SUCCESS,
@@ -193,7 +193,7 @@ describe('src/actions/buc', () => {
     const mockSakId = '456'
     const mockVedtakId = '789'
     bucActions.fetchBucsListWithVedtakId(mockAktoerId, mockSakId, mockVedtakId)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUCSLIST_VEDTAK_REQUEST,
         success: types.BUC_GET_BUCSLIST_VEDTAK_SUCCESS,
@@ -209,7 +209,7 @@ describe('src/actions/buc', () => {
     const mockAktoerId = '456'
     const mockKravId = '789'
     bucActions.fetchKravDato({ sakId: mockSakId, aktoerId: mockAktoerId, kravId: mockKravId })
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_KRAVDATO_REQUEST,
         success: types.BUC_GET_KRAVDATO_SUCCESS,
@@ -225,7 +225,7 @@ describe('src/actions/buc', () => {
     const sakId = '780'
     const kilde = 'pdl'
     bucActions.fetchBuc(rinaCaseId, aktoerId, sakId, undefined, kilde)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUC_REQUEST,
         success: types.BUC_GET_BUC_SUCCESS,
@@ -242,7 +242,7 @@ describe('src/actions/buc', () => {
     const avdodFnr = '12345678901'
     const kilde = 'pdl'
     bucActions.fetchBuc(rinaCaseId, aktoerId, sakId, avdodFnr, kilde)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUC_REQUEST,
         success: types.BUC_GET_BUC_SUCCESS,
@@ -256,7 +256,7 @@ describe('src/actions/buc', () => {
     const pesysContext = VEDTAKSKONTEKST
     const sakType = 'AFP' as SakTypeValue
     bucActions.getBucOptions({} as FeatureToggles, pesysContext, sakType)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUC_OPTIONS_REQUEST,
         success: types.BUC_GET_BUC_OPTIONS_SUCCESS,
@@ -269,7 +269,7 @@ describe('src/actions/buc', () => {
   it('getCountryList()', () => {
     const mockBucType = 'P_BUC_01'
     bucActions.getCountryList(mockBucType)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_COUNTRY_LIST_REQUEST,
         success: types.BUC_GET_COUNTRY_LIST_SUCCESS,
@@ -283,7 +283,7 @@ describe('src/actions/buc', () => {
     const mockBucType = 'P_BUC_01'
     const mockCountry = 'GB'
     bucActions.getInstitutionsListForBucAndCountry(mockBucType, mockCountry)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_INSTITUTION_LIST_REQUEST,
         success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
@@ -300,7 +300,7 @@ describe('src/actions/buc', () => {
   it('getSedP6000()', () => {
     const mockRinaCaseId = '123'
     bucActions.getSedP6000(mockRinaCaseId)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_P6000_REQUEST,
         success: types.BUC_GET_P6000_SUCCESS,
@@ -314,7 +314,7 @@ describe('src/actions/buc', () => {
     const mockRinaCaseId = '123'
     const mockDocumentId = '456'
     bucActions.getSedP6000PDF(mockRinaCaseId, mockDocumentId)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_P6000PDF_REQUEST,
         success: types.BUC_GET_P6000PDF_SUCCESS,
@@ -326,7 +326,7 @@ describe('src/actions/buc', () => {
 
   it('getRinaUrl()', () => {
     bucActions.getRinaUrl()
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_RINA_GET_URL_REQUEST,
         success: types.BUC_RINA_GET_URL_SUCCESS,
@@ -341,7 +341,7 @@ describe('src/actions/buc', () => {
     const mockAktoerId = '456'
 
     bucActions.getSakType(mockSakId, mockAktoerId)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_SAKTYPE_REQUEST,
         success: types.BUC_GET_SAKTYPE_SUCCESS,
@@ -354,7 +354,7 @@ describe('src/actions/buc', () => {
   it('getSedList()', () => {
     const mockBuc = { type: 'mockBucType', caseId: '456' }
     bucActions.getSedList(mockBuc)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_SED_LIST_REQUEST,
         success: types.BUC_GET_SED_LIST_SUCCESS,
@@ -425,7 +425,7 @@ describe('src/actions/buc', () => {
     }
 
     bucActions.saveBucsInfo(mockParams)
-    expect(call).toBeCalledWith({
+    expect(call).toHaveBeenCalledWith({
       type: {
         request: types.BUC_SAVE_BUCSINFO_REQUEST,
         success: types.BUC_SAVE_BUCSINFO_SUCCESS,
@@ -455,7 +455,7 @@ describe('src/actions/buc', () => {
       }
     }
     bucActions.saveBucsInfo(mockParams)
-    expect(call).toBeCalledWith({
+    expect(call).toHaveBeenCalledWith({
       type: {
         request: types.BUC_SAVE_BUCSINFO_REQUEST,
         success: types.BUC_SAVE_BUCSINFO_SUCCESS,
@@ -517,7 +517,7 @@ describe('src/actions/buc', () => {
       variant: { variantformat: 'DUMMY', filnavn: 'filnavn' }
     } as JoarkBrowserItem
     bucActions.sendAttachmentToSed(mockParams, mockJoarkBrowserItem)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_SEND_ATTACHMENT_REQUEST,
         success: types.BUC_SEND_ATTACHMENT_SUCCESS,

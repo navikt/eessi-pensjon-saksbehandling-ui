@@ -18,7 +18,7 @@ describe('actions/admin', () => {
 
   it('resendDocument()', () => {
     resendDocument(mockSakId, mockDokumentId)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.ADMIN_RESEND_DOCUMENT_REQUEST,
         success: types.ADMIN_RESEND_DOCUMENT_SUCCESS,
@@ -33,7 +33,7 @@ describe('actions/admin', () => {
 
   it('resendDocumentList()', () => {
     resendDocumentList(mockDocumentList)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.ADMIN_RESEND_DOCUMENT_LIST_REQUEST,
         success: types.ADMIN_RESEND_DOCUMENT_LIST_SUCCESS,

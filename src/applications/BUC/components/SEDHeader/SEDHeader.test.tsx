@@ -64,6 +64,6 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
     (initialMockProps.onFollowUpSed as jest.Mock).mockReset()
     const replySedButton = screen.getByTestId("a_buc_c_sedheader--answer-button-id")
     fireEvent.click(replySedButton)
-    expect(initialMockProps.onFollowUpSed).toBeCalledWith(buc, mockCurrentSed, mockFollowUpSeds)
+    expect(initialMockProps.onFollowUpSed).toHaveBeenCalledWith(buc, mockCurrentSed, mockFollowUpSeds)
   })
 })

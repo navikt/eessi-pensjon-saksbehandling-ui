@@ -59,7 +59,7 @@ describe('applications/BUC/components/BUCEmpty/BUCEmpty', () => {
     wrapper.find('[data-testid=\'a-buc-p-bucempty--aktoerid-input-id').hostNodes().simulate('change', { target: { value: '123' } })
     wrapper.find('[data-testid=\'a-buc-p-bucempty--aktoerid-button-id').hostNodes().simulate('click')
     wrapper.update()
-    expect(setStatusParam).toBeCalledWith('aktoerId', '123')
+    expect(setStatusParam).toHaveBeenCalledWith('aktoerId', '123')
 
     wrapper.find('[data-testid=\'a-buc-p-bucempty--sakid-input-id').hostNodes().simulate('change', { target: { value: 'notvalid' } })
     wrapper.find('[data-testid=\'a-buc-p-bucempty--sakid-button-id').hostNodes().simulate('click')
@@ -69,6 +69,6 @@ describe('applications/BUC/components/BUCEmpty/BUCEmpty', () => {
     wrapper.find('[data-testid=\'a-buc-p-bucempty--sakid-input-id').hostNodes().simulate('change', { target: { value: '123' } })
     wrapper.find('[data-testid=\'a-buc-p-bucempty--sakid-button-id').hostNodes().simulate('click')
     wrapper.update()
-    expect(setStatusParam).toBeCalledWith('sakId', '123')
+    expect(setStatusParam).toHaveBeenCalledWith('sakId', '123')
   })
 })

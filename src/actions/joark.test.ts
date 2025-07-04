@@ -32,7 +32,7 @@ describe('actions/joark', () => {
   it('listJoarkItems()', () => {
     const mockUserId = '123'
     joarkActions.listJoarkItems(mockUserId)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.JOARK_LIST_REQUEST,
         success: types.JOARK_LIST_SUCCESS,
@@ -44,7 +44,7 @@ describe('actions/joark', () => {
 
   it('getJoarkItemPreview()', () => {
     joarkActions.getJoarkItemPreview(mockItems[0])
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.JOARK_PREVIEW_REQUEST,
         success: types.JOARK_PREVIEW_SUCCESS,

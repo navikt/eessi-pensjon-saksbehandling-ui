@@ -27,7 +27,7 @@ describe('actions/p5000', () => {
       id: '456'
     } as Sed
     p5000Actions.getSed(mockCaseId, mockSed)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.P5000_GET_REQUEST,
         success: types.P5000_GET_SUCCESS,
@@ -49,7 +49,7 @@ describe('actions/p5000', () => {
     const mockSedId = '456'
     const mockPayload = mockSedP5000 as P5000SED
     p5000Actions.sendP5000toRina(mockCaseId, mockSedId, mockPayload)
-    expect(call).toBeCalledWith(expect.objectContaining({
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
         request: types.P5000_SEND_REQUEST,
         success: types.P5000_SEND_SUCCESS,

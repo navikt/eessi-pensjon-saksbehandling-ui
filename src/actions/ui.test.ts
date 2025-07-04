@@ -11,7 +11,7 @@ describe('actions/ui', () => {
   it('changeLanguage()', () => {
     const mockLanguage = 'en' as AllowedLocaleString
     const generatedResult = uiActions.changeLanguage(mockLanguage)
-    expect(i18n.changeLanguage).toBeCalledWith(mockLanguage)
+    expect(i18n.changeLanguage).toHaveBeenCalledWith(mockLanguage)
     expect(generatedResult).toMatchObject({
       type: types.UI_LANGUAGE_CHANGED,
       payload: mockLanguage
