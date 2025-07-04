@@ -87,5 +87,8 @@
   "atp-sending-feilet-buc-or-sed": "Sending av {{BUC_SED}} feilet",
 
   "atp-label-bestill": "Bestill",
-  "atp-label-bestill-atp-opplysninger": "Bestill ATP-opplysninger"
+  "atp-label-fritekst": "Fritekst",
+  "atp-label-bestill-atp-opplysninger": "Bestill ATP-opplysninger",
+  "atp-form-default-text": "Vennligst send ATP-opplysninger.",
+  "atp-button-lagre-og-send-sed": "Lagre og send SED"
 }

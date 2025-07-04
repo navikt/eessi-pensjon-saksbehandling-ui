@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Heading, HStack, Loader, TextField, VStack} from "@navikt/ds-react";
+import {Box, Button, Heading, HStack, Loader, Textarea, TextField, VStack} from "@navikt/ds-react";
 import { useTranslation } from 'react-i18next'
 import {
   createATPBuc,
@@ -74,6 +74,7 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
   const [_isGettingSed, setIsGettingSed] = useState<boolean>(false)
   const [_isSavingSed, setIsSavingSed] = useState<boolean>(false)
   const [_isSendingSed, setIsSendingSed] = useState<boolean>(false)
+  const [_ytterligereInformasjon, setYtterligereInformasjon] = useState<string | undefined>(undefined)
   const [_danskPIN, setDanskPIN] = useState<string | undefined>(undefined)
 
   const targetPerson = `nav.bruker.person`
@@ -203,6 +204,10 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
     }
   }, [PSEDSendResponse])
 
+  useEffect(() => {
+    dispatch(updatePSED(`pensjon.ytterligeinformasjon`, "\n" + _ytterligereInformasjon))
+  }, [_ytterligereInformasjon])
+
   const gotoBuc = (buc: Buc): void => {
     dispatch(fetchBuc(buc.caseId!))
     resetAndClose()
@@ -289,21 +294,38 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
         actionFailure={t('p8000:atp-sending-feilet-buc-or-sed', {BUC_SED: "P8000"})}
       />
       {currentPSED &&
-        <HStack gap="4" align="end">
-          <TextField
-            id='identifikator'
-            label={t('buc:form-utenlandske-pin-dansk-pin')}
-            onChange={(e) => setDanskPIN(e.target.value)}
-            value={_danskPIN}
-          />
-          <Button
-            variant='primary'
-            onClick={onUpdateAndSend}
-            loading={savingSed || sendingSed}
+        <VStack>
+          <Box
+            paddingBlock="0 4"
           >
-            {t('ui:send-sed')}
-          </Button>
-        </HStack>
+            <Textarea
+              label={t('p8000:atp-label-fritekst')}
+              value={_ytterligereInformasjon ?? t('p8000:atp-form-default-text')}
+              onChange={(e) => setYtterligereInformasjon(e.target.value)}
+            />
+          </Box>
+          <HStack gap="4" align="end">
+            <TextField
+              id='identifikator'
+              label={t('buc:form-utenlandske-pin-dansk-pin')}
+              onChange={(e) => setDanskPIN(e.target.value)}
+              value={_danskPIN}
+            />
+          </HStack>
+          <HStack
+            paddingBlock="8 0"
+            gap="4"
+            align="end"
+          >
+            <Button
+              variant='primary'
+              onClick={onUpdateAndSend}
+              loading={savingSed || sendingSed}
+            >
+              {t('p8000:atp-button-lagre-og-send-sed')}
+            </Button>
+          </HStack>
+        </VStack>
       }
     </VStack>
   )
