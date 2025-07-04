@@ -74,7 +74,7 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
   const [_isGettingSed, setIsGettingSed] = useState<boolean>(false)
   const [_isSavingSed, setIsSavingSed] = useState<boolean>(false)
   const [_isSendingSed, setIsSendingSed] = useState<boolean>(false)
-  const [_ytterligereInformasjon, setYtterligereInformasjon] = useState<string | undefined>(undefined)
+  const [_ytterligereInformasjon, setYtterligereInformasjon] = useState<string | undefined>(t('p8000:atp-form-default-text'))
   const [_danskPIN, setDanskPIN] = useState<string | undefined>(undefined)
 
   const targetPerson = `nav.bruker.person`
@@ -102,7 +102,7 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
       })
       dispatch(updatePSED(targetPerson + '.pin', filteredPINs))
     }
-    dispatch(updatePSED(targetBegrunnelse, "Vennligst send oss ATP-opplysninger."))
+    dispatch(updatePSED(targetBegrunnelse, _ytterligereInformasjon))
   }
 
   const resetAndClose = () => {
@@ -204,9 +204,9 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
     }
   }, [PSEDSendResponse])
 
-  useEffect(() => {
+/*  useEffect(() => {
     dispatch(updatePSED(`pensjon.ytterligeinformasjon`, "\n" + _ytterligereInformasjon))
-  }, [_ytterligereInformasjon])
+  }, [_ytterligereInformasjon])*/
 
   const gotoBuc = (buc: Buc): void => {
     dispatch(fetchBuc(buc.caseId!))
@@ -300,7 +300,7 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
           >
             <Textarea
               label={t('p8000:atp-label-fritekst')}
-              value={_ytterligereInformasjon ?? t('p8000:atp-form-default-text')}
+              value={_ytterligereInformasjon}
               onChange={(e) => setYtterligereInformasjon(e.target.value)}
             />
           </Box>
