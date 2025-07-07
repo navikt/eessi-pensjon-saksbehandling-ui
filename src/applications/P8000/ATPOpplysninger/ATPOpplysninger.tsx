@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Box, Button, Heading, HStack, Loader, Textarea, TextField, VStack} from "@navikt/ds-react";
+import {Alert, Box, Button, Heading, HStack, Loader, Textarea, TextField, VStack} from "@navikt/ds-react";
 import { useTranslation } from 'react-i18next'
 import {
   createATPBuc,
@@ -312,6 +312,15 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
               value={_danskPIN}
             />
           </HStack>
+          { !_ytterligereInformasjon &&
+            <Box
+              paddingBlock="8 2"
+            >
+              <Alert variant="warning" size="small">
+                {t('p8000:atp-warning-missing-fritekst')}
+              </Alert>
+            </Box>
+          }
           <HStack
             paddingBlock="8 0"
             gap="4"
