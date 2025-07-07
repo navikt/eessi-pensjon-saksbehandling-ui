@@ -89,7 +89,7 @@
   "atp-label-bestill": "Bestill",
   "atp-label-fritekst": "Fritekst",
   "atp-label-bestill-atp-opplysninger": "Bestill ATP-opplysninger",
-  "atp-form-default-text": "Vennligst send ATP-opplysninger.",
-  "atp-button-lagre-og-send-sed": "Lagre og send SED",
+  "atp-fritekst-default-text": "Vennligst send ATP-opplysninger.",
+  "atp-label-lagre-og-send-sed": "Lagre og send SED",
   "atp-warning-missing-fritekst": "Du blir nødt til å fylle ut fritekstfeltet for å lagre"
 }

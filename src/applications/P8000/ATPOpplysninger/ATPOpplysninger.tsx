@@ -74,7 +74,7 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
   const [_isGettingSed, setIsGettingSed] = useState<boolean>(false)
   const [_isSavingSed, setIsSavingSed] = useState<boolean>(false)
   const [_isSendingSed, setIsSendingSed] = useState<boolean>(false)
-  const [_ytterligereInformasjon, setYtterligereInformasjon] = useState<string | undefined>(t('p8000:atp-form-default-text'))
+  const [_ytterligereInformasjon, setYtterligereInformasjon] = useState<string | undefined>(t('p8000:atp-fritekst-default-text'))
   const [_danskPIN, setDanskPIN] = useState<string | undefined>(undefined)
 
   const targetPerson = `nav.bruker.person`
@@ -164,7 +164,7 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
       const _person:  Person | undefined = _.get(currentPSED, targetPerson)
 
       const begrunnelse = _.get(currentPSED, targetBegrunnelse)
-      setYtterligereInformasjon(begrunnelse && begrunnelse!=="" ? begrunnelse : t('p8000:atp-form-default-text'))
+      setYtterligereInformasjon(begrunnelse && begrunnelse!=="" ? begrunnelse : t('p8000:atp-fritekst-default-text'))
 
       const danskePINs: Array<PIN> = _.filter(_person?.pin, p => p.land === 'DK')
       setDanskPIN(danskePINs && danskePINs.length > 0 ? danskePINs[0].identifikator : "")
@@ -333,7 +333,7 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
               onClick={onUpdateAndSend}
               loading={savingSed || sendingSed}
             >
-              {t('p8000:atp-button-lagre-og-send-sed')}
+              {t('p8000:atp-label-lagre-og-send-sed')}
             </Button>
           </HStack>
         </VStack>
