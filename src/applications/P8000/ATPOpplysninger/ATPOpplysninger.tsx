@@ -162,7 +162,9 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
       setIsGettingSed(false)
 
       const _person:  Person | undefined = _.get(currentPSED, targetPerson)
+
       const begrunnelse = _.get(currentPSED, targetBegrunnelse)
+      setYtterligereInformasjon(begrunnelse && begrunnelse!=="" ? begrunnelse : t('p8000:atp-form-default-text'))
 
       const danskePINs: Array<PIN> = _.filter(_person?.pin, p => p.land === 'DK')
       setDanskPIN(danskePINs && danskePINs.length > 0 ? danskePINs[0].identifikator : "")
