@@ -204,9 +204,12 @@ app.use('/locales', express.static(path.join(__dirname, "build", "locales")));
 app.use('/favicon', express.static(path.join(__dirname, "build", "favicon")));
 
 app.get(["/oauth2/login"], async (req, res) => {
-  logger.error("Wonderwall must handle /oauth2/login 1")
-  logger.error(req)
-  logger.error(res)
+  logger.info("Wonderwall must handle /oauth2/login 1")
+  logger.info(res.statusCode)
+  logger.info(res.statusText)
+  logger.info(res.status)
+  logger.info(req)
+  logger.info(res)
   res.status(502).send({
     message: "Wonderwall must handle /oauth2/login 2",
   });
