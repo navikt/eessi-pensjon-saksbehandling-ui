@@ -222,7 +222,7 @@ app.use('/fagmodul',
   apiProxy(process.env.VITE_EESSI_PENSJON_FAGMODUL_URL,{ '^/fagmodul/' : '/' })
 )
 
-app.use('{*splat}', mainPageAuth, express.static(path.join(__dirname, "build")));
+app.use('/{*splat}', mainPageAuth, express.static(path.join(__dirname, "build")));
 
 // start express server on port 8080
 app.listen(8080, () => {
