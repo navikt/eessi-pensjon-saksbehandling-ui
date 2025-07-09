@@ -204,11 +204,11 @@ app.use('/locales', express.static(path.join(__dirname, "build", "locales")));
 app.use('/favicon', express.static(path.join(__dirname, "build", "favicon")));
 
 app.get(["/oauth2/login"], async (req, res) => {
-  logger.error("Wonderwall must handle /oauth2/login")
+  logger.error("Wonderwall must handle /oauth2/login 1")
   res.status(502).send({
-    message: "Wonderwall must handle /oauth2/login",
-  });
-});
+    message: "Wonderwall must handle /oauth2/login 2",
+  })
+})
 
 app.use('/frontend',
   timedOut,
