@@ -194,7 +194,11 @@ app.get('/test', (req, res) => res.send('hello world'));
 
 app.get('/callback/{*splat}', handleCallback);
 
-app.get('/internal/isAlive|isReady|metrics', (req, res) => res.sendStatus(200));
+//app.get('/internal/isAlive|isReady|metrics', (req, res) => res.sendStatus(200));
+
+app.get('/internal/isAlive', (req, res) => res.sendStatus(200));
+app.get('/internal/isReady', (req, res) => res.sendStatus(200));
+app.get('/internal/metrics', (req, res) => res.sendStatus(200));
 
 app.use('/assets', express.static(path.join(__dirname, "build", "assets")));
 
