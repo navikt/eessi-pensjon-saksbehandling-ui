@@ -191,7 +191,7 @@ const __dirname = path.dirname(__filename);
 
 app.get('/test', (req, res) => res.send('hello world'));
 
-app.get('/callback/{*splat}', handleCallback);
+app.get('/callback/*', handleCallback);
 
 app.get('/internal/isAlive|isReady|metrics', (req, res) => res.sendStatus(200));
 
@@ -222,7 +222,7 @@ app.use('/fagmodul',
   apiProxy(process.env.VITE_EESSI_PENSJON_FAGMODUL_URL,{ '^/fagmodul/' : '/' })
 )
 
-app.use('/{*splat}', mainPageAuth, express.static(path.join(__dirname, "build")));
+app.use('*', mainPageAuth, express.static(path.join(__dirname, "build")));
 
 // start express server on port 8080
 app.listen(8080, () => {
