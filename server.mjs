@@ -86,6 +86,7 @@ const mainPageAuth = async function(req, res, next) {
 }
 
 const handleCallback = (req, res) => {
+  logger.info("Inside the handleCallBack function")
   let paths = req.originalUrl.split('/')
   // /callback/123/456/789/012/Uføretrygd/ => ['', 'callback', '123', '456', '789', '012', 'Uføretrygd']
   let aktoerId = (paths[2] === '-' ? '' : paths[2])
@@ -204,7 +205,7 @@ app.use('/locales', express.static(path.join(__dirname, "build", "locales")));
 app.use('/favicon', express.static(path.join(__dirname, "build", "favicon")));
 
 app.get(["/oauth2/login"], async (req, res) => {
-  logger.info("Wonderwall must handle /oauth2/login 1")
+  logger.error("Wonderwall must handle /oauth2/login 1")
   logger.info(res.statusCode)
   logger.info(res.statusText)
   logger.info(res.status)
