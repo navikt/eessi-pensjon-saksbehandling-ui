@@ -10,7 +10,7 @@ import { getToken, validateToken } from '@navikt/oasis';
 import { fileURLToPath } from 'url';
 
 const app = express();
-app.use(timeout('600s'));
+app.use(timeout('60s'));
 app.disable("x-powered-by");
 
 const azureAdConfig = {
@@ -206,9 +206,9 @@ app.use('/locales', express.static(path.join(__dirname, "build", "locales")));
 app.use('/favicon', express.static(path.join(__dirname, "build", "favicon")));
 
 app.get(["/oauth2/login"], async (req, res) => {
-  logger.error("Wonderwall must handle /oauth2/login 1")
+  logger.error("Wonderwall must handle /oauth2/login")
   res.status(502).send({
-    message: "Wonderwall must handle /oauth2/login 2",
+    message: "Wonderwall must handle /oauth2/login",
   });
 });
 
