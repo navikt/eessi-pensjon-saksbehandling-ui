@@ -10,7 +10,7 @@ import { getToken, validateToken } from '@navikt/oasis';
 import { fileURLToPath } from 'url';
 
 const app = express();
-app.use(timeout('60s'));
+app.use(timeout('600s'));
 app.disable("x-powered-by");
 
 const azureAdConfig = {
