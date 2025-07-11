@@ -47,6 +47,7 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
   const [_preview, setPreview] = useState<any | undefined>(undefined)
 
   const onRowSelectChange = (items: JoarkBrowserItems): void => {
+    onFinishedSelection(items)
     setItems(items)
   }
 
