@@ -44,6 +44,7 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
   const dispatch = useDispatch()
   const { alertVariant, alertMessage, previewFile } = useSelector<State, SEDAttachmentModalSelector>(mapState)
   const [_items, setItems] = useState<JoarkBrowserItems>(sedAttachments)
+  const [_currentItems, setCurrentItems] = useState<JoarkBrowserItems>(sedAttachments)
   const [_preview, setPreview] = useState<any | undefined>(undefined)
 
   const onRowSelectChange = (items: JoarkBrowserItems): void => {
@@ -90,6 +91,12 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
     )
   }, [previewFile])
 
+  useEffect(() => {
+    if (previewFile) {
+      setCurrentItems(_items)
+    }
+  }, [previewFile])
+
   return (
     <Modal
       open={open}
@@ -107,7 +114,7 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
             )}
             <JoarkBrowser
               data-testid='a_buc_c_sedattachmentmodal--joarkbrowser-id'
-              existingItems={_items ? _items : sedAttachments}
+              existingItems={_currentItems}
               mode='select'
               onRowSelectChange={onRowSelectChange}
               tableId={tableId}
