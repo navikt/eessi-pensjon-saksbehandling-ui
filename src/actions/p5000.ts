@@ -62,11 +62,11 @@ export const sendP5000toRina = (
 }
 
 export const getP5000FromS3 = (
-  aktoerId: string,
+  fnr: string,
   caseId: string
 ): Action => {
   return call({
-    url: sprintf(urls.API_STORAGE_GET_URL, { userId: aktoerId, namespace: storage.NAMESPACE_PESYS, file: caseId }),
+    url: sprintf(urls.API_STORAGE_GET_URL, { userId: fnr, namespace: storage.NAMESPACE_PESYS, file: caseId }),
     method: 'GET',
     cascadeFailureError: true,
     expectedErrorRate: { 200: 1 },
@@ -80,12 +80,12 @@ export const getP5000FromS3 = (
 }
 
 export const sendP5000ToS3 = (
-  aktoerId: string,
+  fnr: string,
   caseId: string,
   items: Array<P5000ForS3>
 ): Action => {
   return call({
-    url: sprintf(urls.API_STORAGE_POST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_PESYS, file: caseId }),
+    url: sprintf(urls.API_STORAGE_POST_URL, { userId: fnr, namespace: storage.NAMESPACE_PESYS, file: caseId }),
     method: 'POST',
     body: items,
     cascadeFailureError: true,

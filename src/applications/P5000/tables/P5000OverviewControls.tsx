@@ -16,7 +16,7 @@ import ReactToPrint from 'react-to-print'
 import { useAppDispatch } from 'src/store'
 
 export interface P5000OverviewControlsProps {
-  aktoerId: string
+  fnr: string // renamed from aktoerId
   caseId: string
   componentRef: any
   mergePeriods: boolean
@@ -48,7 +48,7 @@ const mapState = (state: State): P5000OverviewControlsSelector => ({
 })
 
 const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
-  aktoerId,
+  fnr,
   caseId,
   componentRef,
   mergePeriods,
@@ -112,7 +112,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
 
   const handleOverforTilPesys = () => {
     if (window.confirm(t('buc:form-areYouSureSendToPesys'))) {
-      dispatch(sendP5000ToS3(aktoerId, caseId, convertFromP5000ListRowsIntoPesysPeriods(itemsForPesys)))
+      dispatch(sendP5000ToS3(fnr, caseId, convertFromP5000ListRowsIntoPesysPeriods(itemsForPesys)))
     }
   }
 

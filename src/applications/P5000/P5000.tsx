@@ -25,21 +25,21 @@ export interface P5000Props {
 }
 
 export interface P5000Selector {
-  aktoerId: string | null | undefined
   featureToggles: FeatureToggles
   p5000sFromRinaMap: P5000sFromRinaMap
   p5000FromS3: Array<P5000ListRows> | null | undefined
   gettingP5000FromS3: boolean
   storageEntries: LocalStorageEntriesMap<P5000SED>
+  personPdl?: any // Add personPdl to selector
 }
 
 const mapState = (state: State): P5000Selector => ({
-  aktoerId: state.app.params.aktoerId,
   featureToggles: state.app.featureToggles,
   p5000sFromRinaMap: state.p5000.p5000sFromRinaMap,
   p5000FromS3: state.p5000.p5000sFromS3,
   gettingP5000FromS3: state.loading.gettingP5000FromS3,
-  storageEntries: state.localStorage.entries as LocalStorageEntriesMap<P5000SED>
+  storageEntries: state.localStorage.entries as LocalStorageEntriesMap<P5000SED>,
+  personPdl: state.person.personPdl // Add personPdl
 })
 
 interface TableData {
@@ -55,7 +55,10 @@ const P5000: React.FC<P5000Props> = ({
 }: P5000Props): JSX.Element => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { aktoerId, p5000sFromRinaMap, p5000FromS3, storageEntries }: P5000Selector = useSelector<State, P5000Selector>(mapState)
+  const { p5000sFromRinaMap, p5000FromS3, storageEntries, personPdl }: P5000Selector = useSelector<State, P5000Selector>(mapState)
+
+  // Extract fnr from personPdl
+  const fnr = personPdl?.identer?.find((i: any) => i.gruppe === 'FOLKEREGISTERIDENT')?.ident
 
   /* which seds should be visible */
   const [_activeSeds, _setActiveSeds] = useState<Seds>([])
@@ -159,7 +162,7 @@ const P5000: React.FC<P5000Props> = ({
   const renderP5000OverviewContent = (activeSeds: Seds, p5000WorkingCopies: Array<LocalStorageEntry<P5000SED>>) => {
     return (
       <P5000Overview
-        aktoerId={aktoerId!}
+        fnr={fnr}
         caseId={buc.caseId!}
         p5000sFromRinaMap={p5000sFromRinaMap}
         p5000WorkingCopies={p5000WorkingCopies}
@@ -269,7 +272,7 @@ const P5000: React.FC<P5000Props> = ({
 
   useEffect(() => {
     _setFetchingP5000FromS3(true)
-    dispatch(getP5000FromS3(aktoerId!, buc.caseId!))
+    dispatch(getP5000FromS3(fnr!, buc.caseId!))
   }, [])
 
   useEffect(() => {
