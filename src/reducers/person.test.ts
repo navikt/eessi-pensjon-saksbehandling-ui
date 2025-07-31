@@ -7,7 +7,9 @@ describe('reducers/person', () => {
       personReducer(initialPersonState, {
         type: types.PERSON_PDL_SUCCESS,
         payload: {
-          foo: 'mockPayload'
+          result: {
+            foo: 'mockPayload'
+          }
         }
       })
     ).toEqual({
