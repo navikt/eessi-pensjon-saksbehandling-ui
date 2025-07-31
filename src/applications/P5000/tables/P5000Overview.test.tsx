@@ -26,7 +26,7 @@ jest.mock('md5', () => (value: any) => value)
 describe('applications/BUC/components/P5000/P5000', () => {
 
   const initialMockProps: P5000OverviewProps = {
-    aktoerId: '123',
+    fnr: '123',
     caseId: '234',
     p5000FromS3: null,
     seds: _.filter(mockBucs()[0].seds, (sed: Sed) => sed.type === 'P5000') as Seds,
