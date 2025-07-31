@@ -44,7 +44,7 @@ const personReducer = (state: PersonState = initialPersonState, action: AnyActio
 
       return {
         ...state,
-        personPdl: action.payload
+        personPdl: action.payload.result
       }
 
     case types.PERSON_AVDOD_REQUEST:
@@ -83,19 +83,19 @@ const personReducer = (state: PersonState = initialPersonState, action: AnyActio
       }
 
     case types.PERSON_AVDOD_FROM_AKTOERID_SUCCESS:
-      const identer = action.payload.identer
+      const identer = action.payload.result.identer
       const fnrIdent = _.find(identer, (i) => {if(i.gruppe === "FOLKEREGISTERIDENT") return i})
       const aktoerIdIdent = _.find(identer, (i) => {if(i.gruppe === "AKTORID") return i})
       return {
         ...state,
         personAvdods: [{
             aktoerId: aktoerIdIdent.ident,
-            etternavn: action.payload.navn.etternavn,
+            etternavn: action.payload.result.navn.etternavn,
             fnr: fnrIdent.ident,
-            fornavn: action.payload.navn.fornavn,
-            fulltNavn: action.payload.navn.sammensattNavn,
-            mellomnavn: action.payload.navn.mellomnavn,
-            doedsDato: action.payload.doedsfall?.doedsdato
+            fornavn: action.payload.result.navn.fornavn,
+            fulltNavn: action.payload.result.navn.sammensattNavn,
+            mellomnavn: action.payload.result.navn.mellomnavn,
+            doedsDato: action.payload.result.doedsfall?.doedsdato
           }
         ]
       }
