@@ -33,7 +33,9 @@ export const getPersonAvdodInfoFromAktoerId = (
 ): ActionWithPayload<PersonAvdods> => {
   return call({
     url: sprintf(urls.PERSON_PDL_URL, { aktoerId }),
-    expectedPayload: mockPersonAvdodAktoerId,
+    expectedPayload: {
+      result: mockPersonAvdodAktoerId
+    },
     type: {
       request: types.PERSON_AVDOD_FROM_AKTOERID_REQUEST,
       success: types.PERSON_AVDOD_FROM_AKTOERID_SUCCESS,
@@ -47,7 +49,9 @@ export const getPersonInfo = (
 ): ActionWithPayload<any> => {
   return call({
     url: sprintf(urls.PERSON_PDL_URL, { aktoerId }),
-    expectedPayload: mockPerson,
+    expectedPayload: {
+      result: mockPerson
+    },
     type: {
       request: types.PERSON_PDL_REQUEST,
       success: types.PERSON_PDL_SUCCESS,
