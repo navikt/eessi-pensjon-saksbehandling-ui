@@ -277,7 +277,10 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             </Button>
           )}
           <div>
-            {sed.type === 'P5000' && (sed.status !== 'received') && (
+            {sed.type === 'P5000'
+              && (sed.status !== 'received' && sed.status !== 'cancelled')
+              && (['NO:889640782', 'NO:NAVAT07'].includes(sed.participants.find(p => p.role === 'Sender')?.organisation.id ?? ''))
+              && (
             <>
               <Button
                 variant='secondary'
