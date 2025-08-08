@@ -249,6 +249,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
       // we are adding a period from the 1st day of the month of that person's death, to the day before death
       // as in dødsfallet = 08.08.1978 => periode 01.08.1978 - 07.08.1978
       const fixedSluttdato = dayjs(gjpbp).subtract(1, 'd').toDate()
+      const modifiedDiff: FormattedDateDiff = dateDiff(startdato, fixedSluttdato)
 
       // check if we do not have such period
       const foundPeriod = _.find(newItems, item => {
@@ -270,9 +271,9 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
           startdato,
           sluttdato: fixedSluttdato,
           status: 'new',
-          aar: '' + diff.years,
-          mnd: '' + diff.months,
-          dag: '' + diff.days,
+          aar: '' + modifiedDiff.years,
+          mnd: '' + modifiedDiff.months,
+          dag: '' + modifiedDiff.days,
           selected: true,
           flag: true,
           flagIkon: 'OMS/BP',
