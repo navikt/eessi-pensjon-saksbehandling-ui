@@ -90,6 +90,7 @@ export const ForenkletForespoersel: React.FC<P8000FieldComponentProps> = ({
         updatePSED={updatePSED}
         label={label}
         value={options.sed}
+        target={target}
       />
       {checked &&
         <Box

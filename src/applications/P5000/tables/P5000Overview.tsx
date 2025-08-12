@@ -40,7 +40,7 @@ export interface P5000OverviewSelector {
 }
 
 export interface P5000OverviewProps {
-  aktoerId: string
+  fnr: string // renamed from aktoerId
   caseId: string
   p5000sFromRinaMap: P5000sFromRinaMap
   p5000FromS3: Array<P5000ListRows> | null | undefined
@@ -57,7 +57,7 @@ export const P5000Tabs = styled(Tabs)`
 `
 
 const P5000Overview: React.FC<P5000OverviewProps> = ({
-  aktoerId, caseId, p5000sFromRinaMap, p5000WorkingCopies, p5000FromS3, seds
+  fnr, caseId, p5000sFromRinaMap, p5000WorkingCopies, p5000FromS3, seds
 }: P5000OverviewProps) => {
   const { t } = useTranslation()
   const componentRef = useRef(null)
@@ -321,7 +321,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     <>
         <Box paddingBlock="4 0">
             <P5000OverviewControls
-              aktoerId={aktoerId}
+              fnr={fnr}
               caseId={caseId}
               p5000FromS3={p5000FromS3}
               componentRef={componentRef}

@@ -2,7 +2,7 @@ import {
   Alert,
   Box,
   Button,
-  HelpText, HGrid, HStack,
+  HelpText, HGrid, HStack, Label,
   Link,
   Loader,
   Radio,
@@ -17,7 +17,7 @@ import { ytelseType } from 'src/applications/P5000/P5000.labels'
 import P5000HelpModal from 'src/applications/P5000/components/P5000HelpModal'
 import Modal from 'src/components/Modal/Modal'
 import Select from 'src/components/Select/Select'
-import { OneLineSpan } from 'src/components/StyledComponents'
+import {OneLineSpan} from 'src/components/StyledComponents'
 import * as constants from 'src/constants/constants'
 import { LocalStorageEntry, Option, Validation } from 'src/declarations/app'
 import { SakTypeMap, SakTypeValue } from 'src/declarations/buc.d'
@@ -120,6 +120,8 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
 
   const [requestingUFT, setRequestingUFT] = useState<boolean>(false)
   const [requestingGjpBp, setRequestingGjpBp] = useState<boolean>(false)
+
+  const [_gjpBpType, setGjpBpType] = useState<string>("30")
 
   const [ytelseOptions] = useState<Array<Option>>(() => Object.keys(ytelseType)
     .sort((a: string | number, b: string | number) => (_.isNumber(a) ? a : parseInt(a)) > (_.isNumber(b) ? b : parseInt(b)) ? 1 : -1)
@@ -247,6 +249,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
       // we are adding a period from the 1st day of the month of that person's death, to the day before death
       // as in dødsfallet = 08.08.1978 => periode 01.08.1978 - 07.08.1978
       const fixedSluttdato = dayjs(gjpbp).subtract(1, 'd').toDate()
+      const modifiedDiff: FormattedDateDiff = dateDiff(startdato, fixedSluttdato)
 
       // check if we do not have such period
       const foundPeriod = _.find(newItems, item => {
@@ -264,13 +267,13 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
           ordning: newItemTemplate?.ordning ?? null,
           ytelse: newItemTemplate?.ytelse ?? null,
           acronym: newItemTemplate?.acronym ?? null,
-          type: '30',
+          type: _gjpBpType,
           startdato,
           sluttdato: fixedSluttdato,
           status: 'new',
-          aar: '' + diff.years,
-          mnd: '' + diff.months,
-          dag: '' + diff.days,
+          aar: '' + modifiedDiff.years,
+          mnd: '' + modifiedDiff.months,
+          dag: '' + modifiedDiff.days,
           selected: true,
           flag: true,
           flagIkon: 'OMS/BP',
@@ -617,11 +620,20 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
             pesysContext === GJENNY ||
             ((sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && pesysContext === VEDTAKSKONTEKST)) &&
             (
-            <>
+            <VStack gap="2">
+              <HStack
+                gap="4"
+                align="center"
+              >
+                <Label>{t('p5000:trygdetid-for-dødsfallsmåneden')}</Label>
+                <HelpText placement='right'>
+                  {t('p5000:help-gjpbp')}
+                </HelpText>
+              </HStack>
               <HStack
                 gap="4"
                 paddingBlock="0 4"
-                align="baseline"
+                align="center"
               >
                 <Button
                   variant='secondary'
@@ -631,16 +643,19 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                   {requestingGjpBp && <Loader />}
                   {requestingGjpBp ? t('message:loading-gjpbp') : t('p5000:hent-gjpbp')}
                 </Button>
-                <HelpText placement='right'>
-                    {t('p5000:help-gjpbp')}
-                </HelpText>
+                <RadioGroup legend="Type" hideLegend={true} value={_gjpBpType} onChange={setGjpBpType}>
+                  <HStack gap="4">
+                    <Radio value="30" checked={true}>{t('p5000:botid')}</Radio>
+                    <Radio value="11">{t('p5000:arbeidsperioder')}</Radio>
+                  </HStack>
+                </RadioGroup>
               </HStack>
               {!_.isNil(gjpbpwarning) && (
                 <Box paddingBlock="0 4">
                   <Alert variant={gjpbpwarning.type}>{gjpbpwarning.message}</Alert>
                 </Box>
               )}
-            </>
+            </VStack>
           )}
         </div>
         <Spacer />
