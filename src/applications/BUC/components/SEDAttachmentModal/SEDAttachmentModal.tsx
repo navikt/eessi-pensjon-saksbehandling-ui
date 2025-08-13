@@ -47,6 +47,7 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
   const [_itemsForJoarkBrowser, setItemsForJoarkBrowser] = useState<JoarkBrowserItems>(sedAttachments)
   const [_itemsPerPage, setItemsPerPage] = useState<number>(10)
   const [_preview, setPreview] = useState<any | undefined>(undefined)
+  const [_currentPage, setCurrentPage] = useState<number>(1)
 
   const onRowSelectChange = (items: JoarkBrowserItems): void => {
     setItems(items)
@@ -121,6 +122,8 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
               tableId={tableId}
               itemsPerPage={_itemsPerPage}
               setItemsPerPage={setItemsPerPage}
+              currentPage={_currentPage}
+              setCurrentPage={setCurrentPage}
             />
           </>
         ),

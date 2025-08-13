@@ -72,6 +72,8 @@ export interface JoarkBrowserProps {
   onRowViewDelete?: (f: JoarkBrowserItems) => void
   itemsPerPage?: number
   setItemsPerPage?: (f: number) => void
+  currentPage?: number
+  setCurrentPage?: (f: number) => void
   mode: JoarkBrowserMode
   tableId: string
 }
@@ -84,6 +86,8 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   onPreviewFile,
   itemsPerPage,
   setItemsPerPage = () => {},
+  currentPage,
+  setCurrentPage = () => {},
   tableId
 }: JoarkBrowserProps): JSX.Element => {
   const {
@@ -408,6 +412,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         labels={{
           type: t('ui:attachments').toLowerCase()
         }}
+        initialPage={currentPage}
         itemsPerPage={itemsPerPage}
         animatable={false}
         searchable={mode === 'select'}
@@ -439,6 +444,8 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         ]}
         onRowSelectChange={onRowSelectChange}
         size={'small'}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
     </div>
   )
