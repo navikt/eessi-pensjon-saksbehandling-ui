@@ -225,6 +225,10 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     const dateString = getFirstRelevantDatoOrDatoOpprettet(journalfoerteDatoer);
 
       if (post.dokumenter.length > 1) {
+        const selected = _.find(selectedItems, {
+          journalpostId: post.journalpostId,
+        }) !== undefined
+
         multipleDocuments = true
         items.push({
           key: 'joark-group-' + post.journalpostId,
@@ -238,6 +242,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           tema: post.tema,
           date: new Date(Date.parse(dateString)),
 
+          selected,
           disabled: false,
           hasSubrows: true
         } as JoarkBrowserItem)
