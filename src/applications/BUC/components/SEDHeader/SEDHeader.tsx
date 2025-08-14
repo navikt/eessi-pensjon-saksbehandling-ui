@@ -23,6 +23,7 @@ import {JoarkPreview} from "src/declarations/joark";
 import PreviewSED from "src/components/PreviewSED/PreviewSED";
 import {CenterHStack} from "src/components/StyledComponents";
 import P8000 from "src/applications/P8000/P8000";
+import {umamiButtonLogger} from "src/metrics/umami";
 
 const SEDListActionsDiv = styled.div`
   flex: 2;
@@ -318,8 +319,11 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 variant='secondary'
                 data-amplitude='buc.view.p2000.edit'
                 data-testid='a_buc_c_sedheader--p2000-button-id'
-                onClick={(e) => {
-                  buttonLogger(e)
+                onClick={() => {
+                  umamiButtonLogger({
+                    tekst: "Oppdater P2000",
+                    bucType: buc.type
+                  });
                   setMode('p2000', 'forward', undefined, (
                     <P2000
                       buc={buc}
@@ -345,8 +349,11 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 variant='secondary'
                 data-amplitude='buc.view.p8000.edit'
                 data-testid='a_buc_c_sedheader--p8000-button-id'
-                onClick={(e) => {
-                  buttonLogger(e)
+                onClick={() => {
+                  umamiButtonLogger({
+                    tekst: "Oppdater P8000",
+                    bucType: buc.type
+                  });
                   setMode('p8000', 'forward', undefined, (
                     <P8000
                       buc={buc}

@@ -22,6 +22,7 @@ import i18n from './i18n'
 import store from './store'
 import {GJENNY, PESYS} from "./constants/constants";
 import {pdfjs} from "react-pdf";
+import {Helmet} from "react-helmet";
 
 
 if (!IS_PRODUCTION) {
@@ -46,13 +47,23 @@ root.render(
     <Provider store={store}>
       <Suspense fallback={<span>...</span>}>
         <BrowserRouter>
+          <Helmet>
+            <script
+              defer
+              src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
+              data-host-url="https://umami.nav.no"
+              data-website-id="0237dde0-bca5-4cce-ad72-236e1365dd3f"
+              data-domains="pensjon-utland-q2.intern.dev.nav.no"
+            >
+            </script>
+          </Helmet>
           <Routes>
             <Route
               path='/' element={
-                <RequireAuth>
-                  <Pages.IndexPage indexType={PESYS}/>
-                </RequireAuth>
-              }
+              <RequireAuth>
+                <Pages.IndexPage indexType={PESYS}/>
+              </RequireAuth>
+            }
             />
             <Route
               path='/gjenny' element={
