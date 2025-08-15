@@ -25,7 +25,6 @@ import { P5000sFromRinaMap } from 'src/declarations/p5000.d'
 import { P5000ListRow, P5000ListRows, P5000Period, P5000SED, P5000UpdatePayload } from 'src/declarations/p5000'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { standardLogger } from 'src/metrics/loggers'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -144,7 +143,6 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
 
   const prepareContent = (): void => {
     setRenderPrintTable(true)
-    standardLogger('buc.view.tools.P5000.edit.print.button')
   }
 
   const afterPrintOut = (): void => {

@@ -12,7 +12,6 @@ import { BucInfoPropType, BucPropType } from 'src/declarations/buc.pt'
 import { State } from 'src/declarations/reducers'
 import { FlagItems, FlagList } from '@navikt/flagg-ikoner'
 import _ from 'lodash'
-import { linkLogger } from 'src/metrics/loggers'
 import moment from 'moment'
 import {LinkPanel, BodyLong, Link, Heading, Tag, Box, HGrid, HStack} from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
@@ -121,7 +120,6 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
   const flagItems: FlagItems = _.isArray(buc.deltakere) ? generateFlagItems() : []
 
   const onRinaLinkClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
-    linkLogger(e)
     e.stopPropagation()
     if (rinaUrl && buc.caseId) {
       window.open(rinaUrl + buc.caseId, 'rinaWindow')
@@ -195,7 +193,6 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                       {/*https://kizu.dev/nested-links/*/}
                       <object type="owo/uwu">
                         <RinaLink
-                          data-amplitude='buc.list.buc.rinaUrl'
                           data-testid='a_buc_c_BUCHeader--label_case_gotorina_link_id'
                           href={rinaUrl + buc.caseId}
                           onClick={onRinaLinkClick}

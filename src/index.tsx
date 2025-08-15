@@ -2,7 +2,6 @@
 import RequireAuth from 'src/components/RequireAuth/RequireAuth'
 import { IS_PRODUCTION } from 'src/constants/environment'
 import 'core-js/stable'
-import * as Amplitude from 'src/metrics/amplitude'
 import * as Sentry from 'src/metrics/sentry'
 import 'moment'
 import 'moment/locale/en-gb'
@@ -32,7 +31,6 @@ if (!IS_PRODUCTION) {
 
 } else {
   Sentry.init()
-  Amplitude.init()
 }
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(

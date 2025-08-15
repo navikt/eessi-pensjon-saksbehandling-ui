@@ -1,8 +1,6 @@
 import PersonPanel from 'src/applications/PersonPanel/PersonPanel'
 import ContextBanner from 'src/components/ContextBanner/ContextBanner'
 import TopContainer from 'src/components/TopContainer/TopContainer'
-import { timeLogger } from 'src/metrics/loggers'
-import { useEffect, useState } from 'react'
 import {Box, VStack} from "@navikt/ds-react";
 import BUCIndex from 'src/applications/BUC'
 import {GJENNY, PESYS} from "../../constants/constants";
@@ -15,14 +13,6 @@ export interface IndexPageProps {
 }
 
 export const IndexPage: React.FC<IndexPageProps> = ({indexType = "PESYS"}): JSX.Element => {
-  const [loggedTime] = useState<Date>(new Date())
-
-  useEffect(() => {
-    return () => {
-      timeLogger('view', loggedTime)
-    }
-  }, [loggedTime])
-
   return (
     <TopContainer indexType={indexType}>
       <VStack gap="4">

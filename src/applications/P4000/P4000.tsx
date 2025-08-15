@@ -28,7 +28,6 @@ import Table, {Column, RenderOptions} from "@navikt/tabell";
 import _ from "lodash";
 import CountryData, {AllowedLocaleString} from "@navikt/land-verktoy";
 import moment from "moment";
-import {standardLogger} from "src/metrics/loggers";
 import md5 from "md5";
 import {
   P4000_ANDRE,
@@ -288,7 +287,6 @@ const P4000: React.FC<P4000Props> = ({
             selectable={false}
             sortable
             onColumnSort={(sort: any) => {
-              standardLogger('buc.view.tools.P4000.overview.sort', { sort })
               _setTableSort(sort)
             }}
             itemsPerPage={itemsPerPage}

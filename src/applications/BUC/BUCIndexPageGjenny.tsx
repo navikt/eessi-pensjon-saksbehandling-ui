@@ -11,7 +11,6 @@ import { BUCMode, PesysContext } from 'src/declarations/app.d'
 import { BucListItem, Bucs } from 'src/declarations/buc'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { timeDiffLogger } from 'src/metrics/loggers'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -172,17 +171,6 @@ export const BUCIndexPageGjenny = (): JSX.Element => {
   const [contentC, setContentC] = useState<any>(null)
   const [animating, setAnimating] = useState<boolean>(false)
 
-  const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
-  const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
-
-  const onMouseEnter = () => setMouseEnterDate(new Date())
-
-  const onMouseLeave = () => {
-    if (mouseEnterDate) {
-      setTotalTimeWithMouseOver(totalTimeWithMouseOver + (new Date().getTime() - mouseEnterDate?.getTime()))
-    }
-  }
-
   const WaitingDiv = (
     <WaitingPanelDiv>
       <WaitingPanel />
@@ -307,12 +295,6 @@ export const BUCIndexPageGjenny = (): JSX.Element => {
   }, [])
 
   useEffect(() => {
-    return () => {
-      timeDiffLogger('buc.mouseover', totalTimeWithMouseOver)
-    }
-  }, [])
-
-  useEffect(() => {
     if (aktoerId && avdodFnr && bucsList === undefined && !gettingBucsList) {
       dispatch(fetchBucsListForGjenlevende(aktoerId))
       dispatch(fetchBucsListForAvdod(aktoerId, avdodFnr))
@@ -368,8 +350,6 @@ export const BUCIndexPageGjenny = (): JSX.Element => {
     <div
       data-testid='a-buc-index'
       key='bucIndexDiv'
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
     >
       <Box paddingBlock="4 0">
         <ContainerDiv>

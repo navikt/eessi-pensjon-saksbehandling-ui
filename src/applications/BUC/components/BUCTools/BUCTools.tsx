@@ -17,7 +17,6 @@ import {
 } from 'src/declarations/buc'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { buttonLogger, standardLogger } from 'src/metrics/loggers'
 import {Detail, BodyLong, Heading, Button, Panel, Textarea, Tabs, VStack, Box} from '@navikt/ds-react'
 
 import { useEffect, useState } from 'react'
@@ -102,7 +101,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
       if (_.isFunction(onTagChange)) {
         onTagChange(tagsList as Tags)
       }
-      standardLogger('buc.view.tools.tags.select', { tags: (tagsList as Tags)?.map(t => t.label) || [] })
       setTags(tagsList as Tags)
       dispatch(saveBucsInfo({
         bucsInfo: bucsInfo!,
@@ -113,8 +111,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     }
   }
 
-  const onGettingP5000Click = (e: React.MouseEvent): void => {
-    buttonLogger(e)
+  const onGettingP5000Click = (): void => {
     setMode('p5000', 'forward', undefined, (
       <P5000
         buc={buc}
@@ -128,8 +125,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
     })
   }
 
-  const onGettingP4000Click = (e: React.MouseEvent): void => {
-    buttonLogger(e)
+  const onGettingP4000Click = (): void => {
     setMode('p4000', 'forward', undefined, (
       <P4000
         buc={buc}
@@ -213,7 +209,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
               <FlexDiv>
                 <Button
                   variant='secondary'
-                  data-amplitude='buc.view.tools.P5000.view'
                   data-testid='a_buc_c_buctools--P5000-button-id'
                   disabled={!hasP5000s()}
                   onClick={onGettingP5000Click}
@@ -231,7 +226,6 @@ const BUCTools: React.FC<BUCToolsProps> = ({
               <FlexDiv>
                 <Button
                   variant='secondary'
-                  data-amplitude='buc.view.tools.P4000.view'
                   data-testid='a_buc_c_buctools--P4000-button-id'
                   disabled={!hasP4000s()}
                   onClick={onGettingP4000Click}

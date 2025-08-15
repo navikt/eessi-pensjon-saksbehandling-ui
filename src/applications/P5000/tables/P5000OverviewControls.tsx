@@ -8,7 +8,6 @@ import { Option } from 'src/declarations/app'
 import { P5000ListRow, P5000ListRows } from 'src/declarations/p5000'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { standardLogger } from 'src/metrics/loggers'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -92,7 +91,6 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
   }
 
   const itemsPerPageChanged = (e: any): void => {
-    standardLogger('buc.view.tools.P5000.overview.itemsPerPage.select', { value: e.target.value })
     setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
   }
 
@@ -102,7 +100,6 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
 
   const prepareContent = (): void => {
     setRenderPrintTable(true)
-    standardLogger('buc.view.tools.P5000.overview.print.button')
   }
 
   const afterPrintOut = (): void => {

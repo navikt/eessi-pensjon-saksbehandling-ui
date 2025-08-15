@@ -3,7 +3,6 @@ import {HStack, Link} from '@navikt/ds-react'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import { RinaUrl } from 'src/declarations/app.d'
 import { State } from 'src/declarations/reducers'
-import { linkLogger } from 'src/metrics/loggers'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -44,10 +43,8 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
       {rinaUrl
         ? (
           <Link
-            data-amplitude='buc.list.rinaurl'
             data-testid='a_buc_c_BUCFooter--gotorina_link'
             href={rinaUrl}
-            onClick={linkLogger}
             target='rinaWindow'
           >
             <HStack gap="4">

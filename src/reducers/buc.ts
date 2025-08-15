@@ -28,7 +28,6 @@ import { JoarkBrowserItem, JoarkBrowserItems, JoarkPreview } from 'src/declarati
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
 import md5 from 'md5'
-import { standardLogger } from 'src/metrics/loggers'
 import { AnyAction } from 'redux'
 import { P5000sFromRinaMap } from 'src/declarations/p5000'
 import {P4000SED} from "../declarations/p4000"
@@ -155,7 +154,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
 
     case types.BUC_CREATE_BUC_FAILURE:
     case types.GJENNY_CREATE_BUC_FAILURE:
-      standardLogger('buc.new.create.failure')
       return {
         ...state,
         rinaId: undefined
@@ -191,7 +189,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         } as BUCSubject
       }
 
-      standardLogger('buc.new.create.success')
 
       // Cache seds allowing attachments
       if (newBuc.seds) {
@@ -258,7 +255,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
 
     case types.BUC_CREATE_SED_FAILURE:
     case types.GJENNY_CREATE_SED_FAILURE:
-      standardLogger('sed.new.create.failure')
       return state
 
     case types.BUC_CREATE_SED_SUCCESS:
@@ -303,7 +299,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       if (bucs) {
         bucs[state.currentBuc!].seds!.push(newSed)
       }
-      standardLogger('sed.new.create.success')
       return {
         ...state,
         newlyCreatedSed: newSed,
@@ -352,7 +347,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       if (bucs) {
         bucs[state.currentBuc!].seds!.push(newSed)
       }
-      standardLogger('sed.new.create.success')
       return {
         ...state,
         newlyCreatedATPSed: newSed,

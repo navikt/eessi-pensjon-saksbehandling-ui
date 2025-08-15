@@ -1,7 +1,6 @@
 import MultipleSelect from 'src/components/MultipleSelect/MultipleSelect'
 import { TextField, Panel } from '@navikt/ds-react'
 import { Option } from 'src/declarations/app'
-import { standardLogger } from 'src/metrics/loggers'
 import PT from 'prop-types'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -49,7 +48,6 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
     onSearch(e.target.value)
 
     const timer = setTimeout(() => {
-      standardLogger('buc.view.filter.text.input')
       if (_timer) {
         clearTimeout(_timer)
       }
@@ -62,7 +60,6 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
     if (statusList) {
       onStatusSearch(statusList as Array<Option>)
       setStatus(statusList as Array<Option>)
-      standardLogger('buc.view.filter.status.select')
     }
   }
 

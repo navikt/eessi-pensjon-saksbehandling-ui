@@ -6,9 +6,8 @@ import MousePNG from 'src/assets/images/artwork/NAVmusematte.png'
 import MapPNG from 'src/assets/images/artwork/saksstatus.png'
 import { State } from 'src/declarations/reducers'
 import { RinaUrl } from 'src/declarations/app.d'
-import { standardLogger } from 'src/metrics/loggers'
 import PT from 'prop-types'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -87,10 +86,6 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
   const dispatch = useDispatch()
   const { rinaUrl }: BUCEmptySelector = useSelector<State, BUCEmptySelector>(mapState)
   const { t } = useTranslation()
-
-  useEffect(() => {
-    standardLogger('buc.empty.entrance')
-  }, [])
 
   const onAktoerIdChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValidation(undefined)

@@ -28,7 +28,6 @@ import {
 import { State } from 'src/declarations/reducers'
 import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
-import { standardLogger } from 'src/metrics/loggers'
 import PT from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -606,7 +605,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const onColumnSort = (sort: SortState) => {
-    standardLogger('buc.view.tools.P5000.edit.sort', { sort })
     _setTableSort(sort)
   }
 

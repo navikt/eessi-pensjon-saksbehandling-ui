@@ -10,7 +10,6 @@ import { Buc, Institutions, ValidBuc } from 'src/declarations/buc'
 import { PersonAvdod, PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { linkLogger } from 'src/metrics/loggers'
 import moment from 'moment'
 import { Alert, Panel, Accordion, Link, Label, BodyLong, Heading } from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
@@ -177,11 +176,9 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                 {rinaUrl
                   ? (
                     <Link
-                      data-amplitude='buc.view.detail.rinaurl'
                       data-testid='a_buc_c_BUCDetail--gotorina_link_id'
                       href={rinaUrl + buc.caseId}
                       target='rinaWindow'
-                      onClick={linkLogger}
                     >
                       {buc.caseId}
                     </Link>

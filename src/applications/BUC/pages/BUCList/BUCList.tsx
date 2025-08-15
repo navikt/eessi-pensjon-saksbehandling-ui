@@ -21,7 +21,6 @@ import {
 import { PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { buttonLogger, standardLogger, timeDiffLogger, timeLogger } from 'src/metrics/loggers'
 import {Alert, BodyLong, Heading, Button, Box, Spacer} from '@navikt/ds-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -85,11 +84,7 @@ const BUCList: React.FC<BUCListProps> = ({
   const dispatch = useDispatch()
   const { t } = useTranslation()
 
-  const [_loggedTime] = useState<Date>(new Date())
-
-  const [_mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
   const [_newBucPanelOpen, setNewBucPanelOpen] = useState<boolean | undefined>(initialBucNew)
-  const [_totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
   const [_sortedBucs, _setSortedBucs] = useState<Array<Buc> | undefined>(undefined)
   const [_filteredBucs, _setFilteredBucs] = useState<Array<Buc> | undefined>(undefined)
   const [_pBuc02filteredBucs, _setPBuc02filteredBucs] = useState<Array<Buc> | undefined>(undefined)
@@ -99,30 +94,12 @@ const BUCList: React.FC<BUCListProps> = ({
 
   const isGJENNY: boolean = pesysContext === GJENNY
 
-  useEffect(() => {
-    standardLogger('buc.list.entrance')
-    return () => {
-      timeLogger('buc.list.view', _loggedTime)
-      timeDiffLogger('buc.list.mouseover', _totalTimeWithMouseOver)
-    }
-  }, [_loggedTime])
-
-  const onMouseEnter = () => setMouseEnterDate(new Date())
-
-  const onMouseLeave = () => {
-    if (_mouseEnterDate) {
-      setTotalTimeWithMouseOver(_totalTimeWithMouseOver + (new Date().getTime() - _mouseEnterDate?.getTime()))
-    }
-  }
-
-  const onBUCNew = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    buttonLogger(e)
+  const onBUCNew = (): void => {
     setBestillP5000FraATPPanelOpen(false)
     setNewBucPanelOpen(true)
   }
 
-  const onBestillP5000FraATP = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    buttonLogger(e)
+  const onBestillP5000FraATP = (): void => {
     dispatch(resetATP())
     setNewBucPanelOpen(false)
     setBestillP5000FraATPPanelOpen(true)
@@ -161,10 +138,7 @@ const BUCList: React.FC<BUCListProps> = ({
   const now = _.isEmpty(bucsList) ? 20 : 20 + Math.floor(Object.keys(bucs!).length / (bucsList?.length ?? 1) * 80)
 
   return (
-    <BUCListDiv
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
+    <BUCListDiv>
 
       <Box paddingBlock="0 4">
         <BUCListHeader gap="4" align={"center"}>
@@ -187,7 +161,6 @@ const BUCList: React.FC<BUCListProps> = ({
           {!_newBucPanelOpen && (
             <Button
               variant='secondary'
-              data-amplitude='buc.list.newbuc'
               data-testid='a-buc-p-buclist--newbuc-button-id'
               onClick={onBUCNew}
             >
@@ -197,7 +170,6 @@ const BUCList: React.FC<BUCListProps> = ({
           {!isGJENNY && !_bestillP5000FraATPPanelOpen && _showBestillP5000FraATPButton &&
             <Button
               variant='secondary'
-              data-amplitude='buc.list.newbuc'
               data-testid='a-buc-p-buclist--newbuc-button-id'
               onClick={onBestillP5000FraATP}
             >

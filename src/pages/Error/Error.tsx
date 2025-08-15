@@ -1,9 +1,7 @@
 import EESSIPensjonVeileder from 'src/components/EESSIPensjonVeileder/EESSIPensjonVeileder'
 import TopContainer from 'src/components/TopContainer/TopContainer'
-import { standardLogger, timeLogger } from 'src/metrics/loggers'
 import {Accordion, BodyLong, Heading, VStack} from '@navikt/ds-react'
 import PT from 'prop-types'
-import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -34,14 +32,6 @@ export interface ErrorPageProps {
 export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps): JSX.Element => {
   let title, description, footer
   const { t } = useTranslation()
-  const [loggedTime] = useState<Date>(new Date())
-
-  useEffect(() => {
-    standardLogger('errorPage.entrance', { type })
-    return () => {
-      timeLogger('errorPage.view', loggedTime)
-    }
-  }, [])
 
   switch (type) {
     case 'forbidden':
@@ -80,7 +70,7 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
           <>
             <Accordion data-testid='p-error--content-error-id'>
               <Accordion.Item>
-                <Accordion.Header onClick={() => standardLogger('errorPage.expandingPanel.open')}>
+                <Accordion.Header>
                   {t('message:error-header')}
                 </Accordion.Header>
                 <Accordion.Content>

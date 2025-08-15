@@ -9,7 +9,6 @@ import { Buc, Institutions, Participant, Sed } from 'src/declarations/buc'
 import { BucPropType, SedPropType } from 'src/declarations/buc.pt'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import {buttonLogger} from 'src/metrics/loggers'
 import moment from 'moment'
 import {Alert, Detail, BodyLong, Button, Panel, HStack} from '@navikt/ds-react'
 import {ChevronRightIcon, ChevronDownIcon, ChevronUpIcon, PaperclipIcon} from '@navikt/aksel-icons'
@@ -160,8 +159,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
     locale
   })
 
-  const onFollowUpSedClicked = (e: React.MouseEvent) => {
-    buttonLogger(e)
+  const onFollowUpSedClicked = () => {
     onFollowUpSed(buc, sed, followUpSeds)
   }
 
@@ -270,7 +268,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             <Button
               variant='secondary'
               disabled={buc.readOnly === true}
-              data-amplitude='buc.view.besvarSed'
               data-testid='a_buc_c_sedheader--answer-button-id'
               onClick={onFollowUpSedClicked}
             >
@@ -285,10 +282,8 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             <>
               <Button
                 variant='secondary'
-                data-amplitude='buc.view.p5000.edit'
                 data-testid='a_buc_c_sedheader--p5000-button-id'
-                onClick={(e) => {
-                  buttonLogger(e)
+                onClick={() => {
                   setMode('p5000', 'forward', undefined, (
                     <P5000
                       buc={buc}
@@ -317,7 +312,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             <>
               <Button
                 variant='secondary'
-                data-amplitude='buc.view.p2000.edit'
                 data-testid='a_buc_c_sedheader--p2000-button-id'
                 onClick={() => {
                   umamiButtonLogger({
@@ -347,7 +341,6 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             <>
               <Button
                 variant='secondary'
-                data-amplitude='buc.view.p8000.edit'
                 data-testid='a_buc_c_sedheader--p8000-button-id'
                 onClick={() => {
                   umamiButtonLogger({

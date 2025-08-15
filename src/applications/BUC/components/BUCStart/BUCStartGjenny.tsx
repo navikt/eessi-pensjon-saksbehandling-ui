@@ -17,7 +17,6 @@ import {
 import { PersonAvdod } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { buttonLogger } from 'src/metrics/loggers'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -83,16 +82,12 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
     return hasNoValidationErrors(validation)
   }
 
-  const onForwardButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  const onForwardButtonClick = (): void => {
     setShowWarningBucDeceased(false)
     dispatch(cleanNewlyCreatedBuc())
 
     const valid: boolean = performValidation()
     if (valid) {
-      buttonLogger(e, {
-        subjectArea: _subjectArea,
-        buc: _buc
-      })
       const payload: NewBucPayload = {
         buc: _buc!,
         person: personPdl!
@@ -104,8 +99,7 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
     }
   }
 
-  const onCancelButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    buttonLogger(e)
+  const onCancelButtonClick = (): void => {
     dispatch(resetBuc())
     setBuc(bucParam)
     setAvdod(undefined)
@@ -261,7 +255,6 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
           <HStack gap="4">
             <Button
               variant='primary'
-              data-amplitude='buc.new.create'
               data-testid='a_buc_c_BUCStart--forward-button-id'
               disabled={loading.creatingBuc}
               onClick={onForwardButtonClick}
@@ -273,7 +266,6 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
             </Button>
             <Button
               variant='tertiary'
-              data-amplitude='buc.new.cancel'
               data-testid='a_buc_c_BUCStart--cancel-button-id'
               onClick={onCancelButtonClick}
             >{t('ui:cancel')}

@@ -21,7 +21,6 @@ import { BucPropType, SedPropType } from 'src/declarations/buc.pt'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { standardLogger } from 'src/metrics/loggers'
 import { Heading, Loader, Button, Box } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
@@ -117,9 +116,6 @@ const SEDBody: React.FC<SEDBodyProps> = ({
     setSendingAttachments(true)
     setAttachmentsTableVisible(false)
     const joarkItemsToUpload: JoarkBrowserItems = _.filter(_items, f => f.type === 'joark')
-    standardLogger('buc.view.attachments.data', {
-      numberOfJoarkAttachments: joarkItemsToUpload.length
-    })
     dispatch(createSavingAttachmentJob(joarkItemsToUpload))
     if (_.isFunction(onAttachmentsSubmit)) {
       onAttachmentsSubmit(joarkItemsToUpload)

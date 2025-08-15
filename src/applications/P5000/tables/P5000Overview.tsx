@@ -24,7 +24,6 @@ import {
 } from 'src/declarations/p5000'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { standardLogger } from 'src/metrics/loggers'
 import moment from 'moment'
 import PT from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
@@ -373,7 +372,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                   sortable
                   subrowsIcon='merge'
                   onColumnSort={(sort: any) => {
-                    standardLogger('buc.view.tools.P5000.overview.sort', { sort })
                     _setTableSort(sort)
                   }}
                   itemsPerPage={itemsPerPage}
@@ -407,7 +405,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                   editable
                   subrowsIcon='merge'
                   onColumnSort={(sort: any) => {
-                    standardLogger('buc.view.tools.P5000.pesys.sort', { sort })
                     _setTableSort(sort)
                   }}
                   itemsPerPage={itemsPerPage}

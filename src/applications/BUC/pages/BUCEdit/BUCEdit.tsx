@@ -16,7 +16,6 @@ import { PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import CountryData from '@navikt/land-verktoy'
 import _ from 'lodash'
-import { buttonLogger, standardLogger } from 'src/metrics/loggers'
 import moment from 'moment'
 import PT from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
@@ -116,33 +115,13 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   const componentRef = useRef(null)
   const buc: Buc | undefined = bucs ? bucs[currentBuc!] : undefined
   const bucInfo: BucInfo = buc && bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.caseId!] : {} as BucInfo
-  const [_mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
   const [_search, setSearch] = useState<string | undefined>(initialSearch)
   const [_startSed, setStartSed] = useState<string>(initialSedNew)
   const [_statusSearch, setStatusSearch] = useState<Tags | undefined>(initialStatusSearch)
-  const [_totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
-
-  useEffect(() => {
-    if(buc){
-      standardLogger('buc.view.entrance')
-      standardLogger('buc.view.seds.data', {
-        numberOfSeds: buc && buc.seds ? buc.seds.length : 0,
-        bucType: buc?.type
-      })
-    }
-  }, [buc])
 
   useEffect(() => {
     setStartSed(initialSedNew)
   }, [initialSedNew])
-
-  const onMouseEnter = () => setMouseEnterDate(new Date())
-
-  const onMouseLeave = () => {
-    if (_mouseEnterDate) {
-      setTotalTimeWithMouseOver(_totalTimeWithMouseOver + (new Date().getTime() - _mouseEnterDate?.getTime()))
-    }
-  }
 
   const hasSeds = (buc: Buc): boolean => {
     return !!_.find(buc.seds, (s: Sed) =>
@@ -207,8 +186,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     return match
   }
 
-  const onNewSedButtonClick = (e: React.MouseEvent) => {
-    buttonLogger(e)
+  const onNewSedButtonClick = () => {
     onFollowUpSed(buc!, undefined, undefined)
   }
 
@@ -237,8 +215,6 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   return (
     <BUCEditDiv
       data-testid='a-buc-p-bucedit'
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
     >
       <VStack gap="4">
         <BUCEditHeader>
@@ -257,7 +233,6 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             <Button
               variant='secondary'
               disabled={buc!.readOnly === true || (buc!.type === 'P_BUC_06' && hasSeds(buc!))}
-              data-amplitude='buc.view.newsed'
               data-testid='a-buc-p-bucedit--new-sed-button-id'
               onClick={onNewSedButtonClick}
             >{t('buc:form-orderNewSED')}

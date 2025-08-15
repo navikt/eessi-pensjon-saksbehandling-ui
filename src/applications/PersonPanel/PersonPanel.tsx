@@ -4,7 +4,6 @@ import { AllowedLocaleString, FeatureToggles, PesysContext } from 'src/declarati
 import { PersonPDL } from 'src/declarations/person'
 import { PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
-import {standardLogger, timeDiffLogger} from 'src/metrics/loggers'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PersonBody from './PersonBody'
@@ -39,25 +38,9 @@ const mapState = (state: State): PersonPanelSelector => ({
 export const PersonPanel = (): JSX.Element => {
   const { aktoerId, featureToggles, gettingPersonInfo, locale, personPdl, personAvdods, pesysContext, vedtakId }: PersonPanelSelector =
     useSelector<State, PersonPanelSelector>(mapState)
-  const [totalTimeWithMouseOver, setTotalTimeWithMouseOver] = useState<number>(0)
-  const [mouseEnterDate, setMouseEnterDate] = useState<Date | undefined>(undefined)
   const [openPersonBody, setOpenPersonBody] = useState(false);
-
-  useEffect(() => {
-    return () => {
-      timeDiffLogger('PersonPanel.mouseover', totalTimeWithMouseOver)
-    }
-  }, [])
-
   const dispatch = useDispatch()
 
-  const onMouseEnter = () => setMouseEnterDate(new Date())
-
-  const onMouseLeave = () => {
-    if (mouseEnterDate) {
-      setTotalTimeWithMouseOver(totalTimeWithMouseOver + (new Date().getTime() - mouseEnterDate?.getTime()))
-    }
-  }
 
   useEffect(() => {
     if (aktoerId && pesysContext && pesysContext !== GJENNY) {
@@ -71,8 +54,6 @@ export const PersonPanel = (): JSX.Element => {
   return (
     <Panel
       border style={{ padding: '0px' }}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
     >
       <Accordion style={{ borderRadius: '4px' }} data-testid='w-PersonPanel-id'>
         <Accordion.Item
@@ -80,7 +61,6 @@ export const PersonPanel = (): JSX.Element => {
         >
           <Accordion.Header
             onClick={() => {
-              !openPersonBody && standardLogger('PersonPanel.expandingPanel.open')
               setOpenPersonBody(!openPersonBody);
             }}
           >

@@ -3,10 +3,8 @@ import { PesysContext } from 'src/declarations/app.d'
 import { SakTypeMap, SakTypeValue } from 'src/declarations/buc.d'
 import { PersonPDL } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
-import { standardLogger } from 'src/metrics/loggers'
 import { ChevronRightIcon } from '@navikt/aksel-icons'
 import { HStack } from '@navikt/ds-react'
-import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -43,13 +41,6 @@ const mapState = (state: State): ContextBannerSelector => ({
 const ContextBanner: React.FC = (): JSX.Element => {
   const { t } = useTranslation()
   const { gettingSakType, pesysContext, sakType }: ContextBannerSelector = useSelector<State, ContextBannerSelector>(mapState)
-
-  useEffect(() => {
-    standardLogger('context', {
-      pesys: pesysContext,
-      sakType
-    })
-  }, [])
 
   return (
     <Content>

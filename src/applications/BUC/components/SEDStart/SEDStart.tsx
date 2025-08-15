@@ -88,7 +88,6 @@ import { State } from 'src/declarations/reducers'
 import CountryData, { Country, CountryList } from '@navikt/land-verktoy'
 import CountrySelect from '@navikt/landvelger'
 import _ from 'lodash'
-import { buttonLogger, standardLogger } from 'src/metrics/loggers'
 import moment from 'moment'
 
 import React, { useCallback, useEffect, useState } from 'react'
@@ -851,7 +850,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
     return hasNoValidationErrors(validation)
   }
 
-  const onForwardButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  const onForwardButtonClick = (): void => {
     const valid: boolean = performValidation()
     if (valid) {
       const institutions: Institutions = convertInstitutionIDsToInstitutionObjects()
@@ -862,12 +861,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
         institutions,
         aktoerId: aktoerId!,
         euxCaseId: _buc.caseId!
-      }
-
-      const loggerPayload: any = {
-        buc: _type!,
-        sed: _sed!,
-        institutions
       }
 
       if (_vedtakId) {
@@ -903,12 +896,10 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       } else {
         pesysContext !== GJENNY ? dispatch(createSed(_buc, payload)) : dispatch(createSedGjenny(_buc, payload))
       }
-      buttonLogger(e, loggerPayload)
     }
   }
 
-  const onCancelButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    buttonLogger(e)
+  const onCancelButtonClick = (): void => {
     resetSedForm()
     onSedCancelled()
   }
@@ -989,9 +980,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       // attachments to send -> start a savingAttachmentsJob
       setSendingAttachments(true)
       setAttachmentsTableVisible(false)
-      standardLogger('sed.new.attachments.data', {
-        numberOfJoarkAttachments: joarksToUpload.length
-      })
       dispatch(createSavingAttachmentJob(joarksToUpload))
     }
   }, [_attachmentsSent, _sendingAttachments, _sedAttachments, sedCanHaveAttachments, sed, _sedSent])
@@ -1286,7 +1274,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             <HStack gap="4">
               <Button
                 variant={_sed === 'P7000' && _.isEmpty(_p6000s) ? 'secondary' : 'primary'}
-                data-amplitude='sed.new.create'
                 data-testid='a_buc_c_sedstart--forward-button-id'
                 disabled={
                 (
@@ -1309,7 +1296,6 @@ export const SEDStart: React.FC<SEDStartProps> = ({
               </Button>
               <Button
                 variant='tertiary'
-                data-amplitude='sed.new.cancel'
                 data-testid='a_buc_c_sedstart--cancel-button-id'
                 onClick={onCancelButtonClick}
               >

@@ -114,7 +114,6 @@ const PreviewSED: React.FC<PreviewSedProps> = ({
         title="Forhåndsvis PDF"
         size={size}
         disabled={gettingPreviewPDF || gettingPreviewSed || disabled}
-        data-amplitude='svarsed.editor.preview'
         onClick={onPreviewSedClicked}
         loading={(short && (gettingPreviewPDF || gettingPreviewSed)) || (!short && gettingPreviewPDF)}
         icon={<EyeWithPupilIcon />}

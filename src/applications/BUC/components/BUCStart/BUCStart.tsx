@@ -32,7 +32,6 @@ import {
 import { PersonAvdod, PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { buttonLogger, standardLogger } from 'src/metrics/loggers'
 import moment from 'moment'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -229,10 +228,6 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
     }
     const valid: boolean = performValidation()
     if (valid) {
-      buttonLogger(e, {
-        subjectArea: _subjectArea,
-        buc: _buc
-      })
       setIsCreatingBuc(true)
       const payload: NewBucPayload = {
         buc: _buc!,
@@ -252,8 +247,7 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
     }
   }
 
-  const onCancelButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    buttonLogger(e)
+  const onCancelButtonClick = (): void => {
     dispatch(resetBuc())
     setBuc(bucParam)
     setKravDato('')
@@ -295,7 +289,6 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
 
   const onTagsChange = (tagsList: unknown): void => {
     setTags(tagsList as Tags)
-    standardLogger('buc.new.tags.select', { tags: (tagsList as unknown as Tags)?.map(t => t.label) || [] })
   }
 
   const onKravDatoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -634,7 +627,6 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
           <HStack gap="4">
             <Button
               variant='primary'
-              data-amplitude='buc.new.create'
               data-testid='a_buc_c_BUCStart--forward-button-id'
               disabled={_isCreatingBuc || _showWarningBuc01}
               onClick={onForwardButtonClick}
@@ -648,7 +640,6 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
             </Button>
             <Button
               variant='tertiary'
-              data-amplitude='buc.new.cancel'
               data-testid='a_buc_c_BUCStart--cancel-button-id'
               onClick={onCancelButtonClick}
             >{t('ui:cancel')}
