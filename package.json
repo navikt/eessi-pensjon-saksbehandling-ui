@@ -47,7 +47,7 @@
     "http-proxy-middleware": "^2.0.9",
     "i18next": "^21.9.1",
     "i18next-browser-languagedetector": "^6.1.5",
-    "i18next-xhr-backend": "^3.2.2",
+    "i18next-http-backend": "^3.0.2",
     "lodash": "^4.17.21",
     "lodash.throttle": "^4.1.1",
     "md5": "^2.3.0",
