@@ -1,5 +1,4 @@
 import {Item} from "@navikt/tabell";
-import * as queryString from "querystring";
 
 export interface P4000PeriodInterval {
   fom : string | null
