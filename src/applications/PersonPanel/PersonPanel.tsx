@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import PersonBody from './PersonBody'
 import PersonTitle from './PersonTitle'
 import {GJENNY, VEDTAKSKONTEKST} from "src/constants/constants";
+import {umamiAccordionLogger} from "src/metrics/umami";
 
 export interface PersonPanelSelector {
   aktoerId: string | null | undefined
@@ -61,6 +62,7 @@ export const PersonPanel = (): JSX.Element => {
         >
           <Accordion.Header
             onClick={() => {
+              !openPersonBody && umamiAccordionLogger({tittel: "PersonPanel",});
               setOpenPersonBody(!openPersonBody);
             }}
           >

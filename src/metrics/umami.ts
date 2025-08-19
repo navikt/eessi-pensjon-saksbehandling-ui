@@ -9,3 +9,7 @@ export const umamiLogger = (key: string, data: object) => {
 export const umamiButtonLogger = (data: object ) => {
   umamiLogger("knapp klikket", data)
 }
+
+export const umamiAccordionLogger = (data: object ) => {
+  umamiLogger("accordion åpnet", data)
+}
