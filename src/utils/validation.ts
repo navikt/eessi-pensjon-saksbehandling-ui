@@ -108,7 +108,7 @@ export const checkIfNotTelephoneNumber = (v: Validation, {
 export const checkIfNotValidBeloep = (v: Validation, {
   needle, id, message, extra
 }: ValidateValueParams): boolean => {
-  const beloepPattern = /^\d+(\.\d+)?$/
+  const beloepPattern = /^(([1-9][0-9]{0,9})(\.\d{2,2})?|([0]{1})(\.\d{2,2})?)$/
 
   if (!_.isEmpty(needle) && !(needle!.match(beloepPattern))) {
     return addError(v, { id, message, extra })

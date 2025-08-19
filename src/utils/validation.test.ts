@@ -578,6 +578,42 @@ describe('validation/checkIfNotValidBeloep', () => {
     ))
       .toEqual(true)
   })
+
+  it('Should return true when beloep has more than two digits behind the dot', () => {
+    expect(checkIfNotValidBeloep(
+      mockValidation,
+      {
+        needle: "123456.123",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+
+  it('Should return true when beloep has more than ten digits', () => {
+    expect(checkIfNotValidBeloep(
+      mockValidation,
+      {
+        needle: "12345678901",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(true)
+  })
+
+  it('Should return false when beloep has more than ten digits including dot and digits after the dot', () => {
+    expect(checkIfNotValidBeloep(
+      mockValidation,
+      {
+        needle: "123456789.01",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
 })
 
 describe('validation/checkIfNotValidSwift', () => {
