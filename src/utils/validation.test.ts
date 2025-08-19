@@ -614,6 +614,18 @@ describe('validation/checkIfNotValidBeloep', () => {
     ))
       .toEqual(false)
   })
+
+  it('Should return false when beloep is 0', () => {
+    expect(checkIfNotValidBeloep(
+      mockValidation,
+      {
+        needle: "0",
+        id: 'id',
+        message: 'validation text'
+      }
+    ))
+      .toEqual(false)
+  })
 })
 
 describe('validation/checkIfNotValidSwift', () => {
