@@ -2,10 +2,10 @@ import express from 'express'
 import path from 'path'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import winston from 'winston'
-/*import fetch from 'cross-fetch'
-import { URLSearchParams } from 'url'*/
+import fetch from 'cross-fetch'
+import { URLSearchParams } from 'url'
 import timeout from 'connect-timeout';
-import {getToken, requestOboToken, validateToken} from '@navikt/oasis';
+import { getToken, validateToken } from '@navikt/oasis';
 
 import { fileURLToPath } from 'url';
 
@@ -13,35 +13,25 @@ const app = express();
 app.use(timeout('60s'));
 app.disable("x-powered-by");
 
-/*const azureAdConfig = {
+const azureAdConfig = {
   clientId: process.env.AZURE_APP_CLIENT_ID,
   clientSecret: process.env.AZURE_APP_CLIENT_SECRET,
   tokenEndpoint: process.env.AZURE_OPENID_CONFIG_TOKEN_ENDPOINT
-};*/
+};
 
-const onBehalfOf = async function (scope, assertion) {
-  /*  const params = new URLSearchParams();
-    params.append("grant_type", "urn:ietf:params:oauth:grant-type:jwt-bearer");
-    params.append("client_id", azureAdConfig.clientId);
-    params.append("client_secret", azureAdConfig.clientSecret);
-    params.append("scope", scope);
-    params.append("assertion", assertion);
-    params.append("requested_token_use", "on_behalf_of");
-    return fetch(azureAdConfig.tokenEndpoint, {
-      body: params,
-      method: "POST"
-    });*/
-  const onBehalfOf = await requestOboToken(assertion, scope);
-  if (!onBehalfOf.ok) {
-    console.log("Feil")
-  }
-
+const onBehalfOf = function(scope, assertion) {
+  const params = new URLSearchParams();
+  params.append("grant_type", "urn:ietf:params:oauth:grant-type:jwt-bearer");
+  params.append("client_id", azureAdConfig.clientId);
+  params.append("client_secret", azureAdConfig.clientSecret);
+  params.append("scope", scope);
+  params.append("assertion", assertion);
+  params.append("requested_token_use", "on_behalf_of");
+  return fetch(azureAdConfig.tokenEndpoint, {
+    body: params,
+    method: "POST"
+  });
 }
-
-/*const onBehalfOf = await requestOboToken(token, "an:example:audience");
-if (!onBehalfOf.ok) {
-  console.log("Feil")
-}*/
 
 const logger = winston.createLogger({
   transports: new winston.transports.Console({
