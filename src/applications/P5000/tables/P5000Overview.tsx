@@ -338,7 +338,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               itemsPerPage={itemsPerPage}
               setItemsPerPage={setItemsPerPage}
               items={items}
-              itemsForPesys={itemsForPesys}
+              itemsForPesys={viewItemsForPesys}
               pesysWarning={pesysWarning}
               currentTabKey={_activeTab}
             />
