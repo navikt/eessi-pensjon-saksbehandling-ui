@@ -1,8 +1,6 @@
 
 import RequireAuth from 'src/components/RequireAuth/RequireAuth'
-import { IS_PRODUCTION } from 'src/constants/environment'
 import 'core-js/stable'
-import * as Sentry from 'src/metrics/sentry'
 import 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/nb'
@@ -22,16 +20,6 @@ import store from './store'
 import {GJENNY, PESYS} from "./constants/constants";
 import {pdfjs} from "react-pdf";
 import {Helmet} from "react-helmet";
-
-
-if (!IS_PRODUCTION) {
-
-  /* const axe = require('@axe-core/react')
-  axe(React, ReactDOM, 1000, {}) */
-
-} else {
-  Sentry.init()
-}
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',

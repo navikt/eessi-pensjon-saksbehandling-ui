@@ -79,7 +79,7 @@ export default {
         {sendFolgendeSEDer: ["p5000"]}
       ]
     },
-    "ytterligeinformasjon": "Vennligst send oss ATP-opplysninger.",
+    "ytterligeinformasjon": null,
     "vedlegg": ["utførlig_medisinsk_rapport"]
   },
   "options": {
