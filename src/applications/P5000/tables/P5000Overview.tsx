@@ -110,28 +110,35 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   // same, but for view - as the merging periods process "destroys" the original rows
   // plus, it should use changed startdato/sluttdato periods
   const [viewItemsForPesys, _setViewItemsForPesys] = useState<P5000ListRows>(() => itemsForPesys)
+  const [filteredViewItemsForPesys, _setFilteredViewItemsForPesys] = useState<P5000ListRows>(() => viewItemsForPesys)
 
   // all subsequent updates on items for pesys should update viewing-only rows with merging modification
   const setItemsForPesys = (newItemsForPesys: P5000ListRows) => {
     let newViewItemsForPesys = _.cloneDeep(newItemsForPesys)
+    let newFilteredViewItemsForPesys = _.cloneDeep(newViewItemsForPesys)
     if (mergePeriods) {
       newViewItemsForPesys = mergeP5000ListRows({
         rows: newViewItemsForPesys, mergePeriodTypes, mergePeriodBeregnings, useGermanRules
       })
+      newFilteredViewItemsForPesys = _.filter(_.cloneDeep(newFilteredViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
     }
     _setItemsForPesys(newItemsForPesys)
     _setViewItemsForPesys(newViewItemsForPesys)
+    _setFilteredViewItemsForPesys(newFilteredViewItemsForPesys)
   }
 
   // any change in merging options should refresh viewItemsForPesys based on itemsForPesys
   useEffect(() => {
     let newViewItemsForPesys = _.cloneDeep(itemsForPesys)
+    let newFilteredViewItemsForPesys = _.cloneDeep(newViewItemsForPesys)
     if (mergePeriods) {
       newViewItemsForPesys = mergeP5000ListRows({
         rows: newViewItemsForPesys, mergePeriodTypes, mergePeriodBeregnings, useGermanRules
       })
+      newFilteredViewItemsForPesys = _.filter(_.cloneDeep(newFilteredViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
     }
     _setViewItemsForPesys(newViewItemsForPesys)
+    _setFilteredViewItemsForPesys(newFilteredViewItemsForPesys)
   }, [mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules])
 
   const [pesysWarning] = useState<string | undefined>(() =>
@@ -338,7 +345,8 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               itemsPerPage={itemsPerPage}
               setItemsPerPage={setItemsPerPage}
               items={items}
-              itemsForPesys={viewItemsForPesys}
+              //itemsForPesys={viewItemsForPesys}
+              itemsForPesys={filteredViewItemsForPesys}
               pesysWarning={pesysWarning}
               currentTabKey={_activeTab}
             />
