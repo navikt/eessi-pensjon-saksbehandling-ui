@@ -32,7 +32,13 @@ export const getUserInfo = (): Action => {
 export const getAktoerId = (fnr:string, context: string): ActionWithPayload<string> => {
   return call({
     url: sprintf(urls.PERSON_PDL_GET_AKTOERID_URL, { fnr }),
-    expectedPayload: context === "aktoerId" ? mockAktoerId : mockAvdodAktoerId,
+    expectedPayload: context === "aktoerId" ?
+      {
+        result: mockAktoerId
+      } :
+      {
+        result: mockAvdodAktoerId
+      },
     context: context,
     cascadeFailureError: true,
     type: {

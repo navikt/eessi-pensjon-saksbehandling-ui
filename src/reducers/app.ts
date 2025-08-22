@@ -200,7 +200,7 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
 
     case types.PERSON_AKTOERID_SUCCESS:
       newParams = _.cloneDeep(state.params)
-      newParams[action.context] = action.payload
+      newParams[action.context] = action.payload.result
 
       return {
         ...state,

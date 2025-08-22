@@ -24,7 +24,9 @@ describe('reducers/person', () => {
     expect(
       personReducer(initialPersonState, {
         type: types.PERSON_AVDOD_SUCCESS,
-        payload: 'mockPayload'
+        payload: {
+          result: 'mockPayload'
+        }
       })
     ).toEqual({
       ...initialPersonState,
