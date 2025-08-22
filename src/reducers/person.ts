@@ -65,7 +65,7 @@ const personReducer = (state: PersonState = initialPersonState, action: AnyActio
 
       return {
         ...state,
-        personAvdods: action.payload
+        personAvdods: action.payload.result
       }
 
     case types.PERSON_AVDOD_FROM_AKTOERID_REQUEST:
@@ -117,9 +117,9 @@ const personReducer = (state: PersonState = initialPersonState, action: AnyActio
 
     case types.PERSON_GJP_BP_SUCCESS: {
       let gjpbp: Date | null |undefined
-      if (_.isArray((action as ActionWithPayload).payload) && !_.isEmpty((action as ActionWithPayload).payload)) {
+      if (_.isArray((action as ActionWithPayload).payload.result) && !_.isEmpty((action as ActionWithPayload).payload.result)) {
         try {
-          gjpbp = moment(_.get((action as ActionWithPayload).payload[0], 'doedsdato'), 'YYYY-MM-DD').toDate()
+          gjpbp = moment(_.get((action as ActionWithPayload).payload.result[0], 'doedsdato'), 'YYYY-MM-DD').toDate()
         } catch (e) {
         }
       }
