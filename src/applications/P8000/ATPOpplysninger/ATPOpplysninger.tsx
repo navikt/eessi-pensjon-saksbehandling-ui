@@ -21,6 +21,7 @@ import {P8000SED} from "src/declarations/p8000";
 import {Person, PIN} from "src/declarations/sed";
 import _, {cloneDeep} from "lodash";
 import {BUCMode} from "src/declarations/app";
+import {umamiButtonLogger} from "src/metrics/umami";
 
 export interface ATPOpplysningerProps {
   onCancel: () => void
@@ -206,10 +207,6 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
     }
   }, [PSEDSendResponse])
 
-/*  useEffect(() => {
-    dispatch(updatePSED(`pensjon.ytterligeinformasjon`, "\n" + _ytterligereInformasjon))
-  }, [_ytterligereInformasjon])*/
-
   const gotoBuc = (buc: Buc): void => {
     dispatch(fetchBuc(buc.caseId!))
     resetAndClose()
@@ -330,7 +327,13 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
           >
             <Button
               variant='primary'
-              onClick={onUpdateAndSend}
+              onClick={() => {
+                umamiButtonLogger({
+                  tekst: "Lagre og send SED (ATP Opplysninger)",
+                  bucType: "P_BUC_05"
+                });
+                onUpdateAndSend();
+              }}
               loading={savingSed || sendingSed}
             >
               {t('p8000:atp-label-lagre-og-send-sed')}
