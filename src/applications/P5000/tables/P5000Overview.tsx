@@ -122,21 +122,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         rows: newViewItemsForPesys, mergePeriodTypes, mergePeriodBeregnings, useGermanRules
       })
       newFilteredItemsForPesys = _.filter(_.cloneDeep(newViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
-/*        .map(item => ({
-          land: item.land,
-          acronym: item.acronym,
-          type: item.type,
-          startdato: item.startdato,
-          sluttdato: item.sluttdato,
-          ytelse: item.ytelse,
-          ordning: item.ordnin,
-          beregning: item.beregning,
-          key: item.key,
-          status: item.status,
-          aar: item.aar,
-          mnd: item.mnd,
-          dag: item.dag
-        }))*/
     }
     _setItemsForPesys(newItemsForPesys)
     _setViewItemsForPesys(newViewItemsForPesys)
@@ -153,21 +138,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         rows: newViewItemsForPesys, mergePeriodTypes, mergePeriodBeregnings, useGermanRules
       })
       newFilteredItemsForPesys = _.filter(_.cloneDeep(newViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
-      /*        .map(item => ({
-                land: item.land,
-                acronym: item.acronym,
-                type: item.type,
-                startdato: item.startdato,
-                sluttdato: item.sluttdato,
-                ytelse: item.ytelse,
-                ordning: item.ordnin,
-                beregning: item.beregning,
-                key: item.key,
-                status: item.status,
-                aar: item.aar,
-                mnd: item.mnd,
-                dag: item.dag
-              }))*/
     }
     _setViewItemsForPesys(newViewItemsForPesys)
     _setFilteredItemsForPesys(newFilteredItemsForPesys)
@@ -377,7 +347,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               itemsPerPage={itemsPerPage}
               setItemsPerPage={setItemsPerPage}
               items={items}
-              //itemsForPesys={viewItemsForPesys}
               itemsForPesys={filteredItemsForPesys}
               pesysWarning={pesysWarning}
               currentTabKey={_activeTab}
