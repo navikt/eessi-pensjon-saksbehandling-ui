@@ -107,20 +107,21 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       }))
   )
 
-  // same, but for view - as the merging periods process "destroys" the original rows
+  // same, but for view and filtered items for pesys as the merging periods process "destroys" the original rows
   // plus, it should use changed startdato/sluttdato periods
   const [viewItemsForPesys, _setViewItemsForPesys] = useState<P5000ListRows>(() => itemsForPesys)
-  const [filteredViewItemsForPesys, _setFilteredViewItemsForPesys] = useState<P5000ListRows>(() => viewItemsForPesys)
+  const [filteredItemsForPesys, _setFilteredItemsForPesys] = useState<P5000ListRows>(() => viewItemsForPesys)
 
-  // all subsequent updates on items for pesys should update viewing-only rows with merging modification
+  // all subsequent updates on items for pesys should update viewing-only rows and filtered items for pesys
+  // with merging modification
   const setItemsForPesys = (newItemsForPesys: P5000ListRows) => {
     let newViewItemsForPesys = _.cloneDeep(newItemsForPesys)
-    let newFilteredViewItemsForPesys = _.cloneDeep(newViewItemsForPesys)
+    let newFilteredItemsForPesys = _.cloneDeep(newViewItemsForPesys)
     if (mergePeriods) {
       newViewItemsForPesys = mergeP5000ListRows({
         rows: newViewItemsForPesys, mergePeriodTypes, mergePeriodBeregnings, useGermanRules
       })
-      newFilteredViewItemsForPesys = _.filter(_.cloneDeep(newViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
+      newFilteredItemsForPesys = _.filter(_.cloneDeep(newViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
 /*        .map(item => ({
           land: item.land,
           acronym: item.acronym,
@@ -139,18 +140,19 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     }
     _setItemsForPesys(newItemsForPesys)
     _setViewItemsForPesys(newViewItemsForPesys)
-    _setFilteredViewItemsForPesys(newFilteredViewItemsForPesys)
+    _setFilteredItemsForPesys(newFilteredItemsForPesys)
   }
 
   // any change in merging options should refresh viewItemsForPesys based on itemsForPesys
+  // and newFilteredItemsForPesys based on viewItemsForPesys
   useEffect(() => {
     let newViewItemsForPesys = _.cloneDeep(itemsForPesys)
-    let newFilteredViewItemsForPesys = _.cloneDeep(newViewItemsForPesys)
+    let newFilteredItemsForPesys = _.cloneDeep(newViewItemsForPesys)
     if (mergePeriods) {
       newViewItemsForPesys = mergeP5000ListRows({
         rows: newViewItemsForPesys, mergePeriodTypes, mergePeriodBeregnings, useGermanRules
       })
-      newFilteredViewItemsForPesys = _.filter(_.cloneDeep(newViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
+      newFilteredItemsForPesys = _.filter(_.cloneDeep(newViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
       /*        .map(item => ({
                 land: item.land,
                 acronym: item.acronym,
@@ -168,7 +170,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               }))*/
     }
     _setViewItemsForPesys(newViewItemsForPesys)
-    _setFilteredViewItemsForPesys(newFilteredViewItemsForPesys)
+    _setFilteredItemsForPesys(newFilteredItemsForPesys)
   }, [mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules])
 
   const [pesysWarning] = useState<string | undefined>(() =>
@@ -376,7 +378,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               setItemsPerPage={setItemsPerPage}
               items={items}
               //itemsForPesys={viewItemsForPesys}
-              itemsForPesys={filteredViewItemsForPesys}
+              itemsForPesys={filteredItemsForPesys}
               pesysWarning={pesysWarning}
               currentTabKey={_activeTab}
             />
