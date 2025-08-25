@@ -120,7 +120,22 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       newViewItemsForPesys = mergeP5000ListRows({
         rows: newViewItemsForPesys, mergePeriodTypes, mergePeriodBeregnings, useGermanRules
       })
-      newFilteredViewItemsForPesys = _.filter(_.cloneDeep(newFilteredViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
+      newFilteredViewItemsForPesys = _.filter(_.cloneDeep(newViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
+/*        .map(item => ({
+          land: item.land,
+          acronym: item.acronym,
+          type: item.type,
+          startdato: item.startdato,
+          sluttdato: item.sluttdato,
+          ytelse: item.ytelse,
+          ordning: item.ordnin,
+          beregning: item.beregning,
+          key: item.key,
+          status: item.status,
+          aar: item.aar,
+          mnd: item.mnd,
+          dag: item.dag
+        }))*/
     }
     _setItemsForPesys(newItemsForPesys)
     _setViewItemsForPesys(newViewItemsForPesys)
@@ -135,7 +150,22 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       newViewItemsForPesys = mergeP5000ListRows({
         rows: newViewItemsForPesys, mergePeriodTypes, mergePeriodBeregnings, useGermanRules
       })
-      newFilteredViewItemsForPesys = _.filter(_.cloneDeep(newFilteredViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
+      newFilteredViewItemsForPesys = _.filter(_.cloneDeep(newViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
+      /*        .map(item => ({
+                land: item.land,
+                acronym: item.acronym,
+                type: item.type,
+                startdato: item.startdato,
+                sluttdato: item.sluttdato,
+                ytelse: item.ytelse,
+                ordning: item.ordnin,
+                beregning: item.beregning,
+                key: item.key,
+                status: item.status,
+                aar: item.aar,
+                mnd: item.mnd,
+                dag: item.dag
+              }))*/
     }
     _setViewItemsForPesys(newViewItemsForPesys)
     _setFilteredViewItemsForPesys(newFilteredViewItemsForPesys)
