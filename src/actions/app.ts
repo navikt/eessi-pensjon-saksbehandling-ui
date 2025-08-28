@@ -53,7 +53,9 @@ export const getCountryCodeLists = (): Action => {
   return call({
     url: urls.COUNTRYCODES_URL,
     cascadeFailureError: true,
-    expectedPayload: mockCountryCodes,
+    expectedPayload: {
+      result: mockCountryCodes
+    },
     type: {
       request: types.GET_COUNTRYCODES_REQUEST,
       success: types.GET_COUNTRYCODES_SUCCESS,
