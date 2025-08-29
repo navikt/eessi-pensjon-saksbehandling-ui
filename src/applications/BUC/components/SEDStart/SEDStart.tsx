@@ -278,6 +278,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   const [_sendingAttachments, setSendingAttachments] = useState<boolean>(initialSendingAttachments)
   const [_validation, setValidation] = useState<Validation>({})
   const [_vedtakId, setVedtakId] = useState<string | null | undefined>(vedtakId)
+  const [_currentPage, setCurrentPage] = useState<number>(1)
 
   const [_limitedInstitutions, setLimitedInstitutions] = useState<Array<GroupBase<Option>> | undefined>(undefined)
   const [_limitedCountries, setLimitedCountries] = useState<CountryRawList | undefined>(undefined)
@@ -1332,6 +1333,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                     existingItems={_sedAttachments}
                     onRowViewDelete={onRowViewDelete}
                     tableId='newsed-view'
+                    currentPage={_currentPage}
+                    setCurrentPage={setCurrentPage}
                   />
                 </>
               )}
