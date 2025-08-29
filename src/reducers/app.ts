@@ -132,7 +132,7 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
 
     case types.GET_COUNTRYCODES_SUCCESS: {
       let countryCodeMap = {string: ""}
-      const countryCodes: CountryCodes = action.payload
+      const countryCodes: CountryCodes = action.payload.result
       Object.keys(countryCodes).forEach(versionKey => {
         Object.keys(countryCodes[versionKey as keyof CountryCodes]).forEach(landKey => {
           countryCodes[versionKey as keyof CountryCodes][landKey as keyof CountryCodeLists].forEach(land => {
@@ -200,7 +200,7 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
 
     case types.PERSON_AKTOERID_SUCCESS:
       newParams = _.cloneDeep(state.params)
-      newParams[action.context] = action.payload
+      newParams[action.context] = action.payload.result
 
       return {
         ...state,

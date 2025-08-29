@@ -19,7 +19,9 @@ export const getPersonAvdodInfo = (
 ): ActionWithPayload<PersonAvdods> => {
   return call({
     url: sprintf(urls.PERSON_AVDOD_URL, { aktoerId, vedtakId }),
-    expectedPayload: /* istanbul ignore next */ mockPersonAvdod(nrAvdod),
+    expectedPayload: /* istanbul ignore next */ {
+      result: mockPersonAvdod(nrAvdod)
+    },
     type: {
       request: types.PERSON_AVDOD_REQUEST,
       success: types.PERSON_AVDOD_SUCCESS,
@@ -33,7 +35,9 @@ export const getPersonAvdodInfoFromAktoerId = (
 ): ActionWithPayload<PersonAvdods> => {
   return call({
     url: sprintf(urls.PERSON_PDL_URL, { aktoerId }),
-    expectedPayload: mockPersonAvdodAktoerId,
+    expectedPayload: {
+      result: mockPersonAvdodAktoerId
+    },
     type: {
       request: types.PERSON_AVDOD_FROM_AKTOERID_REQUEST,
       success: types.PERSON_AVDOD_FROM_AKTOERID_SUCCESS,
@@ -47,7 +51,9 @@ export const getPersonInfo = (
 ): ActionWithPayload<any> => {
   return call({
     url: sprintf(urls.PERSON_PDL_URL, { aktoerId }),
-    expectedPayload: mockPerson,
+    expectedPayload: {
+      result: mockPerson
+    },
     type: {
       request: types.PERSON_PDL_REQUEST,
       success: types.PERSON_PDL_SUCCESS,
@@ -73,7 +79,9 @@ export const getGjpBp = (vedtakId: string, sakId: string) => {
   return call({
     url: sprintf(urls.PERSON_GJP_BP_URL, { vedtakId, sakId }),
     cascadeFailureError: true,
-    expectedPayload: mockGJPBP,
+    expectedPayload: {
+      result: mockGJPBP
+    },
     type: {
       request: types.PERSON_GJP_BP_REQUEST,
       success: types.PERSON_GJP_BP_SUCCESS,
