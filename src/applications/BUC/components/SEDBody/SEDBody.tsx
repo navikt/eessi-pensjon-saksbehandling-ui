@@ -98,6 +98,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
   const [_sendingAttachments, setSendingAttachments] = useState<boolean>(initialSendingAttachments)
   const [_attachmentsSent, setAttachmentsSent] = useState<boolean>(initialAttachmentsSent)
   const [_attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(initialSeeAttachmentPanel)
+  const [_currentPage, setCurrentPage] = useState<number>(1)
 
   const _sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, unsentAttachment: JoarkBrowserItem): void => {
     dispatch(sendAttachmentToSed(params, unsentAttachment))
@@ -193,6 +194,8 @@ const SEDBody: React.FC<SEDBodyProps> = ({
               mode='view'
               onRowViewDelete={onRowViewDelete}
               tableId={'viewsed-' + sed.id}
+              currentPage={_currentPage}
+              setCurrentPage={setCurrentPage}
             />
           </Box>
         </>
