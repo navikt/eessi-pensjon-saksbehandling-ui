@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import {Box, HGrid, HStack, RadioGroup} from '@navikt/ds-react'
 import {FilesFillIcon, FilesIcon} from "@navikt/aksel-icons";
+import styles from './StyledComponents.module.css'
 
 export const OneLineSpan = styled.span`
   white-space: nowrap;
@@ -100,6 +101,11 @@ export const HiddenDiv = styled.div`
   display: none;
 `
 
+interface StyledComponentsProps {
+  children?: React.ReactNode
+  className?: string
+}
+
 export const CopyWithMargin = styled(FilesIcon)`
   position: relative;
   top: 2px;
@@ -107,18 +113,30 @@ export const CopyWithMargin = styled(FilesIcon)`
   cursor: pointer;
 `
 
-export const CopyFilledWithMargin = styled(FilesFillIcon)`
+export const CopyWithMarginNew: React.FC<StyledComponentsProps> = ({ children, className }) => {
+  return <FilesIcon fontSize="1.5rem" className={`${styles.CopyWithMarginNew} ${className || ''}`}>{children}</FilesIcon>
+}
+
+/*export const CopyFilledWithMargin = styled(FilesFillIcon)`
   position: relative;
   top: 2px;
   left: 5px;
   cursor: pointer;
-`
+`*/
 
-export const BoxWithBorderAndPadding = styled(Box)`
+export const CopyFilledWithMarginNew: React.FC<StyledComponentsProps> = ({ children, className }) => {
+  return <FilesFillIcon fontSize="1.5rem" className={`${styles.CopyFilledWithMarginNew} ${className || ''}`}>{children}</FilesFillIcon>
+}
+
+/*export const BoxWithBorderAndPadding = styled(Box)`
   border: 1px solid var(--a-border-default) ;
   border-radius: 4px;
   background-color: var(--a-bg-default);
   padding: 12px 12px 12px 12px;
-`
+`*/
+
+export const BoxWithBorderAndPaddingNew: React.FC<StyledComponentsProps> = ({ children, className }) => {
+  return <Box className={`${styles.BoxWithBorderAndPaddingNew} ${className || ''}`}>{children}</Box>
+}
 
 
