@@ -14,7 +14,7 @@ export interface AppState {
   username: string | undefined
   userRole: string | undefined
   countryCodes: CountryCodes | undefined
-  countryCodeMap: {string: string} | undefined
+  countryCodeMap: {[key: string]: string} | undefined
   editingItems: any
 }
 
