@@ -131,7 +131,7 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
     }
 
     case types.GET_COUNTRYCODES_SUCCESS: {
-      let countryCodeMap = {string: ""}
+      let countryCodeMap: {[key: string]: string} = {}
       const countryCodes: CountryCodes = action.payload.result
       Object.keys(countryCodes).forEach(versionKey => {
         Object.keys(countryCodes[versionKey as keyof CountryCodes]).forEach(landKey => {
