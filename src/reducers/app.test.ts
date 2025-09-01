@@ -144,6 +144,66 @@ describe('reducers/app', () => {
     })
   })
 
+  it('GET_COUNTRYCODES_SUCCESS', () => {
+    const mockCountryCodes = {
+      "v4.2": {
+        "euEftaLand": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "SE", landnavn: "Sverige" }
+        ],
+        "verdensLand": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "US", landnavn: "United States" }
+        ],
+        "verdensLandHistorisk": [
+          { landkode: "NO", landnavn: "Norge" }
+        ],
+        "statsborgerskap": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "SE", landnavn: "Sverige" }
+        ]
+      },
+      "v4.3": {
+        "euEftaLand": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "DK", landnavn: "Danmark" }
+        ],
+        "verdensLand": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "CA", landnavn: "Canada" }
+        ],
+        "verdensLandHistorisk": [
+          { landkode: "NO", landnavn: "Norge" }
+        ],
+        "statsborgerskap": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "DK", landnavn: "Danmark" }
+        ]
+      }
+    }
+
+    const expectedCountryCodeMap = {
+      "NO": "Norge",
+      "SE": "Sverige",
+      "US": "United States",
+      "DK": "Danmark",
+      "CA": "Canada"
+    }
+
+    expect(
+      appReducer(initialAppState, {
+        type: types.GET_COUNTRYCODES_SUCCESS,
+        payload: {
+          result: mockCountryCodes
+        }
+      })
+    ).toEqual({
+      ...initialAppState,
+      countryCodes: mockCountryCodes,
+      countryCodeMap: expectedCountryCodeMap
+    })
+  })
+
   it('UNKNOWN_ACTION', () => {
     expect(
       appReducer(initialAppState, {
