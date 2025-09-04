@@ -1,0 +1,26 @@
+@import '../../../../components/Animations/animations.modules.css';
+
+.sedPanelContainer {
+  transform: translateX(-20px);
+  opacity: 0;
+  padding: 0;
+  animation: slideInFromLeft 0.2s forwards;
+  margin-bottom: 1rem;
+}
+
+.sedHeaderContainer {
+  padding: 1rem;
+  border-radius: 4px;
+  background: var(--a-surface-default);
+
+  &.new {
+    background: var(--a-limegreen-100) !important;
+  }
+}
+
+.sedPanelAccordion {
+  &.new {
+    background: var(--a-limegreen-100) !important;
+  }
+}
+

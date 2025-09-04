@@ -51,7 +51,7 @@ testem.log
 Thumbs.db
 package.json___jb_old___
 
-src/**/*.css
+#src/**/*.css
 debug.log
 
 .eslintcache

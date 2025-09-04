@@ -3,41 +3,12 @@ import classNames from 'classnames'
 import { BUCMode } from 'src/declarations/app'
 import { Buc, Sed } from 'src/declarations/buc'
 import _ from 'lodash'
-import styled from 'styled-components'
 import SEDBody from '../SEDBody/SEDBody'
-import { Accordion, Panel } from '@navikt/ds-react'
+import { Accordion, Box } from '@navikt/ds-react'
 import {useState} from "react";
-import { slideInFromLeft } from "src/components/Animations/Animations";
+import styles from './SEDPanel.module.css'
 
 const activeStatus: Array<string> = ['new', 'active']
-
-export const SEDPanelContainer = styled(Panel)`
-  transform: translateX(-20px);
-  opacity: 0;
-  padding: 0;
-  animation: ${slideInFromLeft(20)} 0.2s forwards;
-  margin-bottom: 1rem;
-`
-export const SEDPanelDiv = styled.div`
-  padding: 1rem;
-  border-radius: 4px;
-  background: var(--a-surface-default);
-  &.new {
-    background: var(--a-limegreen-100) !important;
-  }
-`
-
-export const MyAccordion = styled(Accordion)`
-  &.new {
-    background: var(--a-limegreen-100) !important;
-  }
-  .navds-accordion__header{
-    visibility:hidden;
-    padding: 0;
-    margin: 0;
-    max-height: 0px;
-  }
-`
 
 export interface SEDPanelProps {
   aktoerId: string
@@ -67,10 +38,10 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
   }
 
   return (
-    <SEDPanelContainer border>
+    <Box className={styles.sedPanelContainer} borderWidth="1" borderColor="border-default" background="surface-default">
       {!sedCanHaveAttachments(sed)
         ? (
-          <SEDPanelDiv className={classNames(className, { new: newSed })}>
+          <div className={classNames(styles.sedHeaderContainer, className, { [styles.new]: newSed })}>
             <SEDHeader
               buc={buc}
               onFollowUpSed={onFollowUpSed}
@@ -78,11 +49,11 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
               sed={sed}
               style={style}
             />
-          </SEDPanelDiv>
+          </div>
           )
         : (
           <>
-            <SEDPanelDiv className={classNames(className, { new: newSed })}>
+            <div className={classNames(styles.sedHeaderContainer, className, { [styles.new]: newSed })}>
               <SEDHeader
                 buc={buc}
                 onFollowUpSed={onFollowUpSed}
@@ -92,13 +63,12 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
                 toggleOpen={_setOpen}
                 toggleState={_open}
               />
-            </SEDPanelDiv>
-            <MyAccordion
-              className={classNames(className, { new: newSed })}
+            </div>
+            <Accordion
+              className={classNames(styles.sedPanelAccordion, className, { [styles.new]: newSed })}
               style={style}
             >
               <Accordion.Item open={_open}>
-                <Accordion.Header>&nbsp;</Accordion.Header>
                 <Accordion.Content>
                   <SEDBody
                     aktoerId={aktoerId}
@@ -108,10 +78,10 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
                   />
                 </Accordion.Content>
               </Accordion.Item>
-            </MyAccordion>
+            </Accordion>
           </>
           )}
-    </SEDPanelContainer>
+    </Box>
   )
 }
 
