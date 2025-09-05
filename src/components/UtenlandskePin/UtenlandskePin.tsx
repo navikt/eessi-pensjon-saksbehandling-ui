@@ -5,7 +5,7 @@ import {resetValidation, setValidation} from 'src/actions/validation'
 import classNames from 'classnames'
 import AddRemovePanel from 'src/components/AddRemovePanel/AddRemovePanel'
 import Input from 'src/components/Forms/Input'
-import {RepeatableBox, TopAlignedGrid} from 'src/components/StyledComponents'
+import {/*RepeatableBox,*/ TopAlignedGrid} from 'src/components/StyledComponents'
 import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
 import React, {useEffect, useState} from 'react'
@@ -24,6 +24,7 @@ import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
 import FormTextBox from "src/components/Forms/FormTextBox";
 import {Person, PIN} from "src/declarations/sed";
+import styles from 'src/assets/css/common.module.css'
 
 export interface MainFormSelector {
   validation: Validation
@@ -208,12 +209,13 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
     const inEditMode = index < 0 || _editIndex === index
     const _pin = index < 0 ? _newPin : (inEditMode ? _editPin : pin)
     return (
-      <RepeatableBox
+      <>
+      <Box
         id={'repeatablerow-' + _namespace}
         key={getId(pin)}
-        className={classNames({
-          new: index < 0,
-          error: hasNamespaceWithErrors(_v, _namespace)
+        className={classNames(styles.repeatableBox, {
+          [styles.new]: index < 0,
+          [styles.error]: hasNamespaceWithErrors(_v, _namespace)
         })}
         paddingBlock={inEditMode ? "4 4" : "1 1"}
         paddingInline="4 4"
@@ -290,7 +292,91 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
             </HStack>
           }
         </TopAlignedGrid>
-      </RepeatableBox>
+      </Box>
+    <Box
+      id={'repeatablerow-' + _namespace}
+      key={getId(pin)}
+      className={classNames(styles.repeatableBox2, {
+        [styles.new]: index < 0,
+        [styles.error]: hasNamespaceWithErrors(_v, _namespace)
+      })}
+      paddingBlock={inEditMode ? "4 4" : "1 1"}
+      paddingInline="4 4"
+    >
+      <TopAlignedGrid
+        columns={3}
+        gap="4"
+      >
+        {inEditMode
+          ? (
+            <CountryDropdown
+              closeMenuOnSelect
+              data-testid={_namespace + '-land'}
+              error={_v[_namespace + '-land']?.feilmelding}
+              flagWave
+              id={_namespace + '-land'}
+              countryCodeListName="euEftaLand"
+              excludeNorway={true}
+              hideLabel={index > 0}
+              label={t('buc:form-utenlandske-pin-land')}
+              onOptionSelected={(e: Country) => setUtenlandskeLand(e.value, index)}
+              values={_pin?.land}
+            />
+          )
+          : (
+            <FormTextBox
+              error={_v[_namespace + '-land']?.feilmelding}
+              id={_namespace + '-land'}
+              label={index === 0 ? t('buc:form-utenlandske-pin-land') : ""}
+              padding={0}
+            >
+
+              <FlagPanel land={_pin?.land}/>
+            </FormTextBox>
+          )}
+        {inEditMode
+          ? (
+            <Input
+              error={_v[_namespace + '-identifikator']?.feilmelding}
+              id='identifikator'
+              label={t('buc:form-utenlandske-pin-pin')}
+              hideLabel={index > 0}
+              namespace={_namespace}
+              onChanged={(id: string) => setUtenlandskeIdentifikator(id, index)}
+              value={_pin?.identifikator}
+            />
+          )
+          : (
+            <FormTextBox
+              id={_namespace + '-identifikator'}
+              error={_v[_namespace + '-identifikator']?.feilmelding}
+              label={index === 0 ? t('buc:form-utenlandske-pin-pin') : ""}
+              padding={0}
+            >
+              <BodyLong>{_pin?.identifikator}</BodyLong>
+            </FormTextBox>
+          )
+        }
+        {parentEditMode &&
+          <HStack>
+            <Spacer/>
+            <AddRemovePanel<PIN>
+              item={pin}
+              marginTop={index < 0}
+              index={index}
+              inEditMode={inEditMode}
+              onRemove={onRemove}
+              onAddNew={onAddNew}
+              onCancelNew={onCloseNew}
+              onStartEdit={onStartEdit}
+              onConfirmEdit={onSaveEdit}
+              onCancelEdit={() => onCloseEdit(_namespace)}
+            />
+          </HStack>
+        }
+      </TopAlignedGrid>
+    </Box>
+      </>
     )
   }
 

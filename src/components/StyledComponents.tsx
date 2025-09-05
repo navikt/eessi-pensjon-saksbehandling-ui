@@ -3,6 +3,17 @@ import {Box, HGrid, HStack, RadioGroup} from '@navikt/ds-react'
 import {FilesFillIcon, FilesIcon} from "@navikt/aksel-icons";
 import styles from './StyledComponents.module.css'
 
+interface BasicStyledComponentsProps {
+  className?: string
+}
+
+interface CommonStyledComponentsProps extends BasicStyledComponentsProps {
+  children?: React.ReactNode
+}
+
+interface HStackStyledComponentsProps extends React.ComponentProps<typeof HStack>, BasicStyledComponentsProps {
+}
+
 export const OneLineSpan = styled.span`
   white-space: nowrap;
 `
@@ -61,24 +72,35 @@ export const RepeatableBox = styled(Box)`
   }
 `
 
+
 export const RepeatableBoxWithBorder = styled(RepeatableBox)`
   border: 1px solid var(--a-border-default);
 `
 
-
+// Erstatte med vanlig HGrid og heller legge inn i align?
 export const TopAlignedGrid = styled(HGrid)`
   align-items: start
 `
 
+// Erstatte med vanlig HStack og heller legge inn i align?
 export const CenterHStack = styled(HStack)`
   align-items: center;
 `
 
-export const Hr = styled.div`
-   background: var(--a-border-default);
-   width: 100%;
-   height: 1px;
-`
+export const CenterHStackNew: React.FC<HStackStyledComponentsProps> = ({
+                                                                         children,
+                                                                         className,
+                                                                         ...rest
+                                                                          }) => {
+  return (
+    <HStack
+      className={`${styles.CenterHStackNew} ${className || ''}`}
+      {...rest}
+    >
+      {children}
+    </HStack>
+  )
+}
 
 export const HorizontalRadioGroup = styled(RadioGroup)`
   > .navds-radio-buttons {
@@ -97,13 +119,30 @@ export const WaitingPanelDiv = styled.div`
   min-height: 50vh;
 `
 
+export const WaitingPanelDivNew: React.FC<CommonStyledComponentsProps> = ({
+                                                                      children,
+                                                                      className
+                                                                    }) => {
+  return (
+    <div className={`${styles.WaitingPanelDiv} ${className || ''}`}>
+      {children}
+    </div>
+  )
+}
+
 export const HiddenDiv = styled.div`
   display: none;
 `
 
-interface StyledComponentsProps {
-  children?: React.ReactNode
-  className?: string
+export const HiddenDivNew: React.FC<CommonStyledComponentsProps> = ({
+                                                                           children,
+                                                                           className
+                                                                         }) => {
+  return (
+    <div className={`${styles.HiddenDivNew} ${className || ''}`}>
+      {children}
+    </div>
+  )
 }
 
 export const CopyWithMargin = styled(FilesIcon)`
@@ -113,8 +152,15 @@ export const CopyWithMargin = styled(FilesIcon)`
   cursor: pointer;
 `
 
-export const CopyWithMarginNew: React.FC<StyledComponentsProps> = ({ children, className }) => {
-  return <FilesIcon fontSize="1.5rem" className={`${styles.CopyWithMarginNew} ${className || ''}`}>{children}</FilesIcon>
+export const CopyWithMarginNew: React.FC<CommonStyledComponentsProps> = ({
+                                                                           children,
+                                                                           className
+}) => {
+  return (
+  <FilesIcon fontSize="1.5rem" className={`${styles.CopyWithMarginNew} ${className || ''}`}>
+    {children}
+  </FilesIcon>
+  )
 }
 
 /*export const CopyFilledWithMargin = styled(FilesFillIcon)`
@@ -124,19 +170,33 @@ export const CopyWithMarginNew: React.FC<StyledComponentsProps> = ({ children, c
   cursor: pointer;
 `*/
 
-export const CopyFilledWithMarginNew: React.FC<StyledComponentsProps> = ({ children, className }) => {
-  return <FilesFillIcon fontSize="1.5rem" className={`${styles.CopyFilledWithMarginNew} ${className || ''}`}>{children}</FilesFillIcon>
+export const CopyFilledWithMarginNew: React.FC<CommonStyledComponentsProps> = ({
+                                                                                 children,
+                                                                                 className
+}) => {
+  return (
+  <FilesFillIcon fontSize="1.5rem" className={`${styles.CopyFilledWithMarginNew} ${className || ''}`}>
+    {children}
+  </FilesFillIcon>
+  )
 }
 
-/*export const BoxWithBorderAndPadding = styled(Box)`
+export const BoxWithBorderAndPadding = styled(Box)`
   border: 1px solid var(--a-border-default) ;
   border-radius: 4px;
   background-color: var(--a-bg-default);
   padding: 12px 12px 12px 12px;
-`*/
+`
 
-export const BoxWithBorderAndPaddingNew: React.FC<StyledComponentsProps> = ({ children, className }) => {
-  return <Box className={`${styles.BoxWithBorderAndPaddingNew} ${className || ''}`}>{children}</Box>
+export const BoxWithBorderAndPaddingNew: React.FC<CommonStyledComponentsProps> = ({
+                                                                                    children,
+                                                                                    className
+}) => {
+  return (
+  <Box className={`${styles.BoxWithBorderAndPaddingNew} ${className || ''}`}>
+    {children}
+  </Box>
+  )
 }
 
 

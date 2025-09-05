@@ -52,3 +52,18 @@
     display:none
   }
 }
+
+.repeatableBox2 {
+  &.new {
+    background-color: red;
+  };
+  &.error {
+    background-color: rgba(255, 0, 0, 0.2);
+  };
+  &:hover:not(.new):not(.error) {
+    background-color: var(--a-gray-100);
+  }
+  &:not(:hover) .control-buttons {
+    display:none
+  }
+}
