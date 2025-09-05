@@ -1,0 +1,75 @@
+.oneLine {
+  white-space: nowrap;
+}
+
+.seperator {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.spinner {
+  position: absolute;
+  top: 3rem;
+  left: 0;
+  right: 0;
+}
+
+.repeatableBox {
+  &.new {
+    background-color: rgba(236, 243, 153, 0.5);
+  };
+  &.error {
+    background-color: rgba(255, 0, 0, 0.2);
+  };
+  &:hover:not(.new):not(.error) {
+    background-color: var(--a-gray-100);
+  }
+  &:not(:hover) .control-buttons {
+    display:none
+  }
+  &.withBorder {
+    border: 1px solid var(--a-border-default);
+  }
+}
+
+.horizontalRadioGroup {
+  > .navds-radio-buttons {
+    display: flex;
+    gap: var(--a-spacing-4);
+    margin-bottom: var(--a-spacing-2)
+  }
+}
+
+.waitingPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+}
+
+.hidden {
+  display: none;
+}
+
+.copyWithMargin {
+  position: relative;
+  top: 2px;
+  left: 5px;
+  cursor: pointer;
+}
+
+.copyFilledWithMargin {
+  position: relative;
+  top: 2px;
+  left: 5px;
+  cursor: pointer;
+}
+
+.boxWithBorderAndPadding {
+  border: 1px solid var(--a-border-default) ;
+  border-radius: 4px;
+  background-color: var(--a-bg-default);
+  padding: 12px 12px 12px 12px;
+}
