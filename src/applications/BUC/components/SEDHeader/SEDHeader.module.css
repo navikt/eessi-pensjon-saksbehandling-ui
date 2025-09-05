@@ -1,0 +1,19 @@
+@import '../../../../components/Animations/animations.modules.css';
+
+.sedHeader {
+  width: 100%;
+  padding: 0;
+  transform: translateX(-20px);
+  opacity: 0;
+  animation: slideInFromLeft 0.2s forwards;
+  border: none;
+  background: transparent !important;
+}
+
+.expandDiv {
+  margin-left: auto;
+}
+
+.attachmentsDiv {
+  margin-right: 0.5rem;
+}

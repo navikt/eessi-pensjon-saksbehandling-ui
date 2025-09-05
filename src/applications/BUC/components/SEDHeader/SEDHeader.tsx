@@ -6,84 +6,21 @@ import P2000 from 'src/applications/P2000/P2000'
 import SEDLoadSave from 'src/applications/P5000/components/SEDLoadSave/SEDLoadSave'
 import { AllowedLocaleString, LocalStorageEntriesMap, BUCMode, FeatureToggles, LocalStorageEntry } from 'src/declarations/app.d'
 import { Buc, Institutions, Participant, Sed } from 'src/declarations/buc'
-import { BucPropType, SedPropType } from 'src/declarations/buc.pt'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import moment from 'moment'
-import {Alert, Detail, BodyLong, Button, Panel, HStack} from '@navikt/ds-react'
+import {Alert, Detail, BodyLong, Button, HStack, Box, VStack, HGrid} from '@navikt/ds-react'
 import {ChevronRightIcon, ChevronDownIcon, ChevronUpIcon, PaperclipIcon} from '@navikt/aksel-icons'
-import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import {useSelector} from 'react-redux'
-import styled from 'styled-components'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
-import { slideInFromLeft } from "src/components/Animations/Animations";
 import {JoarkPreview} from "src/declarations/joark";
 import PreviewSED from "src/components/PreviewSED/PreviewSED";
-import {CenterHStack} from "src/components/StyledComponents";
 import P8000 from "src/applications/P8000/P8000";
 import {umamiButtonLogger} from "src/metrics/umami";
-
-const SEDListActionsDiv = styled.div`
-  flex: 2;
-  width: 100%;
-  flex-direction: row;
-  display: flex;
-  align-items: baseline;
-  justify-content: flex-start;
-`
-const SEDListAttachmentsDiv = styled.div`
-margin-right: 0.5rem;
-`
-const SEDHeaderContent = styled.div`
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-`
-export const SEDHeaderPanel = styled(Panel)`
-  width: 100%;
-  padding: 0rem;
-  transform: translateX(-20px);
-  opacity: 0;
-  animation: ${slideInFromLeft(20)} 0.2s forwards;
-  border: none;
-  background: transparent !important;
-`
-const SEDListInstitutionsDiv = styled.div`
-  flex: 3;
-  width: 100%;
-  flex-direction: column;
-  display: flex;
-  align-items: flex-start;
-  padding: 0.3rem;
-`
-const SEDListStatusDiv = styled.div`
-  display: flex;
-  flex: 4;
-  width: 100%;
-  flex-direction: column;
-  justify-content: center;
-`
-const SEDListStatusItemDiv = styled.div`
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 0.5rem;
-  margin-right: 0.5rem;
-  margin-top: 0.5rem;
-`
-const SEDVersion = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-`
-
-const ExpandDiv = styled.div`
-  margin-left: auto;
-`
-
-
+import styles from './SEDHeader.module.css'
+import classNames from "classnames";
+import React from "react";
 
 export interface SEDHeaderProps {
   buc: Buc
@@ -114,15 +51,15 @@ const mapState = (state: State): SEDListSelector => ({
 
 
 const SEDHeader: React.FC<SEDHeaderProps> = ({
-  buc,
-  className,
-  onFollowUpSed,
-  setMode,
-  sed,
-  style,
-  toggleOpen,
-  toggleState
-}: SEDHeaderProps): JSX.Element => {
+   buc,
+   className,
+   onFollowUpSed,
+   setMode,
+   sed,
+   style,
+   toggleOpen,
+   toggleState
+ }: SEDHeaderProps): JSX.Element => {
   const { locale, storageEntries }: SEDListSelector = useSelector<State, SEDListSelector>(mapState)
   const { t } = useTranslation()
   const followUpSeds: Array<Sed> = buc.seds!.filter(_sed => _sed.parentDocumentId === sed.id && _sed.status === 'empty')
@@ -133,24 +70,24 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
 
   const institutionSenderList: Institutions = sed.participants
     ? sed.participants
-        .filter((participant: Participant) => participant.role === 'Sender')
-        .map((participant: Participant) => ({
-          country: participant.organisation.countryCode,
-          name: participant.organisation.name,
-          institution: participant.organisation.id,
-          acronym: participant.organisation.acronym || participant.organisation.id.split(':')[1]
-        }))
+      .filter((participant: Participant) => participant.role === 'Sender')
+      .map((participant: Participant) => ({
+        country: participant.organisation.countryCode,
+        name: participant.organisation.name,
+        institution: participant.organisation.id,
+        acronym: participant.organisation.acronym || participant.organisation.id.split(':')[1]
+      }))
     : []
 
   const institutionReceiverList: Institutions = sed.participants
     ? sed.participants
-        .filter((participant: Participant) => participant.role === 'Receiver')
-        .map((participant: Participant) => ({
-          country: participant.organisation.countryCode,
-          name: participant.organisation.name,
-          institution: participant.organisation.id,
-          acronym: participant.organisation.acronym || participant.organisation.id.split(':')[1]
-        }))
+      .filter((participant: Participant) => participant.role === 'Receiver')
+      .map((participant: Participant) => ({
+        country: participant.organisation.countryCode,
+        name: participant.organisation.name,
+        institution: participant.organisation.id,
+        acronym: participant.organisation.acronym || participant.organisation.id.split(':')[1]
+      }))
     : []
 
   const sedLabel: string = getBucTypeLabel({
@@ -171,13 +108,13 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
   )
 
   return (
-    <SEDHeaderPanel
+    <Box
       style={style}
-      className={className}
+      className={classNames(styles.sedHeader, className)}
     >
-      <SEDHeaderContent>
-        <SEDListStatusDiv>
-          <CenterHStack>
+      <HGrid gap="4" paddingBlock="1" align="start" columns={4}>
+        <VStack>
+          <HStack align="center" minWidth="max-content">
             <Detail
               data-testid='a_buc_c_sedheader--name-id'
             >
@@ -190,64 +127,60 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               sedId={sed.id}
               disabled={false}
             />
-          </CenterHStack>
-          <SEDListStatusItemDiv>
-            <HStack gap="4">
-              <PopoverCustomized
-                label={(
-                  <BodyLong>
-                    {t('ui:firstVersion')}: &nbsp;
-                    {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
-                    <br/>
-                    Dokument ID: {sed.id}
-                  </BodyLong>
-                  )}
-              >
-                <SEDStatus
-                  data-testid='a_buc_c_sedheader--status-id'
-                  status={sed.type === 'P5000' && P5000Draft ? 'active' : sed.status}
-                />
-              </PopoverCustomized>
-              <SEDVersion>
-                <BodyLong
-                  data-testid='a_buc_c_sedheader--version-date-id'
-                >
-                  {sed.receiveDate
-                    ? moment(sed.receiveDate).format('DD.MM.YYYY')
-                    : sed.lastUpdate
-                      ? moment(sed.lastUpdate).format('DD.MM.YYYY')
-                      : null}
+          </HStack>
+          <HStack gap="4">
+            <PopoverCustomized
+              label={(
+                <BodyLong>
+                  {t('ui:firstVersion')}: &nbsp;
+                  {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
+                  <br/>
+                  Dokument ID: {sed.id}
                 </BodyLong>
-                {sed.version && (
-                  <BodyLong
-                    data-testid='a_buc_c_sedheader--version-id'
-                  >
-                    {t('ui:version')}{': '}{sed.version || '-'}
-                  </BodyLong>
-                )}
-              </SEDVersion>
-            </HStack>
-          </SEDListStatusItemDiv>
-        </SEDListStatusDiv>
-        <SEDListInstitutionsDiv>
+              )}
+            >
+              <SEDStatus
+                data-testid='a_buc_c_sedheader--status-id'
+                status={sed.type === 'P5000' && P5000Draft ? 'active' : sed.status}
+              />
+            </PopoverCustomized>
+            <VStack>
+              <BodyLong
+                data-testid='a_buc_c_sedheader--version-date-id'
+              >
+                {sed.receiveDate
+                  ? moment(sed.receiveDate).format('DD.MM.YYYY')
+                  : sed.lastUpdate
+                    ? moment(sed.lastUpdate).format('DD.MM.YYYY')
+                    : null}
+              </BodyLong>
+              {sed.version && (
+                <BodyLong
+                  data-testid='a_buc_c_sedheader--version-id'
+                >
+                  {t('ui:version')}{': '}{sed.version || '-'}
+                </BodyLong>
+              )}
+            </VStack>
+          </HStack>
+        </VStack>
+        <VStack>
           <InstitutionList
             data-testid='a_buc_c_sedheader--institutions-id'
             locale={locale}
             type='separated'
             institutions={institutionSenderList}
           />
-        </SEDListInstitutionsDiv>
-        <SEDListInstitutionsDiv>
+        </VStack>
+        <VStack>
           <InstitutionList
             data-testid='a_buc_c_sedheader--institutions-id'
             locale={locale}
             type='separated'
             institutions={institutionReceiverList}
           />
-        </SEDListInstitutionsDiv>
-        <SEDListActionsDiv
-          data-testid='a_buc_c_sedheader--actions-id'
-        >
+        </VStack>
+        <HStack data-testid='a_buc_c_sedheader--actions-id' justify="start">
           {!_.isEmpty(sed.attachments) && (
             <PopoverCustomized
               label={(
@@ -255,13 +188,13 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                   {t('buc:form-youHaveXAttachmentsInSed',
                     { attachments: sed.attachments.length })}
                 </span>
-                )}
+              )}
             >
-              <SEDListAttachmentsDiv
-                data-testid='a_buc_c_sedheader--actions-attachments'
+              <div className={styles.attachmentsDiv}
+                   data-testid='a_buc_c_sedheader--actions-attachments'
               >
                 <PaperclipIcon fontSize="1.5rem" />
-              </SEDListAttachmentsDiv>
+              </div>
             </PopoverCustomized>
           )}
           {(!_.isEmpty(followUpSeds) && sed.status === 'received') && (
@@ -279,34 +212,34 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               && (sed.status !== 'received' && sed.status !== 'cancelled')
               && (['NO:889640782', 'NO:NAVAT07'].includes(sed.participants.find(p => p.role === 'Sender')?.organisation.id ?? ''))
               && (
-            <>
-              <Button
-                variant='secondary'
-                data-testid='a_buc_c_sedheader--p5000-button-id'
-                onClick={() => {
-                  setMode('p5000', 'forward', undefined, (
-                    <P5000
-                      buc={buc}
-                      setMode={setMode}
-                      mainSed={sed}
-                    />
-                  ))
-                  window.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: 'smooth'
-                  })
-                }}
-              iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
-              >
-                {P5000Draft
-                  ? t('p5000:rediger')
-                  : sed.status === 'sent'
-                    ? t('p5000:updating')
-                    : t('p5000:registrert')}
-              </Button>
-            </>
-          )}
+                <>
+                  <Button
+                    variant='secondary'
+                    data-testid='a_buc_c_sedheader--p5000-button-id'
+                    onClick={() => {
+                      setMode('p5000', 'forward', undefined, (
+                        <P5000
+                          buc={buc}
+                          setMode={setMode}
+                          mainSed={sed}
+                        />
+                      ))
+                      window.scrollTo({
+                        top: 0,
+                        left: 0,
+                        behavior: 'smooth'
+                      })
+                    }}
+                    iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
+                  >
+                    {P5000Draft
+                      ? t('p5000:rediger')
+                      : sed.status === 'sent'
+                        ? t('p5000:updating')
+                        : t('p5000:registrert')}
+                  </Button>
+                </>
+              )}
           </div>
           {sed.type === 'P2000' && (sed.status !== 'received') &&
             <>
@@ -367,22 +300,22 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
             </>
           }
           {sedCanHaveAttachments(sed) && toggleOpen &&
-            <ExpandDiv>
+            <div className={styles.expandDiv}>
               <Button variant="tertiary" onClick={() => toggleOpen(!toggleState)}>
                 {!toggleState && <ChevronDownIcon fontSize="1.5rem" />}
                 {toggleState && <ChevronUpIcon fontSize="1.5rem" />}
               </Button>
-            </ExpandDiv>
+            </div>
           }
-        </SEDListActionsDiv>
-      </SEDHeaderContent>
+        </HStack>
+      </HGrid>
       {P5000Draft !== undefined
         ? (
           <SEDLoadSave
             buc={buc}
             sedId={sed.id}
           />
-          )
+        )
         : null}
       {sed.type === 'X100' &&
         _.find(sed.participants, p => p.role === 'Sender')?.organisation.countryCode === 'DE' && (
@@ -392,17 +325,9 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           >
             {t('message:alert-X100')}
           </Alert>
-      )}
-    </SEDHeaderPanel>
+        )}
+    </Box>
   )
-}
-
-SEDHeader.propTypes = {
-  buc: BucPropType.isRequired,
-  className: PT.string,
-  onFollowUpSed: PT.func.isRequired,
-  sed: SedPropType.isRequired,
-  style: PT.object
 }
 
 export default SEDHeader
