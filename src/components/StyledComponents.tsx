@@ -114,11 +114,4 @@ export const CopyFilledWithMargin = styled(FilesFillIcon)`
   cursor: pointer;
 `
 
-export const BoxWithBorderAndPadding = styled(Box)`
-  border: 1px solid var(--a-border-default) ;
-  border-radius: 4px;
-  background-color: var(--a-bg-default);
-  padding: 12px 12px 12px 12px;
-`
-
 

@@ -5,11 +5,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {resetEditingItems} from "src/actions/app";
 import {resetValidation, setValidation} from "src/actions/validation";
 import {fetchBuc, updatePSED, getSedP8000, resetPSED} from "src/actions/buc";
-import {WaitingPanelDiv, BoxWithBorderAndPadding} from "src/components/StyledComponents";
+import {WaitingPanelDiv} from "src/components/StyledComponents";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
 import {InformasjonSomKanLeggesInn, OfteEtterspurtInformasjon, P8000SED, P8000Type} from "src/declarations/p8000";
 import {State} from "src/declarations/reducers";
-import {Alert, Button, Heading, HStack, Textarea, ToggleGroup, VStack} from "@navikt/ds-react";
+import {Alert, Box, Button, Heading, HStack, Textarea, ToggleGroup, VStack} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import {
@@ -46,6 +46,7 @@ import ValidationBox from "src/components/ValidationBox/ValidationBox";
 import {SendFolgendeSEDerWithBegrunnelse} from "src/applications/P8000/components/SendFolgendeSEDerWithBegrunnelse";
 import {ForenkletForespoersel} from "src/applications/P8000/components/ForenkletForespoersel";
 import {GJENNY} from "src/constants/constants";
+import styles from 'src/assets/css/common.module.css'
 
 export interface P8000Props {
   buc: Buc
@@ -391,7 +392,7 @@ const P8000: React.FC<P8000Props> = ({
             </span>
           </Button>
         </div>
-        <BoxWithBorderAndPadding>
+        <Box className={styles.boxWithBorderAndPadding} >
           <VStack gap="4">
             <Heading level="1" size="medium">{t('p8000:form-heading-p8000')} ({buc.type?.toUpperCase()} - {t('buc:buc-' + buc.type?.toUpperCase())})</Heading>
             {currentPSED && currentPSED.options && currentPSED.options.type && !isATP() &&
@@ -442,7 +443,7 @@ const P8000: React.FC<P8000Props> = ({
               </HStack>
             }
           </VStack>
-        </BoxWithBorderAndPadding>
+        </Box>
         {!isImplemented() && _type.indexOf("DUMMY") === -1  &&
           <Alert variant="warning">{t('message:alert-notImplemented')}: {getTypeDescription(_type)}</Alert>
         }
@@ -455,7 +456,7 @@ const P8000: React.FC<P8000Props> = ({
               </Alert>
             }
             {P8000Variants[_type]?.ofteEtterspurtInformasjon?.length > 0 &&
-              <BoxWithBorderAndPadding>
+              <Box className={styles.boxWithBorderAndPadding} >
                 <VStack gap="4">
                   <Heading level="2" size="small">{t('p8000:form-heading-ofte-etterspurt-informasjon')}</Heading>
                   <P8000Fields
@@ -484,10 +485,10 @@ const P8000: React.FC<P8000Props> = ({
                     namespace={namespace + '-ofteEtterspurtInformasjon'}
                   />
                 </VStack>
-              </BoxWithBorderAndPadding>
+              </Box>
             }
             {P8000Variants[_type]?.informasjonSomKanLeggesInn?.length > 0 &&
-              <BoxWithBorderAndPadding>
+              <Box className={styles.boxWithBorderAndPadding} >
                 <VStack gap="4">
                   <Heading level="2" size="small">{t('p8000:form-heading-informasjon-som-kan-legges-inn')}</Heading>
                   <P8000Fields
@@ -501,32 +502,32 @@ const P8000: React.FC<P8000Props> = ({
                     namespace={namespace + '-informasjonSomKanLeggesInn'}
                   />
                 </VStack>
-              </BoxWithBorderAndPadding>
+              </Box>
             }
             {isATP() &&
-              <BoxWithBorderAndPadding>
+              <Box className={styles.boxWithBorderAndPadding} >
                 <Heading size={"small"}>{t('p8000:form-heading-anmodning-om-atp-opplysninger')}</Heading>
-              </BoxWithBorderAndPadding>
+              </Box>
             }
-            <BoxWithBorderAndPadding>
+            <Box className={styles.boxWithBorderAndPadding} >
               <UtenlandskePin
                 PSED={currentPSED}
                 parentNamespace={namespace}
                 parentTarget="nav.bruker"
                 updatePSED={updatePSED}
               />
-            </BoxWithBorderAndPadding>
+            </Box>
             {!isATP() &&
-              <BoxWithBorderAndPadding>
+              <Box className={styles.boxWithBorderAndPadding} >
                 <UtenlandskeSaksnr
                   PSED={currentPSED}
                   parentNamespace={namespace}
                   parentTarget="nav"
                   updatePSED={updatePSED}
                 />
-              </BoxWithBorderAndPadding>
+              </Box>
             }
-            <BoxWithBorderAndPadding>
+            <Box className={styles.boxWithBorderAndPadding} >
               <VStack gap="4">
                 {!isATP() &&
                   <>
@@ -538,7 +539,7 @@ const P8000: React.FC<P8000Props> = ({
                   <Textarea label={t('p8000:form-legg-til-fritekst-atp')} value={_ytterligereInformasjon ?? ""} maxLength={2500} onChange={(e) => setYtterligereInformasjon(e.target.value)}/>
                 }
               </VStack>
-            </BoxWithBorderAndPadding>
+            </Box>
             <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
             <SaveAndSendSED
               namespace={namespace}
