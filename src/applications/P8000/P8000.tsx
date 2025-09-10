@@ -5,7 +5,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {resetEditingItems} from "src/actions/app";
 import {resetValidation, setValidation} from "src/actions/validation";
 import {fetchBuc, updatePSED, getSedP8000, resetPSED} from "src/actions/buc";
-import {WaitingPanelDiv} from "src/components/StyledComponents";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
 import {InformasjonSomKanLeggesInn, OfteEtterspurtInformasjon, P8000SED, P8000Type} from "src/declarations/p8000";
 import {State} from "src/declarations/reducers";
@@ -292,9 +291,9 @@ const P8000: React.FC<P8000Props> = ({
 
   if(gettingSed){
     return(
-      <WaitingPanelDiv>
-        <WaitingPanel/>
-      </WaitingPanelDiv>
+      <div className={styles.waitingPanel}>
+        <WaitingPanel />
+      </div>
     )
   }
 

@@ -43,7 +43,8 @@ import {
 import ReactToPrint from "react-to-print";
 import WaitingPanel from "../../components/WaitingPanel/WaitingPanel";
 import styled from "styled-components";
-import {HiddenDiv, WaitingPanelDiv} from "src/components/StyledComponents";
+import {HiddenDiv} from "src/components/StyledComponents";
+import styles from "src/assets/css/common.module.css";
 
 export interface P4000Props {
   buc: Buc
@@ -275,9 +276,9 @@ const P4000: React.FC<P4000Props> = ({
           </Select>
         </BottomAlignedHStack>
         {gettingP4000 &&
-          <WaitingPanelDiv>
-            <WaitingPanel/>
-          </WaitingPanelDiv>
+          <div className={styles.waitingPanel}>
+            <WaitingPanel />
+          </div>
         }
         {!gettingP4000 &&
           <Table<P4000ListRow, P4000TableContext>

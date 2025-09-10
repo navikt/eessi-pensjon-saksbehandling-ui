@@ -27,9 +27,9 @@ import Diverse from "./Diverse/Diverse";
 import {resetEditingItems} from "src/actions/app";
 import SEDBody from "src/applications/BUC/components/SEDBody/SEDBody";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
-import {WaitingPanelDiv} from "src/components/StyledComponents";
 import SaveAndSendSED from "src/components/SaveAndSendSED/SaveAndSendSED";
 import useUnmount from "src/hooks/useUnmount";
+import styles from "src/assets/css/common.module.css";
 
 
 export interface P2000Selector {
@@ -101,9 +101,9 @@ const P2000: React.FC<P2000Props> = ({
 
   if(gettingSed){
     return(
-      <WaitingPanelDiv>
-        <WaitingPanel/>
-      </WaitingPanelDiv>
+      <div className={styles.waitingPanel}>
+        <WaitingPanel />
+      </div>
     )
   }
 

@@ -15,8 +15,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import {fetchBucsListForAvdod, fetchBucsListForGjenlevende} from "src/actions/gjenny";
-import {WaitingPanelDiv} from "src/components/StyledComponents";
 import {Box} from "@navikt/ds-react";
+import styles from 'src/assets/css/common.module.css'
 
 const transition = 500
 const timeout = 501
@@ -172,9 +172,9 @@ export const BUCIndexPageGjenny = (): JSX.Element => {
   const [animating, setAnimating] = useState<boolean>(false)
 
   const WaitingDiv = (
-    <WaitingPanelDiv>
+    <div className={styles.waitingPanel}>
       <WaitingPanel />
-    </WaitingPanelDiv>
+    </div>
   )
 
   const changeMode = useCallback((newMode: BUCMode, from: string, callback?: () => void, content?: JSX.Element) => {
