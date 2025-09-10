@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import {Box, HGrid, HStack, RadioGroup} from '@navikt/ds-react'
-import {FilesFillIcon, FilesIcon} from "@navikt/aksel-icons";
 
 export const OneLineSpan = styled.span`
   white-space: nowrap;
@@ -100,18 +99,6 @@ export const HiddenDiv = styled.div`
   display: none;
 `
 
-export const CopyWithMargin = styled(FilesIcon)`
-  position: relative;
-  top: 2px;
-  left: 5px;
-  cursor: pointer;
-`
 
-export const CopyFilledWithMargin = styled(FilesFillIcon)`
-  position: relative;
-  top: 2px;
-  left: 5px;
-  cursor: pointer;
-`
 
 

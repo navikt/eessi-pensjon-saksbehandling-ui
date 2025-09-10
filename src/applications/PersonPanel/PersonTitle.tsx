@@ -15,7 +15,8 @@ import {copyToClipboard} from "src/actions/app";
 import {useDispatch} from "react-redux";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
-import {CopyFilledWithMargin, CopyWithMargin} from "src/components/StyledComponents";
+import {FilesFillIcon, FilesIcon} from "@navikt/aksel-icons";
+import styles from "src/assets/css/common.module.css";
 
 export const Title = styled(HStack)`
   align-items: center;
@@ -92,7 +93,10 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
           pid && dispatch(copyToClipboard(pid))
         }}
         >
-          {hover ? <CopyFilledWithMargin fontSize="1.5rem"/> : <CopyWithMargin fontSize="1.5rem"/>}
+          {hover ?
+            <FilesFillIcon className={styles.copyFilledWithMargin} fontSize="1.5rem"/> :
+            <FilesIcon className={styles.copyWithMargin} fontSize="1.5rem"/>
+          }
         </Link>
       </Heading>
     </Title>

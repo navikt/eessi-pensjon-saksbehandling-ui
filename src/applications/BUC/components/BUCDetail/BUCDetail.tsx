@@ -17,7 +17,8 @@ import {useDispatch, useSelector} from 'react-redux'
 import styled from 'styled-components'
 import { useState } from 'react'
 import {copyToClipboard} from "../../../../actions/app";
-import {CopyFilledWithMargin, CopyWithMargin} from "src/components/StyledComponents";
+import {FilesFillIcon, FilesIcon} from "@navikt/aksel-icons";
+import styles from 'src/assets/css/common.module.css'
 
 const Dd = styled.dd`
   width: 50%;
@@ -205,7 +206,10 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                         dispatch(copyToClipboard(buc.internationalId ? buc.internationalId : ""))
                       }}
                     >
-                      {hover ? <CopyFilledWithMargin fontSize="1.5rem"/> : <CopyWithMargin fontSize="1.5rem"/>}
+                      {hover ?
+                        <FilesFillIcon className={styles.copyFilledWithMargin} fontSize="1.5rem"/> :
+                        <FilesIcon className={styles.copyWithMargin} fontSize="1.5rem"/>
+                      }
                     </Link>
                   </DdTwoColumn>
                 </>
