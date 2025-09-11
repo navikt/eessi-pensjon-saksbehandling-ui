@@ -168,6 +168,7 @@ const P5000: React.FC<P5000Props> = ({
         p5000WorkingCopies={p5000WorkingCopies}
         p5000FromS3={p5000FromS3}
         seds={activeSeds}
+        mainSed={mainSed}
       />
     )
   }

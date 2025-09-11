@@ -36,6 +36,7 @@ export interface P5000OverviewControlsProps {
   items: P5000ListRows
   itemsForPesys: P5000ListRows
   p5000FromS3: Array<P5000ListRows> | null | undefined
+  hideSendToPesysButton?: boolean
 }
 
 export interface P5000OverviewControlsSelector {
@@ -67,7 +68,9 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
   itemsForPesys,
   pesysWarning,
   p5000FromS3,
-  currentTabKey
+  currentTabKey,
+  hideSendToPesysButton = false
+
 }: P5000OverviewControlsProps) => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
@@ -227,14 +230,16 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
                 return componentRef.current
               }}
             />
-            <Button
-              variant='primary'
-              disabled={sendingToPesys || currentTabKey !== 'pesys'}
-              onClick={handleOverforTilPesys}
-            >
-              {sendingToPesys && <Loader />}
-              {sendingToPesys ? t('ui:sending') : t('buc:form-send-to-PESYS')}
-            </Button>
+            {!hideSendToPesysButton &&
+              <Button
+                variant='primary'
+                disabled={sendingToPesys || currentTabKey !== 'pesys'}
+                onClick={handleOverforTilPesys}
+              >
+                {sendingToPesys && <Loader />}
+                {sendingToPesys ? t('ui:sending') : t('buc:form-send-to-PESYS')}
+              </Button>
+            }
             {pagination && (
               <Select
                 id='itemsPerPage'
