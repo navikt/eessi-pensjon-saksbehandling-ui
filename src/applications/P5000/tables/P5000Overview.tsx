@@ -13,7 +13,7 @@ import { informasjonOmBeregning, ordning, relevantForYtelse, typePeriode } from 
 import { P5000ForS3 } from 'src/applications/P5000/utils/pesysUtils'
 import {HiddenDiv, HorizontalLineSeparator } from 'src/components/StyledComponents'
 import { FeatureToggles, LocalStorageEntry } from 'src/declarations/app'
-import { Seds } from 'src/declarations/buc'
+import {Sed, Seds} from 'src/declarations/buc'
 import {
   P5000sFromRinaMap,
   P5000ListRow,
@@ -45,6 +45,7 @@ export interface P5000OverviewProps {
   p5000FromS3: Array<P5000ListRows> | null | undefined
   p5000WorkingCopies: Array<LocalStorageEntry<P5000SED>> | undefined
   seds: Seds
+  mainSed: Sed | undefined
 }
 
 const mapState = (state: State): P5000OverviewSelector => ({
@@ -56,7 +57,7 @@ export const P5000Tabs = styled(Tabs)`
 `
 
 const P5000Overview: React.FC<P5000OverviewProps> = ({
-  fnr, caseId, p5000sFromRinaMap, p5000WorkingCopies, p5000FromS3, seds
+  fnr, caseId, p5000sFromRinaMap, p5000WorkingCopies, p5000FromS3, seds, mainSed
 }: P5000OverviewProps) => {
   const { t } = useTranslation()
   const componentRef = useRef(null)
@@ -142,6 +143,39 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     _setViewItemsForPesys(newViewItemsForPesys)
     _setFilteredItemsForPesys(newFilteredItemsForPesys)
   }, [mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules])
+
+  // Update itemsForPesys when items change (when active SEDs change)
+  useEffect(() => {
+    const newItemsForPesys = _.reject(items, (it: P5000ListRow) => it.beregning === '000')
+      .map(item => {
+        // Find if this item was previously in itemsForPesys
+        const existingItem = _.find(itemsForPesys, (existing: P5000ListRow) => existing.key === item.key)
+
+        // If item exists in current itemsForPesys, preserve its current selection state
+        // If item is new (from newly selected SED), check against S3 data for initial selection
+        const selected = existingItem !== undefined
+          ? existingItem.selected
+          : _.find(p5000FromS3, (it: P5000ForS3) => {
+              return it.land === item.land &&
+                it.acronym === item.acronym &&
+                it.type === item.type &&
+                it.startdato === moment(item.startdato).format('YYYY-MM-DD') &&
+                it.sluttdato === moment(item.sluttdato).format('YYYY-MM-DD') &&
+                it.ytelse === item.ytelse &&
+                it.ordning === item.ordning &&
+                it.beregning === item.beregning
+            }) !== undefined
+
+        return {
+          ...item,
+          selectDisabled: item.land === 'NO',
+          editDisabled: item.land === 'NO',
+          selected
+        }
+      })
+
+    setItemsForPesys(newItemsForPesys)
+  }, [items, p5000FromS3])
 
   const [pesysWarning] = useState<string | undefined>(() =>
     (items.length !== itemsForPesys.length ? t('p5000:warning-beregning-000', { x: (items.length - itemsForPesys.length) }) : undefined))
@@ -285,11 +319,9 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', align: 'center' as ColumnAlign, render: renderBeregning, edit: { render: renderBeregning } }
   ]
 
-  if (_activeTab === 'pesys') {
-    columns.splice(0, 1) // remove status column for 'see P5000' button press, or for Pesys export view
-  }
 
   if (_activeTab === 'pesys') {
+    columns.splice(0, 1) // remove status column for 'see P5000' button press, or for Pesys export view
     columns = columns.concat({
       id: 'buttons',
       label: '',
@@ -350,6 +382,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               itemsForPesys={filteredItemsForPesys}
               pesysWarning={pesysWarning}
               currentTabKey={_activeTab}
+              hideSendToPesysButton={!!mainSed}
             />
           </Box>
         <HorizontalLineSeparator />
@@ -359,7 +392,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           >
             <Tabs.List>
               <Tabs.Tab label='Slå sammen' value='oversikt' />
-              {featureToggles.P5000_UPDATES_VISIBLE &&
+              {featureToggles.P5000_UPDATES_VISIBLE && !mainSed &&
                 <Tabs.Tab label='Eksporter til Pesys' value='pesys' />
               }
             </Tabs.List>
@@ -376,9 +409,9 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                     merged: t('p5000:merged-periods')
                   }}
                   flaggable={_.find(items, 'flag') !== undefined}
-                  searchable
+                  searchable={false}
                   selectable={false}
-                  sortable
+                  sortable={true}
                   subrowsIcon='merge'
                   onColumnSort={(sort: any) => {
                     _setTableSort(sort)
@@ -407,11 +440,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
                   }}
                   flaggable={_.find(items, 'flag') !== undefined}
-                  searchable
-                  selectable
-                  showSelectAll={false}
-                  sortable
-                  editable
+                  searchable={false}
+                  selectable={true}
+                  showSelectAll={true}
+                  sortable={true}
+                  editable={false}
                   subrowsIcon='merge'
                   onColumnSort={(sort: any) => {
                     _setTableSort(sort)
