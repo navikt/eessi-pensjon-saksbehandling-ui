@@ -285,11 +285,9 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', align: 'center' as ColumnAlign, render: renderBeregning, edit: { render: renderBeregning } }
   ]
 
-  if (_activeTab === 'pesys') {
-    columns.splice(0, 1) // remove status column for 'see P5000' button press, or for Pesys export view
-  }
 
   if (_activeTab === 'pesys') {
+    columns.splice(0, 1) // remove status column for 'see P5000' button press, or for Pesys export view
     columns = columns.concat({
       id: 'buttons',
       label: '',
@@ -376,9 +374,9 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                     merged: t('p5000:merged-periods')
                   }}
                   flaggable={_.find(items, 'flag') !== undefined}
-                  searchable
+                  searchable={false}
                   selectable={false}
-                  sortable
+                  sortable={true}
                   subrowsIcon='merge'
                   onColumnSort={(sort: any) => {
                     _setTableSort(sort)
@@ -407,11 +405,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
                   }}
                   flaggable={_.find(items, 'flag') !== undefined}
-                  searchable
-                  selectable
-                  showSelectAll={false}
-                  sortable
-                  editable
+                  searchable={false}
+                  selectable={true}
+                  showSelectAll={true}
+                  sortable={true}
+                  editable={false}
                   subrowsIcon='merge'
                   onColumnSort={(sort: any) => {
                     _setTableSort(sort)
