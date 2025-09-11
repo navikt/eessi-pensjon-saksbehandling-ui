@@ -34,7 +34,8 @@ describe('applications/BUC/components/P5000/P5000', () => {
       '60578cf8bf9f45a7819a39987c6c8fd4': mockP50001,
       '50578cf8bf9f45a7819a39987c6c8fd4': mockP50002
     } as P5000sFromRinaMap,
-    p5000WorkingCopies: undefined
+    p5000WorkingCopies: undefined,
+    mainSed: undefined
   }
 
   beforeEach(() => {
