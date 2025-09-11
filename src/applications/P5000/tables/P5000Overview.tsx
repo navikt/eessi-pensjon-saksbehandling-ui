@@ -144,6 +144,39 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     _setFilteredItemsForPesys(newFilteredItemsForPesys)
   }, [mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules])
 
+  // Update itemsForPesys when items change (when active SEDs change)
+  useEffect(() => {
+    const newItemsForPesys = _.reject(items, (it: P5000ListRow) => it.beregning === '000')
+      .map(item => {
+        // Find if this item was previously in itemsForPesys
+        const existingItem = _.find(itemsForPesys, (existing: P5000ListRow) => existing.key === item.key)
+
+        // If item exists in current itemsForPesys, preserve its current selection state
+        // If item is new (from newly selected SED), check against S3 data for initial selection
+        const selected = existingItem !== undefined
+          ? existingItem.selected
+          : _.find(p5000FromS3, (it: P5000ForS3) => {
+              return it.land === item.land &&
+                it.acronym === item.acronym &&
+                it.type === item.type &&
+                it.startdato === moment(item.startdato).format('YYYY-MM-DD') &&
+                it.sluttdato === moment(item.sluttdato).format('YYYY-MM-DD') &&
+                it.ytelse === item.ytelse &&
+                it.ordning === item.ordning &&
+                it.beregning === item.beregning
+            }) !== undefined
+
+        return {
+          ...item,
+          selectDisabled: item.land === 'NO',
+          editDisabled: item.land === 'NO',
+          selected
+        }
+      })
+
+    setItemsForPesys(newItemsForPesys)
+  }, [items, p5000FromS3])
+
   const [pesysWarning] = useState<string | undefined>(() =>
     (items.length !== itemsForPesys.length ? t('p5000:warning-beregning-000', { x: (items.length - itemsForPesys.length) }) : undefined))
 
