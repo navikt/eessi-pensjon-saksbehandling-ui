@@ -5,9 +5,8 @@ import {useTranslation} from "react-i18next";
 import {useAppSelector} from "src/store";
 import Input from "src/components/Forms/Input";
 import DateField from "../DateField/DateField";
-import {BodyLong, HGrid, Label, Radio, VStack} from "@navikt/ds-react";
+import {BodyLong, HGrid, Label, Radio, RadioGroup, VStack} from "@navikt/ds-react";
 import {  formatDate} from "src/utils/utils";
-import {HorizontalRadioGroup} from "src/components/StyledComponents";
 import {Validation} from "src/declarations/app";
 import FormTextBox from "src/components/Forms/FormTextBox";
 import {Person} from "src/declarations/sed";
@@ -78,7 +77,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
               />
             </HGrid>
             <HGrid gap="4" columns={3}>
-              <HorizontalRadioGroup
+              <RadioGroup className={"horizontalRadioGroup"}
                 error={v[namespace + '-kjoenn']?.feilmelding}
                 id={namespace + "-kjoenn"}
                 legend={t('p2000:form-person-kjoenn')}
@@ -88,7 +87,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
                 <Radio value="M">Mann</Radio>
                 <Radio value="K">Kvinne</Radio>
                 <Radio value="">Ukjent</Radio>
-              </HorizontalRadioGroup>
+              </RadioGroup>
             </HGrid>
           </>
         }

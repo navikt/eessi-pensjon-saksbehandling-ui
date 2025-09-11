@@ -1,4 +1,4 @@
-import {Box, Checkbox, CheckboxGroup, Heading, Radio, VStack} from "@navikt/ds-react";
+import {Box, Checkbox, CheckboxGroup, Heading, Radio, RadioGroup, VStack} from "@navikt/ds-react";
 import React from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import _ from "lodash";
@@ -12,7 +12,7 @@ import {validateDiverse, ValidationDiverseProps} from "./validation";
 import DateField from "../DateField/DateField";
 import {useTranslation} from "react-i18next";
 import {P2000SED, P2000Pensjon} from "src/declarations/p2000";
-import {HorizontalRadioGroup, TopAlignedGrid} from "src/components/StyledComponents";
+import {TopAlignedGrid} from "src/components/StyledComponents";
 import Utsettelse from "../Utsettelse/Utsettelse";
 import Institusjon from "../Institusjon/Institusjon";
 import TextArea from "../../../components/Forms/TextArea";
@@ -97,7 +97,7 @@ const Diverse: React.FC<MainFormProps> = ({
             onChanged={(v) => setPensjonProperty("forespurtstartdato", v)}
             dateValue={pensjon?.forespurtstartdato ?? ''}
           />
-          <HorizontalRadioGroup
+          <RadioGroup className={"horizontalRadioGroup"}
             error={validation[namespace + '-angitidligstdato']?.feilmelding}
             id={namespace + "-angitidligstdato"}
             legend={t('p2000:form-diverse-pensjon-angitidligstdato')}
@@ -107,7 +107,7 @@ const Diverse: React.FC<MainFormProps> = ({
           >
             <Radio value="ja">Ja</Radio>
             <Radio value="nei">Nei</Radio>
-          </HorizontalRadioGroup>
+          </RadioGroup>
         </TopAlignedGrid>
         <Box><Utsettelse PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/></Box>
         <TopAlignedGrid columns={2} gap="4">

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {Box, HGrid, HStack, RadioGroup} from '@navikt/ds-react'
+import {Box, HGrid, HStack} from '@navikt/ds-react'
 
 export const OneLineSpan = styled.span`
   white-space: nowrap;
@@ -76,14 +76,6 @@ export const Hr = styled.div`
    background: var(--a-border-default);
    width: 100%;
    height: 1px;
-`
-
-export const HorizontalRadioGroup = styled(RadioGroup)`
-  > .navds-radio-buttons {
-    display: flex;
-    gap: var(--a-spacing-4);
-    margin-bottom: var(--a-spacing-2)
-  }
 `
 
 export const HiddenDiv = styled.div`

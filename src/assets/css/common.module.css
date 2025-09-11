@@ -32,12 +32,10 @@
   }
 }
 
-.horizontalRadioGroup {
-  > .navds-radio-buttons {
-    display: flex;
-    gap: var(--a-spacing-4);
-    margin-bottom: var(--a-spacing-2)
-  }
+:global .horizontalRadioGroup .navds-radio-buttons {
+  display: flex;
+  gap: var(--a-spacing-4);
+  margin-bottom: var(--a-spacing-2)
 }
 
 .waitingPanel {

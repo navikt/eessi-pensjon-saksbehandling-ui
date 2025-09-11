@@ -11,7 +11,7 @@ import {
   Heading,
   HGrid, HStack,
   Label,
-  Radio,
+  Radio, RadioGroup,
   Select,
   Spacer,
   Table,
@@ -26,7 +26,6 @@ import {Validation} from "src/declarations/app";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
 import {
-  HorizontalRadioGroup,
   RepeatableBoxWithBorder
 } from "src/components/StyledComponents";
 import useValidation from "../../../hooks/useValidation";
@@ -286,7 +285,7 @@ const Ytelser: React.FC<MainFormProps> = ({
 
 
               </HGrid>
-              <HorizontalRadioGroup
+              <RadioGroup className={"horizontalRadioGroup"}
                 error={_v[_namespace + '-status']?.feilmelding}
                 id={_namespace + "-status"}
                 legend={t('p2000:form-ytelse-status')}
@@ -296,7 +295,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                 {statusOptions.map((option) => {
                   return(<Radio key={option.value} value={option.value}>{option.label}</Radio>)
                 })}
-              </HorizontalRadioGroup>
+              </RadioGroup>
               <HGrid gap="4" columns={2}>
                 <DateField
                   id={_namespace + '-startdatoutbetaling'}
@@ -354,7 +353,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                   </Button>
                 </Box>
               }
-              <HorizontalRadioGroup
+              <RadioGroup className={"horizontalRadioGroup"}
                 error={_v[_namespace + '-mottasbasertpaa']?.feilmelding}
                 id={_namespace + "-mottasbasertpaa"}
                 legend={t('p2000:form-ytelse-mottas-basert-paa')}
@@ -363,7 +362,7 @@ const Ytelser: React.FC<MainFormProps> = ({
               >
                 <Radio value="botid">{t('p2000:form-ytelse-mottas-basert-paa-botid')}</Radio>
                 <Radio value="i_arbeid">{t('p2000:form-ytelse-mottas-basert-paa-i_arbeid')}</Radio>
-              </HorizontalRadioGroup>
+              </RadioGroup>
               <HGrid gap="4" columns={2}>
                 <Input
                   error={_v[_namespace + '-totalbruttobeloepbostedsbasert']?.feilmelding}
