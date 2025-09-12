@@ -12,8 +12,7 @@ import {State} from "src/declarations/reducers";
 import _ from "lodash";
 import {resetValidation} from "src/actions/validation";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
-import {VStack} from "@navikt/ds-react";
-import {TopAlignedGrid} from "src/components/StyledComponents";
+import {HGrid, VStack} from "@navikt/ds-react";
 import {Adresse as P2000Adresse} from "src/declarations/sed";
 
 const mapState = (state: State): MainFormSelector => ({
@@ -80,7 +79,7 @@ const Adresse: React.FC<AdresseProps> = ({
 
   return (
     <VStack gap="4">
-      <TopAlignedGrid columns={1}>
+      <HGrid columns={1} align="start">
         <Input
           error={validation[namespace + '-gate']?.feilmelding}
           namespace={namespace}
@@ -89,8 +88,8 @@ const Adresse: React.FC<AdresseProps> = ({
           onChanged={setGate}
           value={(adresse?.gate)  ?? ''}
         />
-      </TopAlignedGrid>
-      <TopAlignedGrid columns={2} gap="4">
+      </HGrid>
+      <HGrid columns={2} gap="4" align="start">
         <Input
           error={validation[namespace + '-postnummer']?.feilmelding}
           namespace={namespace}
@@ -107,8 +106,8 @@ const Adresse: React.FC<AdresseProps> = ({
           onChanged={setBy}
           value={(adresse?.by)  ?? ''}
         />
-      </TopAlignedGrid>
-      <TopAlignedGrid columns={1}>
+      </HGrid>
+      <HGrid columns={1} align="start">
         <Input
           error={validation[namespace + '-region']?.feilmelding}
           namespace={namespace}
@@ -117,8 +116,8 @@ const Adresse: React.FC<AdresseProps> = ({
           onChanged={setRegion}
           value={(adresse?.region)  ?? ''}
         />
-      </TopAlignedGrid>
-      <TopAlignedGrid columns={1}>
+      </HGrid>
+      <HGrid columns={1} align="start">
         <CountryDropdown
           error={validation[namespace + '-land']?.feilmelding}
           id={namespace + '-land'}
@@ -128,7 +127,7 @@ const Adresse: React.FC<AdresseProps> = ({
           values={(adresse?.land) ?? ''}
           countryCodeListName="verdensLand"
         />
-      </TopAlignedGrid>
+      </HGrid>
     </VStack>
   )
 }

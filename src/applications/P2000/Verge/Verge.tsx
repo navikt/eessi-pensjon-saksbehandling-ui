@@ -2,7 +2,7 @@ import React from "react";
 import {useDispatch} from "react-redux";
 import Input from "../../../components/Forms/Input";
 import _ from "lodash";
-import {Box, Heading, VStack} from "@navikt/ds-react";
+import {Box, Heading, HGrid, VStack} from "@navikt/ds-react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import Telefon from "../Telefon/Telefon";
 import Epost from "../Epost/Epost";
@@ -15,7 +15,6 @@ import {resetValidation, setValidation} from "src/actions/validation";
 import {useTranslation} from "react-i18next";
 import Adresse from "../Adresse/Adresse";
 import TextArea from "../../../components/Forms/TextArea";
-import {TopAlignedGrid} from "src/components/StyledComponents";
 import {Verge as P2000Verge} from "src/declarations/sed";
 
 const mapState = (state: State): MainFormSelector => ({
@@ -76,7 +75,7 @@ const Verge: React.FC<MainFormProps> = ({
         <Heading size='small'>
           Informasjon om representant/verge
         </Heading>
-        <TopAlignedGrid gap="4" columns={2}>
+        <HGrid gap="4" columns={2} align="start">
           <Input
             error={validation[namespace + '-person-etternavn']?.feilmelding}
             namespace={namespace}
@@ -93,7 +92,7 @@ const Verge: React.FC<MainFormProps> = ({
             onChanged={setFornavn}
             value={(verge?.person?.fornavn)  ?? ''}
           />
-        </TopAlignedGrid>
+        </HGrid>
         <TextArea
           error={validation[namespace + '-vergemaal-mandat']?.feilmelding}
           namespace={namespace}

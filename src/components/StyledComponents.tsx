@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {Box, HGrid} from '@navikt/ds-react'
+import {Box} from '@navikt/ds-react'
 
 export const OneLineSpan = styled.span`
   white-space: nowrap;
@@ -61,10 +61,6 @@ export const RepeatableBox = styled(Box)`
 
 export const RepeatableBoxWithBorder = styled(RepeatableBox)`
   border: 1px solid var(--a-border-default);
-`
-
-export const TopAlignedGrid = styled(HGrid)`
-  align-items: start
 `
 
 export const Hr = styled.div`

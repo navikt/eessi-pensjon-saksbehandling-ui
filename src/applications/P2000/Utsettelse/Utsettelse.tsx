@@ -1,10 +1,10 @@
-import {BodyLong, Box, Button, Heading, HStack, Label, Spacer } from "@navikt/ds-react";
+import {BodyLong, Box, Button, Heading, HGrid, HStack, Label, Spacer} from "@navikt/ds-react";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {getIdx} from "src/utils/namespace";
-import {RepeatableBox, TopAlignedGrid} from "src/components/StyledComponents";
+import {RepeatableBox} from "src/components/StyledComponents";
 import AddRemovePanel from "src/components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
@@ -158,7 +158,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
         paddingBlock={inEditMode ? "4 4" : "1 1"}
         paddingInline="4 4"
       >
-        <TopAlignedGrid gap="4" columns={4}>
+        <HGrid gap="4" columns={4} align="start">
           {inEditMode
             ? (
               <>
@@ -245,7 +245,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
               onCancelEdit={() => onCloseEditUtsettelse(_namespace)}
             />
           </HStack>
-        </TopAlignedGrid>
+        </HGrid>
       </RepeatableBox>
     )
   }

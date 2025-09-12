@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {useTranslation} from "react-i18next";
-import {Box, Button, Heading, Radio, RadioGroup, VStack} from "@navikt/ds-react";
+import {Box, Button, Heading, HGrid, Radio, RadioGroup, VStack} from "@navikt/ds-react";
 import {State} from "src/declarations/reducers";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import {useAppSelector} from "src/store";
@@ -19,7 +19,6 @@ import {
   ValidationIbanProps,
   ValidationSwiftProps
 } from "./validation";
-import {TopAlignedGrid} from "src/components/StyledComponents";
 import {Bank} from "src/declarations/sed";
 
 const mapState = (state: State): MainFormSelector => ({
@@ -163,7 +162,7 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
         <Heading size='medium'>
           {label}
         </Heading>
-        <TopAlignedGrid gap="4" columns={2}>
+        <HGrid gap="4" columns={2} align="start">
           <RadioGroup
             error={validation[namespace + '-konto-innehaver-rolle']?.feilmelding}
             id='bank-konto-innehaver-rolle'
@@ -175,8 +174,8 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
             <Radio value="forsikret_person">Forsikret person</Radio>
             <Radio value="representant_eller_verge">Representant/Verge</Radio>
           </RadioGroup>
-        </TopAlignedGrid>
-        <TopAlignedGrid gap="4" columns={2}>
+        </HGrid>
+        <HGrid gap="4" columns={2} align="start">
           <Input
             error={validation[namespace + '-konto-innehaver-navn']?.feilmelding}
             namespace={namespace}
@@ -185,11 +184,11 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
             onChanged={setInnehaverNavn}
             value={(bank?.konto?.innehaver?.navn) ?? ''}
           />
-        </TopAlignedGrid>
+        </HGrid>
         <Heading size='medium'>
           Bankinformasjon <Button size="small" variant="tertiary" onClick={resetBankInfo}>Nullstill</Button>
         </Heading>
-        <TopAlignedGrid gap="4" columns={2}>
+        <HGrid gap="4" columns={2} align="start">
           <RadioGroup
             error={validation[namespace + '-konto-sepa-ikkesepa']?.feilmelding}
             id='bank-konto-sepa-ikkesepa'
@@ -240,10 +239,10 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
               />
             </VStack>
           }
-        </TopAlignedGrid>
+        </HGrid>
         {_sepaIkkeSepa === "ikkesepa" &&
           <>
-            <TopAlignedGrid gap="4" columns={2}>
+            <HGrid gap="4" columns={2} align="start">
               <Input
                 error={validation[namespace + '-bank-navn']?.feilmelding}
                 namespace={namespace}
@@ -252,7 +251,7 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
                 onChanged={setBankNavn}
                 value={(bank?.navn) ?? ''}
               />
-            </TopAlignedGrid>
+            </HGrid>
             <Adresse usePostKode={true} PSED={PSED} updatePSED={updatePSED} parentNamespace={namespace + '-bank'} parentTarget={target}/>
           </>
         }

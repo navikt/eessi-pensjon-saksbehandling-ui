@@ -1,4 +1,4 @@
-import {Box, Checkbox, CheckboxGroup, Heading, Radio, RadioGroup, VStack} from "@navikt/ds-react";
+import {Box, Checkbox, CheckboxGroup, Heading, HGrid, Radio, RadioGroup, VStack} from "@navikt/ds-react";
 import React from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import _ from "lodash";
@@ -12,7 +12,6 @@ import {validateDiverse, ValidationDiverseProps} from "./validation";
 import DateField from "../DateField/DateField";
 import {useTranslation} from "react-i18next";
 import {P2000SED, P2000Pensjon} from "src/declarations/p2000";
-import {TopAlignedGrid} from "src/components/StyledComponents";
 import Utsettelse from "../Utsettelse/Utsettelse";
 import Institusjon from "../Institusjon/Institusjon";
 import TextArea from "../../../components/Forms/TextArea";
@@ -75,7 +74,7 @@ const Diverse: React.FC<MainFormProps> = ({
         <Heading size='medium'>
           {label}
         </Heading>
-        <TopAlignedGrid columns={2} gap="4">
+        <HGrid columns={2} gap="4" align="start">
           <DateField
             id={namespace + '-kravDato'}
             index={0}
@@ -85,8 +84,8 @@ const Diverse: React.FC<MainFormProps> = ({
             onChanged={(v) => setNavProperty("krav.dato", v)}
             dateValue={nav?.krav?.dato ?? ''}
           />
-        </TopAlignedGrid>
-        <TopAlignedGrid columns={2} gap="4">
+        </HGrid>
+        <HGrid columns={2} gap="4" align="start">
           <DateField
             id={namespace + '-forespurtstartdato'}
             description={t('p2000:form-diverse-pensjon-forespurtstartdato-description')}
@@ -108,9 +107,9 @@ const Diverse: React.FC<MainFormProps> = ({
             <Radio value="ja">Ja</Radio>
             <Radio value="nei">Nei</Radio>
           </RadioGroup>
-        </TopAlignedGrid>
+        </HGrid>
         <Box><Utsettelse PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/></Box>
-        <TopAlignedGrid columns={2} gap="4">
+        <HGrid columns={2} gap="4" align="start">
           <CheckboxGroup
             legend={t('p2000:form-diverse-pensjon-mottaker')}
             error={validation[namespace + '-mottaker']?.feilmelding}
@@ -132,7 +131,7 @@ const Diverse: React.FC<MainFormProps> = ({
             <Checkbox value="987_2009_Art_72_2">987/2009: Art. 72 (2)</Checkbox>
             <Checkbox value="987_2009_Art_72_3">987/2009: Art. 72 (3)</Checkbox>
           </CheckboxGroup>
-        </TopAlignedGrid>
+        </HGrid>
         <Box><Institusjon PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/></Box>
         <CheckboxGroup
           legend={t('p2000:form-diverse-pensjon-vedlegg')}

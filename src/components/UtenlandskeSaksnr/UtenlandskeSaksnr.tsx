@@ -1,11 +1,11 @@
 import {PlusCircleIcon} from "@navikt/aksel-icons";
-import {BodyLong, Box, Button, Heading, HStack, Spacer} from '@navikt/ds-react'
+import {BodyLong, Box, Button, Heading, HGrid, HStack, Spacer} from '@navikt/ds-react'
 import { Country } from '@navikt/land-verktoy'
 import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
 import AddRemovePanel from 'src/components/AddRemovePanel/AddRemovePanel'
 import Input from 'src/components/Forms/Input'
-import {RepeatableBox, TopAlignedGrid} from 'src/components/StyledComponents'
+import {RepeatableBox} from 'src/components/StyledComponents'
 import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
 import React, {useEffect, useState} from 'react'
@@ -218,9 +218,10 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
         paddingBlock={inEditMode ? "4 4" : "1 1"}
         padding="4"
       >
-        <TopAlignedGrid
+        <HGrid
           columns={3}
           gap="4"
+          align="start"
         >
           {inEditMode
             ? (
@@ -288,7 +289,7 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
               />
             </HStack>
           }
-        </TopAlignedGrid>
+        </HGrid>
       </RepeatableBox>
     )
   }

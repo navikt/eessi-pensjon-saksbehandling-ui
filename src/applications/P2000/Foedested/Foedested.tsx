@@ -4,12 +4,11 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import {useAppSelector} from "src/store";
 import Input from "src/components/Forms/Input";
-import {BodyLong, Heading, Label, VStack} from "@navikt/ds-react";
+import {BodyLong, Heading, HGrid, Label, VStack} from "@navikt/ds-react";
 import {Country} from "@navikt/land-verktoy";
 import {Validation} from "src/declarations/app";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
-import {TopAlignedGrid} from "src/components/StyledComponents";
 import FormTextBox from "src/components/Forms/FormTextBox";
 import {Person} from "src/declarations/sed";
 
@@ -43,7 +42,7 @@ const Foedested: React.FC<FoedestedProps> = ({
   return(
     <VStack gap="4">
       <Heading size="small">{t('p2000:form-person-foedested')}</Heading>
-      <TopAlignedGrid columns={3} gap="4">
+      <HGrid columns={3} gap="4" align="start">
         {parentEditMode &&
           <>
             <Input
@@ -108,7 +107,7 @@ const Foedested: React.FC<FoedestedProps> = ({
             }
           </>
         }
-      </TopAlignedGrid>
+      </HGrid>
     </VStack>
   )
 }
