@@ -3,7 +3,6 @@ import { saveEntries } from 'src/actions/localStorage'
 import { getP5000FromS3, getSed, resetSentP5000info } from 'src/actions/p5000'
 import { getWorkingCopy, updateP5000WorkingCopies } from 'src/applications/P5000/utils/entriesUtils'
 import P5000Controls from 'src/applications/P5000/P5000Controls'
-import { SpinnerDiv } from 'src/components/StyledComponents'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import { BUCMode, LocalStorageEntriesMap, FeatureToggles, LocalStorageEntry } from 'src/declarations/app'
 import { Buc, Sed, Seds } from 'src/declarations/buc'
@@ -17,6 +16,7 @@ import P5000Edit from 'src/applications/P5000/tables/P5000Edit'
 import P5000Overview from 'src/applications/P5000/tables/P5000Overview'
 import P5000SedLabel from 'src/applications/P5000/components/P5000SedLabel'
 import P5000Sum from 'src/applications/P5000/tables/P5000Sum'
+import styles from './P5000.module.css'
 
 export interface P5000Props {
   buc: Buc
@@ -290,9 +290,9 @@ const P5000: React.FC<P5000Props> = ({
     const cachedSedIds = Object.keys(p5000sFromRinaMap)
     const loadedSeds: number = _.filter(_seds, sed => cachedSedIds.indexOf(sed.id) >= 0)?.length ?? 0
     return (
-      <SpinnerDiv>
+      <div className={styles.spinner}>
         <WaitingPanel message={t('p5000:loading-sed-X-of-Y', { x: loadedSeds, y: _seds?.length ?? 0 })} />
-      </SpinnerDiv>
+      </div>
     )
   }
 

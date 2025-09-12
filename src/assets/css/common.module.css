@@ -7,13 +7,6 @@
   margin-right: 0.25rem;
 }
 
-.spinner {
-  position: absolute;
-  top: 3rem;
-  left: 0;
-  right: 0;
-}
-
 .repeatableBox {
   &.new {
     background-color: rgba(236, 243, 153, 0.5);
