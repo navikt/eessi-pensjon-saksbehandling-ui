@@ -23,9 +23,6 @@ export const HorizontalLineSeparator = styled.div`
   margin-right: 2rem;
 `
 
-export const HiddenDiv = styled.div`
-  display: none;
-`
 
 
 

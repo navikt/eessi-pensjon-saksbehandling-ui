@@ -1,7 +1,7 @@
 import {Alert, BodyLong, Button, HelpText, Loader, Tag, SortState, VStack, HStack, Spacer} from '@navikt/ds-react'
 import { typePeriode } from 'src/applications/P5000/P5000.labels'
 import Select from 'src/components/Select/Select'
-import {HiddenDiv, HorizontalLineSeparator} from 'src/components/StyledComponents'
+import {HorizontalLineSeparator} from 'src/components/StyledComponents'
 import { Labels, LocalStorageEntry, Option } from 'src/declarations/app'
 import { SakTypeMap, SakTypeValue, Sed } from 'src/declarations/buc.d'
 import { P5000sFromRinaMap, P5000SED, P5000SumRow, P5000SumRows } from 'src/declarations/p5000'
@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import Table, { RenderEditableOptions, Column as TableColumn, RenderOptions } from '@navikt/tabell'
 import { convertFromP5000SumRowsIntoP5000SED, convertP5000SEDToP5000SumRows } from 'src/applications/P5000/utils/conversion'
+import HiddenDiv from "src/components/HiddenDiv/HiddenDiv";
 
 export interface P5000SumProps {
   p5000sFromRinaMap: P5000sFromRinaMap

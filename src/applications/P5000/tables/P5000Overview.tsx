@@ -11,7 +11,7 @@ import Table, {
 } from '@navikt/tabell'
 import { informasjonOmBeregning, ordning, relevantForYtelse, typePeriode } from 'src/applications/P5000/P5000.labels'
 import { P5000ForS3 } from 'src/applications/P5000/utils/pesysUtils'
-import {HiddenDiv, HorizontalLineSeparator } from 'src/components/StyledComponents'
+import { HorizontalLineSeparator } from 'src/components/StyledComponents'
 import { FeatureToggles, LocalStorageEntry } from 'src/declarations/app'
 import {Sed, Seds} from 'src/declarations/buc'
 import {
@@ -32,6 +32,7 @@ import { useSelector } from 'react-redux'
 import { convertP5000SEDToP5000ListRows, mergeP5000ListRows } from 'src/applications/P5000/utils/conversion'
 import P5000OverviewControls from './P5000OverviewControls'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
+import HiddenDiv from "src/components/HiddenDiv/HiddenDiv";
 
 export interface P5000OverviewSelector {
   featureToggles: FeatureToggles

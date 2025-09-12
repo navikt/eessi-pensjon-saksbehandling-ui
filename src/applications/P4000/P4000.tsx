@@ -43,8 +43,8 @@ import {
 import ReactToPrint from "react-to-print";
 import WaitingPanel from "../../components/WaitingPanel/WaitingPanel";
 import styled from "styled-components";
-import {HiddenDiv} from "src/components/StyledComponents";
 import styles from "src/assets/css/common.module.css";
+import HiddenDiv from "src/components/HiddenDiv/HiddenDiv";
 
 export interface P4000Props {
   buc: Buc
