@@ -2,8 +2,8 @@ import classNames from 'classnames'
 import { Labels } from 'src/declarations/app.d'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 import { Tag } from '@navikt/ds-react'
+import styles from './SEDStatus.module.css'
 
 export interface SEDStatusProps {
   className ?: string
@@ -24,21 +24,6 @@ const statusList: Labels = {
 
 export type StatusType = 'success' | 'info' | 'warning' | 'error'
 
-export const MyTag = styled(Tag)`
-  &.received {
-    background-color: var(--a-lightblue-500) !important;
-  }
-  &.active {
-    background-color: var(--a-purple-200) !important;
-    border-color: var(--a-purple-500) !important;
-  }
-  &.first_sent,
-  &.first_received,
-  &.first_cancelled {
-    background-color: var(--a-gray-400) !important;
-  }
-`
-
 const SEDStatus: React.FC<SEDStatusProps> = ({
   className, status
 }: SEDStatusProps): JSX.Element => {
@@ -46,9 +31,21 @@ const SEDStatus: React.FC<SEDStatusProps> = ({
   const tagType: StatusType | undefined =
     Object.prototype.hasOwnProperty.call(statusList, status) ? (statusList[status] as StatusType)! : (statusList.unknown as StatusType)!
   return (
-    <MyTag className={classNames(status, className)} variant={tagType} data-testid='sedstatus'>
+
+    <Tag
+      className={classNames(
+        styles.statusTags,
+        { [styles.active]: status === 'active' },
+        { [styles.received]: status === 'received' },
+        { [styles.first_sent]: status === 'first_sent' },
+        { [styles.first_received]: status === 'first_received' },
+        { [styles.first_cancelled]: status === 'first_cancelled' },
+        className
+      )}
+      variant={tagType}
+      data-testid='sedstatus'>
       {t('buc:status-' + status)}
-    </MyTag>
+    </Tag>
   )
 }
 
