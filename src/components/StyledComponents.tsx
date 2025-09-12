@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import {Box} from '@navikt/ds-react'
 
 export const OneLineSpan = styled.span`
   white-space: nowrap;
@@ -33,21 +32,6 @@ export const HorizontalLineSeparator = styled.div`
   width: -webkit-fill-available;
   margin-left: 2rem;
   margin-right: 2rem;
-`
-
-export const WithErrorBox = styled(Box)`
-  background-color: transparent;
-  border: none;
-  &.error {
-    margin: -4px;
-    border: 4px solid var(--a-border-danger) !important;
-  }
-`
-
-export const Hr = styled.div`
-   background: var(--a-border-default);
-   width: 100%;
-   height: 1px;
 `
 
 export const HiddenDiv = styled.div`

@@ -4,12 +4,11 @@ import {
   ChevronRightIcon,
   CheckmarkCircleFillIcon
 } from '@navikt/aksel-icons'
-import {BodyLong, HStack, VStack} from '@navikt/ds-react'
+import {BodyLong, Box, HStack, VStack} from '@navikt/ds-react'
 import { ActionWithPayload } from '@navikt/fetch'
 
 import {PSED, Validation} from "src/declarations/app.d";
 import classNames from 'classnames'
-import { WithErrorBox } from 'src/components/StyledComponents'
 import { Option } from 'src/declarations/app'
 import { ErrorElement } from 'src/declarations/app.d'
 import { UpdateSedPayload } from 'src/declarations/types'
@@ -19,6 +18,7 @@ import styled from 'styled-components'
 import {useAppSelector} from "src/store";
 import {State} from "src/declarations/reducers";
 import WarningModal from "src/components/SaveAndSendSED/WarningModal";
+import styles from "./MainForm.module.css";
 
 const LeftDiv = styled.div`
   flex: 1;
@@ -264,9 +264,8 @@ const MainForm = <T extends PSED>({
   return (
     <VStack className='mainform'>
       <WarningModal open={_viewWarningModal} onModalClose={() => setViewWarningModal(false)} elementKeys={Object.keys(editingItems)}/>
-      <WithErrorBox
-        border
-        className={classNames({ error: panelError  })}
+      <Box
+        className={classNames(styles.withErrorBox, { [styles.error]: panelError })}
       >
         <HStack>
           <LeftDiv className='left'>
@@ -292,7 +291,7 @@ const MainForm = <T extends PSED>({
                 )}
           </RightDiv>
         </HStack>
-      </WithErrorBox>
+      </Box>
     </VStack>
   )
 }
