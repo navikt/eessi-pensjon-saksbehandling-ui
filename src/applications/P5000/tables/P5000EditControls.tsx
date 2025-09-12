@@ -17,7 +17,6 @@ import { ytelseType } from 'src/applications/P5000/P5000.labels'
 import P5000HelpModal from 'src/applications/P5000/components/P5000HelpModal'
 import Modal from 'src/components/Modal/Modal'
 import Select from 'src/components/Select/Select'
-import {OneLineSpan} from 'src/components/StyledComponents'
 import * as constants from 'src/constants/constants'
 import { LocalStorageEntry, Option, Validation } from 'src/declarations/app'
 import { SakTypeMap, SakTypeValue } from 'src/declarations/buc.d'
@@ -32,6 +31,7 @@ import ReactToPrint from 'react-to-print'
 import dateDiff, { FormattedDateDiff } from 'src/utils/dateDiff'
 import {GJENNY, VEDTAKSKONTEKST} from "src/constants/constants";
 import {sendP5000toRinaGjenny} from "../../../actions/gjenny";
+import styles from "src/assets/css/common.module.css";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat"
 dayjs.extend(customParseFormat)
@@ -503,9 +503,9 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                 gap="4"
                 align="center"
               >
-                <OneLineSpan>
+                <span className={styles.oneLine}>
                   {t('p5000:4-2-title')}
-                </OneLineSpan>
+                </span>
                 <HelpText>
                     {t('p5000:help-1') + t('p5000:help-2')}
                 </HelpText>

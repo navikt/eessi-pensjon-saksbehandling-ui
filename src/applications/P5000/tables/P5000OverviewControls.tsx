@@ -3,7 +3,6 @@ import { sendP5000ToS3 } from 'src/actions/p5000'
 import { informasjonOmBeregningLabels, typePeriode } from 'src/applications/P5000/P5000.labels'
 import { convertFromP5000ListRowsIntoPesysPeriods } from 'src/applications/P5000/utils/pesysUtils'
 import MultipleSelect from 'src/components/MultipleSelect/MultipleSelect'
-import { OneLineSpan } from 'src/components/StyledComponents'
 import { Option } from 'src/declarations/app'
 import { P5000ListRow, P5000ListRows } from 'src/declarations/p5000'
 import { State } from 'src/declarations/reducers'
@@ -13,6 +12,7 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import { useAppDispatch } from 'src/store'
+import styles from "src/assets/css/common.module.css";
 
 export interface P5000OverviewControlsProps {
   fnr: string // renamed from aktoerId
@@ -153,9 +153,9 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
           }}
         >
           <HStack gap="2">
-            <OneLineSpan>
+            <span className={styles.oneLine}>
               {t('p5000:merge-periods')}
-            </OneLineSpan>
+            </span>
             <HelpText>
                 {t('p5000:help-merge-1') + t('p5000:help-merge-2')}
             </HelpText>
