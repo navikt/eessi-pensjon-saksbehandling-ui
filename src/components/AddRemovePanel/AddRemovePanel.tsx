@@ -12,7 +12,6 @@ import {Button, BodyLong, Box, HStack} from '@navikt/ds-react'
 import _ from 'lodash'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {CenterHStack} from "src/components/StyledComponents";
 
 export interface AddRemovePanelProps<T> {
   item: T | null
@@ -62,7 +61,7 @@ const AddRemovePanel = <T extends any>({
   if (candidateForDeletion) {
     return (
       <Box className={classNames('slideInFromRight', { marginTop }, { noMargin })}>
-        <CenterHStack gap="4">
+        <HStack gap="4" align="center">
           <BodyLong style={{ whiteSpace: 'nowrap' }}>
             {labels?.areYouSure ?? t('ui:are-you-sure')}
           </BodyLong>
@@ -81,7 +80,7 @@ const AddRemovePanel = <T extends any>({
           >
             {labels?.no ?? t('ui:no')}
           </Button>
-        </CenterHStack>
+        </HStack>
       </Box>
     )
   }
