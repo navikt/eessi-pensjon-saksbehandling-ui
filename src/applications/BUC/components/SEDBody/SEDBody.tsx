@@ -26,14 +26,6 @@ import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
-
-export const SEDAttachmentSenderDiv = styled.div`
-   margin-top: 1rem;
-   margin-bottom: 1rem;
-   width: 100%;
-`
-export const SEDBodyDiv = styled.div``
 
 export interface SEDBodyProps {
   aktoerId: string
@@ -177,7 +169,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
   }, [onSedAttachmentsChanged, sed])
 
   return (
-    <SEDBodyDiv>
+    <Box>
       <Heading size='small'>
         {t('ui:attachments')}
       </Heading>
@@ -218,22 +210,22 @@ const SEDBody: React.FC<SEDBodyProps> = ({
       {canHaveAttachments && (
         (_sendingAttachments || _attachmentsSent)
           ? (
-            <SEDAttachmentSenderDiv>
-              <>
-                <SEDAttachmentSender
-                  attachmentsError={attachmentsError}
-                  sendAttachmentToSed={_sendAttachmentToSed}
-                  payload={{
-                    aktoerId,
-                    rinaId: buc.caseId,
-                    rinaDokumentId: sed.id
-                  } as SEDAttachmentPayload}
-                  onCancel={_onCancel}
-                  onFinished={_onFinished}
-                  onSaved={_onSaved}
-                />
-              </>
-            </SEDAttachmentSenderDiv>
+              <Box marginBlock="4" width="100%">
+                <>
+                  <SEDAttachmentSender
+                    attachmentsError={attachmentsError}
+                    sendAttachmentToSed={_sendAttachmentToSed}
+                    payload={{
+                      aktoerId,
+                      rinaId: buc.caseId,
+                      rinaDokumentId: sed.id
+                    } as SEDAttachmentPayload}
+                    onCancel={_onCancel}
+                    onFinished={_onFinished}
+                    onSaved={_onSaved}
+                  />
+                </>
+              </Box>
             )
           : (
             <>
@@ -256,7 +248,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
         sedAttachments={_items}
         tableId={'sedview' + sed.id + '-modal'}
       />
-    </SEDBodyDiv>
+    </Box>
   )
 }
 
