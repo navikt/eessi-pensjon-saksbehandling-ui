@@ -29,7 +29,6 @@ import PT from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components'
 import { convertP5000SEDToP5000ListRows, mergeP5000ListRows } from 'src/applications/P5000/utils/conversion'
 import P5000OverviewControls from './P5000OverviewControls'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
@@ -51,10 +50,6 @@ export interface P5000OverviewProps {
 const mapState = (state: State): P5000OverviewSelector => ({
   featureToggles: state.app.featureToggles
 })
-
-export const P5000Tabs = styled(Tabs)`
-  width: 100%;
-`
 
 const P5000Overview: React.FC<P5000OverviewProps> = ({
   fnr, caseId, p5000sFromRinaMap, p5000WorkingCopies, p5000FromS3, seds, mainSed
@@ -376,123 +371,123 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
   return (
     <>
-        <Box paddingBlock="4 0">
-            <P5000OverviewControls
-              fnr={fnr}
-              caseId={caseId}
-              p5000FromS3={p5000FromS3}
-              componentRef={componentRef}
-              mergePeriods={mergePeriods}
-              setMergePeriods={setMergePeriods}
-              mergePeriodTypes={mergePeriodTypes}
-              setMergePeriodTypes={setMergePeriodTypes}
-              mergePeriodBeregnings={mergePeriodBeregnings}
-              setMergePeriodBeregnings={setMergePeriodBeregnings}
-              setRenderPrintTable={setRenderPrintTable}
-              useGermanRules={useGermanRules}
-              setUseGermanRules={setUseGermanRules}
-              pagination={pagination}
-              setPagination={setPagination}
-              itemsPerPage={itemsPerPage}
-              setItemsPerPage={setItemsPerPage}
+      <Box paddingBlock="4 0">
+        <P5000OverviewControls
+          fnr={fnr}
+          caseId={caseId}
+          p5000FromS3={p5000FromS3}
+          componentRef={componentRef}
+          mergePeriods={mergePeriods}
+          setMergePeriods={setMergePeriods}
+          mergePeriodTypes={mergePeriodTypes}
+          setMergePeriodTypes={setMergePeriodTypes}
+          mergePeriodBeregnings={mergePeriodBeregnings}
+          setMergePeriodBeregnings={setMergePeriodBeregnings}
+          setRenderPrintTable={setRenderPrintTable}
+          useGermanRules={useGermanRules}
+          setUseGermanRules={setUseGermanRules}
+          pagination={pagination}
+          setPagination={setPagination}
+          itemsPerPage={itemsPerPage}
+          setItemsPerPage={setItemsPerPage}
+          items={items}
+          itemsForPesys={filteredItemsForPesys}
+          pesysWarning={pesysWarning}
+          currentTabKey={_activeTab}
+          hideSendToPesysButton={!!mainSed}
+        />
+      </Box>
+      <HorizontalLineSeparator />
+      <Tabs
+        onChange={setActiveTab} defaultValue={_activeTab}
+        style={{ paddingTop: '1rem' }}
+      >
+        <Tabs.List>
+          <Tabs.Tab label='Slå sammen' value='oversikt' />
+          {featureToggles.P5000_UPDATES_VISIBLE && !mainSed &&
+            <Tabs.Tab label='Eksporter til Pesys' value='pesys' />
+          }
+        </Tabs.List>
+        <Tabs.Panel value='oversikt'>
+          <Box paddingBlock="4 4">
+            <Table<P5000ListRow, P5000TableContext>
+              animatable={false}
               items={items}
-              itemsForPesys={filteredItemsForPesys}
-              pesysWarning={pesysWarning}
-              currentTabKey={_activeTab}
-              hideSendToPesysButton={!!mainSed}
+              id='P5000Overview'
+              labels={{
+                filter: t('p5000:filter-label'),
+                flagged: '',
+                flagAll: t('message:warning-periodsDoNotMatch'),
+                merged: t('p5000:merged-periods')
+              }}
+              flaggable={_.find(items, 'flag') !== undefined}
+              searchable={false}
+              selectable={false}
+              sortable={true}
+              subrowsIcon='merge'
+              onColumnSort={(sort: any) => {
+                _setTableSort(sort)
+              }}
+              itemsPerPage={itemsPerPage}
+              columns={columns}
+              pagination={ pagination }
             />
           </Box>
-        <HorizontalLineSeparator />
-          <P5000Tabs
-            onChange={setActiveTab} defaultValue={_activeTab}
-            style={{ paddingTop: '1rem' }}
-          >
-            <Tabs.List>
-              <Tabs.Tab label='Slå sammen' value='oversikt' />
-              {featureToggles.P5000_UPDATES_VISIBLE && !mainSed &&
-                <Tabs.Tab label='Eksporter til Pesys' value='pesys' />
-              }
-            </Tabs.List>
-            <Tabs.Panel value='oversikt'>
-              <Box paddingBlock="4 4">
-                <Table<P5000ListRow, P5000TableContext>
-                  animatable={false}
-                  items={items}
-                  id='P5000Overview'
-                  labels={{
-                    filter: t('p5000:filter-label'),
-                    flagged: '',
-                    flagAll: t('message:warning-periodsDoNotMatch'),
-                    merged: t('p5000:merged-periods')
-                  }}
-                  flaggable={_.find(items, 'flag') !== undefined}
-                  searchable={false}
-                  selectable={false}
-                  sortable={true}
-                  subrowsIcon='merge'
-                  onColumnSort={(sort: any) => {
-                    _setTableSort(sort)
-                  }}
-                  itemsPerPage={itemsPerPage}
-                  columns={columns}
-                  pagination={ pagination }
-                />
-              </Box>
-            </Tabs.Panel>
-            <Tabs.Panel value='pesys'>
-              <Box paddingBlock="4 4">
-                <Table<P5000ListRow, P5000TableContext>
-                  animatable={false}
-                  items={viewItemsForPesys}
-                  onRowSelectChange={onRowSelectChange}
-                  onRowsChanged={onRowsChanged}
-                  beforeRowEdited={beforeRowEdited}
-                  id='P5000Pesys'
-                  labels={{
-                    selectAllTitle: 'Velg alle',
-                    selectAll: 'Velg alle',
-                    filter: t('p5000:filter-label'),
-                    flagged: '',
-                    flagAll: t('message:warning-periodsDoNotMatch'),
-                    merged: t('p5000:merged-periods')
-                  }}
-                  flaggable={_.find(items, 'flag') !== undefined}
-                  searchable={false}
-                  selectable={true}
-                  showSelectAll={true}
-                  sortable={true}
-                  editable={false}
-                  subrowsIcon='merge'
-                  onColumnSort={(sort: any) => {
-                    _setTableSort(sort)
-                  }}
-                  itemsPerPage={itemsPerPage}
-                  columns={columns}
-                  pagination={ pagination }
-                />
-              </Box>
-            </Tabs.Panel>
-          </P5000Tabs>
-          {renderPrintTable && (
-            <HiddenDiv>
-              <div ref={componentRef} id='printJS-form'>
-                <Table<P5000ListRow, P5000TableContext>
-                  // important to it re-renders when sorting changes
-                  key={JSON.stringify(_tableSort)}
-                  className='print-version'
-                  items={items}
-                  id='P5000Overview-print'
-                  animatable={false}
-                  searchable={false}
-                  selectable={false}
-                  sortable
-                  sort={_tableSort}
-                  itemsPerPage={9999}
-                  columns={columns}
-                />
-              </div>
-            </HiddenDiv>
-          )}
+        </Tabs.Panel>
+        <Tabs.Panel value='pesys'>
+          <Box paddingBlock="4 4">
+            <Table<P5000ListRow, P5000TableContext>
+              animatable={false}
+              items={viewItemsForPesys}
+              onRowSelectChange={onRowSelectChange}
+              onRowsChanged={onRowsChanged}
+              beforeRowEdited={beforeRowEdited}
+              id='P5000Pesys'
+              labels={{
+                selectAllTitle: 'Velg alle',
+                selectAll: 'Velg alle',
+                filter: t('p5000:filter-label'),
+                flagged: '',
+                flagAll: t('message:warning-periodsDoNotMatch'),
+                merged: t('p5000:merged-periods')
+              }}
+              flaggable={_.find(items, 'flag') !== undefined}
+              searchable={false}
+              selectable={true}
+              showSelectAll={true}
+              sortable={true}
+              editable={false}
+              subrowsIcon='merge'
+              onColumnSort={(sort: any) => {
+                _setTableSort(sort)
+              }}
+              itemsPerPage={itemsPerPage}
+              columns={columns}
+              pagination={ pagination }
+            />
+          </Box>
+        </Tabs.Panel>
+      </Tabs>
+      {renderPrintTable && (
+        <HiddenDiv>
+          <div ref={componentRef} id='printJS-form'>
+            <Table<P5000ListRow, P5000TableContext>
+              // important to it re-renders when sorting changes
+              key={JSON.stringify(_tableSort)}
+              className='print-version'
+              items={items}
+              id='P5000Overview-print'
+              animatable={false}
+              searchable={false}
+              selectable={false}
+              sortable
+              sort={_tableSort}
+              itemsPerPage={9999}
+              columns={columns}
+            />
+          </div>
+        </HiddenDiv>
+      )}
     </>
   )
 }
