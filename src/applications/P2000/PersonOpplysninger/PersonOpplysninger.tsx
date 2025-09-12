@@ -41,7 +41,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
   const getKjoenn = (kjoenn: any) => {
     if(kjoenn === "M") return "Mann"
     if(kjoenn === "K") return "Kvinne"
-    if(kjoenn === "") return "Ukjent"
+    if(kjoenn === "U") return "Ukjent"
     return undefined
   }
 
@@ -86,7 +86,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
               >
                 <Radio value="M">Mann</Radio>
                 <Radio value="K">Kvinne</Radio>
-                <Radio value="">Ukjent</Radio>
+                <Radio value="U">Ukjent</Radio>
               </RadioGroup>
             </HGrid>
           </>
