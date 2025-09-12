@@ -4,7 +4,6 @@ import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {getIdx} from "src/utils/namespace";
-import {RepeatableBox} from "src/components/StyledComponents";
 import AddRemovePanel from "src/components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
@@ -29,6 +28,7 @@ import {hasNamespaceWithErrors} from "src/utils/validation";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
 import FormTextBox from "src/components/Forms/FormTextBox";
+import styles from "src/assets/css/common.module.css";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -149,11 +149,11 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
     const _utsettelse = index < 0 ? _newUtsettelse : (inEditMode ? _editUtsettelse : utsettelse)
 
     return(
-      <RepeatableBox
+      <Box
         id={'repeatablerow-' + _namespace}
-        className={classNames({
-          new: index < 0,
-          error: hasNamespaceWithErrors(_v, _namespace)
+        className={classNames(styles.repeatableBox, {
+          [styles.new]: index < 0,
+          [styles.error]: hasNamespaceWithErrors(_v, _namespace)
         })}
         paddingBlock={inEditMode ? "4 4" : "1 1"}
         paddingInline="4 4"
@@ -246,7 +246,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
             />
           </HStack>
         </HGrid>
-      </RepeatableBox>
+      </Box>
     )
   }
 

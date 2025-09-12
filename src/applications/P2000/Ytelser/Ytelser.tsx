@@ -25,9 +25,6 @@ import {getIdx} from "src/utils/namespace";
 import {Validation} from "src/declarations/app";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
-import {
-  RepeatableBoxWithBorder
-} from "src/components/StyledComponents";
 import useValidation from "../../../hooks/useValidation";
 import {validateYtelse, validateYtelser, ValidationYtelseProps, ValidationYtelserProps} from "./validation";
 import {resetValidation, setValidation} from "src/actions/validation";
@@ -40,6 +37,7 @@ import Input from "../../../components/Forms/Input";
 import DateField from "../DateField/DateField";
 import ErrorLabel from "src/components/Forms/ErrorLabel";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
+import styles from "src/assets/css/common.module.css";
 
 
 const mapState = (state: State): MainFormSelector => ({
@@ -248,13 +246,13 @@ const Ytelser: React.FC<MainFormProps> = ({
     if(inEditMode){
       return (
         <Fragment key={_namespace}>
-          <RepeatableBoxWithBorder
+          <Box
             id={'repeatablerow-' + _namespace}
             key={index}
-            className={classNames({
-              new: index < 0,
-              error: hasNamespaceWithErrors(_v, _namespace),
-              selected: true
+            className={classNames(styles.repeatableBox, {
+              [styles.new]: index < 0,
+              [styles.error]: hasNamespaceWithErrors(_v, _namespace),
+              [styles.withBorder]: true
             })}
             padding="4"
           >
@@ -386,18 +384,19 @@ const Ytelser: React.FC<MainFormProps> = ({
                 {addremovepanel}
               </HStack>
             </VStack>
-          </RepeatableBoxWithBorder>
+          </Box>
         </Fragment>
       )
     } else {
       return (
         <Fragment key={_namespace}>
-          <RepeatableBoxWithBorder
+          <Box
             id={'repeatablerow-' + _namespace}
             key={index}
-            className={classNames({
-              new: index < 0,
-              error: hasNamespaceWithErrors(_v, _namespace)
+            className={classNames(styles.repeatableBox, {
+              [styles.new]: index < 0,
+              [styles.error]: hasNamespaceWithErrors(_v, _namespace),
+              [styles.withBorder]: true
             })}
             padding="4"
           >
@@ -483,7 +482,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                 {addremovepanel}
               </HStack>
             </VStack>
-          </RepeatableBoxWithBorder>
+          </Box>
         </Fragment>
       )
     }

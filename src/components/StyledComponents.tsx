@@ -44,25 +44,6 @@ export const WithErrorBox = styled(Box)`
   }
 `
 
-export const RepeatableBox = styled(Box)`
-  &.new {
-    background-color: rgba(236, 243, 153, 0.5);
-  };
-  &.error {
-    background-color: rgba(255, 0, 0, 0.2);
-  };
-  &:hover:not(.new):not(.error) {
-    background-color: var(--a-gray-100);
-  }
-  &:not(:hover) .control-buttons {
-    display:none
-  }
-`
-
-export const RepeatableBoxWithBorder = styled(RepeatableBox)`
-  border: 1px solid var(--a-border-default);
-`
-
 export const Hr = styled.div`
    background: var(--a-border-default);
    width: 100%;

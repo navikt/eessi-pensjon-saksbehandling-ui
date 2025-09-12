@@ -4,7 +4,6 @@ import { Country } from '@navikt/land-verktoy'
 import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
 import AddRemovePanel from 'src/components/AddRemovePanel/AddRemovePanel'
-import {RepeatableBox} from 'src/components/StyledComponents'
 import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
 import React, {useEffect, useState} from 'react'
@@ -27,6 +26,7 @@ import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
 import FormTextBox from "src/components/Forms/FormTextBox";
 import {Person, Statsborgerskap as P2000Statsborgerskap} from "src/declarations/sed";
+import styles from "src/assets/css/common.module.css";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -185,12 +185,12 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
     const inEditMode = (index < 0 || _editIndex === index) && parentEditMode
     const _statsborgerskap = index < 0 ? _newStatsborgerskap : (inEditMode ? _editStatsborgerskap : statsborgerskap)
     return (
-      <RepeatableBox
+      <Box
         key={'repeatablerow-' + _namespace + index}
         id={'repeatablerow-' + _namespace}
-        className={classNames({
-          new: index < 0 && parentEditMode,
-          error: hasNamespaceWithErrors(_v, _namespace)
+        className={classNames(styles.repeatableBox, {
+          [styles.new]: index < 0 && parentEditMode,
+          [styles.error]: hasNamespaceWithErrors(_v, _namespace)
         })}
         paddingBlock={inEditMode ? "4 4" : "1 1"}
         paddingInline="4 4"
@@ -240,7 +240,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
             </HStack>
           }
         </HGrid>
-      </RepeatableBox>
+      </Box>
     )
   }
 

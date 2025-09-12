@@ -4,7 +4,6 @@ import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {getIdx} from "src/utils/namespace";
-import {RepeatableBox} from "src/components/StyledComponents";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
@@ -25,6 +24,7 @@ import ErrorLabel from "src/components/Forms/ErrorLabel";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
 import FormTextBox from "src/components/Forms/FormTextBox";
 import {Sivilstand} from "src/declarations/sed";
+import styles from "src/assets/css/common.module.css";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -179,11 +179,11 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
     const _sivilstand = index < 0 ? _newSivilstand : (inEditMode ? _editSivilstand : sivilstand)
 
     return(
-      <RepeatableBox
+      <Box
         id={'repeatablerow-' + _namespace}
-        className={classNames({
-          new: index < 0,
-          error: hasNamespaceWithErrors(_v, _namespace)
+        className={classNames(styles.repeatableBox, {
+          [styles.new]: index < 0,
+          [styles.error]: hasNamespaceWithErrors(_v, _namespace)
         })}
         paddingBlock={inEditMode ? "4 4" : "1 1"}
         paddingInline="4 4"
@@ -260,7 +260,7 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
             />
           </HStack>
         </HGrid>
-      </RepeatableBox>
+      </Box>
     )
   }
 

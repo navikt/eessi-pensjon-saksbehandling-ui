@@ -4,7 +4,6 @@ import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {getIdx} from "src/utils/namespace";
-import {RepeatableBox} from "src/components/StyledComponents";
 import Input from "../../../components/Forms/Input";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
@@ -22,6 +21,7 @@ import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
 import FormTextBox from "src/components/Forms/FormTextBox";
+import styles from "src/assets/css/common.module.css";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -136,11 +136,11 @@ const Institusjon: React.FC<InstitusjonProps> = ({
     const inEditMode = index < 0 || _editInstitusjonIndex === index
     const _institusjon = index < 0 ? _newInstitusjon : (inEditMode ? _editInstitusjon : institusjon)
     return(
-      <RepeatableBox
+      <Box
         id={'repeatablerow-' + _namespace}
-        className={classNames({
-          new: index < 0,
-          error: hasNamespaceWithErrors(_v, _namespace)
+        className={classNames(styles.repeatableBox, {
+          [styles.new]: index < 0,
+          [styles.error]: hasNamespaceWithErrors(_v, _namespace)
         })}
         paddingBlock={inEditMode ? "4 4" : "1 1"}
         paddingInline="4 4"
@@ -176,7 +176,7 @@ const Institusjon: React.FC<InstitusjonProps> = ({
             />
           </HStack>
         </HGrid>
-      </RepeatableBox>
+      </Box>
     )
   }
 

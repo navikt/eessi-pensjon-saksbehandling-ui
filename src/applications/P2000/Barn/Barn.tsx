@@ -12,7 +12,6 @@ import {resetValidation, setValidation} from "src/actions/validation";
 import {useDispatch} from "react-redux";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import classNames from "classnames";
-import {RepeatableBoxWithBorder} from "src/components/StyledComponents";
 import UtenlandskePin from "src/components/UtenlandskePin/UtenlandskePin";
 import Foedested from "../Foedested/Foedested";
 import Statsborgerskap from "../Statsborgerskap/Statsborgerskap";
@@ -27,6 +26,7 @@ import useUnmount from "../../../hooks/useUnmount";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
 import FormTextBox from "src/components/Forms/FormTextBox";
 import {Barn as P2000Barn} from "src/declarations/sed";
+import styles from "src/assets/css/common.module.css";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -231,13 +231,13 @@ const Barn: React.FC<MainFormProps> = ({
 
     return (
       <Fragment key={"barn-" + index}>
-        <RepeatableBoxWithBorder
+        <Box
           id={'repeatablerow-' + _namespace}
           key={index}
-          className={classNames({
-            new: index < 0,
-            error: hasNamespaceWithErrors(_v, _namespace),
-            selected: inEditMode
+          className={classNames(styles.repeatableBox, {
+            [styles.new]: index < 0,
+            [styles.error]: hasNamespaceWithErrors(_v, _namespace),
+            [styles.withBorder]: true
           })}
           padding="4"
         >
@@ -328,7 +328,7 @@ const Barn: React.FC<MainFormProps> = ({
                 />
               </HStack>
             </VStack>
-        </RepeatableBoxWithBorder>
+        </Box>
       </Fragment>
     )
   }

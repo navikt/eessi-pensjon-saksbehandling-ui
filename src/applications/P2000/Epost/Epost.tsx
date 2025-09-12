@@ -4,7 +4,6 @@ import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {getIdx} from "src/utils/namespace";
-import {RepeatableBox} from "src/components/StyledComponents";
 import Input from "../../../components/Forms/Input";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {ActionWithPayload} from "@navikt/fetch";
@@ -23,6 +22,7 @@ import {hasNamespaceWithErrors} from "src/utils/validation";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
 import FormTextBox from "src/components/Forms/FormTextBox";
 import {Email} from "src/declarations/sed";
+import styles from "src/assets/css/common.module.css";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -143,12 +143,12 @@ const Epost: React.FC<EpostProps> = ({
     const inEditMode = index < 0 || _editEpostIndex === index
     const _epost = index < 0 ? _newEpost : (inEditMode ? _editEpost : epost)
     return(
-      <RepeatableBox
+      <Box
         key={_namespace}
         id={'repeatablerow-' + _namespace}
-        className={classNames({
-          new: index < 0,
-          error: hasNamespaceWithErrors(_v, _namespace)
+        className={classNames(styles.repeatableBox, {
+          [styles.new]: index < 0,
+          [styles.error]: hasNamespaceWithErrors(_v, _namespace)
         })}
         paddingBlock={inEditMode ? "4 4" : "1 1"}
         paddingInline="4 4"
@@ -191,7 +191,7 @@ const Epost: React.FC<EpostProps> = ({
             />
           </HStack>
         </HGrid>
-      </RepeatableBox>
+      </Box>
     )
   }
 

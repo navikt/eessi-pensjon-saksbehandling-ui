@@ -5,7 +5,6 @@ import { resetValidation, setValidation } from 'src/actions/validation'
 import classNames from 'classnames'
 import AddRemovePanel from 'src/components/AddRemovePanel/AddRemovePanel'
 import Input from 'src/components/Forms/Input'
-import {RepeatableBox} from 'src/components/StyledComponents'
 import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
 import React, {useEffect, useState} from 'react'
@@ -24,6 +23,7 @@ import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
 import FormTextBox from "src/components/Forms/FormTextBox";
 import {Nav, Eessisak} from "src/declarations/sed";
+import styles from "src/assets/css/common.module.css";
 
 export interface MainFormSelector {
   validation: Validation
@@ -208,12 +208,12 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
     const inEditMode = index < 0 || _editIndex === index
     const _eessisak = index < 0 ? _newEessisak : (inEditMode ? _editEessisak : eessisak)
     return (
-      <RepeatableBox
+      <Box
         id={'repeatablerow-' + _namespace}
         key={getSaksnr(eessisak)}
-        className={classNames({
-          new: index < 0,
-          error: hasNamespaceWithErrors(_v, _namespace)
+        className={classNames(styles.repeatableBox, {
+          [styles.new]: index < 0,
+          [styles.error]: hasNamespaceWithErrors(_v, _namespace)
         })}
         paddingBlock={inEditMode ? "4 4" : "1 1"}
         padding="4"
@@ -290,7 +290,7 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
             </HStack>
           }
         </HGrid>
-      </RepeatableBox>
+      </Box>
     )
   }
 

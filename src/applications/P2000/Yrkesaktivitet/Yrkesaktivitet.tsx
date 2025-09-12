@@ -17,7 +17,6 @@ import {
 } from "./validation";
 import {getIdx} from "src/utils/namespace";
 import {Validation} from "src/declarations/app";
-import {RepeatableBoxWithBorder} from "src/components/StyledComponents";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
@@ -27,6 +26,7 @@ import {useTranslation} from "react-i18next";
 import InntektRows from "../Inntekt/InntektRows";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
 import FormTextBox from "src/components/Forms/FormTextBox";
+import styles from "src/assets/css/common.module.css";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
@@ -196,13 +196,13 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
     const _arbeidsforhold = index < 0 ? _newArbeidsforhold : (inEditMode ? _editArbeidsforhold : arbeidsforhold)
     return (
       <Fragment key={_namespace}>
-        <RepeatableBoxWithBorder
+        <Box
           id={'repeatablerow-' + _namespace}
           key={index}
-          className={classNames({
-            new: index < 0,
-            error: hasNamespaceWithErrors(_v, _namespace),
-            selected: inEditMode
+          className={classNames(styles.repeatableBox, {
+            [styles.new]: index < 0,
+            [styles.error]: hasNamespaceWithErrors(_v, _namespace),
+            [styles.withBorder]: true
           })}
           padding="4"
         >
@@ -289,7 +289,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
               </Box>
             }
           </VStack>
-        </RepeatableBoxWithBorder>
+        </Box>
       </Fragment>
     )
   }
