@@ -449,12 +449,12 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                   beforeRowEdited={beforeRowEdited}
                   id='P5000Pesys'
                   labels={{
-                    selectAllTitle: 'Til Pesys',
+                    selectAllTitle: 'Velg alle',
+                    selectAll: 'Velg alle',
                     filter: t('p5000:filter-label'),
                     flagged: '',
                     flagAll: t('message:warning-periodsDoNotMatch'),
                     merged: t('p5000:merged-periods')
-
                   }}
                   flaggable={_.find(items, 'flag') !== undefined}
                   searchable={false}
