@@ -144,8 +144,20 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     _setFilteredItemsForPesys(newFilteredItemsForPesys)
   }, [mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules])
 
+  // Use refs to track previous values and avoid infinite loops
+  const prevItemsRef = useRef<P5000ListRows>([])
+  const prevP5000FromS3Ref = useRef<Array<P5000ListRows> | null | undefined>(undefined)
+
   // Update itemsForPesys when items change (when active SEDs change)
   useEffect(() => {
+    // Only update if items or p5000FromS3 actually changed
+    const itemsChanged = !_.isEqual(items, prevItemsRef.current)
+    const p5000FromS3Changed = !_.isEqual(p5000FromS3, prevP5000FromS3Ref.current)
+
+    if (!itemsChanged && !p5000FromS3Changed) {
+      return
+    }
+
     const newItemsForPesys = _.reject(items, (it: P5000ListRow) => it.beregning === '000')
       .map(item => {
         // Find if this item was previously in itemsForPesys
@@ -174,7 +186,12 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         }
       })
 
+    // Update refs for next comparison
+    prevItemsRef.current = items
+    prevP5000FromS3Ref.current = p5000FromS3
+
     setItemsForPesys(newItemsForPesys)
+
   }, [items, p5000FromS3])
 
   const [pesysWarning] = useState<string | undefined>(() =>
