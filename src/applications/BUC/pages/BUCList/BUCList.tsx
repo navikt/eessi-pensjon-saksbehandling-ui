@@ -7,7 +7,6 @@ import BUCHeader from 'src/applications/BUC/components/BUCHeader/BUCHeader'
 import BUCStartIndex from 'src/applications/BUC/components/BUCStart/BUCStartIndex'
 import { bucFilter, bucSorter, pbuc02filter } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
 import classNames from 'classnames'
-import { HorizontalLineSeparator } from 'src/components/StyledComponents'
 import {AllowedLocaleString, BUCMode, FeatureToggles, PesysContext} from 'src/declarations/app.d'
 import {
   Buc,
@@ -38,6 +37,7 @@ import AvdodFnrSearch from "./AvdodFnrSearch";
 import ProgressBar from "src/components/ProgressBar/ProgressBar";
 import ATPOpplysninger from "src/applications/P8000/ATPOpplysninger/ATPOpplysninger";
 import {IS_Q} from "src/constants/environment";
+import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
 
 export interface BUCListProps {
   initialBucNew?: boolean

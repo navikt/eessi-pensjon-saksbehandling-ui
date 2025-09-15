@@ -9,8 +9,9 @@ import { BodyLong, Box, Detail, HStack } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { HorizontalLineSeparator, HorizontalSeparatorSpan } from 'src/components/StyledComponents'
+import { HorizontalSeparatorSpan } from 'src/components/StyledComponents'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
+import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
 
 const Element = styled.div`
   display: flex;

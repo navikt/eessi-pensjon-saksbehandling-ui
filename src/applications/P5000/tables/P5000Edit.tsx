@@ -13,7 +13,6 @@ import {
 import P5000EditControls from 'src/applications/P5000/tables/P5000EditControls'
 import Input from 'src/components/Forms/Input'
 import Select from 'src/components/Select/Select'
-import { HorizontalLineSeparator } from 'src/components/StyledComponents'
 import { LocalStorageEntry, Option } from 'src/declarations/app.d'
 import { Sed } from 'src/declarations/buc.d'
 import { P5000sFromRinaMap } from 'src/declarations/p5000.d'
@@ -40,6 +39,7 @@ import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 import dayjs, {Dayjs} from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat"
 import HiddenDiv from "src/components/HiddenDiv/HiddenDiv";
+import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
 dayjs.extend(customParseFormat)
 
 export interface P5000EditSelector {

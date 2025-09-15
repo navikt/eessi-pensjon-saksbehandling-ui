@@ -42,7 +42,6 @@ import SEDP6000 from 'src/applications/BUC/components/SEDP6000/SEDP6000'
 import JoarkBrowser from 'src/components/JoarkBrowser/JoarkBrowser'
 import MultipleSelect from 'src/components/MultipleSelect/MultipleSelect'
 import Select from 'src/components/Select/Select'
-import { HorizontalLineSeparator } from 'src/components/StyledComponents'
 import ValidationBox from 'src/components/ValidationBox/ValidationBox'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import * as constants from 'src/constants/constants'
@@ -96,6 +95,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GroupBase } from 'react-select'
 import styled from 'styled-components'
 import {createReplySedGjenny, createSedGjenny} from "src/actions/gjenny";
+import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
 
 const AlertDiv = styled.div`
   display: flex;

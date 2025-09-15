@@ -5,18 +5,6 @@ export const HorizontalSeparatorSpan = styled.span<{size?: string}>`
   margin-left: ${(props: any) => props.size || 1}rem;
 `
 
-export const HorizontalLineSeparator = styled.div`
-  height: 1px;
-  background: linear-gradient(90deg,
-    var(--a-bg-subtle) 0%,
-    var(--a-border-strong) 5%,
-    var(--a-border-strong) 95%,
-    var(--a-bg-subtle) 100%
-  );
-  width: -webkit-fill-available;
-  margin-left: 2rem;
-  margin-right: 2rem;
-`
 
 
 

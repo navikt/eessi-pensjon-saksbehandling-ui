@@ -15,13 +15,13 @@ import {PersonPDL} from "src/declarations/person";
 import {State} from "src/declarations/reducers";
 import {useDispatch, useSelector} from "react-redux";
 import {CheckmarkCircleFillIcon, MenuElipsisHorizontalCircleIcon, XMarkOctagonFillIcon} from "@navikt/aksel-icons";
-import {HorizontalLineSeparator} from "src/components/StyledComponents";
 import {IS_Q} from "src/constants/environment";
 import {P8000SED} from "src/declarations/p8000";
 import {Person, PIN} from "src/declarations/sed";
 import _, {cloneDeep} from "lodash";
 import {BUCMode} from "src/declarations/app";
 import {umamiButtonLogger} from "src/metrics/umami";
+import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
 
 export interface ATPOpplysningerProps {
   onCancel: () => void
