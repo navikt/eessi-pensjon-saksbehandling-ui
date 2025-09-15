@@ -2,10 +2,10 @@ import { ExclamationmarkTriangleIcon } from '@navikt/aksel-icons'
 import Flag from '@navikt/flagg-ikoner'
 import SEDStatus from 'src/applications/BUC/components/SEDStatus/SEDStatus'
 import { getSedSender } from 'src/applications/P5000/utils/conversionUtils'
-import { SeparatorSpan } from 'src/components/StyledComponents'
 import { SedSender } from 'src/declarations/p5000'
 import { useTranslation } from 'react-i18next'
 import {Box, HStack} from "@navikt/ds-react";
+import styles from "./P5000SedLabel.module.css";
 
 const P5000SedLabel = ({
   sed,
@@ -21,7 +21,7 @@ const P5000SedLabel = ({
       <span>
         {t('buc:form-dateP5000', { date: sender?.date })}
       </span>
-      <SeparatorSpan>-</SeparatorSpan>
+      <span className={styles.separator}>-</span>
       {sender
         ? (
           <HStack
@@ -37,9 +37,9 @@ const P5000SedLabel = ({
             />
             <Box paddingInline="1 0">
               <span>{sender?.countryLabel}</span>
-              <SeparatorSpan>-</SeparatorSpan>
+              <span className={styles.separator}>-</span>
               <span>{sender?.institution}</span>
-              <SeparatorSpan>-</SeparatorSpan>
+              <span className={styles.separator}>-</span>
               <SEDStatus
                 status={sed.status}
               />

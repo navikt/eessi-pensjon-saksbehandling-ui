@@ -1,10 +1,5 @@
 import styled from 'styled-components'
 
-export const SeparatorSpan = styled.span`
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
-`
-
 export const HorizontalSeparatorSpan = styled.span<{size?: string}>`
   display: inline-block;
   margin-left: ${(props: any) => props.size || 1}rem;
