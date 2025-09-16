@@ -9,9 +9,9 @@ import { BodyLong, Box, Detail, HStack } from '@navikt/ds-react'
 import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { HorizontalSeparatorSpan } from 'src/components/StyledComponents'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
+import styles from "./PersonBody.module.css";
 
 const Element = styled.div`
   display: flex;
@@ -119,12 +119,21 @@ const PersonBody: React.FC<PersonBodyProps> = ({
     const husbokstav = _.get(person, category + '.vegadresse.husbokstav')
     adresse = addAddressLine(adresse, getDates(person, category), t('ui:fram-og-til'), <br key={0} />)
     adresse = addAddressLine(adresse, _.get(person, category + '.vegadresse.adressenavn'), t('ui:adressenavn'),
-      husnummer || husbokstav ? <HorizontalSeparatorSpan key={1} /> : <br key={1} />)
-    adresse = addAddressLine(adresse, husnummer, t('ui:husnummer'), husbokstav ? <HorizontalSeparatorSpan key={2} /> : <br key={2} />)
+      husnummer || husbokstav ?
+        <span className={styles.horizontalSeparatorSpan} key={1} /> :
+        <br key={1} />
+    )
+    adresse = addAddressLine(adresse, husnummer, t('ui:husnummer'),
+      husbokstav ?
+        <span className={styles.horizontalSeparatorSpan} key={2} /> :
+        <br key={2} />
+    )
     adresse = addAddressLine(adresse, husbokstav, t('ui:husbokstav'), <br key={3} />)
     const zipCode = _.get(person, category + '.vegadresse.postnummer')
     if (zipCode) {
-      adresse = addAddressLine(adresse, zipCode, t('ui:poststed'), <HorizontalSeparatorSpan key={4} />)
+      adresse = addAddressLine(adresse, zipCode, t('ui:poststed'),
+        <span className={styles.horizontalSeparatorSpan} key={4} />
+      )
       adresse = addAddressLine(adresse, PostalCodes.get(zipCode), t('ui:city'), <br key={5} />)
     }
     return adresse
