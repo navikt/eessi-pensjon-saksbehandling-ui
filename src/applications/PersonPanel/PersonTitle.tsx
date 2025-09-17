@@ -3,11 +3,9 @@ import mann from 'src/assets/icons/icon-mann.png'
 import ukjent from 'src/assets/icons/icon-ukjent.png'
 import classNames from 'classnames'
 import { PersonPDL } from 'src/declarations/person'
-import { PersonPropType } from 'src/declarations/person.pt'
 import _ from 'lodash'
 import moment from 'moment'
 import {Heading, HStack, Link} from '@navikt/ds-react'
-import PT from 'prop-types'
 import styled from 'styled-components'
 import {getFnr, getNPID} from 'src/applications/BUC/components/BUCUtils/BUCUtils'
 import LoadingImage from "src/components/Loading/LoadingImage";
@@ -17,6 +15,7 @@ import {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {FilesFillIcon, FilesIcon} from "@navikt/aksel-icons";
 import styles from "src/assets/css/common.module.css";
+import titleStyles from "./PersonTitle.module.css"
 
 export const Title = styled(HStack)`
   align-items: center;
@@ -74,10 +73,10 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
   const pid : string | undefined = getFnr(person) ? getFnr(person) : getNPID(person)
 
   return (
-    <Title gap="4">
+    <HStack gap="4" align="center">
       <img
         alt={kind}
-        className={classNames({ dead: !_.isNil(deathDate) })}
+        className={classNames({ [titleStyles.dead]: !_.isNil(deathDate) })}
         data-testid='w-persontitle--img'
         src={src}
         width={40}
@@ -99,13 +98,8 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
           }
         </Link>
       </Heading>
-    </Title>
+    </HStack>
   )
-}
-
-PersonTitle.propTypes = {
-  gettingPersonInfo: PT.bool.isRequired,
-  person: PersonPropType
 }
 
 export default PersonTitle

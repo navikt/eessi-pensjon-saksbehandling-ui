@@ -1,7 +1,8 @@
 import { render } from '@testing-library/react'
-import PersonTitle, { PersonTitleProps, Title } from './PersonTitle'
+import PersonTitle, { PersonTitleProps } from './PersonTitle'
 
 import mockPerson from 'src/mocks/person/personPdl'
+import {HStack} from "@navikt/ds-react";
 
 describe('applications/PersonPanel/PersonTitle', () => {
   let wrapper: any
@@ -20,9 +21,9 @@ describe('applications/PersonPanel/PersonTitle', () => {
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.exists(Title)).toBeTruthy()
-    expect(wrapper.find(Title).find('img').props().alt).toEqual('nav-man-icon')
-    expect(wrapper.find(Title).find('h2').render().text()).toEqual('LEALAUS SAKS (41) - personFnr')
+    expect(wrapper.find(HStack)).toBeTruthy()
+    expect(wrapper.find(HStack).find('img').props().alt).toEqual('nav-man-icon')
+    expect(wrapper.find(HStack).find('h2').render().text()).toEqual('LEALAUS SAKS (41) - personFnr')
   })
 
   it('Render: different person icons', () => {
