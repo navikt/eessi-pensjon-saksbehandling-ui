@@ -6,7 +6,6 @@ import { PersonPDL } from 'src/declarations/person'
 import _ from 'lodash'
 import moment from 'moment'
 import {Heading, HStack, Link} from '@navikt/ds-react'
-import styled from 'styled-components'
 import {getFnr, getNPID} from 'src/applications/BUC/components/BUCUtils/BUCUtils'
 import LoadingImage from "src/components/Loading/LoadingImage";
 import {copyToClipboard} from "src/actions/app";
@@ -16,13 +15,6 @@ import {useTranslation} from "react-i18next";
 import {FilesFillIcon, FilesIcon} from "@navikt/aksel-icons";
 import styles from "src/assets/css/common.module.css";
 import titleStyles from "./PersonTitle.module.css"
-
-export const Title = styled(HStack)`
-  align-items: center;
-  .dead {
-    filter: grayscale(100%)
-  }
-`
 
 export interface PersonTitleProps {
   gettingPersonInfo: boolean
