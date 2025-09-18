@@ -136,17 +136,15 @@ const PersonBody: React.FC<PersonBodyProps> = ({
     deathDateString = moment(person.doedsfall.doedsdato).format('DD.MM.YYYY')
   }
   if (!_.isEmpty(person.statsborgerskap)) {
-    let order = 0
     nationality = person.statsborgerskap.map((l: any) => {
-      order += 1
-      let label = (order>1 ? ', ' : "") + getCountry(l.land)
+      let label = getCountry(l.land)
       if (l.gyldigFraOgMed) {
         label += ' (' + moment(l.gyldigFraOgMed).format('DD.MM.YYYY')
       }
       if (l.gyldigTilOgMed) {
         label += ' - ' + moment(l.gyldigTilOgMed).format('DD.MM.YYYY')
       }
-      return label + (l.gyldigFraOgMed ? ')' : "")
+      return <>{label + (l.gyldigFraOgMed ? ')' : "")}<br/></>
     })
   }
 
@@ -217,9 +215,8 @@ const PersonBody: React.FC<PersonBodyProps> = ({
                               (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
                               (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
                               ' - ' + avdod.fnr}
-                            {avdod.relasjon ? ' (' + t('buc:relasjon-' + avdod?.relasjon) + ')' : ''}
+                            {avdod.relasjon ? ' (' + t('buc:relasjon-' + avdod?.relasjon) + ')' : ''}<br/>
                             {avdod?.doedsDato ? ' (Dødsdato: ' + avdod.doedsDato + ')' : ''}
-
                           </BodyLong>
                         </Box>
                       </div>
