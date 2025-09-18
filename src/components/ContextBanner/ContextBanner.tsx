@@ -7,22 +7,7 @@ import { ChevronRightIcon } from '@navikt/aksel-icons'
 import { HStack } from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components'
-
-const Content = styled(HStack)`
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--a-surface-subtle);
-  border-bottom: 1px solid var(--a-border-strong);
-`
-export const Context = styled(HStack)`
- padding: 0.5rem 2rem;
- align-items: center;
-`
-export const Tag = styled(HStack)`
- align-items: center;
- font-size: var(--a-font-size-small)
-`
+import styles from './ContextBanner.module.css'
 
 export interface ContextBannerSelector {
   gettingSakType: boolean
@@ -43,28 +28,26 @@ const ContextBanner: React.FC = (): JSX.Element => {
   const { gettingSakType, pesysContext, sakType }: ContextBannerSelector = useSelector<State, ContextBannerSelector>(mapState)
 
   return (
-    <Content>
-      <Context data-testid="contextbanner-context" gap="3">
-        <ChevronRightIcon fontSize="1.5rem" />
-        {pesysContext && (
-          <Tag data-testid="tag-pesyscontext" gap="1">
-            <span>{t('ui:youComeFrom')}</span>
-            <strong>{(pesysContext as string).toUpperCase()}</strong>
-          </Tag>
+    <HStack data-testid="contextbanner-context" gap="3" paddingInline="8" paddingBlock="2" className={styles.content}>
+      <ChevronRightIcon fontSize="1.5rem" />
+      {pesysContext && (
+        <HStack data-testid="tag-pesyscontext" gap="1" align="center" className={styles.tag}>
+          <span>{t('ui:youComeFrom')}</span>
+          <strong>{(pesysContext as string).toUpperCase()}</strong>
+        </HStack>
+      )}
+      <HStack data-testid="tag-buc-case-type" gap="1" align="center" className={styles.tag}>
+        {sakType && (
+          <span>{t('buc:form-caseType')}: </span>
         )}
-        <Tag data-testid="tag-buc-case-type" gap="1">
-          {sakType && (
-            <span>{t('buc:form-caseType')}: </span>
-          )}
-          {gettingSakType && (
-            <WaitingPanel size='xsmall' oneLine />
-          )}
-          {sakType && (sakType ?? Object.values(SakTypeMap).indexOf(sakType) >= 0) && (
-            <strong>{sakType}</strong>
-          )}
-        </Tag>
-      </Context>
-    </Content>
+        {gettingSakType && (
+          <WaitingPanel size='xsmall' oneLine />
+        )}
+        {sakType && (sakType ?? Object.values(SakTypeMap).indexOf(sakType) >= 0) && (
+          <strong>{sakType}</strong>
+        )}
+      </HStack>
+    </HStack>
   )
 }
 

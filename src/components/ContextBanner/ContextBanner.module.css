@@ -1,0 +1,8 @@
+.content {
+  background-color: var(--a-surface-subtle);
+  border-bottom: 1px solid var(--a-border-strong);
+}
+
+.tag {
+  font-size: var(--a-font-size-small);
+}
