@@ -1,35 +1,15 @@
 import { PersonIcon, HouseIcon, CalendarIcon, GlobeIcon, PersonRectangleIcon, HeartIcon } from '@navikt/aksel-icons'
 import PostalCodes from 'src/components/PostalCodes/PostalCodes'
-import { AllowedLocaleStringPropType } from 'src/declarations/app.pt'
 import { PersonAvdod, PersonAvdods } from 'src/declarations/person.d'
 import CountryData from '@navikt/land-verktoy'
 import _ from 'lodash'
 import moment from 'moment'
-import { BodyLong, Box, Detail, HStack } from '@navikt/ds-react'
-import PT from 'prop-types'
+import {BodyLong, Box, HGrid, HStack, Label, VStack} from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
 import styles from "./PersonBody.module.css";
 
-const Element = styled.div`
-  display: flex;
-  align-items: baseline;
-`
-const MarginRow = styled(HStack)`
-  margin: 1.5rem;
-  display: flex;
-`
-const MarginColumn = styled.div`
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 0.5rem;
-  flex: ${(props: any) => props.flex || 1};
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-`
-export const PersonBodyDiv = styled.div``
 
 export interface PersonBodyProps {
   locale: string
@@ -55,21 +35,20 @@ const PersonBody: React.FC<PersonBodyProps> = ({
       _value = [t('ui:notRegistered')]
     }
     return (
-      <Element
+      <VStack
         id={'w-overview-PersonBody--element-' + label.replace('ui:', '')}
         data-testid={'w-overview-PersonBody--element-' + label.replace('ui:', '')}
+        align="baseline"
       >
-        <Detail>
-          <strong>
-            {t(label)}
-          </strong>:
-        </Detail>
-        <Box paddingInline="4 0">
+        <Label>
+          {t(label)}:
+        </Label>
+        <Box>
           <div className='navds-body-long'>
             {_value.map((val: any) => val)}
           </div>
         </Box>
-      </Element>
+      </VStack>
     )
   }
 
@@ -191,77 +170,62 @@ const PersonBody: React.FC<PersonBodyProps> = ({
   }
 
   return (
-    <PersonBodyDiv data-testid="person-body-div">
-      <MarginRow key="personBody-marginrow-1">
-        <MarginColumn key="personBody-marginrow-1-margincolumn-1">
-          <HStack gap="4">
-            <HouseIcon title={t('ui:bostedsadresse')} fontSize="1.5rem" />
-            {bostedsadresse ? renderEntity('ui:bostedsadresse', bostedsadresse) : null}
-          </HStack>
-        </MarginColumn>
-        <MarginColumn key="personBody-marginrow-1-margincolumn-2">
-          <HStack gap="4">
-            <CalendarIcon title={t('ui:birthdate')} fontSize="1.5rem" />
-            {renderEntity('ui:birthdate', birthDateString)}
-          </HStack>
-        </MarginColumn>
-        <MarginColumn key="personBody-marginrow-1-margincolumn-3">
-          <HStack gap="4">
-            <PersonRectangleIcon title={t('ui:nationality')} fontSize="1.5rem"/>
-            {renderEntity('ui:nationality', nationality)}
-          </HStack>
-        </MarginColumn>
-      </MarginRow>
+    <div data-testid="person-body-div">
+      <HGrid columns={3} gap="4" padding="8" align="start">
+        <HStack gap="4" align="start">
+          <HouseIcon title={t('ui:bostedsadresse')} fontSize="1.5rem" />
+          {bostedsadresse ? renderEntity('ui:bostedsadresse', bostedsadresse) : null}
+        </HStack>
+        <HStack gap="4" align="start">
+          <CalendarIcon title={t('ui:birthdate')} fontSize="1.5rem" />
+          {renderEntity('ui:birthdate', birthDateString)}
+        </HStack>
+        <HStack gap="4" align="start">
+          <PersonRectangleIcon title={t('ui:nationality')} fontSize="1.5rem"/>
+          {renderEntity('ui:nationality', nationality)}
+        </HStack>
+      </HGrid>
       <HorizontalLineSeparator />
-      <MarginRow key="personBody-marginrow-2">
-        <MarginColumn key="personBody-marginrow-2-margincolumn-1">
-          <HStack gap="4">
-            <GlobeIcon title={t('ui:oppholdsadresse')} fontSize="1.5rem" />
-            {renderEntity('ui:oppholdsadresse', oppholdsadresse)}
-          </HStack>
-        </MarginColumn>
-        <MarginColumn key="personBody-marginrow-2-margincolumn-2">
-          <HStack gap="4">
-            <HeartIcon title={t('ui:marital-status')} fontSize="1.5rem"/>
-            {renderEntity('ui:marital-status', maritalStatus)}
-          </HStack>
-        </MarginColumn>
-        <MarginColumn key="personBody-marginrow-2-margincolumn-3"/>
-      </MarginRow>
+      <HGrid columns={3} gap="4" padding="8" align="start">
+        <HStack gap="4">
+          <GlobeIcon title={t('ui:oppholdsadresse')} fontSize="1.5rem" />
+          {renderEntity('ui:oppholdsadresse', oppholdsadresse)}
+        </HStack>
+        <HStack gap="4">
+          <HeartIcon title={t('ui:marital-status')} fontSize="1.5rem"/>
+          {renderEntity('ui:marital-status', maritalStatus)}
+        </HStack>
+      </HGrid>
       {((personAvdods && personAvdods.length > 0) || deathDateString) && (
         <>
           <HorizontalLineSeparator />
-          <MarginRow key="personBody-marginrow-3">
-
-            <MarginColumn key="personBody-marginrow-3-margincolumn-1">
+          <HGrid columns={3} gap="4" padding="8" align="start">
+            <HStack gap="4">
               <PersonIcon fontSize="1.5rem" />
-              <Box paddingInline="4 0">
-                <Detail size='small'>
-                  <strong>{t('ui:deceased')}</strong>:
-                </Detail>
-               </Box>
-              <div>
-                {personAvdods && personAvdods.length > 0
-                  ? personAvdods.map((avdod: PersonAvdod) => (
-                    <Element
-                      key={avdod.fnr}
-                      id='w-overview-PersonBody--element-deceased'
-                    >
-                      <Box paddingInline="4 0">
-                        <BodyLong>
-                          {avdod?.fornavn +
-                            (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
-                            (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
-                            ' - ' + avdod.fnr}
-                          {avdod.relasjon ? ' (' + t('buc:relasjon-' + avdod?.relasjon) + ')' : ''}
-                          {avdod?.doedsDato ? ' (Dødsdato: ' + avdod.doedsDato + ')' : ''}
+              <VStack>
+                <Label>{t('ui:deceased')}:</Label>
+                <div>
+                  {personAvdods && personAvdods.length > 0
+                    ? personAvdods.map((avdod: PersonAvdod) => (
+                      <div
+                        key={avdod.fnr}
+                        id='w-overview-PersonBody--element-deceased'
+                      >
+                        <Box>
+                          <BodyLong>
+                            {avdod?.fornavn +
+                              (avdod?.mellomnavn ? ' ' + avdod?.mellomnavn : '') +
+                              (avdod?.etternavn ? ' ' + avdod?.etternavn : '') +
+                              ' - ' + avdod.fnr}
+                            {avdod.relasjon ? ' (' + t('buc:relasjon-' + avdod?.relasjon) + ')' : ''}
+                            {avdod?.doedsDato ? ' (Dødsdato: ' + avdod.doedsDato + ')' : ''}
 
-                        </BodyLong>
-                      </Box>
-                    </Element>
-                  ))
-                  : (
-                    <Element
+                          </BodyLong>
+                        </Box>
+                      </div>
+                    ))
+                    : (
+                      <div
                         key='noAvdod'
                         id='w-overview-PersonBody--element-deceased'
                       >
@@ -270,32 +234,27 @@ const PersonBody: React.FC<PersonBodyProps> = ({
                             {t('buc:form-noAvdod')}
                           </BodyLong>
                         </Box>
-                      </Element>
-                      )}
-              </div>
-            </MarginColumn>
+                      </div>
+                    )}
+                </div>
+              </VStack>
+            </HStack>
             {deathDateString
               ? (
-                <MarginColumn key="personBody-marginrow-3-margincolumn-2">
+
                   <HStack gap="4">
                     <CalendarIcon fontSize="1.5rem" />
                     {renderEntity('ui:deathdate', deathDateString)}
                   </HStack>
-                </MarginColumn>
-                )
+              )
               : (
-                <MarginColumn key="personBody-marginrow-3-margincolumn-2"/>
-                )}
-          </MarginRow>
+                <></>
+              )}
+          </HGrid>
         </>
       )}
-    </PersonBodyDiv>
+    </div>
   )
-}
-
-PersonBody.propTypes = {
-  locale: AllowedLocaleStringPropType.isRequired,
-  person: PT.object
 }
 
 export default PersonBody
