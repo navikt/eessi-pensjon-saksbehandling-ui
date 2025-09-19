@@ -17,103 +17,12 @@ import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
 import {VEDTAKSKONTEKST} from "../../constants/constants";
 import {Box} from "@navikt/ds-react";
-import styles from 'src/assets/css/common.module.css'
+import commonStyles from 'src/assets/css/common.module.css'
+import styles from './BUCIndexPage.module.css'
 
-const transition = 500
 const timeout = 501
-
-const AnimatableDiv = styled.div`
-  flex: 1;
-  background: inherit;
-  &.animate {
-    will-change: transform, opacity;
-    pointer-events: none;
-    * {
-      pointer-events: none;
-    }
-    transition: transform ${transition}ms ease-in-out;
-  }
-
-  &.left {
-    transform: translateX(0%);
-  }
-  &.middle {
-    transform: translateX(20%);
-    height: 1vh;
-  }
-  &.right {
-    transform: translateX(40%);
-    height: 1vh;
-  }
-
-  &.A_going_to_right {
-    transform: translateX(0%);
-  }
-  &.B_going_to_right {
-    transform: translateX(20%);
-  }
-  &.C_going_to_right {
-    transform: translateX(40%);
-  }
-
-  &.alt_left {
-    transform: translateX(-120%);
-    height: 1vh;
-  }
-  &.alt_middle {
-    transform: translateX(-100%);
-  }
-  &.alt_right {
-    transform: translateX(-80%);
-    height: 1vh;
-  }
-
-  &.A_going_to_middle {
-    transform: translateX(-120%);
-  }
-  &.B_going_to_middle {
-    transform: translateX(-100%);
-  }
-  &.C_going_to_middle {
-    transform: translateX(-80%);
-  }
-
-  &.super_alt_left {
-    transform: translateX(-240%);
-    height: 1vh;
-  }
-  &.super_alt_middle {
-    transform: translateX(-220%);
-    height: 1vh;
-  }
-  &.super_alt_right {
-    transform: translateX(-200%);
-  }
-
-  &.A_going_to_left {
-    transform: translateX(-240%);
-  }
-  &.B_going_to_left {
-    transform: translateX(-220%);
-  }
-  &.C_going_to_left {
-    transform: translateX(-200%);
-  }
-`
-export const ContainerDiv = styled.div`
-  width: 100%;
-  display: block;
-  overflow: visible;
-`
-
-export const WindowDiv = styled.div`
-  width: 300%;
-  display: flex;
-  overflow: visible;
-`
 
 export interface BUCIndexPageSelector {
   aktoerId: string | null | undefined
@@ -178,7 +87,7 @@ export const BUCIndexPage = (): JSX.Element => {
   const [animating, setAnimating] = useState<boolean>(false)
 
   const WaitingDiv = (
-    <div className={styles.waitingPanel}>
+    <div className={commonStyles.waitingPanel}>
       <WaitingPanel />
     </div>
   )
@@ -349,29 +258,29 @@ export const BUCIndexPage = (): JSX.Element => {
   }, [bucs, bucsList, gettingBucs])
 
   const cls = (position: Slide) => ({
-    animate: ![
+    [styles.animate]: ![
       Slide.LEFT, Slide.MIDDLE, Slide.RIGHT,
       Slide.ALT_LEFT, Slide.ALT_MIDDLE, Slide.ALT_RIGHT,
       Slide.SUPER_ALT_LEFT, Slide.SUPER_ALT_MIDDLE, Slide.SUPER_ALT_RIGHT
     ].includes(position),
-    A_going_to_left: Slide.A_GOING_TO_LEFT === position,
-    A_going_to_middle: Slide.A_GOING_TO_MIDDLE === position,
-    A_going_to_right: Slide.A_GOING_TO_RIGHT === position,
-    B_going_to_left: Slide.B_GOING_TO_LEFT === position,
-    B_going_to_middle: Slide.B_GOING_TO_MIDDLE === position,
-    B_going_to_right: Slide.B_GOING_TO_RIGHT === position,
-    C_going_to_left: Slide.C_GOING_TO_LEFT === position,
-    C_going_to_middle: Slide.C_GOING_TO_MIDDLE === position,
-    C_going_to_right: Slide.C_GOING_TO_RIGHT === position,
-    left: Slide.LEFT === position,
-    middle: Slide.MIDDLE === position,
-    right: Slide.RIGHT === position,
-    alt_left: Slide.ALT_LEFT === position,
-    alt_middle: Slide.ALT_MIDDLE === position,
-    alt_right: Slide.ALT_RIGHT === position,
-    super_alt_left: Slide.SUPER_ALT_LEFT === position,
-    super_alt_middle: Slide.SUPER_ALT_MIDDLE === position,
-    super_alt_right: Slide.SUPER_ALT_RIGHT === position
+    [styles.A_going_to_left]: Slide.A_GOING_TO_LEFT === position,
+    [styles.A_going_to_middle]: Slide.A_GOING_TO_MIDDLE === position,
+    [styles.A_going_to_right]: Slide.A_GOING_TO_RIGHT === position,
+    [styles.B_going_to_left]: Slide.B_GOING_TO_LEFT === position,
+    [styles.B_going_to_middle]: Slide.B_GOING_TO_MIDDLE === position,
+    [styles.B_going_to_right]: Slide.B_GOING_TO_RIGHT === position,
+    [styles.C_going_to_left]: Slide.C_GOING_TO_LEFT === position,
+    [styles.C_going_to_middle]: Slide.C_GOING_TO_MIDDLE === position,
+    [styles.C_going_to_right]: Slide.C_GOING_TO_RIGHT === position,
+    [styles.left]: Slide.LEFT === position,
+    [styles.middle]: Slide.MIDDLE === position,
+    [styles.right]: Slide.RIGHT === position,
+    [styles.alt_left]: Slide.ALT_LEFT === position,
+    [styles.alt_middle]: Slide.ALT_MIDDLE === position,
+    [styles.alt_right]: Slide.ALT_RIGHT === position,
+    [styles.super_alt_left]: Slide.SUPER_ALT_LEFT === position,
+    [styles.super_alt_middle]: Slide.SUPER_ALT_MIDDLE === position,
+    [styles.super_alt_right]: Slide.SUPER_ALT_RIGHT === position
   })
 
   return (
@@ -380,28 +289,28 @@ export const BUCIndexPage = (): JSX.Element => {
       key='bucIndexDiv'
     >
       <Box paddingBlock="4 0">
-        <ContainerDiv>
-          <WindowDiv>
-            <AnimatableDiv
+        <div className={styles.container}>
+          <div className={styles.window}>
+            <div
               key='animatableDivA'
-              className={classNames(cls(positionA))}
+              className={classNames(styles.animatable, cls(positionA))}
             >
               {contentA}
-            </AnimatableDiv>
-            <AnimatableDiv
+            </div>
+            <div
               key='animatableDivB'
-              className={classNames(cls(positionB))}
+              className={classNames(styles.animatable, cls(positionB))}
             >
               {contentB}
-            </AnimatableDiv>
-            <AnimatableDiv
+            </div>
+            <div
               key='animatableDivC'
-              className={classNames(cls(positionC))}
+              className={classNames(styles.animatable, cls(positionC))}
             >
               {contentC}
-            </AnimatableDiv>
-          </WindowDiv>
-        </ContainerDiv>
+            </div>
+          </div>
+        </div>
       </Box>
     </div>
   )
