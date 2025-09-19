@@ -292,7 +292,7 @@ const P8000: React.FC<P8000Props> = ({
   if(gettingSed){
     return(
       <div className={styles.waitingPanel}>
-        <WaitingPanel />
+        <WaitingPanel size="2xlarge"/>
       </div>
     )
   }

@@ -102,7 +102,7 @@ const P2000: React.FC<P2000Props> = ({
   if(gettingSed){
     return(
       <div className={styles.waitingPanel}>
-        <WaitingPanel />
+        <WaitingPanel size="2xlarge"/>
       </div>
     )
   }

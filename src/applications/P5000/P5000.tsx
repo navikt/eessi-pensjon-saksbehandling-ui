@@ -291,7 +291,7 @@ const P5000: React.FC<P5000Props> = ({
     const loadedSeds: number = _.filter(_seds, sed => cachedSedIds.indexOf(sed.id) >= 0)?.length ?? 0
     return (
       <div className={styles.spinner}>
-        <WaitingPanel message={t('p5000:loading-sed-X-of-Y', { x: loadedSeds, y: _seds?.length ?? 0 })} />
+        <WaitingPanel size="2xlarge" message={t('p5000:loading-sed-X-of-Y', { x: loadedSeds, y: _seds?.length ?? 0 })} />
       </div>
     )
   }

@@ -1,18 +1,7 @@
 import classNames from 'classnames'
-import {BodyLong, HStack, Loader} from '@navikt/ds-react'
-import styled from 'styled-components'
+import {BodyLong, Loader, VStack} from '@navikt/ds-react'
+import styles from './WaitingPanel.module.css'
 
-export const WaitingPanelDiv = styled(HStack)`
-  align-items: center;
-  flex-direction: column;
-  &.rowDirection {
-     flex-direction: row;
-  }
-  .oneLine {
-    display: inline-block;
-    vertical-align: top;
-  }
-`
 
 export type WaitingPanelSize = 'xsmall'| 'small' | 'medium'| 'large' | 'xlarge'| '2xlarge'
 
@@ -27,23 +16,23 @@ export interface WaitingPanelProps {
 const WaitingPanel: React.FC<WaitingPanelProps> = ({
   className, size = 'medium', style = {}, message = 'Vennligst vent...', oneLine = false, ...props
 }: WaitingPanelProps): JSX.Element | null => (
-  <WaitingPanelDiv
+  <VStack
+    align="center"
     style={style}
-    className={classNames(className, { rowDirection: oneLine })}
+    className={classNames(className, { [styles.rowDirection]: oneLine })}
     data-testid='c-WaitingPanel'
     {...props}
     gap="4"
   >
-    <Loader type={size} />
+    <Loader size={size} />
     {message && (
       <BodyLong
-        className={classNames({ oneLine })}
         data-testid='c-waitingpanel--text-id'
       >
         {message}
       </BodyLong>
     )}
-  </WaitingPanelDiv>
+  </VStack>
 )
 
 export default WaitingPanel
