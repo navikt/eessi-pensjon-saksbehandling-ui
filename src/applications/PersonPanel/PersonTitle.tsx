@@ -1,6 +1,6 @@
-import kvinne from 'src/assets/icons/icon-kvinne.png'
+/*import kvinne from 'src/assets/icons/icon-kvinne.png'
 import mann from 'src/assets/icons/icon-mann.png'
-import ukjent from 'src/assets/icons/icon-ukjent.png'
+import ukjent from 'src/assets/icons/icon-ukjent.png'*/
 import classNames from 'classnames'
 import { PersonPDL } from 'src/declarations/person'
 import _ from 'lodash'
@@ -16,9 +16,9 @@ import {FilesFillIcon, FilesIcon} from "@navikt/aksel-icons";
 import styles from "src/assets/css/common.module.css";
 import titleStyles from "./PersonTitle.module.css"
 
-/*const Kvinne = 'src/assets/icons/icon-kvinne.png'
+const Kvinne = 'src/assets/icons/icon-kvinne.png'
 const Mann = 'src/assets/icons/icon-mann.png'
-const Ukjent = 'src/assets/icons/icon-ukjent.png'*/
+const Ukjent = 'src/assets/icons/icon-ukjent.png'
 
 export interface PersonTitleProps {
   gettingPersonInfo: boolean
@@ -56,14 +56,14 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
   }
 
   let kind: string = 'nav-unknown-icon'
-  let src = ukjent
+  let src = Ukjent.toString()
 
   if (person.kjoenn?.kjoenn === 'KVINNE') {
     kind = 'nav-woman-icon'
-    src = kvinne
+    src = Kvinne.toString()
   } else if (person.kjoenn?.kjoenn === 'MANN') {
     kind = 'nav-man-icon'
-    src = mann
+    src = Mann.toString()
   }
 
   const pid : string | undefined = getFnr(person) ? getFnr(person) : getNPID(person)
