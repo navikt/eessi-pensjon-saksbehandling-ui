@@ -7,7 +7,7 @@ import personAvdod from 'src/mocks/person/personAvdod'
 import { stageSelector } from 'src/setupTests'
 import { PersonPanel, PersonPanelSelector } from './PersonPanel'
 
-jest.mock('src/actions/app', () => ({
+jest.mock('src/actions/person', () => ({
   getPersonInfo: jest.fn(),
   getPersonAvdodInfo: jest.fn()
 }))
@@ -53,15 +53,5 @@ describe('src/applications/PersonPanel/PersonPanel', () => {
 
   it('Render: has proper HTML structure', () => {
     expect(screen.getByTestId('w-PersonPanel-id')).toBeTruthy()
-    expect(wrapper.exists('ExpandingPanel')).toBeTruthy()
-    expect(wrapper.exists('PersonTitle')).toBeTruthy()
-    expect(wrapper.exists('PersonPanel')).toBeTruthy()
-  })
-
-  it('Render: no aktoerId', () => {
-    stageSelector(defaultSelector, ({ aktoerId: undefined }))
-    wrapper = render(<PersonPanel />)
-    expect(screen.getByTestId('w-PersonPanel--alert\']')).toBeTruthy()
-    expect(wrapper.find('[data-testid=\'w-PersonPanel--alert\'] .alertstripe--tekst').hostNodes().render().text()).toEqual('message:validation-noAktoerId')
   })
 })

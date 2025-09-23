@@ -1,4 +1,4 @@
-import { Accordion, Panel } from '@navikt/ds-react'
+import { Accordion, Box } from '@navikt/ds-react'
 import {getPersonAvdodInfo, getPersonInfo} from 'src/actions/person'
 import { AllowedLocaleString, FeatureToggles, PesysContext } from 'src/declarations/app.d'
 import { PersonPDL } from 'src/declarations/person'
@@ -53,8 +53,11 @@ export const PersonPanel = (): JSX.Element => {
   }, [aktoerId, pesysContext])
 
   return (
-    <Panel
-      border style={{ padding: '0px' }}
+    <Box
+      padding="0"
+      borderWidth="1"
+      borderRadius="small"
+      style={{ backgroundColor: 'white' }}
     >
       <Accordion style={{ borderRadius: '4px' }} data-testid='w-PersonPanel-id'>
         <Accordion.Item
@@ -80,7 +83,7 @@ export const PersonPanel = (): JSX.Element => {
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>
-    </Panel>
+    </Box>
   )
 }
 

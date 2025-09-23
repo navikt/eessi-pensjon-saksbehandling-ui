@@ -11,6 +11,7 @@ module.exports = {
     '<rootDir>/src/actions/?(*.)+(spec|test).+(ts|tsx)',
     '<rootDir>/src/reducers/?(*.)+(spec|test).+(ts|tsx)',
     '<rootDir>/src/utils/?(*.)+(spec|test).+(ts|tsx)',
+    '<rootDir>/src/applications/PersonPanel/?(*.)+(spec|test).+(ts|tsx)',
     '<rootDir>/src/applications/P5000/tables/?(*.)+(spec|test).+(ts|tsx)',
     '<rootDir>/src/applications/P5000/utils/?(*.)+(spec|test).+(ts|tsx)',
     '<rootDir>/src/applications/BUC/components/BUCUtils/?(*.)+(spec|test).+(ts|tsx)',
