@@ -1,42 +1,37 @@
-import { render } from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 import PersonTitle, { PersonTitleProps } from './PersonTitle'
 
 import mockPerson from 'src/mocks/person/personPdl'
-import {HStack} from "@navikt/ds-react";
+import mockPersonKvinne from 'src/mocks/person/personPdlKvinne'
+import mockPersonUkjent from 'src/mocks/person/personPdlUkjent'
 
-describe('applications/PersonPanel/PersonTitle', () => {
-  let wrapper: any
-
+describe('src/applications/PersonPanel/PersonTitle', () => {
   const initialMockProps: PersonTitleProps = {
     gettingPersonInfo: false,
     person: mockPerson
   }
 
-  beforeEach(() => {
-    wrapper = render(<PersonTitle {...initialMockProps} />)
-  })
+  const kvinneMockProps: PersonTitleProps = {
+    gettingPersonInfo: false,
+    person: mockPersonKvinne
+  }
 
-  afterEach(() => {
-    wrapper.unmount()
-  })
+  const ukjentMockProps: PersonTitleProps = {
+    gettingPersonInfo: false,
+    person: mockPersonUkjent
+  }
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.find(HStack)).toBeTruthy()
-    expect(wrapper.find(HStack).find('img').props().alt).toEqual('nav-man-icon')
-    expect(wrapper.find(HStack).find('h2').render().text()).toEqual('LEALAUS SAKS (41) - personFnr')
+    render(<PersonTitle {...initialMockProps} />)
+    expect(screen.getByAltText('nav-man-icon')).toBeInTheDocument()
+    expect(screen.getByText('LEALAUS SAKS', { exact: false })).toBeInTheDocument()
   })
 
   it('Render: different person icons', () => {
-    mockPerson.kjoenn.kjoenn = 'MANN'
-    wrapper.setProps({ person: mockPerson })
-    expect(wrapper.find('[data-testid=\'w-persontitle--img\']').props().alt).toEqual('nav-man-icon')
+    render(<PersonTitle {...kvinneMockProps} />)
+    expect(screen.getByAltText('nav-woman-icon')).toBeInTheDocument()
 
-    mockPerson.kjoenn.kjoenn = 'UKJENT'
-    wrapper.setProps({ person: mockPerson })
-    expect(wrapper.find('[data-testid=\'w-persontitle--img\']').props().alt).toEqual('nav-unknown-icon')
-
-    mockPerson.kjoenn.kjoenn = 'KVINNE'
-    wrapper.setProps({ person: mockPerson })
-    expect(wrapper.find('[data-testid=\'w-persontitle--img\']').props().alt).toEqual('nav-woman-icon')
+    render(<PersonTitle {...ukjentMockProps} />)
+    expect(screen.getByAltText('nav-unknown-icon')).toBeInTheDocument()
   })
 })

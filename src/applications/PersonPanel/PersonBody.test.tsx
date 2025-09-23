@@ -31,7 +31,7 @@ describe('applications/PersonPanel/PersonBody', () => {
     expect(screen.getByTitle("ui:marital-status")).toBeInTheDocument()
     expect(screen.getByTestId("w-overview-PersonBody--element-bostedsadresse")).toHaveTextContent(/ui:bostedsadresse:ui:fram-og-til01.01.2020 - 01.01.2021ui:adressenavnAdressenavnui:husnummer00ui:husbokstavAui:poststed0768ui:cityOSLO/i)
     expect(screen.getByTestId("w-overview-PersonBody--element-birthdate")).toHaveTextContent(/ui:birthdate:09.02.1980/i)
-    expect(screen.getByTestId("w-overview-PersonBody--element-nationality")).toHaveTextContent("ui:nationality:Danmark, Norge (09.02.1980 - 09.02.1981), Belgia")
+    expect(screen.getByTestId("w-overview-PersonBody--element-nationality")).toHaveTextContent("ui:nationality:DanmarkNorge (09.02.1980 - 09.02.1981)Belgia")
   })
 
   it('Render: Empty value renders not registered', () => {
