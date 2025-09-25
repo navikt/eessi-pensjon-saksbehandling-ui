@@ -23,8 +23,8 @@ export const convertFromP5000ListRowsIntoPesysPeriods = (
     .filter(item => !!item.selected)
     .map(item => ({
       ...item,
-      startdato: moment(item.startdato).format('YYYY-MM-DD'),
-      sluttdato: moment(item.sluttdato).format('YYYY-MM-DD')
+      startdato: item.startdato ? moment(item.startdato).format('YYYY-MM-DD') : null,
+      sluttdato: item.sluttdato ? moment(item.sluttdato).format('YYYY-MM-DD') : null
     })
     )
     .map((it: any) => _.omit(it, [
