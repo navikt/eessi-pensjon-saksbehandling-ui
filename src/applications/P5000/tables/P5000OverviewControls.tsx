@@ -112,7 +112,17 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
 
   const handleOverforTilPesys = () => {
     if (window.confirm(t('buc:form-areYouSureSendToPesys'))) {
-      dispatch(sendP5000ToS3(fnr, caseId, convertFromP5000ListRowsIntoPesysPeriods(itemsForPesys)))
+      const converted = convertFromP5000ListRowsIntoPesysPeriods(itemsForPesys);
+
+      const rowsWithDateErrors = converted.filter((item) => {
+        return item.sluttdato === "Invalid date" || item.startdato === "Invalid date";
+      })
+
+      if(rowsWithDateErrors.length === 0){
+        dispatch(sendP5000ToS3(fnr, caseId, convertFromP5000ListRowsIntoPesysPeriods(itemsForPesys)))
+      } else {
+
+      }
     }
   }
 
