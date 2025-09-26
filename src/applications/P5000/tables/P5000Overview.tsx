@@ -1,4 +1,4 @@
-import { BodyLong, Tabs, Tag, SortState, Box, HStack } from '@navikt/ds-react'
+import {BodyLong, Tabs, Tag, SortState, Box, HStack, Alert} from '@navikt/ds-react'
 import { StarIcon } from '@navikt/aksel-icons';
 import CountryData from '@navikt/land-verktoy'
 import Table, {
@@ -109,6 +109,8 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [viewItemsForPesys, _setViewItemsForPesys] = useState<P5000ListRows>(() => itemsForPesys)
   const [filteredItemsForPesys, _setFilteredItemsForPesys] = useState<P5000ListRows>(() => viewItemsForPesys)
 
+  const [alertMessage, _setAlertMessage] = useState<string>("")
+
   // all subsequent updates on items for pesys should update viewing-only rows and filtered items for pesys
   // with merging modification
   const setItemsForPesys = (newItemsForPesys: P5000ListRows) => {
@@ -118,6 +120,14 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       newViewItemsForPesys = mergeP5000ListRows({
         rows: newViewItemsForPesys, mergePeriodTypes, mergePeriodBeregnings, useGermanRules
       })
+
+      const mergedPeriods = newViewItemsForPesys.filter((it: P5000ListRow) => it.parentKey !== undefined && it.hasSubrows !== true)
+      _setAlertMessage(
+        mergedPeriods.length > 0 ?
+          mergedPeriods.length + " rader ble slått sammen"
+          : "Ingen rader ble slått sammen"
+      )
+
       newFilteredItemsForPesys = _.filter(_.cloneDeep(newViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
     }
     _setItemsForPesys(newItemsForPesys)
@@ -189,6 +199,12 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     setItemsForPesys(newItemsForPesys)
 
   }, [items, p5000FromS3])
+
+  useEffect(() => {
+    if(!mergePeriods || mergePeriodTypes || !!mergePeriodBeregnings || !useGermanRules) {
+    _setAlertMessage("")
+    }
+  }, [mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules])
 
   const [pesysWarning] = useState<string | undefined>(() =>
     (items.length !== itemsForPesys.length ? t('p5000:warning-beregning-000', { x: (items.length - itemsForPesys.length) }) : undefined))
@@ -409,6 +425,13 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
             <Tabs.Tab label='Eksporter til Pesys' value='pesys' />
           }
         </Tabs.List>
+        { alertMessage &&
+          <Box paddingBlock="4 4">
+            <Alert variant='info'>
+              {alertMessage}
+            </Alert>
+          </Box>
+        }
         <Tabs.Panel value='oversikt'>
           <Box paddingBlock="4 4">
             <Table<P5000ListRow, P5000TableContext>
