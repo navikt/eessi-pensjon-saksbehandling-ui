@@ -191,7 +191,7 @@ export default {
           tom: '1986-12-20'
         },
         enkeltkrav: null
-/*      }, {
+      }, {
         relevans: '20',
         ordning: '20',
         land: 'SE',
@@ -211,7 +211,7 @@ export default {
         beregning: '001',
         informasjonskalkulering: null,
         periode: null,
-        enkeltkrav: null*/
+        enkeltkrav: null
       }]
     }
   }
