@@ -73,7 +73,7 @@ describe('src/components/JoarkBrowser/JoarkBrowser', () => {
     expect(initialMockProps.onRowSelectChange).toHaveBeenCalledWith(mockJoarkProcessed)
   })
 
-  it('Handling: calls onPreviewItem', () => {
+  it('Handling: calls onPreviewItem when clicking preview button', () => {
     (getJoarkItemPreview as jest.Mock).mockReset()
     render(<JoarkBrowser {...initialMockProps} mode='select' />)
     fireEvent.click(screen.getByTestId('c-tablesorter--preview-button-2-3'))
