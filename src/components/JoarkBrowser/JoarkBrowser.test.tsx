@@ -78,7 +78,7 @@ describe('src/components/JoarkBrowser/JoarkBrowser', () => {
     render(<JoarkBrowser {...initialMockProps} mode='select' />)
     fireEvent.click(screen.getByTestId('c-tablesorter--preview-button-2-3'))
     expect(getJoarkItemPreview).toHaveBeenCalledWith(expect.objectContaining({
-      date: new Date('2010-11-01T11:26:55.000Z'),
+      date: new Date('2010-11-01T12:26:55.000Z'),
       disabled: true,
       dokumentInfoId: '3',
       hasSubrows: false,
