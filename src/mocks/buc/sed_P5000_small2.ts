@@ -191,6 +191,27 @@ export default {
           tom: '1986-12-20'
         },
         enkeltkrav: null
+      }, {
+        relevans: '20',
+        ordning: '20',
+        land: 'SE',
+        sum: {
+          kvartal: null,
+          aar: '00',
+          uker: '00',
+          dager: {
+            nr: '20',
+            type: '7'
+          },
+          maaneder: '01'
+        },
+        yrke: '20',
+        gyldigperiode: null,
+        type: '20',
+        beregning: '001',
+        informasjonskalkulering: null,
+        periode: null,
+        enkeltkrav: null
       }]
     }
   }
