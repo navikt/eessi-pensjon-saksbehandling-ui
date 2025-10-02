@@ -1,4 +1,4 @@
-import {BodyLong, Tabs, Tag, SortState, Box, HStack, Alert} from '@navikt/ds-react'
+import {BodyLong, Tabs, Tag, SortState, Box, HStack, Alert, VStack, Spacer} from '@navikt/ds-react'
 import { StarIcon } from '@navikt/aksel-icons';
 import CountryData from '@navikt/land-verktoy'
 import Table, {
@@ -91,6 +91,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         ...item,
         selectDisabled: item.land === 'NO',
         editDisabled: item.land === 'NO',
+        rowError: !item.startdato || !item.sluttdato,
         selected: _.find(p5000FromS3, (it: P5000ForS3) => {
           return it.land === item.land &&
             it.acronym === item.acronym &&
@@ -110,6 +111,9 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [filteredItemsForPesys, _setFilteredItemsForPesys] = useState<P5000ListRows>(() => viewItemsForPesys)
 
   const [alertMessage, _setAlertMessage] = useState<string>("")
+  const [_rowErrorTagMessage, _setRowErrorTagMessage] = useState<string>("")
+  const [_rowErrorAlertMessage, _setRowErrorAlertMessage] = useState<string>("")
+
 
   // all subsequent updates on items for pesys should update viewing-only rows and filtered items for pesys
   // with merging modification
@@ -130,6 +134,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
       newFilteredItemsForPesys = _.filter(_.cloneDeep(newViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
     }
+
     _setItemsForPesys(newItemsForPesys)
     _setViewItemsForPesys(newViewItemsForPesys)
     _setFilteredItemsForPesys(newFilteredItemsForPesys)
@@ -146,6 +151,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       })
       newFilteredItemsForPesys = _.filter(_.cloneDeep(newViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
     }
+
     _setViewItemsForPesys(newViewItemsForPesys)
     _setFilteredItemsForPesys(newFilteredItemsForPesys)
   }, [mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules])
@@ -184,10 +190,13 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                 it.beregning === item.beregning
             }) !== undefined
 
+        const rowError = !item.startdato || !item.sluttdato
+
         return {
           ...item,
           selectDisabled: item.land === 'NO',
           editDisabled: item.land === 'NO',
+          rowError,
           selected
         }
       })
@@ -201,8 +210,27 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   }, [items, p5000FromS3])
 
   useEffect(() => {
+    const hasRowErrors = _.find(itemsForPesys, (it: P5000ListRow) => it.rowError)
+    const hasSelectedRowWithErrors = _.find(itemsForPesys, (it: P5000ListRow) => it.rowError && it.selected)
+
+    if(hasRowErrors) {
+      _setRowErrorTagMessage(t('p5000:error-has-rowerrors'))
+    } else {
+      _setRowErrorTagMessage("")
+    }
+
+    if(hasSelectedRowWithErrors){
+      _setRowErrorAlertMessage(t('p5000:error-selected-row-with-errors'))
+    } else {
+      _setRowErrorAlertMessage("")
+    }
+
+
+  }, [itemsForPesys])
+
+  useEffect(() => {
     if(!mergePeriods || mergePeriodTypes || !!mergePeriodBeregnings || !useGermanRules) {
-    _setAlertMessage("")
+      _setAlertMessage("")
     }
   }, [mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules])
 
@@ -425,14 +453,14 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
             <Tabs.Tab label='Eksporter til Pesys' value='pesys' />
           }
         </Tabs.List>
-        { alertMessage &&
-          <Box paddingBlock="4 4">
-            <Alert variant='info'>
-              {alertMessage}
-            </Alert>
-          </Box>
-        }
         <Tabs.Panel value='oversikt'>
+          { alertMessage &&
+            <Box paddingBlock="4 4">
+              <Alert variant='info'>
+                {alertMessage}
+              </Alert>
+            </Box>
+          }
           <Box paddingBlock="4 4">
             <Table<P5000ListRow, P5000TableContext>
               animatable={false}
@@ -459,6 +487,26 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           </Box>
         </Tabs.Panel>
         <Tabs.Panel value='pesys'>
+          <VStack gap="4" paddingBlock="4 4">
+            { alertMessage &&
+              <Alert variant='info'>
+                {alertMessage}
+              </Alert>
+            }
+            { _rowErrorTagMessage && !_rowErrorAlertMessage &&
+              <HStack>
+                <Spacer/>
+                <Tag variant='error'>
+                  {_rowErrorTagMessage}
+                </Tag>
+              </HStack>
+            }
+            { _rowErrorAlertMessage &&
+              <Alert variant='error'>
+                {_rowErrorAlertMessage}
+              </Alert>
+            }
+          </VStack>
           <Box paddingBlock="4 4">
             <Table<P5000ListRow, P5000TableContext>
               animatable={false}

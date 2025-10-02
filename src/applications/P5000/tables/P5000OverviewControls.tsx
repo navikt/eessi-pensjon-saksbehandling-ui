@@ -116,6 +116,10 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
     }
   }
 
+  const hasSelectedRowsWithErrors = (): boolean => {
+    return !!_.find(itemsForPesys, (it: P5000ListRow) => it.rowError && it.selected)
+  }
+
   return (
     <>
       {pesysWarning && currentTabKey === 'pesys' && (
@@ -233,7 +237,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
             {!hideSendToPesysButton &&
               <Button
                 variant='primary'
-                disabled={sendingToPesys || currentTabKey !== 'pesys'}
+                disabled={sendingToPesys || currentTabKey !== 'pesys' || hasSelectedRowsWithErrors()}
                 onClick={handleOverforTilPesys}
               >
                 {sendingToPesys && <Loader />}

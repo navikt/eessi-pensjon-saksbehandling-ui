@@ -67,5 +67,7 @@
   "warning-P5000Sum-instructions-45"         : "Kode 45 summeres bare i punkt 5.2",
   "warning-P5000Sum-instructions-40"         : "trygdetid > 40 år avrundes automatisk til 40 år i punkt 5.2",
   "warning-P5000Sum-instructions-40-help"    : "I Norge beregnes pensjon etter en maksgrense på 40 år. Hvis faktisk periode på en kode er mer enn dette, blir perioden automatisk avrundet til 40 år i punkt 5.2.",
-  "warning-P5000Sum-instructions-5152"       : "Det er krysset for at kode 11/12/13/30/41 skal summeres bare på punkt 5.1"
+  "warning-P5000Sum-instructions-5152"       : "Det er krysset for at kode 11/12/13/30/41 skal summeres bare på punkt 5.1",
+  "error-selected-row-with-errors"           : "Du har valgt en eller flere rader som mangler start og/eller sluttdato.",
+  "error-has-rowerrors"                      : "Rad mangler start og/eller sluttdato."
 }
