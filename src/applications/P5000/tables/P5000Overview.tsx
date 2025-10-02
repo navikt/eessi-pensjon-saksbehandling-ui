@@ -1,4 +1,4 @@
-import {BodyLong, Tabs, Tag, SortState, Box, HStack, Alert, VStack} from '@navikt/ds-react'
+import {BodyLong, Tabs, Tag, SortState, Box, HStack, Alert, VStack, Spacer} from '@navikt/ds-react'
 import { StarIcon } from '@navikt/aksel-icons';
 import CountryData from '@navikt/land-verktoy'
 import Table, {
@@ -111,7 +111,9 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [filteredItemsForPesys, _setFilteredItemsForPesys] = useState<P5000ListRows>(() => viewItemsForPesys)
 
   const [alertMessage, _setAlertMessage] = useState<string>("")
-  const [rowErrorAlertMessage, _setRowErrorAlertMessage] = useState<string>("")
+  const [_rowErrorTagMessage, _setRowErrorTagMessage] = useState<string>("")
+  const [_rowErrorAlertMessage, _setRowErrorAlertMessage] = useState<string>("")
+
 
   // all subsequent updates on items for pesys should update viewing-only rows and filtered items for pesys
   // with merging modification
@@ -133,11 +135,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       newFilteredItemsForPesys = _.filter(_.cloneDeep(newViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
     }
 
-    const hasRowErrors = _.find(newViewItemsForPesys, (it: P5000ListRow) => it.rowError)
-    if(hasRowErrors) {
-      _setRowErrorAlertMessage("Tabellen inneholder rader med manglende start og/eller sluttdato og disse kan derfor ikke eksporteres til Pesys.")
-    }
-
     _setItemsForPesys(newItemsForPesys)
     _setViewItemsForPesys(newViewItemsForPesys)
     _setFilteredItemsForPesys(newFilteredItemsForPesys)
@@ -153,11 +150,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         rows: newViewItemsForPesys, mergePeriodTypes, mergePeriodBeregnings, useGermanRules
       })
       newFilteredItemsForPesys = _.filter(_.cloneDeep(newViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
-    }
-
-    const hasRowErrors = _.find(newViewItemsForPesys, (it: P5000ListRow) => it.rowError)
-    if(hasRowErrors) {
-      _setRowErrorAlertMessage("Tabellen inneholder rader med manglende start og/eller sluttdato og disse kan derfor ikke eksporteres til Pesys.")
     }
 
     _setViewItemsForPesys(newViewItemsForPesys)
@@ -216,6 +208,25 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     setItemsForPesys(newItemsForPesys)
 
   }, [items, p5000FromS3])
+
+  useEffect(() => {
+    const hasRowErrors = _.find(itemsForPesys, (it: P5000ListRow) => it.rowError)
+    const hasSelectedRowWithErrors = _.find(itemsForPesys, (it: P5000ListRow) => it.rowError && it.selected)
+
+    if(hasRowErrors) {
+      _setRowErrorTagMessage(t('p5000:error-has-rowerrors'))
+    } else {
+      _setRowErrorTagMessage("")
+    }
+
+    if(hasSelectedRowWithErrors){
+      _setRowErrorAlertMessage(t('p5000:error-selected-row-with-errors'))
+    } else {
+      _setRowErrorAlertMessage("")
+    }
+
+
+  }, [itemsForPesys])
 
   useEffect(() => {
     if(!mergePeriods || mergePeriodTypes || !!mergePeriodBeregnings || !useGermanRules) {
@@ -482,9 +493,17 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                 {alertMessage}
               </Alert>
             }
-            { rowErrorAlertMessage &&
+            { _rowErrorTagMessage && !_rowErrorAlertMessage &&
+              <HStack>
+                <Spacer/>
+                <Tag variant='error'>
+                  {_rowErrorTagMessage}
+                </Tag>
+              </HStack>
+            }
+            { _rowErrorAlertMessage &&
               <Alert variant='error'>
-                {rowErrorAlertMessage}
+                {_rowErrorAlertMessage}
               </Alert>
             }
           </VStack>

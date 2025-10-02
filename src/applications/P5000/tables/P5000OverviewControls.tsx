@@ -112,18 +112,12 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
 
   const handleOverforTilPesys = () => {
     if (window.confirm(t('buc:form-areYouSureSendToPesys'))) {
-      const converted = convertFromP5000ListRowsIntoPesysPeriods(itemsForPesys);
-
-      const rowsWithDateErrors = converted.filter((item) => {
-        return item.sluttdato === "Invalid date" || item.startdato === "Invalid date";
-      })
-
-      if(rowsWithDateErrors.length === 0){
-        dispatch(sendP5000ToS3(fnr, caseId, convertFromP5000ListRowsIntoPesysPeriods(itemsForPesys)))
-      } else {
-
-      }
+      dispatch(sendP5000ToS3(fnr, caseId, convertFromP5000ListRowsIntoPesysPeriods(itemsForPesys)))
     }
+  }
+
+  const hasSelectedRowsWithErrors = (): boolean => {
+    return !!_.find(itemsForPesys, (it: P5000ListRow) => it.rowError && it.selected)
   }
 
   return (
@@ -243,7 +237,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
             {!hideSendToPesysButton &&
               <Button
                 variant='primary'
-                disabled={sendingToPesys || currentTabKey !== 'pesys'}
+                disabled={sendingToPesys || currentTabKey !== 'pesys' || hasSelectedRowsWithErrors()}
                 onClick={handleOverforTilPesys}
               >
                 {sendingToPesys && <Loader />}
