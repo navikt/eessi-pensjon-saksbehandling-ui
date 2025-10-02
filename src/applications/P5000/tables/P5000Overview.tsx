@@ -229,10 +229,10 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   }, [itemsForPesys])
 
   useEffect(() => {
-    if(!mergePeriods || mergePeriodTypes || !!mergePeriodBeregnings || !useGermanRules) {
+    if(!mergePeriods) {
       _setAlertMessage("")
     }
-  }, [mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules])
+  }, [mergePeriods])
 
   const [pesysWarning] = useState<string | undefined>(() =>
     (items.length !== itemsForPesys.length ? t('p5000:warning-beregning-000', { x: (items.length - itemsForPesys.length) }) : undefined))
