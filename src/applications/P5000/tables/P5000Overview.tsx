@@ -414,6 +414,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     return undefined
   }
 
+  (viewItemsForPesys).map(
+    (item) =>
+      console.log("Fish" + item)
+  )
+
   return (
     <>
       <Box paddingBlock="4 0">
@@ -450,7 +455,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         <Tabs.List>
           <Tabs.Tab label='Slå sammen' value='oversikt' />
           {featureToggles.P5000_UPDATES_VISIBLE && !mainSed &&
-            <Tabs.Tab label='Eksporter til Pesys' value='pesys' />
+            <Tabs.Tab
+              label='Eksporter til Pesys'
+              value='pesys'
+              data-testid="export-to-pesys-tab"
+            />
           }
         </Tabs.List>
         <Tabs.Panel value='oversikt'>

@@ -1,7 +1,7 @@
 
 import { Sed, Seds } from 'src/declarations/buc'
 import { P5000sFromRinaMap } from 'src/declarations/p5000'
-import { render, screen } from '@testing-library/react'
+import {fireEvent, render, screen} from '@testing-library/react'
 import _ from 'lodash'
 import mockBucs from 'src/mocks/buc/bucs'
 import mockFeatureToggles from 'src/mocks/app/featureToggles'
@@ -57,5 +57,11 @@ describe('applications/BUC/components/P5000/P5000', () => {
     expect(screen.getByText('ui:relevantForPerformance')).toBeInTheDocument()
     expect(screen.getByText('ui:scheme')).toBeInTheDocument()
     expect(screen.getByText('ui:calculationInformation')).toBeInTheDocument()
+  })
+
+  it('Handle: Choosing pesys tab should render checkboxes', () => {
+    expect(screen.queryByText('Velg alle')).not.toBeInTheDocument()
+    fireEvent.click(screen.getByTestId('export-to-pesys-tab'))
+    expect(screen.queryByText('Velg alle')).toBeInTheDocument()
   })
 })
