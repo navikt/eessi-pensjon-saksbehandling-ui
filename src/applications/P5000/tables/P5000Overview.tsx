@@ -414,11 +414,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     return undefined
   }
 
-  (viewItemsForPesys).map(
-    (item) =>
-      console.log("Fish" + item)
-  )
-
   return (
     <>
       <Box paddingBlock="4 0">
