@@ -19,11 +19,8 @@ import {Currency} from "@navikt/land-verktoy";
 import {useTranslation} from "react-i18next";
 import DateField from "../DateField/DateField";
 import {formatDate, removeWhiteSpaceAndReplaceCommas, replacePeriodsWithCommas} from "src/utils/utils";
-import styled from "styled-components";
+import styles from './BeloepRows.module.css'
 
-const TopAlignedCell = styled(Table.DataCell)`
-  vertical-align: top;
-`
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
 })
@@ -181,7 +178,10 @@ const BeloepRows: React.FC<BeloepProps> = ({
       {inEditMode && parentEditMode
         ? (
           <Table.Row>
-            <TopAlignedCell width={"10%"}>
+            <Table.DataCell
+              className={styles.topAlignedCell}
+              width={"10%"}
+            >
               <Input
                 error={_v[_namespace + '-beloep']?.feilmelding}
                 namespace={_namespace}
@@ -191,8 +191,11 @@ const BeloepRows: React.FC<BeloepProps> = ({
                 onChanged={(e) => setBelop(e, index)}
                 value={replacePeriodsWithCommas(_beloep?.beloep ?? '')}
               />
-            </TopAlignedCell>
-            <TopAlignedCell width={"10%"}>
+            </Table.DataCell>
+            <Table.DataCell
+              className={styles.topAlignedCell}
+              width={"10%"}
+            >
               <CountrySelect
                 error={_v[_namespace + '-valuta']?.feilmelding}
                 placeholder="Velg valuta"
@@ -206,8 +209,11 @@ const BeloepRows: React.FC<BeloepProps> = ({
                 onOptionSelected={(valuta: Currency) => setBeloepProperty("valuta", valuta.value, index)}
                 values={_beloep?.valuta ?? ''}
               />
-            </TopAlignedCell>
-            <TopAlignedCell width={"20%"}>
+            </Table.DataCell>
+            <Table.DataCell
+              className={styles.topAlignedCell}
+              width={"20%"}
+            >
               <DateField
                 id='gjeldendesiden'
                 label={t('p2000:form-ytelse-beloep-beloep-siden')}
@@ -218,8 +224,11 @@ const BeloepRows: React.FC<BeloepProps> = ({
                 onChanged={(e) => setBeloepProperty("gjeldendesiden", e!, index)}
                 dateValue={_beloep?.gjeldendesiden ?? ''}
               />
-            </TopAlignedCell>
-            <TopAlignedCell width={"20%"}>
+            </Table.DataCell>
+            <Table.DataCell
+              className={styles.topAlignedCell}
+              width={"20%"}
+            >
               <Select
                 error={_v[_namespace + '-betalingshyppighetytelse']?.feilmelding}
                 id='beloep-betalingshyppighetytelse'
@@ -233,8 +242,11 @@ const BeloepRows: React.FC<BeloepProps> = ({
                   return(<option key={option.value} value={option.value}>{option.label}</option>)
                 })}
               </Select>
-            </TopAlignedCell>
-            <TopAlignedCell width={"20%"}>
+            </Table.DataCell>
+            <Table.DataCell
+              className={styles.topAlignedCell}
+              width={"20%"}
+            >
               {_beloep?.betalingshyppighetytelse === "99" &&
                 <Input
                   error={_v[_namespace + '-annenbetalingshyppighetytelse']?.feilmelding}
@@ -246,8 +258,11 @@ const BeloepRows: React.FC<BeloepProps> = ({
                   value={_beloep?.annenbetalingshyppighetytelse ?? ''}
                 />
               }
-            </TopAlignedCell>
-            <TopAlignedCell width={"20%"}>
+            </Table.DataCell>
+            <Table.DataCell
+              className={styles.topAlignedCell}
+              width={"20%"}
+            >
               <AddRemovePanel<Inntekt>
                 item={beloep}
                 noMargin={true}
@@ -260,7 +275,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
                 onConfirmEdit={onSaveEdit}
                 onCancelEdit={() => onCloseEdit(_namespace)}
               />
-            </TopAlignedCell>
+            </Table.DataCell>
           </Table.Row>
         )
         : (
