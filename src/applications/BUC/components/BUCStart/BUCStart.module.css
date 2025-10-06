@@ -1,0 +1,7 @@
+.flexDiv {
+  display: flex;
+  align-items: flex-end;
+  .flex-2 {
+    flex: 2;
+  }
+}

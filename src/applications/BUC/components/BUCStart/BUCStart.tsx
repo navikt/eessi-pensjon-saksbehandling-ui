@@ -33,20 +33,12 @@ import { PersonAvdod, PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import moment from 'moment'
-import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
 import { BUCStartIndexProps, BUCStartSelector, mapBUCStartState } from "./BUCStartIndex";
+import styles from './BUCStart.module.css'
 
-const FlexDiv = styled.div`
-  display: flex;
-  align-items: flex-end;
-  .flex-2 {
-     flex: 2;
-  }
-`
 export interface BUCStartProps {
   aktoerId: string | null | undefined
   initialCreatingBucInfo?: boolean
@@ -498,7 +490,7 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
           {bucNeedsAvdodButWeHaveNone() && (
             <>
               <Box paddingBlock="4 0">
-                <FlexDiv>
+                <div className={styles.flexDiv}>
                   <Box
                     paddingInline="0 2"
                     width="100%"
@@ -517,14 +509,14 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
                   <HelpText>
                     {t('message:help-avdodFnr')}
                   </HelpText>
-                </FlexDiv>
+                </div>
               </Box>
             </>
           )}
           {bucNeedsKravDato(_buc) && (
             <>
               <Box paddingBlock="4 0">
-                <FlexDiv>
+                <div className={styles.flexDiv}>
                   <TextField
                     data-testid='a_buc_c_BUCStart--kravDato-input-id'
                     id='a_buc_c_BUCStart--kravDato-input-id'
@@ -542,7 +534,7 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
                       </>
                       )
                     : undefined}
-                </FlexDiv>
+                </div>
               </Box>
             </>
           )}
@@ -658,14 +650,6 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
       )}
     </div>
   )
-}
-
-BUCStart.propTypes = {
-  aktoerId: PT.string.isRequired,
-  initialCreatingBucInfo: PT.bool,
-  initialIsCreatingBuc: PT.bool,
-  onBucCreated: PT.func.isRequired,
-  onBucCancelled: PT.func.isRequired
 }
 
 export default BUCStart
