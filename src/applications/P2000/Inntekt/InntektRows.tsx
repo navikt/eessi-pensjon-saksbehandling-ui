@@ -19,12 +19,7 @@ import {Currency} from "@navikt/land-verktoy";
 import {useTranslation} from "react-i18next";
 import DateField from "../DateField/DateField";
 import {formatDate, removeWhiteSpaceAndReplaceCommas, replacePeriodsWithCommas} from "src/utils/utils";
-import styled from "styled-components";
-
-
-const TopAlignedCell = styled(Table.DataCell)`
-  vertical-align: top;
-`
+import styles from './InntektRows.module.css'
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -179,7 +174,10 @@ const InntektRows: React.FC<InntektProps> = ({
         {inEditMode && parentEditMode
           ? (
               <Table.Row>
-                <TopAlignedCell width={"10%"}>
+                <Table.DataCell
+                  className={styles.topAlignedCell}
+                  width={"10%"}
+                >
                   <Input
                     error={_v[_namespace + '-beloep']?.feilmelding}
                     namespace={_namespace}
@@ -189,8 +187,11 @@ const InntektRows: React.FC<InntektProps> = ({
                     onChanged={(e) => setBelop(e, index)}
                     value={replacePeriodsWithCommas(_inntekt?.beloep ?? '')}
                   />
-                </TopAlignedCell>
-                <TopAlignedCell width={"20%"}>
+                </Table.DataCell>
+                <Table.DataCell
+                  className={styles.topAlignedCell}
+                  width={"20%"}
+                >
                   <CountrySelect
                     error={_v[_namespace + '-valuta']?.feilmelding}
                     placeholder="Velg valuta"
@@ -204,8 +205,11 @@ const InntektRows: React.FC<InntektProps> = ({
                     onOptionSelected={(valuta: Currency) => setInntektProperty("valuta", valuta.value, index)}
                     values={_inntekt?.valuta ?? ''}
                   />
-                </TopAlignedCell>
-                <TopAlignedCell width={"20%"}>
+                </Table.DataCell>
+                <Table.DataCell
+                  className={styles.topAlignedCell}
+                  width={"20%"}
+                >
                   <DateField
                     id='beloeputbetaltsiden'
                     label={t('p2000:form-arbeidsforhold-inntekt-belop-siden')}
@@ -216,8 +220,11 @@ const InntektRows: React.FC<InntektProps> = ({
                     onChanged={(e) => setInntektProperty("beloeputbetaltsiden", e!, index)}
                     dateValue={_inntekt?.beloeputbetaltsiden ?? ''}
                   />
-                </TopAlignedCell>
-                <TopAlignedCell width={"20%"}>
+                </Table.DataCell>
+                <Table.DataCell
+                  className={styles.topAlignedCell}
+                  width={"20%"}
+                >
                   <Select
                     error={_v[_namespace + '-betalingshyppighetinntekt']?.feilmelding}
                     id='inntekt-betalingshyppighetinntekt'
@@ -231,8 +238,11 @@ const InntektRows: React.FC<InntektProps> = ({
                       return(<option key={option.value} value={option.value}>{option.label}</option>)
                     })}
                   </Select>
-                </TopAlignedCell>
-                <TopAlignedCell width={"20%"}>
+                </Table.DataCell>
+                <Table.DataCell
+                  className={styles.topAlignedCell}
+                  width={"20%"}
+                >
                   <AddRemovePanel<Inntekt>
                     noMargin={true}
                     item={inntekt}
@@ -246,7 +256,7 @@ const InntektRows: React.FC<InntektProps> = ({
                     onCancelEdit={() => onCloseEdit(_namespace)}
                     alwaysVisible={true}
                   />
-                </TopAlignedCell>
+                </Table.DataCell>
               </Table.Row>
             )
           : (
