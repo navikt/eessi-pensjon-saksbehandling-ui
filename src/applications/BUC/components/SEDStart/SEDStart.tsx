@@ -93,26 +93,8 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { GroupBase } from 'react-select'
-import styled from 'styled-components'
 import {createReplySedGjenny, createSedGjenny} from "src/actions/gjenny";
 import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
-
-const AlertDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-`
-const FlexDiv = styled.div`
-   display: flex;
-   align-items: flex-end;
-`
-
-export const SEDStartDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-`
 
 export interface SEDStartProps {
   aktoerId: string | null | undefined
@@ -1084,22 +1066,26 @@ export const SEDStart: React.FC<SEDStartProps> = ({
       </Heading>
       <HorizontalLineSeparator />
       {!vedtakId && _sed === 'P6000' && pesysContext !== GJENNY && (
-        <AlertDiv
+        <HStack
+          paddingBlock="6 6"
+          justify="center"
           style={{ width: '100%' }}
         >
           <Alert variant='warning'>
             {t('message:alert-noVedtakId-for-p6000')}
           </Alert>
-        </AlertDiv>
+        </HStack>
       )}
       {_buc?.type === 'P_BUC_06' && !vedtakId && _sed === 'P7000' && pesysContext !== GJENNY && (
-        <AlertDiv
+        <HStack
+          paddingBlock="6 6"
+          justify="center"
           style={{ width: '100%' }}
         >
           <Alert variant='warning'>
             {t('message:alert-noVedtakId-for-p7000')}
           </Alert>
-        </AlertDiv>
+        </HStack>
       )}
       <HGrid columns={2} gap="4">
         <VStack gap="4">
@@ -1128,7 +1114,8 @@ export const SEDStart: React.FC<SEDStartProps> = ({
             />
           )}
           {sedHasFixedAvdod() && (
-            <FlexDiv
+            <HStack
+              align="end"
               data-testid='a_buc_c_sedstart--avdod-div-id'
             >
               <HStack gap="4">
@@ -1140,7 +1127,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                   {renderAvdodName(_avdod, t)}
                 </BodyLong>
               </HStack>
-            </FlexDiv>
+            </HStack>
           )}
           {sedNeedsAvdodFnrInput() && (
             <TextField
