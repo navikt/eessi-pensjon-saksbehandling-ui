@@ -1,0 +1,17 @@
+.buttonsDiv{
+  display: flex;
+  align-items: flex-start;
+  padding-top: 0.25rem;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.selectDiv{
+  display: flex;
+  align-items: flex-start;
+  padding-top: 0.25rem;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+}

@@ -13,38 +13,17 @@ import {
   JoarkType,
   RelevantDato
 } from 'src/declarations/joark'
-import { JoarkBrowserItemFileType } from 'src/declarations/joark.pt'
 import { State } from 'src/declarations/reducers'
-//import File from '@navikt/forhandsvisningsfil'
 import _ from 'lodash'
 import { Button, Loader, Label, Select } from '@navikt/ds-react'
-import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
 import Table, { RenderOptions } from '@navikt/tabell'
 import md5 from 'md5'
 import { TrashIcon, EyeWithPupilFillIcon } from '@navikt/aksel-icons'
 import PDFViewer from "src/components/PDFViewer/PDFViewer";
-
-const ButtonsDiv = styled.div`
-  display: flex;
-  align-items: flex-start;
-  padding-top: 0.25rem;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: nowrap;
-`
-
-const SelectDiv = styled.div`
-  margin-left: 0.5rem;
-  margin-bottom: 0.4rem;
-  width: 9rem;
-  div.navds-select__container {
-    width: 4.5rem;
-  }
-`
+import styles from './JoarkBrowser.module.css'
 
 export interface JoarkBrowserSelector {
   aktoerId: string | null | undefined
@@ -155,7 +134,9 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     const previewing = context?.loadingJoarkPreviewFile
     const spinner = previewing && _.isEqual(item as JoarkBrowserItem, context?.clickedPreviewItem)
     return (
-      <ButtonsDiv>
+      <div
+        className={styles.buttonsDiv}
+      >
         {item.journalpostId && item.dokumentInfoId && (
           <Button
             variant='secondary'
@@ -184,7 +165,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             <TrashIcon fontSize="1.5rem" />
           </Button>
         )}
-      </ButtonsDiv>
+      </div>
     )
   }
 
@@ -392,7 +373,9 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         />
       }
       {mode === "select" &&
-        <SelectDiv>
+        <div
+          className={styles.selectDiv}
+        >
           <Select
             id='itemsPerPage'
             label={t('ui:itemsPerPage')}
@@ -406,7 +389,7 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             <option value='20'>20</option>
             <option value='all'>{t('ui:all')}</option>
           </Select>
-        </SelectDiv>
+        </div>
       }
       <Table
         <JoarkBrowserItem, JoarkBrowserContext>
@@ -454,15 +437,6 @@ export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       />
     </div>
   )
-}
-
-JoarkBrowser.propTypes = {
-  existingItems: PT.arrayOf(JoarkBrowserItemFileType.isRequired).isRequired,
-  onRowSelectChange: PT.func,
-  onPreviewFile: PT.func,
-  onRowViewDelete: PT.func,
-  mode: PT.oneOf<JoarkBrowserMode>(['select', 'view']).isRequired,
-  tableId: PT.string.isRequired
 }
 
 export default JoarkBrowser
