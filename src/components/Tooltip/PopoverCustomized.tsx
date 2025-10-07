@@ -1,7 +1,7 @@
 import { Popover } from '@navikt/ds-react'
 import React, { useState } from 'react'
 import { v4 } from 'uuid'
-import styled from 'styled-components'
+import styles from './PopoverCustomized.module.css'
 
 export interface PopoverCustomizedProps {
   disabled ?: boolean
@@ -21,15 +21,6 @@ export interface PopoverCustomizedProps {
     | "left-start"
     | "left-end";
 }
-
-const PopoverLabel = styled.div`
-  margin: 0.3rem;
-  color: var(--navds-semantic-color-text);
-`
-
-const ContentDiv = styled.div`
-  display: inline-block
-`
 
 const PopoverCustomized: React.FC<PopoverCustomizedProps> = ({
  disabled = false,
@@ -54,12 +45,13 @@ const PopoverCustomized: React.FC<PopoverCustomizedProps> = ({
           onClose={() => setPopoverOpen(false)}
           open={popoverOpen}
         >
-          <PopoverLabel>
+          <div className={styles.popoverLabel}>
             {label}
-          </PopoverLabel>
+          </div>
         </Popover>
       )}
-      <ContentDiv
+      <div
+        className={styles.contentDiv}
         id={id}
         onFocus={() => setPopoverOpen(true)}
         onBlur={() => setPopoverOpen(false)}
@@ -67,7 +59,7 @@ const PopoverCustomized: React.FC<PopoverCustomizedProps> = ({
         onMouseOut={() => setPopoverOpen(false)}
       >
         {children}
-      </ContentDiv>
+      </div>
     </>
   )
 }

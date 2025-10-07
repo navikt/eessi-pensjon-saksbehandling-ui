@@ -1,0 +1,8 @@
+.contentDiv{
+  display: inline-block
+}
+
+.popoverLabel{
+  margin: 0.3rem;
+  color: var(--navds-semantic-color-text);
+}
