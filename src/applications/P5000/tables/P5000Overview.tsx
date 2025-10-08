@@ -86,7 +86,8 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
   // this will be updated with changes made to the startdato/sluttdato
   const [itemsForPesys, _setItemsForPesys] = useState<P5000ListRows>(() =>
-    _.reject(items, (it: P5000ListRow) => it.beregning === '000')
+    //_.reject(items, (it: P5000ListRow) => it.beregning === '000')
+    items
       .map(item => ({
         ...item,
         selectDisabled: item.land === 'NO',
@@ -170,7 +171,8 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       return
     }
 
-    const newItemsForPesys = _.reject(items, (it: P5000ListRow) => it.beregning === '000')
+    const newItemsForPesys = items
+      //_.reject(items, (it: P5000ListRow) => it.beregning === '000')
       .map(item => {
         // Find if this item was previously in itemsForPesys
         const existingItem = _.find(itemsForPesys, (existing: P5000ListRow) => existing.key === item.key)
