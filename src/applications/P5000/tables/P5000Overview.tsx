@@ -448,7 +448,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         style={{ paddingTop: '1rem' }}
       >
         <Tabs.List>
-          <Tabs.Tab label='Slå sammen' value='oversikt' />
+          <Tabs.Tab label='Oversikt' value='oversikt' />
           {featureToggles.P5000_UPDATES_VISIBLE && !mainSed &&
             <Tabs.Tab
               label='Eksporter til Pesys'
