@@ -129,7 +129,7 @@ describe('reducers/app', () => {
           subject: 'mockSubject',
           role: 'mockRole',
           features: {
-            P5000_UPDATES_VISIBLE: true
+            P5000_TRANSFER_PESYS_BUTTON: true
           }
         }
       })
@@ -139,7 +139,7 @@ describe('reducers/app', () => {
       userRole: 'mockRole',
       loggedIn: true,
       featureToggles: expect.objectContaining({
-        P5000_UPDATES_VISIBLE: true,
+        P5000_TRANSFER_PESYS_BUTTON: true
       })
     })
   })

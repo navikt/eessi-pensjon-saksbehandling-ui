@@ -3,7 +3,7 @@ import { sendP5000ToS3 } from 'src/actions/p5000'
 import { informasjonOmBeregningLabels, typePeriode } from 'src/applications/P5000/P5000.labels'
 import { convertFromP5000ListRowsIntoPesysPeriods } from 'src/applications/P5000/utils/pesysUtils'
 import MultipleSelect from 'src/components/MultipleSelect/MultipleSelect'
-import { Option } from 'src/declarations/app'
+import {FeatureToggles, Option} from 'src/declarations/app'
 import { P5000ListRow, P5000ListRows } from 'src/declarations/p5000'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
@@ -13,7 +13,6 @@ import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import { useAppDispatch } from 'src/store'
 import styles from "src/assets/css/common.module.css";
-import featureToggles from "src/mocks/app/featureToggles";
 
 export interface P5000OverviewControlsProps {
   fnr: string // renamed from aktoerId
@@ -42,10 +41,12 @@ export interface P5000OverviewControlsProps {
 
 export interface P5000OverviewControlsSelector {
   sendingToPesys: boolean
+  featureToggles: FeatureToggles
 }
 
 const mapState = (state: State): P5000OverviewControlsSelector => ({
-  sendingToPesys: state.loading.sendingToPesys
+  sendingToPesys: state.loading.sendingToPesys,
+  featureToggles: state.app.featureToggles
 })
 
 const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
@@ -75,7 +76,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
 }: P5000OverviewControlsProps) => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const { sendingToPesys } : P5000OverviewControlsSelector = useSelector<State, P5000OverviewControlsSelector>(mapState)
+  const { sendingToPesys, featureToggles } : P5000OverviewControlsSelector = useSelector<State, P5000OverviewControlsSelector>(mapState)
   const [_printDialogOpen, _setPrintDialogOpen] = useState<boolean>(false)
 
   const hasGermanRows = _.find(items, (it: P5000ListRow) => it.land === 'DE') !== undefined

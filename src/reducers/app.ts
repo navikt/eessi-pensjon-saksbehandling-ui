@@ -19,7 +19,7 @@ export interface AppState {
 }
 
 const initialFeatureToggles: FeatureToggles = {
-  P5000_UPDATES_VISIBLE: true,
+  P5000_TRANSFER_PESYS_BUTTON: true,
   SED_PREFILL_INSTITUTIONS: false,
   NR_AVDOD: 0,
   EESSI_ADMIN: false,
@@ -116,14 +116,12 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
 
     case types.APP_USERINFO_SUCCESS: {
       const newFeatureToggles = _.cloneDeep(state.featureToggles)
-      console.log("newFeatureToggles", newFeatureToggles)
       if (!_.isEmpty(action.payload?.features)) {
         Object.keys(action.payload?.features).forEach((k: string) => {
-          console.log("FEATURES", k, action.payload?.features[k])
-          newFeatureToggles[k as Feature] = state.params[k] ? state.params[k] === "true" : action.payload?.features[k]
+          newFeatureToggles[k as Feature] = action.payload?.features[k]
         })
       }
-      console.log("newFeatureToggles", newFeatureToggles)
+
       return {
         ...state,
         featureToggles: newFeatureToggles,

@@ -449,7 +449,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       >
         <Tabs.List>
           <Tabs.Tab label='Oversikt' value='oversikt' />
-          {featureToggles.P5000_UPDATES_VISIBLE && !mainSed &&
+          {featureToggles.P5000_TRANSFER_PESYS_BUTTON && !mainSed &&
             <Tabs.Tab
               label='Eksporter til Pesys'
               value='pesys'
