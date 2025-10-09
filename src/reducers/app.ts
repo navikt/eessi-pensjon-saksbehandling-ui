@@ -22,8 +22,9 @@ const initialFeatureToggles: FeatureToggles = {
   P5000_UPDATES_VISIBLE: true,
   SED_PREFILL_INSTITUTIONS: false,
   NR_AVDOD: 0,
-  ADMIN_USER: false,
-  TEST_USER: false
+  EESSI_ADMIN: false,
+  TEST_USER: false,
+  P5000_MERGE_BUTTON: false
 }
 
 export const initialAppState: AppState = {
