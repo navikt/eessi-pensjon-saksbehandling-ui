@@ -118,6 +118,7 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
       const newFeatureToggles = _.cloneDeep(state.featureToggles)
       if (!_.isEmpty(action.payload?.features)) {
         Object.keys(action.payload?.features).forEach((k: string) => {
+          console.log("FEATURES", k, action.payload?.features[k])
           newFeatureToggles[k as Feature] = state.params[k] ? state.params[k] === "true" : action.payload?.features[k]
         })
       }
