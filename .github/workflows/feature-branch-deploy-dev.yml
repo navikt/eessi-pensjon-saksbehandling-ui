@@ -13,6 +13,7 @@ jobs:
       packages: write
       contents: write
       id-token: write
+      security-events: write
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -65,6 +66,24 @@ jobs:
           image_suffix: ${{ env.DATE }}---${{ env.COMMIT_HASH }} # optional, default empty
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # required, but is defined as an organization variable
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # required, but is defined as an organization secret
+      - uses: nais/login@v0
+        with:
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          team: eessipensjon
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: '${{ steps.docker-push.outputs.image }}'
+          format: 'sarif'
+          output: 'trivy.sarif'
+          severity: 'HIGH,CRITICAL'
+          limit-severities-for-sarif: true
+
+      - name: Upload results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy.sarif'
 
       - name: 'Deploy image'
         run: echo "IMAGE=${{ steps.docker-push.outputs.image }}"
@@ -80,3 +99,36 @@ jobs:
 
       - name: 'Echo Image Name'
         run: echo "### Image Hash $(echo ${{ steps.docker-push.outputs.image }} | cut -d':' -f2)" >> $GITHUB_STEP_SUMMARY
+
+#  trivy-scan:
+#    name: Scan docker image med Trivy
+#    needs: tag_build_and_deploy
+#    runs-on: ubuntu-latest
+#    permissions:
+#      contents: write # to write sarif
+#      security-events: write # push sarif to github security
+#      id-token: write # for nais/login
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: nais/login@v0
+#        with:
+#          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+#          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+#          team: eessipensjon
+#
+#      - name: Pull docker image
+#        run: docker pull ${{ needs.tag_build_and_deploy.outputs.image }}
+#
+#      - name: Run Trivy vulnerability scanner
+#        uses: aquasecurity/trivy-action@master
+#        with:
+#          image-ref: '${{ needs.tag_build_and_deploy.outputs.image }}'
+#          format: 'sarif'
+#          output: 'trivy.sarif'
+#          severity: 'HIGH,CRITICAL'
+#          limit-severities-for-sarif: true
+#
+#      - name: Upload results to GitHub Security
+#        uses: github/codeql-action/upload-sarif@v3
+#        with:
+#          sarif_file: 'trivy.sarif'
