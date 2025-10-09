@@ -6,7 +6,7 @@ import { Sed } from 'src/declarations/buc'
 import { P5000SED } from 'src/declarations/p5000'
 import { ActionWithPayload, call } from '@navikt/fetch'
 //import mockP5000 from 'src/mocks/buc/sedP5000'
-import mockSEDP5000_small from 'src/mocks/buc/sed_P5000_small2'
+import mockSEDP5000_small from 'src/mocks/buc/sed_P5000_small4'
 import mockP5000FromS3 from 'src/mocks/p5000/fromS3'
 import { Action, ActionCreator } from 'redux'
 
