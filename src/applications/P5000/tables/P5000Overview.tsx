@@ -143,7 +143,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   // any change in merging options should refresh viewItemsForPesys based on itemsForPesys
   // and newFilteredItemsForPesys based on viewItemsForPesys
   useEffect(() => {
-    console.log("merging changed, refreshing view and filtered items for pesys")
     let newViewItemsForPesys = _.cloneDeep(itemsForPesys)
     let newFilteredItemsForPesys = _.cloneDeep(newViewItemsForPesys)
     if (mergePeriods) {
@@ -163,7 +162,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
   // Update itemsForPesys when items change (when active SEDs change)
   useEffect(() => {
-    console.log("items changed, updating itemsForPesys")
     // Only update if items or p5000FromS3 actually changed
     const itemsChanged = !_.isEqual(items, prevItemsRef.current)
     const p5000FromS3Changed = !_.isEqual(p5000FromS3, prevP5000FromS3Ref.current)
@@ -174,7 +172,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
     const newItemsForPesys = items
       .map(item => {
-        console.log("ITEM", item)
         // Find if this item was previously in itemsForPesys
         const existingItem = _.find(itemsForPesys, (existing: P5000ListRow) => existing.key === item.key)
 
@@ -202,8 +199,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           rowError,
           selected
         }
-
-        console.log("UPDATED ITEM", updatedItem)
 
         return updatedItem
       })
