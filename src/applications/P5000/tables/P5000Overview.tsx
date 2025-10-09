@@ -166,6 +166,10 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     const itemsChanged = !_.isEqual(items, prevItemsRef.current)
     const p5000FromS3Changed = !_.isEqual(p5000FromS3, prevP5000FromS3Ref.current)
 
+    console.log("Items changed:", itemsChanged)
+    console.log(items)
+    console.log(prevItemsRef.current)
+
     if (!itemsChanged && !p5000FromS3Changed) {
       return
     }
