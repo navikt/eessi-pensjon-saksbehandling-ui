@@ -12,7 +12,8 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import ReactToPrint from 'react-to-print'
 import { useAppDispatch } from 'src/store'
-//import styles from "src/assets/css/common.module.css";
+import styles from "src/assets/css/common.module.css";
+import featureToggles from "src/mocks/app/featureToggles";
 
 export interface P5000OverviewControlsProps {
   fnr: string // renamed from aktoerId
@@ -147,25 +148,26 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
         style={{ width: '100%' }}
         align="end"
       >
-{/*        <Switch
-          checked={mergePeriods}
-          id='a_buc_c_sedstart--p5000-overview-merge-checkbox'
-          data-testid='a_buc_c_sedstart--p5000-overview-merge-checkbox'
-          onChange={() => {
-            setMergePeriods(!mergePeriods)
-            setPagination(!pagination)
-          }}
-          disabled={true}
-        >
-          <HStack gap="2">
-            <span className={styles.oneLine}>
-              {t('p5000:merge-periods')}
-            </span>
-            <HelpText>
-                {t('p5000:help-merge-1') + t('p5000:help-merge-2')}
-            </HelpText>
-          </HStack>
-        </Switch>*/}
+        {featureToggles.P5000_MERGE_BUTTON &&
+          <Switch
+            checked={mergePeriods}
+            id='a_buc_c_sedstart--p5000-overview-merge-checkbox'
+            data-testid='a_buc_c_sedstart--p5000-overview-merge-checkbox'
+            onChange={() => {
+              setMergePeriods(!mergePeriods)
+              setPagination(!pagination)
+            }}
+          >
+            <HStack gap="2">
+              <span className={styles.oneLine}>
+                {t('p5000:merge-periods')}
+              </span>
+              <HelpText>
+                  {t('p5000:help-merge-1') + t('p5000:help-merge-2')}
+              </HelpText>
+            </HStack>
+          </Switch>
+        }
         {mergePeriods && (
           <MultipleSelect<Option>
             ariaLabel={t('p5000:merge-period-type')}
