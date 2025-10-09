@@ -156,6 +156,60 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     _setFilteredItemsForPesys(newFilteredItemsForPesys)
   }, [mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules])
 
+  // Use refs to track previous values and avoid infinite loops
+  const prevItemsRef = useRef<P5000ListRows>([])
+  const prevP5000FromS3Ref = useRef<Array<P5000ListRows> | null | undefined>(undefined)
+
+  // Update itemsForPesys when items change (when active SEDs change)
+  useEffect(() => {
+    // Only update if items or p5000FromS3 actually changed
+    const itemsChanged = !_.isEqual(items, prevItemsRef.current)
+    const p5000FromS3Changed = !_.isEqual(p5000FromS3, prevP5000FromS3Ref.current)
+
+    if (!itemsChanged && !p5000FromS3Changed) {
+      return
+    }
+
+    const newItemsForPesys = items
+      .map(item => {
+        console.log(item)
+        // Find if this item was previously in itemsForPesys
+        const existingItem = _.find(itemsForPesys, (existing: P5000ListRow) => existing.key === item.key)
+
+        // If item exists in current itemsForPesys, preserve its current selection state
+        // If item is new (from newly selected SED), check against S3 data for initial selection
+        const selected = existingItem !== undefined
+          ? existingItem.selected
+          : _.find(p5000FromS3, (it: P5000ForS3) => {
+              return it.land === item.land &&
+                it.acronym === item.acronym &&
+                it.type === item.type &&
+                it.startdato === moment(item.startdato).format('YYYY-MM-DD') &&
+                it.sluttdato === moment(item.sluttdato).format('YYYY-MM-DD') &&
+                it.ytelse === item.ytelse &&
+                it.ordning === item.ordning &&
+                it.beregning === item.beregning
+            }) !== undefined
+
+        const rowError = !item.startdato || !item.sluttdato
+
+        return {
+          ...item,
+          selectDisabled: item.land === 'NO',
+          editDisabled: item.land === 'NO',
+          rowError,
+          selected
+        }
+      })
+
+    // Update refs for next comparison
+    prevItemsRef.current = items
+    prevP5000FromS3Ref.current = p5000FromS3
+
+    setItemsForPesys(newItemsForPesys)
+
+  }, [items, p5000FromS3])
+
   useEffect(() => {
     const hasRowErrors = _.find(itemsForPesys, (it: P5000ListRow) => it.rowError)
     const hasSelectedRowWithErrors = _.find(itemsForPesys, (it: P5000ListRow) => it.rowError && it.selected)
