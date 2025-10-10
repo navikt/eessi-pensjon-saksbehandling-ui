@@ -5,7 +5,7 @@ ENV NODE_ENV production
 WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
-RUN npm ci --omit=dev && npm prune --production
+RUN npm ci
 COPY server.mjs server.mjs
 COPY build build/
 
