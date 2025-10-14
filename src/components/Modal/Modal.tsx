@@ -1,44 +1,11 @@
 // @ts-nocheck
 import classNames from 'classnames'
-import { Button, Modal, Heading } from '@navikt/ds-react'
+import {Button, Modal, Heading, HStack} from '@navikt/ds-react'
 import { ModalContent } from 'src/declarations/components'
-import { ModalContentPropType } from 'src/declarations/components.pt'
 import _ from 'lodash'
-import PT from 'prop-types'
 import React from 'react'
 
-import styled from 'styled-components'
-
-const ModalText = styled.div`
-  margin: 1.5rem;
-  text-align: center;
-`
-const ModalButtons = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-`
-const ButtonMargin = styled.div`
-  margin-right: 1rem;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-`
-const IconDiv = styled.div`
-  z-index: 40000;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-`
-const ContentDiv = styled.div`
-  overflow: auto;
-  max-height: 85vh;
-  &.icon {
-    margin-top: 6rem;
-  }
-  &.buttons {
-    margin-top: 3rem;
-  }
-`
+import styles from './Modal.module.css'
 
 export interface ModalProps {
   appElementId?: string
@@ -75,22 +42,28 @@ const ModalFC: React.FC<ModalProps> = ({
     >
       <Modal.Body>
         {icon && (
-          <IconDiv>{icon}</IconDiv>
+          <div className={styles.iconDiv}>{icon}</div>
         )}
-        <ContentDiv className={classNames({ icon: !!icon })}>
+        <div className={classNames(styles.contentDiv, { icon: !!icon })}>
           {modal?.modalTitle && (
             <Heading size='medium' data-testid='modal--title-id'>
               {modal?.modalTitle}
             </Heading>
           )}
           {modal?.modalContent || (
-            <ModalText data-testid='modal--text-id'>
+            <div
+              className={styles.modalText}
+              data-testid='modal--text-id'
+            >
               {modal?.modalText}
-            </ModalText>
+            </div>
           )}
-        </ContentDiv>
+        </div>
         {modal?.modalButtons && (
-          <ModalButtons className={classNames('buttons')}>
+          <HStack
+            justify="center"
+            className={classNames('buttons')}
+          >
             {modal?.modalButtons.map((button, i) => {
               let variant: 'tertiary' | 'primary' | 'secondary' | 'danger' | undefined = 'secondary'
               if (button.main) {
@@ -107,7 +80,10 @@ const ModalFC: React.FC<ModalProps> = ({
                 : onModalClose
 
               return (
-                <ButtonMargin key={i}>
+                <div
+                  key={i}
+                  className={styles.buttonMargin}
+                >
                   <Button
                     variant={variant}
                     data-testid={'modal--button-id-' + i}
@@ -117,22 +93,15 @@ const ModalFC: React.FC<ModalProps> = ({
                   >
                     {button.text}
                   </Button>
-                </ButtonMargin>
+                </div>
               )
             })}
-          </ModalButtons>
+          </HStack>
         )}
       </Modal.Body>
     </Modal>
 
   )
-}
-
-ModalFC.propTypes = {
-  appElementId: PT.string,
-  className: PT.string,
-  onModalClose: PT.func,
-  modal: ModalContentPropType
 }
 
 export default ModalFC
