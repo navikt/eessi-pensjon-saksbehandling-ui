@@ -1,0 +1,24 @@
+.paddedDiv {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  width: 50%;
+}
+
+.searchInput {
+  margin-right: 0.5rem;
+  margin-bottom: 0.25rem !important;
+  margin-left: 0.25rem;
+  .navds-text-field--label navds-label {
+    display: none;
+  }
+}
+
+.SEDSearchPanel {
+  display: flex !important;
+  align-items: flex-start;
+  padding: 0.5rem;
+  .ekspanderbartPanel--hode {
+    padding: 0.25rem;
+  }
+  background-color: white;
+}

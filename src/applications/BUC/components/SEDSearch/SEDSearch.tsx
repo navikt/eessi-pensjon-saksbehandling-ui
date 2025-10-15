@@ -1,32 +1,10 @@
 import MultipleSelect from 'src/components/MultipleSelect/MultipleSelect'
-import { TextField, Panel } from '@navikt/ds-react'
+import {TextField, Box} from '@navikt/ds-react'
 import { Option } from 'src/declarations/app'
-import PT from 'prop-types'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
-
-const SEDSearchPanel = styled(Panel)`
-  display: flex !important;
-  align-items: flex-start;
-  padding: 0.5rem;
-  .ekspanderbartPanel--hode {
-    padding: 0.25rem;
-  }
-`
-const PaddedDiv = styled.div`
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-  width: 50%;
-`
-const SearchInput = styled(TextField)`
-  margin-right: 0.5rem;
-  margin-bottom: 0.25rem !important;
-  margin-left: 0.25rem;
-  .navds-text-field--label navds-label {
-    display: none;
-  }
-`
+import styles from './SEDSearch.module.css'
+import classNames from "classnames";
 
 export interface SEDSearchProps {
   className ?: string
@@ -78,22 +56,25 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
   }]
 
   return (
-
-    <SEDSearchPanel
-      border
+    <Box
       data-testid='a_buc_c_sedsearch--panel-id'
-      className={className}
+      className={classNames(className, styles.SEDSearchPanel)}
+      padding="4"
+      borderWidth="1"
+      borderColor="border-default"
+      borderRadius="small"
     >
-      <PaddedDiv>
-        <SearchInput
+      <div className={styles.paddedDiv}>
+        <TextField
+          className={styles.searchInput}
           data-testid='a_buc_c_sedsearch--query-input-id'
           id='a_buc_c_sedsearch--query-input-id'
           onChange={onQueryChange}
           label={t('buc:form-filterSED')}
           value={_query || ''}
         />
-      </PaddedDiv>
-      <PaddedDiv>
+      </div>
+      <div className={styles.paddedDiv}>
         <MultipleSelect<Option>
           ariaLabel={t('buc:form-searchForStatus')}
           className='a_buc_c_sedsearch'
@@ -105,16 +86,9 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
           label={t('buc:form-searchForStatus')}
           values={_status}
         />
-      </PaddedDiv>
-    </SEDSearchPanel>
+      </div>
+    </Box>
   )
-}
-
-SEDSearch.propTypes = {
-  className: PT.string,
-  onSearch: PT.func.isRequired,
-  onStatusSearch: PT.func.isRequired,
-  value: PT.string
 }
 
 export default SEDSearch
