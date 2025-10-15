@@ -9,17 +9,7 @@ import _ from 'lodash'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, useLocation } from 'react-router-dom'
-import styled from 'styled-components'
-
-
-const RouteDiv = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-`
+import styles from './RequireAuth.module.css'
 
 export interface RequireAuthSelector {
   loggedIn: boolean | undefined
@@ -107,9 +97,12 @@ const RequireAuth: React.FC<any> = (props) => {
 
   if (isLoggingIn || loggedIn === undefined) {
     return (
-      <RouteDiv role='alert'>
+      <div
+        role='alert'
+        className={styles.routeDiv}
+      >
         <WaitingPanel />
-      </RouteDiv>
+      </div>
     )
   }
 
