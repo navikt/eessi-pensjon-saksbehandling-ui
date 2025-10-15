@@ -3,18 +3,10 @@ import {HStack, Link} from '@navikt/ds-react'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import { RinaUrl } from 'src/declarations/app.d'
 import { State } from 'src/declarations/reducers'
-import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components'
-
-export const BUCFooterDiv = styled.div`
-  display: flex;
-  flex-direction: row-reverse;
-  width: 100%;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-`
+import styles from './BUCFooter.module.css'
+import classNames from "classnames";
 
 export interface BUCFooterProps {
   className ?: string
@@ -35,9 +27,9 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
   const { rinaUrl }: BUCFooterSelector = useSelector<State, BUCFooterSelector>(mapState)
 
   return (
-    <BUCFooterDiv
+    <div
       data-testid='a_buc_c_BUCFooter'
-      className={className}
+      className={classNames(className, styles.BUCFooterDiv)}
       {...props}
     >
       {rinaUrl
@@ -59,11 +51,8 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
             size='xsmall'
           />
           )}
-    </BUCFooterDiv>
+    </div>
   )
 }
 
-BUCFooter.propTypes = {
-  className: PT.string
-}
 export default BUCFooter
