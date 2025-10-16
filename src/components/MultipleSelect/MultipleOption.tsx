@@ -24,7 +24,6 @@ const MultipleOption = <T extends Option = Option>(props: MultipleOptionProps<T>
   const _id: string = (id ?? '') + '-' + data.value
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus
     <components.Option {...props}>
       <OptionCheckbox
         data-testid={'c-multipleoption--checkbox-' + _id}

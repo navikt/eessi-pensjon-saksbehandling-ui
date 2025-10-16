@@ -794,7 +794,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
     if(_.isEmpty(errors)) {
       _setItemsEditing((current: any) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const {[item.key]: removedKey, ...rest} = current
         return rest
       })
@@ -934,7 +933,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           }}
           onResetRowEdit={(key) => {
             _setItemsEditing((current: any) => {
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
               const {[key]: removedKey, ...rest} = current
               return rest
             })

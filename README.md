@@ -121,20 +121,6 @@ For coverage report, run
     
 Coverage tests don't run in watch mode.
 
-## LINT
-
-Linting code makes it tidy, clean, indented and pretty.
-
-To lint the code, run 
-
-    npm run lint
-
-To fix lint issues, run 
-
-    npm run lint:fix
-
-Note that if code is properly linted, the command outputs nothing.
-
 ## RUN 
 
 To start the app locally in development mode, run 
