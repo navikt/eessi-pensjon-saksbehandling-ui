@@ -26,7 +26,7 @@ import PT from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { convertP5000SEDToP5000ListRows, mergeP5000ListRows } from 'src/applications/P5000/utils/conversion'
+import { convertP5000SEDToP5000ListRows } from 'src/applications/P5000/utils/conversion'
 import P5000OverviewControls from './P5000OverviewControls'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 import HiddenDiv from "src/components/HiddenDiv/HiddenDiv";
