@@ -1,0 +1,4 @@
+.label:hover {
+  color: var(--a-text-on-inverted) !important;
+}
+
