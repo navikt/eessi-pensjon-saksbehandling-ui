@@ -14,87 +14,10 @@ import { ErrorElement } from 'src/declarations/app.d'
 import { UpdateSedPayload } from 'src/declarations/types'
 import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 import {useAppSelector} from "src/store";
 import {State} from "src/declarations/reducers";
 import WarningModal from "src/components/SaveAndSendSED/WarningModal";
 import styles from "./MainForm.module.css";
-
-const LeftDiv = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-`
-const RightDiv = styled.div`
-  flex: 3;
-  overflow: visible;
-`
-
-const RightActiveDiv = styled.div`
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--a-border-strong);
-  border-left: 1px solid var(--a-bg-default);
-  background-color: var(--a-bg-default);
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-  height: 100%;
-  margin-left: 0px;
-  overflow: visible;
-`
-const NameAndOptionsDiv = styled(VStack)`
- &.selected {
-   border-right: 1px solid var(--a-bg-default);
-   background-image: linear-gradient(to right, var(--a-bg-subtle), var(--a-bg-default));
- }
- background-color: var(--a-bg-default);
- border-top: 1px solid var(--a-border-strong);
- border-right: 1px solid var(--a-border-strong);
- border-width: 1px;
- border-bottom-width: 0px;
- border-style: solid;
- border-color: var(--a-border-strong);
-`
-
-const NameDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-  cursor: pointer;
-  padding: 1rem 0.5rem;
-  transition: all 0.2s ease-in-out;
-  &:hover {
-   color: var(--a-text-on-inverted);
-   background-color: var(--a-surface-action-hover);
-   margin-right: -1px;
-  }
-`
-const NameLabelDiv = styled(HStack)`
-  align-items: center;
-  padding-left: 0.5rem;
-`
-const LastDiv = styled.div`
-  flex: 1;
-  border-top: 1px solid var(--a-border-strong);
-  border-right: 1px solid var(--a-border-strong);
-`
-const MenuLabelText = styled(BodyLong)`
-  font-weight: bold;
-`
-const MenuArrowDiv = styled.div`
- padding: 0rem 0.5rem;
-`
-const RightBlankContent = styled(VStack)`
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--a-border-strong);
-  background-color: var(--a-bg-default);
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-  margin-left: -1px;
-  height: 100%;
-`
 
 export interface MainFormFCProps<T> {
   forms: Array<Form>
@@ -218,18 +141,19 @@ const MainForm = <T extends PSED>({
       const isValidated = validationKeys.length > 0
       const validationHasErrors = isValidated && _.some(validationKeys, v => validation[v]?.feilmelding !== 'ok')
       return (
-        <NameAndOptionsDiv
+        <VStack
           key={form.value}
-          className={classNames({ selected })}
+          className={classNames(styles.nameAndOptionsVStack, {[styles.selected] : selected})}
         >
-          <NameDiv
+          <div
+            className={styles.nameDiv}
             onClick={() => {
               changeMenu(form.value)
               return false
             }}
           >
-            <NameLabelDiv
-              className={classNames({ selected })}
+            <HStack
+              className={classNames({ selected },styles.nameLabelHStack)}
               gap="1"
             >
               {!isValidated
@@ -239,15 +163,15 @@ const MainForm = <T extends PSED>({
                   : menuVisited.indexOf(form.value) >= 0 && <CheckmarkCircleFillIcon color='grey'/>
               }
 
-                <MenuLabelText className={classNames({ selected })}>
+                <BodyLong className={classNames({ selected }, styles.menuLabelText)}>
                   {form.label}
-                </MenuLabelText>
-            </NameLabelDiv>
-            <MenuArrowDiv>
+                </BodyLong>
+            </HStack>
+            <div className={styles.menuArrowDiv}>
               <ChevronRightIcon fontSize="1.5rem" />
-            </MenuArrowDiv>
-          </NameDiv>
-        </NameAndOptionsDiv>
+            </div>
+          </div>
+        </VStack>
       )
     })
   }
@@ -268,28 +192,32 @@ const MainForm = <T extends PSED>({
         className={classNames(styles.withErrorBox, { [styles.error]: panelError })}
       >
         <HStack>
-          <LeftDiv className='left'>
+          <div className={classNames("left", styles.leftDiv)}>
             <>
               {renderOneLevelMenu(forms)}
-              <LastDiv/>
+              <div className={styles.lastDiv} />
             </>
-          </LeftDiv>
-          <RightDiv>
+          </div>
+          <div className={styles.rightDiv}>
             {!currentMenu
               ? (
-                <RightBlankContent justify="center" align="center">
+                <VStack
+                  className={styles.rightBlankContent}
+                  justify="center"
+                  align="center"
+                >
                   {t('label:velg-meny')}
-                </RightBlankContent>
+                </VStack>
                 )
               : (
-                <RightActiveDiv
+                <div
                   key={`active-${currentMenu}`}
-                  className={classNames(`active-${currentMenu}`, 'right')}
+                  className={classNames(`active-${currentMenu}`, 'right', styles.rightActiveDiv)}
                 >
                   {getForm(currentMenu)}
-                </RightActiveDiv>
+                </div>
                 )}
-          </RightDiv>
+          </div>
         </HStack>
       </Box>
     </VStack>
