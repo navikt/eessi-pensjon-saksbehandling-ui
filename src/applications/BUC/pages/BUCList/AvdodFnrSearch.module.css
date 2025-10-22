@@ -1,0 +1,20 @@
+.flexDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+
+  &.error {
+    align-items: center !important;
+  }
+}
+
+.hiddenOutsideViewDiv {
+  position: absolute;
+  left: -99999px;
+}
+
+.badBucDiv {
+  width: 100%;
+  padding: 0rem;
+  margin-bottom: 1rem;
+}

@@ -1,12 +1,12 @@
 import React, {useState} from "react";
-import {BadBucDiv, FlexDiv, HiddenDiv} from "../../CommonBucComponents";
 import {Accordion, Box, Button, Heading, HStack, TextField} from "@navikt/ds-react";
 import {MagnifyingGlassIcon} from "@navikt/aksel-icons";
 import classNames from "classnames";
 import {fetchBucsListWithAvdodFnr} from "src/actions/buc";
-import {State} from "../../../../declarations/reducers";
+import {State} from "src/declarations/reducers";
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
+import styles from "./AvdodFnrSearch.module.css";
 
 export interface AvdodFnrSearchProps {
   setNewBucPanelOpen: (value: boolean | ((prevVar: boolean) => boolean)) => void
@@ -56,22 +56,25 @@ const AvdodFnrSearch: React.FC<any> = ({setNewBucPanelOpen}: AvdodFnrSearchProps
   return(
     <>
       <Box paddingBlock="8 8">
-        <BadBucDiv>
+        <div className={styles.badBucDiv}>
           <>
             <Accordion id='a_buc_c_buclist--no-buc-id'>
               <Accordion.Item>
                 <Accordion.Header>
-                  <FlexDiv>
+                  <HStack align="end">
                     <HStack gap="4">
                       <MagnifyingGlassIcon fontSize="1.5rem" />
                       <Heading size='small'>
                         {t('buc:form-searchOtherBUCs')}
                       </Heading>
                     </HStack>
-                  </FlexDiv>
+                  </HStack>
                 </Accordion.Header>
                 <Accordion.Content>
-                  <FlexDiv className={classNames({ error: _validation || false })}>
+                  <div className={classNames(
+                    styles.flexDiv,
+                    { [styles.error]: _validation || false }
+                  )}>
                     <HStack
                       align="end"
                       gap="4"
@@ -82,9 +85,9 @@ const AvdodFnrSearch: React.FC<any> = ({setNewBucPanelOpen}: AvdodFnrSearchProps
                         error={_validation || false}
                         id='a-buc-p-buclist--avdod-input-id'
                         label={(
-                          <HiddenDiv>
+                          <div className={styles.hiddenOutsideViewDiv}>
                             {t('buc:form-avdodFnr')}
-                          </HiddenDiv>
+                          </div>
                         )}
                         onChange={onAvdodFnrChange}
                         description={t('buc:form-searchOtherBUCs-description')}
@@ -100,12 +103,12 @@ const AvdodFnrSearch: React.FC<any> = ({setNewBucPanelOpen}: AvdodFnrSearchProps
                         </Button>
                       </Box>
                     </HStack>
-                  </FlexDiv>
+                  </div>
                 </Accordion.Content>
               </Accordion.Item>
             </Accordion>
           </>
-        </BadBucDiv>
+        </div>
       </Box>
     </>
   )
