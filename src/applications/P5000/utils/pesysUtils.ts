@@ -14,6 +14,7 @@ export interface P5000ForS3 {
   ytelse: string
   ordning: string
   beregning: string
+  isMergedRow: boolean
 }
 
 export const convertFromP5000ListRowsIntoPesysPeriods = (
