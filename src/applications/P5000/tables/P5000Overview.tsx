@@ -67,22 +67,35 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [_activeTab, setActiveTab] = useState<string>('oversikt')
   const [_tableSort, _setTableSort] = useState<SortState>(() => ({ orderBy: '', direction: 'none' }))
 
-  const [items]: [P5000ListRows, P5000SourceStatus] = convertP5000SEDToP5000ListRows({
-    seds,
-    p5000sFromRinaMap,
-    p5000WorkingCopy: p5000WorkingCopies,
-    mergePeriods,
-    mergePeriodTypes,
-    mergePeriodBeregnings,
-    useGermanRules,
-    selectRowsContext: 'forAll'
-  })
-
   const [alertMessage, _setAlertMessage] = useState<string>("")
   const [_rowErrorTagMessage, _setRowErrorTagMessage] = useState<string>("")
   const [_rowErrorAlertMessage, _setRowErrorAlertMessage] = useState<string>("")
+  const [_viewItems, _setViewItems] = useState<P5000ListRows>([])
 
-  const [_viewItems, _setViewItems] = useState<P5000ListRows>(items)
+  const [items]: [P5000ListRows, P5000SourceStatus] = React.useMemo(
+    () => convertP5000SEDToP5000ListRows({
+      seds,
+      p5000sFromRinaMap,
+      p5000WorkingCopy: p5000WorkingCopies,
+      mergePeriods,
+      mergePeriodTypes,
+      mergePeriodBeregnings,
+      useGermanRules,
+      selectRowsContext: 'forAll'
+    }),
+    [seds, p5000sFromRinaMap, p5000WorkingCopies, mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules]
+  )
+
+  const prevItemsRef = useRef<P5000ListRows>([])
+  useEffect(() => {
+    const itemsChanged = !_.isEqual(items, prevItemsRef.current)
+    if(!itemsChanged) return
+
+    _setViewItems(getViewItems(items))
+
+    prevItemsRef.current = items
+  }, [items])
+
   useEffect(() => {
     const hasRowErrors = _.find(_viewItems, (it: P5000ListRow) => it.rowError)
     const hasSelectedRowWithErrors = _.find(_viewItems, (it: P5000ListRow) => it.rowError && it.selected)
@@ -105,11 +118,55 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   useEffect(() => {
     if(!mergePeriods) {
       _setAlertMessage("")
+    } else {
+      const mergedPeriods = items.filter((it: P5000ListRow) => it.parentKey !== undefined && it.hasSubrows !== true)
+      _setAlertMessage(
+        mergedPeriods.length > 0 ?
+          mergedPeriods.length + " rader ble slått sammen"
+          : "Ingen rader ble slått sammen"
+      )
     }
-  }, [mergePeriods])
+  }, [mergePeriods, items])
 
-  const [pesysWarning] = useState<string | undefined>(() =>
-    (items.length !== _viewItems.length ? t('p5000:warning-beregning-000', { x: (items.length - _viewItems.length) }) : undefined))
+  const onRowSelectChange = (selectedItems: P5000ListRows) => {
+    let newViewItems: P5000ListRows = _.cloneDeep(_viewItems)
+    newViewItems = newViewItems.map(item => {
+      const newItem = _.cloneDeep(item)
+      newItem.selected = _.find(selectedItems, (it: P5000ListRow) => it.key === newItem.key) !== undefined
+      return newItem
+    })
+    _setViewItems(newViewItems)
+  }
+
+  const getViewItems = (items: P5000ListRows): P5000ListRows => {
+    let newViewItems = _.cloneDeep(items)
+    return newViewItems
+      .filter((item: P5000ListRow) => item.parentKey === undefined)
+      .map((item) => {
+        const existingItem = _.find(_viewItems, (existing: P5000ListRow) => existing.key === item.key)
+        const selected = existingItem !== undefined
+          ? existingItem.selected
+          : _.find(p5000FromS3, (it: P5000ForS3) => {
+          return it.land === item.land &&
+            it.acronym === item.acronym &&
+            it.type === item.type &&
+            it.startdato === moment(item.startdato).format('YYYY-MM-DD') &&
+            it.sluttdato === moment(item.sluttdato).format('YYYY-MM-DD') &&
+            it.ytelse === item.ytelse &&
+            it.ordning === item.ordning &&
+            it.beregning === item.beregning
+        }) !== undefined
+
+        return {
+          ...item,
+          hasSubrows: false,
+          selectDisabled: item.land === 'NO',
+          editDisabled: item.land === 'NO',
+          rowError: !item.startdato || !item.sluttdato,
+          selected: selected
+        }
+      })
+  }
 
   const { featureToggles }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
 
@@ -260,58 +317,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     })
   }
 
-
-  const prevItemsRef = useRef<P5000ListRows>([])
-  useEffect(() => {
-    const itemsChanged = !_.isEqual(items, prevItemsRef.current)
-    if(!itemsChanged) return
-
-    _setViewItems(getViewItems(items))
-
-    prevItemsRef.current = items
-  }, [items])
-
-  const onRowSelectChange = (selectedItems: P5000ListRows) => {
-    let newViewItems: P5000ListRows = _.cloneDeep(_viewItems)
-    newViewItems = newViewItems.map(item => {
-      const newItem = _.cloneDeep(item)
-      newItem.selected = _.find(selectedItems, (it: P5000ListRow) => it.key === newItem.key) !== undefined
-      return newItem
-    })
-    _setViewItems(newViewItems)
-  }
-
-  const getViewItems = (items: P5000ListRows): P5000ListRows => {
-    let newViewItems = _.cloneDeep(items)
-    return newViewItems
-      .filter((item: P5000ListRow) => item.parentKey === undefined)
-      .map((item) => {
-        const existingItem = _.find(_viewItems, (existing: P5000ListRow) => existing.key === item.key)
-        const selected = existingItem !== undefined
-          ? existingItem.selected
-          : _.find(p5000FromS3, (it: P5000ForS3) => {
-          return it.land === item.land &&
-            it.acronym === item.acronym &&
-            it.type === item.type &&
-            it.startdato === moment(item.startdato).format('YYYY-MM-DD') &&
-            it.sluttdato === moment(item.sluttdato).format('YYYY-MM-DD') &&
-            it.ytelse === item.ytelse &&
-            it.ordning === item.ordning &&
-            it.beregning === item.beregning
-        }) !== undefined
-
-        return {
-          ...item,
-          hasSubrows: false,
-          selectDisabled: item.land === 'NO',
-          editDisabled: item.land === 'NO',
-          rowError: !item.startdato || !item.sluttdato,
-          selected: selected
-        }
-      })
-  }
-
-
   return (
     <>
       <Box paddingBlock="4 0">
@@ -335,7 +340,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           setItemsPerPage={setItemsPerPage}
           items={items}
           itemsForPesys={_viewItems}
-          pesysWarning={pesysWarning}
           currentTabKey={_activeTab}
           hideSendToPesysButton={!!mainSed}
         />
