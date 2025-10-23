@@ -118,13 +118,6 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: AnyAction):
       }
     }
 
-    case types.P5000_PESYS_SEND_SUCCESS: {
-      return {
-        ...state,
-        p5000sFromS3: (action as ActionWithPayload).payload
-      }
-    }
-
     case types.P5000_GET_SUCCESS: {
       const newp5000FromRina = _.cloneDeep(state.p5000sFromRinaMap)
       const payload = (action as ActionWithPayload).payload

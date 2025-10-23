@@ -88,7 +88,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
   useEffect(() => {
     const hasMergedRowsInS3 = _.find(p5000FromS3, (it: P5000ForS3) => it.isMergedRow)
-    console.log(hasMergedRowsInS3, p5000FromS3)
     hasMergedRowsInS3 ? setMergePeriods(true) : setMergePeriods(false)
   }, [p5000FromS3])
 
