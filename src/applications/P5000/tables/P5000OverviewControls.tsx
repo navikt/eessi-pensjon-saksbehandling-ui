@@ -31,7 +31,7 @@ export interface P5000OverviewControlsProps {
   setPagination: (b: boolean) => void
   itemsPerPage: number
   currentTabKey: string
-  pesysWarning: string | undefined
+  pesysWarning?: string
   setItemsPerPage: (b: number) => void
   items: P5000ListRows
   itemsForPesys: P5000ListRows
