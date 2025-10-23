@@ -152,6 +152,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         const selected = existingItem !== undefined
           ? existingItem.selected
           : _.find(p5000FromS3, (it: P5000ForS3) => {
+          console.log('Comparing item:', it, item)
           return it.land === item.land &&
             it.acronym === item.acronym &&
             it.type === item.type &&
