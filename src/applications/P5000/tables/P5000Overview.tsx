@@ -86,6 +86,11 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     [seds, p5000sFromRinaMap, p5000WorkingCopies, mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules]
   )
 
+  useEffect(() => {
+    const hasMergedRowsInS3 = _.find(p5000FromS3, (it: P5000ForS3) => it.isMergedRow)
+    hasMergedRowsInS3 ? setMergePeriods(true) : setMergePeriods(false)
+  }, [p5000FromS3])
+
   const prevItemsRef = useRef<P5000ListRows>([])
   useEffect(() => {
     const itemsChanged = !_.isEqual(items, prevItemsRef.current)
