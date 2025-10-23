@@ -249,8 +249,7 @@ const BUCList: React.FC<BUCListProps> = ({
                 key={index}
                 className={classNames(styles.bucLenkePanel, { [styles.new] : (newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false })}
                 style={{ animationDelay: (0.1 * index) + 's' }}
-                // @ts-ignore
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                onClick={(e: React.MouseEvent<HTMLElement>) => {
                   e.preventDefault()
                   e.stopPropagation()
                   onBUCEdit(buc)
