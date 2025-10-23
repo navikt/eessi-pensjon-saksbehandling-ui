@@ -2481,7 +2481,31 @@ export default {
           "extra" : null
         },
         "enkeltkrav" : null
-      } ]
+      },
+        {
+          "relevans": "111",
+          "ordning": "00",
+          "land": "NO",
+          "sum": {
+            "kvartal": null,
+            "aar": null,
+            "uker": null,
+            "dager": null,
+            "maaneder": "001"
+          },
+          "yrke": "0000",
+          "gyldigperiode": null,
+          "type": "10",
+          "beregning": "111",
+          "informasjonskalkulering": null,
+          "periode": {
+            "fom": "2000-08-01",
+            "tom": null,
+            "extra": null
+          },
+          "enkeltkrav": null
+        }
+      ]
     }
   }
 }

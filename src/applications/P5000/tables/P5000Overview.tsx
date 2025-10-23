@@ -2,10 +2,8 @@ import {BodyLong, Tabs, Tag, SortState, Box, HStack, Alert, VStack, Spacer} from
 import { StarIcon } from '@navikt/aksel-icons';
 import CountryData from '@navikt/land-verktoy'
 import Table, {
-  ChangedRowValues,
   Column,
   ColumnAlign,
-  ItemErrors,
   RenderEditableOptions,
   RenderOptions
 } from '@navikt/tabell'
@@ -28,7 +26,7 @@ import PT from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { convertP5000SEDToP5000ListRows, mergeP5000ListRows } from 'src/applications/P5000/utils/conversion'
+import { convertP5000SEDToP5000ListRows } from 'src/applications/P5000/utils/conversion'
 import P5000OverviewControls from './P5000OverviewControls'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 import HiddenDiv from "src/components/HiddenDiv/HiddenDiv";
@@ -68,152 +66,44 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const [useGermanRules, setUseGermanRules] = useState<boolean>(true)
   const [_activeTab, setActiveTab] = useState<string>('oversikt')
   const [_tableSort, _setTableSort] = useState<SortState>(() => ({ orderBy: '', direction: 'none' }))
-  const [items]: [P5000ListRows, P5000SourceStatus] = convertP5000SEDToP5000ListRows({
-    seds,
-    p5000sFromRinaMap,
-    p5000WorkingCopy: p5000WorkingCopies,
-    mergePeriods,
-    mergePeriodTypes,
-    mergePeriodBeregnings,
-    useGermanRules,
-    selectRowsContext: 'forAll'
-  })
-
-  /** initial items for pesys:
-   * 1) all items minus the 000 beregning
-   * 2) do show but do not edit Norwegian periods
-    */
-
-  // this will be updated with changes made to the startdato/sluttdato
-  const [itemsForPesys, _setItemsForPesys] = useState<P5000ListRows>(() =>
-    items
-      .map(item => ({
-        ...item,
-        selectDisabled: item.land === 'NO',
-        editDisabled: item.land === 'NO',
-        rowError: !item.startdato || !item.sluttdato,
-        selected: _.find(p5000FromS3, (it: P5000ForS3) => {
-          return it.land === item.land &&
-            it.acronym === item.acronym &&
-            it.type === item.type &&
-            it.startdato === moment(item.startdato).format('YYYY-MM-DD') &&
-            it.sluttdato === moment(item.sluttdato).format('YYYY-MM-DD') &&
-            it.ytelse === item.ytelse &&
-            it.ordning === item.ordning &&
-            it.beregning === item.beregning
-        }) !== undefined
-      }))
-  )
-
-  // same, but for view and filtered items for pesys as the merging periods process "destroys" the original rows
-  // plus, it should use changed startdato/sluttdato periods
-  const [viewItemsForPesys, _setViewItemsForPesys] = useState<P5000ListRows>(() => itemsForPesys)
-  const [filteredItemsForPesys, _setFilteredItemsForPesys] = useState<P5000ListRows>(() => viewItemsForPesys)
 
   const [alertMessage, _setAlertMessage] = useState<string>("")
   const [_rowErrorTagMessage, _setRowErrorTagMessage] = useState<string>("")
   const [_rowErrorAlertMessage, _setRowErrorAlertMessage] = useState<string>("")
+  const [_viewItems, _setViewItems] = useState<P5000ListRows>([])
 
+  const [items]: [P5000ListRows, P5000SourceStatus] = React.useMemo(
+    () => convertP5000SEDToP5000ListRows({
+      seds,
+      p5000sFromRinaMap,
+      p5000WorkingCopy: p5000WorkingCopies,
+      mergePeriods,
+      mergePeriodTypes,
+      mergePeriodBeregnings,
+      useGermanRules,
+      selectRowsContext: 'forAll'
+    }),
+    [seds, p5000sFromRinaMap, p5000WorkingCopies, mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules]
+  )
 
-  // all subsequent updates on items for pesys should update viewing-only rows and filtered items for pesys
-  // with merging modification
-  const setItemsForPesys = (newItemsForPesys: P5000ListRows) => {
-    let newViewItemsForPesys = _.cloneDeep(newItemsForPesys)
-    let newFilteredItemsForPesys = _.cloneDeep(newViewItemsForPesys)
-    if (mergePeriods) {
-      newViewItemsForPesys = mergeP5000ListRows({
-        rows: newViewItemsForPesys, mergePeriodTypes, mergePeriodBeregnings, useGermanRules
-      })
-
-      const mergedPeriods = newViewItemsForPesys.filter((it: P5000ListRow) => it.parentKey !== undefined && it.hasSubrows !== true)
-      _setAlertMessage(
-        mergedPeriods.length > 0 ?
-          mergedPeriods.length + " rader ble slått sammen"
-          : "Ingen rader ble slått sammen"
-      )
-
-      newFilteredItemsForPesys = _.filter(_.cloneDeep(newViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
-    }
-
-    _setItemsForPesys(newItemsForPesys)
-    _setViewItemsForPesys(newViewItemsForPesys)
-    _setFilteredItemsForPesys(newFilteredItemsForPesys)
-  }
-
-  // any change in merging options should refresh viewItemsForPesys based on itemsForPesys
-  // and newFilteredItemsForPesys based on viewItemsForPesys
   useEffect(() => {
-    let newViewItemsForPesys = _.cloneDeep(itemsForPesys)
-    let newFilteredItemsForPesys = _.cloneDeep(newViewItemsForPesys)
-    if (mergePeriods) {
-      newViewItemsForPesys = mergeP5000ListRows({
-        rows: newViewItemsForPesys, mergePeriodTypes, mergePeriodBeregnings, useGermanRules
-      })
-      newFilteredItemsForPesys = _.filter(_.cloneDeep(newViewItemsForPesys), (it: P5000ListRow) => it.parentKey === undefined)
-    }
+    const hasMergedRowsInS3 = _.find(p5000FromS3, (it: P5000ForS3) => it.isMergedRow)
+    hasMergedRowsInS3 ? setMergePeriods(true) : setMergePeriods(false)
+  }, [p5000FromS3])
 
-    _setViewItemsForPesys(newViewItemsForPesys)
-    _setFilteredItemsForPesys(newFilteredItemsForPesys)
-  }, [mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules])
-
-  // Use refs to track previous values and avoid infinite loops
   const prevItemsRef = useRef<P5000ListRows>([])
-  const prevP5000FromS3Ref = useRef<Array<P5000ListRows> | null | undefined>(undefined)
-
-  // Update itemsForPesys when items change (when active SEDs change)
   useEffect(() => {
-    // Only update if items or p5000FromS3 actually changed
     const itemsChanged = !_.isEqual(items, prevItemsRef.current)
-    const p5000FromS3Changed = !_.isEqual(p5000FromS3, prevP5000FromS3Ref.current)
+    if(!itemsChanged) return
 
-    if (!itemsChanged && !p5000FromS3Changed) {
-      return
-    }
+    _setViewItems(getViewItems(items))
 
-    const newItemsForPesys = items
-      .map(item => {
-        // Find if this item was previously in itemsForPesys
-        const existingItem = _.find(itemsForPesys, (existing: P5000ListRow) => existing.key === item.key)
-
-        // If item exists in current itemsForPesys, preserve its current selection state
-        // If item is new (from newly selected SED), check against S3 data for initial selection
-        const selected = existingItem !== undefined
-          ? existingItem.selected
-          : _.find(p5000FromS3, (it: P5000ForS3) => {
-              return it.land === item.land &&
-                it.acronym === item.acronym &&
-                it.type === item.type &&
-                it.startdato === moment(item.startdato).format('YYYY-MM-DD') &&
-                it.sluttdato === moment(item.sluttdato).format('YYYY-MM-DD') &&
-                it.ytelse === item.ytelse &&
-                it.ordning === item.ordning &&
-                it.beregning === item.beregning
-            }) !== undefined
-
-        const rowError = !item.startdato || !item.sluttdato
-
-        const updatedItem = {
-          ...item,
-          selectDisabled: item.land === 'NO',
-          editDisabled: item.land === 'NO',
-          rowError,
-          selected
-        }
-
-        return updatedItem
-      })
-
-    // Update refs for next comparison
     prevItemsRef.current = items
-    prevP5000FromS3Ref.current = p5000FromS3
-
-    setItemsForPesys(newItemsForPesys)
-
-  }, [items, p5000FromS3])
+  }, [items])
 
   useEffect(() => {
-    const hasRowErrors = _.find(itemsForPesys, (it: P5000ListRow) => it.rowError)
-    const hasSelectedRowWithErrors = _.find(itemsForPesys, (it: P5000ListRow) => it.rowError && it.selected)
+    const hasRowErrors = _.find(_viewItems, (it: P5000ListRow) => it.rowError)
+    const hasSelectedRowWithErrors = _.find(_viewItems, (it: P5000ListRow) => it.rowError && it.selected)
 
     if(hasRowErrors) {
       _setRowErrorTagMessage(t('p5000:error-has-rowerrors'))
@@ -228,16 +118,60 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     }
 
 
-  }, [itemsForPesys])
+  }, [_viewItems])
 
   useEffect(() => {
     if(!mergePeriods) {
       _setAlertMessage("")
+    } else {
+      const mergedPeriods = items.filter((it: P5000ListRow) => it.parentKey !== undefined && it.hasSubrows !== true)
+      _setAlertMessage(
+        mergedPeriods.length > 0 ?
+          mergedPeriods.length + " rader ble slått sammen"
+          : "Ingen rader ble slått sammen"
+      )
     }
-  }, [mergePeriods])
+  }, [mergePeriods, items])
 
-  const [pesysWarning] = useState<string | undefined>(() =>
-    (items.length !== itemsForPesys.length ? t('p5000:warning-beregning-000', { x: (items.length - itemsForPesys.length) }) : undefined))
+  const onRowSelectChange = (selectedItems: P5000ListRows) => {
+    let newViewItems: P5000ListRows = _.cloneDeep(_viewItems)
+    newViewItems = newViewItems.map(item => {
+      const newItem = _.cloneDeep(item)
+      newItem.selected = _.find(selectedItems, (it: P5000ListRow) => it.key === newItem.key) !== undefined
+      return newItem
+    })
+    _setViewItems(newViewItems)
+  }
+
+  const getViewItems = (items: P5000ListRows): P5000ListRows => {
+    let newViewItems = _.cloneDeep(items)
+    return newViewItems
+      .filter((item: P5000ListRow) => item.parentKey === undefined)
+      .map((item) => {
+        const existingItem = _.find(_viewItems, (existing: P5000ListRow) => existing.key === item.key)
+        const selected = existingItem !== undefined
+          ? existingItem.selected
+          : _.find(p5000FromS3, (it: P5000ForS3) => {
+          return it.land === item.land &&
+            it.acronym === item.acronym &&
+            it.type === item.type &&
+            it.startdato === moment(item.startdato).format('YYYY-MM-DD') &&
+            it.sluttdato === moment(item.sluttdato).format('YYYY-MM-DD') &&
+            it.ytelse === item.ytelse &&
+            it.ordning === item.ordning &&
+            it.beregning === item.beregning
+        }) !== undefined
+
+        return {
+          ...item,
+          hasSubrows: false,
+          selectDisabled: item.land === 'NO',
+          editDisabled: item.land === 'NO',
+          rowError: !item.startdato || !item.sluttdato,
+          selected: selected
+        }
+      })
+  }
 
   const { featureToggles }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
 
@@ -388,34 +322,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
     })
   }
 
-  const onRowSelectChange = (selectedItems: P5000ListRows) => {
-    let newItemsForPesys: P5000ListRows = _.cloneDeep(itemsForPesys)
-    newItemsForPesys = newItemsForPesys.map(item => {
-      const newItem = _.cloneDeep(item)
-      const found: boolean = _.find(selectedItems, (it: P5000ListRow) => it.key === newItem.key) !== undefined
-      newItem.selected = found
-      return newItem
-    })
-    setItemsForPesys(newItemsForPesys)
-  }
-
-  const onRowsChanged = (itemsForPesys: P5000ListRows) => {
-    setItemsForPesys(itemsForPesys)
-  }
-
-  const beforeRowEdited = (item: P5000ListRow, context: P5000TableContext | undefined, changedRowValues: ChangedRowValues | undefined): ItemErrors | undefined => {
-    if (_.has(changedRowValues, 'startdato')) {
-      _.set(item, 'options.startdatoModified', true)
-    }
-    if (_.has(changedRowValues, 'sluttdato')) {
-      _.set(item, 'options.sluttdatoModified', true)
-    }
-    if (_.has(changedRowValues, 'acronym')) {
-      _.set(item, 'options.acronymModified', true)
-    }
-    return undefined
-  }
-
   return (
     <>
       <Box paddingBlock="4 0">
@@ -438,8 +344,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           itemsPerPage={itemsPerPage}
           setItemsPerPage={setItemsPerPage}
           items={items}
-          itemsForPesys={filteredItemsForPesys}
-          pesysWarning={pesysWarning}
+          itemsForPesys={_viewItems}
           currentTabKey={_activeTab}
           hideSendToPesysButton={!!mainSed}
         />
@@ -516,10 +421,8 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           <Box paddingBlock="4 4">
             <Table<P5000ListRow, P5000TableContext>
               animatable={false}
-              items={viewItemsForPesys}
+              items={_viewItems}
               onRowSelectChange={onRowSelectChange}
-              onRowsChanged={onRowsChanged}
-              beforeRowEdited={beforeRowEdited}
               id='P5000Pesys'
               labels={{
                 selectAllTitle: 'Velg alle',
