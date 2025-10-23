@@ -263,7 +263,9 @@ const BUCList: React.FC<BUCListProps> = ({
             )
           })}
       {!_.isEmpty(bucs) && pesysContext === BRUKERKONTEKST && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
-        <AvdodFnrSearch/>
+        <AvdodFnrSearch
+          setNewBucPanelOpen={setNewBucPanelOpen}
+        />
       )}
       <BUCFooter />
     </div>
