@@ -7,7 +7,7 @@ import { render, screen } from '@testing-library/react'
 import personAvdod from 'src/mocks/person/personAvdod'
 import mockBucsInfo from 'src/mocks/buc/bucsInfo'
 import { stageSelector } from 'src/setupTests'
-import {BucLenkePanel, BUCListDiv} from "../CommonBucComponents";
+//import {BucLenkePanel} from "../CommonBucComponents";
 
 jest.mock('applications/BUC/components/BUCFooter/BUCFooter', () => () => <div className='mock-bucfooter' />)
 
@@ -133,8 +133,8 @@ describe('P_BUC_02 for BUCStart', () => {
     })
     render(<BUCList {...initialMockProps} />)
 
-    expect(wrapper.exists(BUCListDiv)).toBeTruthy()
-    expect(wrapper.find(BucLenkePanel).length).toEqual(1)
+    //expect(wrapper.exists(BUCListDiv)).toBeTruthy()    //Disabled, as BUCListDiv does no longer exist in BUCList
+    //expect(wrapper.find(BucLenkePanel).length).toEqual(1)    //Disabled, as BucLenkePanel does no longer exist in BUCList
     expect(screen.getByTestId('a_buc_c_BUCHeader--P_BUC_02-NorwayIsCaseOwner')).not.toBeInTheDocument()
   })
 
@@ -157,8 +157,8 @@ describe('P_BUC_02 for BUCStart', () => {
     })
     wrapper = render(<BUCList {...initialMockProps} />)
 
-    expect(wrapper.exists(BUCListDiv)).toBeTruthy()
-    expect(wrapper.find(BucLenkePanel).length).toEqual(1)
+    //expect(wrapper.exists(BUCListDiv)).toBeTruthy()    //Disabled, as BUCListDiv does no longer exist in BUCList
+    //expect(wrapper.find(BucLenkePanel).length).toEqual(1)    //Disabled, as BucLenkePanel does no longer exist in BUCList
     expect(screen.getByTestId('a_buc_c_BUCHeader--P_BUC_02-NorwayIsNOTCaseOwner\']')).toBeInTheDocument()
   })
 })

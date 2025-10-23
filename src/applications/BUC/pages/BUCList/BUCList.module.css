@@ -1,0 +1,48 @@
+.progressBarDiv {
+  flex: 2;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  height: 40px;
+  max-width: 50%;
+}
+
+.BUCListHeader {
+  min-height: 40px;
+}
+
+.badBucDiv {
+  width: 100%;
+  padding: 0rem;
+  margin-bottom: 1rem;
+}
+
+.bucLenkePanel {
+  background: var(--a-surface-default);
+  margin-bottom: 1rem;
+  .navds-link-panel__content {
+    width: 100%;
+  }
+  &.new {
+    background: var(--a-limegreen-100) !important;
+  }
+}
+
+.bucLenkePanel:hover {
+  background: var(--a-surface-action-subtle-hover);
+}
+
+.BUCStartDiv {
+  max-height: 0;
+  height: 0%;
+  overflow: hidden;
+
+  &.close {
+    will-change: max-height, height;
+    max-height: 0;
+  }
+
+  &.open {
+    will-change: max-height, height;
+    max-height: 50em;
+  }
+}

@@ -20,24 +20,17 @@ import {
 import { PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import {Alert, BodyLong, Heading, Button, Box, Spacer} from '@navikt/ds-react'
+import {Alert, BodyLong, Heading, Button, Box, Spacer, HStack, LinkPanel} from '@navikt/ds-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  BadBucDiv,
-  BucLenkePanel,
-  BUCListDiv,
-  BUCListHeader,
-  BUCStartDiv,
-  ProgressBarDiv
-} from "../../CommonBucComponents";
 import {BRUKERKONTEKST, GJENNY} from "src/constants/constants";
 import AvdodFnrSearch from "./AvdodFnrSearch";
 import ProgressBar from "src/components/ProgressBar/ProgressBar";
 import ATPOpplysninger from "src/applications/P8000/ATPOpplysninger/ATPOpplysninger";
 import {IS_Q} from "src/constants/environment";
 import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
+import styles from "./BUCList.module.css";
 
 export interface BUCListProps {
   initialBucNew?: boolean
@@ -138,14 +131,18 @@ const BUCList: React.FC<BUCListProps> = ({
   const now = _.isEmpty(bucsList) ? 20 : 20 + Math.floor(Object.keys(bucs!).length / (bucsList?.length ?? 1) * 80)
 
   return (
-    <BUCListDiv>
+    <div>
 
       <Box paddingBlock="0 4">
-        <BUCListHeader gap="4" align={"center"}>
+        <HStack
+          className={styles.BUCListHeader}
+          gap="4"
+          align={"center"}
+        >
           <Heading size='small'>
             {t('buc:form-buclist')}
           </Heading>
-          <ProgressBarDiv>
+          <div className={styles.progressBarDiv}>
             {(gettingBucsList || gettingBucs) && (
               <ProgressBar
                 status={status}
@@ -156,7 +153,7 @@ const BUCList: React.FC<BUCListProps> = ({
                 </BodyLong>
               </ProgressBar>
             )}
-          </ProgressBarDiv>
+          </div>
           <Spacer/>
           {!_newBucPanelOpen && (
             <Button
@@ -176,12 +173,15 @@ const BUCList: React.FC<BUCListProps> = ({
               {t('p8000:atp-label-bestill-atp-opplysninger')}
             </Button>
           }
-        </BUCListHeader>
+        </HStack>
       </Box>
-      <BUCStartDiv className={classNames({
-        open: _newBucPanelOpen === true,
-        close: _newBucPanelOpen === false
-      })}
+      <div className={classNames(
+        styles.BUCStartDiv,
+        {
+          [styles.open]: _newBucPanelOpen === true,
+          [styles.close]: _newBucPanelOpen === false
+        }
+      )}
       >
         <Box padding="8"  background="bg-default" borderWidth="1" borderColor="border-default">
           <Heading size='medium'>
@@ -202,11 +202,14 @@ const BUCList: React.FC<BUCListProps> = ({
             onBucCancelled={() => setNewBucPanelOpen(false)}
           />
         </Box>
-      </BUCStartDiv>
-      <BUCStartDiv className={classNames({
-        open: _bestillP5000FraATPPanelOpen === true,
-        close: _bestillP5000FraATPPanelOpen === false
-      })}
+      </div>
+      <div className={classNames(
+        styles.BUCStartDiv,
+        {
+          [styles.open]: _bestillP5000FraATPPanelOpen === true,
+          [styles.close]: _bestillP5000FraATPPanelOpen === false
+        }
+      )}
       >
         <Box padding="8"  background="bg-default" borderWidth="1" borderColor="border-default">
           <ATPOpplysninger
@@ -214,7 +217,7 @@ const BUCList: React.FC<BUCListProps> = ({
             setMode={setMode}
           />
         </Box>
-      </BUCStartDiv>
+      </div>
       <Box paddingBlock="4 0">
         {!gettingBucs && _.isEmpty(bucsList) && (
           <Box paddingBlock="4 4">
@@ -224,11 +227,11 @@ const BUCList: React.FC<BUCListProps> = ({
           </Box>
         )}
         {!_.isNil(_filteredBucs) && !_.isNil(_pBuc02filteredBucs) && _filteredBucs.length !== _pBuc02filteredBucs.length && (
-          <BadBucDiv>
+          <div className={styles.badBucDiv}>
             <Alert variant='warning'>
               {t('message:warning-filteredBucs')}
             </Alert>
-          </BadBucDiv>
+          </div>
         )}
       </Box>
       {!_.isNil(_sortedBucs) && !_.isEmpty(_sortedBucs) &&
@@ -239,14 +242,14 @@ const BUCList: React.FC<BUCListProps> = ({
             const bucId: string = buc.caseId!
             const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs && bucsInfo.bucs[bucId] ? bucsInfo.bucs[bucId] : {} as BucInfo
             return (
-              <BucLenkePanel
+              <LinkPanel
                 href='#'
                 border
                 data-testid={'a-buc-p-buclist--buc-' + bucId}
                 key={index}
-                className={classNames({ new: (newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false })}
+                className={classNames(styles.bucLenkePanel, { [styles.new] : (newlyCreatedBuc && buc.caseId === newlyCreatedBuc.caseId) || false })}
                 style={{ animationDelay: (0.1 * index) + 's' }}
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                onClick={(e: React.MouseEvent<HTMLElement>) => {
                   e.preventDefault()
                   e.stopPropagation()
                   onBUCEdit(buc)
@@ -256,14 +259,16 @@ const BUCList: React.FC<BUCListProps> = ({
                   buc={buc}
                   bucInfo={bucInfo}
                 />
-              </BucLenkePanel>
+              </LinkPanel>
             )
           })}
       {!_.isEmpty(bucs) && pesysContext === BRUKERKONTEKST && (sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && (
-        <AvdodFnrSearch/>
+        <AvdodFnrSearch
+          setNewBucPanelOpen={setNewBucPanelOpen}
+        />
       )}
       <BUCFooter />
-    </BUCListDiv>
+    </div>
   )
 }
 
