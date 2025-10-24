@@ -40,8 +40,8 @@ const AvdodFnrSearch: React.FC<any> = ({setNewBucPanelOpen}: AvdodFnrSearchProps
   const onAvdodFnrButtonClick = (): void => {
     const valid = performValidation()
     if (valid && aktoerId && sakId) {
-      setNewBucPanelOpen(false)
       dispatch(fetchBucsListWithAvdodFnr(aktoerId, sakId, _avdodFnr))
+      setNewBucPanelOpen(false)
     } else {
       setValidation(t('message:validation-badAvdodFnr'))
     }
