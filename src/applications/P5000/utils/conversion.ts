@@ -150,7 +150,7 @@ export const mergeP5000ListRows = (
         const calculatedSum = dateDiff(subRow.startdato, subRow.sluttdato)
         const thisSubCalculatedSum: string = writeDateDiff(calculatedSum)
 
-        if (thisSubRowPeriodeSum !== thisSubCalculatedSum) {
+        if (thisSubRowPeriodeSum < thisSubCalculatedSum) {
           console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
             ' diverges on periode sum, ' + thisSubRowPeriodeSum + ' !== ' + thisSubCalculatedSum)
           parentRow = undefined
