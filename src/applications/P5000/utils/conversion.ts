@@ -233,11 +233,16 @@ export const mergeP5000ListRows = (
         })
 
         const samePeriodSum: boolean = sumDateDiffString === parentDateDiffString
+        let tooSmallSumDateDiff: boolean = false
 
         if (!samePeriodSum) {
           groupedPeriods[key][key2].parent.dag = '' + sumDateDiff.days
           groupedPeriods[key][key2].parent.mnd = '' + sumDateDiff.months
           groupedPeriods[key][key2].parent.aar = '' + sumDateDiff.years
+
+          if (sumDateDiffString < parentDateDiffString) {
+            tooSmallSumDateDiff = true
+          }
         }
 
         rows.push({
@@ -246,7 +251,7 @@ export const mergeP5000ListRows = (
           type: groupedType,
           beregning: groupedBeregning,
           key: 'merge-' + groupedPeriods[key][key2].parent.key,
-          flag: !samePeriodSum,
+          flag: tooSmallSumDateDiff,
           flagLabel: i18n.t('message:warning-periodDoNotMatch'),
           isMergedRow: true
         })
