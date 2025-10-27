@@ -226,6 +226,8 @@ export const mergeP5000ListRows = (
         }, true)
 
         const sumDateDiffString: string = writeDateDiff(sumDateDiff)
+        let tooSmallSumDateDiff: boolean = false
+
         const parentDateDiffString: string = writeDateDiff({
           days: groupedPeriods[key][key2].parent.dag,
           months: groupedPeriods[key][key2].parent.mnd,
@@ -233,7 +235,6 @@ export const mergeP5000ListRows = (
         })
 
         const samePeriodSum: boolean = sumDateDiffString === parentDateDiffString
-        let tooSmallSumDateDiff: boolean = false
 
         if (!samePeriodSum) {
           groupedPeriods[key][key2].parent.dag = '' + sumDateDiff.days
