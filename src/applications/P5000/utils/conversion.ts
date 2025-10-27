@@ -150,7 +150,7 @@ export const mergeP5000ListRows = (
         const calculatedSum = dateDiff(subRow.startdato, subRow.sluttdato)
         const thisSubCalculatedSum: string = writeDateDiff(calculatedSum)
 
-        if (thisSubRowPeriodeSum !== thisSubCalculatedSum) {
+        if (thisSubRowPeriodeSum < thisSubCalculatedSum) {
           console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
             ' diverges on periode sum, ' + thisSubRowPeriodeSum + ' !== ' + thisSubCalculatedSum)
           parentRow = undefined
@@ -226,6 +226,8 @@ export const mergeP5000ListRows = (
         }, true)
 
         const sumDateDiffString: string = writeDateDiff(sumDateDiff)
+        let tooSmallSumDateDiff: boolean = false
+
         const parentDateDiffString: string = writeDateDiff({
           days: groupedPeriods[key][key2].parent.dag,
           months: groupedPeriods[key][key2].parent.mnd,
@@ -238,6 +240,10 @@ export const mergeP5000ListRows = (
           groupedPeriods[key][key2].parent.dag = '' + sumDateDiff.days
           groupedPeriods[key][key2].parent.mnd = '' + sumDateDiff.months
           groupedPeriods[key][key2].parent.aar = '' + sumDateDiff.years
+
+          if (sumDateDiffString < parentDateDiffString) {
+            tooSmallSumDateDiff = true
+          }
         }
 
         rows.push({
@@ -246,7 +252,7 @@ export const mergeP5000ListRows = (
           type: groupedType,
           beregning: groupedBeregning,
           key: 'merge-' + groupedPeriods[key][key2].parent.key,
-          flag: !samePeriodSum,
+          flag: tooSmallSumDateDiff,
           flagLabel: i18n.t('message:warning-periodDoNotMatch'),
           isMergedRow: true
         })
