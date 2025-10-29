@@ -14,7 +14,7 @@ import { Seds } from 'src/declarations/buc'
 import _ from 'lodash'
 import moment from 'moment'
 import i18n from 'src/i18n'
-import { sumDates, writeDateDiff } from 'src/utils/dateDecimal'
+import dateDecimal, { sumDates, writeDateDiff } from 'src/utils/dateDecimal'
 import dateDiff, { DateDiff, FormattedDateDiff } from 'src/utils/dateDiff'
 import {
   generateKeyForListRow, getNewLand, getSedSender, listItemtoPeriod, mergeToExistingPeriod,
@@ -142,23 +142,47 @@ export const mergeP5000ListRows = (
         // parentRow.sluttdato = 31.07.2000, and subRow.startdato = 01.08.2000 - diff <= 1 day, then merge...
         parentRow = _.find(parentRows, (_r) => Math.abs(moment(_subRow.startdato).diff(moment(_r.sluttdato), 'days')) <= 1)
         //  ...unless we are talking about a period that periodesum doesn't match the calculated sum
-        const thisSubRowPeriodeSum: string = writeDateDiff({
+        console.log("subRow.dag: " + subRow.dag)
+        console.log("subRow.mnd: " + subRow.mnd)
+        console.log("subRow.aar: " + subRow.aar)
+
+        const calculatedSum = dateDiff(subRow.startdato, subRow.sluttdato)
+        const thisSubCalculatedSum: string = writeDateDiff(calculatedSum)
+
+        const thisCalculatedSubRowPeriodeSum: FormattedDateDiff = dateDecimal({
+          dateFom: String(subRow.startdato),
           days: subRow.dag,
           months: subRow.mnd,
           years: subRow.aar
         })
-        const calculatedSum = dateDiff(subRow.startdato, subRow.sluttdato)
-        const thisSubCalculatedSum: string = writeDateDiff(calculatedSum)
 
-        if (thisSubRowPeriodeSum !== thisSubCalculatedSum) {
+        const thisCalculatedSubRowPeriodeSumString: string = writeDateDiff({
+          days: thisCalculatedSubRowPeriodeSum.days,
+          months: thisCalculatedSubRowPeriodeSum.months,
+          years: thisCalculatedSubRowPeriodeSum.years
+        })
+
+        console.log("thisCalculatedSubRowPeriodeSum.days: " + thisCalculatedSubRowPeriodeSum.days)
+        console.log("thisCalculatedSubRowPeriodeSum.months: " + thisCalculatedSubRowPeriodeSum.months)
+        console.log("thisCalculatedSubRowPeriodeSum.years: " + thisCalculatedSubRowPeriodeSum.years)
+
+
+
+        if (thisCalculatedSubRowPeriodeSum.years < calculatedSum.years ||
+          (thisCalculatedSubRowPeriodeSum.months < calculatedSum.months && !(thisCalculatedSubRowPeriodeSum.years > calculatedSum.years)) ||
+          (thisCalculatedSubRowPeriodeSum.days < calculatedSum.days &&
+            !(thisCalculatedSubRowPeriodeSum.years > calculatedSum.years ||
+              (thisCalculatedSubRowPeriodeSum.months > calculatedSum.months && !(thisCalculatedSubRowPeriodeSum.years < calculatedSum.years))))
+        )
+        {
           console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
-            ' diverges on periode sum, ' + thisSubRowPeriodeSum + ' !== ' + thisSubCalculatedSum)
+            ' diverges on periode sum, ' + thisCalculatedSubRowPeriodeSumString + ' < ' + thisSubCalculatedSum)
           parentRow = undefined
           subRow.flag = true
           subRow.flagLabel = i18n.t('message:warning-periodDoNotMatch')
         } else {
           console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
-            ' has same periode sum, ' + thisSubRowPeriodeSum + ' === ' + thisSubCalculatedSum)
+            ' has not too small period sum, ' + thisCalculatedSubRowPeriodeSumString + ' === ' + thisSubCalculatedSum)
         }
       } else {
         // for germans, merge if they are in adjacent months, connecting f.ex 20-07-1986 with 08-08-1986
