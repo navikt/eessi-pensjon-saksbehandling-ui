@@ -14,7 +14,7 @@ export interface DateDiff {
 }
 
 export interface FormattedDateDiff {
-  totalDays: string | number
+  totalDays?: string | number
   days: string | number
   months: string | number
   years: string | number
