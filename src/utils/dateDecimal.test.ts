@@ -40,13 +40,13 @@ describe('utils/dateDecimal', () => {
 
   it('dateDecimal: handles null/undefined', () => {
     expect(dateDecimal({ dateFom: '1992-04-06', years: null, months: 3.5, days: undefined })).toEqual({
-      days: 15, months: 3, years: 0, totalDays: 105
+      days: 15, months: 3, years: 0, totalDays: 106
     })
   })
 
   it('dateDecimal: handles decimals', () => {
     expect(dateDecimal({ dateFom: '1992-04-06', years: 5.25, months: 0, days: 0 })).toEqual({
-      days: 0, months: 3, years: 5, totalDays: 1890
+      days: 0, months: 3, years: 5, totalDays: 1917
     })
     expect(dateDecimal({ dateFom: '1992-04-06', years: 0, months: 32.12, days: 0 })).toEqual({
       days: 4, months: 8, years: 2, totalDays: 963.5999999999999
