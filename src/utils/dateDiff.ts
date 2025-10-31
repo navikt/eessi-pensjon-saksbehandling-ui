@@ -14,7 +14,6 @@ export interface DateDiff {
 }
 
 export interface FormattedDateDiff {
-  totalDays: string | number
   days: string | number
   months: string | number
   years: string | number
@@ -32,10 +31,8 @@ const dateDiff = (startdato: Date | string, sluttdato: Date | string): Formatted
   const years = tomDato.diff(fomDato, 'year');
   const months = tomDato.diff(fomDato, 'month') - years * 12;
   const days = tomDato.diff(fomDato.add(years, 'year').add(months, 'month'), 'day');
-  const totalDays = tomDato.diff(fomDato, 'day');
 
   return {
-    totalDays,
     years,
     months,
     days
