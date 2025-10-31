@@ -49,7 +49,7 @@ describe('utils/dateDecimal', () => {
       days: 0, months: 3, years: 5, totalDays: 1890
     })
     expect(dateDecimal({ dateFom: '1992-04-06', years: 0, months: 32.12, days: 0 })).toEqual({
-      days: 4, months: 8, years: 2
+      days: 4, months: 8, years: 2, totalDays: 963.5999999999999
     })
     expect(dateDecimal({ dateFom: '1992-04-06', years: 1.5, months: 1.5, days: 1.5 })).toEqual({
       days: 17, months: 7, years: 1
@@ -87,7 +87,7 @@ describe('utils/dateDecimal', () => {
     })
     // adding quarter triggers different "rules" than dateDiff, thus converts 30 days to 1 month
     expect(dateDecimal({ dateFom: '1992-04-06', dateTom: '1993-04-05', days: '30', months: '0', years: '0', quarter: '1' })).toEqual({
-      days: 30, months: 3, years: 0
+      days: 30, months: 3, years: 0, totalDays: 121
     })
   })
 
