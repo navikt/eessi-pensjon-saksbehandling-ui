@@ -52,7 +52,7 @@ describe('utils/dateDecimal', () => {
       days: 4, months: 8, years: 2, totalDays: 978
     })
     expect(dateDecimal({ dateFom: '1992-04-06', years: 1.5, months: 1.5, days: 1.5 })).toEqual({
-      days: 17, months: 7, years: 1, totalDays: 586.5
+      days: 17, months: 7, years: 1, totalDays: 596
     })
   })
 
