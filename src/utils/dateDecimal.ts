@@ -58,7 +58,7 @@ const dateDecimal = (date: DateDiff, outputAsString = false): FormattedDateDiff 
   const months = (_.isNil(date.months) ? 0 : _.isNumber(date.months) ? date.months : date.months === '' ? 0 : parseFloat(date.months))
   const years = (_.isNil(date.years) ? 0 : _.isNumber(date.years) ? date.years : date.years === '' ? 0 : parseFloat(date.years))
 
-  if(!date.dateFom || !date.dateTom){
+  if(!date.dateFom){
     const allInDays = days + months * 30 + years * 360
     const leftoverInMonths = Math.floor(allInDays / 30)
     return {

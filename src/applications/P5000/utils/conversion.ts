@@ -169,7 +169,8 @@ export const mergeP5000ListRows = (
         if (thisCalculatedSubRowPeriodeSum.totalDays === undefined || calculatedOfDatesSum.totalDays === undefined ||
           (thisCalculatedSubRowPeriodeSum.totalDays < calculatedOfDatesSum.totalDays)) {
           console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
-            ' diverges on periode sum, ' + thisCalculatedSubRowPeriodeSumString + ' < ' + thisSubCalculatedOfDatesSum)
+            ' diverges on periode sum, ' + thisCalculatedSubRowPeriodeSumString + ' < ' + thisSubCalculatedOfDatesSum + '. ' +
+            'Difference in totalDays is, ' + thisCalculatedSubRowPeriodeSum.totalDays + ' vs ' + calculatedOfDatesSum.totalDays)
           parentRow = undefined
           subRow.flag = true
           subRow.flagLabel = i18n.t('message:warning-periodDoNotMatch')
