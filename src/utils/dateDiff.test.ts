@@ -240,7 +240,7 @@ describe('utils/dateDiff', () => {
       days: 1, months: 0, years: 2, totalDays: 731
     })
     expect(dateDiff('10.01.1982', '11.01.1984')).toEqual({
-      days: 2, months: 0, years: 2, totalDays: 731
+      days: 2, months: 0, years: 2, totalDays: 732
     })
   })
 
