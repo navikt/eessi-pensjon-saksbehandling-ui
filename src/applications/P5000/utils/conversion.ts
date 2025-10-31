@@ -146,37 +146,37 @@ export const mergeP5000ListRows = (
         console.log("subRow.mnd: " + subRow.mnd)
         console.log("subRow.aar: " + subRow.aar)
 
-        const calculatedOfDatesSum = dateDiff(subRow.startdato, subRow.sluttdato)
-        const thisSubCalculatedOfDatesSum: string = writeDateDiff(calculatedOfDatesSum)
+        const calculatedSubRowDateDiff = dateDiff(subRow.startdato, subRow.sluttdato)
 
-        const thisCalculatedSubRowPeriodeSum: FormattedDateDiff = dateDecimal({
+        const calculatedSubRowPeriodeSum: FormattedDateDiff = dateDecimal({
           dateFom: String(subRow.startdato),
           days: subRow.dag,
           months: subRow.mnd,
           years: subRow.aar
         })
 
-        const thisCalculatedSubRowPeriodeSumString: string = writeDateDiff({
-          days: thisCalculatedSubRowPeriodeSum.days,
-          months: thisCalculatedSubRowPeriodeSum.months,
-          years: thisCalculatedSubRowPeriodeSum.years
+        const calculatedSubRowDateDiffLogString: string = writeDateDiff(calculatedSubRowDateDiff)
+        const calculatedSubRowPeriodeSumLogString: string = writeDateDiff({
+          days: calculatedSubRowPeriodeSum.days,
+          months: calculatedSubRowPeriodeSum.months,
+          years: calculatedSubRowPeriodeSum.years
         })
 
-        console.log("thisCalculatedSubRowPeriodeSum.days: " + thisCalculatedSubRowPeriodeSum.days)
-        console.log("thisCalculatedSubRowPeriodeSum.months: " + thisCalculatedSubRowPeriodeSum.months)
-        console.log("thisCalculatedSubRowPeriodeSum.years: " + thisCalculatedSubRowPeriodeSum.years)
+        console.log("calculatedSubRowPeriodeSum.days: " + calculatedSubRowPeriodeSum.days)
+        console.log("calculatedSubRowPeriodeSum.months: " + calculatedSubRowPeriodeSum.months)
+        console.log("calculatedSubRowPeriodeSum.years: " + calculatedSubRowPeriodeSum.years)
 
-        if (thisCalculatedSubRowPeriodeSum.totalDays === undefined || calculatedOfDatesSum.totalDays === undefined ||
-          (thisCalculatedSubRowPeriodeSum.totalDays < calculatedOfDatesSum.totalDays)) {
+        if (calculatedSubRowPeriodeSum.totalDays === undefined || calculatedSubRowDateDiff.totalDays === undefined ||
+          (calculatedSubRowPeriodeSum.totalDays < calculatedSubRowDateDiff.totalDays)) {
           console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
-            ' diverges on periode sum, ' + thisCalculatedSubRowPeriodeSumString + ' < ' + thisSubCalculatedOfDatesSum + '. ' +
-            'Difference in totalDays is, ' + thisCalculatedSubRowPeriodeSum.totalDays + ' vs ' + calculatedOfDatesSum.totalDays)
+            ' diverges on periode sum, ' + calculatedSubRowPeriodeSumLogString + ' < ' + calculatedSubRowDateDiffLogString + '. ' +
+            'Difference in totalDays is, ' + calculatedSubRowPeriodeSum.totalDays + ' vs ' + calculatedSubRowDateDiff.totalDays)
           parentRow = undefined
           subRow.flag = true
           subRow.flagLabel = i18n.t('message:warning-periodDoNotMatch')
         } else {
           console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
-            ' has not too small period sum, ' + thisCalculatedSubRowPeriodeSumString + ' === ' + thisSubCalculatedOfDatesSum)
+            ' has not too small period sum, ' + calculatedSubRowPeriodeSumLogString + ' === ' + calculatedSubRowDateDiffLogString)
         }
       } else {
         // for germans, merge if they are in adjacent months, connecting f.ex 20-07-1986 with 08-08-1986
