@@ -54,7 +54,7 @@ describe('utils/dateDiff', () => {
       days: 1, months: 1, years: 0, totalDays: 32
     })
     expect(dateDiff('02.01.1980', '03.02.1980')).toEqual({
-      days: 2, months: 1, years: 0
+      days: 2, months: 1, years: 0, totalDays: 33
     })
   })
 
@@ -117,7 +117,7 @@ describe('utils/dateDiff', () => {
       days: 0, months: 1, years: 0, totalDays: 29
     })
     expect(dateDiff('01.02.1980', '01.03.1980')).toEqual({
-      days: 1, months: 1, years: 0
+      days: 1, months: 1, years: 0, totalDays: 33
     })
   })
 
@@ -135,7 +135,7 @@ describe('utils/dateDiff', () => {
       days: 0, months: 1, years: 0, totalDays: 29
     })
     expect(dateDiff(new Date('1980,02,01'), new Date('1980,03,01'))).toEqual({
-      days: 1, months: 1, years: 0
+      days: 1, months: 1, years: 0, totalDays: 30
     })
   })
 
@@ -150,7 +150,7 @@ describe('utils/dateDiff', () => {
       days: 0, months: 1, years: 0, totalDays: 28
     })
     expect(dateDiff('01.02.1981', '01.03.1981')).toEqual({
-      days: 1, months: 1, years: 0
+      days: 1, months: 1, years: 0, totalDays: 29
     })
   })
 
@@ -240,7 +240,7 @@ describe('utils/dateDiff', () => {
       days: 1, months: 0, years: 2
     })
     expect(dateDiff('10.01.1982', '11.01.1984')).toEqual({
-      days: 2, months: 0, years: 2
+      days: 2, months: 0, years: 2, totalDays: 731
     })
   })
 
@@ -252,7 +252,7 @@ describe('utils/dateDiff', () => {
       days: 0, months: 0, years: 2, totalDays: 730
     })
     expect(dateDiff(new Date('1982,01,10'), new Date('1984,01,10'))).toEqual({
-      days: 1, months: 0, years: 2
+      days: 1, months: 0, years: 2, totalDays: 731
     })
     expect(dateDiff(new Date('1982,01,10'), new Date('1984,01,11'))).toEqual({
       days: 2, months: 0, years: 2
