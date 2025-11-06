@@ -17,40 +17,12 @@ import {
 } from 'src/declarations/buc'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import {Detail, BodyLong, Heading, Button, Panel, Textarea, Tabs, VStack, Box} from '@navikt/ds-react'
+import {BodyLong, Heading, Button, Tabs, VStack, Box, HStack} from '@navikt/ds-react'
 
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
 import { P5000sFromRinaMap } from 'src/declarations/p5000'
-import { slideInFromRight } from "src/components/Animations/Animations";
-
-const BUCToolsPanel = styled(Panel)`
-  opacity: 0;
-  transform: translateX(20px);
-  animation: ${slideInFromRight(20)} 0.3s forwards;
-  &.loading {
-    background-color: rgba(128,128,128,0.2);
-  }
-`
-const FlexDiv = styled.div`
-  display: flex;
-`
-const P5000Div = styled.div`
-  position: relative;
-  margin-bottom: 1rem;
-`
-
-const P4000Div = styled.div`
-  position: relative;
-  margin-bottom: 1rem;
-`
-
-export const TextArea = styled(Textarea)`
-  min-height: 150px;
-  width: 100%;
-`
 
 export interface BUCToolsProps {
   aktoerId: string
@@ -184,11 +156,13 @@ const BUCTools: React.FC<BUCToolsProps> = ({
 
   return (
 
-    <BUCToolsPanel
-      border
+    <Box
+      borderWidth="1"
+      borderColor="border-default"
+      background="surface-default"
+      padding="4"
       data-testid='a_buc_c_buctools--panel-id'
     >
-
       <Tabs
         data-testid='a_buc_c_buctools--tabs-id'
         onChange={setActiveTab}
@@ -201,77 +175,73 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           })}
         </Tabs.List>
         <Tabs.Panel value='P5000'>
-          <P5000Div>
-            <VStack gap="4">
-              <Heading size='small'>
-                {t('buc:form-titleP5000')}
-              </Heading>
-              <FlexDiv>
-                <Button
-                  variant='secondary'
-                  data-testid='a_buc_c_buctools--P5000-button-id'
-                  disabled={!hasP5000s()}
-                  onClick={onGettingP5000Click}
-                  iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
-                >
-                  {t('buc:form-seeP5000s')}
-                </Button>
-              </FlexDiv>
-            </VStack>
-          </P5000Div>
+          <VStack gap="4" padding="4">
+            <Heading size='small'>
+              {t('buc:form-titleP5000')}
+            </Heading>
+            <HStack>
+              <Button
+                variant='secondary'
+                data-testid='a_buc_c_buctools--P5000-button-id'
+                disabled={!hasP5000s()}
+                onClick={onGettingP5000Click}
+                iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
+              >
+                {t('buc:form-seeP5000s')}
+              </Button>
+            </HStack>
+          </VStack>
         </Tabs.Panel>
         <Tabs.Panel value='P4000'>
-          <P4000Div>
-              <p>{t('buc:form-descriptionP4000')}</p>
-              <FlexDiv>
-                <Button
-                  variant='secondary'
-                  data-testid='a_buc_c_buctools--P4000-button-id'
-                  disabled={!hasP4000s()}
-                  onClick={onGettingP4000Click}
-                  iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
-                >
-                  {t('buc:form-seeP4000s')}
-                </Button>
-              </FlexDiv>
-          </P4000Div>
+          <VStack gap="4" padding="4">
+            {t('buc:form-descriptionP4000')}
+            <HStack>
+              <Button
+                variant='secondary'
+                data-testid='a_buc_c_buctools--P4000-button-id'
+                disabled={!hasP4000s()}
+                onClick={onGettingP4000Click}
+                iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
+              >
+                {t('buc:form-seeP4000s')}
+              </Button>
+            </HStack>
+          </VStack>
         </Tabs.Panel>
         <Tabs.Panel value='tags'>
-          <Box paddingBlock="2">
-            <VStack gap="2">
-              <BodyLong>
-                {t('buc:form-tagsForBUC-description')}
-              </BodyLong>
-              {_tags && !_.isEmpty(_tags) && (
-                <>
-                  <dt>
-                    <Detail>
-                      {t('buc:form-tagsForBUC')}:
-                    </Detail>
-                  </dt>
-                  <dd>
-                    <BodyLong>
-                      {_tags.map((tag: Tag) => tag.label).join(', ')}
-                    </BodyLong>
-                  </dd>
-                </>
-              )}
-              <MultipleSelect<Tag>
-                ariaLabel={t('buc:form-tagsForBUC')}
-                id='a_buc_c_buctools--tags-select-id'
-                aria-describedby='help-tags'
-                data-testid='a_buc_c_buctools--tags-select-id'
-                hideSelectedOptions={false}
-                onSelect={onTagsChange}
-                options={_allTags}
-                label={t('buc:form-tagsForBUC')}
-                values={_tags || []}
-              />
-            </VStack>
-          </Box>
+          <VStack gap="2" padding="4">
+            <BodyLong>
+              {t('buc:form-tagsForBUC-description')}
+            </BodyLong>
+            {_tags && !_.isEmpty(_tags) && (
+              <>
+                <dt>
+                  <Heading size="xsmall">
+                    {t('buc:form-tagsForBUC')}:
+                  </Heading>
+                </dt>
+                <dd>
+                  <BodyLong>
+                    {_tags.map((tag: Tag) => tag.label).join(', ')}
+                  </BodyLong>
+                </dd>
+              </>
+            )}
+            <MultipleSelect<Tag>
+              ariaLabel={t('buc:form-tagsForBUC')}
+              id='a_buc_c_buctools--tags-select-id'
+              aria-describedby='help-tags'
+              data-testid='a_buc_c_buctools--tags-select-id'
+              hideSelectedOptions={false}
+              onSelect={onTagsChange}
+              options={_allTags}
+              label={t('buc:form-tagsForBUC')}
+              values={_tags || []}
+            />
+          </VStack>
         </Tabs.Panel>
       </Tabs>
-    </BUCToolsPanel>
+    </Box>
   )
 }
 
