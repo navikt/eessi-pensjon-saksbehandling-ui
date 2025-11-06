@@ -62,7 +62,6 @@ const dateDecimal = (date: DateDiff, outputAsString = false): FormattedDateDiff 
     const allInDays = days + months * 30 + years * 360
     const leftoverInMonths = Math.floor(allInDays / 30)
     return {
-      totalDays: allInDays,
       days: Math.round(allInDays % 30),
       months: Math.round(leftoverInMonths % 12),
       years: Math.floor(leftoverInMonths / 12)
@@ -95,11 +94,9 @@ const dateDecimal = (date: DateDiff, outputAsString = false): FormattedDateDiff 
   const calculatedYears = calculatedTomDate.diff(fomDate, 'year');
   const calculatedMonths = calculatedTomDate.diff(fomDate, 'month') - calculatedYears * 12;
   const calculatedDays = calculatedTomDate.diff(fomDate.add(calculatedYears, 'year').add(calculatedMonths, 'month'), 'day');
-  const calculatedTotalDays = calculatedTomDate.diff(fomDate, 'day');
 
   if (outputAsString) {
     return {
-      totalDays: calculatedTotalDays === 0 ? '' : String(calculatedTotalDays),
       days: calculatedDays === 0 ? '' : String(calculatedDays),
       months: calculatedMonths === 0 ? '' : String(calculatedMonths),
       years: calculatedYears === 0 ? '' : String(calculatedYears)
@@ -107,7 +104,6 @@ const dateDecimal = (date: DateDiff, outputAsString = false): FormattedDateDiff 
   }
 
   return {
-    totalDays: calculatedTotalDays,
     days: calculatedDays,
     months: calculatedMonths,
     years: calculatedYears
