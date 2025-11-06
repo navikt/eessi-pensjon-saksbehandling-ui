@@ -1,7 +1,7 @@
 import { setStatusParam } from 'src/actions/app'
 import { render, screen } from '@testing-library/react'
 import { stageSelector } from 'src/setupTests'
-import BUCEmpty, { BUCEmptyArtwork, BUCEmptyDiv, BUCEmptyProps } from './BUCEmpty'
+import BUCEmpty, { BUCEmptyProps } from './BUCEmpty'
 
 const defaultSelector = {
   rinaUrl: 'http://mock.url'
@@ -29,8 +29,6 @@ describe('applications/BUC/components/BUCEmpty/BUCEmpty', () => {
   })
 
   it('Render: has proper HTML structure with forms when no aktoerId and sakId', () => {
-    expect(wrapper.exists(BUCEmptyDiv)).toBeTruthy()
-    expect(wrapper.exists(BUCEmptyArtwork)).toBeTruthy()
     expect(screen.getByTestId('a-buc-p-bucempty--aktoerid-input-id')).toBeInTheDocument()
     expect(screen.getByTestId('a-buc-p-bucempty--aktoerid-button-id')).toBeInTheDocument()
     expect(screen.getByTestId('a-buc-p-bucempty--sakid-input-id')).toBeInTheDocument()

@@ -6,63 +6,11 @@ import MousePNG from 'src/assets/images/artwork/NAVmusematte.png'
 import MapPNG from 'src/assets/images/artwork/saksstatus.png'
 import { State } from 'src/declarations/reducers'
 import { RinaUrl } from 'src/declarations/app.d'
-import PT from 'prop-types'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
-import {Box, Button, TextField, VStack} from '@navikt/ds-react'
-
-export const BUCEmptyDiv = styled.div`
-  display: flex;
-  border-color: var(--a-border-strong);
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 4px;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 2rem;
-  background-color: var(--a-surface-subtle);
-`
-export const BUCEmptyArtwork = styled.div`
-  position: relative;
-  height: 300px;
-  width: 250px;
-  .monitor {
-    width: 250px;
-    height: 200px;
-  }
-  .cup {
-    width: 33px;
-    height: 30px;
-    top: 170px;
-    left: 255px;
-  }
-  .mouse {
-    width: 60px;
-    height: 80px;
-    left: 190px;
-    top: 180px;
-  }
-  .map {
-    width: 70px;
-    height: 100px;
-    top: 20px;
-    left: 90px;
-  }
-  img {
-    position: absolute;
-  }
-`
-const BUCEmptyForm = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  .skjemaelement {
-    margin-bottom: 0 !important
-  }
-`
+import {Box, Button, HStack, TextField, VStack} from '@navikt/ds-react'
+import styles from './BUCEmpty.module.css'
 
 export interface BUCEmptySelector {
   rinaUrl: RinaUrl | undefined
@@ -115,67 +63,64 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
 
   return (
     <>
-      <BUCEmptyDiv>
-        <VStack gap="4">
-          <BUCEmptyArtwork>
-            <img alt='' className='monitor' src={MonitorPNG} />
-            <img alt='' className='cup' src={CupPNG} />
-            <img alt='' className='mouse' src={MousePNG} />
-            <img alt='' className='map' src={MapPNG} />
-          </BUCEmptyArtwork>
-          {!aktoerId && (
-            <BUCEmptyForm>
-              <Box paddingInline="0 4">
-                <TextField
-                  data-testid='a-buc-p-bucempty--aktoerid-input-id'
-                  error={validation || false}
-                  id='a-buc-p-bucempty--aktoerid-input-id'
-                  label={t('ui:aktoerId')}
-                  onChange={onAktoerIdChange}
-                  value={_aktoerId || ''}
-                />
-              </Box>
-              <Button
-                variant='primary'
-                data-testid='a-buc-p-bucempty--aktoerid-button-id'
-                onClick={onSubmitAktoerId}
-              >
-                {t('ui:add')}
-              </Button>
+      <Box padding="8" borderWidth="1" borderRadius="medium" background="surface-subtle">
+        <VStack align="center" justify="center">
+          <VStack gap="4">
+            <div className={styles.artwork}>
+              <img alt='' className={styles.monitor} src={MonitorPNG} />
+              <img alt='' className={styles.cup} src={CupPNG} />
+              <img alt='' className={styles.mouse} src={MousePNG} />
+              <img alt='' className={styles.map} src={MapPNG} />
+            </div>
+            {!aktoerId && (
+              <HStack align="end">
+                <Box paddingInline="0 4">
+                  <TextField
+                    data-testid='a-buc-p-bucempty--aktoerid-input-id'
+                    error={validation || false}
+                    id='a-buc-p-bucempty--aktoerid-input-id'
+                    label={t('ui:aktoerId')}
+                    onChange={onAktoerIdChange}
+                    value={_aktoerId || ''}
+                  />
+                </Box>
+                <Button
+                  variant='primary'
+                  data-testid='a-buc-p-bucempty--aktoerid-button-id'
+                  onClick={onSubmitAktoerId}
+                >
+                  {t('ui:add')}
+                </Button>
 
-            </BUCEmptyForm>
-          )}
-          {!sakId && (
-            <BUCEmptyForm>
-              <Box paddingInline="0 4">
-                <TextField
-                  data-testid='a-buc-p-bucempty--sakid-input-id'
-                  error={validation || false}
-                  id='a-buc-p-bucempty--sakid-input-id'
-                  label={t('buc:form-caseId')}
-                  onChange={onSakIdChange}
-                  value={_sakId || ''}
-                />
-              </Box>
-              <Button
-                variant='primary'
-                data-testid='a-buc-p-bucempty--sakid-button-id'
-                onClick={onSubmitSakId}
-              >
-                {t('ui:add')}
-              </Button>
-            </BUCEmptyForm>
-          )}
+              </HStack>
+            )}
+            {!sakId && (
+              <HStack align="end">
+                <Box paddingInline="0 4">
+                  <TextField
+                    data-testid='a-buc-p-bucempty--sakid-input-id'
+                    error={validation || false}
+                    id='a-buc-p-bucempty--sakid-input-id'
+                    label={t('buc:form-caseId')}
+                    onChange={onSakIdChange}
+                    value={_sakId || ''}
+                  />
+                </Box>
+                <Button
+                  variant='primary'
+                  data-testid='a-buc-p-bucempty--sakid-button-id'
+                  onClick={onSubmitSakId}
+                >
+                  {t('ui:add')}
+                </Button>
+              </HStack>
+            )}
+          </VStack>
         </VStack>
-      </BUCEmptyDiv>
+      </Box>
       {rinaUrl && (<BUCFooter />)}
     </>
   )
-}
-
-BUCEmpty.propTypes = {
-  aktoerId: PT.string,
-  sakId: PT.string
 }
 
 export default BUCEmpty
