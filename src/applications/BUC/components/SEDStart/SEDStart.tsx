@@ -182,6 +182,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  const CDM_VERSION = bucs[currentBuc].cdm
 
   const prefill = (prop: string): RawList => {
     const institutions: Array<any> = bucs[currentBuc!] && bucs[currentBuc!].institusjon
@@ -290,7 +291,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const sedNeedsKravdato = (sed: string) => ['P2100','P15000'].indexOf(sed) >= 0
 
-  const bucRequiresP6000s = (buc: Buc) => ['P_BUC_05', 'P_BUC_06', 'P_BUC_10'].indexOf(buc.type!) < 0
+  const bucRequiresP6000s = (buc: Buc) => ['P_BUC_05', 'P_BUC_06'].indexOf(buc.type!) < 0
 
   const showVedtakIdField = (sed: string) => sedNeedsVedtakId.indexOf(sed) >= 0 && pesysContext !== GJENNY
 
@@ -1219,7 +1220,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
                 onSelect={onInstitutionsChange}
                 values={_institutionValueList}
               />
-              {_sed === 'P7000' && bucRequiresP6000s(_buc) && (
+              {_sed === 'P7000' && !(parseFloat(CDM_VERSION!) <= 4.3 && _type === "P_BUC_06") &&  (
                 <Box>
                   {_.isNil(p6000s)
                     ? (
