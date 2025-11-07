@@ -20,6 +20,7 @@ import {
   generateKeyForListRow, getNewLand, getSedSender, listItemtoPeriod, mergeToExistingPeriod,
   periodToListItem, sumItemtoPeriod
 } from './conversionUtils'
+import dayjs from "dayjs";
 
 export interface ConvertP5000SEDToP5000ListRowsProps {
   seds: Seds
@@ -149,7 +150,7 @@ export const mergeP5000ListRows = (
         const calculatedSubRowDateDiff = dateDiff(subRow.startdato, subRow.sluttdato)
 
         const calculatedSubRowPeriodeSum: FormattedDateDiff = dateDecimal({
-          dateFom: String(subRow.startdato),
+          dateFom: dayjs(subRow.startdato).format('YYYY-MM-DD'),
           days: subRow.dag,
           months: subRow.mnd,
           years: subRow.aar
