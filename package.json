@@ -30,7 +30,7 @@
     "@navikt/land-verktoy": "^9.1.25",
     "@navikt/landvelger": "^10.0.8",
     "@navikt/oasis": "^3.8.0",
-    "@navikt/tabell": "^8.0.27",
+    "@navikt/tabell": "^9.0.1",
     "@reduxjs/toolkit": "^1.8.5",
     "@vitejs/plugin-react": "^5.0.4",
     "bytes": "^3.1.2",

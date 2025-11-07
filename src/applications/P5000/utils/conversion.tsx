@@ -267,6 +267,7 @@ export const mergeP5000ListRows = (
           beregning: groupedBeregning,
           key: 'merge-' + groupedPeriods[key][key2].parent.key,
           flag: !samePeriodSum,
+          flagIkon: "InformationSquareIcon",
           flagLabel: i18n.t('message:warning-periodDoNotMatch'),
           isMergedRow: true
         })
