@@ -116,7 +116,8 @@
   "warning-P_BUC_01-uføretrygd" : "Du kan ikke opprette alderspensjonskrav i en uføretrygdsak.",
   "warning-nododsfallPeriod"    : "Dødsdato er den 1. Ingen periode blir lagt til",
   "warning-periodsDoNotMatch"   : "Perioder med flagg foran betyr at periodesum er mindre enn registrert periode. For eksempel er det registrert 01.04.2020- 31.03.2021, men bare 5 måneder. Du må da ta hensyn til dette i beregningen av utenlandsk trygdetid.",
-  "warning-periodDoNotMatch"    : "OBS! Periodesum er mindre enn registrert periode",
+  "warning-periodSumIsSmallerThanRegisteredPeriod"    : "OBS! Periodesum er mindre enn registrert periode",
+  "warning-periodDoNotMatch"    : "OBS! Periodesum avviker fra registrert periode",
 
   "warning-no-utenlandskepin"   : "Ingen utenlandske PIN registrert",
   "warning-no-utenlandskesaksnr": "Ingen utenlandske saksnr registrert",

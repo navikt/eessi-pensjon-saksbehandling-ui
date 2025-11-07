@@ -174,7 +174,7 @@ export const mergeP5000ListRows = (
             'Difference in totalDays is, ' + calculatedSubRowPeriodeSum.totalDays + ' vs ' + calculatedSubRowDateDiff.totalDays)
           parentRow = undefined
           subRow.flag = true
-          subRow.flagLabel = i18n.t('message:warning-periodDoNotMatch')
+          subRow.flagLabel = i18n.t('message:warning-periodSumIsSmallerThanRegisteredPeriod')
         } else {
           console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
             ' has not too small period sum, ' + calculatedSubRowPeriodeSumLogString + ' === ' + calculatedSubRowDateDiffLogString)
