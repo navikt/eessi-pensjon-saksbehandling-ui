@@ -6,7 +6,6 @@ import _ from 'lodash'
 import md5 from 'md5'
 import moment from 'moment'
 import dateDecimal, { sumDates, writeFloat } from 'src/utils/dateDecimal'
-//import {DateDiff} from "src/utils/dateDiff";
 
 export const getNewLand = (period: P5000Period, sender: SedSender | undefined): string | undefined => {
   if (!_.isNil(period.land) && !_.isEmpty(period.land)) {
