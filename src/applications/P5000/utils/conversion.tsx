@@ -143,9 +143,6 @@ export const mergeP5000ListRows = (
         // parentRow.sluttdato = 31.07.2000, and subRow.startdato = 01.08.2000 - diff <= 1 day, then merge...
         parentRow = _.find(parentRows, (_r) => Math.abs(moment(_subRow.startdato).diff(moment(_r.sluttdato), 'days')) <= 1)
         //  ...unless we are talking about a period that periodesum doesn't match the calculated sum
-        console.log("subRow.dag: " + subRow.dag)
-        console.log("subRow.mnd: " + subRow.mnd)
-        console.log("subRow.aar: " + subRow.aar)
 
         const calculatedSubRowDateDiff = dateDiff(subRow.startdato, subRow.sluttdato)
 
@@ -162,10 +159,6 @@ export const mergeP5000ListRows = (
           months: calculatedSubRowPeriodeSum.months,
           years: calculatedSubRowPeriodeSum.years
         })
-
-        console.log("calculatedSubRowPeriodeSum.days: " + calculatedSubRowPeriodeSum.days)
-        console.log("calculatedSubRowPeriodeSum.months: " + calculatedSubRowPeriodeSum.months)
-        console.log("calculatedSubRowPeriodeSum.years: " + calculatedSubRowPeriodeSum.years)
 
         if (calculatedSubRowPeriodeSum.totalDays === undefined || calculatedSubRowDateDiff.totalDays === undefined ||
           (calculatedSubRowPeriodeSum.totalDays < calculatedSubRowDateDiff.totalDays)) {

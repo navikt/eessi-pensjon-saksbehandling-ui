@@ -275,17 +275,3 @@ export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, it
     arr[index].beregning = item.beregning
   }
 }
-
-/*export const dateObjectIsSmaller = (mainObject: DateDiff, objectToCompareWith: DateDiff) : boolean => {
-  if(mainObject.years && mainObject.months && mainObject.days &&
-    objectToCompareWith.years && objectToCompareWith.months && objectToCompareWith.days)
-  {
-    return (mainObject.years < objectToCompareWith.years ||
-      (mainObject.months < objectToCompareWith.months && !(mainObject.years > objectToCompareWith.years)) ||
-      (mainObject.days < objectToCompareWith.days &&
-        !(mainObject.years > objectToCompareWith.years ||
-          (mainObject.months > objectToCompareWith.months && !(mainObject.years < objectToCompareWith.years))))
-    )
-  }
-  return false
-}*/
