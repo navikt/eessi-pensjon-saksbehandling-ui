@@ -1,6 +1,5 @@
 import { ChevronLeftIcon } from '@navikt/aksel-icons'
 import {BodyLong, Box, Button, HStack, Label, Loader, Panel, VStack} from '@navikt/ds-react'
-import { alertFailure } from 'src/actions/alert'
 import {getSedList, resetNewSed, setCurrentBuc, setFollowUpSeds, setSedList} from 'src/actions/buc'
 import BUCDetail from 'src/applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'src/applications/BUC/components/BUCTools/BUCTools'
@@ -123,27 +122,13 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     setStartSed(initialSedNew)
   }, [initialSedNew])
 
-  const hasSeds = (buc: Buc): boolean => {
-    return !!_.find(buc.seds, (s: Sed) =>
-      (s.type === 'P5000' || s.type === 'P6000' || s.type === 'P7000' || s.type === 'P10000') && (s.status !== 'empty')
-    )
-  }
-
   const onFollowUpSed = (buc: Buc, sed: Sed | undefined, followUpSeds: Array<Sed> | undefined): void => {
-    const uniqueSed: Sed | undefined = _.find(buc.seds, (s: Sed) =>
-      (s.type === 'P5000' || s.type === 'P6000' || s.type === 'P7000' || s.type === 'P10000') &&
-      (s.status !== 'empty')
-    )
-    if (buc.type === 'P_BUC_06' && uniqueSed) {
-      dispatch(alertFailure(t('message:error-uniqueSed', { sed: uniqueSed.type })))
-    } else {
-      dispatch(setFollowUpSeds(sed, followUpSeds))
-      dispatch(_.isEmpty(followUpSeds) ? getSedList(buc as ValidBuc) : setSedList(followUpSeds!.map(s => s.type)))
-      setStartSed('open')
-      if (componentRef && componentRef!.current) {
-        if ((componentRef.current as any).scrollIntoView) {
-          (componentRef.current as any).scrollIntoView({ behavior: 'smooth' })
-        }
+    dispatch(setFollowUpSeds(sed, followUpSeds))
+    dispatch(_.isEmpty(followUpSeds) ? getSedList(buc as ValidBuc) : setSedList(followUpSeds!.map(s => s.type)))
+    setStartSed('open')
+    if (componentRef && componentRef!.current) {
+      if ((componentRef.current as any).scrollIntoView) {
+        (componentRef.current as any).scrollIntoView({ behavior: 'smooth' })
       }
     }
   }
@@ -232,7 +217,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           {_startSed !== 'open' && (
             <Button
               variant='secondary'
-              disabled={buc!.readOnly === true || (buc!.type === 'P_BUC_06' && hasSeds(buc!))}
+              disabled={buc!.readOnly === true }
               data-testid='a-buc-p-bucedit--new-sed-button-id'
               onClick={onNewSedButtonClick}
             >{t('buc:form-orderNewSED')}
