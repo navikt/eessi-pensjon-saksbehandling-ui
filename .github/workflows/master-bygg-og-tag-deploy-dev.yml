@@ -92,6 +92,15 @@ jobs:
           IMAGE: ${{ steps.docker-push.outputs.image }}
           VARS: nais/dev-gcp-nais-vars.yml
 
+      # DEPLOYER TIL NAIS Q1
+      - name: 'Deploy to NAIS Q1'
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          RESOURCE: nais/dev-gcp-q1.yml
+          IMAGE: ${{ steps.docker-push.outputs.image }}
+          VARS: nais/dev-gcp-nais-vars-q1.yml
+
       # OPPRETTER GIT TAG
       - name: 'Opprett git tag'
         run: |
