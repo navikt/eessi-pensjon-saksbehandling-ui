@@ -118,7 +118,6 @@ const BUCEdit: React.FC<BUCEditProps> = ({
   const [_search, setSearch] = useState<string | undefined>(initialSearch)
   const [_startSed, setStartSed] = useState<string>(initialSedNew)
   const [_statusSearch, setStatusSearch] = useState<Tags | undefined>(initialStatusSearch)
-  const CDM_VERSION = buc!.cdm
 
   useEffect(() => {
     setStartSed(initialSedNew)
@@ -235,7 +234,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
               variant='secondary'
               disabled={
                 buc!.readOnly === true ||
-                (buc!.type === 'P_BUC_06' && parseFloat(CDM_VERSION!) <= 4.3 && hasSeds(buc!))
+                (buc!.type === 'P_BUC_06' && parseFloat(buc!.cdm!) <= 4.3 && hasSeds(buc!))
               }
               data-testid='a-buc-p-bucedit--new-sed-button-id'
               onClick={onNewSedButtonClick}
