@@ -134,7 +134,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       (s.type === 'P5000' || s.type === 'P6000' || s.type === 'P7000' || s.type === 'P10000') &&
       (s.status !== 'empty')
     )
-    if (buc.type === 'P_BUC_06' && uniqueSed) {
+    if (buc.type === 'P_BUC_06' && parseFloat(buc!.cdm!) <= 4.3 && uniqueSed) {
       dispatch(alertFailure(t('message:error-uniqueSed', { sed: uniqueSed.type })))
     } else {
       dispatch(setFollowUpSeds(sed, followUpSeds))
