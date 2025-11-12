@@ -4,8 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {useEffect, useState} from "react";
 import { getRinaUrl} from "../../actions/buc";
 import {loadAllEntries} from "../../actions/localStorage";
-import styled from "styled-components";
-import {Button, Select, TextField, VStack} from "@navikt/ds-react";
+import {Box, Button, HStack, Select, TextField, VStack} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
 import {getAktoerId, setContext, setStatusParam} from "../../actions/app";
 import BUCIndexPageGjenny from "./BUCIndexPageGjenny";
@@ -14,25 +13,6 @@ import {GJENNY} from "../../constants/constants";
 import {clearPersonData, getPersonAvdodInfoFromAktoerId, getPersonInfo} from "../../actions/person";
 import {PersonAvdods, PersonPDL} from "../../declarations/person";
 import {validateFnrDnrNpid} from "../../utils/fnrValidator";
-
-export const FrontpageDiv = styled.div`
-  display: flex;
-  border-color: var(--a-border-strong);
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 4px;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 2rem;
-  background-color: var(--a-surface-subtle);
-`
-
-const FrontpageForm = styled.div`
-  display: flex;
-  flex-direction: column;
-  width:25%
-`
 
 export interface BUCIndexSelector {
   rinaUrl: RinaUrl | undefined
@@ -222,45 +202,47 @@ export const BUCIndexGjenny = (): JSX.Element => {
 
   if (!aktoerId || !avdodFnr || !sakType || !sakId || hasValidationErrors || !hasPersons) {
     return (
-      <FrontpageDiv>
-        <FrontpageForm>
-          <VStack gap="4">
-            <TextField
-              error={_validationFnr || false}
-              id='gjenny-fnr-input-id'
-              label="PID Gjenlevende"
-              onChange={onFnrChange}
-              value={_fnr || ''}
-            />
-            <TextField
-              error={_validationFnrAvdod || false}
-              id='gjenny-fnr-avdod-input-id'
-              label="PID Avdød"
-              onChange={onFnrAvdodChange}
-              value={_fnrAvdod || ''}
-            />
-            <Select label="Saktype" onChange={onSakTypeChange} error={_validationSakType || false}>
-              <option value="">Velg saktype</option>
-              <option value="OMSST">{SakTypeMap["OMSST"]}</option>
-              <option value="BARNEP">{SakTypeMap["BARNEP"]}</option>
-            </Select>
-            <TextField
-              error={_validationSakId || false}
-              id='gjenny-sakid-input-id'
-              label="Sak ID"
-              onChange={onSakIdChange}
-              value={_sakId || ''}
-            />
-            <Button
-              variant='primary'
-              onClick={onSubmit}
-              loading={gettingAktoerId || gettingPersonInfo || gettingPersonAvdodAktoerId}
-            >
-              {t('ui:add')}
-            </Button>
+        <Box padding="8" borderWidth="1" borderRadius="medium" background="surface-subtle">
+          <VStack align="center" justify="center">
+            <HStack width="25%">
+              <VStack gap="4" width="100%">
+                <TextField
+                  error={_validationFnr || false}
+                  id='gjenny-fnr-input-id'
+                  label="PID Gjenlevende"
+                  onChange={onFnrChange}
+                  value={_fnr || ''}
+                />
+                <TextField
+                  error={_validationFnrAvdod || false}
+                  id='gjenny-fnr-avdod-input-id'
+                  label="PID Avdød"
+                  onChange={onFnrAvdodChange}
+                  value={_fnrAvdod || ''}
+                />
+                <Select label="Saktype" onChange={onSakTypeChange} error={_validationSakType || false}>
+                  <option value="">Velg saktype</option>
+                  <option value="OMSST">{SakTypeMap["OMSST"]}</option>
+                  <option value="BARNEP">{SakTypeMap["BARNEP"]}</option>
+                </Select>
+                <TextField
+                  error={_validationSakId || false}
+                  id='gjenny-sakid-input-id'
+                  label="Sak ID"
+                  onChange={onSakIdChange}
+                  value={_sakId || ''}
+                />
+                <Button
+                  variant='primary'
+                  onClick={onSubmit}
+                  loading={gettingAktoerId || gettingPersonInfo || gettingPersonAvdodAktoerId}
+                >
+                  {t('ui:add')}
+                </Button>
+              </VStack>
+            </HStack>
           </VStack>
-        </FrontpageForm>
-      </FrontpageDiv>
+        </Box>
     )
   }
 
