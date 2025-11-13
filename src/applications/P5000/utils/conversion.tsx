@@ -14,12 +14,13 @@ import { Seds } from 'src/declarations/buc'
 import _ from 'lodash'
 import moment from 'moment'
 import i18n from 'src/i18n'
-import { sumDates, writeDateDiff } from 'src/utils/dateDecimal'
+import dateDecimal, { sumDates, writeDateDiff } from 'src/utils/dateDecimal'
 import dateDiff, { DateDiff, FormattedDateDiff } from 'src/utils/dateDiff'
 import {
   generateKeyForListRow, getNewLand, getSedSender, listItemtoPeriod, mergeToExistingPeriod,
   periodToListItem, sumItemtoPeriod
 } from './conversionUtils'
+import dayjs from "dayjs";
 
 export interface ConvertP5000SEDToP5000ListRowsProps {
   seds: Seds
@@ -142,23 +143,34 @@ export const mergeP5000ListRows = (
         // parentRow.sluttdato = 31.07.2000, and subRow.startdato = 01.08.2000 - diff <= 1 day, then merge...
         parentRow = _.find(parentRows, (_r) => Math.abs(moment(_subRow.startdato).diff(moment(_r.sluttdato), 'days')) <= 1)
         //  ...unless we are talking about a period that periodesum doesn't match the calculated sum
-        const thisSubRowPeriodeSum: string = writeDateDiff({
+
+        const calculatedSubRowDateDiff = dateDiff(subRow.startdato, subRow.sluttdato)
+
+        const calculatedSubRowPeriodeSum: FormattedDateDiff = dateDecimal({
+          dateFom: dayjs(subRow.startdato).format('YYYY-MM-DD'),
           days: subRow.dag,
           months: subRow.mnd,
           years: subRow.aar
         })
-        const calculatedSum = dateDiff(subRow.startdato, subRow.sluttdato)
-        const thisSubCalculatedSum: string = writeDateDiff(calculatedSum)
 
-        if (thisSubRowPeriodeSum !== thisSubCalculatedSum) {
+        const calculatedSubRowDateDiffLogString: string = writeDateDiff(calculatedSubRowDateDiff)
+        const calculatedSubRowPeriodeSumLogString: string = writeDateDiff({
+          days: calculatedSubRowPeriodeSum.days,
+          months: calculatedSubRowPeriodeSum.months,
+          years: calculatedSubRowPeriodeSum.years
+        })
+
+        if (calculatedSubRowPeriodeSum.totalDays === undefined || calculatedSubRowDateDiff.totalDays === undefined ||
+          (calculatedSubRowPeriodeSum.totalDays < calculatedSubRowDateDiff.totalDays)) {
           console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
-            ' diverges on periode sum, ' + thisSubRowPeriodeSum + ' !== ' + thisSubCalculatedSum)
+            ' diverges on periode sum, ' + calculatedSubRowPeriodeSumLogString + ' < ' + calculatedSubRowDateDiffLogString + '. ' +
+            'Difference in totalDays is, ' + calculatedSubRowPeriodeSum.totalDays + ' vs ' + calculatedSubRowDateDiff.totalDays)
           parentRow = undefined
           subRow.flag = true
-          subRow.flagLabel = i18n.t('message:warning-periodDoNotMatch')
+          subRow.flagLabel = i18n.t('message:warning-periodSumIsSmallerThanRegisteredPeriod')
         } else {
           console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
-            ' has same periode sum, ' + thisSubRowPeriodeSum + ' === ' + thisSubCalculatedSum)
+            ' has not too small period sum, ' + calculatedSubRowPeriodeSumLogString + ' === ' + calculatedSubRowDateDiffLogString)
         }
       } else {
         // for germans, merge if they are in adjacent months, connecting f.ex 20-07-1986 with 08-08-1986
@@ -248,6 +260,7 @@ export const mergeP5000ListRows = (
           beregning: groupedBeregning,
           key: 'merge-' + groupedPeriods[key][key2].parent.key,
           flag: !samePeriodSum,
+          flagIkon: "InformationSquareIcon",
           flagLabel: i18n.t('message:warning-periodDoNotMatch'),
           isMergedRow: true
         })
