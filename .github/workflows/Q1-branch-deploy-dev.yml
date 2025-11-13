@@ -1,4 +1,4 @@
-name: feature branch push - build, deploy to Q2
+name: Q1-branch push to Q1
 
 on:
   push:
@@ -95,7 +95,7 @@ jobs:
           CLUSTER: dev-gcp
           RESOURCE: nais/dev-gcp-q1.yml
           IMAGE: ${{ steps.docker-push.outputs.image }}
-          VARS: nais/dev-gcp-nais-vars-q1.yml
+          VARS: nais/dev-gcp-q1-nais-vars.yml
 
       - name: 'Echo Image Name'
         run: echo "### Image Hash $(echo ${{ steps.docker-push.outputs.image }} | cut -d':' -f2)" >> $GITHUB_STEP_SUMMARY

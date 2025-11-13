@@ -99,7 +99,7 @@ jobs:
           CLUSTER: dev-gcp
           RESOURCE: nais/dev-gcp-q1.yml
           IMAGE: ${{ steps.docker-push.outputs.image }}
-          VARS: nais/dev-gcp-nais-vars-q1.yml
+          VARS: nais/dev-gcp-q1-nais-vars.yml
 
       # OPPRETTER GIT TAG
       - name: 'Opprett git tag'
