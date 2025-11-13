@@ -291,7 +291,7 @@ export const SEDStart: React.FC<SEDStartProps> = ({
 
   const sedNeedsKravdato = (sed: string) => ['P2100','P15000'].indexOf(sed) >= 0
 
-  const bucRequiresP6000s = (buc: Buc) => ['P_BUC_05', 'P_BUC_06'].indexOf(buc.type!) < 0
+  const bucRequiresP6000s = (buc: Buc) => ['P_BUC_05', 'P_BUC_06', 'P_BUC_10'].indexOf(buc.type!) < 0
 
   const showVedtakIdField = (sed: string) => sedNeedsVedtakId.indexOf(sed) >= 0 && pesysContext !== GJENNY
 
