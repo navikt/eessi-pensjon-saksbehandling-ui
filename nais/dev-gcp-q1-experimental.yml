@@ -21,7 +21,7 @@ spec:
   accessPolicy:
     outbound:
       external:
-        - host: pensjon-utland-q1.intern.dev.nav.no
+        - host: pensjon-utland-q1-experimental.intern.dev.nav.no
   env:
     - name: VITE_NAV_TRUSTSTORE_KEYSTOREALIAS
       value: na
