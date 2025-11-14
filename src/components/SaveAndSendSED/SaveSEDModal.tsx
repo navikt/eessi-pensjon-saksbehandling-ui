@@ -2,39 +2,10 @@ import { State } from 'src/declarations/reducers'
 import {useAppSelector} from 'src/store'
 import {useTranslation} from "react-i18next";
 import Modal from "src/components/Modal/Modal";
-import styled from "styled-components";
 import * as types from 'src/constants/actionTypes'
 import {Alert, Box, Button, HStack, Loader, Spacer, VStack} from "@navikt/ds-react";
 import {CheckmarkCircleFillIcon} from "@navikt/aksel-icons";
-
-const MinimalModalDiv = styled.div`
-  min-height: 200px;
-  min-width: 600px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
-`
-const MinimalContentDiv = styled.div`
-  flex: 1;
-  width: 100%;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-`
-
-export const AlertstripeDiv = styled.div`
-  margin: 0.5rem;
-  min-width: 50%;
-`
-
-const SectionDiv = styled.div`
-  flex: 1;
-  align-items: stretch;
-  flex-direction: row;
-  display: flex;
-  justify-content: center;
-`
+import styles from './SaveSEDModal.module.css'
 
 interface SaveSEDSelector {
   alertMessage: JSX.Element | string | undefined
@@ -71,12 +42,12 @@ const SaveSEDModal: React.FC<SaveSEDModalProps> = ({
       header={t('ui:save-sed')}
       modal={{
         modalContent: (
-          <MinimalModalDiv>
+          <div className={styles.minimalModalDiv}>
             {alertMessage && alertType && [types.BUC_PUT_SED_FAILURE].indexOf(alertType) >= 0 && (
               <VStack gap="4">
-                <AlertstripeDiv>
+                <div className={styles.alertstripeDiv}>
                   <Alert variant='error'>{alertMessage}</Alert>
-                </AlertstripeDiv>
+                </div>
                 <HStack>
                   <Spacer/>
                   <Button
@@ -90,8 +61,8 @@ const SaveSEDModal: React.FC<SaveSEDModalProps> = ({
               </VStack>
             )}
 
-            <MinimalContentDiv>
-              <SectionDiv>
+            <div className={styles.minimalContentDiv}>
+              <div className={styles.sectionDiv}>
                 <VStack style={{ alignItems: 'flex-start' }}>
                   <div>
                     {savingSed && (
@@ -108,8 +79,8 @@ const SaveSEDModal: React.FC<SaveSEDModalProps> = ({
                     )}
                   </div>
                 </VStack>
-              </SectionDiv>
-              <SectionDiv>
+              </div>
+              <div className={styles.sectionDiv}>
                 {!savingSed &&  bannerStatus !== 'error' && (
                   <Box>
                     <Button
@@ -120,9 +91,9 @@ const SaveSEDModal: React.FC<SaveSEDModalProps> = ({
                     </Button>
                   </Box>
                 )}
-              </SectionDiv>
-            </MinimalContentDiv>
-          </MinimalModalDiv>
+              </div>
+            </div>
+          </div>
         )
       }}
       onModalClose={onModalClose}
