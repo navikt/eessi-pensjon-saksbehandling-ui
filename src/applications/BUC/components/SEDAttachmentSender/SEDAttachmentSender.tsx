@@ -8,13 +8,8 @@ import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components'
-import { Box, Button } from '@navikt/ds-react'
+import {Box, Button, VStack} from '@navikt/ds-react'
 import ProgressBar, {ProgressBarStatus} from "src/components/ProgressBar/ProgressBar";
-
-const SEDAttachmentSenderDiv = styled.div`
-  display: flex;
-`
 
 export interface SEDAttachmentSenderProps {
   attachmentsError ?: boolean
@@ -113,7 +108,7 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
   const percentage: number = (Math.floor((current * 100) / total))
 
   return (
-    <SEDAttachmentSenderDiv
+    <VStack
       data-testid='a_buc_c_sedAttachmentSender--div-id'
       className={className}
     >
@@ -147,7 +142,7 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
           </Button>
         </Box>
       )}
-    </SEDAttachmentSenderDiv>
+    </VStack>
   )
 }
 
