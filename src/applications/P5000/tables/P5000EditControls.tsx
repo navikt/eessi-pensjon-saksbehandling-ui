@@ -328,9 +328,9 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
 
         const newItem1: P5000ListRow = {
           land: newItemTemplate?.land ?? null,
-          beregning: newItemTemplate?.beregning ?? null,
-          ordning: newItemTemplate?.ordning ?? null,
-          ytelse: newItemTemplate?.ytelse ?? null,
+          beregning: newItemTemplate?.beregning ?? '100',
+          ordning: newItemTemplate?.ordning ?? '00',
+          ytelse: newItemTemplate?.ytelse ?? '111',
           acronym: newItemTemplate?.acronym ?? null,
           type: '41',
           startdato: startdatoUforetidspunkt,
@@ -347,9 +347,9 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
 
         const newItem2: P5000ListRow = {
           land: newItemTemplate?.land ?? null,
-          beregning: newItemTemplate?.beregning ?? null,
-          ordning: newItemTemplate?.ordning ?? null,
-          ytelse: newItemTemplate?.ytelse ?? null,
+          beregning: newItemTemplate?.beregning ?? '100',
+          ordning: newItemTemplate?.ordning ?? '00',
+          ytelse: newItemTemplate?.ytelse ?? '111',
           acronym: newItemTemplate?.acronym ?? null,
           type: '50',
           startdato: startdatoVirkningstidspunkt,
