@@ -1,5 +1,4 @@
 FROM node:20-alpine
-RUN npm install -g npm@latest
 
 ENV NODE_ENV production
 

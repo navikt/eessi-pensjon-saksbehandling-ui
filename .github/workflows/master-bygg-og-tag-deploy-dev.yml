@@ -48,8 +48,11 @@ jobs:
       - name: 'Run tests'
         run: npm run test:filtered
 
-      - name: 'Bygg'
+      - name: 'Build'
         run: npm run build
+
+      - name: 'Prune - omit dev dependencies'
+        run: npm prune --omit=dev
 
       - uses: nais/docker-build-push@v0
         id: docker-push
