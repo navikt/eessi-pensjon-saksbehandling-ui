@@ -1,5 +1,4 @@
 FROM node:20-alpine
-RUN npm install -g npm@latest
 
 ENV NODE_ENV production
 
@@ -9,6 +8,8 @@ COPY package-lock.json .
 COPY node_modules/ node_modules/
 COPY server.mjs server.mjs
 COPY build build/
+
+RUN npm r -g npm
 
 CMD ["node", "./server.mjs"]
 
