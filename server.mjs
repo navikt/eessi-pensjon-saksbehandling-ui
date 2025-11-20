@@ -145,11 +145,7 @@ const apiAuth = function (scope) {
         logger.info(body.access_token)
         logger.info("***")
         if (response.ok) {
-          if(body.access_token.indexOf("Bearer") >= 0) {
-            res.locals.on_behalf_of_authorization = body.access_token;
-          } else {
-            res.locals.on_behalf_of_authorization = "Bearer " + body.access_token;
-          }
+          res.locals.on_behalf_of_authorization = "Bearer " + body.access_token;
           next();
         } else {
           logger.error(
