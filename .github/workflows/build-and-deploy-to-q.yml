@@ -7,7 +7,7 @@ on:
       environment:
         type: choice
         description: 'Miljø det skal deployes til'
-        default: 'q2'
+        default: 'dev-gcp'
         required: true
         options:
           - 'dev-gcp'
