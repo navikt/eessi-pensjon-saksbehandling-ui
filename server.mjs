@@ -133,13 +133,13 @@ const apiAuth = function (scope) {
       res.redirect("/oauth2/login");
     } else {
       try {
-        logger.debug('apiAuth: trying onBehalfOf with ' + req.headers.authorization)
+        logger.debug('apiAuth: trying onBehalfOf with ', req.headers.authorization)
         const response = await onBehalfOf(
           scope,
           req.headers.authorization.substring("Bearer ".length)
         );
         const body = await response.json();
-        logger.debug('apiAuth: got ' + body.access_token)
+        logger.debug('apiAuth: got', body.access_token)
         if (response.ok) {
           res.locals.on_behalf_of_authorization = "Bearer " + body.access_token;
           next();
