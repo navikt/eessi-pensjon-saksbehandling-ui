@@ -1,0 +1,8 @@
+.main {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background-color: var(--a-bg-subtle);
+  color:  var(--a-text-default);
+}
