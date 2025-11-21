@@ -11,56 +11,14 @@ import { PersonAvdod, PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import moment from 'moment'
-import { Alert, Panel, Accordion, Link, Label, BodyLong, Heading } from '@navikt/ds-react'
+import {Alert, Accordion, Link, Label, BodyLong, Heading, Box} from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
 import {useDispatch, useSelector} from 'react-redux'
-import styled from 'styled-components'
 import { useState } from 'react'
-import {copyToClipboard} from "../../../../actions/app";
+import {copyToClipboard} from "src/actions/app";
 import {FilesFillIcon, FilesIcon} from "@navikt/aksel-icons";
-import styles from 'src/assets/css/common.module.css'
-
-const Dd = styled.dd`
-  width: 50%;
-  padding-bottom: 0.25rem;
-  padding-top: 0.25rem;
-  margin-bottom: 0;
-`
-const Dt = styled.dt`
-  width: 50%;
-  padding-bottom: 0.25rem;
-  padding-top: 0.25rem;
-  .typo-element {
-    margin-left: 0.5rem;
-  }
-`
-
-const DdTwoColumn = styled.dd`
-  width: 100%;
-  padding-bottom: 0.25rem;
-  padding-top: 0.25rem;
-  margin-bottom: 0;
-`
-const DtTwoColumn = styled.dt`
-  width: 100%;
-  padding-bottom: 0.25rem;
-  padding-top: 0.25rem;
-  .typo-element {
-    margin-left: 0.5rem;
-  }
-`
-
-const InstitutionListDiv = styled.div`
-  padding: 0.5rem;
-`
-const Properties = styled.dl`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  .odd {
-    background-color: var(--a-surface-subtle);
-  }
-`
+import styles from './BUCDetail.module.css'
+import classNames from "classnames";
 
 export interface BUCDetailProps {
   buc: Buc
@@ -98,10 +56,12 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
   })
 
   return (
-    <Panel
-      border
+    <Box
+      padding="0"
+      borderWidth="1"
+      borderRadius="small"
+      background= "bg-default"
       data-testid='a_buc_c_BUCDetail'
-      style={{ padding: '0px' }}
       {...props}
     >
       <Accordion
@@ -129,51 +89,65 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                 {t('message:alert-readOnlyBuc')}
               </Alert>
             )}
-            <Properties>
-              <Dt className='odd'>
+            <dl className={classNames(styles.properties, styles.odd)}>
+              <dt
+                className={classNames(styles.odd, styles.Dt)}
+              >
                 <Label>
                   {t('ui:status')}:
                 </Label>
-              </Dt>
-              <Dd
-                className='odd'
+              </dt>
+              <dd
+                className={classNames(styles.odd, styles.Dd)}
                 data-testid='a_buc_c_BUCDetail--status_id'
               >
                 <BodyLong>
                   {t('buc:status-' + buc.status)}
                 </BodyLong>
-              </Dd>
-              <Dt>
+              </dd>
+              <dt
+                className={styles.Dt}
+              >
                 <Label>
                   {t('buc:form-caseOwner')}:
                 </Label>
-              </Dt>
-              <Dd data-testid='a_buc_c_BUCDetail--creator_id'>
+              </dt>
+              <dd
+                className={styles.Dd}
+                data-testid='a_buc_c_BUCDetail--creator_id'
+              >
                 <InstitutionList
                   institutions={[buc.creator!]}
                   locale={locale}
                   type='joined'
                 />
-              </Dd>
-              <Dt className='odd'>
+              </dd>
+              <dt
+                className={classNames(styles.odd, styles.Dt)}
+              >
                 <Label>
                   {t('ui:created')}:
                 </Label>
-              </Dt>
-              <Dd
-                className='odd'
+              </dt>
+              <dd
+                className={classNames(styles.odd, styles.Dd)}
                 data-testid='a_buc_c_BUCDetail--startDate_id'
               >
                 <BodyLong>
                   {moment(buc.startDate!).format('DD.MM.YYYY')}
                 </BodyLong>
-              </Dd>
-              <Dt>
+              </dd>
+              <dt
+                className={styles.Dt}
+              >
                 <Label>
                   {t('buc:form-rinaCaseNumber')}:
                 </Label>
-              </Dt>
-              <Dd data-testid='a_buc_c_BUCDetail--caseId_id'>
+              </dt>
+              <dd
+                className={styles.Dd}
+                data-testid='a_buc_c_BUCDetail--caseId_id'
+              >
                 {rinaUrl
                   ? (
                     <Link
@@ -187,15 +161,18 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                   : (
                     <WaitingPanel data-testid='a_buc_c_BUCDetail--gotorina_waiting_id' size='xsmall' />
                     )}
-              </Dd>
+              </dd>
               {!!buc.internationalId && (
                 <>
-                  <DtTwoColumn className='odd'>
+                  <dt className={classNames(styles.odd, styles.DtTwoColumn)}>
                     <Label>
                       {t('buc:form-internationalId')}:
                     </Label>
-                  </DtTwoColumn>
-                  <DdTwoColumn className='odd' data-testid='a_buc_c_BUCDetail--internationalId_id'>
+                  </dt>
+                  <dd
+                    className={classNames(styles.odd, styles.DdTwoColumn)}
+                    data-testid='a_buc_c_BUCDetail--internationalId_id'
+                  >
                     {buc.internationalId}
                     <Link
                       onMouseEnter={() => isHover(true)}
@@ -211,17 +188,22 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                         <FilesIcon className={styles.copyWithMargin} fontSize="1.5rem"/>
                       }
                     </Link>
-                  </DdTwoColumn>
+                  </dd>
                 </>
               )}
               {bucsThatSupportAvdod(buc.type) && (
                 <>
-                  <Dt>
+                  <dt
+                    className={styles.Dt}
+                  >
                     <Label>
                       {t('buc:form-avdod')}:
                     </Label>
-                  </Dt>
-                  <Dd data-testid='a_buc_c_BUCDetail--avdod_id'>
+                  </dt>
+                  <dd
+                    className={styles.Dd}
+                    data-testid='a_buc_c_BUCDetail--avdod_id'
+                  >
                     {avdod
                       ? (
                         <BodyLong>
@@ -233,25 +215,28 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                           {(buc as ValidBuc)?.addedParams?.subject?.avdod?.fnr || t('buc:form-noAvdod')}
                         </BodyLong>
                         )}
-                  </Dd>
+                  </dd>
                 </>
               )}
-            </Properties>
+            </dl>
             <Heading size='small'>
               {t('buc:form-involvedInstitutions')}:
             </Heading>
-            <InstitutionListDiv data-testid='a_buc_c_BUCDetail--institutions_id'>
+            <Box
+              padding="2"
+              data-testid='a_buc_c_BUCDetail--institutions_id'
+            >
               <InstitutionList
                 data-testid='a_buc_c_BUCDetail--institutionlist_id'
                 institutions={(buc.institusjon as Institutions)}
                 locale={locale}
                 type='separated'
               />
-            </InstitutionListDiv>
+            </Box>
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>
-    </Panel>
+    </Box>
   )
 }
 

@@ -1,0 +1,41 @@
+.Dd {
+  width: 50%;
+  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
+  margin-bottom: 0;
+}
+
+.Dt {
+  width: 50%;
+  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
+  .typo-element {
+    margin-left: 0.5rem;
+  }
+}
+
+.DdTwoColumn {
+  width: 100%;
+  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
+  margin-bottom: 0;
+}
+
+.DtTwoColumn {
+  width: 100%;
+  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
+  .typo-element {
+    margin-left: 0.5rem;
+  }
+}
+
+.properties {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.properties .odd {
+  background-color: var(--a-surface-subtle);
+}
