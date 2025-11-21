@@ -171,13 +171,11 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 {t('buc:form-caseOwner') + ': '}
               </RowText>
               <InstitutionList
-                className='noMargin'
                 data-testid='a_buc_c_BUCHeader--label_owner_institution_id'
                 flagType='circle'
                 institutions={[buc.creator!]}
                 locale={locale}
                 type='separated'
-                oneLine
               />
             </PropertyDiv>
             {buc.caseId && (

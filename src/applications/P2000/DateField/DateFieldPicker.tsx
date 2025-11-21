@@ -1,6 +1,6 @@
 import {DatePicker, useDatepicker} from "@navikt/ds-react";
 import React, {useEffect} from "react";
-import styled from "styled-components";
+import styles from './DateFieldPicker.module.css'
 
 export interface DateFieldProps {
   id: string
@@ -14,12 +14,6 @@ export interface DateFieldProps {
   defaultDate: string | undefined | null
 
 }
-
-const DateDiv = styled.div`
-  button {
-    display: none;
-  }
-`
 
 const DateField: React.FC<DateFieldProps> = ({
   id,
@@ -43,11 +37,11 @@ const DateField: React.FC<DateFieldProps> = ({
   }, [])
 
   return (
-    <DateDiv>
+    <div className={styles.dateFieldPicker}>
       <DatePicker {...datepickerProps}>
         <DatePicker.Input {...inputProps} label={label} description={description} hideLabel={hideLabel} id={namespace + '-' + id} error={error} key={namespace + '-' + id + '-' + index}/>
       </DatePicker>
-    </DateDiv>
+    </div>
   )
 }
 

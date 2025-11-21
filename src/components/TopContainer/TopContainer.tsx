@@ -8,66 +8,14 @@ import { AlertVariant, ModalContent } from 'src/declarations/components'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import Error from 'src/pages/Error/Error'
-import PT from 'prop-types'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactResizeDetector from 'react-resize-detector'
-import styled, { createGlobalStyle } from 'styled-components'
 import { ErrorBoundary } from 'react-error-boundary'
-
-const Main = styled.main`
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  background-color: var(--a-bg-subtle);
-  color:  var(--a-color-text-primary);
-`
-const TopContainerDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`
-
-const GlobalStyle = createGlobalStyle`
-  html {
-    height: 100%;
-  }
-  body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    height: 100vh;
-    background-color: var(--a-bg-subtle);
-  }
-  pre {
-    font-family: 'Source Sans Pro', Arial, sans-serif;
-  }
-  code.block {
-    display: block;
-    white-space: pre-wrap;
-  }
-  dd {
-    margin-bottom: .5rem;
-    margin-left: 0;
-  }
-  ol {
-    list-style-type: decimal;
-  }
-
-  .print-version {
-    width: 100%;
-    margin-top: 0.5rem;
-    @media print {
-      @page {
-        size: A4 landscape;
-      }
-      td {
-        padding: 0.5rem;
-      }
-    }
-  }
-`
+import styles from './TopContainer.module.css'
+import './global.module.css'
+import {VStack} from "@navikt/ds-react";
+import classNames from "classnames";
 
 export interface TopContainerProps {
   className?: string
@@ -147,8 +95,7 @@ export const TopContainer: React.FC<TopContainerProps> = ({
 
   return (
     <div >
-      <GlobalStyle />
-      <TopContainerDiv role='application'>
+      <VStack role='application'>
         <ErrorBoundary
           FallbackComponent={ErrorFallback}
           onReset={() => {
@@ -181,26 +128,19 @@ export const TopContainer: React.FC<TopContainerProps> = ({
                 key="topContainer-modal"
               />
             )}
-            <Main
+            <main
               id='main'
               role='main'
-              className={className}
+              className={classNames(styles.main, className)}
               key="topContainer-main"
             >
               {children}
-            </Main>
+            </main>
           </ReactResizeDetector>
         </ErrorBoundary>
-      </TopContainerDiv>
+      </VStack>
     </div>
   )
-}
-
-TopContainer.propTypes = {
-  className: PT.string,
-  children: PT.any,
-  fluid: PT.bool,
-  header: PT.any
 }
 
 export default TopContainer

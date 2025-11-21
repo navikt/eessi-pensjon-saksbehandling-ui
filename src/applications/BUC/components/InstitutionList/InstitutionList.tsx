@@ -1,52 +1,26 @@
 import { countrySorter } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
 import { AllowedLocaleString } from 'src/declarations/app.d'
-import { AllowedLocaleStringPropType } from 'src/declarations/app.pt'
 import { InstitutionListMap, InstitutionNames, Institutions } from 'src/declarations/buc'
 import { State } from 'src/declarations/reducers'
 import Flag, { FlagType } from '@navikt/flagg-ikoner'
 import CountryData, { Country } from '@navikt/land-verktoy'
 import _ from 'lodash'
-import { BodyLong } from '@navikt/ds-react'
-import PT from 'prop-types'
+import {BodyLong, HStack, VStack} from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components'
-import classNames from 'classnames'
 
-const InstitutionDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  &:not(.noMargin) {
-     margin-bottom: 0.35rem;
-  }
-`
-const InstitutionListDiv = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-`
 export type InstitutionListType = 'joined' | 'separated'
 
-const InstitutionText = styled(BodyLong)`
-  margin-left: 0.5rem;
-  &.oneLine {
-    white-space: nowrap;
-  }
-`
-
 export interface InstitutionListProps {
-  className?: string
   flag?: boolean
   flagType?: FlagType
   institutions: Institutions
   locale: AllowedLocaleString
   type?: InstitutionListType
-  oneLine?: boolean
 }
 
 const InstitutionList: React.FC<InstitutionListProps> = ({
-  className, flag = true, flagType = 'circle', institutions = [], locale, type = 'joined', oneLine = false, ...props
+  flag = true, flagType = 'circle', institutions = [], locale, type = 'joined', ...props
 }: InstitutionListProps): JSX.Element => {
   const institutionList: InstitutionListMap<string> = {}
   const institutionNames: InstitutionNames = useSelector<State, InstitutionNames>(state => state.buc.institutionNames)
@@ -82,14 +56,13 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
 
   return _.isEmpty(institutionList)
     ? (
-      <InstitutionListDiv
-        className={className}
+      <VStack
         {...props}
       >
         <BodyLong>
           {t('buc:form-noInstitutionYet')}
         </BodyLong>
-      </InstitutionListDiv>
+      </VStack>
       )
     : (
       <>
@@ -98,15 +71,18 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
           .map((landkode: string) => {
             const country: Country = CountryData.getCountryInstance(locale).findByValue(landkode)
             return (
-              <InstitutionListDiv
-                className={className}
+              <VStack
                 key={landkode}
                 {...props}
               >
                 {type === 'joined' && (
-                  <InstitutionDiv
+                  <HStack
                     data-testid='a_buc_c_institutionlist--div-id'
-                    className={className}
+                    align="center"
+                    wrap={false}
+                    gap="2"
+                    paddingInline="0 2"
+
                   >
                     {flag && (
                       <Flag
@@ -118,16 +94,19 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
                         wave={false}
                       />
                     )}
-                    <InstitutionText>
+                    <BodyLong>
                       {institutionList[landkode].map((institution: string) => getLabel(institution)).join(', ')}
-                    </InstitutionText>
-                  </InstitutionDiv>
+                    </BodyLong>
+                  </HStack>
                 )}
                 {type === 'separated' && institutionList[landkode].map((institution : string) => (
-                  <InstitutionDiv
+                  <HStack
                     key={institution}
                     data-testid='a_buc_c_institutionlist--div-id'
-                    className={className}
+                    align="center"
+                    wrap={false}
+                    gap="2"
+                    paddingInline="0 2"
                   >
                     {flag && (
                       <Flag
@@ -139,24 +118,16 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
                         wave={false}
                       />
                     )}
-                    <InstitutionText className={classNames({ oneLine })}>
+                    <BodyLong>
                       {getLabel(institution)}
-                    </InstitutionText>
-                  </InstitutionDiv>
+                    </BodyLong>
+                  </HStack>
                 ))}
-              </InstitutionListDiv>
+              </VStack>
             )
           })}
       </>
       )
-}
-
-InstitutionList.propTypes = {
-  className: PT.string,
-  flag: PT.bool,
-  flagType: PT.oneOf(['original', 'circle']),
-  locale: AllowedLocaleStringPropType.isRequired,
-  type: PT.oneOf(['joined', 'separated'])
 }
 
 export default InstitutionList
