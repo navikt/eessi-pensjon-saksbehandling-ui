@@ -1,0 +1,29 @@
+@import '../../../../components/Animations/animations.modules.css';
+
+.noSedsDiv {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.SEDStartDiv {
+  max-height: 0;
+
+  overflow: hidden;
+  &.closeOnBack {
+    max-height: 0;
+  }
+  &.close {
+    max-height: 0;
+    animation: animationClose 700ms ease;
+  }
+  &.open {
+    max-height: 150em;
+    animation: animationOpen 700ms ease;
+  }
+}
+
+.widgetDiv {
+  flex: 1;
+  max-width: 400px;
+  margin-left: 0.5rem;
+}

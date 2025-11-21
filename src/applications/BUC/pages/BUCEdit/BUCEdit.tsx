@@ -1,5 +1,5 @@
 import { ChevronLeftIcon } from '@navikt/aksel-icons'
-import {BodyLong, Box, Button, HStack, Label, Loader, Panel, VStack} from '@navikt/ds-react'
+import {BodyLong, Box, Button, HStack, Label, Loader, VStack} from '@navikt/ds-react'
 import { alertFailure } from 'src/actions/alert'
 import {getSedList, resetNewSed, setCurrentBuc, setFollowUpSeds, setSedList} from 'src/actions/buc'
 import BUCDetail from 'src/applications/BUC/components/BUCDetail/BUCDetail'
@@ -17,57 +17,10 @@ import { State } from 'src/declarations/reducers'
 import CountryData from '@navikt/land-verktoy'
 import _ from 'lodash'
 import moment from 'moment'
-import PT from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
-import { animationClose, animationOpen } from "src/components/Animations/Animations";
-
-export const BUCEditDiv = styled.div`
-`
-const BUCEditHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 40px;
-`
-const ContentDiv = styled.div`
-  flex: 3;
-  margin-right: 0.5rem;
-`
-const NoSedsDiv = styled.div`
-  text-align: center;
-  margin-top: 2rem;
-`
-const SEDNewDiv = styled(Panel)`
-  padding: 2rem !important;
-`
-const SEDStartDiv = styled.div`
-  max-height: 0;
-  height: 0%;
-  overflow: hidden;
-    &.closeOnBack {
-    will-change: max-height, height;
-    max-height: 0;
-  }
-  &.close {
-    will-change: max-height, height;
-    max-height: 0;
-    animation: ${animationClose(150)} 700ms ease;
-  }
-  &.open {
-    will-change: max-height, height;
-    max-height: 150em;
-    animation: ${animationOpen(150)} 700ms ease;
-  }
-`
-const WidgetDiv = styled.div`
-  flex: 1;
-  max-width: 400px;
-  margin-left: 0.5rem;
-`
+import styles from './BUCEdit.module.css'
 
 export interface BUCEditProps {
   initialSearch?: string
@@ -213,11 +166,15 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     .sort(sedSorter as (a: Sed, b: Sed) => number) ?? []
 
   return (
-    <BUCEditDiv
+    <div
       data-testid='a-buc-p-bucedit'
     >
       <VStack gap="4">
-        <BUCEditHeader>
+        <HStack
+          align="center"
+          justify="space-between"
+          minHeight="40px"
+        >
           <Button
             variant='secondary'
             data-testid='a-buc-p-bucedit--back-button-id'
@@ -242,17 +199,22 @@ const BUCEdit: React.FC<BUCEditProps> = ({
             </Button>
           )}
 
-        </BUCEditHeader>
-        <SEDStartDiv
-          className={classNames({
-            open: _startSed === 'open',
-            close: _startSed === 'close',
-            closeOnBack: _startSed === 'closeOnBack'
+        </HStack>
+        <div
+          className={classNames(styles.SEDStartDiv, {
+            [styles.open]: _startSed === 'open',
+            [styles.close]: _startSed === 'close',
+            [styles.closeOnBack]: _startSed === 'closeOnBack'
           })}
           ref={componentRef}
         >
           <Box paddingBlock="0 4">
-            <SEDNewDiv border>
+            <Box
+              padding="8"
+              borderWidth="1"
+              borderRadius="small"
+              background= "bg-default"
+            >
               <SEDStart
                 aktoerId={aktoerId}
                 bucs={bucs!}
@@ -262,12 +224,17 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                 onSedCreated={() => setStartSed('close')}
                 onSedCancelled={() => setStartSed('close')}
               />
-            </SEDNewDiv>
+            </Box>
           </Box>
-        </SEDStartDiv>
+        </div>
       </VStack>
       <HStack>
-        <ContentDiv>
+        <Box
+          marginInline="0 2"
+          flexGrow="3"
+          flexShrink="1"
+          flexBasis="0"
+        >
           <SEDSearch
             onSearch={onSearch}
             onStatusSearch={onStatusSearch}
@@ -315,14 +282,14 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                 )
               })
             : (
-              <NoSedsDiv>
+              <div className={styles.noSedsDiv}>
                 <BodyLong>
                   {t('buc:form-noSedsYet')}
                 </BodyLong>
-              </NoSedsDiv>
+              </div>
               )}
-        </ContentDiv>
-        <WidgetDiv>
+        </Box>
+        <div className={styles.widgetDiv}>
           <VStack gap="4">
             <BUCDetail
               buc={buc!}
@@ -335,17 +302,10 @@ const BUCEdit: React.FC<BUCEditProps> = ({
               setMode={setMode}
             />
           </VStack>
-        </WidgetDiv>
+        </div>
       </HStack>
-    </BUCEditDiv>
+    </div>
   )
-}
-
-BUCEdit.propTypes = {
-  initialSearch: PT.string,
-  initialSedNew: PT.oneOf(['none', 'open', 'close']),
-  initialStatusSearch: PT.array,
-  setMode: PT.func.isRequired
 }
 
 export default BUCEdit
