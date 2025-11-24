@@ -9,6 +9,6 @@ COPY node_modules/ node_modules/
 COPY server.mjs server.mjs
 COPY build build/
 
-CMD ["./server.mjs"]
+CMD ["node", "./server.mjs"]
 
 EXPOSE 8080
