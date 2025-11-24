@@ -1,34 +1,9 @@
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons'
 import classNames from 'classnames'
 import { AlertError, AlertVariant } from 'src/declarations/components'
-import { AlertErrorPropType } from 'src/declarations/components.pt'
 import _ from 'lodash'
 import { Alert } from '@navikt/ds-react'
-import PT from 'prop-types'
-import styled from 'styled-components'
-import { fadeIn } from "src/components/Animations/Animations";
-
-export const BannerAlertDiv = styled(Alert)`
-  opacity: 0;
-  animation: ${fadeIn} 1s forwards;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  width: 100%;
-  border-radius: 0px !important;
-  border: 0px !important;
-  .alertstripe--tekst {
-    display: flex !important;
-    justify-content: space-between;
-    max-width: none !important;
-  }
-`
-export const CloseIcon = styled(XMarkOctagonFillIcon)`
-  position: absolute;
-  top: 0.25rem;
-  right: 0.25rem;
-  cursor: pointer;
-`
+import styles from './BannerAlert.module.css'
 
 export interface BannerAlertProps {
   className ?: string
@@ -76,30 +51,23 @@ export const BannerAlert: React.FC<BannerAlertProps> = ({
   }
 
   return (
-    <BannerAlertDiv
-      className={classNames('status-' + variant, className)}
+    <Alert
+      className={classNames(styles.bannerAlert, 'status-' + variant, className)}
       style={style}
       role='alert'
       variant={variant}
     >
       {_message}
       {onClose && (
-        <CloseIcon
+        <XMarkOctagonFillIcon
+          className={styles.closeIcon}
           fontSize="1.5rem"
           data-testid='c-alert--close-icon'
           onClick={onCloseIconClicked}
         />
       )}
-    </BannerAlertDiv>
+    </Alert>
   )
-}
-
-BannerAlert.propTypes = {
-  className: PT.string,
-  error: PT.oneOfType([AlertErrorPropType, PT.string]),
-  message: PT.oneOfType([PT.string, PT.element]),
-  onClose: PT.func,
-  variant: PT.oneOf(['info', 'success', 'error', 'warning'])
 }
 
 export default BannerAlert

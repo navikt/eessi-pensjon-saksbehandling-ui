@@ -1,0 +1,19 @@
+@import '../Animations/animations.modules.css';
+
+.bannerAlert {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  border-radius: 0px !important;
+  border: 0px !important;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  cursor: pointer;
+}
