@@ -2,20 +2,10 @@ import classNames from 'classnames'
 import MultipleValueLabel from 'src/components/MultipleSelect/MultipleValueLabel'
 import MultipleValueRemove from 'src/components/MultipleSelect/MultipleValueRemove'
 import _ from 'lodash'
-import PT from 'prop-types'
 import Select, { OptionsOrGroups, GroupBase, OnChangeValue, PropsValue } from 'react-select'
 import CreatableSelect from 'react-select/creatable'
-import styled from 'styled-components'
 import MultipleOption from './MultipleOption'
 import { Option } from 'src/declarations/app'
-
-const MultipleSelectDiv = styled.div`
-  .skjemaelement--feilmelding {
-    .multipleSelect--control {
-      border: 1px solid ${({ theme }) => theme.redError};
-    }
-  }
-`
 
 export interface MultipleSelectProps<T>{
   ariaLabel ?: string
@@ -54,8 +44,8 @@ const MultipleSelect = <T extends Option> ({
   }
 
   return (
-    <MultipleSelectDiv
-      className={classNames(className, { skjemaelement__feilmelding: error })}
+    <div
+      className={classNames(className)}
       data-testid='c-multipleSelect'
     >
       {label && (<label className='navds-text-field--label navds-label' htmlFor={inputId}>{label}</label>)}
@@ -91,8 +81,8 @@ const MultipleSelect = <T extends Option> ({
             minHeight: size === 'small' ? '35px' : '48px',
             borderWidth: '1px',
             borderStyle: 'solid',
-            borderColor: error ? 'var(--a-select-color-border-error)' : 'var(--a-select-color-border)',
-            backgroundColor: isDisabled ? 'var(--a-surface-subtle)' : 'var(--a-select-color-background)',
+            borderColor: error ? 'var(--a-border-danger)' : 'var(--a-border-default)',
+            backgroundColor: isDisabled ? 'var(--a-surface-subtle)' : 'var(--a-surface-default)',
             borderRadius: '4px',
             color: 'var(--a-color-text-primary)'
           }),
@@ -158,21 +148,8 @@ const MultipleSelect = <T extends Option> ({
           {error}
         </div>
       )}
-    </MultipleSelectDiv>
+    </div>
   )
 }
 
-MultipleSelect.propTypes = {
-  ariaLabel: PT.string,
-  className: PT.string,
-  creatable: PT.bool,
-  error: PT.string,
-  hideSelectedOptions: PT.bool,
-  id: PT.string,
-  isLoading: PT.bool,
-  label: PT.oneOfType([PT.element, PT.string]).isRequired,
-  onSelect: PT.func,
-  options: PT.array,
-  values: PT.array
-}
 export default MultipleSelect
