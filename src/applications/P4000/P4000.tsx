@@ -42,7 +42,6 @@ import {
 } from "src/constants/types";
 import ReactToPrint from "react-to-print";
 import WaitingPanel from "../../components/WaitingPanel/WaitingPanel";
-import styled from "styled-components";
 import styles from "src/assets/css/common.module.css";
 import HiddenDiv from "src/components/HiddenDiv/HiddenDiv";
 
@@ -64,10 +63,6 @@ const mapState = (state: State): P4000Selector => ({
   locale: state.ui.locale,
   gettingP4000: state.loading.gettingP4000
 })
-
-export const BottomAlignedHStack = styled(HStack)`
-  align-items: end;
-`
 
 const P4000: React.FC<P4000Props> = ({
   buc,
@@ -246,7 +241,11 @@ const P4000: React.FC<P4000Props> = ({
         <Heading size='small'>
           {t('p4000:title', {ORGANISATION_NAME: organisation?.name, ORGANISATION_COUNTRY: organisation?.country})}
         </Heading>
-        <BottomAlignedHStack gap="4" style={{ flexDirection: 'row-reverse'}}>
+        <HStack
+          gap="4"
+          align="end"
+          style={{ flexDirection: 'row-reverse'}}
+        >
             <ReactToPrint
               documentTitle='P4000'
               onAfterPrint={afterPrintOut}
@@ -274,7 +273,7 @@ const P4000: React.FC<P4000Props> = ({
             <option value='50'>50</option>
             <option value='all'>{t('ui:all')}</option>
           </Select>
-        </BottomAlignedHStack>
+        </HStack>
         {gettingP4000 &&
           <div className={styles.waitingPanel}>
             <WaitingPanel />
