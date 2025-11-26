@@ -25,6 +25,10 @@
   100% { opacity: 1; }
 }
 
+@keyframes progressBarAnimation {
+  0% {background-position: 1rem 0;} to {background-position: 0 0;}
+}
+
 @keyframes slideInFromRight {
   0% {
     opacity: 0;
