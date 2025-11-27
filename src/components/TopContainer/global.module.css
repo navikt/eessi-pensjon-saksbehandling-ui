@@ -1,29 +1,29 @@
-:global html {
+html {
   height: 100%;
 }
-:global body {
+body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   height: 100vh;
   background-color: var(--a-bg-subtle);
 }
-:global pre {
+pre {
   font-family: 'Source Sans Pro', Arial, sans-serif;
 }
-:global code.block {
+code.block {
   display: block;
   white-space: pre-wrap;
 }
-:global dd {
+dd {
   margin-bottom: .5rem;
   margin-left: 0;
 }
-:global ol {
+ol {
   list-style-type: decimal;
 }
 
-:global .print-version {
+.print-version {
   width: 100%;
   margin-top: 0.5rem;
   @media print {
