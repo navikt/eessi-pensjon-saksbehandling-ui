@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import ReactResizeDetector from 'react-resize-detector'
 import { ErrorBoundary } from 'react-error-boundary'
 import styles from './TopContainer.module.css'
-import './global.module.css'
 import {VStack} from "@navikt/ds-react";
 import classNames from "classnames";
 
