@@ -41,7 +41,7 @@ jobs:
           scope: "@navikt"
 
       - name: 'Install'
-        run: npm install
+        run: npm ci --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
