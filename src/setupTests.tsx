@@ -41,6 +41,10 @@ Object.defineProperty(window, 'getComputedStyle', {
   })
 })
 
+jest.mock('canvas', () => {
+  return {};
+});
+
 jest.mock('uuid', () => ({
   v4: () => 'mock-uuid'
 }))

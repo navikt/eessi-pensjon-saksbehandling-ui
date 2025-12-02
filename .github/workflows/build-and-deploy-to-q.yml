@@ -55,9 +55,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-      - name: 'Rebuild canvas'
-        run: npm rebuild canvas --build-from-source
-
       - name: 'Run tests'
         run: npm run test:filtered
 
