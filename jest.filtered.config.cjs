@@ -1,6 +1,7 @@
 module.exports = {
   preset: 'ts-jest',
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
+  resolver: '<rootDir>/jest.resolver.js',
   roots: [
     '<rootDir>'
   ],
