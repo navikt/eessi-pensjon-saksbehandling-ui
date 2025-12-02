@@ -1,6 +1,6 @@
 module.exports = {
   preset: 'ts-jest',
-  testEnvironment: 'jsdom',
+  testEnvironment: 'node',
   roots: [
     '<rootDir>'
   ],
@@ -25,7 +25,6 @@ module.exports = {
     'node_modules'
   ],
   moduleNameMapper: {
-    '^canvas$': '<rootDir>/__mocks__/canvas.js',
     '^.+\\.(jpg|jpeg|png|gif|svg|css|less)$': 'identity-obj-proxy'
   },
   setupFilesAfterEnv: [
