@@ -1,9 +1,9 @@
+import defaultResolver from 'jest-resolve/build/defaultResolver.js';
 
-const defaultResolver = require('jest-resolve/build/defaultResolver').default;
-
-module.exports = (request, options) => {
+export default (request, options) => {
   if (request === 'canvas') {
-    return require.resolve('./__mocks__/canvas.js', { paths: [options.basedir] });
+    return new URL('./__mocks__/canvas.js', import.meta.url).pathname;
   }
   return defaultResolver(request, options);
 };
+
