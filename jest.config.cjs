@@ -18,7 +18,8 @@ module.exports = {
     'node_modules'
   ],
   moduleNameMapper: {
-    '^.+\\.(jpg|jpeg|png|gif|svg|css|less)$': 'identity-obj-proxy'
+    '^canvas$': '<rootDir>/canvas.js',
+    '^.+\\.(jpg|jpeg|png|gif|svg|css|less)$': 'identity-obj-proxy, '
   },
   setupFilesAfterEnv: [
     '<rootDir>/src/setupTests.tsx'
