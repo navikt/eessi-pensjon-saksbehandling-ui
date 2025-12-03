@@ -34,6 +34,8 @@
   "missing-p2000-epost-adresse": "Mangler epost",
   "missing-p2000-forsikret-person-sivilstand-fradato": "Mangler fra dato",
   "missing-p2000-forsikret-person-sivilstand-status": "Mangler status",
+  "missing-p2000-foedested-by": "Mangler fødested",
+  "missing-p2000-foedested-land": "Mangler land",
   "missing-p2000-pensjon-vedleggandre": "Mangler andre vedlegg",
   "missing-p2000-pensjon-utsettelse-land": "Mangler land",
   "missing-p2000-pensjon-utsettelse-institusjonsnavn": "Mangler institusjonsnavn",

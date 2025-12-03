@@ -123,7 +123,8 @@ const Adresse: React.FC<AdresseProps> = ({
           id={namespace + '-land'}
           label={t('p2000:form-adresse-land')}
           flags={true}
-          onOptionSelected={(land: Country) => setLand(land.value)}
+          onOptionSelected={(land: Country) => setLand(land?.value)}
+          isClearable={true}
           values={(adresse?.land) ?? ''}
           countryCodeListName="verdensLand"
         />

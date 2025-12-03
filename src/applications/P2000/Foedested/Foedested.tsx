@@ -66,7 +66,8 @@ const Foedested: React.FC<FoedestedProps> = ({
               id="land"
               countryCodeListName="verdensLandHistorisk"
               label={t('p2000:form-person-foedested-land')}
-              onOptionSelected={(v: Country) => setPersonOpplysninger("land", v.value, parentIndex)}
+              isClearable={true}
+              onOptionSelected={(v: Country) => setPersonOpplysninger("land", v?.value, parentIndex)}
               values={(person?.foedested?.land)  ?? ''}
             />
           </>

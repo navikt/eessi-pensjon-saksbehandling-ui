@@ -84,7 +84,8 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
             id="land"
             countryCodeListName="verdensLandHistorisk"
             label={t('p2000:form-person-foedested-land')}
-            onOptionSelected={(v: Country) => setPersonProperty("foedested.land", v.value)}
+            onOptionSelected={(v: Country) => setPersonProperty("foedested.land", v?.value)}
+            isClearable={true}
             values={(forsikretPerson?.foedested?.land)  ?? ''}
           />
         </HGrid>
