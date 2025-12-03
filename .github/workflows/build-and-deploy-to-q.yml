@@ -55,6 +55,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
+#      - name: 'Rebuild ts-jest'
+#        run: npm rebuild ts-jest
+
       - name: 'Run tests'
         run: npm run test:filtered
 
