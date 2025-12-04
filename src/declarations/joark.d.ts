@@ -1,4 +1,4 @@
-import { JoarkBrowserMode, JoarkBrowserType } from 'components/JoarkBrowser/JoarkBrowser'
+import { JoarkBrowserMode, JoarkBrowserType } from 'src/components/JoarkBrowser/JoarkBrowser'
 import { Context, Item } from '@navikt/tabell'
 
 export interface JoarkFileVariant {

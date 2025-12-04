@@ -1,8 +1,8 @@
-import * as constants from 'constants/constants'
-import { P4000SED } from 'declarations/p4000'
-import { P5000SED } from 'declarations/p5000'
-import { P2000SED } from "declarations/p2000";
-import { P8000SED } from "declarations/p8000";
+import * as constants from 'src/constants/constants'
+import { P4000SED } from 'src/declarations/p4000'
+import { P5000SED } from 'src/declarations/p5000'
+import { P2000SED } from "src/declarations/p2000";
+import { P8000SED } from "src/declarations/p8000";
 import { Sort } from '@navikt/tabell'
 import {SimpleCountry} from "@navikt/landvelger";
 

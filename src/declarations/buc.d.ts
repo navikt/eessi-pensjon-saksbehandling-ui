@@ -1,6 +1,6 @@
-import { Option } from 'declarations/app.d'
-import { JoarkBrowserItem, JoarkBrowserItems } from 'declarations/joark.d'
-import { PersonAvdod } from 'declarations/person.d'
+import { Option } from 'src/declarations/app.d'
+import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark.d'
+import { PersonAvdod } from 'src/declarations/person.d'
 
 export interface Address {
   country: string
