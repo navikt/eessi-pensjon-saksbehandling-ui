@@ -14,7 +14,7 @@ export interface BannerAlertProps {
   style ?: any
 }
 
-export const BannerAlert: React.FC<BannerAlertProps> = ({
+const BannerAlert: React.FC<BannerAlertProps> = ({
   className, error, message, onClose, variant, style = {}
 }: BannerAlertProps): JSX.Element | null => {
   let _message: JSX.Element | string | undefined = message

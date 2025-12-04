@@ -42,7 +42,7 @@ const mapState = (state: State): BUCIndexSelector => ({
   gettingAktoerId: state.loading.gettingAktoerId
 })
 
-export const BUCIndexGjenny = (): JSX.Element => {
+const BUCIndexGjenny = (): JSX.Element => {
   const {
     rinaUrl,
     aktoerId,

@@ -3,7 +3,7 @@ import ContextBanner from 'src/components/ContextBanner/ContextBanner'
 import TopContainer from 'src/components/TopContainer/TopContainer'
 import {Box, VStack} from "@navikt/ds-react";
 import BUCIndex from 'src/applications/BUC'
-import {GJENNY, PESYS} from "../../constants/constants";
+import {GJENNY, PESYS} from "src/constants/constants";
 import BUCIndexGjenny from "../../applications/BUC/BUCIndexGjenny";
 import "./CustomGlobalStyles.css";
 
@@ -12,7 +12,7 @@ export interface IndexPageProps {
   indexType?: string
 }
 
-export const IndexPage: React.FC<IndexPageProps> = ({indexType = "PESYS"}): JSX.Element => {
+const IndexPage: React.FC<IndexPageProps> = ({indexType = "PESYS"}): JSX.Element => {
   return (
     <TopContainer indexType={indexType}>
       <VStack gap="4">

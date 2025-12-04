@@ -57,7 +57,7 @@ export interface JoarkBrowserProps {
   tableId: string
 }
 
-export const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
+const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   existingItems = [],
   mode,
   onRowSelectChange = () => {},

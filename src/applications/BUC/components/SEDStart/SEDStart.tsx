@@ -163,7 +163,7 @@ const kravOmCode: KravOmCode = {
   Uføretrygd: 'UFOREP'
 }
 
-export const SEDStart: React.FC<SEDStartProps> = ({
+const SEDStart: React.FC<SEDStartProps> = ({
   aktoerId,
   bucs,
   currentBuc,

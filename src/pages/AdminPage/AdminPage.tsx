@@ -35,7 +35,7 @@ const mapState = (state: State): AdminPageSelector => ({
   resendingDocumentListSuccess: state.admin.resendingDocumentListSuccess,
 })
 
-export const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
+const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
 
   const dispatch = useDispatch()
   const { resendingDocument, resendingDocumentSuccess, resendingDocumentList, resendingDocumentListSuccess }: AdminPageSelector = useSelector<State, AdminPageSelector>(mapState)

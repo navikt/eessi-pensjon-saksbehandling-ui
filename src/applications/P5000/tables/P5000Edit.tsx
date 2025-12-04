@@ -42,10 +42,6 @@ import HiddenDiv from "src/components/HiddenDiv/HiddenDiv";
 import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
 dayjs.extend(customParseFormat)
 
-export interface P5000EditSelector {
-  sentP5000info: any
-}
-
 export interface P5000EditProps {
   caseId: string
   mainSed: Sed

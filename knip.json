@@ -7,8 +7,8 @@
   "tags": [
     "-lintignore"
   ],
-  "entry": ["src/index.tsx", "scripts/*.js", "server.mjs"],
-  "project": ["src/**", "scripts/**"],
+  "entry": ["src/index.tsx", "server.mjs"],
+  "project": ["src/**"],
   "ignore": ["**/*.test.ts", "**/*.test.tsx", "**/*.test.js"],
   "vite": {
     "config": [

@@ -36,7 +36,7 @@ const mapState = (state: State): PersonPanelSelector => ({
   vedtakId: state.app.params.vedtakId
 })
 
-export const PersonPanel = (): JSX.Element => {
+const PersonPanel = (): JSX.Element => {
   const { aktoerId, featureToggles, gettingPersonInfo, locale, personPdl, personAvdods, pesysContext, vedtakId }: PersonPanelSelector =
     useSelector<State, PersonPanelSelector>(mapState)
   const [openPersonBody, setOpenPersonBody] = useState(false);

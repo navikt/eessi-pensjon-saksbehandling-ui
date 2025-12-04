@@ -51,7 +51,7 @@ const mapState = (state: State): TopContainerSelector => ({
   size: state.ui.size,
 })
 
-export const TopContainer: React.FC<TopContainerProps> = ({
+const TopContainer: React.FC<TopContainerProps> = ({
   className, children, indexType = "PESYS"
 }: TopContainerProps): JSX.Element => {
   const {

@@ -36,7 +36,7 @@ const mapState = (state: State): BUCIndexSelector => ({
   gettingBucsInfo: state.loading.gettingBucsInfo
 })
 
-export const BUCIndex = (): JSX.Element => {
+const BUCIndex = (): JSX.Element => {
   const {
     aktoerId, sakId, sakType, gettingSakType, rinaUrl, bucsInfo, bucsInfoList, gettingBucsInfo
   }: BUCIndexSelector = useSelector<State, BUCIndexSelector>(mapState)

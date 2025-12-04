@@ -1,7 +1,6 @@
 import EESSIPensjonVeileder from 'src/components/EESSIPensjonVeileder/EESSIPensjonVeileder'
 import TopContainer from 'src/components/TopContainer/TopContainer'
 import {Accordion, BodyLong, Heading, VStack} from '@navikt/ds-react'
-import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -29,7 +28,7 @@ export interface ErrorPageProps {
   resetErrorBoundary ?: any
 }
 
-export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps): JSX.Element => {
+const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps): JSX.Element => {
   let title, description, footer
   const { t } = useTranslation()
 
@@ -95,11 +94,6 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
       </ErrorPageDiv>
     </TopContainer>
   )
-}
-
-Error.propTypes = {
-  error: PT.any,
-  type: PT.string.isRequired
 }
 
 export default Error

@@ -42,7 +42,7 @@ const mapState = (state: State): BUCIndexPageSelector => ({
   pesysContext: state.app.pesysContext
 })
 
-export enum Slide {
+enum Slide {
   LEFT,
   MIDDLE,
   RIGHT,
@@ -63,7 +63,7 @@ export enum Slide {
   C_GOING_TO_RIGHT
 }
 
-export const BUCIndexPageGjenny = (): JSX.Element => {
+const BUCIndexPageGjenny = (): JSX.Element => {
   const {
     aktoerId, avdodFnr, bucs, bucsList, gettingBucs, gettingBucsList, howManyBucLists,
     pesysContext

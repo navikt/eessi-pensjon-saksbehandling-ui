@@ -48,7 +48,7 @@ const mapState = (state: State): BUCIndexPageSelector => ({
   vedtakId: state.app.params.vedtakId
 })
 
-export enum Slide {
+enum Slide {
   LEFT,
   MIDDLE,
   RIGHT,
@@ -69,7 +69,7 @@ export enum Slide {
   C_GOING_TO_RIGHT
 }
 
-export const BUCIndexPage = (): JSX.Element => {
+const BUCIndexPage = (): JSX.Element => {
   const {
     aktoerId, bucs, bucsList, gettingBucs, gettingBucsList, howManyBucLists,
     pesysContext, sakId, vedtakId
