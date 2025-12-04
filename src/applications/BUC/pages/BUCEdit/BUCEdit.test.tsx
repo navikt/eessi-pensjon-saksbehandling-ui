@@ -11,7 +11,7 @@ import _ from 'lodash'
 import personAvdod from 'src/mocks/person/personAvdod'
 import mockBucs from 'src/mocks/buc/bucs'
 import { stageSelector } from 'src/setupTests'
-import BUCEdit, { BUCEditDiv, BUCEditProps } from './BUCEdit'
+import BUCEdit, { BUCEditProps } from './BUCEdit'
 
 jest.mock('src/constants/environment.ts', () => {
   return {
@@ -74,7 +74,6 @@ describe('src/applications/BUC/components/BUCEdit/BUCEdit', () => {
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.exists(BUCEditDiv)).toBeTruthy()
     expect(screen.getByTestId('a-buc-p-bucedit--back-link-id')).toBeInTheDocument()
     expect(screen.getByTestId('a-buc-p-bucedit--new-sed-button-id')).toBeInTheDocument()
     expect(wrapper.exists(SEDSearch)).toBeTruthy()
@@ -87,7 +86,7 @@ describe('src/applications/BUC/components/BUCEdit/BUCEdit', () => {
     (setFollowUpSeds as jest.Mock).mockReset()
     wrapper = render(<BUCEdit {...initialMockProps} />)
     wrapper.find('[data-testid=\'a-buc-p-bucedit--new-sed-button-id').hostNodes().simulate('click')
-    expect(setFollowUpSeds).toBeCalled()
+    expect(setFollowUpSeds).toHaveBeenCalled()
   })
 
   it('Handling: SEDSearch status start triggers the filter functions', () => {

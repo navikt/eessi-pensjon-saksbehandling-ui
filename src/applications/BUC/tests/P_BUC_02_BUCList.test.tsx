@@ -7,6 +7,7 @@ import { render, screen } from '@testing-library/react'
 import personAvdod from 'src/mocks/person/personAvdod'
 import mockBucsInfo from 'src/mocks/buc/bucsInfo'
 import { stageSelector } from 'src/setupTests'
+import {FeatureToggles} from "src/declarations/app";
 //import {BucLenkePanel} from "../CommonBucComponents";
 
 jest.mock('applications/BUC/components/BUCFooter/BUCFooter', () => () => <div className='mock-bucfooter' />)
@@ -28,6 +29,7 @@ jest.mock('actions/app', () => ({
 const mockPersonAvdods = personAvdod(1)
 
 const defaultSelector: BUCListSelector = {
+  featureToggles: {} as FeatureToggles,
   aktoerId: '123',
   sakType: undefined,
   bucsList: [{
@@ -110,7 +112,6 @@ const defaultSelector: BUCListSelector = {
 }
 
 describe('P_BUC_02 for BUCStart', () => {
-  let wrapper: any
   const initialMockProps: BUCListProps = {
     setMode: jest.fn()
   }
@@ -155,7 +156,7 @@ describe('P_BUC_02 for BUCStart', () => {
     stageSelector(defaultSelector, {
       pesysContext: BRUKERKONTEKST
     })
-    wrapper = render(<BUCList {...initialMockProps} />)
+    render(<BUCList {...initialMockProps} />)
 
     //expect(wrapper.exists(BUCListDiv)).toBeTruthy()    //Disabled, as BUCListDiv does no longer exist in BUCList
     //expect(wrapper.find(BucLenkePanel).length).toEqual(1)    //Disabled, as BucLenkePanel does no longer exist in BUCList

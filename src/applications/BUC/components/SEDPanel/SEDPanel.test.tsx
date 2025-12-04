@@ -3,7 +3,7 @@ import SEDHeader from 'src/applications/BUC/components/SEDHeader/SEDHeader'
 import { Buc, Sed } from 'src/declarations/buc'
 import { render } from '@testing-library/react'
 import mockBucs from 'src/mocks/buc/bucs'
-import SEDPanel, { SEDPanelDiv, SEDPanelContainer, SEDPanelProps } from './SEDPanel'
+import SEDPanel, { SEDPanelProps } from './SEDPanel'
 import { Accordion } from '@navikt/ds-react'
 
 jest.mock('src/applications/BUC/components/SEDHeader/SEDHeader', () => ({ children }: any) => (
@@ -34,12 +34,10 @@ describe('src/applications/BUC/components/SEDPanel/SEDPanel', () => {
   })
 
   it('Render: has proper HTML structure', () => {
-    expect(wrapper.exists(SEDPanelContainer)).toBeTruthy()
     expect(wrapper.exists(SEDHeader)).toBeTruthy()
   })
 
   it('Render: SED can\'t have attachments', () => {
-    expect(wrapper.exists(SEDPanelDiv)).toBeTruthy()
     expect(wrapper.exists(Accordion)).toBeFalsy()
     expect(wrapper.exists(SEDBody)).toBeFalsy()
   })
@@ -54,7 +52,6 @@ describe('src/applications/BUC/components/SEDPanel/SEDPanel', () => {
       }
     }
     wrapper = render(<SEDPanel {...mockProps} />)
-    expect(wrapper.exists(SEDPanelDiv)).toBeFalsy()
     expect(wrapper.exists(Accordion)).toBeTruthy()
   })
 

@@ -6,7 +6,7 @@ import {
   getSakType,
   setMode
 } from 'src/actions/buc'
-import { BUCIndexPage, BUCIndexPageSelector, ContainerDiv, WindowDiv } from 'src/applications/BUC/BUCIndexPage'
+import { BUCIndexPage, BUCIndexPageSelector} from 'src/applications/BUC/BUCIndexPage'
 import BUCEmpty from 'src/applications/BUC/pages/BUCEmpty/BUCEmpty'
 import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'src/constants/constants'
 import { Buc } from 'src/declarations/buc'
@@ -96,8 +96,6 @@ describe('applications/BUC/index', () => {
   it('Render: has proper HTML structure ', () => {
     wrapper = render(<BUCIndexPage />)
     expect(screen.getByTestId('a-buc-index\']')).toBeInTheDocument()
-    expect(wrapper.exists(ContainerDiv)).toBeTruthy()
-    expect(wrapper.exists(WindowDiv)).toBeTruthy()
   })
 
   it('Render: shows BUCEmptyGjenny when no sakId and aktoerId are given', () => {

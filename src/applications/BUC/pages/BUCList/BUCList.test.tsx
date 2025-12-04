@@ -14,6 +14,7 @@ import BUCList, {
   BUCListProps,
   BUCListSelector
 } from './BUCList'
+import {FeatureToggles} from "src/declarations/app";
 //import {BucLenkePanel, BUCStartDiv} from "../../CommonBucComponents";
 
 jest.mock('applications/BUC/components/BUCFooter/BUCFooter', () => () => <div className='mock-bucfooter' />)
@@ -45,7 +46,8 @@ const defaultSelector: BUCListSelector = {
   locale: 'nb',
   newlyCreatedBuc: undefined,
   personAvdods: mockPersonAvdods,
-  pesysContext: VEDTAKSKONTEKST
+  pesysContext: VEDTAKSKONTEKST,
+  featureToggles: {} as FeatureToggles
 }
 
 describe('applications/BUC/pages/BUCList/BUCList', () => {
@@ -103,6 +105,6 @@ describe('applications/BUC/pages/BUCList/BUCList', () => {
   it('Handling: moves to mode bucedit when button pressed', () => {
     (setCurrentBuc as jest.Mock).mockReset()
     //wrapper.find(BucLenkePanel).first().simulate('click')    //Disabled, as BucLenkePanel does no longer exist in BUCList
-    expect(setCurrentBuc).toBeCalled()
+    expect(setCurrentBuc).toHaveBeenCalled()
   })
 })

@@ -23,7 +23,7 @@ describe('src/components/Header/Header', () => {
   })
 
   it('Handling: has proper HTML structure', () => {
-    expect(screen.getByText('ui:app-headerTitle' || 'app-headerTitle-gjenny', )).toBeInTheDocument()
+    expect(screen.getByText('ui:app-headerTitle')).toBeInTheDocument()
     expect(screen.queryByRole('img')).toBeInTheDocument()
     expect(screen.queryByRole('button')).toBeInTheDocument()
     expect(screen.getByText('ui:app-header-menu-label')).toBeInTheDocument()

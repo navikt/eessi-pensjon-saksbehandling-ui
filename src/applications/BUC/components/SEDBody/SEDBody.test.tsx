@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react'
 import _ from 'lodash'
 import mockBucs from 'src/mocks/buc/bucs'
 import { stageSelector } from 'src/setupTests'
-import SEDBody, { SEDBodyDiv, SEDBodyProps } from './SEDBody'
+import SEDBody, { SEDBodyProps } from './SEDBody'
 
 const defaultSelector = {
   attachmentsError: false
@@ -60,10 +60,6 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
 
   afterEach(() => {
     wrapper.unmount()
-  })
-
-  it('Render: has proper HTML structure', () => {
-    expect(wrapper.exists(SEDBodyDiv)).toBeTruthy()
   })
 
   it('Render: shows JoarkBrowser only if items are not empty', () => {

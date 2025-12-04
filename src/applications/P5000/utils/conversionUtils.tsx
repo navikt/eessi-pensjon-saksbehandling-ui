@@ -225,6 +225,7 @@ export const sumItemtoPeriod = (item: P5000SumRow): [P5000Period, P5000Period] =
 }
 
 export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, item: P5000ListRow, max40 = false) => {
+  console.log('mergeToExistingPeriod - index:', index, ' item:', item)
   const existingDates = dateDecimal({
     dateFom: arr[index].periode?.fom,
     dateTom: arr[index].periode?.tom,
@@ -241,7 +242,7 @@ export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, it
     days: item.dag
   }, existingDates)
 
-  if (max40 && newDates.years! >= 40) {
+  if (max40 && (_.isNumber(newDates.years!) ? newDates.years! >= 40 : parseInt(newDates.years!) >= 40)) {
     newDates = {
       years: 40,
       months: 0,

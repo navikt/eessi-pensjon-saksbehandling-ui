@@ -236,7 +236,11 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
 
       const diff: FormattedDateDiff = dateDiff(startdato, sluttdato)
 
-      if (diff.days <= 1 && diff.months === 0 && diff.years === 0) {
+      const diffDays: number = _.isNumber(diff.days) ? diff.days : parseInt(diff.days)
+      const diffMonths: number = _.isNumber(diff.months) ? diff.months : parseInt(diff.months)
+      const diffYears: number = _.isNumber(diff.years) ? diff.years : parseInt(diff.years)
+
+      if (diffDays <= 1 && diffMonths === 0 && diffYears === 0) {
         dispatch(setGjpBpWarning({
           type: 'warning',
           message: t('message:warning-nododsfallPeriod')
