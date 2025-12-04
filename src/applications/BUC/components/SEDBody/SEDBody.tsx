@@ -17,12 +17,10 @@ import {
   SEDAttachmentPayloadWithFile,
   SEDAttachments
 } from 'src/declarations/buc'
-import { BucPropType, SedPropType } from 'src/declarations/buc.pt'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { Heading, Loader, Button, Box } from '@navikt/ds-react'
-import PT from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -250,18 +248,6 @@ const SEDBody: React.FC<SEDBodyProps> = ({
       />
     </Box>
   )
-}
-
-SEDBody.propTypes = {
-  aktoerId: PT.string.isRequired,
-  buc: BucPropType.isRequired,
-  canHaveAttachments: PT.bool.isRequired,
-  initialAttachmentsSent: PT.bool,
-  initialSeeAttachmentPanel: PT.bool,
-  initialSendingAttachments: PT.bool,
-  onAttachmentsSubmit: PT.func,
-  onAttachmentsPanelOpen: PT.func,
-  sed: SedPropType.isRequired
 }
 
 export default SEDBody

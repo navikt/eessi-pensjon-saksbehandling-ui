@@ -16,7 +16,6 @@ import Select from 'src/components/Select/Select'
 import { LocalStorageEntry, Option } from 'src/declarations/app.d'
 import { Sed } from 'src/declarations/buc.d'
 import { P5000sFromRinaMap } from 'src/declarations/p5000.d'
-import { SedPropType } from 'src/declarations/buc.pt'
 import {
   P5000ListRow,
   P5000ListRows,
@@ -27,7 +26,6 @@ import {
 import { State } from 'src/declarations/reducers'
 import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
-import PT from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -1206,11 +1204,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       </VStack>
     </>
   )
-}
-
-P5000Edit.propTypes = {
-  mainSed: SedPropType.isRequired,
-  p5000sFromRinaMap: PT.any.isRequired
 }
 
 export default P5000Edit

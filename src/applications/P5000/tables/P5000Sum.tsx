@@ -6,7 +6,6 @@ import { SakTypeMap, SakTypeValue, Sed } from 'src/declarations/buc.d'
 import { P5000sFromRinaMap, P5000SED, P5000SumRow, P5000SumRows } from 'src/declarations/p5000'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import PT from 'prop-types'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -278,10 +277,6 @@ const P5000Sum: React.FC<P5000SumProps> = ({
       )}
     </VStack>
   )
-}
-
-P5000Sum.propTypes = {
-  p5000sFromRinaMap: PT.any.isRequired
 }
 
 export default P5000Sum

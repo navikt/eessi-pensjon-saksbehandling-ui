@@ -22,7 +22,6 @@ import {
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import moment from 'moment'
-import PT from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -471,10 +470,6 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       )}
     </>
   )
-}
-
-P5000Overview.propTypes = {
-  p5000sFromRinaMap: PT.any.isRequired
 }
 
 export default P5000Overview

@@ -2,14 +2,11 @@ import JoarkBrowser from 'src/components/JoarkBrowser/JoarkBrowser'
 import Modal from 'src/components/Modal/Modal'
 import { AlertVariant } from 'src/declarations/components'
 import {JoarkBrowserItems, JoarkBrowserItemWithContent} from 'src/declarations/joark'
-import { JoarkBrowserItemsFileType } from 'src/declarations/joark.pt'
 import { State } from 'src/declarations/reducers'
-import PT from 'prop-types'
 import React, {useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import {useDispatch, useSelector} from 'react-redux'
 import { Alert } from '@navikt/ds-react'
-//import File from "@navikt/forhandsvisningsfil";
 import {setJoarkItemPreview} from "../../../../actions/joark";
 import PDFViewer from "src/components/PDFViewer/PDFViewer";
 
@@ -141,13 +138,6 @@ const SEDAttachmentModal: React.FC<SEDAttachmentModalProps> = ({
       width={"900"}
     />
   )
-}
-
-SEDAttachmentModal.propTypes = {
-  onFinishedSelection: PT.func.isRequired,
-  onModalClose: PT.func.isRequired,
-  sedAttachments: JoarkBrowserItemsFileType.isRequired,
-  tableId: PT.string.isRequired
 }
 
 export default SEDAttachmentModal

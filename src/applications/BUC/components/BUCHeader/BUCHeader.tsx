@@ -8,7 +8,6 @@ import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import { WidthSize } from 'src/declarations/app'
 import { AllowedLocaleString, RinaUrl } from 'src/declarations/app.d'
 import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames, JoarkBuc } from 'src/declarations/buc'
-import { BucInfoPropType, BucPropType } from 'src/declarations/buc.pt'
 import { State } from 'src/declarations/reducers'
 import { FlagItems, FlagList } from '@navikt/flagg-ikoner'
 import _ from 'lodash'
@@ -251,11 +250,6 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
       </LinkPanel.Description>
     </>
   )
-}
-
-BUCHeader.propTypes = {
-  buc: BucPropType.isRequired,
-  bucInfo: BucInfoPropType
 }
 
 export default BUCHeader

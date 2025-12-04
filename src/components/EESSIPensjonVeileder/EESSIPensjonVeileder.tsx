@@ -1,5 +1,3 @@
-import PT from 'prop-types'
-
 const SmilendeOrangeVeileder = 'src/components/EESSIPensjonVeileder/veileder/navPensjonSmilendeOrangeVeileder.png'
 const TristOrangeVeileder = 'src/components/EESSIPensjonVeileder/veileder/navPensjonTristOrangeVeileder.png'
 
@@ -27,12 +25,6 @@ const EESSIPensjonVeileder: React.FC<EESSIPensjonVeilederProps> = ({
     />
   </div>
 )
-
-EESSIPensjonVeileder.propTypes = {
-  id: PT.string,
-  className: PT.string,
-  mood: PT.oneOf(['smilende', 'trist'])
-}
 
 EESSIPensjonVeileder.displayName = 'EESSIPensjonVeileder'
 export default EESSIPensjonVeileder

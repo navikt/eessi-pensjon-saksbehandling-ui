@@ -1,6 +1,5 @@
 import classNames from 'classnames'
 import { Labels } from 'src/declarations/app.d'
-import PT from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import { Tag } from '@navikt/ds-react'
 import styles from './SEDStatus.module.css'
@@ -47,11 +46,6 @@ const SEDStatus: React.FC<SEDStatusProps> = ({
       {t('buc:status-' + status)}
     </Tag>
   )
-}
-
-SEDStatus.propTypes = {
-  className: PT.string,
-  status: PT.string.isRequired
 }
 
 export default SEDStatus

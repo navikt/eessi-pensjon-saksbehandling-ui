@@ -1,10 +1,8 @@
 import { IS_TEST } from 'src/constants/environment'
 import { SavingAttachmentsJob, SEDAttachmentPayload, SEDAttachmentPayloadWithFile } from 'src/declarations/buc'
-import { SEDAttachmentPayloadPropType } from 'src/declarations/buc.pt'
 import { JoarkBrowserItem } from 'src/declarations/joark'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import PT from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -144,17 +142,6 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
       )}
     </VStack>
   )
-}
-
-SEDAttachmentSender.propTypes = {
-  attachmentsError: PT.bool,
-  className: PT.string,
-  initialStatus: PT.oneOf(['todo', 'inprogress', 'done', 'error']),
-  onCancel: PT.func,
-  onFinished: PT.func.isRequired,
-  onSaved: PT.func.isRequired,
-  payload: SEDAttachmentPayloadPropType.isRequired,
-  sendAttachmentToSed: PT.func.isRequired
 }
 
 export default SEDAttachmentSender
