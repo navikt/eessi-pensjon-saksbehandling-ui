@@ -1,0 +1,26 @@
+# .github/dependabot.yml
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "08:00"
+      timezone: "Europe/Oslo"
+    cooldown:
+      default-days: 7
+      semver-major-days: 30
+    open-pull-requests-limit: 15
+    labels:
+      - "dependencies"
+      - "npm"
+    commit-message:
+      prefix: "dependabot-bump"
+      include: "scope"
+    dependencies:
+      patterns:
+        - "*"
+      update-types:
+        - "minor"
+        - "patch"
