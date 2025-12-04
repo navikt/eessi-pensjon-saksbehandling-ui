@@ -1051,7 +1051,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.BUC_PUT_SED_SUCCESS:
       const savedPSED: PSED = _.cloneDeep(state.PSED) as PSED
       if (_.isNil(savedPSED.originalSed)) {
-        savedPSED.originalSed = {} as PSED
+        savedPSED.originalSed = {} as Sed
       }
 
       if(savedPSED.originalSed.status === "sent"){
@@ -1090,7 +1090,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.BUC_SEND_SED_SUCCESS: {
       const newPSED: PSED = _.cloneDeep(state.PSED) as PSED
       if (_.isNil(newPSED.originalSed)) {
-        newPSED.originalSed = {} as PSED
+        newPSED.originalSed = {} as Sed
       }
       newPSED.originalSed.status = 'sent'
       return {

@@ -1,4 +1,4 @@
-import { SEDStart, SEDStartProps, SEDStartSelector } from 'src/applications/BUC/components/SEDStart/SEDStart'
+import SEDStart, { SEDStartProps, SEDStartSelector } from 'src/applications/BUC/components/SEDStart/SEDStart'
 import { BRUKERKONTEKST, KRAVKONTEKST } from 'src/constants/constants'
 import { Bucs, SakTypeMap } from 'src/declarations/buc.d'
 import { render, screen } from '@testing-library/react'

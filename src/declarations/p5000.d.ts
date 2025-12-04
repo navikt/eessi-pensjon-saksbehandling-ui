@@ -1,4 +1,5 @@
 import { Item } from '@navikt/tabell'
+import {BaseSED} from "src/declarations/sed";
 
 export type P5000PeriodStatus = 'rina' | 'edited' | 'new'
 
@@ -57,10 +58,7 @@ export interface P5000Period {
   enkeltkrav? : string | null
 }
 
-export interface P5000SED {
-  sed: string
-  sedGVer: string
-  sedVer: string
+export interface P5000SED extends BaseSED{
   nav: {
     eessisak: Array<{
       institusjonsid : string

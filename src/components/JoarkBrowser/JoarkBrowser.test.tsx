@@ -4,7 +4,7 @@ import {fireEvent, render, screen} from '@testing-library/react'
 import mockJoark from 'src/mocks/joark/joark'
 import mockJoarkProcessed from 'src/mocks/joark/joarkAsItems'
 import { stageSelector } from 'src/setupTests'
-import { JoarkBrowser, JoarkBrowserProps, JoarkBrowserSelector } from './JoarkBrowser'
+import JoarkBrowser, { JoarkBrowserProps, JoarkBrowserSelector } from './JoarkBrowser'
 import _ from 'lodash'
 
 

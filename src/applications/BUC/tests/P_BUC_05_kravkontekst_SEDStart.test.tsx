@@ -1,5 +1,5 @@
 import { within } from '@testing-library/dom'
-import { SEDStart, SEDStartProps, SEDStartSelector } from 'src/applications/BUC/components/SEDStart/SEDStart'
+import SEDStart, { SEDStartProps, SEDStartSelector } from 'src/applications/BUC/components/SEDStart/SEDStart'
 import { KRAVKONTEKST } from 'src/constants/constants'
 import { Bucs, SakTypeMap } from 'src/declarations/buc.d'
 import { fireEvent, render, screen } from '@testing-library/react'

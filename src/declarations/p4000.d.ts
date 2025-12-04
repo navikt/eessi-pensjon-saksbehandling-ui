@@ -1,4 +1,5 @@
 import {Item} from "@navikt/tabell";
+import {BaseSED} from "src/declarations/sed";
 
 export interface P4000PeriodInterval {
   fom : string | null
@@ -73,11 +74,8 @@ export interface P4000TableContext {
   items: P4000ListRows
 }
 
-export interface P4000SED {
-  sed: string
+export interface P4000SED  extends BaseSED {
   sedId: string
-  sedGVer: string
-  sedVer: string
   nav: {
     eessisak: Array<{
       institusjonsid : string

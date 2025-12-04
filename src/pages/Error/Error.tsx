@@ -28,7 +28,7 @@ export interface ErrorPageProps {
   resetErrorBoundary ?: any
 }
 
-const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps): JSX.Element => {
+export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps): JSX.Element => {
   let title, description, footer
   const { t } = useTranslation()
 

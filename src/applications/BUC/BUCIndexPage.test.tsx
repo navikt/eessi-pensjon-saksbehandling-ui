@@ -6,7 +6,7 @@ import {
   getSakType,
   setMode
 } from 'src/actions/buc'
-import { BUCIndexPage, BUCIndexPageSelector} from 'src/applications/BUC/BUCIndexPage'
+import BUCIndexPage, { BUCIndexPageSelector} from 'src/applications/BUC/BUCIndexPage'
 import BUCEmpty from 'src/applications/BUC/pages/BUCEmpty/BUCEmpty'
 import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'src/constants/constants'
 import { Buc } from 'src/declarations/buc'
