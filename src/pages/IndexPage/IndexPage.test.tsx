@@ -1,10 +1,9 @@
 import {  screen, render } from '@testing-library/react'
 
-import { IndexPage, IndexPageProps } from './IndexPage'
+import IndexPage, { IndexPageProps } from './IndexPage'
 
 jest.mock('src/constants/environment.ts', () => {
   return {
-    IS_DEVELOPMENT: 'development',
     IS_PRODUCTION: 'production',
     IS_TEST: 'test'
   };

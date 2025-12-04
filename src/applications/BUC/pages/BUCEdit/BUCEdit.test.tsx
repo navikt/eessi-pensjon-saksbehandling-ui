@@ -15,7 +15,6 @@ import BUCEdit, { BUCEditProps } from './BUCEdit'
 
 jest.mock('src/constants/environment.ts', () => {
   return {
-    IS_DEVELOPMENT: 'development',
     IS_PRODUCTION: 'production',
     IS_TEST: 'test'
   };

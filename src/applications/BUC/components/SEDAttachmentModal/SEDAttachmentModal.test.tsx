@@ -5,7 +5,6 @@ import SEDAttachmentModal, { SEDAttachmentModalProps } from './SEDAttachmentModa
 
 jest.mock('src/constants/environment.ts', () => {
   return {
-    IS_DEVELOPMENT: 'development',
     IS_PRODUCTION: 'production',
     IS_TEST: 'test'
   };

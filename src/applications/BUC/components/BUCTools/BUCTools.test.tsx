@@ -15,7 +15,6 @@ import { P5000sFromRinaMap } from 'src/declarations/p5000'
 
 jest.mock('src/constants/environment.ts', () => {
   return {
-    IS_DEVELOPMENT: 'development',
     IS_PRODUCTION: 'production',
     IS_TEST: 'test'
   };

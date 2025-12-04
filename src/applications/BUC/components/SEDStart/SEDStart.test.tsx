@@ -14,11 +14,10 @@ import personAvdod from 'src/mocks/person/personAvdod'
 import mockBucs from 'src/mocks/buc/bucs'
 import mockItems from 'src/mocks/joark/items'
 import { stageSelector } from 'src/setupTests'
-import { SEDStart, SEDStartProps, SEDStartSelector } from './SEDStart'
+import SEDStart, { SEDStartProps, SEDStartSelector } from './SEDStart'
 
 jest.mock('src/constants/environment.ts', () => {
   return {
-    IS_DEVELOPMENT: 'development',
     IS_PRODUCTION: 'production',
     IS_TEST: 'test'
   };

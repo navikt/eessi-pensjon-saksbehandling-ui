@@ -11,7 +11,6 @@ import mockFeatureToggles from 'src/mocks/app/featureToggles'
 
 jest.mock('src/constants/environment.ts', () => {
   return {
-    IS_DEVELOPMENT: 'development',
     IS_PRODUCTION: 'production',
     IS_TEST: 'test'
   };
