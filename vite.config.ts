@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+//@ts-ignore
 import react from '@vitejs/plugin-react'
 import viteTsconfigPaths from 'vite-tsconfig-paths'
 
