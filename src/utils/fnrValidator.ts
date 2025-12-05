@@ -1,4 +1,4 @@
-import { ValidationResult, idnr } from "@navikt/fnrvalidator";
+import { idnr } from "@navikt/fnrvalidator";
 
 type NPID_LENGTH_ERROR = 'npid must consist of 11 digits';
 type NPIDErrorReason = NPID_LENGTH_ERROR;
@@ -6,6 +6,14 @@ type NPIDOkResult = { status: 'valid'; type: 'npid' };
 type NPIDErrorResult = { status: 'invalid'; reasons: NPIDErrorReason[]};
 type NPIDValidationResult = NPIDOkResult | NPIDErrorResult;
 
+type LENGTH_ERROR = 'fnr, dnr or hnr must consist of 11 digits';
+type CHECKSUM_ERROR = "checksums don't match";
+type DATE_ERROR = 'invalid date';
+type ErrorReason = LENGTH_ERROR | CHECKSUM_ERROR | DATE_ERROR;
+type OkResult = { status: 'valid'; type: NrType };
+type NrType = 'dnr' | 'fnr' | 'hnr' | 'tnr' | 'dnr-and-hnr' | 'dnr-and-tnr';
+type ErrorResult = { status: 'invalid'; reasons: ErrorReason[] };
+type ValidationResult = OkResult | ErrorResult;
 
 const elevenDigits = new RegExp('^\\d{11}$')
 
