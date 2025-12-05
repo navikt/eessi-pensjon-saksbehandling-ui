@@ -1,8 +1,6 @@
 export const HOST = window.location.hostname
 const FULL_HOST = window.location.protocol + '//' + HOST
-const WS_HOST = 'wss://' + HOST
-export const BASE_URL = FULL_HOST + (window.location.port ? ':' + window.location.port : '')
-export const WS_BASE_URL = WS_HOST + (window.location.port ? ':' + window.location.port : '')
+const BASE_URL = FULL_HOST + (window.location.port ? ':' + window.location.port : '')
 
 const FRONTEND_API_URL = BASE_URL + '/frontend'
 const FAGMODUL_API_URL = BASE_URL + '/fagmodul'
@@ -36,13 +34,9 @@ export const ADMIN_RESEND_DOCUMENT_LISTE_URL = EUX_URL + '/resend/liste'
 export const API_USERINFO_URL = API_URL + '/userinfo'
 
 // StorageController
-export const API_STORAGE_LISTALL_URL = STG_URL + '/list'
 export const API_STORAGE_LIST_URL = STG_URL + '/list/%(userId)s___%(namespace)s'
-export const API_STORAGE_GETFILE_URL = STG_URL + '/get/%(filename)s'
 export const API_STORAGE_GET_URL = STG_URL + '/get/%(userId)s___%(namespace)s___%(file)s'
 export const API_STORAGE_POST_URL = STG_URL + '/%(userId)s___%(namespace)s___%(file)s'
-export const API_STORAGE_DELETE_URL = STG_URL + '/%(userId)s___%(namespace)s___%(file)s'
-export const API_STORAGE_MULTIPLE_DELETE_URL = STG_URL + '/multiple/%(userId)s___%(namespace)s'
 
 // SafController
 export const API_JOARK_LIST_URL = SAF_URL + '/metadata/%(userId)s'

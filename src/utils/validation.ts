@@ -138,30 +138,6 @@ export const checkIfNotValidIban = (v: Validation, {
   return false
 }
 
-export const checkIfNotValidLand = (v: Validation, {
-  needle,
-  id,
-  message,
-  extra
-}: any): boolean => {
-  if (!_.isEmpty(needle) && needle?.trim()?.length !== 2) {
-    return addError(v, { id, message, extra })
-  }
-  return false
-}
-
-export const checkIfGB = (v: Validation, {
-  needle,
-  id,
-  message,
-  extra
-}: any): boolean => {
-  if (!_.isEmpty(needle) && needle?.trim()?.toLowerCase() === 'gb') {
-    return addError(v, { id, message, extra })
-  }
-  return false
-}
-
 export const addError = (v: Validation, { id, message, extra = {} }: ValidateParams
 ) => {
   v[id] = {

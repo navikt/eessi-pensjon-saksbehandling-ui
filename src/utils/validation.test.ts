@@ -2,7 +2,6 @@ import {
   checkIfDuplicate,
   checkIfNotEmail,
   checkIfEmpty,
-  checkIfGB,
   checkIfNotTelephoneNumber,
   checkIfNotValidBeloep,
   checkIfNotValidSwift,
@@ -723,68 +722,6 @@ describe('validation/checkIfNotValidSwift', () => {
       }
     ))
       .toEqual(true)
-  })
-})
-
-describe('validation/checkIfGB', () => {
-  it('Should return true when needle is gb in small letters', () => {
-    expect(checkIfGB(
-      mockValidation,
-      {
-        needle: "gb",
-        id: 'id',
-        message: 'validation text'
-      }
-    ))
-      .toEqual(true)
-  })
-
-  it('Should return true when needle is gb in large letters', () => {
-    expect(checkIfGB(
-      mockValidation,
-      {
-        needle: "GB",
-        id: 'id',
-        message: 'validation text'
-      }
-    ))
-      .toEqual(true)
-  })
-
-  it('Should return false when needle is not gb', () => {
-    expect(checkIfGB(
-      mockValidation,
-      {
-        needle: "BG",
-        id: 'id',
-        message: 'validation text'
-      }
-    ))
-      .toEqual(false)
-  })
-
-  it('Should return false when needle is gb multiple times', () => {
-    expect(checkIfGB(
-      mockValidation,
-      {
-        needle: "GBGB",
-        id: 'id',
-        message: 'validation text'
-      }
-    ))
-      .toEqual(false)
-  })
-
-  it('Should return false when needle is an empty string', () => {
-    expect(checkIfGB(
-      mockValidation,
-      {
-        needle: "",
-        id: 'id',
-        message: 'validation text'
-      }
-    ))
-      .toEqual(false)
   })
 })
 

@@ -50,7 +50,7 @@ export interface Form extends Option {
   options?: any
 }
 
-export const mapState = (state: State): MainFormSelector => ({
+const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
   editingItems: state.app.editingItems
 })

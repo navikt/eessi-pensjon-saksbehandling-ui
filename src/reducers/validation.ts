@@ -8,7 +8,7 @@ export interface ValidationState {
   status: any
 }
 
-export const initialValidationState: ValidationState = {
+const initialValidationState: ValidationState = {
   status: {}
 }
 

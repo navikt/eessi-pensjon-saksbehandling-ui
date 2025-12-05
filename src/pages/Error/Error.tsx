@@ -9,7 +9,7 @@ const Description = styled.div`
   margin: 1rem;
   text-align: center;
 `
-export const ErrorPageDiv = styled(VStack)`
+const ErrorPageDiv = styled(VStack)`
   align-items: center;
   justify-content: center;
 `
@@ -95,5 +95,3 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
     </TopContainer>
   )
 }
-
-export default Error

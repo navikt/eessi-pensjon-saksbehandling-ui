@@ -1,4 +1,4 @@
-export const umamiLogger = (key: string, data: object) => {
+const umamiLogger = (key: string, data: object) => {
   //@ts-ignore
   if (typeof window !== 'undefined' && window.umami) {
     //@ts-ignore

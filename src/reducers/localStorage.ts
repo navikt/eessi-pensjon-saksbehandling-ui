@@ -6,13 +6,13 @@ import { AnyAction } from 'redux'
 
 // these are used for: 1) reducer namespace, and 2) local storage key
 
-export const storageKey = 'buc'
+const storageKey = 'buc'
 
 export interface LocalStorageState {
   entries: LocalStorageEntriesMap
 }
 
-export const initialLocalStorageState: LocalStorageState = {
+const initialLocalStorageState: LocalStorageState = {
   entries: undefined
 }
 

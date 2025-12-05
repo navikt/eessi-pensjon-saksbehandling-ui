@@ -66,7 +66,7 @@ export const sortItems = (items: P5000ListRows): P5000ListRows => {
   return _.flatten(newItems)
 }
 
-export const mergeP5000ListRows = (
+const mergeP5000ListRows = (
   { rows, mergePeriodTypes, mergePeriodBeregnings, useGermanRules }:
   { rows: P5000ListRows, mergePeriodTypes: Array<string> | undefined, mergePeriodBeregnings: Array<string> | undefined, useGermanRules: boolean}
 ) => {

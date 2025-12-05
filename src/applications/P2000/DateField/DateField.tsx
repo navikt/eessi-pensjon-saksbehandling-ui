@@ -45,7 +45,7 @@ export const isDateValidFormat = (date: string | undefined): boolean => {
     moment(date, "DDMMYY", true).isValid();
 }
 
-export const toDateFormat = (date: string | undefined, format: string): string => {
+const toDateFormat = (date: string | undefined, format: string): string => {
   const newDate = parseDate(date?.trim())
   if (!newDate) { return '' }
   return newDate.isValid() ? newDate!.format(format) : ''

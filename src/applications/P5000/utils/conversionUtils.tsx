@@ -31,7 +31,7 @@ export const getSedSender = (sed: Sed | undefined): SedSender | undefined => {
   }
 }
 
-export const senderIsNorway = (sender: SedSender): boolean => sender?.country === 'NO'
+const senderIsNorway = (sender: SedSender): boolean => sender?.country === 'NO'
   // Used for simulating sending to/from Norway to/from DK/FI (Q2-->Q1/Q1-->Q2)
   //&& (sender?.institution !== 'NO:NAVAT06' && sender?.institution !== 'NO:NAVAT08')
 
@@ -55,7 +55,7 @@ export const generateKeyForListRow = (id: string, m: P5000Period): string => {
 
 }
 
-export const convertDate = (date: string | Date | null | undefined): string | null => {
+const convertDate = (date: string | Date | null | undefined): string | null => {
   if (_.isNil(date)) {
     return null
   }

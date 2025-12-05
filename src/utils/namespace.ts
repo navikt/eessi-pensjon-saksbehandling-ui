@@ -5,14 +5,3 @@ export const getIdx = (index: any | undefined): string => (
     ? '[' + index + ']'
     : ''
 )
-
-export const getNSIdx = (type: string | undefined, index: any | undefined): string => (
-  !_.isNil(type)
-    ? '[' + type + ']' + getIdx(index)
-    : ''
-)
-
-export const readNSIdx = (key: string): [string, number] => {
-  const re = key.match(/\[(.+)\]\[(.+)\]$/)
-  return [re![1], parseInt(re![2])]
-}

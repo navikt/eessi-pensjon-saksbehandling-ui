@@ -59,8 +59,6 @@ export const getBucTypeLabel = ({ type, locale, t }: getBucTypeLabelProps): stri
 export const getFnr = (p: PersonPDL | null | undefined): string | undefined => _.find(p?.identer, i => i.gruppe === 'FOLKEREGISTERIDENT')?.ident
 export const getNPID = (p: PersonPDL | null | undefined): string | undefined => _.find(p?.identer, i => i.gruppe === 'NPID')?.ident
 
-export const getRelasjonTilPerson = (p: PersonPDL | null | undefined, needle: string | undefined) => _.find(p?.familierelasjoner, r => r.relatertPersonsIdent === needle)?.relatertPersonsRolle
-
 export const labelSorter = (a: Option, b: Option) => a.label.localeCompare(b.label)
 
 export const pbuc02filter = (pesysContext: PesysContext, personAvdods: PersonAvdods | undefined) =>

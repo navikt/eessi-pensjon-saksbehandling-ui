@@ -9,10 +9,6 @@ export interface ValidationUtenlandskSaksnrProps {
   index ?: number
 }
 
-export interface ValidationUtenlandskeSaksnrProps {
-  utenlandskeSaksnr: Array<Eessisak> | undefined
-}
-
 export const validateUtenlandskSaksnr = (
   v: Validation,
   namespace: string | undefined,
@@ -52,25 +48,6 @@ export const validateUtenlandskSaksnr = (
     id: namespace + idx + '-land',
     message: 'validation:duplicate-utenlandskesaksnr-land',
   }))
-
-  return hasErrors.find(value => value) !== undefined
-}
-
-export const validateUtenlandskeSaksnr = (
-  v: Validation,
-  namespace: string,
-  {
-    utenlandskeSaksnr,
-  }: ValidationUtenlandskeSaksnrProps
-): boolean => {
-
-  const hasErrors: Array<boolean> = utenlandskeSaksnr?.map((eessisak: Eessisak, index: number) => {
-    return validateUtenlandskSaksnr(v, namespace, {
-      index,
-      eessisak: eessisak,
-      utenlandskeSaksnr: utenlandskeSaksnr,
-    })
-  }) ?? []
 
   return hasErrors.find(value => value) !== undefined
 }

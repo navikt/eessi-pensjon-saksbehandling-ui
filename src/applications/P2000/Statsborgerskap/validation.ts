@@ -9,10 +9,6 @@ export interface ValidationStatsborgerskapProps {
   index ?: number
 }
 
-export interface ValidationStatsborgerskapArrayProps {
-  statsborgerskapArray: Array<Statsborgerskap> | undefined
-}
-
 export const validateStatsborgerskap = (
   v: Validation,
   namespace: string | undefined,
@@ -40,22 +36,5 @@ export const validateStatsborgerskap = (
     message: 'validation:duplicate-p2000-statsborgerskap-land',
   }))
 
-  return hasErrors.find(value => value) !== undefined
-}
-
-export const validateStatsborgerskapArray = (
-  v: Validation,
-  namespace: string,
-  {
-    statsborgerskapArray,
-  }: ValidationStatsborgerskapArrayProps
-): boolean => {
-  const hasErrors: Array<boolean> = statsborgerskapArray?.map((statsborgerskap: Statsborgerskap, index: number) => {
-    return validateStatsborgerskap(v, namespace, {
-      index,
-      statsborgerskap,
-      statsborgerskapArray,
-    })
-  }) ?? []
   return hasErrors.find(value => value) !== undefined
 }

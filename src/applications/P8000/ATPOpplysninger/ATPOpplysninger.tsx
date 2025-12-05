@@ -50,7 +50,7 @@ export interface ATPOpplysningerSelector {
   PSEDSavedResponse: any | null | undefined
 }
 
-export const mapState = (state: State): ATPOpplysningerSelector => ({
+const mapState = (state: State): ATPOpplysningerSelector => ({
   personPdl: state.person.personPdl,
   newlyCreatedATPBuc: state.buc.newlyCreatedATPBuc,
   newlyCreatedATPSed: state.buc.newlyCreatedATPSed,
