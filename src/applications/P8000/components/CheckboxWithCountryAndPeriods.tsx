@@ -60,7 +60,8 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
                     countryCodeListName="euEftaLand"
                     label={t('p8000:form-label-land')}
                     hideLabel={false}
-                    onOptionSelected={(c: Country) => {setProperty('landkode', c.value)}}
+                    onOptionSelected={(c: Country) => {setProperty('landkode', c?.value)}}
+                    isClearable={true}
                     excludeNorway={options?.excludeNorway}
                     values={field?.landkode  ?? ''}
                   />
