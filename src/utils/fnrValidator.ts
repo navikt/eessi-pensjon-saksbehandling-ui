@@ -1,4 +1,4 @@
-import validator, { ValidationResult } from "@navikt/fnrvalidator";
+import { ValidationResult, idnr } from "@navikt/fnrvalidator";
 
 type NPID_LENGTH_ERROR = 'npid must consist of 11 digits';
 type NPIDErrorReason = NPID_LENGTH_ERROR;
@@ -28,7 +28,7 @@ export const validateFnrDnrNpid = (value: string):ValidationResult | NPIDValidat
       type: 'npid'
     }
   } else {
-    result = validator.idnr(value)
+    result = idnr(value)
   }
 
   return result
