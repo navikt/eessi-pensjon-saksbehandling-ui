@@ -12,8 +12,6 @@ import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import 'regenerator-runtime/runtime'
-// @ts-ignore
-import { unregister } from 'src/registerServiceWorker'
 import i18n from './i18n'
 
 import store from './store'
@@ -75,6 +73,3 @@ root.render(
     </Provider>
   </I18nextProvider>
 )
-
-unregister()
-// registerServiceWorker()
