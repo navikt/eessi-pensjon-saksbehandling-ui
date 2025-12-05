@@ -39,8 +39,8 @@ interface ATPStepProps {
 
 export interface ATPOpplysningerSelector {
   personPdl: PersonPDL | undefined
-  newlyCreatedATPBuc: Buc | undefined
-  newlyCreatedATPSed: Sed | undefined
+  newlyCreatedATPBuc: Buc | undefined | null
+  newlyCreatedATPSed: Sed | undefined | null
   sakId?: string | null | undefined
   aktoerId?: string | null | undefined
   currentPSED: P8000SED

@@ -4,7 +4,7 @@ export interface BaseSED {
   sed: string
   sedGVer: string
   sedVer: string
-  originalSed: Sed // removed before SAVE
+  originalSed?: Sed // removed before SAVE
   options?: any
 }
 

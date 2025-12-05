@@ -26,7 +26,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
 export interface SEDBodyProps {
-  aktoerId: string
+  aktoerId: string | null | undefined
   buc: Buc
   canHaveAttachments: boolean
   initialAttachmentsSent?: boolean

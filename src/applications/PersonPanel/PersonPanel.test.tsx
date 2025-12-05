@@ -5,7 +5,7 @@ import { BRUKERKONTEKST, VEDTAKSKONTEKST } from 'src/constants/constants'
 import mockFeatureToggles from 'src/mocks/app/featureToggles'
 import personAvdod from 'src/mocks/person/personAvdod'
 import { stageSelector } from 'src/setupTests'
-import { PersonPanel, PersonPanelSelector } from './PersonPanel'
+import PersonPanel, { PersonPanelSelector } from './PersonPanel'
 
 jest.mock('src/actions/person', () => ({
   getPersonInfo: jest.fn(),

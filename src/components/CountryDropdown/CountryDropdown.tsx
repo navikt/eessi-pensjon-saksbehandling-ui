@@ -6,8 +6,8 @@ import {CountryCodeLists, CountryCodes, SimpleCountry} from "src/declarations/ap
 import {Bucs} from "src/declarations/buc";
 
 export interface CountryDropdownSelector {
-  currentBuc: string
-  bucs: Bucs
+  currentBuc: string | undefined
+  bucs: Bucs | undefined
   countryCodes: CountryCodes | null | undefined
 }
 
@@ -31,7 +31,7 @@ const CountryDropdown : React.FC<CountryDropdownProps> = ({
 }: CountryDropdownProps) => {
 
   const {bucs, currentBuc, countryCodes} = useAppSelector(mapState)
-  const cdmVersion = "v" + bucs[currentBuc].cdm
+  const cdmVersion = "v" + bucs![currentBuc!].cdm
 
   const countryCodesByVersion: CountryCodeLists | undefined = countryCodes ? countryCodes[cdmVersion as keyof CountryCodes] : undefined
 

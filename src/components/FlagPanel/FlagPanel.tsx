@@ -15,7 +15,7 @@ export interface FlagPanelSelector {
 
 const mapState = (state: State): FlagPanelSelector => ({
   countryCodeMap: state.app.countryCodeMap
-})
+}) as FlagPanelSelector
 
 const FlagPanel: React.FC<FlagPanelProps> = ({
   land

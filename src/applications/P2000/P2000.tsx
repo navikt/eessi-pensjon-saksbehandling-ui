@@ -36,7 +36,7 @@ export interface P2000Selector {
   currentPSED: P2000SED
   gettingSed: boolean
   validation: Validation
-  aktoerId: string
+  aktoerId: string | null | undefined
 }
 
 const mapState = (state: State): P2000Selector => ({
@@ -63,7 +63,7 @@ const P2000: React.FC<P2000Props> = ({
   const namespace = "p2000"
 
   const activeStatus: Array<string> = ['new', 'active']
-  const sedCanHaveAttachments = (sed: Sed): boolean => {
+  const sedCanHaveAttachments = (sed: Sed | undefined): boolean => {
     return !buc.readOnly && sed !== undefined && sed.allowsAttachments && _.includes(activeStatus, sed.status)
   }
 

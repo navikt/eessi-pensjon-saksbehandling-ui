@@ -44,7 +44,7 @@ const mapState = (state: State): SaveAndSendSelector => ({
   PSEDSendResponse: state.buc.PSEDSendResponse,
   PSEDSavedResponse: state.buc.PSEDSavedResponse,
   editingItems: state.app.editingItems,
-})
+}) as SaveAndSendSelector
 
 const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
   namespace, sakId, sedId, sedType, validateCurrentPSED, setMode, mottakere

@@ -66,11 +66,11 @@ export interface P8000FieldComponentProps {
 export interface P8000Selector {
   context: PesysContext | undefined
   currentPSED: P8000SED
-  currentBuc: string
-  bucs: Bucs
+  currentBuc: string | undefined
+  bucs: Bucs | undefined
   gettingSed: boolean
   validation: Validation
-  aktoerId: string
+  aktoerId: string | null | undefined
 }
 
 const mapState = (state: State): P8000Selector => ({
@@ -98,7 +98,7 @@ const P8000: React.FC<P8000Props> = ({
   const [_fritekst, setFritekst] = useState<string | undefined>()
   const [_fritekstLoaded, setFritekstLoaded] = useState<boolean>(false)
   const [_hideBosettingsStatus, setHideBosettingsStatus] = useState<boolean>(false)
-  const bucDeltakere: Institutions | null | undefined = bucs[currentBuc]?.deltakere
+  const bucDeltakere: Institutions | null | undefined = bucs![currentBuc!]?.deltakere
 
   const [_type, setType] = useState<string>("")
   const bucType = buc.type?.split("_")[2]
