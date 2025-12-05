@@ -1,4 +1,4 @@
-import validator from "@navikt/fnrvalidator";
+import validator, { ValidationResult } from "@navikt/fnrvalidator";
 
 type NPID_LENGTH_ERROR = 'npid must consist of 11 digits';
 type NPIDErrorReason = NPID_LENGTH_ERROR;
