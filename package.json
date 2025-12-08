@@ -63,7 +63,7 @@
     "sprintf-js": "1.1.2",
     "styled-components": "5.3.11",
     "url": "0.11.4",
-    "uuid": "8.3.2",
+    "uuid": "13.0.0",
     "winston": "3.18.3"
   },
   "devDependencies": {
