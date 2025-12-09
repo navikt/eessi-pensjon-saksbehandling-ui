@@ -7,6 +7,7 @@ import {State} from "src/declarations/reducers";
 import {useSelector} from "react-redux";
 import * as routes from 'src/constants/routes'
 import {NavLink} from "react-router-dom";
+import styles from './Header.module.css';
 
 export interface HeaderProps {
   children?: JSX.Element | Array<JSX.Element | null>
@@ -34,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({
   const href= indexType !== GJENNY ? routes.ROOT : routes.GJENNY
 
   return (
-    <InternalHeader>
+    <InternalHeader className={styles.nisseOverlay}>
       <InternalHeader.Title as={NavLink} to={href + window.location.search} reloadDocument>
         {indexType === GJENNY ? t('ui:app-headerTitle-gjenny') : t('ui:app-headerTitle')}
       </InternalHeader.Title>
