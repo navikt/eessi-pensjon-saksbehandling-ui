@@ -16,43 +16,8 @@ import {LinkPanel, BodyLong, Link, Heading, Tag, Box, HGrid, HStack} from '@navi
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
-
-const NumberOfSedsDiv = styled.div`
-  border-width: ${(props: any) => props['data-icon-size'] === 'XL' ? '3' : '2'}px;
-  border-style: solid;
-  border-color: var(--a-text-default);
-  border-radius: 50px;
-  min-width: ${(props: any) => (props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
-  min-height: ${(props: any) => (props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
-  height: ${(props: any) => (props['data-icon-size'] === 'XL' ? 50 : 32) + 'px'};
-  margin: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: ${(props: any) => props['data-icon-size'] === 'XL' ? 'bold' : 'normal'};
-  font-size: 1.5rem;
-`
-const PropertyDiv = styled.div`
-  display: flex;
-  align-items: center;
-`
-const RinaLink = styled(Link)`
-  padding: 0.25rem 0.5rem 0.25rem 0.5rem !important;
-  margin-bottom: 0 !important;
-  color: var(--a-surface-action) !important;
-`
-const RowText = styled(BodyLong)`
-  white-space: nowrap !important;
-  padding-right: 0.5rem;
-`
-const TagsDiv = styled.div`
-  margin-left: 3rem;
-  display: flex;
-  justify-content:flex-start;
-  align-items: center;
-`
+import styles from './BUCHeader.module.css'
 
 export interface BUCHeaderProps {
   buc: Buc | JoarkBuc
@@ -156,19 +121,21 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
           <div
             data-testid='a_buc_c_BUCHeader--label_id'
           >
-            <PropertyDiv
+            <HStack
+              align="center"
               data-testid='a_buc_c_BUCHeader--label_date_id'
             >
               <BodyLong>
                 {t('ui:created')}: {moment(buc.startDate!).format('DD.MM.YYYY')}
               </BodyLong>
-            </PropertyDiv>
-            <PropertyDiv
+            </HStack>
+            <HStack
+              align="center"
               data-testid='a_buc_c_BUCHeader--label_owner_id'
             >
-              <RowText>
+              <BodyLong className={styles.rowText}>
                 {t('buc:form-caseOwner') + ': '}
-              </RowText>
+              </BodyLong>
               <InstitutionList
                 data-testid='a_buc_c_BUCHeader--label_owner_institution_id'
                 flagType='circle'
@@ -176,34 +143,35 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 locale={locale}
                 type='separated'
               />
-            </PropertyDiv>
+            </HStack>
             {buc.caseId && (
-              <PropertyDiv
+              <HStack
                 data-testid='a_buc_c_BUCHeader--label_case_id'
               >
                 {rinaUrl
                   ? (
-                    <RowText>
+                    <BodyLong className={styles.rowText}>
                       {t('buc:form-caseNumberInRina') + ': '}
 
                       {/*OBJECT hack - wrap inner link in <object> to get rid of nested links error*/}
                       {/*https://kizu.dev/nested-links/*/}
                       <object type="owo/uwu">
-                        <RinaLink
+                        <Link
+                          className={styles.rinaLink}
                           data-testid='a_buc_c_BUCHeader--label_case_gotorina_link_id'
                           href={rinaUrl + buc.caseId}
                           onClick={onRinaLinkClick}
                           target='rinaWindow'
                         >
                           {buc.caseId}
-                        </RinaLink>
+                        </Link>
                       </object>
-                    </RowText>
+                    </BodyLong>
                     )
                   : (
                     <WaitingPanel size='xsmall' oneLine />
                     )}
-              </PropertyDiv>
+              </HStack>
             )}
           </div>
           <HStack
@@ -228,16 +196,21 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                   <span>{t('buc:form-youhaveXseds', { seds: numberOfSeds })}</span>
                 )}
               >
-                <NumberOfSedsDiv
+                <div
+                  className = {_flagSize === 'XL' ? styles.numberOfSedsDivFlagSizeXL : styles.numberOfSedsDivFlagSizeMd}
                   data-testid='a_buc_c_BUCHeader--icon_numberofseds_id'
                   data-icon-size={_flagSize}
                 >
                   {numberOfSeds}
-                </NumberOfSedsDiv>
+                </div>
               </PopoverCustomized>
             )}
           </HStack>
-          <TagsDiv>
+          <HStack
+            marginInline="12 0"
+            align="center"
+            justify="start"
+          >
             {bucInfo?.tags?.map((tag: string) => (
               <div key={tag}>
                 <Box paddingInline="0 2">
@@ -245,7 +218,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 </Box>
               </div>
             ))}
-          </TagsDiv>
+          </HStack>
         </HGrid>
       </LinkPanel.Description>
     </>
