@@ -1,0 +1,16 @@
+.description {
+  width: 80%;
+  margin: 1rem;
+  text-align: center;
+}
+
+.veileder {
+  height: 110px;
+}
+
+.line {
+  width: 60%;
+  margin: 1rem;
+  min-height: 0.25rem;
+  border-bottom: 1px solid;
+}
