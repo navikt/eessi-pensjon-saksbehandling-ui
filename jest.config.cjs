@@ -18,7 +18,7 @@ module.exports = {
     'node_modules'
   ],
   moduleNameMapper: {
-    '^.+\\.(jpg|jpeg|png|gif|svg|css|less)$': 'identity-obj-proxy, '
+    '^.+\\.(jpg|jpeg|png|gif|svg|css|less)$': 'identity-obj-proxy'
   },
   setupFilesAfterEnv: [
     '<rootDir>/src/setupTests.tsx'
