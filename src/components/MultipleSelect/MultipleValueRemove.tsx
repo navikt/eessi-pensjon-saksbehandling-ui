@@ -1,25 +1,19 @@
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons'
-import styled from 'styled-components'
+import styles from './MultipleValueRemove.module.css'
 
-const FlexDiv = styled.div`
-  display: flex;
-  cursor: pointer;
-  &:hover {
-    background-color: transparent !important;
-  }
-`
 const MultipleValueRemove = (props: any) => {
   const { isDisabled, innerProps } = props
 
   const visibility = isDisabled ? 'hidden' : 'visible'
   return (
-    <FlexDiv
+    <div
       {...innerProps}
       style={{}}
       data-testid='c-multipleselect-multiplevalueremove'
+      className={styles.flexDiv}
     >
       <XMarkOctagonFillIcon style={{ visibility }} />
-    </FlexDiv>
+    </div>
 
   )
 }

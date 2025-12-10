@@ -1,0 +1,9 @@
+.flexDiv {
+  display: flex;
+  cursor: pointer;
+}
+
+.flexDiv:hover{
+  background-color: transparent !important;
+  color: var(--a-red-400);
+}
