@@ -1,4 +1,3 @@
-import { WidthSize } from 'src/declarations/app'
 import uiReducer, { initialUiState } from './ui'
 import * as types from 'src/constants/actionTypes'
 
@@ -36,18 +35,6 @@ describe('reducers/ui', () => {
     ).toEqual({
       ...initialUiState,
       footerOpen: true
-    })
-  })
-
-  it('UI_WIDTH_SET', () => {
-    expect(
-      uiReducer(initialUiState, {
-        type: types.UI_WIDTH_SET,
-        payload: 'lg' as WidthSize
-      })
-    ).toEqual({
-      ...initialUiState,
-      size: 'lg'
     })
   })
 

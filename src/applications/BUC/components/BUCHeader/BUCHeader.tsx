@@ -5,7 +5,6 @@ import {
 } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'src/applications/BUC/components/InstitutionList/InstitutionList'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
-import { WidthSize } from 'src/declarations/app'
 import { AllowedLocaleString, RinaUrl } from 'src/declarations/app.d'
 import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames, JoarkBuc } from 'src/declarations/buc'
 import { State } from 'src/declarations/reducers'
@@ -13,7 +12,7 @@ import { FlagItems, FlagList } from '@navikt/flagg-ikoner'
 import _ from 'lodash'
 import moment from 'moment'
 import {LinkPanel, BodyLong, Link, Heading, Tag, Box, HGrid, HStack} from '@navikt/ds-react'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
@@ -28,23 +27,20 @@ export interface BUCHeaderSelector {
   institutionNames: InstitutionNames
   locale: AllowedLocaleString
   rinaUrl: RinaUrl | undefined
-  size: WidthSize | undefined
 }
 
 const mapState = /* istanbul ignore next */ (state: State): BUCHeaderSelector => ({
   institutionNames: state.buc.institutionNames,
   locale: state.ui.locale,
   rinaUrl: state.buc.rinaUrl,
-  size: state.ui.size
 })
 
 const BUCHeader: React.FC<BUCHeaderProps> = ({
   buc, bucInfo
 }: BUCHeaderProps): JSX.Element => {
-  const { institutionNames, locale, rinaUrl, size }: BUCHeaderSelector =
-    useSelector<State, BUCHeaderSelector>(mapState)
+  const { institutionNames, locale, rinaUrl }: BUCHeaderSelector = useSelector<State, BUCHeaderSelector>(mapState)
   const { t } = useTranslation()
-  const [_flagSize, setFlagSize] = useState<string>('XL')
+  const _flagSize = 'XL'
   const numberOfSeds: string | undefined =  ("seds" in buc) && buc.seds
     ? '' + buc.seds.filter(sedFilter).length :
     ("numberOfSeds" in buc) && buc.numberOfSeds ? '' + buc.numberOfSeds : undefined
@@ -89,14 +85,6 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
       window.open(rinaUrl + buc.caseId, 'rinaWindow')
     }
   }
-
-  useEffect(() => {
-    if (size !== 'sm') {
-      setFlagSize('XL')
-    } else {
-      setFlagSize('M')
-    }
-  }, [size])
 
   return (
     <>

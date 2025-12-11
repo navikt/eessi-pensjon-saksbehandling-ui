@@ -45,11 +45,6 @@ const uiReducer = (state: UiState = initialUiState, action: AnyAction) => {
         footerOpen: !state.footerOpen
       }
 
-    case types.UI_WIDTH_SET:
-      return {
-        ...state,
-        size: ((action as ActionWithPayload).payload as WidthSize)
-      }
     default:
 
       return state

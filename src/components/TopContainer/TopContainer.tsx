@@ -1,16 +1,15 @@
 import { alertClear, alertFailure } from 'src/actions/alert'
-import { closeModal, setWidthSize } from 'src/actions/ui'
+import { closeModal } from 'src/actions/ui'
 import BannerAlert from 'src/components/BannerAlert/BannerAlert'
 import Header from 'src/components/Header/Header'
 import Modal from 'src/components/Modal/Modal'
-import { Params, WidthSize } from 'src/declarations/app.d'
+import { Params } from 'src/declarations/app.d'
 import { AlertVariant, ModalContent } from 'src/declarations/components'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import {Error} from 'src/pages/Error/Error'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import ReactResizeDetector from 'react-resize-detector'
 import { ErrorBoundary } from 'react-error-boundary'
 import styles from './TopContainer.module.css'
 import {VStack} from "@navikt/ds-react";
@@ -32,7 +31,6 @@ export interface TopContainerSelector {
   gettingUserInfo: boolean
   modal: ModalContent | undefined
   params: Params
-  size: WidthSize | undefined
   username: string | undefined
 }
 
@@ -47,8 +45,7 @@ const mapState = (state: State): TopContainerSelector => ({
   gettingUserInfo: state.loading.gettingUserInfo,
 
   footerOpen: state.ui.footerOpen,
-  modal: state.ui.modal,
-  size: state.ui.size,
+  modal: state.ui.modal
 })
 
 const TopContainer: React.FC<TopContainerProps> = ({
@@ -56,7 +53,7 @@ const TopContainer: React.FC<TopContainerProps> = ({
 }: TopContainerProps): JSX.Element => {
   const {
     bannerStatus, bannerMessage, error,
-    gettingUserInfo, modal, size, username
+    gettingUserInfo, modal, username
   } = useSelector(mapState)
   const dispatch = useDispatch()
 
@@ -66,20 +63,6 @@ const TopContainer: React.FC<TopContainerProps> = ({
 
   const onClear = (): void => {
     dispatch(alertClear())
-  }
-
-  const onResize = (width: any): void => {
-    if (width < 768 && size !== 'sm') {
-      dispatch(setWidthSize('sm'))
-      return
-    }
-    if (width < 992 && size !== 'md') {
-      dispatch(setWidthSize('md'))
-      return
-    }
-    if (size !== 'lg') {
-      dispatch(setWidthSize('lg'))
-    }
   }
 
   if (_.isNil(window.onerror)) {
@@ -101,41 +84,35 @@ const TopContainer: React.FC<TopContainerProps> = ({
             // reset the state of your app so the error doesn't happen again
           }}
         >
-          <ReactResizeDetector
-            handleWidth
-            onResize={onResize}
+          <Header
+            username={username}
+            gettingUserInfo={gettingUserInfo}
+            key="topContainer-header"
+            indexType={indexType}
+          />
+          <BannerAlert
+            message={bannerMessage}
+            variant={bannerStatus as AlertVariant}
+            error={error}
+            onClose={onClear}
+            key="topContainer-bannerAlert"
+          />
+          {modal !== undefined && (
+            <Modal
+              modal={modal}
+              open={!_.isNil(modal)}
+              onModalClose={handleModalClose}
+              key="topContainer-modal"
+            />
+          )}
+          <main
+            id='main'
+            role='main'
+            className={classNames(styles.main, className)}
+            key="topContainer-main"
           >
-
-            <Header
-              username={username}
-              gettingUserInfo={gettingUserInfo}
-              key="topContainer-header"
-              indexType={indexType}
-            />
-            <BannerAlert
-              message={bannerMessage}
-              variant={bannerStatus as AlertVariant}
-              error={error}
-              onClose={onClear}
-              key="topContainer-bannerAlert"
-            />
-            {modal !== undefined && (
-              <Modal
-                modal={modal}
-                open={!_.isNil(modal)}
-                onModalClose={handleModalClose}
-                key="topContainer-modal"
-              />
-            )}
-            <main
-              id='main'
-              role='main'
-              className={classNames(styles.main, className)}
-              key="topContainer-main"
-            >
-              {children}
-            </main>
-          </ReactResizeDetector>
+            {children}
+          </main>
         </ErrorBoundary>
       </VStack>
     </div>
