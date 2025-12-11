@@ -308,6 +308,4 @@ export default {
     ]
   },
   "pensjon": null,
-  "sedGVer": "4",
-  "sedVer": "2"
 }

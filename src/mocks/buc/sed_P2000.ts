@@ -185,7 +185,5 @@ export default {
     "kravDato": null,
     "etterspurtedokumenter": null,
     "ytterligeinformasjon": null
-  },
-  "sedGVer": "4",
-  "sedVer": "2"
+  }
 }

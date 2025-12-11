@@ -1,7 +1,5 @@
 export default {
   sed: 'P5000',
-  sedGVer: '4',
-  sedVer: '2',
   nav: {
     eessisak: [{
       institusjonsid: 'NO:889640782',

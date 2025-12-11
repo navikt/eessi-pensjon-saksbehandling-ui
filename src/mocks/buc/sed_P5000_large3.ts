@@ -764,7 +764,5 @@ export default {
       land: 'NO'
     }]
   },
-  sedVer: '1',
-  sedGVer: '4',
   sed: 'P5000'
 }

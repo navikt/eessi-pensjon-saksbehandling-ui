@@ -93,7 +93,5 @@ export default {
       },
       "inntektFoerUfoerhetIUtlandet": true
     },
-  },
-  "sedGVer": "4",
-  "sedVer": "3"
+  }
 }
