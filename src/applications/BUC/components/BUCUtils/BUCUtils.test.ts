@@ -1,6 +1,6 @@
 import { Buc, Sed } from 'src/declarations/buc'
 import { JoarkBrowserItem } from 'src/declarations/joark'
-import { Labels, T } from 'src/declarations/app.d'
+import { Labels } from 'src/declarations/app.d'
 import Mustache from 'mustache'
 import personAvdod from 'src/mocks/person/personAvdod'
 import joarkItems from 'src/mocks/joark/items'
@@ -11,7 +11,7 @@ const CORRECT_ORDER = -1
 const WRONG_ORDER_WILL_SWAP = 1
 
 describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
-  let t: T
+  let t:  (label: string, vars?: any) => string
 
   beforeEach(() => {
     t = jest.fn().mockImplementation((label, vars) => {

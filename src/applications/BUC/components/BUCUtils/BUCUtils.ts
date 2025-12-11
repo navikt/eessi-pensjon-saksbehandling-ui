@@ -1,6 +1,6 @@
 import * as constants from 'src/constants/constants'
 import { JoarkBrowserItem } from 'src/declarations/joark.d'
-import { AllowedLocaleString, Option, PesysContext, T } from 'src/declarations/app.d'
+import { AllowedLocaleString, Option, PesysContext } from 'src/declarations/app.d'
 import { PersonAvdod, PersonAvdods, PersonPDL } from 'src/declarations/person.d'
 import CountryData, { Country, CountryFilter } from '@navikt/land-verktoy'
 import _ from 'lodash'
@@ -10,7 +10,7 @@ import moment from 'moment'
 interface getBucTypeLabelProps {
   type: string
   locale: AllowedLocaleString
-  t: T
+  t:  (label: string, vars?: any) => string
 }
 
 // the higher the indexOf, the higher it goes in the sorted list

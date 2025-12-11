@@ -10,7 +10,6 @@ const defaultSelector: BUCHeaderSelector = {
   institutionNames: {},
   locale: 'nb',
   rinaUrl: 'http://rinaurl.mock.com',
-  size: 'lg'
 }
 
 describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
