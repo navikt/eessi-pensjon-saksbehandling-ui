@@ -50,12 +50,12 @@ export const ForenkletForespoersel: React.FC<P8000FieldComponentProps> = ({
       const ytelse = PSED?.options?.type?.ytelse
 
       if(hasFourDigits(fra) && hasFourDigits(til)){
-        const txt = t('p8000:forenkletForespoersel-' + ytelse, {periodeFra: fra, periodeTil: til})
+        const txt = t('p8000:forenkletForespoersel-' + ytelse, {lng: i18n.language, periodeFra: fra, periodeTil: til})
         let pinTxt = ""
         if(hasPin !== undefined){
-          pinTxt = hasPin ? t('p8000:forenkletForespoersel-nopin') : ""
+          pinTxt = hasPin ? t('p8000:forenkletForespoersel-nopin', {lng: i18n.language}) : ""
         } else {
-          pinTxt = harIkkeUtenlandskPIN ? t('p8000:forenkletForespoersel-nopin') : ""
+          pinTxt = harIkkeUtenlandskPIN ? t('p8000:forenkletForespoersel-nopin', {lng: i18n.language}) : ""
         }
 
         const begrunnelse = txt + " " + pinTxt

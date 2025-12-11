@@ -56,9 +56,9 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
       i18n.changeLanguage(PSED?.options?.type?.spraak)
     }
     if(field && field.begrunnelseForKravet && field.begrunnelseForKravet === "sammenlegging"){
-      dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-sammenlegging')))
+      dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-sammenlegging', { lng: i18n.language })))
     } else if (field && field.begrunnelseForKravet && field.begrunnelseForKravet === "endelig_beregning"){
-      dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-endelig-beregning')))
+      dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-endelig-beregning', { lng: i18n.language })))
     }
   }, [PSED?.options?.type?.spraak])
 

@@ -197,6 +197,7 @@ const P8000: React.FC<P8000Props> = ({
         if(ofteEtterspurtInformasjon && ofteEtterspurtInformasjon[key] && ofteEtterspurtInformasjon[key]?.value && !ofteEtterspurtInformasjon[key]?.doNotGenerateFritekst){
           const country = countryData[i18n.language as keyof typeof countryData].findByValue(ofteEtterspurtInformasjon[key]?.landkode)
           const extra = {
+            lng: i18n.language,
             land: country?.label,
             periodeFra: ofteEtterspurtInformasjon[key]?.periodeFra,
             periodeTil: ofteEtterspurtInformasjon[key]?.periodeTil,
@@ -216,6 +217,7 @@ const P8000: React.FC<P8000Props> = ({
         if(informasjonSomKanLeggesInn && informasjonSomKanLeggesInn[key] && informasjonSomKanLeggesInn[key]?.value && !informasjonSomKanLeggesInn[key]?.doNotGenerateFritekst){
           const country = countryData[i18n.language as keyof typeof countryData].findByValue(informasjonSomKanLeggesInn[key]?.landkode)
           const extra = {
+            lng: i18n.language,
             land: country?.label,
             periodeFra: informasjonSomKanLeggesInn[key]?.periodeFra,
             periodeTil: informasjonSomKanLeggesInn[key]?.periodeTil,
