@@ -18,9 +18,3 @@ updates:
     commit-message:
       prefix: "dependabot-bump"
       include: "scope"
-    dependencies:
-      patterns:
-        - "*"
-      update-types:
-        - "minor"
-        - "patch"
