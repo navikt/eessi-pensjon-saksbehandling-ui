@@ -87,7 +87,7 @@
     "jest-environment-jsdom": "29.7.0",
     "knip": "5.71.0",
     "mustache": "4.2.0",
-    "ts-jest": "29.4.0",
+    "ts-jest": "29.4.6",
     "typescript": "^5.9.3",
     "vite": "7.2.7",
     "vite-tsconfig-paths": "5.1.4",
