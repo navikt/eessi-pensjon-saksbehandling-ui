@@ -208,7 +208,7 @@ const BUCIndexPageGjenny = (): JSX.Element => {
       dispatch(fetchBucsListForGjenlevende(aktoerId))
       dispatch(fetchBucsListForAvdod(aktoerId, avdodFnr))
     } else if (aktoerId && !avdodFnr && bucsList === undefined && !gettingBucsList) {
-      dispatch(fetchBucsListForGjenlevende(aktoerId))
+      dispatch(fetchBucsListForGjenlevende(aktoerId, 1))
     }
   }, [aktoerId, bucs, dispatch, gettingBucsList, pesysContext, avdodFnr])
 
