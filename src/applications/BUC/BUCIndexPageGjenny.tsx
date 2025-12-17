@@ -197,7 +197,7 @@ const BUCIndexPageGjenny = (): JSX.Element => {
   }, [])
 
   useEffect(() => {
-    if (_noParams && aktoerId && avdodFnr) {
+    if (_noParams && aktoerId) {
       setNoParams(false)
       setContentA(<BUCList setMode={changeMode} />)
     }
@@ -213,7 +213,7 @@ const BUCIndexPageGjenny = (): JSX.Element => {
   }, [aktoerId, bucs, dispatch, gettingBucsList, pesysContext, avdodFnr])
 
   useEffect(() => {
-    if (aktoerId && avdodFnr && _.isEmpty(bucs) && !_.isEmpty(bucsList) && howManyBucLists === 0 && !gettingBucs) {
+    if (aktoerId && _.isEmpty(bucs) && !_.isEmpty(bucsList) && howManyBucLists === 0 && !gettingBucs) {
       dispatch(startBucsFetch())
       bucsList?.forEach((bucListItem) => {
         dispatch(fetchBuc(
@@ -224,7 +224,7 @@ const BUCIndexPageGjenny = (): JSX.Element => {
   }, [bucs, bucsList, howManyBucLists, gettingBucs])
 
   useEffect(() => {
-    if (aktoerId && avdodFnr && !_.isEmpty(bucs) && !_.isNil(bucsList) && gettingBucs) {
+    if (aktoerId && !_.isEmpty(bucs) && !_.isNil(bucsList) && gettingBucs) {
       if (Object.keys(bucs!).length === bucsList!.length) {
         dispatch(endBucsFetch())
       }

@@ -210,7 +210,7 @@ const BUCIndexGjenny = (): JSX.Element => {
       setHasPersons(true)
     }
   },[personPdl, personAvdods])
-  
+
   if(aktoerId && sakType && sakId){
     return <BUCIndexPageGjenny/>
   }
