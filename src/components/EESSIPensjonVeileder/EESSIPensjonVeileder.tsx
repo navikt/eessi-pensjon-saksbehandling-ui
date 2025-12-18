@@ -1,3 +1,5 @@
+import React, {JSX} from 'react'
+
 const SmilendeOrangeVeileder = 'src/components/EESSIPensjonVeileder/veileder/navPensjonSmilendeOrangeVeileder.png'
 const TristOrangeVeileder = 'src/components/EESSIPensjonVeileder/veileder/navPensjonTristOrangeVeileder.png'
 

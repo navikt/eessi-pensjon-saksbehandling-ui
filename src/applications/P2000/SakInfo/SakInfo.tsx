@@ -1,4 +1,4 @@
-import React from "react";
+import React, {JSX} from "react";
 import {Box, Detail, Heading, HStack, VStack} from "@navikt/ds-react";
 import _ from "lodash";
 

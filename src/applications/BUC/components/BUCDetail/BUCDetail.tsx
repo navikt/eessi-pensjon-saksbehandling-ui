@@ -14,7 +14,7 @@ import moment from 'moment'
 import {Alert, Accordion, Link, Label, BodyLong, Heading, Box} from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
 import {useDispatch, useSelector} from 'react-redux'
-import { useState } from 'react'
+import {JSX, useState} from 'react'
 import {copyToClipboard} from "src/actions/app";
 import {FilesFillIcon, FilesIcon} from "@navikt/aksel-icons";
 import styles from './BUCDetail.module.css'

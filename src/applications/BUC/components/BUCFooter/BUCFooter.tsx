@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import styles from './BUCFooter.module.css'
 import classNames from "classnames";
+import {JSX} from "react";
 
 export interface BUCFooterProps {
   className ?: string

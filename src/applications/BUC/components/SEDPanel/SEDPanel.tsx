@@ -5,7 +5,7 @@ import { Buc, Sed } from 'src/declarations/buc'
 import _ from 'lodash'
 import SEDBody from '../SEDBody/SEDBody'
 import { Accordion, Box } from '@navikt/ds-react'
-import {useState} from "react";
+import {JSX, useState} from "react";
 import styles from './SEDPanel.module.css'
 
 const activeStatus: Array<string> = ['new', 'active']

@@ -1,3 +1,4 @@
+import {JSX} from 'react'
 import { PersonIcon } from '@navikt/aksel-icons'
 import {
   Alert,

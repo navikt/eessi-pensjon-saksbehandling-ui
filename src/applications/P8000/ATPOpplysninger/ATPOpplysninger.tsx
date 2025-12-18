@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {JSX, useEffect, useState} from "react";
 import {Alert, Box, Button, Heading, HStack, Loader, Textarea, TextField, VStack} from "@navikt/ds-react";
 import { useTranslation } from 'react-i18next'
 import {

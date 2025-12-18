@@ -1,3 +1,4 @@
+import {JSX} from 'react'
 import { getJoarkItemPreview, listJoarkItems, setJoarkItemPreview } from 'src/actions/joark'
 import Modal from 'src/components/Modal/Modal'
 import { SedNewType, SedType } from 'src/declarations/buc'

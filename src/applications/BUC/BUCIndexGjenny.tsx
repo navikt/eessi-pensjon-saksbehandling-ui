@@ -1,7 +1,7 @@
 import {RinaUrl} from 'src/declarations/app.d'
 import { State } from 'src/declarations/reducers'
 import {useDispatch, useSelector} from 'react-redux'
-import {useEffect, useState} from "react";
+import {JSX, useEffect, useState} from "react";
 import { getRinaUrl} from "../../actions/buc";
 import {loadAllEntries} from "../../actions/localStorage";
 import {Box, Button, HStack, Select, TextField, VStack} from "@navikt/ds-react";

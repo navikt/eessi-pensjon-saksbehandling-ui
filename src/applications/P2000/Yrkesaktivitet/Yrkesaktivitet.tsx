@@ -1,5 +1,5 @@
 import {BodyLong, Box, Button, Heading, HStack, Label, Select, Spacer, Table, VStack} from "@navikt/ds-react";
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment, JSX, useEffect, useState} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import _ from "lodash";
 import {State} from "src/declarations/reducers";

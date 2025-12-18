@@ -1,3 +1,4 @@
+import {JSX} from 'react'
 import { getSedP6000PDF, resetSedP6000PDF } from 'src/actions/buc'
 import classNames from 'classnames'
 import Modal from 'src/components/Modal/Modal'

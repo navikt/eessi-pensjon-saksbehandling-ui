@@ -4,6 +4,7 @@ import i18n from 'src/i18n'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
 import { AnyAction } from 'redux'
+import {JSX} from "react";
 
 export interface AlertState {
   stripeStatus: string | undefined

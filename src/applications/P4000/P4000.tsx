@@ -1,3 +1,4 @@
+import {JSX} from 'react'
 import {ChevronLeftIcon} from '@navikt/aksel-icons';
 import {
   BodyLong,

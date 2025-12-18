@@ -17,7 +17,7 @@ import {
 import { PersonAvdod } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import React, { useEffect, useState } from 'react'
+import React, {JSX, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import {createBucGjenny, getBucOptionsGjenny} from "src/actions/gjenny";

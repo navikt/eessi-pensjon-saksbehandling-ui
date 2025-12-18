@@ -1,4 +1,4 @@
-import React from "react";
+import React, {JSX} from "react";
 import {PSED} from "src/declarations/app";
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";

@@ -1,3 +1,4 @@
+import React, {JSX} from 'react'
 import EESSIPensjonVeileder from 'src/components/EESSIPensjonVeileder/EESSIPensjonVeileder'
 import TopContainer from 'src/components/TopContainer/TopContainer'
 import {Accordion, BodyLong, Heading, VStack} from '@navikt/ds-react'

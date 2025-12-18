@@ -1,6 +1,6 @@
 
 import { render, fireEvent, screen, getNodeText, cleanup } from '@testing-library/react'
-import { act } from 'react-dom/test-utils'
+import { act } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import '@testing-library/jest-dom'
 import { TextEncoder, TextDecoder } from 'util';

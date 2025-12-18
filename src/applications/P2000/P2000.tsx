@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {JSX, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {Buc, Sed} from "src/declarations/buc";
