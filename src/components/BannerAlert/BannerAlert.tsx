@@ -4,6 +4,7 @@ import { AlertError, AlertVariant } from 'src/declarations/components'
 import _ from 'lodash'
 import { Alert } from '@navikt/ds-react'
 import styles from './BannerAlert.module.css'
+import {JSX} from "react";
 
 export interface BannerAlertProps {
   className ?: string

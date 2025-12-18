@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {JSX, useEffect} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {P8000FieldComponentProps} from "src/applications/P8000/P8000";

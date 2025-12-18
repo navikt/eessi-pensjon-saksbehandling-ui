@@ -21,7 +21,7 @@ import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import { Heading, Loader, Button, Box } from '@navikt/ds-react'
-import { useCallback, useEffect, useState } from 'react'
+import React, {JSX, useCallback, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 

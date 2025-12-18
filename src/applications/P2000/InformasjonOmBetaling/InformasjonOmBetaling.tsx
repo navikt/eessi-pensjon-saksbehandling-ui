@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {JSX, useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {useTranslation} from "react-i18next";
 import {Box, Button, Heading, HGrid, Radio, RadioGroup, VStack} from "@navikt/ds-react";

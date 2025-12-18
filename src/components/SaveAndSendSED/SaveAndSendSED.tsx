@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {JSX, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import SaveSEDModal from "src/components/SaveAndSendSED/SaveSEDModal";

@@ -3,7 +3,7 @@ import { State } from 'src/declarations/reducers'
 import {useDispatch, useSelector} from 'react-redux'
 import BUCIndexPage from "./BUCIndexPage";
 import BUCEmpty from "./pages/BUCEmpty/BUCEmpty";
-import {useEffect, useState} from "react";
+import {JSX, useEffect, useState} from "react";
 import {fetchBucsInfo, getRinaUrl, getSakType} from "../../actions/buc";
 import {BucsInfo, SakTypeValue} from "../../declarations/buc";
 import {loadAllEntries} from "../../actions/localStorage";

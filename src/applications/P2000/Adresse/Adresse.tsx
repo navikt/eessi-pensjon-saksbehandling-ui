@@ -1,4 +1,4 @@
-import React from "react";
+import React, {JSX} from "react";
 import Input from "../../../components/Forms/Input";
 import {Country} from "@navikt/land-verktoy";
 import {MainFormSelector} from "../MainForm";

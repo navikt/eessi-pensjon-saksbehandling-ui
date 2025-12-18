@@ -12,7 +12,7 @@ import {
   TextField,
   VStack
 } from "@navikt/ds-react";
-import {useState} from "react";
+import {JSX, useState} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import {adminResetSuccessMsg, resendDocument, resendDocumentList} from "src/actions/admin";
 import {State} from "src/declarations/reducers";

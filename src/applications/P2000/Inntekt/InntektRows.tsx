@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, JSX, useState} from "react";
 import {Inntekt} from "src/declarations/p2000";
 import _ from "lodash";
 import {Select, Table} from "@navikt/ds-react";

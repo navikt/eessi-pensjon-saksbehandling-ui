@@ -19,7 +19,7 @@ import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import {BodyLong, Heading, Button, Tabs, VStack, Box, HStack} from '@navikt/ds-react'
 
-import { useEffect, useState } from 'react'
+import {JSX, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { P5000sFromRinaMap } from 'src/declarations/p5000'

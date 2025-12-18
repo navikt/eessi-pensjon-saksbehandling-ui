@@ -1,7 +1,7 @@
 import MultipleSelect from 'src/components/MultipleSelect/MultipleSelect'
 import {TextField, Box} from '@navikt/ds-react'
 import { Option } from 'src/declarations/app'
-import { useState } from 'react'
+import React, {JSX, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import styles from './SEDSearch.module.css'
 import classNames from "classnames";

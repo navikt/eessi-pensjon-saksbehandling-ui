@@ -1,3 +1,4 @@
+import {JSX} from 'react'
 import {MenuGridIcon, ExternalLinkIcon, WrenchIcon} from '@navikt/aksel-icons'
 import { useTranslation } from 'react-i18next'
 import {ActionMenu, Spacer, InternalHeader} from '@navikt/ds-react'

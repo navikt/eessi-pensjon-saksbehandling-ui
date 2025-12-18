@@ -1,5 +1,5 @@
 import { Popover } from '@navikt/ds-react'
-import React, { useState } from 'react'
+import React, { JSX, useState } from 'react'
 import { v4 } from 'uuid'
 import styles from './PopoverCustomized.module.css'
 

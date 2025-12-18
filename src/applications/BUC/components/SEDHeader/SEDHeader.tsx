@@ -1,3 +1,4 @@
+import React, {JSX} from 'react'
 import { getBucTypeLabel } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'src/applications/BUC/components/InstitutionList/InstitutionList'
 import SEDStatus from 'src/applications/BUC/components/SEDStatus/SEDStatus'
@@ -20,7 +21,6 @@ import P8000 from "src/applications/P8000/P8000";
 import {umamiButtonLogger} from "src/metrics/umami";
 import styles from './SEDHeader.module.css'
 import classNames from "classnames";
-import React from "react";
 
 export interface SEDHeaderProps {
   buc: Buc

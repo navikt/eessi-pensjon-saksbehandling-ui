@@ -1,6 +1,7 @@
 import {render,screen} from "@testing-library/react";
 import AdminPage, {AdminPageProps, AdminPageSelector} from "src/pages/AdminPage/AdminPage";
 import {stageSelector} from "src/setupTests";
+import {JSX} from "react";
 
 jest.mock('src/components/TopContainer/TopContainer', () => {
   return ({ children }: { children: JSX.Element }) => {

@@ -10,7 +10,7 @@ import classNames from 'classnames'
 import { Labels } from 'src/declarations/app'
 import {Button, BodyLong, Box, HStack} from '@navikt/ds-react'
 import _ from 'lodash'
-import { useState } from 'react'
+import {JSX, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 
 export interface AddRemovePanelProps<T> {

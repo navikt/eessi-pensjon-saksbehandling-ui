@@ -1,5 +1,5 @@
 import {AllowedLocaleString, FeatureToggles, Loading, Option, PesysContext} from 'src/declarations/app.d';
-import React from "react";
+import React, {JSX} from "react";
 import BUCStart from "./BUCStart";
 import {State} from "src/declarations/reducers";
 import {useSelector} from "react-redux";

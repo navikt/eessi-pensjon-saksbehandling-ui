@@ -1,3 +1,4 @@
+import React, {JSX} from 'react'
 import classNames from 'classnames'
 import {BodyLong, Loader, VStack} from '@navikt/ds-react'
 import styles from './WaitingPanel.module.css'

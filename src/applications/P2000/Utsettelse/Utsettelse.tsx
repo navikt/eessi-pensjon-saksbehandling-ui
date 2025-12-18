@@ -1,6 +1,6 @@
 import {BodyLong, Box, Button, Heading, HGrid, HStack, Label, Spacer} from "@navikt/ds-react";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
-import React, {useEffect, useState} from "react";
+import React, {JSX, useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {getIdx} from "src/utils/namespace";

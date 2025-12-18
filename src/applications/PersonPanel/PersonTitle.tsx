@@ -7,7 +7,7 @@ import {getFnr, getNPID} from 'src/applications/BUC/components/BUCUtils/BUCUtils
 import LoadingImage from "src/components/Loading/LoadingImage";
 import {copyToClipboard} from "src/actions/app";
 import {useDispatch} from "react-redux";
-import {useState} from "react";
+import {JSX, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {FilesFillIcon, FilesIcon} from "@navikt/aksel-icons";
 import styles from "src/assets/css/common.module.css";

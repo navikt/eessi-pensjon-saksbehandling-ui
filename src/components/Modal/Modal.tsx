@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import {Button, Modal, Heading, HStack} from '@navikt/ds-react'
 import { ModalContent } from 'src/declarations/components'
 import _ from 'lodash'
-import React from 'react'
+import React, {JSX} from 'react'
 
 import styles from './Modal.module.css'
 

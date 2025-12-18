@@ -1,3 +1,4 @@
+import {JSX} from "react";
 import {useTranslation} from "react-i18next";
 import Modal from "src/components/Modal/Modal";
 import {Alert} from "@navikt/ds-react";

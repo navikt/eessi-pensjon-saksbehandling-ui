@@ -1,5 +1,5 @@
 import {Box, Heading, HGrid, VStack} from "@navikt/ds-react";
-import React from "react";
+import React, {JSX} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import _ from "lodash";
 import {State} from "src/declarations/reducers";

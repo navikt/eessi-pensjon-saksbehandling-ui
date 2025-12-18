@@ -1,3 +1,4 @@
+import {JSX} from 'react'
 import classNames from 'classnames'
 import MultipleValueLabel from 'src/components/MultipleSelect/MultipleValueLabel'
 import MultipleValueRemove from 'src/components/MultipleSelect/MultipleValueRemove'

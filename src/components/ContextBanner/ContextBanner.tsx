@@ -1,3 +1,4 @@
+import {JSX} from 'react'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import { PesysContext } from 'src/declarations/app.d'
 import { SakTypeMap, SakTypeValue } from 'src/declarations/buc.d'

@@ -12,7 +12,7 @@ import { FlagItems, FlagList } from '@navikt/flagg-ikoner'
 import _ from 'lodash'
 import moment from 'moment'
 import {LinkPanel, BodyLong, Link, Heading, Tag, Box, HGrid, HStack} from '@navikt/ds-react'
-import React from 'react'
+import React, {JSX} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";

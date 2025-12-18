@@ -3,7 +3,7 @@ import { SavingAttachmentsJob, SEDAttachmentPayload, SEDAttachmentPayloadWithFil
 import { JoarkBrowserItem } from 'src/declarations/joark'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { useEffect, useState } from 'react'
+import React, {JSX, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import {Box, Button, VStack} from '@navikt/ds-react'

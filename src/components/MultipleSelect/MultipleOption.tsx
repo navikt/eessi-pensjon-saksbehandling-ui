@@ -1,3 +1,4 @@
+import {JSX} from 'react'
 import { Checkbox } from '@navikt/ds-react'
 import { components, OptionProps } from 'react-select'
 import { Option } from 'src/declarations/app.d'

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {JSX, useEffect, useState} from "react";
 import {Buc, Bucs, Institutions, Sed} from "src/declarations/buc";
 import {BUCMode, PesysContext, PSED, Validation} from "src/declarations/app";
 import {useDispatch, useSelector} from "react-redux";

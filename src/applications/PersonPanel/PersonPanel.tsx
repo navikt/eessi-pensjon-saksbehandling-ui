@@ -4,7 +4,7 @@ import { AllowedLocaleString, FeatureToggles, PesysContext } from 'src/declarati
 import { PersonPDL } from 'src/declarations/person'
 import { PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
-import { useEffect, useState } from 'react'
+import { JSX, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PersonBody from './PersonBody'
 import PersonTitle from './PersonTitle'

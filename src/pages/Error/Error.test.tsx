@@ -1,3 +1,4 @@
+import {JSX} from 'react'
 import { render, screen } from '@testing-library/react'
 import { Error as PageError, ErrorPageProps } from './Error'
 

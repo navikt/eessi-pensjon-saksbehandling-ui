@@ -1,3 +1,4 @@
+import {JSX} from 'react'
 import { PersonIcon, HouseIcon, CalendarIcon, GlobeIcon, PersonRectangleIcon, HeartIcon } from '@navikt/aksel-icons'
 import PostalCodes from 'src/components/PostalCodes/PostalCodes'
 import { PersonAvdod, PersonAvdods } from 'src/declarations/person.d'

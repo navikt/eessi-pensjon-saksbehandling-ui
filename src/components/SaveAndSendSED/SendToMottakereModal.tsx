@@ -1,7 +1,7 @@
 import {useTranslation} from "react-i18next";
 import Modal from "src/components/Modal/Modal";
 import {Box, Button, Checkbox, ErrorMessage, HStack, VStack} from "@navikt/ds-react";
-import React, {Dispatch, SetStateAction, useState} from "react";
+import React, {Dispatch, JSX, SetStateAction, useState} from "react";
 import _ from "lodash";
 import {Institutions} from "src/declarations/buc";
 

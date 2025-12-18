@@ -1,3 +1,4 @@
+import React, {JSX} from 'react'
 import PersonPanel from 'src/applications/PersonPanel/PersonPanel'
 import ContextBanner from 'src/components/ContextBanner/ContextBanner'
 import TopContainer from 'src/components/TopContainer/TopContainer'

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {JSX} from "react";
 import {Box, ErrorMessage, HStack, Spacer, TextField, VStack} from "@navikt/ds-react";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import {Country} from "@navikt/land-verktoy";

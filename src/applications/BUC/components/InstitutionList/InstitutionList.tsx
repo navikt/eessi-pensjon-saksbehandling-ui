@@ -1,3 +1,4 @@
+import React, {JSX} from 'react'
 import { countrySorter } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
 import { AllowedLocaleString } from 'src/declarations/app.d'
 import { InstitutionListMap, InstitutionNames, Institutions } from 'src/declarations/buc'
