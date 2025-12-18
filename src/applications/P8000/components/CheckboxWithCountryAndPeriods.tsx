@@ -22,7 +22,7 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
   const dispatch = useDispatch()
   const {t} = useTranslation()
   const { validation } = useAppSelector(mapState)
-  const field: P8000Field = _.get(PSED, `${target}.${value}`)
+  const field: P8000Field | undefined = _.get(PSED, `${target}.${value}`) as P8000Field | undefined
 
   const checked= field ? field.value : false
 

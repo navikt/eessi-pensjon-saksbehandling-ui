@@ -34,7 +34,7 @@ const Ektefelle: React.FC<MainFormProps> = ({
   const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-ektefelle`
   const target = 'nav.ektefelle'
-  const ektefelle:  P2000Ektefelle | undefined = _.get(PSED, target)
+  const ektefelle:  P2000Ektefelle | undefined  = _.get(PSED, target) as P2000Ektefelle | undefined
 
   useUnmount(() => {
     const clonedvalidation = _.cloneDeep(validation)

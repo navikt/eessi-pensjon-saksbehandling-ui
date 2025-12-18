@@ -24,7 +24,7 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
   const target = "pensjon.anmodning.seder[0].sendFolgendeSEDer"
   const targetBegrunnelse = "pensjon.anmodning.seder[0].begrunnelse"
   const targetOptions = "options.ofteEtterspurtInformasjon"
-  const sendFolgendeSEDer: Array<string> = _.get(PSED, target)
+  const sendFolgendeSEDer: Array<string> | undefined = _.get(PSED, target) as Array<string> | undefined
   const { validation } = useAppSelector(mapState)
 
   const field: P8000Field = _.get(PSED, `${targetOptions}.${value}`)

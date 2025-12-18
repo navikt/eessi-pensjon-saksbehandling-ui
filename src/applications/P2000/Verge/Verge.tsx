@@ -33,7 +33,7 @@ const Verge: React.FC<MainFormProps> = ({
   const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-verge`
   const target = 'nav.verge'
-  const verge: P2000Verge = _.get(PSED, target)
+  const verge: P2000Verge | undefined = _.get(PSED, target) as P2000Verge | undefined
 
   useUnmount(() => {
     const clonedvalidation = _.cloneDeep(validation)

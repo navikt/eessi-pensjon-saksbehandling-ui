@@ -44,7 +44,7 @@ const Barn: React.FC<MainFormProps> = ({
   const {validation} = useAppSelector(mapState)
   const namespace = `${parentNamespace}-barn`
   const target = 'nav.barn'
-  const barn:  Array<P2000Barn> | undefined = _.get(PSED, target)
+  const barn:  Array<P2000Barn> | undefined = _.get(PSED, target) as Array<P2000Barn> | undefined
 
   const [_newBarn, _setNewBarn] = useState<P2000Barn | undefined>(undefined)
   const [_editBarn, _setEditBarn] = useState<P2000Barn | undefined>(undefined)

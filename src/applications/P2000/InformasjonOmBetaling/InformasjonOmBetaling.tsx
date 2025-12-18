@@ -37,7 +37,7 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
   const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-informasjonombetaling`
   const target = 'nav.bruker.bank'
-  const bank: Bank | undefined = _.get(PSED, target)
+  const bank: Bank | undefined = _.get(PSED, target) as Bank | undefined
 
   const [_sepaIkkeSepa, _setSepaIkkeSepa] = useState<string>()
 

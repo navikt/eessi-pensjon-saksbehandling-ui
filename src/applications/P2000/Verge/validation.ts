@@ -6,7 +6,7 @@ import performValidation from "../../../utils/performValidation";
 import {Verge} from "src/declarations/sed";
 
 export interface ValidationVergeProps {
-  verge: Verge
+  verge: Verge | undefined
 }
 
 export const validateVerge = (
