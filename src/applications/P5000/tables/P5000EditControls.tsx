@@ -28,7 +28,7 @@ import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import ReactToPrint from 'react-to-print'
+import {useReactToPrint} from 'react-to-print'
 import dateDiff, { FormattedDateDiff } from 'src/utils/dateDiff'
 import {GJENNY, VEDTAKSKONTEKST} from "src/constants/constants";
 import {sendP5000toRinaGjenny} from "../../../actions/gjenny";
@@ -138,17 +138,27 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
     dispatch(resetSentP5000info())
   }
 
-  const beforePrintOut = (): void => {
-    _setPrintDialogOpen(true)
-  }
-
-  const prepareContent = (): void => {
-    setRenderPrintTable(true)
+  const beforePrintOut = (): Promise<void> => {
+    return new Promise((resolve) => {
+      setRenderPrintTable(true)
+      resolve()
+    })
   }
 
   const afterPrintOut = (): void => {
     _setPrintDialogOpen(false)
     setRenderPrintTable(false)
+  }
+
+  const handlePrint = useReactToPrint({
+    onBeforePrint: () => beforePrintOut(),
+    onAfterPrint: () => afterPrintOut(),
+    contentRef: componentRef
+  });
+
+  const onClickPrint = () => {
+    _setPrintDialogOpen(true)
+    handlePrint()
   }
 
   const itemsPerPageChanged = (e: any): void => {
@@ -556,22 +566,15 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
             {sendingP5000info && <Loader />}
             {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
           </Button>
-          <ReactToPrint
-            documentTitle='P5000Sum'
-            onAfterPrint={afterPrintOut}
-            onBeforePrint={beforePrintOut}
-            onBeforeGetContent={prepareContent}
-            trigger={() => (
-              <Button
-                variant='secondary'
-                disabled={_printDialogOpen}
-              >
-                {_printDialogOpen && <Loader />}
-                {t('ui:print')}
-              </Button>
-            )}
-            content={() => componentRef.current}
-          />
+          <Button
+            onClick={onClickPrint}
+            title="P5000Sum"
+            loading={_printDialogOpen}
+            disabled={_printDialogOpen}
+            variant={"secondary"}
+          >
+            {t('ui:print')}
+          </Button>
         </HStack>
       </HGrid>
       <HStack
