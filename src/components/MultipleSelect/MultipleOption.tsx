@@ -12,8 +12,9 @@ const MultipleOption = <T extends Option = Option>(props: MultipleOptionProps<T>
   const { data, id, isSelected } = props
   const _id: string = (id ?? '') + '-' + data.value
 
+  const Option = components.Option as any
   return (
-    <components.Option {...props}>
+    <Option {...props}>
       <Checkbox
         data-testid={'c-multipleoption--checkbox-' + _id}
         id={'c-multipleoption--checkbox-' + _id}
@@ -25,7 +26,7 @@ const MultipleOption = <T extends Option = Option>(props: MultipleOptionProps<T>
       >
         <span className={styles.label}>{data.label}</span>
       </Checkbox>
-    </components.Option>
+    </Option>
   )
 }
 
