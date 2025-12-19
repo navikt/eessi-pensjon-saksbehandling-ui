@@ -907,7 +907,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.GJENNY_GET_BUCSLIST_FOR_GJENLEVENDE_REQUEST:
       return {
         ...state,
-        howManyBucLists: 2,
+        howManyBucLists: (action as ActionWithPayload).context.howManyBucLists,
         bucsList: _.isNil(state.bucsList) ? undefined : state.bucsList
       }
 

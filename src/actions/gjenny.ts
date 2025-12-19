@@ -14,12 +14,16 @@ import {P5000SED} from "../declarations/p5000";
 import { sprintf } from 'sprintf-js';
 
 export const fetchBucsListForGjenlevende = (
-  aktoerId: string
+  aktoerId: string,
+  howManyBucLists?: number
 ): ActionWithPayload<Bucs> => {
   return call({
     url: sprintf(urls.GJENNY_GET_BUCSLIST_GJENLEVENDE_URL, { aktoerId }),
     cascadeFailureError: true,
     expectedPayload: mockBucsGjenlevende(aktoerId),
+    context: {
+      howManyBucLists: howManyBucLists ? howManyBucLists : 2
+    },
     type: {
       request: types.GJENNY_GET_BUCSLIST_FOR_GJENLEVENDE_REQUEST,
       success: types.GJENNY_GET_BUCSLIST_FOR_GJENLEVENDE_SUCCESS,

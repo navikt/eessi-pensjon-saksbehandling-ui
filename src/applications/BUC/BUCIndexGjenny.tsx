@@ -147,12 +147,12 @@ const BUCIndexGjenny = (): JSX.Element => {
     dispatch(setContext(GJENNY))
 
     const fnrGjenlevendeValidationResult = getFnrValidation(_fnr, "Gjenlevende")
-    const fnrAvdodValidationResult = getFnrValidation(_fnrAvdod, "Avdød")
+    //const fnrAvdodValidationResult = getFnrValidation(_fnrAvdod, "Avdød")
 
     _setValidationFnr(fnrGjenlevendeValidationResult.validation)
-    _setValidationFnrAvdod(fnrAvdodValidationResult.validation)
+    //_setValidationFnrAvdod(fnrAvdodValidationResult.validation)
 
-    const hasFnrValidationErrors = fnrGjenlevendeValidationResult.validation !== "" || fnrAvdodValidationResult.validation !== ""
+    const hasFnrValidationErrors = fnrGjenlevendeValidationResult.validation !== ""
 
     if (!_sakType || _sakType === "") {
       _setValidationSakType("Ingen saktype")
@@ -170,6 +170,12 @@ const BUCIndexGjenny = (): JSX.Element => {
       dispatch(setStatusParam("sakType", SakTypeMap[_sakType as SakTypeKey]))
       dispatch(setStatusParam("sakId", _sakId))
       dispatch(setContext(GJENNY))
+    } else if(_fnr && _fnr.match(/^\d+$/) && !hasFnrValidationErrors){
+      dispatch(getAktoerId(_fnr, "aktoerId"))
+      dispatch(setStatusParam("gjenlevendeFnr", _fnr))
+      dispatch(setStatusParam("sakType", SakTypeMap[_sakType as SakTypeKey]))
+      dispatch(setStatusParam("sakId", _sakId))
+      dispatch(setContext(GJENNY))
     }
   }
 
@@ -180,6 +186,10 @@ const BUCIndexGjenny = (): JSX.Element => {
       }
       if(!personAvdods){
         dispatch(getPersonAvdodInfoFromAktoerId(avdodAktoerId))
+      }
+    } else if (aktoerId && !hasValidationErrors) {
+      if(!personPdl){
+        dispatch(getPersonInfo(aktoerId))
       }
     }
   },[aktoerId, avdodAktoerId])
@@ -193,10 +203,15 @@ const BUCIndexGjenny = (): JSX.Element => {
         _setValidationFnrAvdod("Personen har ikke en dødsdato")
       }
       setHasPersons(true)
+    } else if(personPdl) {
+      if(personPdl.doedsfall){
+        _setValidationFnr("Personen har en dødsdato")
+      }
+      setHasPersons(true)
     }
   },[personPdl, personAvdods])
 
-  if(aktoerId && avdodFnr && sakType && sakId){
+  if(aktoerId && sakType && sakId){
     return <BUCIndexPageGjenny/>
   }
 
