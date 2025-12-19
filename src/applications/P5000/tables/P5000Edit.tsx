@@ -228,11 +228,11 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return {}
   }
 
-  const startDatoRef = useRef()
-  const sluttDatoRef = useRef()
-  const aarRef = useRef()
-  const maanedRef = useRef()
-  const dagerRef = useRef()
+  const startDatoRef = useRef(undefined)
+  const sluttDatoRef = useRef(undefined)
+  const aarRef = useRef(undefined)
+  const maanedRef = useRef(undefined)
+  const dagerRef = useRef(undefined)
 
   const renderStartDatoEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => (
     <Input

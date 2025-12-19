@@ -1,18 +1,18 @@
 import {Alert, BodyLong, Button, HelpText, HStack, Loader, Select, Spacer, Switch} from '@navikt/ds-react'
 import { sendP5000ToS3 } from 'src/actions/p5000'
 import { informasjonOmBeregningLabels, typePeriode } from 'src/applications/P5000/P5000.labels'
-import { convertFromP5000ListRowsIntoPesysPeriods } from 'src/applications/P5000/utils/pesysUtils'
+import {convertFromP5000ListRowsIntoPesysPeriods} from 'src/applications/P5000/utils/pesysUtils'
 import MultipleSelect from 'src/components/MultipleSelect/MultipleSelect'
 import {FeatureToggles, Option} from 'src/declarations/app'
 import { P5000ListRow, P5000ListRows } from 'src/declarations/p5000'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import ReactToPrint from 'react-to-print'
 import { useAppDispatch } from 'src/store'
 import styles from "src/assets/css/common.module.css";
+import { useReactToPrint } from "react-to-print";
 
 export interface P5000OverviewControlsProps {
   fnr: string // renamed from aktoerId
@@ -99,12 +99,11 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
     setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
   }
 
-  const beforePrintOut = (): void => {
-    _setPrintDialogOpen(true)
-  }
-
-  const prepareContent = (): void => {
-    setRenderPrintTable(true)
+  const beforePrintOut = (): Promise<void> => {
+    return new Promise((resolve) => {
+      setRenderPrintTable(true)
+      resolve()
+    })
   }
 
   const afterPrintOut = (): void => {
@@ -120,6 +119,17 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
 
   const hasSelectedRowsWithErrors = (): boolean => {
     return !!_.find(itemsForPesys, (it: P5000ListRow) => it.rowError && it.selected)
+  }
+
+  const handlePrint = useReactToPrint({
+    onBeforePrint: () => beforePrintOut(),
+    onAfterPrint: () => afterPrintOut(),
+    contentRef: componentRef
+  });
+
+  const onClickPrint = () => {
+    _setPrintDialogOpen(true)
+    handlePrint()
   }
 
   return (
@@ -221,23 +231,15 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
             align="end"
             style={{ flexDirection: 'row-reverse' }}
           >
-            <ReactToPrint
-              documentTitle='P5000'
-              onAfterPrint={afterPrintOut}
-              onBeforePrint={beforePrintOut}
-              onBeforeGetContent={prepareContent}
-              trigger={() =>
-                <Button
-                  variant='secondary'
-                  disabled={_printDialogOpen}
-                >
-                  {_printDialogOpen && <Loader />}
-                  {t('ui:print')}
-                </Button>}
-              content={() => {
-                return componentRef.current
-              }}
-            />
+            <Button
+              onClick={onClickPrint}
+              title="P5000"
+              loading={_printDialogOpen}
+              disabled={_printDialogOpen}
+              variant={"secondary"}
+            >
+              {t('ui:print')}
+            </Button>
             {!hideSendToPesysButton &&
               <Button
                 variant='primary'
