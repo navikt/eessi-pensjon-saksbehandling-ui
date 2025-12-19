@@ -87,8 +87,8 @@ jest.mock('react-pdf', () => {
 })
 
 export const stageSelector = (defaultSelector: any, params: any) => {
-  (useDispatch as jest.Mock).mockImplementation(() => jest.fn());
-  (useSelector as jest.Mock).mockImplementation(() => ({
+  (useDispatch as unknown as jest.Mock).mockImplementation(() => jest.fn());
+  (useSelector as unknown as jest.Mock).mockImplementation(() => ({
     ...defaultSelector,
     ...params
   }))
