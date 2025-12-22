@@ -33,7 +33,7 @@
     "@navikt/landvelger": "10.0.11",
     "@navikt/oasis": "4.1.1",
     "@navikt/tabell": "9.0.3",
-    "@reduxjs/toolkit": "1.8.5",
+    "@reduxjs/toolkit": "1.9.7",
     "bytes": "3.1.2",
     "classnames": "2.5.1",
     "connect-timeout": "1.9.1",
