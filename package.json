@@ -24,8 +24,8 @@
   "private": true,
   "dependencies": {
     "@navikt/ds-css": "7.35.1",
-    "@navikt/ds-react": "7.35.2",
-    "@navikt/aksel-icons": "7.35.2",
+    "@navikt/ds-react": "7.35.1",
+    "@navikt/aksel-icons": "7.35.1",
     "@navikt/fetch": "5.0.11",
     "@navikt/flagg-ikoner": "10.0.19",
     "@navikt/fnrvalidator": "2.2.1",
