@@ -1,3 +1,4 @@
+import React, {JSX} from 'react'
 import {Box, HGrid, Label} from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
 

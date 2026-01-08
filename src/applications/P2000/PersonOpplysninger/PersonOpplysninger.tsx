@@ -1,6 +1,6 @@
 import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "../MainForm";
-import React from "react";
+import React, {JSX} from "react";
 import {useTranslation} from "react-i18next";
 import {useAppSelector} from "src/store";
 import Input from "src/components/Forms/Input";

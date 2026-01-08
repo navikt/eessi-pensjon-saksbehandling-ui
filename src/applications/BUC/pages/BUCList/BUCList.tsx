@@ -21,7 +21,7 @@ import { PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
 import {Alert, BodyLong, Heading, Button, Box, Spacer, HStack, LinkPanel} from '@navikt/ds-react'
-import { useEffect, useState } from 'react'
+import {JSX, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import {BRUKERKONTEKST, GJENNY} from "src/constants/constants";

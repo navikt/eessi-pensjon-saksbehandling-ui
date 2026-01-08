@@ -1,4 +1,4 @@
-import {Alert, BodyLong, Button, HelpText, Loader, Tag, SortState, VStack, HStack, Spacer} from '@navikt/ds-react'
+import {Alert, BodyLong, Button, HelpText, Tag, SortState, VStack, HStack, Spacer} from '@navikt/ds-react'
 import { typePeriode } from 'src/applications/P5000/P5000.labels'
 import Select from 'src/components/Select/Select'
 import { Labels, LocalStorageEntry, Option } from 'src/declarations/app'
@@ -9,7 +9,7 @@ import _ from 'lodash'
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import ReactToPrint from 'react-to-print'
+import {useReactToPrint} from 'react-to-print'
 import Table, { RenderEditableOptions, Column as TableColumn, RenderOptions } from '@navikt/tabell'
 import { convertFromP5000SumRowsIntoP5000SED, convertP5000SEDToP5000SumRows } from 'src/applications/P5000/utils/conversion'
 import HiddenDiv from "src/components/HiddenDiv/HiddenDiv";
@@ -44,17 +44,27 @@ const P5000Sum: React.FC<P5000SumProps> = ({
 
   const items = convertP5000SEDToP5000SumRows(mainSed ? [mainSed] : [], p5000sFromRinaMap, p5000WorkingCopy)
 
-  const beforePrintOut = (): void => {
-    _setPrintDialogOpen(true)
-  }
-
-  const prepareContent = (): void => {
-    _setRenderPrintTable(true)
+  const beforePrintOut = (): Promise<void> => {
+    return new Promise((resolve) => {
+      _setRenderPrintTable(true)
+      resolve()
+    })
   }
 
   const afterPrintOut = (): void => {
     _setPrintDialogOpen(false)
     _setRenderPrintTable(false)
+  }
+
+  const handlePrint = useReactToPrint({
+    onBeforePrint: () => beforePrintOut(),
+    onAfterPrint: () => afterPrintOut(),
+    contentRef: componentRef
+  });
+
+  const onClickPrint = () => {
+    _setPrintDialogOpen(true)
+    handlePrint()
   }
 
   const renderType = ({ value } :RenderOptions<P5000SumRow>) => (
@@ -217,23 +227,15 @@ const P5000Sum: React.FC<P5000SumProps> = ({
       </HStack>
       <HStack gap="4">
         <Spacer/>
-        <ReactToPrint
-          documentTitle='P5000Sum'
-          onAfterPrint={afterPrintOut}
-          onBeforePrint={beforePrintOut}
-          onBeforeGetContent={prepareContent}
-          trigger={() =>
-            <Button
-              variant='secondary'
-              disabled={_printDialogOpen}
-            >
-              {_printDialogOpen && <Loader />}
-              {t('ui:print')}
-            </Button>}
-          content={() => {
-            return componentRef.current
-          }}
-        />
+        <Button
+          onClick={onClickPrint}
+          title="P5000Sum"
+          loading={_printDialogOpen}
+          disabled={_printDialogOpen}
+          variant={"secondary"}
+        >
+          {t('ui:print')}
+        </Button>
       </HStack>
       <HorizontalLineSeparator />
       <Table<P5000SumRow>

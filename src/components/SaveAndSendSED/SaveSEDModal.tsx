@@ -1,3 +1,4 @@
+import {JSX} from 'react'
 import { State } from 'src/declarations/reducers'
 import {useAppSelector} from 'src/store'
 import {useTranslation} from "react-i18next";
