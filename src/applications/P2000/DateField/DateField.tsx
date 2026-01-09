@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react'
 
 import { TextField } from '@navikt/ds-react'
-import moment, {Moment} from "moment/moment";
+import dayjs, { Dayjs } from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 import {useTranslation} from "react-i18next";
+
+dayjs.extend(customParseFormat)
 
 export interface DateFieldProps {
   namespace: string
@@ -18,19 +21,19 @@ export interface DateFieldProps {
   index?: number
 }
 
-const parseDate = (date: string | undefined): Moment | undefined => {
+const parseDate = (date: string | undefined): Dayjs | undefined => {
   if (!date || date === '') return undefined
-  let newDate: Moment
+  let newDate: Dayjs
   if (date.match(/\d{2}[.]\d{2}[.]\d{4}/)) {
-    newDate = moment(date, 'DD.MM.YYYY')
+    newDate = dayjs(date, 'DD.MM.YYYY')
   } else if (date.match(/\d{2}[.]\d{2}[.]\d{2}/)) {
-    newDate = moment(date, 'DD.MM.YY')
+    newDate = dayjs(date, 'DD.MM.YY')
   } else if (date.match(/\d{4}-\d{2}-\d{2}/)) {
-    newDate = moment(date, 'YYYY-MM-DD')
+    newDate = dayjs(date, 'YYYY-MM-DD')
   } else if (date.match(/^\d{6}$/)) {
-    newDate = moment(date, 'DDMMYY')
+    newDate = dayjs(date, 'DDMMYY')
   } else if (date.match(/^\d{8}$/)) {
-    newDate = moment(date, 'DDMMYYYY')
+    newDate = dayjs(date, 'DDMMYYYY')
   } else {
     return undefined
   }
@@ -38,11 +41,14 @@ const parseDate = (date: string | undefined): Moment | undefined => {
 }
 
 export const isDateValidFormat = (date: string | undefined): boolean => {
-  return !date ||
-    moment(date, "YYYY-MM-DD", true).isValid() ||
-    moment(date, "DD.MM.YYYY", true).isValid() ||
-    moment(date, "DD.MM.YY", true).isValid() ||
-    moment(date, "DDMMYY", true).isValid();
+  if (!date) return true
+  const formats = ["YYYY-MM-DD", "DD.MM.YYYY", "DD.MM.YY", "DDMMYY", "DDMMYYYY"]
+  for(const format of formats){
+    if(dayjs(date, format, true).isValid()){
+      return true
+    }
+  }
+  return false
 }
 
 const toDateFormat = (date: string | undefined, format: string): string => {
