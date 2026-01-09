@@ -4,7 +4,7 @@ import PostalCodes from 'src/components/PostalCodes/PostalCodes'
 import { PersonAvdod, PersonAvdods } from 'src/declarations/person.d'
 import CountryData from '@navikt/land-verktoy'
 import _ from 'lodash'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import {BodyLong, Box, HGrid, HStack, Label, VStack} from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
@@ -78,13 +78,13 @@ const PersonBody: React.FC<PersonBodyProps> = ({
   const getDates = (person: any, category: string): string => {
     let beginDate = _.get(person, category + '.gyldigFraOgMed')
     if (beginDate) {
-      beginDate = moment(beginDate).format('DD.MM.YYYY')
+      beginDate = dayjs(beginDate).format('DD.MM.YYYY')
     }
     let endDate = ''
     if (_.get(person, category + '.gyldigTilOgMed')) {
       endDate = _.get(person, category + '.gyldigTilOgMed')
       if (endDate) {
-        endDate = moment(endDate).format('DD.MM.YYYY')
+        endDate = dayjs(endDate).format('DD.MM.YYYY')
       }
     }
     return beginDate + ' - ' + endDate
@@ -131,19 +131,19 @@ const PersonBody: React.FC<PersonBodyProps> = ({
   const oppholdsadresse: Array<JSX.Element | string> = getAddress(person, 'oppholdsadresse')
 
   if (_.get(person, 'foedselsdato.foedselsdato')) {
-    birthDateString = moment(person.foedselsdato.foedselsdato).format('DD.MM.YYYY')
+    birthDateString = dayjs(person.foedselsdato.foedselsdato).format('DD.MM.YYYY')
   }
   if (_.get(person, 'doedsfall.doedsdato')) {
-    deathDateString = moment(person.doedsfall.doedsdato).format('DD.MM.YYYY')
+    deathDateString = dayjs(person.doedsfall.doedsdato).format('DD.MM.YYYY')
   }
   if (!_.isEmpty(person.statsborgerskap)) {
     nationality = person.statsborgerskap.map((l: any) => {
       let label = getCountry(l.land)
       if (l.gyldigFraOgMed) {
-        label += ' (' + moment(l.gyldigFraOgMed).format('DD.MM.YYYY')
+        label += ' (' + dayjs(l.gyldigFraOgMed).format('DD.MM.YYYY')
       }
       if (l.gyldigTilOgMed) {
-        label += ' - ' + moment(l.gyldigTilOgMed).format('DD.MM.YYYY')
+        label += ' - ' + dayjs(l.gyldigTilOgMed).format('DD.MM.YYYY')
       }
       return <>{label + (l.gyldigFraOgMed ? ')' : "")}<br/></>
     })
@@ -155,10 +155,10 @@ const PersonBody: React.FC<PersonBodyProps> = ({
       type = type.charAt(0).toUpperCase() + type.slice(1)
       let dateString = ''
       if (s.gyldigFraOgMed) {
-        dateString = moment(s.gyldigFraOgMed).format('DD.MM.YYYY')
+        dateString = dayjs(s.gyldigFraOgMed).format('DD.MM.YYYY')
       }
       if (s.gyldigTilOgMed) {
-        dateString += ' - ' + moment(s.gyldigTilOgMed).format('DD.MM.YYYY')
+        dateString += ' - ' + dayjs(s.gyldigTilOgMed).format('DD.MM.YYYY')
       }
       const label = t(type) +
         (type !== 'Null' && type !== 'Ugift' && dateString
