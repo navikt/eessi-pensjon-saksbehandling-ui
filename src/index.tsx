@@ -16,7 +16,7 @@ import i18n from './i18n'
 import store from './store'
 import {GJENNY, PESYS} from "./constants/constants";
 import {pdfjs} from "react-pdf";
-import {Helmet} from "react-helmet";
+import { HelmetProvider, Helmet } from '@dr.pogodin/react-helmet';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
@@ -30,16 +30,18 @@ root.render(
     <Provider store={store}>
       <Suspense fallback={<span>...</span>}>
         <BrowserRouter>
-          <Helmet>
-            <script
-              defer
-              src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
-              data-host-url="https://umami.nav.no"
-              data-website-id="0237dde0-bca5-4cce-ad72-236e1365dd3f"
-              data-domains="pensjon-utland-q2.intern.dev.nav.no"
-            >
-            </script>
+          <HelmetProvider>
+            <Helmet>
+              <script
+                defer
+                src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
+                data-host-url="https://umami.nav.no"
+                data-website-id="0237dde0-bca5-4cce-ad72-236e1365dd3f"
+                data-domains="pensjon-utland-q2.intern.dev.nav.no"
+              >
+              </script>
           </Helmet>
+          </HelmetProvider>
           <Routes>
             <Route
               path='/' element={

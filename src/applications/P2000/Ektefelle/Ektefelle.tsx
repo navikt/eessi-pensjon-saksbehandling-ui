@@ -1,5 +1,5 @@
 import {VStack, Heading, Radio, RadioGroup, Box} from "@navikt/ds-react";
-import React, {useEffect} from "react";
+import React, {JSX, useEffect} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import _ from "lodash";
 import {State} from "src/declarations/reducers";

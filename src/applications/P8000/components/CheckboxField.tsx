@@ -1,4 +1,4 @@
-import React from "react";
+import React, {JSX} from "react";
 import {Checkbox} from "@navikt/ds-react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";

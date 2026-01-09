@@ -1,3 +1,4 @@
+import {JSX} from 'react'
 import {ChevronLeftIcon} from '@navikt/aksel-icons';
 import {
   BodyLong,
@@ -5,7 +6,6 @@ import {
   Button,
   Heading,
   HStack,
-  Loader,
   Select,
   SortState,
   VStack
@@ -40,7 +40,7 @@ import {
   P4000_OPPLAERING,
   P4000_SYKEPENGER
 } from "src/constants/types";
-import ReactToPrint from "react-to-print";
+import {useReactToPrint} from "react-to-print";
 import WaitingPanel from "../../components/WaitingPanel/WaitingPanel";
 import styles from "src/assets/css/common.module.css";
 import HiddenDiv from "src/components/HiddenDiv/HiddenDiv";
@@ -225,14 +225,19 @@ const P4000: React.FC<P4000Props> = ({
     setItemsPerPage(e.target.value === 'all' ? 9999 : parseInt(e.target.value, 10))
   }
 
-  const beforePrintOut = (): void => {
-    _setPrintDialogOpen(true)
-  }
-
   const afterPrintOut = (): void => {
     _setPrintDialogOpen(false)
   }
 
+  const handlePrint = useReactToPrint({
+    onAfterPrint: () => afterPrintOut(),
+    contentRef: componentRef
+  });
+
+  const onClickPrint = () => {
+    _setPrintDialogOpen(true)
+    handlePrint()
+  }
 
   return (
     <VStack gap="4">
@@ -246,20 +251,15 @@ const P4000: React.FC<P4000Props> = ({
           align="end"
           style={{ flexDirection: 'row-reverse'}}
         >
-            <ReactToPrint
-              documentTitle='P4000'
-              onAfterPrint={afterPrintOut}
-              onBeforePrint={beforePrintOut}
-              trigger={() =>
-                <Button
-                  variant='secondary'
-                  disabled={_printDialogOpen}
-                >
-                  {_printDialogOpen && <Loader />}
-                  {t('ui:print')}
-                </Button>}
-              content={() => componentRef.current }
-            />
+            <Button
+              onClick={onClickPrint}
+              title="P4000"
+              loading={_printDialogOpen}
+              disabled={_printDialogOpen}
+              variant={"secondary"}
+            >
+              {t('ui:print')}
+            </Button>
           <Select
             id='itemsPerPage'
             label={t('ui:itemsPerPage')}

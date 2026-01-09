@@ -1,3 +1,4 @@
+import React, {JSX} from 'react'
 import classNames from 'classnames'
 import { Labels } from 'src/declarations/app.d'
 import { useTranslation } from 'react-i18next'

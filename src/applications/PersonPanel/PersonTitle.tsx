@@ -1,13 +1,13 @@
 import classNames from 'classnames'
 import { PersonPDL } from 'src/declarations/person'
 import _ from 'lodash'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import {Heading, HStack, Link} from '@navikt/ds-react'
 import {getFnr, getNPID} from 'src/applications/BUC/components/BUCUtils/BUCUtils'
 import LoadingImage from "src/components/Loading/LoadingImage";
 import {copyToClipboard} from "src/actions/app";
 import {useDispatch} from "react-redux";
-import {useState} from "react";
+import {JSX, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {FilesFillIcon, FilesIcon} from "@navikt/aksel-icons";
 import styles from "src/assets/css/common.module.css";
@@ -37,15 +37,15 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
   }
 
   if (_.get(person, 'foedselsdato.foedselsdato')) {
-    birthDate = moment(person.foedselsdato.foedselsdato)?.toDate()
+    birthDate = dayjs(person.foedselsdato.foedselsdato)?.toDate()
   }
   if (_.get(person, 'doedsfall.doedsdato')) {
-    deathDate = moment(person.doedsfall?.doedsdato)?.toDate()
+    deathDate = dayjs(person.doedsfall?.doedsdato)?.toDate()
   }
 
   const endDate: Date = deathDate || new Date()
   if (birthDate && endDate) {
-    age = moment(endDate).diff(moment(birthDate), 'years')
+    age = dayjs(endDate).diff(dayjs(birthDate), 'year')
   }
 
   let kind: string = 'nav-unknown-icon'

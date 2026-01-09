@@ -11,7 +11,7 @@ import { BUCMode, PesysContext } from 'src/declarations/app.d'
 import { BucListItem, Bucs } from 'src/declarations/buc'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { useCallback, useEffect, useState } from 'react'
+import {JSX, useCallback, useEffect, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {fetchBucsListForAvdod, fetchBucsListForGjenlevende} from "src/actions/gjenny";
 import {Box} from "@navikt/ds-react";

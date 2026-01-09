@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {JSX, useState} from "react";
 import {Accordion, Box, Button, Heading, HStack, TextField} from "@navikt/ds-react";
 import {MagnifyingGlassIcon} from "@navikt/aksel-icons";
 import classNames from "classnames";

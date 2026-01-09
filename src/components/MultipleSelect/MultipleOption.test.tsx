@@ -27,6 +27,7 @@ describe('components/MultipleSelect/MultipleOption', () => {
       value: 'mockValue'
     },
     getStyles: jest.fn(),
+    getClassNames: jest.fn(),
     innerProps: {
       onClick: jest.fn()
     } as any,

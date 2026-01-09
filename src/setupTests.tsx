@@ -1,6 +1,6 @@
 
 import { render, fireEvent, screen, getNodeText, cleanup } from '@testing-library/react'
-import { act } from 'react-dom/test-utils'
+import { act } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import '@testing-library/jest-dom'
 import { TextEncoder, TextDecoder } from 'util';
@@ -87,8 +87,8 @@ jest.mock('react-pdf', () => {
 })
 
 export const stageSelector = (defaultSelector: any, params: any) => {
-  (useDispatch as jest.Mock).mockImplementation(() => jest.fn());
-  (useSelector as jest.Mock).mockImplementation(() => ({
+  (useDispatch as unknown as jest.Mock).mockImplementation(() => jest.fn());
+  (useSelector as unknown as jest.Mock).mockImplementation(() => ({
     ...defaultSelector,
     ...params
   }))
