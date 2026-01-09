@@ -24,9 +24,9 @@
   "private": true,
   "dependencies": {
     "@dr.pogodin/react-helmet": "^3.0.5",
-    "@navikt/aksel-icons": "7.36.0",
-    "@navikt/ds-css": "7.36.0",
-    "@navikt/ds-react": "7.36.0",
+    "@navikt/aksel-icons": "7.38.0",
+    "@navikt/ds-css": "7.38.0",
+    "@navikt/ds-react": "7.38.0",
     "@navikt/fetch": "5.0.12",
     "@navikt/flagg-ikoner": "10.0.20",
     "@navikt/fnrvalidator": "2.2.1",
