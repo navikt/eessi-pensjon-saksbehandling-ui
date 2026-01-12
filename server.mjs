@@ -1,6 +1,6 @@
 import express from 'express'
 import path from 'path'
-import { createProxyMiddleware } from 'http-proxy-middleware'
+import { legacyCreateProxyMiddleware } from 'http-proxy-middleware'
 import winston from 'winston'
 import fetch from 'cross-fetch'
 import { URLSearchParams } from 'url'
@@ -165,7 +165,7 @@ const apiAuth = function (scope) {
 
 const apiProxy = function (target, pathRewrite) {
   //logger.debug('On apiProxy, with target ' + target)
-  return createProxyMiddleware( {
+  return legacyCreateProxyMiddleware( {
     target: target,
     logLevel: 'silent',
     changeOrigin: true,
