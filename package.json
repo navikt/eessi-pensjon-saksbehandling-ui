@@ -39,7 +39,7 @@
     "classnames": "2.5.1",
     "connect-timeout": "1.9.1",
     "core-js": "3.47.0",
-    "cross-fetch": "3.2.0",
+    "cross-fetch": "4.1.0",
     "dayjs": "1.11.19",
     "express": "5.2.1",
     "http-proxy-middleware": "2.0.9",
