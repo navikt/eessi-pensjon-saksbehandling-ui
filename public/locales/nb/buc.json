@@ -113,7 +113,7 @@
   "form-get-p6000"                    : "Hent P6000",
   "form-involvedInstitutions"         : "Involverte land og institusjoner",
   "form-kravDato"                     : "Kravdato",
-  "form-kravDatoPlaceholder"          : "DD-MM-ÅÅÅÅ",
+  "form-kravDatoPlaceholder"          : "DD-MM-YYYY",
   "form-kravOm"                       : "Krav om",
   "form-invalidContext"               : "Ikke i vedtakskontekst",
   "form-labelP5000"                   : "P5000",
@@ -176,7 +176,7 @@
   "p4000-updating"                : "Oppdater P4000",
   "p4000-registrert"              : "Registrer P4000",
 
-  "placeholder-date2" : "DD.MM.ÅÅÅÅ/DDMMÅÅ",
+  "placeholder-date2" : "DD.MM.YYYY/DDMMYY",
 
   "relasjon-EKTE"  : "Ektefelle",
   "relasjon-GIFT"  : "Gift",

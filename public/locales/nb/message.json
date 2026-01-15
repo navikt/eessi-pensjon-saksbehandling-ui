@@ -84,7 +84,7 @@
 
   "validation-addPositiveNumber"      : "Skriv et tall større eller lik null",
   "validation-addBeregning"           : "Legg til beregningen",
-  "validation-badKravDato"            : "Ugyldig kravdato, vennligst bruk DD-MM-ÅÅÅÅ",
+  "validation-badKravDato"            : "Ugyldig kravdato, vennligst bruk DD-MM-YYYY",
   "validation-chooseAvdod"            : "Velg avdød",
   "validation-badAvdodFnr"            : "Ugyldig avdødes f.nr./d.nr.",
   "validation-chooseAvdodFnr"         : "Velg avdødes f.nr./d.nr.",
@@ -105,7 +105,7 @@
   "validation-noAktoerId"             : "Ingen aktørId",
   "validation-noName"                 : "Ingen navn",
   "validation-noSakId"                : "Ingen sakId",
-  "validation-invalidDate"            : "Ugyldig dato, vennligst bruk DD.MM.ÅÅÅÅ / DDMMÅÅ",
+  "validation-invalidDate"            : "Ugyldig dato, vennligst bruk DD.MM.YYYY / DDMMYY",
   "validation-endDateBeforeStartDate" : "Sluttdato er tidligere enn startdato",
   "validation-overlapDate"            : "Datoer overlapper eksisterende perioder {{perioder}}",
 
