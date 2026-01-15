@@ -16,11 +16,11 @@ import { PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import CountryData from '@navikt/land-verktoy'
 import _ from 'lodash'
-import moment from 'moment'
 import React, {JSX, useEffect, useRef, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './BUCEdit.module.css'
+import dayjs from "dayjs";
 
 export interface BUCEditProps {
   initialSearch?: string
@@ -125,8 +125,8 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           const organizationName = it.organisation.name.toLowerCase()
           const countryCode = it.organisation.countryCode.toLowerCase()
           const countryName = CountryData.getCountryInstance(locale).findByValue(countryCode.toUpperCase()).label.toLowerCase()
-          const creationDate = moment(sed.creationDate).format('DD.MM.YYYY')
-          const lastUpdate = moment(sed.receiveDate ?? sed.lastUpdate).format('DD.MM.YYYY')
+          const creationDate = dayjs(sed.creationDate).format('DD.MM.YYYY')
+          const lastUpdate = dayjs(sed.receiveDate ?? sed.lastUpdate).format('DD.MM.YYYY')
           const status = t('ui:' + sed.status).toLowerCase()
           return organizationId.match(search) || organizationName.match(search) ||
           countryCode.match(search) || countryName.match(search) || creationDate.match(search) ||
