@@ -3,9 +3,9 @@ import { PersonAvdods } from 'src/declarations/person.d'
 import { render, screen } from '@testing-library/react'
 import personAvdod from 'src/mocks/person/personAvdod'
 import mockBucs from 'src/mocks/buc/bucs'
-import moment from 'moment'
 import { stageSelector } from 'src/setupTests'
 import BUCDetail, { BUCDetailProps, BUCDetailSelector } from './BUCDetail'
+import dayjs from "dayjs";
 
 const defaultSelector: BUCDetailSelector = {
   locale: 'nb',
@@ -30,7 +30,7 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
     expect(screen.getByTestId('a_buc_c_BUCDetail--panel_id')).toBeInTheDocument()
     expect(screen.getByTestId('a_buc_c_BUCDetail--status_id')).toHaveTextContent('buc:status-' + buc.status)
     expect(screen.getByTestId('a_buc_c_BUCDetail--creator_id')).toHaveTextContent('NO:NAVAT07')
-    expect(screen.getByTestId('a_buc_c_BUCDetail--startDate_id')).toHaveTextContent(moment(new Date(buc.startDate as number)).format('DD.MM.YYYY'))
+    expect(screen.getByTestId('a_buc_c_BUCDetail--startDate_id')).toHaveTextContent(dayjs(new Date(buc.startDate as number)).format('DD.MM.YYYY'))
     expect(screen.getByTestId('a_buc_c_BUCDetail--caseId_id')).toBeInTheDocument()
     expect(screen.getByTestId('a_buc_c_BUCDetail--gotorina_link_id')).toHaveTextContent('' + buc.caseId)
     expect(screen.queryByTestId('a_buc_c_BUCDetail--avdod_id')).not.toBeInTheDocument()
