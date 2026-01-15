@@ -32,12 +32,12 @@ import {
 import { PersonAvdod, PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import moment from 'moment'
 import React, {JSX, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { BUCStartIndexProps, BUCStartSelector, mapBUCStartState } from "./BUCStartIndex";
 import styles from './BUCStart.module.css'
+import dayjs from "dayjs";
 
 export interface BUCStartProps {
   aktoerId: string | null | undefined
@@ -185,7 +185,7 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
         feilmelding: t('message:validation-badKravDato')
       } as ErrorElement
     }
-    if (kravDato && !moment(kravDato, 'DD-MM-ÅÅÅÅ').isValid()) {
+    if (kravDato && !dayjs(kravDato, 'DD-MM-YYYY').isValid()) {
       return {
         feilmelding: t('message:validation-invalidKravDato'),
         skjemaelementId: 'a_buc_c_sedstart--kravDato-input-id'

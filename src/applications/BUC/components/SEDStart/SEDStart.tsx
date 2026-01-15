@@ -88,14 +88,13 @@ import { State } from 'src/declarations/reducers'
 import CountryData, { Country, CountryList } from '@navikt/land-verktoy'
 import CountrySelect from '@navikt/landvelger'
 import _ from 'lodash'
-import moment from 'moment'
-
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { GroupBase } from 'react-select'
 import {createReplySedGjenny, createSedGjenny} from "src/actions/gjenny";
 import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
+import dayjs from "dayjs";
 
 export interface SEDStartProps {
   aktoerId: string | null | undefined
@@ -519,7 +518,7 @@ const SEDStart: React.FC<SEDStartProps> = ({
         feilmelding: t('message:validation-badKravDato')
       } as ErrorElement
     }
-    if (kravDato && !moment(kravDato, 'DD-MM-ÅÅÅÅ').isValid()) {
+    if (kravDato && !dayjs(kravDato, 'DD-MM-YYYY').isValid()) {
       return {
         feilmelding: t('message:validation-invalidKravDato'),
         skjemaelementId: 'a_buc_c_sedstart--kravDato-input-id'
