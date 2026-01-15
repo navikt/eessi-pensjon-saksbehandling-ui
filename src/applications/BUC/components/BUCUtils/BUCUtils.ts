@@ -5,7 +5,10 @@ import { PersonAvdod, PersonAvdods, PersonPDL } from 'src/declarations/person.d'
 import CountryData, { Country, CountryFilter } from '@navikt/land-verktoy'
 import _ from 'lodash'
 import {Buc, JoarkBuc, Sed} from 'src/declarations/buc'
-import moment from 'moment'
+import dayjs from 'dayjs'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
+
+dayjs.extend(isSameOrAfter);
 
 interface getBucTypeLabelProps {
   type: string
@@ -17,7 +20,7 @@ interface getBucTypeLabelProps {
 const sedTypes: Array<string> = ['X', 'H', 'P']
 
 export const bucSorter = (a: Buc | JoarkBuc, b: Buc | JoarkBuc): number => {
-  return moment(a.startDate).isSameOrAfter(moment(b.startDate)) ? -1 : 1
+  return dayjs(a.startDate).isSameOrAfter(dayjs(b.startDate)) ? -1 : 1
 }
 
 export const bucFilter = (buc: Buc | JoarkBuc): boolean => {
@@ -115,5 +118,5 @@ export const sedSorter = (a: Sed, b: Sed): number => {
 export const valueSorter = (a: Option, b: Option) => a.value.localeCompare(b.value)
 
 export const dateSorter = (a: Sed, b: Sed): number => {
-  return moment(a.lastUpdate).isSameOrAfter(moment(b.lastUpdate)) ? -1 : 1
+  return dayjs(a.lastUpdate).isSameOrAfter(dayjs(b.lastUpdate)) ? -1 : 1
 }
