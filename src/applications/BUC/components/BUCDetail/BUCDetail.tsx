@@ -10,7 +10,6 @@ import { Buc, Institutions, ValidBuc } from 'src/declarations/buc'
 import { PersonAvdod, PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import moment from 'moment'
 import {Alert, Accordion, Link, Label, BodyLong, Heading, Box} from '@navikt/ds-react'
 import { useTranslation } from 'react-i18next'
 import {useDispatch, useSelector} from 'react-redux'
@@ -19,6 +18,7 @@ import {copyToClipboard} from "src/actions/app";
 import {FilesFillIcon, FilesIcon} from "@navikt/aksel-icons";
 import styles from './BUCDetail.module.css'
 import classNames from "classnames";
+import dayjs from "dayjs";
 
 export interface BUCDetailProps {
   buc: Buc
@@ -134,7 +134,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
                 data-testid='a_buc_c_BUCDetail--startDate_id'
               >
                 <BodyLong>
-                  {moment(buc.startDate!).format('DD.MM.YYYY')}
+                  {dayjs(buc.startDate!).format('DD.MM.YYYY')}
                 </BodyLong>
               </dd>
               <dt
