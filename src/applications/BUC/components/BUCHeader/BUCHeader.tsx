@@ -10,13 +10,13 @@ import { Buc, BucInfo, Institution, InstitutionListMap, InstitutionNames, JoarkB
 import { State } from 'src/declarations/reducers'
 import { FlagItems, FlagList } from '@navikt/flagg-ikoner'
 import _ from 'lodash'
-import moment from 'moment'
 import {LinkPanel, BodyLong, Link, Heading, Tag, Box, HGrid, HStack} from '@navikt/ds-react'
 import React, {JSX} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 import styles from './BUCHeader.module.css'
+import dayjs from "dayjs";
 
 export interface BUCHeaderProps {
   buc: Buc | JoarkBuc
@@ -114,7 +114,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
               data-testid='a_buc_c_BUCHeader--label_date_id'
             >
               <BodyLong>
-                {t('ui:created')}: {moment(buc.startDate!).format('DD.MM.YYYY')}
+                {t('ui:created')}: {dayjs(buc.startDate!).format('DD.MM.YYYY')}
               </BodyLong>
             </HStack>
             <HStack
