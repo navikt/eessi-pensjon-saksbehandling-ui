@@ -1,6 +1,6 @@
 import { P5000ListRows } from 'src/declarations/p5000'
 import _ from 'lodash'
-import moment from 'moment'
+import dayjs from "dayjs";
 
 export interface P5000ForS3 {
   land: string
@@ -24,8 +24,8 @@ export const convertFromP5000ListRowsIntoPesysPeriods = (
     .filter(item => !!item.selected)
     .map(item => ({
       ...item,
-      startdato: item.startdato ? moment(item.startdato).format('YYYY-MM-DD') : null,
-      sluttdato: item.sluttdato ? moment(item.sluttdato).format('YYYY-MM-DD') : null
+      startdato: item.startdato ? dayjs(item.startdato).format('YYYY-MM-DD') : null,
+      sluttdato: item.sluttdato ? dayjs(item.sluttdato).format('YYYY-MM-DD') : null
     })
     )
     .map((it: any) => _.omit(it, [
