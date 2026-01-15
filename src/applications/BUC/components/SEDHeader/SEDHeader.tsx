@@ -9,7 +9,6 @@ import { AllowedLocaleString, LocalStorageEntriesMap, BUCMode, FeatureToggles, L
 import { Buc, Institutions, Participant, Sed } from 'src/declarations/buc'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import moment from 'moment'
 import {Alert, Detail, BodyLong, Button, HStack, Box, VStack, HGrid} from '@navikt/ds-react'
 import {ChevronRightIcon, ChevronDownIcon, ChevronUpIcon, PaperclipIcon} from '@navikt/aksel-icons'
 import { useTranslation } from 'react-i18next'
@@ -21,6 +20,7 @@ import P8000 from "src/applications/P8000/P8000";
 import {umamiButtonLogger} from "src/metrics/umami";
 import styles from './SEDHeader.module.css'
 import classNames from "classnames";
+import dayjs from "dayjs";
 
 export interface SEDHeaderProps {
   buc: Buc
@@ -133,7 +133,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               label={(
                 <BodyLong>
                   {t('ui:firstVersion')}: &nbsp;
-                  {sed.firstVersion ? moment(sed.firstVersion.date).format('DD.MM.YYYY') : null}
+                  {sed.firstVersion ? dayjs(sed.firstVersion.date).format('DD.MM.YYYY') : null}
                   <br/>
                   Dokument ID: {sed.id}
                 </BodyLong>
@@ -149,9 +149,9 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 data-testid='a_buc_c_sedheader--version-date-id'
               >
                 {sed.receiveDate
-                  ? moment(sed.receiveDate).format('DD.MM.YYYY')
+                  ? dayjs(sed.receiveDate).format('DD.MM.YYYY')
                   : sed.lastUpdate
-                    ? moment(sed.lastUpdate).format('DD.MM.YYYY')
+                    ? dayjs(sed.lastUpdate).format('DD.MM.YYYY')
                     : null}
               </BodyLong>
               {sed.version && (
