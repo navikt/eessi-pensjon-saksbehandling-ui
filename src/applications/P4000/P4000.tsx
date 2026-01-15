@@ -27,7 +27,6 @@ import {State} from "src/declarations/reducers";
 import Table, {Column, RenderOptions} from "@navikt/tabell";
 import _ from "lodash";
 import CountryData, {AllowedLocaleString} from "@navikt/land-verktoy";
-import moment from "moment";
 import md5 from "md5";
 import {
   P4000_ANDRE,
@@ -44,6 +43,7 @@ import {useReactToPrint} from "react-to-print";
 import WaitingPanel from "../../components/WaitingPanel/WaitingPanel";
 import styles from "src/assets/css/common.module.css";
 import HiddenDiv from "src/components/HiddenDiv/HiddenDiv";
+import dayjs from "dayjs";
 
 export interface P4000Props {
   buc: Buc
@@ -205,7 +205,7 @@ const P4000: React.FC<P4000Props> = ({
 
 
   const renderDato = ({ value }: RenderOptions<P4000ListRow, P4000TableContext, string>) => {
-    return <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
+    return <BodyLong>{_.isDate(value) ? dayjs(value).format('DD.MM.YYYY') : value}</BodyLong>
   }
 
   let columns: Array<Column<P4000ListRow, P4000TableContext>> = [
