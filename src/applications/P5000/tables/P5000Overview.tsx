@@ -21,7 +21,6 @@ import {
 } from 'src/declarations/p5000'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import moment from 'moment'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -30,6 +29,7 @@ import P5000OverviewControls from './P5000OverviewControls'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 import HiddenDiv from "src/components/HiddenDiv/HiddenDiv";
 import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
+import dayjs from "dayjs";
 
 export interface P5000OverviewSelector {
   featureToggles: FeatureToggles
@@ -154,8 +154,8 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           return it.land === item.land &&
             it.acronym === item.acronym &&
             it.type === item.type &&
-            it.startdato === moment(item.startdato).format('YYYY-MM-DD') &&
-            it.sluttdato === moment(item.sluttdato).format('YYYY-MM-DD') &&
+            it.startdato === dayjs(item.startdato).format('YYYY-MM-DD') &&
+            it.sluttdato === dayjs(item.sluttdato).format('YYYY-MM-DD') &&
             it.ytelse === item.ytelse &&
             it.ordning === item.ordning &&
             it.beregning === item.beregning
@@ -176,14 +176,14 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
   const renderStartdato = ({ item, value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
     <HStack gap="1">
-      <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
+      <BodyLong>{_.isDate(value) ? dayjs(value).format('DD.MM.YYYY') : value}</BodyLong>
       {item?.options?.startdatoModified && (<StarIcon fontSize="1.5rem" color="red" />)}
     </HStack>
   )
 
   const renderSluttdato = ({ item, value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
     <HStack gap="1">
-      <BodyLong>{_.isDate(value) ? moment(value).format('DD.MM.YYYY') : value}</BodyLong>
+      <BodyLong>{_.isDate(value) ? dayjs(value).format('DD.MM.YYYY') : value}</BodyLong>
       {item?.options?.sluttdatoModified && (<StarIcon fontSize="1.5rem" color="red" />)}
     </HStack>
   )
