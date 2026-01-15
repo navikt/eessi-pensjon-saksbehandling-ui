@@ -2,8 +2,8 @@ import * as types from 'src/constants/actionTypes'
 import { PersonAvdods, PersonPDL } from 'src/declarations/person'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
-import moment from 'moment'
 import { AnyAction } from 'redux'
+import dayjs from "dayjs";
 
 export interface PersonState {
   personPdl: PersonPDL | undefined
@@ -119,7 +119,7 @@ const personReducer = (state: PersonState = initialPersonState, action: AnyActio
       let gjpbp: Date | null |undefined
       if (_.isArray((action as ActionWithPayload).payload.result) && !_.isEmpty((action as ActionWithPayload).payload.result)) {
         try {
-          gjpbp = moment(_.get((action as ActionWithPayload).payload.result[0], 'doedsdato'), 'YYYY-MM-DD').toDate()
+          gjpbp = dayjs(_.get((action as ActionWithPayload).payload.result[0], 'doedsdato'), 'YYYY-MM-DD').toDate()
         } catch (e) {
         }
       }
@@ -133,7 +133,7 @@ const personReducer = (state: PersonState = initialPersonState, action: AnyActio
     case types.PERSON_SET_GJP_BP:
       return {
         ...state,
-        gjpbp: state.personAvdods && state.personAvdods.length > 0 ? moment(state.personAvdods[0].doedsDato, 'YYYY-MM-DD').toDate() : null
+        gjpbp: state.personAvdods && state.personAvdods.length > 0 ? dayjs(state.personAvdods[0].doedsDato, 'YYYY-MM-DD').toDate() : null
       }
 
     case types.PERSON_UFT_REQUEST:
@@ -147,13 +147,13 @@ const personReducer = (state: PersonState = initialPersonState, action: AnyActio
     case types.PERSON_UFT_SUCCESS: {
       let uforetidspunkt, virkningstidspunkt
       try {
-        uforetidspunkt = moment((action as ActionWithPayload).payload.uforetidspunkt, 'YYYY-MM-DD').toDate()
+        uforetidspunkt = dayjs((action as ActionWithPayload).payload.uforetidspunkt, 'YYYY-MM-DD').toDate()
       } catch (e) {
         uforetidspunkt = null
       }
 
       try {
-        virkningstidspunkt = moment((action as ActionWithPayload).payload.virkningstidspunkt, 'YYYY-MM-DD').toDate()
+        virkningstidspunkt = dayjs((action as ActionWithPayload).payload.virkningstidspunkt, 'YYYY-MM-DD').toDate()
       } catch (e) {
         virkningstidspunkt = null
       }
