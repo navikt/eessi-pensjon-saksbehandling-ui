@@ -153,24 +153,30 @@ export const mergeP5000ListRows = (
           years: subRow.aar
         })
 
+        /*
         const calculatedSubRowDateDiffLogString: string = writeDateDiff(calculatedSubRowDateDiff)
         const calculatedSubRowPeriodeSumLogString: string = writeDateDiff({
           days: calculatedSubRowPeriodeSum.days,
           months: calculatedSubRowPeriodeSum.months,
           years: calculatedSubRowPeriodeSum.years
         })
+         */
 
         if (calculatedSubRowPeriodeSum.totalDays === undefined || calculatedSubRowDateDiff.totalDays === undefined ||
           (calculatedSubRowPeriodeSum.totalDays < calculatedSubRowDateDiff.totalDays)) {
+          /*
           console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
             ' diverges on periode sum, ' + calculatedSubRowPeriodeSumLogString + ' < ' + calculatedSubRowDateDiffLogString + '. ' +
             'Difference in totalDays is, ' + calculatedSubRowPeriodeSum.totalDays + ' vs ' + calculatedSubRowDateDiff.totalDays)
+           */
           parentRow = undefined
           subRow.flag = true
           subRow.flagLabel = i18n.t('message:warning-periodSumIsSmallerThanRegisteredPeriod')
         } else {
+          /*
           console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
             ' has not too small period sum, ' + calculatedSubRowPeriodeSumLogString + ' === ' + calculatedSubRowDateDiffLogString)
+           */
         }
       } else {
         // for germans, merge if they are in adjacent months, connecting f.ex 20-07-1986 with 08-08-1986
