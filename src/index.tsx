@@ -1,9 +1,6 @@
 
 import RequireAuth from 'src/components/RequireAuth/RequireAuth'
 import 'core-js/stable'
-import 'moment'
-import 'moment/locale/en-gb'
-import 'moment/locale/nb'
 import '@navikt/ds-css'
 import Pages from 'src/pages'
 import { Suspense } from 'react'

@@ -18,8 +18,7 @@ export default defineConfig({
       loader: {
         '.js': 'jsx',
       },
-    },
-    include: ['moment']
+    }
   },
   build:{
     outDir: "build",
