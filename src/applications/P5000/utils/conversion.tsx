@@ -12,7 +12,6 @@ import {
 } from 'src/declarations/p5000'
 import { Seds } from 'src/declarations/buc'
 import _ from 'lodash'
-import moment from 'moment'
 import i18n from 'src/i18n'
 import dateDecimal, { sumDates, writeDateDiff } from 'src/utils/dateDecimal'
 import dateDiff, { DateDiff, FormattedDateDiff } from 'src/utils/dateDiff'
@@ -21,6 +20,10 @@ import {
   periodToListItem, sumItemtoPeriod
 } from './conversionUtils'
 import dayjs from "dayjs";
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+
+dayjs.extend(isSameOrBefore);
+
 
 export interface ConvertP5000SEDToP5000ListRowsProps {
   seds: Seds
@@ -52,9 +55,9 @@ export const sortItems = (items: P5000ListRows): P5000ListRows => {
       }
     }
   })
-  newItems = parents.sort((a: P5000ListRow, b: P5000ListRow) => moment(a.startdato).isSameOrBefore(moment(b.startdato)) ? -1 : 1)
+  newItems = parents.sort((a: P5000ListRow, b: P5000ListRow) => dayjs(a.startdato).isSameOrBefore(dayjs(b.startdato)) ? -1 : 1)
   Object.keys(children).forEach(key => {
-    children[key] = children[key].sort((a: P5000ListRow, b: P5000ListRow) => moment(a.startdato).isSameOrBefore(moment(b.startdato)) ? -1 : 1)
+    children[key] = children[key].sort((a: P5000ListRow, b: P5000ListRow) => dayjs(a.startdato).isSameOrBefore(dayjs(b.startdato)) ? -1 : 1)
   })
   // inject the children arrays on the right spot, then flatten
   Object.keys(children).forEach(parentKey => {
@@ -91,7 +94,7 @@ export const mergeP5000ListRows = (
     } else {
       mergingMap[key].push(r)
       // sort grouped periods by start date, for easy merging (periods will not overlap)
-      mergingMap[key] = mergingMap[key].sort((a: P5000ListRow, b: P5000ListRow) => moment(a.startdato).isSameOrBefore(b.startdato) ? -1 : 1)
+      mergingMap[key] = mergingMap[key].sort((a: P5000ListRow, b: P5000ListRow) => dayjs(a.startdato).isSameOrBefore(b.startdato) ? -1 : 1)
     }
   })
 
@@ -141,7 +144,7 @@ export const mergeP5000ListRows = (
       let parentRow: P5000ListRow | undefined
       if (!useGermanRules || _subRow.land !== 'DE') {
         // parentRow.sluttdato = 31.07.2000, and subRow.startdato = 01.08.2000 - diff <= 1 day, then merge...
-        parentRow = _.find(parentRows, (_r) => Math.abs(moment(_subRow.startdato).diff(moment(_r.sluttdato), 'days')) <= 1)
+        parentRow = _.find(parentRows, (_r) => Math.abs(dayjs(_subRow.startdato).diff(dayjs(_r.sluttdato), 'days')) <= 1)
         //  ...unless we are talking about a period that periodesum doesn't match the calculated sum
 
         const calculatedSubRowDateDiff = dateDiff(subRow.startdato, subRow.sluttdato)
@@ -165,7 +168,7 @@ export const mergeP5000ListRows = (
         if (calculatedSubRowPeriodeSum.totalDays === undefined || calculatedSubRowDateDiff.totalDays === undefined ||
           (calculatedSubRowPeriodeSum.totalDays < calculatedSubRowDateDiff.totalDays)) {
           /*
-          console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
+          console.log('subrow with period ' + dayjs(subRow.startdato).format('DD.MM.YYYY') + '-' + dayjs(subRow.sluttdato).format('DD.MM.YYYY') +
             ' diverges on periode sum, ' + calculatedSubRowPeriodeSumLogString + ' < ' + calculatedSubRowDateDiffLogString + '. ' +
             'Difference in totalDays is, ' + calculatedSubRowPeriodeSum.totalDays + ' vs ' + calculatedSubRowDateDiff.totalDays)
            */
@@ -174,18 +177,18 @@ export const mergeP5000ListRows = (
           subRow.flagLabel = i18n.t('message:warning-periodSumIsSmallerThanRegisteredPeriod')
         } else {
           /*
-          console.log('subrow with period ' + moment(subRow.startdato).format('DD.MM.YYYY') + '-' + moment(subRow.sluttdato).format('DD.MM.YYYY') +
+          console.log('subrow with period ' + dayjs(subRow.startdato).format('DD.MM.YYYY') + '-' + dayjs(subRow.sluttdato).format('DD.MM.YYYY') +
             ' has not too small period sum, ' + calculatedSubRowPeriodeSumLogString + ' === ' + calculatedSubRowDateDiffLogString)
            */
         }
       } else {
         // for germans, merge if they are in adjacent months, connecting f.ex 20-07-1986 with 08-08-1986
-        // I can't use same as above because moment(new Date(2020, 07, 02)).diff(new Date(2020, 09, 01), 'months') = 1
+        // I can't use same as above because dayjs(new Date(2020, 07, 02)).diff(new Date(2020, 09, 01), 'months') = 1
         // I have to set days to 01, so that 01.12.2020 to 01.01.2021 is still merged
         parentRow = _.find(parentRows, (_r) => {
-          const targetSluttdato = moment(new Date(_r.sluttdato.getTime())).set('date', 1)
-          const targetStartdato = moment(new Date(_subRow.startdato.getTime())).set('date', 1)
-          return Math.abs(moment(targetStartdato).diff(targetSluttdato, 'months')) <= 1
+          const targetSluttdato = dayjs(new Date(_r.sluttdato.getTime())).set('date', 1)
+          const targetStartdato = dayjs(new Date(_subRow.startdato.getTime())).set('date', 1)
+          return Math.abs(dayjs(targetStartdato).diff(targetSluttdato, 'months')) <= 1
         })
       }
 
@@ -198,8 +201,8 @@ export const mergeP5000ListRows = (
         } else {
           // for germans, consider whole months for sum
           total = dateDiff(
-            moment(_.cloneDeep(parentRow.startdato)).startOf('month').toDate(),
-            moment(_.cloneDeep(parentRow.sluttdato)).endOf('month').toDate())
+            dayjs(_.cloneDeep(parentRow.startdato)).startOf('month').toDate(),
+            dayjs(_.cloneDeep(parentRow.sluttdato)).endOf('month').toDate())
         }
         parentRow.dag = total.days === 0 ? '' : total.days as string
         parentRow.mnd = total.months === 0 ? '' : total.months as string
@@ -321,9 +324,7 @@ export const convertP5000SEDToP5000ListRows = ({
 
   // this is for periode merging, for table overview only.
   if (mergePeriods) {
-    console.log("Before", rows)
     rows = mergeP5000ListRows({ rows, mergePeriodTypes, mergePeriodBeregnings, useGermanRules })
-    console.log("After", rows)
   }
   return [sortItems(rows), sourceStatus]
 }
