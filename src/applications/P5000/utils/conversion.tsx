@@ -66,7 +66,7 @@ export const sortItems = (items: P5000ListRows): P5000ListRows => {
   return _.flatten(newItems)
 }
 
-const mergeP5000ListRows = (
+export const mergeP5000ListRows = (
   { rows, mergePeriodTypes, mergePeriodBeregnings, useGermanRules }:
   { rows: P5000ListRows, mergePeriodTypes: Array<string> | undefined, mergePeriodBeregnings: Array<string> | undefined, useGermanRules: boolean}
 ) => {
@@ -315,7 +315,9 @@ export const convertP5000SEDToP5000ListRows = ({
 
   // this is for periode merging, for table overview only.
   if (mergePeriods) {
+    console.log("Before", rows)
     rows = mergeP5000ListRows({ rows, mergePeriodTypes, mergePeriodBeregnings, useGermanRules })
+    console.log("After", rows)
   }
   return [sortItems(rows), sourceStatus]
 }
