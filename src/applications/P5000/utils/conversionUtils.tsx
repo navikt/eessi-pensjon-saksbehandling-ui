@@ -4,8 +4,12 @@ import { P5000ListRow, P5000Period, P5000PeriodStatus, P5000SumRow, SedSender } 
 import i18n from 'src/i18n'
 import _ from 'lodash'
 import md5 from 'md5'
-import moment from 'moment'
 import dateDecimal, { sumDates, writeFloat } from 'src/utils/dateDecimal'
+import dayjs from 'dayjs'
+
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+
+dayjs.extend(isSameOrBefore);
 
 export const getNewLand = (period: P5000Period, sender: SedSender | undefined): string | undefined => {
   if (!_.isNil(period.land) && !_.isEmpty(period.land)) {
@@ -23,7 +27,7 @@ export const getSedSender = (sed: Sed | undefined): SedSender | undefined => {
     return undefined
   }
   return {
-    date: moment(sed.lastUpdate).format('DD.MM.YYYY'),
+    date: dayjs(sed.lastUpdate).format('DD.MM.YYYY'),
     countryLabel: CountryData.getCountryInstance('nb').findByValue(sender.organisation.countryCode).label,
     country: sender.organisation.countryCode,
     institution: sender.organisation.name,
@@ -60,9 +64,9 @@ const convertDate = (date: string | Date | null | undefined): string | null => {
     return null
   }
   if (_.isDate(date)) {
-    return moment(date).format('YYYY-MM-DD')
+    return dayjs(date).format('YYYY-MM-DD')
   }
-  return moment(date, 'DD.MM.YYYY').format('YYYY-MM-DD')
+  return dayjs(date, 'DD.MM.YYYY').format('YYYY-MM-DD')
 }
 
 export const periodToListItem = (
@@ -113,8 +117,8 @@ export const periodToListItem = (
     land: getNewLand(period, sender),
     acronym: sender!.acronym.indexOf(':') > 0 ? sender!.acronym.split(':')[1] : sender!.acronym,
     type: period.type ?? '',
-    startdato: period.periode?.fom ? moment(period.periode?.fom, 'YYYY-MM-DD').toDate() : '',
-    sluttdato: period.periode?.tom ? moment(period.periode?.tom, 'YYYY-MM-DD').toDate() : '',
+    startdato: period.periode?.fom ? dayjs(period.periode?.fom, 'YYYY-MM-DD').toDate() : '',
+    sluttdato: period.periode?.tom ? dayjs(period.periode?.tom, 'YYYY-MM-DD').toDate() : '',
     aar: convertedDate.years,
     mnd: convertedDate.months,
     dag: convertedDate.days,
@@ -262,13 +266,13 @@ export const mergeToExistingPeriod = (arr: Array<P5000Period>, index: number, it
     }
   }
   arr[index].periode!.fom =
-    moment(item.startdato).isSameOrBefore(moment(arr[index].periode?.fom, 'YYYY-MM-DD'))
-      ? moment(item.startdato).format('YYYY-MM-DD')
+    dayjs(item.startdato).isSameOrBefore(dayjs(arr[index].periode?.fom, 'YYYY-MM-DD'))
+      ? dayjs(item.startdato).format('YYYY-MM-DD')
       : arr[index].periode!.fom
 
   arr[index].periode!.tom =
-    moment(item.sluttdato).isSameOrAfter(moment(arr[index].periode?.tom, 'YYYY-MM-DD'))
-      ? moment(item.sluttdato).format('YYYY-MM-DD')
+    dayjs(item.sluttdato).isSameOrAfter(dayjs(arr[index].periode?.tom, 'YYYY-MM-DD'))
+      ? dayjs(item.sluttdato).format('YYYY-MM-DD')
       : arr[index].periode!.tom
 
   if (_.isNil(arr[index].beregning) && !_.isNil(item.beregning)) {
