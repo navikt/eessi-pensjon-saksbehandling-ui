@@ -139,7 +139,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
                 {rinaUrl
                   ? (
                     <BodyLong className={styles.rowText}>
-                      {t('buc:form-caseNumberInRina') + ': '}
+                      {t('buc:form-caseNumberInRina') + ':  '}
 
                       {/*OBJECT hack - wrap inner link in <object> to get rid of nested links error*/}
                       {/*https://kizu.dev/nested-links/*/}
