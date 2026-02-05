@@ -51,7 +51,7 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
 }: SaveAndSendSEDProps): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useDispatch()
-  const { PSEDChanged, currentPSED, savingSed, sendingSed, PSEDSendResponse, PSEDSavedResponse, editingItems }: SaveAndSendSelector = useSelector<State, SaveAndSendSelector>(mapState)
+  const { PSEDChanged, currentPSED, savingSed, sendingSed, PSEDSendResponse, PSEDSavedResponse, editingItems = {} }: SaveAndSendSelector = useSelector<State, SaveAndSendSelector>(mapState)
 
   const [_viewSaveSedModal, setViewSaveSedModal] = useState<boolean>(false)
   const [_viewWarningModal, setViewWarningModal] = useState<boolean>(false)
