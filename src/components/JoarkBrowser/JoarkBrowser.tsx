@@ -399,7 +399,9 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         key={_tableKey}
         context={context}
         labels={{
-          type: t('ui:attachments').toLowerCase()
+          type: t('ui:attachments').toLowerCase(),
+          selectAllTitle: (""),
+          selectAll: t('ui:selectAll'),
         }}
         initialPage={currentPage}
         itemsPerPage={itemsPerPage}
@@ -407,6 +409,7 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         searchable={mode === 'select'}
         selectable={mode === 'select'}
         sortable={mode === 'select'}
+        showSelectAll={false}
         summary
         loading={loadingJoarkList}
         columns={[
