@@ -29,9 +29,10 @@ const ValidationBox: React.FC<ValidationBoxProps> = ({
         .filter(v => v?.feilmelding !== 'notnull')
         .filter(v => v?.feilmelding !== 'error')
         .filter(v => v?.feilmelding !== 'ok')
-        .map(v => ({
+        .map((v, index) => ({
           feilmelding: v!.feilmelding,
-          skjemaelementId: v!.skjemaelementId
+          skjemaelementId: v!.skjemaelementId,
+          index
         })).map(item => {
           return item.skjemaelementId
             ? (
@@ -55,7 +56,7 @@ const ValidationBox: React.FC<ValidationBoxProps> = ({
               </ErrorSummary.Item>
               )
             : (
-              <BodyLong> {item.feilmelding}</BodyLong>
+              <BodyLong key={`validation-message-${item.index}`}> {item.feilmelding}</BodyLong>
               )
         })}
     </ErrorSummary>
