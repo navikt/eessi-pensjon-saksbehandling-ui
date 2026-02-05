@@ -25,7 +25,7 @@ const WarningModal: React.FC<WarningModalProps> = ({
       modal={{
         modalContent: (
           <Alert variant="warning">
-            Du holder på legge til eller redigere et eller flere elementer ({elementKeys.map((k) => t('ui:editingItem-' + k)).join(', ')}).
+            Du holder på legge til eller redigere et eller flere elementer ({elementKeys?.map((k) => t('ui:editingItem-' + k)).join(', ')}).
             Husk å lagre eller avbryte for å gå videre.
           </Alert>
         )
