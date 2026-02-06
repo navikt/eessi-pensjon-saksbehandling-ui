@@ -25,11 +25,12 @@ import InformasjonOmBetaling from "./InformasjonOmBetaling/InformasjonOmBetaling
 import SakInfo from "./SakInfo/SakInfo";
 import Diverse from "./Diverse/Diverse";
 import {resetEditingItems} from "src/actions/app";
-import SEDBody from "src/applications/BUC/components/SEDBody/SEDBody";
+import SEDAttachmentsPanel from "src/applications/BUC/components/SEDAttachmentsPanel/SEDAttachmentsPanel";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
 import SaveAndSendSED from "src/components/SaveAndSendSED/SaveAndSendSED";
 import useUnmount from "src/hooks/useUnmount";
 import styles from "src/assets/css/common.module.css";
+import {createSelector} from "@reduxjs/toolkit";
 
 
 export interface P2000Selector {
@@ -39,12 +40,18 @@ export interface P2000Selector {
   aktoerId: string | null | undefined
 }
 
-const mapState = (state: State): P2000Selector => ({
-  currentPSED: state.buc.PSED as P2000SED,
-  gettingSed: state.loading.gettingSed,
-  validation: state.validation.status,
-  aktoerId: state.app.params.aktoerId
-})
+const mapState = createSelector(
+  (state: State) => state.buc.PSED as P2000SED,
+  (state: State) => state.loading.gettingSed,
+  (state: State) => state.validation.status,
+  (state: State) => state.app.params.aktoerId,
+  (currentPSED, gettingSed, validation, aktoerId): P2000Selector => ({
+    currentPSED,
+    gettingSed,
+    validation,
+    aktoerId
+  })
+)
 
 export interface P2000Props {
   buc: Buc
@@ -145,7 +152,7 @@ const P2000: React.FC<P2000Props> = ({
           background="bg-default"
           padding="4"
         >
-          <SEDBody aktoerId={aktoerId} buc={buc} canHaveAttachments={sedCanHaveAttachments(currentPSED?.originalSed)} sed={sed!}/>
+          <SEDAttachmentsPanel aktoerId={aktoerId} buc={buc} canHaveAttachments={sedCanHaveAttachments(currentPSED?.originalSed)} sed={sed!}/>
         </Box>
         <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
         <SaveAndSendSED
