@@ -1,4 +1,4 @@
-import SEDBody from 'src/applications/BUC/components/SEDBody/SEDBody'
+import SEDAttachmentsPanel from 'src/applications/BUC/components/SEDAttachmentsPanel/SEDAttachmentsPanel'
 import SEDHeader from 'src/applications/BUC/components/SEDHeader/SEDHeader'
 import { Buc, Sed } from 'src/declarations/buc'
 import { render } from '@testing-library/react'
@@ -10,8 +10,8 @@ jest.mock('src/applications/BUC/components/SEDHeader/SEDHeader', () => ({ childr
   <div data-testid='mock-SEDHeader'>{children}</div>
 ))
 
-jest.mock('src/applications/BUC/components/SEDBody/SEDBody', () => ({ children }: any) => (
-  <div data-testid='mock-SEDBody'>{children}</div>
+jest.mock('src/applications/BUC/components/SEDAttachmentsPanel/SEDAttachmentsPanel', () => ({ children }: any) => (
+  <div data-testid='mock-SEDAttachmentsPanel'>{children}</div>
 ))
 
 describe('src/applications/BUC/components/SEDPanel/SEDPanel', () => {
@@ -39,7 +39,7 @@ describe('src/applications/BUC/components/SEDPanel/SEDPanel', () => {
 
   it('Render: SED can\'t have attachments', () => {
     expect(wrapper.exists(Accordion)).toBeFalsy()
-    expect(wrapper.exists(SEDBody)).toBeFalsy()
+    expect(wrapper.exists(SEDAttachmentsPanel)).toBeFalsy()
   })
 
   it('Render: SED can have attachments', () => {
@@ -55,7 +55,7 @@ describe('src/applications/BUC/components/SEDPanel/SEDPanel', () => {
     expect(wrapper.exists(Accordion)).toBeTruthy()
   })
 
-  it('Render: SED opens to show SED Body', () => {
+  it('Render: SED opens to show SED Attachments Panel', () => {
     const mockProps = {
       ...initialMockProps,
       sed: {
@@ -65,9 +65,9 @@ describe('src/applications/BUC/components/SEDPanel/SEDPanel', () => {
       }
     }
     wrapper = render(<SEDPanel {...mockProps} />)
-    expect(wrapper.exists(SEDBody)).toBeFalsy()
+    expect(wrapper.exists(SEDAttachmentsPanel)).toBeFalsy()
 
     wrapper.find(Accordion).find('.ekspanderbartPanel--hode').simulate('click')
-    expect(wrapper.exists(SEDBody)).toBeTruthy()
+    expect(wrapper.exists(SEDAttachmentsPanel)).toBeTruthy()
   })
 })

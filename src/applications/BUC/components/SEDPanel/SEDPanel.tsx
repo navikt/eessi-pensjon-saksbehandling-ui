@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { BUCMode } from 'src/declarations/app'
 import { Buc, Sed } from 'src/declarations/buc'
 import _ from 'lodash'
-import SEDBody from '../SEDBody/SEDBody'
+import SEDAttachmentsPanel from 'src/applications/BUC/components/SEDAttachmentsPanel/SEDAttachmentsPanel'
 import { Accordion, Box } from '@navikt/ds-react'
 import {JSX, useState} from "react";
 import styles from './SEDPanel.module.css'
@@ -70,7 +70,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
             >
               <Accordion.Item open={_open}>
                 <Accordion.Content>
-                  <SEDBody
+                  <SEDAttachmentsPanel
                     aktoerId={aktoerId}
                     buc={buc}
                     canHaveAttachments={sedCanHaveAttachments(sed)}

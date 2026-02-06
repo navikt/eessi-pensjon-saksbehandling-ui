@@ -25,7 +25,7 @@ import React, {JSX, useCallback, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
-export interface SEDBodyProps {
+export interface SEDAttachmentsPanelProps {
   aktoerId: string | null | undefined
   buc: Buc
   canHaveAttachments: boolean
@@ -37,15 +37,15 @@ export interface SEDBodyProps {
   sed: Sed
 }
 
-export interface SEDBodySelector {
+export interface SEDAttachmentsPanelSelector {
   attachmentsError?: boolean
 }
 
-const mapState = (state: State): SEDBodySelector => ({
+const mapState = (state: State): SEDAttachmentsPanelSelector => ({
   attachmentsError: state.buc.attachmentsError
 })
 
-const SEDBody: React.FC<SEDBodyProps> = ({
+const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
   aktoerId,
   buc,
   canHaveAttachments,
@@ -54,8 +54,8 @@ const SEDBody: React.FC<SEDBodyProps> = ({
   initialSendingAttachments = false,
   onAttachmentsSubmit,
   sed
-}: SEDBodyProps): JSX.Element => {
-  const { attachmentsError }: SEDBodySelector = useSelector<State, SEDBodySelector>(mapState)
+}: SEDAttachmentsPanelProps): JSX.Element => {
+  const { attachmentsError }: SEDAttachmentsPanelSelector = useSelector<State, SEDAttachmentsPanelSelector>(mapState)
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
@@ -179,7 +179,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
         <>
           <Box paddingBlock="8 0">
             <JoarkBrowser
-              data-testid='a_buc_c_sedbody--attachments-id'
+              data-testid='a_buc_c_sedattachmentspanel--attachments-id'
               existingItems={_items}
               mode='view'
               onRowViewDelete={onRowViewDelete}
@@ -195,7 +195,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
           <Box paddingBlock="4 0">
             <Button
               variant='primary'
-              data-testid='a_buc_c_sedbody--upload-button-id'
+              data-testid='a_buc_c_sedattachmentspanel--upload-button-id'
               disabled={_sendingAttachments}
               onClick={onAttachmentsSubmitted}
             >
@@ -230,7 +230,7 @@ const SEDBody: React.FC<SEDBodyProps> = ({
               <Box paddingBlock="4 4">
                 <Button
                   variant='secondary'
-                  data-testid='a_buc_c_sedbody--show-table-button-id'
+                  data-testid='a_buc_c_sedattachmentspanel--show-table-button-id'
                   onClick={() => !_attachmentsTableVisible ? onAttachmentsPanelOpen() : onAttachmentsPanelClose()}
                 >
                   {t(_attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}
@@ -250,4 +250,4 @@ const SEDBody: React.FC<SEDBodyProps> = ({
   )
 }
 
-export default SEDBody
+export default SEDAttachmentsPanel
