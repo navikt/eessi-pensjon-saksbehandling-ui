@@ -69,7 +69,7 @@ describe('src/components/JoarkBrowser/JoarkBrowser', () => {
   it('Handling: calls onRowSelectChange when selecting a row', () => {
     render(<JoarkBrowser {...initialMockProps} mode='select' />)
     const cb = screen.getAllByRole('checkbox')
-    fireEvent.click(cb[1])
+    fireEvent.click(cb[0])
     expect(initialMockProps.onRowSelectChange).toHaveBeenCalledWith(mockJoarkProcessed)
   })
 
