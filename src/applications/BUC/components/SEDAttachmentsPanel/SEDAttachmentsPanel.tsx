@@ -24,6 +24,7 @@ import { Heading, Loader, Button, Box } from '@navikt/ds-react'
 import React, {JSX, useCallback, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import { createSelector } from '@reduxjs/toolkit'
 
 export interface SEDAttachmentsPanelProps {
   aktoerId: string | null | undefined
@@ -41,9 +42,12 @@ export interface SEDAttachmentsPanelSelector {
   attachmentsError?: boolean
 }
 
-const mapState = (state: State): SEDAttachmentsPanelSelector => ({
-  attachmentsError: state.buc.attachmentsError
-})
+const mapState = createSelector(
+  (state: State) => state.buc.attachmentsError,
+  (attachmentsError: boolean | undefined): SEDAttachmentsPanelSelector => ({
+    attachmentsError
+  })
+)
 
 const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
   aktoerId,
