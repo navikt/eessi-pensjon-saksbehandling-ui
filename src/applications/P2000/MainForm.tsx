@@ -6,6 +6,7 @@ import {
 } from '@navikt/aksel-icons'
 import {BodyLong, Box, HStack, VStack} from '@navikt/ds-react'
 import { ActionWithPayload } from '@navikt/fetch'
+import {createSelector} from "@reduxjs/toolkit"
 
 import {PSED, Validation} from "src/declarations/app.d";
 import classNames from 'classnames'
@@ -50,10 +51,14 @@ export interface Form extends Option {
   options?: any
 }
 
-const mapState = (state: State): MainFormSelector => ({
-  validation: state.validation.status,
-  editingItems: state.app.editingItems
-})
+const mapState = createSelector(
+  (state: State) => state.validation.status,
+  (state: State) => state.app.editingItems,
+  (validation, editingItems): MainFormSelector => ({
+    validation,
+    editingItems
+  })
+)
 
 const MainForm = <T extends PSED>({
   forms,
@@ -63,7 +68,7 @@ const MainForm = <T extends PSED>({
   namespace
 }: MainFormFCProps<T>) => {
   const { t } = useTranslation()
-  const { validation, editingItems }: any = useAppSelector(mapState)
+  const { validation, editingItems = {} }: any = useAppSelector(mapState)
 
   const initialMenu = forms.length === 1 ? forms[0].value : undefined
   const [currentMenu, _setCurrentMenu] = useState<string | undefined>(initialMenu)
