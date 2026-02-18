@@ -2,7 +2,6 @@
 import RequireAuth from 'src/components/RequireAuth/RequireAuth'
 import 'core-js/stable'
 import '@navikt/ds-css'
-import '@navikt/tabell/lib/index.css';
 import Pages from 'src/pages'
 import { Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
