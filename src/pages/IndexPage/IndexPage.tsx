@@ -7,19 +7,32 @@ import BUCIndex from 'src/applications/BUC'
 import {GJENNY, PESYS} from "src/constants/constants";
 import BUCIndexGjenny from "../../applications/BUC/BUCIndexGjenny";
 import "./CustomGlobalStyles.css";
-import featureToggles from "src/mocks/app/featureToggles";
+import {FeatureToggles} from "src/declarations/app";
+import {State} from "src/declarations/reducers";
+import {useSelector} from "react-redux";
 
 export interface IndexPageProps {
   username?: string
   indexType?: string
 }
 
+export interface IndexPageSelector {
+  featureToggles: FeatureToggles
+}
+
+const mapState = (state: State): IndexPageSelector => ({
+  featureToggles: state.app.featureToggles,
+})
+
 const RELEASE_CDM_4_4_WARNING =
   <Alert variant='warning'>
-    Det vil ikke være mulig å opprette ny buc fredag 20.12.26
+    På grunn av oppgradering til ny datamodell i JINA kan det ikke opprettes nye BUC-er fra fredag 20. februar kl 00:01 til mandag 23. februar kl 06:00.
   </Alert>
 
 const IndexPage: React.FC<IndexPageProps> = ({indexType = "PESYS"}): JSX.Element => {
+
+  const { featureToggles }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
+
   return (
     <TopContainer indexType={indexType}>
       <VStack gap="4">
