@@ -71,7 +71,7 @@ const BUCList: React.FC<BUCListProps> = ({
   setMode, initialBucNew = undefined
 }: BUCListProps): JSX.Element => {
   const {
-    aktoerId, bucs, bucsList, bucsInfo, gettingBucs, gettingBucsList, newlyCreatedBuc, personAvdods, pesysContext, sakType
+    aktoerId, bucs, bucsList, bucsInfo, gettingBucs, gettingBucsList, newlyCreatedBuc, personAvdods, pesysContext, sakType, featureToggles
   } = useSelector<State, BUCListSelector>(mapState)
 
   const dispatch = useDispatch()
@@ -160,6 +160,7 @@ const BUCList: React.FC<BUCListProps> = ({
               variant='secondary'
               data-testid='a-buc-p-buclist--newbuc-button-id'
               onClick={onBUCNew}
+              disabled={!!featureToggles.RELEASE_CDM_4_4}
             >
               {t('buc:form-createNewCase')}
             </Button>
@@ -169,6 +170,7 @@ const BUCList: React.FC<BUCListProps> = ({
               variant='secondary'
               data-testid='a-buc-p-buclist--newbuc-button-id'
               onClick={onBestillP5000FraATP}
+              disabled={!!featureToggles.RELEASE_CDM_4_4}
             >
               {t('p8000:atp-label-bestill-atp-opplysninger')}
             </Button>

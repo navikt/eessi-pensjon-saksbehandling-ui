@@ -5,6 +5,6 @@ export default {
   EESSI_ADMIN: true,
   TEST_USER: true,
   P5000_MERGE_BUTTON: true,
-  RELEASE_CDM_4_4: true,
-  RELEASE_CDM_4_4_BANNER: true
+  RELEASE_CDM_4_4: false,
+  RELEASE_CDM_4_4_BANNER: false
 } as FeatureToggles
