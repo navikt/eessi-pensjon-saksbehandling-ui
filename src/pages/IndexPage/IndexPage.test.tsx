@@ -1,7 +1,13 @@
 import {JSX} from 'react'
 import {  screen, render } from '@testing-library/react'
 
-import IndexPage, { IndexPageProps } from './IndexPage'
+import IndexPage, {IndexPageProps, IndexPageSelector} from './IndexPage'
+import mockFeatureToggles from "src/mocks/app/featureToggles";
+import {stageSelector} from "src/setupTests";
+
+const defaultSelector: IndexPageSelector = {
+  featureToggles: mockFeatureToggles
+}
 
 jest.mock('src/constants/environment.ts', () => {
   return {
@@ -35,6 +41,7 @@ jest.mock('src/applications/PersonPanel/PersonPanel', () => {
 
 describe('src/pages/IndexPage', () => {
   const initialMockProps: IndexPageProps = {}
+  stageSelector(defaultSelector, {})
 
   it('Render: has proper HTML structure', () => {
     render(<IndexPage {...initialMockProps} />)
