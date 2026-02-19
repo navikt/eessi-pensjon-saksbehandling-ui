@@ -24,7 +24,8 @@ const initialFeatureToggles: FeatureToggles = {
   NR_AVDOD: 0,
   EESSI_ADMIN: false,
   TEST_USER: false,
-  P5000_MERGE_BUTTON: false
+  P5000_MERGE_BUTTON: false,
+  RELEASE_CDM_4_4: false
 }
 
 export const initialAppState: AppState = {

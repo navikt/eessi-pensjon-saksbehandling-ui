@@ -23,6 +23,7 @@ export type Feature =
   | 'EESSI_ADMIN'
   | 'TEST_USER'
   | 'P5000_MERGE_BUTTON'
+  | 'RELEASE_CDM_4_4'
 
 export type FeatureToggles = {[key in Feature]: boolean | number}
 
