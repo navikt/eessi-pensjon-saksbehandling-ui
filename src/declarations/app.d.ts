@@ -24,6 +24,7 @@ export type Feature =
   | 'TEST_USER'
   | 'P5000_MERGE_BUTTON'
   | 'RELEASE_CDM_4_4'
+  | 'RELEASE_CDM_4_4_BANNER'
 
 export type FeatureToggles = {[key in Feature]: boolean | number}
 

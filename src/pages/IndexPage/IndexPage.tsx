@@ -37,7 +37,7 @@ const IndexPage: React.FC<IndexPageProps> = ({indexType = "PESYS"}): JSX.Element
     <TopContainer indexType={indexType}>
       <VStack gap="4">
         <ContextBanner />
-        {featureToggles.RELEASE_CDM_4_4 &&
+        {featureToggles.RELEASE_CDM_4_4_BANNER &&
            RELEASE_CDM_4_4_WARNING
         }
           <Box padding="4">
