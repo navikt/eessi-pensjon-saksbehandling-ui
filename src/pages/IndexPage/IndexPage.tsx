@@ -25,7 +25,7 @@ const mapState = (state: State): IndexPageSelector => ({
 })
 
 const RELEASE_CDM_4_4_WARNING =
-  <Alert variant='warning'>
+  <Alert fullWidth variant='warning'>
     På grunn av oppgradering til ny datamodell i JINA kan det ikke opprettes nye BUC-er fra fredag 20. februar kl 00:01 til mandag 23. februar kl 06:00.
   </Alert>
 
