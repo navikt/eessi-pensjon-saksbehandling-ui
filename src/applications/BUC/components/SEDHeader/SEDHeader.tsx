@@ -114,7 +114,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
     >
       <HGrid gap="4" paddingBlock="1" align="start" columns={4}>
         <VStack>
-          <HStack align="center" minWidth="max-content">
+          <HStack align="center" >
             <Detail
               data-testid='a_buc_c_sedheader--name-id'
             >
