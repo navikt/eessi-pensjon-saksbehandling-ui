@@ -11,6 +11,7 @@ export interface P8000FieldsProps {
   namespace: string
   fields: Array<Field>
   variant: Array<string>
+  variantType?: string
 }
 
 export interface Field {
@@ -27,10 +28,11 @@ export const P8000Fields: React.FC<P8000FieldsProps> = ({
   PSED,
   updatePSED,
   namespace,
+  variantType
 }: P8000FieldsProps): JSX.Element => {
 
-  const getField = (type: string): JSX.Element | null => {
-    let field: Field | undefined = _.find(fields, o => o.value === type)
+  const getField = (variant: string): JSX.Element | null => {
+    let field: Field | undefined = _.find(fields, o => o.value === variant)
     if (field) {
       const Component = field.component
       return (
@@ -43,6 +45,7 @@ export const P8000Fields: React.FC<P8000FieldsProps> = ({
             namespace={namespace}
             PSED={PSED}
             updatePSED={updatePSED}
+            variantType={variantType}
           />
         </React.Fragment>
       )

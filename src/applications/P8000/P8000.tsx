@@ -61,6 +61,7 @@ export interface P8000FieldComponentProps {
   value: string
   target?: string
   options?: any
+  variantType?: string
 }
 
 export interface P8000Selector {
@@ -83,6 +84,29 @@ const mapState = (state: State): P8000Selector => ({
   aktoerId: state.app.params.aktoerId
 })
 
+export const variantDescription: {[key: string]: string} = {
+  "AP": "Alderspensjon",
+  "UT": "Uføretrygd",
+  "EO": "Gjenlevende",
+  "NO": "Bosatt Norge",
+  "UTL": "Bosatt utland",
+  "01": "P_BUC_01",
+  "02": "P_BUC_02",
+  "03": "P_BUC_03",
+  "05": "P_BUC_05"
+}
+
+export const getVariantObject = (type: string | undefined) => {
+  const ytelse = type?.split('_')[0]
+  const bosettingsStatus = type?.split('_')[1]
+  const bucType = type?.split('_')[2]
+
+  return {
+    ytelse: ytelse ? variantDescription[ytelse] : undefined,
+    bosettingsStatus: bosettingsStatus ? variantDescription[bosettingsStatus] : undefined,
+    bucType: bucType ? variantDescription[bucType] : undefined
+  }
+}
 
 const P8000: React.FC<P8000Props> = ({
  buc,
@@ -358,18 +382,6 @@ const P8000: React.FC<P8000Props> = ({
     EO_NO_05: []
   }
 
-  const variantDescription: {[key: string]: string} = {
-    "AP": "Alderspensjon",
-    "UT": "Uføretrygd",
-    "EO": "Gjenlevende",
-    "NO": "Bosatt Norge",
-    "UTL": "Bosatt utland",
-    "01": "P_BUC_01",
-    "02": "P_BUC_02",
-    "03": "P_BUC_03",
-    "05": "P_BUC_05"
-  }
-
   const isImplemented = (): boolean => {
     return isATP() || ((P8000Variants[_type]?.ofteEtterspurtInformasjon?.length > 0 || P8000Variants[_type]?.informasjonSomKanLeggesInn?.length > 0));
   }
@@ -484,6 +496,7 @@ const P8000: React.FC<P8000Props> = ({
                     PSED={currentPSED}
                     updatePSED={updatePSED}
                     namespace={namespace + '-ofteEtterspurtInformasjon'}
+                    variantType={_type}
                   />
                 </VStack>
               </Box>
@@ -501,6 +514,7 @@ const P8000: React.FC<P8000Props> = ({
                     PSED={currentPSED}
                     updatePSED={updatePSED}
                     namespace={namespace + '-informasjonSomKanLeggesInn'}
+                    variantType={_type}
                   />
                 </VStack>
               </Box>
