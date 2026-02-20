@@ -17,7 +17,7 @@ const mapState = (state: State): MainFormSelector => ({
 })
 
 export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> = ({
-  label, value, PSED, updatePSED, namespace, target, options
+  label, value, PSED, updatePSED, namespace, target, options, variantType
 }: P8000FieldComponentProps): JSX.Element => {
   const dispatch = useDispatch()
   const {t} = useTranslation()
@@ -40,6 +40,7 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
         updatePSED={updatePSED}
         namespace={namespace}
         target={target}
+        variantType={variantType}
       />
       {checked &&
         <Box

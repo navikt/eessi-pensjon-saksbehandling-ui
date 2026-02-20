@@ -17,7 +17,7 @@ const mapState = (state: State): MainFormSelector => ({
 })
 
 export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps> = ({
-  label, PSED, updatePSED, options, value, namespace
+  label, PSED, updatePSED, options, value, namespace, variantType
 }: P8000FieldComponentProps): JSX.Element => {
   const dispatch = useDispatch()
   const {t} = useTranslation()
@@ -70,6 +70,7 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
         label={label}
         value={options.sed}
         target={target}
+        variantType={variantType}
       />
       {checked &&
         <Box
