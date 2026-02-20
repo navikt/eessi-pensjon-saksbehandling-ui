@@ -24,6 +24,7 @@
   "private": true,
   "dependencies": {
     "@navikt/aksel-icons": "7.40.0",
+    "@navikt/analytics-types": "0.0.6",
     "@navikt/ds-css": "7.40.0",
     "@navikt/ds-react": "7.40.0",
     "@navikt/fetch": "6.0.22",

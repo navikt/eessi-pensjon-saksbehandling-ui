@@ -5,18 +5,20 @@ import Pages from 'src/pages'
 import {JSX, Suspense, useEffect} from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import {GJENNY, PESYS} from "./constants/constants";
+//import {IS_Q} from "src/constants/environment";
 
 
 const App: React.FC = (): JSX.Element => {
 
   useEffect(() => {
-    const websiteId = '0237dde0-bca5-4cce-ad72-236e1365dd3f'
+    //const websiteId = IS_Q ? '0237dde0-bca5-4cce-ad72-236e1365dd3f' : 'fbf07ede-921f-4553-8c13-2570df1b8957'
+    //const hostUrl = IS_Q ? 'https://reops-event-proxy.ekstern.dev.nav.no' : 'https://umami.nav.no'
 
     const script = document.createElement('script')
     script.src = 'https://cdn.nav.no/team-researchops/sporing/sporing.js'
     script.defer = true
+    script.setAttribute('data-website-id', '0237dde0-bca5-4cce-ad72-236e1365dd3f')
     script.setAttribute('data-host-url', 'https://reops-event-proxy.ekstern.dev.nav.no')
-    script.setAttribute('data-website-id', websiteId)
     script.setAttribute('data-domains', 'pensjon-utland-q2.intern.dev.nav.no')
 
     document.body.appendChild(script)

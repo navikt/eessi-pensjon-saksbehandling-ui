@@ -65,7 +65,7 @@ const PersonPanel = (): JSX.Element => {
         >
           <Accordion.Header
             onClick={() => {
-              !openPersonBody && umamiAccordionLogger({tittel: "PersonPanel",});
+              !openPersonBody && umamiAccordionLogger({tittel: 'PersonPanel'});
               setOpenPersonBody(!openPersonBody);
             }}
           >
