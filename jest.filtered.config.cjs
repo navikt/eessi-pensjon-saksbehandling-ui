@@ -19,8 +19,16 @@ module.exports = {
     '<rootDir>/src/pages/?(**/*.)+(spec|test).+(ts|tsx)'
   ],
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest'
+    '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.(js|jsx)$': ['ts-jest', {
+      tsconfig: {
+        allowJs: true
+      }
+    }]
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!(@navikt/analytics-types)/)'
+  ],
   moduleDirectories: [
     'node_modules'
   ],
