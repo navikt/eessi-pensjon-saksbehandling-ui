@@ -45,6 +45,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
+      - name: 'Run tests'
+        run: npm run test:filtered
+
       - name: 'Build'
         run: npm run build
 
