@@ -27,7 +27,7 @@
     "@navikt/analytics-types": "0.0.6",
     "@navikt/ds-css": "7.40.0",
     "@navikt/ds-react": "7.40.0",
-    "@navikt/fetch": "6.0.23",
+    "@navikt/fetch": "6.0.24",
     "@navikt/flagg-ikoner": "11.0.20",
     "@navikt/fnrvalidator": "2.2.1",
     "@navikt/land-verktoy": "11.0.20",
