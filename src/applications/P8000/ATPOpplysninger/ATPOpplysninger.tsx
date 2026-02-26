@@ -240,7 +240,13 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
       <HStack gap="4">
         <Button
           variant='primary'
-          onClick={onCreateBucAndSed}
+          onClick={() => {
+            umamiButtonLogger({
+              tekst: "Bestill (ATP Opplysninger)",
+              bucType: "P_BUC_05"
+            });
+            onCreateBucAndSed();
+          }}
           loading={_isCreatingBuc || _isCreatingSed || _isGettingSed}
         >
           {t('p8000:atp-label-bestill')}
