@@ -103,7 +103,7 @@ export const getVariantObject = (type: string | undefined) => {
 
   return {
     ytelse: ytelse ? variantDescription[ytelse] : undefined,
-    bosettingsStatus: bosettingsStatus ? variantDescription[bosettingsStatus].toLowerCase() : undefined,
+    bosettingsStatus: bosettingsStatus ? variantDescription[bosettingsStatus] : undefined,
     bucType: bucType ? variantDescription[bucType] : undefined
   }
 }
