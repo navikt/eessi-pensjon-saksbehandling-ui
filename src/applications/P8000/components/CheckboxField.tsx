@@ -31,6 +31,7 @@ export const CheckBoxField: React.FC<P8000FieldComponentProps> = ({
             tekst: label,
             checked: e.target.checked,
             sedType: PSED?.originalSed?.type,
+            variant: variantType,
             ...getVariantObject(variantType)
           })
         }
