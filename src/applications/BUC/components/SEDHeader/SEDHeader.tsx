@@ -241,7 +241,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 </>
               )}
           </div>
-          {sed.type === 'P2000' && (sed.status !== 'received') &&
+          {sed.type === 'P2000' && (sed.status !== 'received' && sed.status !== 'cancelled') &&
             <>
               <Button
                 variant='secondary'
@@ -270,7 +270,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               </Button>
             </>
           }
-          {sed.type === 'P8000' && (sed.status !== 'received') &&
+          {sed.type === 'P8000' && (sed.status !== 'received' && sed.status !== 'cancelled') &&
             <>
               <Button
                 variant='secondary'
