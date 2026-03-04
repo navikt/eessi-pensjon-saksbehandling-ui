@@ -1,9 +1,10 @@
-import React, {JSX} from "react";
+import React, {JSX, useEffect} from "react";
 import {Checkbox} from "@navikt/ds-react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
 import {getVariantObject, P8000FieldComponentProps} from "src/applications/P8000/P8000";
 import {umamiCheckBoxLogger} from "src/metrics/umami";
+import {setSelectedP8000Checkboxes} from "src/actions/umami";
 
 export const SendFolgendeSEDerEllerDokumenter: React.FC<P8000FieldComponentProps> = ({
   label, value, PSED, updatePSED, target, variantType
@@ -15,12 +16,21 @@ export const SendFolgendeSEDerEllerDokumenter: React.FC<P8000FieldComponentProps
     let sedArr = sendFolgendeSEDerEllerDokumenter ? [...sendFolgendeSEDerEllerDokumenter] : []
     if(checked){
       sedArr.push(sType)
+      dispatch(setSelectedP8000Checkboxes(value, label))
     } else {
       sedArr = sedArr.filter((sedType: string) => sedType !== sType)
+      dispatch(setSelectedP8000Checkboxes(value, undefined))
     }
 
     dispatch(updatePSED(`${target}`, sedArr))
   }
+
+  useEffect(() => {
+    if(!!_.find(sendFolgendeSEDerEllerDokumenter, (sed) => sed === value.toLowerCase())){
+      dispatch(setSelectedP8000Checkboxes(value, label))
+    }
+  }, [])
+
   return (
     <Checkbox
       checked={!!_.find(sendFolgendeSEDerEllerDokumenter, (sed) => sed === value.toLowerCase())}

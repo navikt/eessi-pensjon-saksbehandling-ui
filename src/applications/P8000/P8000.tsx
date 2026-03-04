@@ -46,6 +46,7 @@ import {SendFolgendeSEDerWithBegrunnelse} from "src/applications/P8000/component
 import {ForenkletForespoersel} from "src/applications/P8000/components/ForenkletForespoersel";
 import {GJENNY} from "src/constants/constants";
 import styles from 'src/assets/css/common.module.css'
+import {resetSelectedP8000Checkboxes} from "src/actions/umami";
 
 export interface P8000Props {
   buc: Buc
@@ -138,6 +139,7 @@ const P8000: React.FC<P8000Props> = ({
 
   useUnmount(() => {
     dispatch(resetPSED())
+    dispatch(resetSelectedP8000Checkboxes())
   })
 
   useEffect(() => {
@@ -564,6 +566,7 @@ const P8000: React.FC<P8000Props> = ({
               setMode={setMode}
               validateCurrentPSED={validateP8000Sed}
               mottakere={currentPSED?.originalSed?.status === 'new' && buc?.type !== 'P_BUC_05' ? bucDeltakere! : undefined}
+              variantType={_type}
             />
           </>
         }

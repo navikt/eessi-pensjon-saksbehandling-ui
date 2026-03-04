@@ -90,8 +90,7 @@ export default {
     "ofteEtterspurtInformasjon": {
       "tiltak": {
         value: true
-      },
-      "inntektFoerUfoerhetIUtlandet": true
+      }
     },
   }
 }

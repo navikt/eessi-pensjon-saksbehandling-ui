@@ -15,6 +15,8 @@ import {resetEditingItems} from "src/actions/app";
 import {BUCMode} from "src/declarations/app";
 import {Institutions, Participant} from "src/declarations/buc";
 import SendToMottakereModal from "src/components/SaveAndSendSED/SendToMottakereModal";
+import {umamiButtonLogger} from "src/metrics/umami";
+import {getVariantObject} from "src/applications/P8000/P8000";
 
 export interface SaveAndSendSEDProps {
   validateCurrentPSED: () => boolean
@@ -24,6 +26,7 @@ export interface SaveAndSendSEDProps {
   namespace: string
   setMode: (mode: BUCMode, s: string, callback?: () => void, content?: JSX.Element) => void
   mottakere?: Institutions
+  variantType?: string
 }
 
 export interface SaveAndSendSelector {
@@ -34,6 +37,7 @@ export interface SaveAndSendSelector {
   PSEDSendResponse: any | null | undefined
   PSEDSavedResponse: any | null | undefined
   editingItems: any
+  selectedP8000Checkboxes?: any
 }
 
 const mapState = (state: State): SaveAndSendSelector => ({
@@ -44,14 +48,16 @@ const mapState = (state: State): SaveAndSendSelector => ({
   PSEDSendResponse: state.buc.PSEDSendResponse,
   PSEDSavedResponse: state.buc.PSEDSavedResponse,
   editingItems: state.app.editingItems,
+  selectedP8000Checkboxes: state.umami.selectedP8000Checkboxes
+
 }) as SaveAndSendSelector
 
 const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
-  namespace, sakId, sedId, sedType, validateCurrentPSED, setMode, mottakere
+  namespace, sakId, sedId, sedType, validateCurrentPSED, setMode, mottakere, variantType
 }: SaveAndSendSEDProps): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useDispatch()
-  const { PSEDChanged, currentPSED, savingSed, sendingSed, PSEDSendResponse, PSEDSavedResponse, editingItems = {} }: SaveAndSendSelector = useSelector<State, SaveAndSendSelector>(mapState)
+  const { PSEDChanged, currentPSED, savingSed, sendingSed, PSEDSendResponse, PSEDSavedResponse, editingItems = {}, selectedP8000Checkboxes }: SaveAndSendSelector = useSelector<State, SaveAndSendSelector>(mapState)
 
   const [_viewSaveSedModal, setViewSaveSedModal] = useState<boolean>(false)
   const [_viewWarningModal, setViewWarningModal] = useState<boolean>(false)
@@ -94,6 +100,23 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
     }
 
     if (!hasErrors) {
+      let umamiData: any = {
+        tekst: t('ui:save-sed'),
+        sedType: sedType
+      }
+
+      if(sedType === "P8000"){
+        umamiData = {
+          ...umamiData,
+          variantType: variantType,
+          ...getVariantObject(variantType),
+          valg: {
+            ...selectedP8000Checkboxes
+          }
+        }
+      }
+
+      umamiButtonLogger(umamiData)
       setViewSaveSedModal(true)
       dispatch(saveSed(sakId, sedId, sedType, PSEDToSave))
     }

@@ -9,6 +9,7 @@ import { P5000State } from 'src/reducers/p5000'
 import { PersonState } from 'src/reducers/person'
 import { UiState } from 'src/reducers/ui'
 import { ValidationState } from 'src/reducers/validation'
+import {UmamiState} from "src/reducers/umami";
 
 export interface State {
   admin: AdminState
@@ -22,4 +23,5 @@ export interface State {
   person: PersonState
   ui: UiState,
   validation: ValidationState
+  umami: UmamiState
 }
