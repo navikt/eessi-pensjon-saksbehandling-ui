@@ -15,7 +15,8 @@
     "test:ci": "NODE_OPTIONS=--max-old-space-size=4096 NODE_ENV=test jest test --watchAll=false --forceExit --updateSnapshot",
     "test:coverage": "NODE_ENV=test jest test --coverage  --watchAll=false",
     "preview": "vite preview",
-    "knip": "knip"
+    "knip": "knip",
+    "typecheck": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
