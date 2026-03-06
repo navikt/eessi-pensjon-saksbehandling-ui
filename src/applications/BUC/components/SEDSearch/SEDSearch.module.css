@@ -8,7 +8,7 @@
   margin-right: 0.5rem;
   margin-bottom: 0.25rem !important;
   margin-left: 0.25rem;
-  .navds-text-field--label navds-label {
+  .aksel-form-field__label {
     display: none;
   }
 }
@@ -20,5 +20,5 @@
   .ekspanderbartPanel--hode {
     padding: 0.25rem;
   }
-  background-color: white;
+  background-color: var(--ax-bg-default);
 }

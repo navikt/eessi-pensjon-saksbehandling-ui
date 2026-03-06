@@ -76,19 +76,19 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
               dateValue={person?.foedselsdato ?? ''}
             />
           </HGrid>
-          <HGrid gap="space-16" columns={3}>
-            <RadioGroup className={"horizontalRadioGroup"}
-              error={v[namespace + '-kjoenn']?.feilmelding}
-              id={namespace + "-kjoenn"}
-              legend={t('p2000:form-person-kjoenn')}
-              onChange={(v) => setPersonOpplysninger("kjoenn", v, parentIndex)}
-              value={person?.kjoenn}
-            >
+          <RadioGroup className={"horizontalRadioGroup"}
+            error={v[namespace + '-kjoenn']?.feilmelding}
+            id={namespace + "-kjoenn"}
+            legend={t('p2000:form-person-kjoenn')}
+            onChange={(v) => setPersonOpplysninger("kjoenn", v, parentIndex)}
+            value={person?.kjoenn}
+          >
+            <HGrid gap="space-16" columns={3}>
               <Radio value="M">Mann</Radio>
               <Radio value="K">Kvinne</Radio>
               <Radio value="U">Ukjent</Radio>
-            </RadioGroup>
-          </HGrid>
+            </HGrid>
+          </RadioGroup>
         </>
       }
       {!parentEditMode &&

@@ -74,7 +74,7 @@ const SaveSEDModal: React.FC<SaveSEDModalProps> = ({
                     )}
                     {!savingSed && bannerStatus !== 'error' && (
                       <HStack gap="space-16">
-                        <CheckmarkCircleFillIcon color='green' />
+                        <CheckmarkCircleFillIcon color='var(--ax-text-success)' />
                         <span>{t('message:loading-sed-lagret')}</span>
                       </HStack>
                     )}

@@ -45,7 +45,7 @@ const PersonBody: React.FC<PersonBodyProps> = ({
           {t(label)}:
         </Label>
         <Box>
-          <div className='navds-body-long'>
+          <div className='aksel-body-long'>
             {_value.map((val: any) => val)}
           </div>
         </Box>

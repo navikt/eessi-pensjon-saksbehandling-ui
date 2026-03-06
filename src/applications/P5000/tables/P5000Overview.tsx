@@ -177,14 +177,14 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const renderStartdato = ({ item, value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
     <HStack gap="space-4">
       <BodyLong>{_.isDate(value) ? dayjs(value).format('DD.MM.YYYY') : value}</BodyLong>
-      {item?.options?.startdatoModified && (<StarIcon fontSize="1.5rem" color="red" />)}
+      {item?.options?.startdatoModified && (<StarIcon fontSize="1.5rem" color="var(--ax-text-danger)" />)}
     </HStack>
   )
 
   const renderSluttdato = ({ item, value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
     <HStack gap="space-4">
       <BodyLong>{_.isDate(value) ? dayjs(value).format('DD.MM.YYYY') : value}</BodyLong>
-      {item?.options?.sluttdatoModified && (<StarIcon fontSize="1.5rem" color="red" />)}
+      {item?.options?.sluttdatoModified && (<StarIcon fontSize="1.5rem" color="var(--ax-text-danger)" />)}
     </HStack>
   )
 
@@ -275,7 +275,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const renderAcronym = ({ item, value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
     <HStack gap="space-4">
       <BodyLong>{value}</BodyLong>
-      {item?.options?.acronymModified && (<StarIcon fontSize="1.5rem" color="red" />)}
+      {item?.options?.acronymModified && (<StarIcon fontSize="1.5rem" color="var(--ax-text-danger)" />)}
     </HStack>
   )
 

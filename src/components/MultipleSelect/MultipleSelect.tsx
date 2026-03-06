@@ -49,7 +49,7 @@ const MultipleSelect = <T extends Option> ({
       className={classNames(className)}
       data-testid='c-multipleSelect'
     >
-      {label && (<label className='navds-text-field--label navds-label' htmlFor={inputId}>{label}</label>)}
+      {label && (<label className='aksel-form-field__label aksel-label' htmlFor={inputId}>{label}</label>)}
       <Component
         inputId={id || undefined}
         className='multipleSelect'
@@ -82,14 +82,14 @@ const MultipleSelect = <T extends Option> ({
             minHeight: size === 'small' ? '35px' : '48px',
             borderWidth: '1px',
             borderStyle: 'solid',
-            borderColor: error ? 'var(--a-border-danger)' : 'var(--a-border-default)',
-            backgroundColor: isDisabled ? 'var(--a-surface-subtle)' : 'var(--a-surface-default)',
+            borderColor: error ? 'var(--ax-border-danger)' : 'var(--ax-border-neutral)',
+            backgroundColor: isDisabled ? 'var(--ax-bg-neutral-soft)' : 'var(--ax-bg-default)',
             borderRadius: '4px',
-            color: 'var(--a-color-text-primary)'
+            color: 'var(--ax-text-neutral)'
           }),
           indicatorSeparator: (styles: any) => ({
             ...styles,
-            backgroundColor: 'var(--a-border-strong)'
+            backgroundColor: 'var(--ax-border-neutral-strong)'
           }),
           menu: (styles: any) => ({
             ...styles,
@@ -101,11 +101,11 @@ const MultipleSelect = <T extends Option> ({
             ...styles,
             borderRadius: '20px',
             borderWidth: '1px',
-            borderColor: 'var(--a-border-strong)',
+            borderColor: 'var(--ax-border-neutral-strong)',
             borderStyle: 'solid',
             padding: '0rem 0.25rem',
-            backgroundColor: 'var(--a-select-color-background)',
-            color: 'var(--a-color-text-primary)',
+            backgroundColor: 'var(--ax-bg-default)',
+            color: 'var(--ax-text-neutral)',
             alignItems: 'center',
             flexDirection: 'row',
             justifyContent: 'center'
@@ -117,35 +117,35 @@ const MultipleSelect = <T extends Option> ({
           menuList: (styles: any) => ({
             ...styles,
             borderWidth: '1px',
-            borderColor: 'var(--a-border-strong)',
+            borderColor: 'var(--ax-border-neutral-strong)',
             borderStyle: 'solid',
-            backgroundColor: 'var(--a-surface-subtle)'
+            backgroundColor: 'var(--ax-bg-neutral-soft)'
           }),
           menuPortal: (base: any) => ({ ...base, zIndex: 9999 }),
           option: (styles: any, { isFocused, isSelected }: any) => ({
             ...styles,
             padding: '0.5rem',
             color: isFocused
-              ? 'var(--a-text-on-inverted)'
+              ? 'var(--ax-text-neutral-contrast)'
               : isSelected
-                ? 'var(--a-text-on-inverted)'
-                : 'var(--a-color-text-primary)',
+                ? 'var(--ax-text-neutral-contrast)'
+                : 'var(--ax-text-neutral)',
             backgroundColor: isFocused
-              ? 'var(--a-border-focus)'
+              ? 'var(--ax-bg-accent-strong)'
               : isSelected
-                ? 'var(--a-surface-action-selected)'
-                : 'var(--a-select-color-background)'
+                ? 'var(--ax-bg-accent-strong)'
+                : 'var(--ax-bg-default)'
           }),
           singleValue: (styles: any) => ({
             ...styles,
-            color: 'var(--a-color-text-primary)'
+            color: 'var(--ax-text-neutral)'
           })
         }}
         tabSelectsValue={false}
       />
 
       {error && (
-        <div style={{ marginTop: '8px' }} role='alert' aria-live='assertive' className='navds-error-message navds-error-message--medium navds-label'>
+        <div style={{ marginTop: '8px' }} role='alert' aria-live='assertive' className='aksel-error-message'>
           {error}
         </div>
       )}

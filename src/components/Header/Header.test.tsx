@@ -24,8 +24,8 @@ describe('src/components/Header/Header', () => {
 
   it('Handling: has proper HTML structure', () => {
     expect(screen.getByText('ui:app-headerTitle')).toBeInTheDocument()
-    expect(screen.queryByRole('img')).toBeInTheDocument()
-    expect(screen.queryByRole('button')).toBeInTheDocument()
+    expect(screen.getAllByRole('img').length).toBeGreaterThanOrEqual(1)
+    expect(screen.getAllByRole('button').length).toBeGreaterThanOrEqual(1)
     expect(screen.getByText('ui:app-header-menu-label')).toBeInTheDocument()
     expect(screen.getByText(initialMockProps.username!)).toBeInTheDocument()
   })

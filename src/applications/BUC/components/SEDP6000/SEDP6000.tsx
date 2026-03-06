@@ -122,7 +122,7 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
         )}
       </VStack>
       {feil && (
-        <div role='alert' aria-live='assertive' className='navds-error-message navds-error-message--medium navds-label'>
+        <div role='alert' aria-live='assertive' className='aksel-error-message'>
           {feil.feilmelding}
         </div>
       )}
