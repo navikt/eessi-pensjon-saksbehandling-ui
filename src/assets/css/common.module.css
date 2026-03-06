@@ -9,7 +9,7 @@
 
 .repeatableBox {
   &.new {
-    background-color: var(--ax-warning-200);
+    background-color: var(--ax-bg-meta-lime-moderate);
   };
   &.error {
     background-color: var(--ax-danger-200);
