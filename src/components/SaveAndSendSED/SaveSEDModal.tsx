@@ -45,7 +45,7 @@ const SaveSEDModal: React.FC<SaveSEDModalProps> = ({
         modalContent: (
           <div className={styles.minimalModalDiv}>
             {alertMessage && alertType && [types.BUC_PUT_SED_FAILURE].indexOf(alertType) >= 0 && (
-              <VStack gap="4">
+              <VStack gap="space-16">
                 <div className={styles.alertstripeDiv}>
                   <Alert variant='error'>{alertMessage}</Alert>
                 </div>
@@ -67,13 +67,13 @@ const SaveSEDModal: React.FC<SaveSEDModalProps> = ({
                 <VStack style={{ alignItems: 'flex-start' }}>
                   <div>
                     {savingSed && (
-                      <HStack gap="4">
+                      <HStack gap="space-16">
                         <Loader type='xsmall' />
                         <span>{t('message:loading-lagrer-sed')}</span>
                       </HStack>
                     )}
                     {!savingSed && bannerStatus !== 'error' && (
-                      <HStack gap="4">
+                      <HStack gap="space-16">
                         <CheckmarkCircleFillIcon color='green' />
                         <span>{t('message:loading-sed-lagret')}</span>
                       </HStack>
@@ -99,7 +99,7 @@ const SaveSEDModal: React.FC<SaveSEDModalProps> = ({
       }}
       onModalClose={onModalClose}
     />
-  )
+  );
 }
 
 export default SaveSEDModal

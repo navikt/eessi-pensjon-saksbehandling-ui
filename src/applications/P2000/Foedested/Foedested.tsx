@@ -39,10 +39,10 @@ const Foedested: React.FC<FoedestedProps> = ({
 
   const v:Validation = parentValidation ? parentValidation : validation
 
-  return(
-    <VStack gap="4">
+  return (
+    <VStack gap="space-16">
       <Heading size="small">{t('p2000:form-person-foedested')}</Heading>
-      <HGrid columns={3} gap="4" align="start">
+      <HGrid columns={3} gap="space-16" align="start">
         {parentEditMode &&
           <>
             <Input
@@ -77,7 +77,7 @@ const Foedested: React.FC<FoedestedProps> = ({
             {!person?.foedested?.by && !person?.foedested?.region && !person?.foedested?.land && <em>Ingen fødested registrert</em>}
             {(person?.foedested?.by || person?.foedested?.region || person?.foedested?.land) &&
               <>
-                <FormTextBox padding="0"
+                <FormTextBox padding="space-0"
                   id={"person-foedested-by"}
                   error={v[namespace + '-by']?.feilmelding}
                 >
@@ -86,7 +86,7 @@ const Foedested: React.FC<FoedestedProps> = ({
                   </Label>
                   <BodyLong>{person?.foedested?.by}</BodyLong>
                 </FormTextBox>
-                <FormTextBox padding="0"
+                <FormTextBox padding="space-0"
                   id={"person-foedested-region"}
                   error={v[namespace + '-region']?.feilmelding}
                 >
@@ -95,7 +95,7 @@ const Foedested: React.FC<FoedestedProps> = ({
                   </Label>
                   <BodyLong>{person?.foedested?.region}</BodyLong>
                 </FormTextBox>
-                <FormTextBox padding="0"
+                <FormTextBox padding="space-0"
                   id={"person-foedested-land"}
                   error={v[namespace + '-land']?.feilmelding}
                 >
@@ -110,7 +110,7 @@ const Foedested: React.FC<FoedestedProps> = ({
         }
       </HGrid>
     </VStack>
-  )
+  );
 }
 
 export default Foedested

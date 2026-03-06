@@ -254,10 +254,10 @@ const Ytelser: React.FC<MainFormProps> = ({
               [styles.error]: hasNamespaceWithErrors(_v, _namespace),
               [styles.withBorder]: true
             })}
-            padding="4"
+            padding="space-16"
           >
-            <VStack gap="4">
-              <HGrid gap="4" columns={2}>
+            <VStack gap="space-16">
+              <HGrid gap="space-16" columns={2}>
                 <Select
                   error={_v[_namespace + '-ytelse']?.feilmelding}
                   id={_namespace + '-ytelse'}
@@ -294,7 +294,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                   return(<Radio key={option.value} value={option.value}>{option.label}</Radio>)
                 })}
               </RadioGroup>
-              <HGrid gap="4" columns={2}>
+              <HGrid gap="space-16" columns={2}>
                 <DateField
                   id={_namespace + '-startdatoutbetaling'}
                   label={t('p2000:form-ytelse-startdato-utbetaling')}
@@ -314,7 +314,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                   dateValue={_ytelse?.sluttdatoutbetaling}
                 />
               </HGrid>
-              <HGrid gap="4" columns={2}>
+              <HGrid gap="space-16" columns={2}>
                 <DateField
                   id={_namespace + '-startdatoretttilytelse'}
                   label={t('p2000:form-ytelse-startdato-rett-til-ytelser')}
@@ -361,7 +361,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                 <Radio value="botid">{t('p2000:form-ytelse-mottas-basert-paa-botid')}</Radio>
                 <Radio value="i_arbeid">{t('p2000:form-ytelse-mottas-basert-paa-i_arbeid')}</Radio>
               </RadioGroup>
-              <HGrid gap="4" columns={2}>
+              <HGrid gap="space-16" columns={2}>
                 <Input
                   error={_v[_namespace + '-totalbruttobeloepbostedsbasert']?.feilmelding}
                   namespace={_namespace}
@@ -386,7 +386,7 @@ const Ytelser: React.FC<MainFormProps> = ({
             </VStack>
           </Box>
         </Fragment>
-      )
+      );
     } else {
       return (
         <Fragment key={_namespace}>
@@ -398,24 +398,24 @@ const Ytelser: React.FC<MainFormProps> = ({
               [styles.error]: hasNamespaceWithErrors(_v, _namespace),
               [styles.withBorder]: true
             })}
-            padding="4"
+            padding="space-16"
           >
-            <VStack gap="4">
+            <VStack gap="space-16">
               <VStack>
-                <HStack gap="4">
+                <HStack gap="space-16">
                   <Label>{t('p2000:form-ytelse')}</Label>
-                  {_ytelse?.status && <Tag size='small' variant='info'>{getStatusLabel(_ytelse?.status)}</Tag>}
+                  {_ytelse?.status && <Tag data-color="info" size='small' variant="outline">{getStatusLabel(_ytelse?.status)}</Tag>}
                 </HStack>
                 <BodyLong>
                   {_ytelse?.ytelse === '99' ? _ytelse.annenytelse : getYtelseLabel(_ytelse?.ytelse)}
                 </BodyLong>
-                <HStack gap="4">
+                <HStack gap="space-16">
                   <ErrorLabel error={_v[_namespace + '-ytelse']?.feilmelding}/>
                   <ErrorLabel error={_v[_namespace + '-status']?.feilmelding}/>
                 </HStack>
               </VStack>
 
-              <HGrid columns={2} gap="4">
+              <HGrid columns={2} gap="space-16">
                 <VStack>
                   <Label>{t('p2000:form-ytelse-startdato-utbetaling')}</Label>
                   <BodyLong>
@@ -429,7 +429,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                   </BodyLong>
                 </VStack>
               </HGrid>
-              <HGrid columns={2} gap="4">
+              <HGrid columns={2} gap="space-16">
                 <VStack>
                   <Label>{t('p2000:form-ytelse-startdato-rett-til-ytelser')}</Label>
                   <BodyLong>
@@ -484,13 +484,13 @@ const Ytelser: React.FC<MainFormProps> = ({
             </VStack>
           </Box>
         </Fragment>
-      )
+      );
     }
   }
 
   return (
-    <Box padding="4">
-      <VStack gap="4">
+    <Box padding="space-16">
+      <VStack gap="space-16">
         <Heading size='medium'>
           {label}
         </Heading>
@@ -521,7 +521,7 @@ const Ytelser: React.FC<MainFormProps> = ({
           )}
       </VStack>
     </Box>
-  )
+  );
 }
 
 export default Ytelser

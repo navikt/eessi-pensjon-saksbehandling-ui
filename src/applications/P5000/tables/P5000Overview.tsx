@@ -175,14 +175,14 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   const { featureToggles }: P5000OverviewSelector = useSelector<State, P5000OverviewSelector>(mapState)
 
   const renderStartdato = ({ item, value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
-    <HStack gap="1">
+    <HStack gap="space-4">
       <BodyLong>{_.isDate(value) ? dayjs(value).format('DD.MM.YYYY') : value}</BodyLong>
       {item?.options?.startdatoModified && (<StarIcon fontSize="1.5rem" color="red" />)}
     </HStack>
   )
 
   const renderSluttdato = ({ item, value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
-    <HStack gap="1">
+    <HStack gap="space-4">
       <BodyLong>{_.isDate(value) ? dayjs(value).format('DD.MM.YYYY') : value}</BodyLong>
       {item?.options?.sluttdatoModified && (<StarIcon fontSize="1.5rem" color="red" />)}
     </HStack>
@@ -254,13 +254,13 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
   const renderStatus = ({ value }: RenderOptions<P5000ListRow, P5000TableContext, string>) => {
     if (value === 'rina') {
-      return <Tag size='small' variant='info'>RINA</Tag>
+      return <Tag data-color="info" size='small' variant="outline">RINA</Tag>;
     }
     if (value === 'new') {
-      return <Tag size='small' variant='success'>Ny</Tag>
+      return <Tag data-color="success" size='small' variant="outline">Ny</Tag>;
     }
     if (value === 'edited') {
-      return <Tag size='small' variant='warning'>Endret</Tag>
+      return <Tag data-color="warning" size='small' variant="outline">Endret</Tag>;
     }
     return <div />
   }
@@ -273,7 +273,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
   }
 
   const renderAcronym = ({ item, value }: RenderEditableOptions<P5000ListRow, P5000TableContext, string> | RenderOptions<P5000ListRow, P5000TableContext, string>) => (
-    <HStack gap="1">
+    <HStack gap="space-4">
       <BodyLong>{value}</BodyLong>
       {item?.options?.acronymModified && (<StarIcon fontSize="1.5rem" color="red" />)}
     </HStack>
@@ -323,7 +323,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
 
   return (
     <>
-      <Box paddingBlock="4 0">
+      <Box paddingBlock="space-16 space-0">
         <P5000OverviewControls
           fnr={fnr}
           caseId={caseId}
@@ -365,13 +365,13 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         </Tabs.List>
         <Tabs.Panel value='oversikt'>
           { alertMessage &&
-            <Box paddingBlock="4 4">
+            <Box paddingBlock="space-16 space-16">
               <Alert variant='info'>
                 {alertMessage}
               </Alert>
             </Box>
           }
-          <Box paddingBlock="4 4">
+          <Box paddingBlock="space-16 space-16">
             <Table<P5000ListRow, P5000TableContext>
               animatable={false}
               items={items}
@@ -397,7 +397,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           </Box>
         </Tabs.Panel>
         <Tabs.Panel value='pesys'>
-          <VStack gap="4" paddingBlock="4 4">
+          <VStack gap="space-16" paddingBlock="space-16 space-16">
             { alertMessage &&
               <Alert variant='info'>
                 {alertMessage}
@@ -406,7 +406,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
             { _rowErrorTagMessage && !_rowErrorAlertMessage &&
               <HStack>
                 <Spacer/>
-                <Tag variant='error'>
+                <Tag data-color="danger" variant="outline">
                   {_rowErrorTagMessage}
                 </Tag>
               </HStack>
@@ -417,7 +417,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               </Alert>
             }
           </VStack>
-          <Box paddingBlock="4 4">
+          <Box paddingBlock="space-16 space-16">
             <Table<P5000ListRow, P5000TableContext>
               animatable={false}
               items={_viewItems}
@@ -469,7 +469,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
         </HiddenDiv>
       )}
     </>
-  )
+  );
 }
 
 export default P5000Overview

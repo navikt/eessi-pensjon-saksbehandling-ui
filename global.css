@@ -6,7 +6,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   height: 100vh;
-  background-color: var(--a-bg-subtle);
+  background-color: var(--ax-bg-sunken);
 }
 pre {
   font-family: 'Source Sans Pro', Arial, sans-serif;

@@ -3,6 +3,6 @@
   display: flex;
   flex-direction: column;
   padding: 0;
-  background-color: var(--a-bg-subtle);
-  color:  var(--a-text-default);
+  background-color: var(--ax-bg-sunken);
+  color:  var(--ax-text-neutral);
 }

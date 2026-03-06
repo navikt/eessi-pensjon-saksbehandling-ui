@@ -35,7 +35,7 @@ const P5000SedLabel = ({
               type='circle'
               wave={false}
             />
-            <Box paddingInline="1 0">
+            <Box paddingInline="space-4 space-0">
               <span>{sender?.countryLabel}</span>
               <span className={styles.separator}>-</span>
               <span>{sender?.institution}</span>
@@ -48,12 +48,12 @@ const P5000SedLabel = ({
           )
         : sed.id}
       {warning && (
-        <Box paddingInline="2 0">
+        <Box paddingInline="space-8 space-0">
           <ExclamationmarkTriangleIcon  fontSize="1.5rem" />
         </Box>
       )}
     </HStack>
-  )
+  );
 }
 
 export default P5000SedLabel

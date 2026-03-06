@@ -239,9 +239,9 @@ const Barn: React.FC<MainFormProps> = ({
             [styles.error]: hasNamespaceWithErrors(_v, _namespace),
             [styles.withBorder]: true
           })}
-          padding="4"
+          padding="space-16"
         >
-            <VStack gap="4">
+            <VStack gap="space-16">
               <Box>
                 <PersonOpplysninger setPersonOpplysninger={setBarnPersonalia} person={_barn?.person} parentNamespace={_namespace} parentIndex={index} parentEditMode={inEditMode} parentValidation={_v}/>
               </Box>
@@ -258,7 +258,7 @@ const Barn: React.FC<MainFormProps> = ({
                 {t('p2000:form-barn-relasjontilbruker')}
               </Heading>
               {inEditMode &&
-                <HGrid columns={3} gap="4">
+                <HGrid columns={3} gap="space-16">
                   <Select
                     error={_v[_namespace + '-relasjontilbruker']?.feilmelding}
                     id='barn-relasjontilbruker'
@@ -278,7 +278,7 @@ const Barn: React.FC<MainFormProps> = ({
                 <FormTextBox
                   error={_v[_namespace + '-relasjontilbruker']?.feilmelding}
                   id='barn-relasjontilbruker'
-                  padding="0"
+                  padding="space-0"
                 >
                   {_barn?.relasjontilbruker && <BodyLong>{getRelasjonLabel(_barn?.relasjontilbruker)}</BodyLong>}
                   {!_barn?.relasjontilbruker && <em>{t('p2000:ingen-x-registrert', {x: 'relasjon'})}</em>}
@@ -288,7 +288,7 @@ const Barn: React.FC<MainFormProps> = ({
                 Dødsdato
               </Heading>
               {inEditMode &&
-                <HGrid columns={3} gap="4">
+                <HGrid columns={3} gap="space-16">
                   <DateField
                     hideLabel={true}
                     id='person-doedssdato'
@@ -305,7 +305,7 @@ const Barn: React.FC<MainFormProps> = ({
                 <FormTextBox
                   error={_v[_namespace + '-person-doedssdato']?.feilmelding}
                   id='person-doedssdato'
-                  padding="0"
+                  padding="space-0"
                 >
                   {_barn?.person?.doedsdato &&<BodyLong>{formatDate(_barn?.person?.doedsdato)}</BodyLong>}
                   {!_barn?.person?.doedsdato && <em>{t('p2000:ingen-x-registrert', {x: 'dødsdato'})}</em>}
@@ -330,12 +330,12 @@ const Barn: React.FC<MainFormProps> = ({
             </VStack>
         </Box>
       </Fragment>
-    )
+    );
   }
 
   return (
-    <Box padding="4">
-      <VStack gap="4">
+    <Box padding="space-16">
+      <VStack gap="space-16">
         <Heading size='medium'>
           {label}
         </Heading>
@@ -366,7 +366,7 @@ const Barn: React.FC<MainFormProps> = ({
           )}
       </VStack>
     </Box>
-  )
+  );
 }
 
 export default Barn

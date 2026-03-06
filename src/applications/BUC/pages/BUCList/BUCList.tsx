@@ -132,11 +132,10 @@ const BUCList: React.FC<BUCListProps> = ({
 
   return (
     <div>
-
-      <Box paddingBlock="0 4">
+      <Box paddingBlock="space-0 space-16">
         <HStack
           className={styles.BUCListHeader}
-          gap="4"
+          gap="space-16"
           align={"center"}
         >
           <Heading size='small'>
@@ -185,7 +184,7 @@ const BUCList: React.FC<BUCListProps> = ({
         }
       )}
       >
-        <Box padding="8"  background="bg-default" borderWidth="1" borderColor="border-default">
+        <Box padding="space-32"  background="default" borderWidth="1" borderColor="neutral">
           <Heading size='medium'>
             {t('buc:step-startBUCTitle')}
           </Heading>
@@ -213,16 +212,16 @@ const BUCList: React.FC<BUCListProps> = ({
         }
       )}
       >
-        <Box padding="8"  background="bg-default" borderWidth="1" borderColor="border-default">
+        <Box padding="space-32"  background="default" borderWidth="1" borderColor="neutral">
           <ATPOpplysninger
             onCancel={() => setBestillP5000FraATPPanelOpen(false)}
             setMode={setMode}
           />
         </Box>
       </div>
-      <Box paddingBlock="4 0">
+      <Box paddingBlock="space-16 space-0">
         {!gettingBucs && _.isEmpty(bucsList) && (
-          <Box paddingBlock="4 4">
+          <Box paddingBlock="space-16 space-16">
             <BodyLong>
               {t('message:warning-noBucs')}
             </BodyLong>
@@ -271,7 +270,7 @@ const BUCList: React.FC<BUCListProps> = ({
       )}
       <BUCFooter />
     </div>
-  )
+  );
 }
 
 export default BUCList

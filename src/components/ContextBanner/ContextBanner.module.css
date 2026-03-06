@@ -1,8 +1,8 @@
 .content {
-  background-color: var(--a-surface-subtle);
-  border-bottom: 1px solid var(--a-border-strong);
+  background-color: var(--ax-bg-neutral-soft);
+  border-bottom: 1px solid var(--ax-border-neutral-strong);
 }
 
 .tag {
-  font-size: var(--a-font-size-small);
+  font-size: var(--ax-font-size-small);
 }

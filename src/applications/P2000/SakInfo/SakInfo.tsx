@@ -15,13 +15,13 @@ const SakInfo: React.FC<SakInfoProps<any>> = ({
     <Box
       as="header"
       borderWidth="1"
-      borderRadius="medium"
-      borderColor="border-default"
-      background="bg-default"
-      padding="4"
+      borderRadius="4"
+      borderColor="neutral"
+      background="default"
+      padding="space-16"
     >
-      <HStack gap="16" align="center">
-        <VStack gap="2">
+      <HStack gap="space-64" align="center">
+        <VStack gap="space-8">
           <Heading level="1" size="medium">P2000</Heading>
           {eessiSak?.map((s, index) => {
             return(
@@ -32,7 +32,7 @@ const SakInfo: React.FC<SakInfoProps<any>> = ({
             )
           })}
         </VStack>
-        <VStack gap="2">
+        <VStack gap="space-8">
           <Heading size="xsmall">Lokale saksnumre</Heading>
           {eessiSak?.map((sak, index) => {
             return(
@@ -43,7 +43,7 @@ const SakInfo: React.FC<SakInfoProps<any>> = ({
             )
           })}
         </VStack>
-        <VStack gap="2">
+        <VStack gap="space-8">
           <Heading size="xsmall">Institusjon</Heading>
           {eessiSak?.map((sak, index) => {
             return(
@@ -56,7 +56,7 @@ const SakInfo: React.FC<SakInfoProps<any>> = ({
         </VStack>
       </HStack>
     </Box>
-  )
+  );
 }
 
 export default SakInfo

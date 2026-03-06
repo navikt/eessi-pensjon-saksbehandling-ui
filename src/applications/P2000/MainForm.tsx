@@ -159,7 +159,7 @@ const MainForm = <T extends PSED>({
           >
             <HStack
               className={classNames({ selected },styles.nameLabelHStack)}
-              gap="1"
+              gap="space-4"
             >
               {!isValidated
                 ? menuVisited.indexOf(form.value) >= 0 && <CheckmarkCircleFillIcon color='grey'/>
@@ -177,8 +177,8 @@ const MainForm = <T extends PSED>({
             </div>
           </div>
         </VStack>
-      )
-    })
+      );
+    });
   }
 
   useEffect(() => {

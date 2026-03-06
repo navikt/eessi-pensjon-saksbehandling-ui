@@ -217,48 +217,48 @@ const BUCIndexGjenny = (): JSX.Element => {
 
   if (!aktoerId || !avdodFnr || !sakType || !sakId || hasValidationErrors || !hasPersons) {
     return (
-        <Box padding="8" borderWidth="1" borderRadius="medium" background="surface-subtle">
-          <VStack align="center" justify="center">
-            <HStack width="25%">
-              <VStack gap="4" width="100%">
-                <TextField
-                  error={_validationFnr || false}
-                  id='gjenny-fnr-input-id'
-                  label="PID Gjenlevende"
-                  onChange={onFnrChange}
-                  value={_fnr || ''}
-                />
-                <TextField
-                  error={_validationFnrAvdod || false}
-                  id='gjenny-fnr-avdod-input-id'
-                  label="PID Avdød"
-                  onChange={onFnrAvdodChange}
-                  value={_fnrAvdod || ''}
-                />
-                <Select label="Saktype" onChange={onSakTypeChange} error={_validationSakType || false}>
-                  <option value="">Velg saktype</option>
-                  <option value="OMSST">{SakTypeMap["OMSST"]}</option>
-                  <option value="BARNEP">{SakTypeMap["BARNEP"]}</option>
-                </Select>
-                <TextField
-                  error={_validationSakId || false}
-                  id='gjenny-sakid-input-id'
-                  label="Sak ID"
-                  onChange={onSakIdChange}
-                  value={_sakId || ''}
-                />
-                <Button
-                  variant='primary'
-                  onClick={onSubmit}
-                  loading={gettingAktoerId || gettingPersonInfo || gettingPersonAvdodAktoerId}
-                >
-                  {t('ui:add')}
-                </Button>
-              </VStack>
-            </HStack>
-          </VStack>
-        </Box>
-    )
+      <Box padding="space-32" borderWidth="1" borderRadius="4" background="neutral-soft">
+        <VStack align="center" justify="center">
+          <HStack width="25%">
+            <VStack gap="space-16" width="100%">
+              <TextField
+                error={_validationFnr || false}
+                id='gjenny-fnr-input-id'
+                label="PID Gjenlevende"
+                onChange={onFnrChange}
+                value={_fnr || ''}
+              />
+              <TextField
+                error={_validationFnrAvdod || false}
+                id='gjenny-fnr-avdod-input-id'
+                label="PID Avdød"
+                onChange={onFnrAvdodChange}
+                value={_fnrAvdod || ''}
+              />
+              <Select label="Saktype" onChange={onSakTypeChange} error={_validationSakType || false}>
+                <option value="">Velg saktype</option>
+                <option value="OMSST">{SakTypeMap["OMSST"]}</option>
+                <option value="BARNEP">{SakTypeMap["BARNEP"]}</option>
+              </Select>
+              <TextField
+                error={_validationSakId || false}
+                id='gjenny-sakid-input-id'
+                label="Sak ID"
+                onChange={onSakIdChange}
+                value={_sakId || ''}
+              />
+              <Button
+                variant='primary'
+                onClick={onSubmit}
+                loading={gettingAktoerId || gettingPersonInfo || gettingPersonAvdodAktoerId}
+              >
+                {t('ui:add')}
+              </Button>
+            </VStack>
+          </HStack>
+        </VStack>
+      </Box>
+    );
   }
 
   return(

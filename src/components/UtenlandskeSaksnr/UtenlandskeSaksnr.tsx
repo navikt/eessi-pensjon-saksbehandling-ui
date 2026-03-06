@@ -215,12 +215,12 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
           [styles.new]: index < 0,
           [styles.error]: hasNamespaceWithErrors(_v, _namespace)
         })}
-        paddingBlock={inEditMode ? "4 4" : "1 1"}
-        padding="4"
+        paddingBlock={inEditMode ? "space-16 space-16" : "space-4 space-4"}
+        padding="space-16"
       >
         <HGrid
           columns={3}
-          gap="4"
+          gap="space-16"
           align="start"
         >
           {inEditMode
@@ -244,7 +244,7 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
                 error={_v[_namespace + '-land']?.feilmelding}
                 id={_namespace + '-land'}
                 label={index === 0 ? t('buc:form-utenlandske-saksnr-land') : ""}
-                padding={0}
+                padding="space-0"
               >
                 <FlagPanel land={_eessisak?.land}/>
               </FormTextBox>
@@ -266,7 +266,7 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
                 id={_namespace + '-saksnummer'}
                 error={_v[_namespace + '-saksnummer']?.feilmelding}
                 label={index === 0 ? t('buc:form-utenlandske-saksnr-saksnr') : ""}
-                padding={0}
+                padding="space-0"
               >
                 <BodyLong>{_eessisak?.saksnummer}</BodyLong>
               </FormTextBox>
@@ -291,7 +291,7 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
           }
         </HGrid>
       </Box>
-    )
+    );
   }
 
   return (
@@ -299,7 +299,7 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
       <Heading size="small">{t('buc:form-utenlandske-saksnr')}</Heading>
       {_.isEmpty(eessisaks)
         ? (
-          <Box paddingBlock="2">
+          <Box paddingBlock="space-8">
             <BodyLong>
               <em>{t('message:warning-no-utenlandskesaksnr')}</em>
             </BodyLong>
@@ -324,7 +324,7 @@ const UtenlandskeSaksnr: React.FC<UtenlandskeSaksnrProps> = ({
           )
       }
     </>
-  )
+  );
 }
 
 export default UtenlandskeSaksnr

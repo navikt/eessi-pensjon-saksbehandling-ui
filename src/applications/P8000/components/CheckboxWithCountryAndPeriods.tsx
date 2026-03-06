@@ -44,15 +44,15 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
       />
       {checked &&
         <Box
-          paddingBlock="2 4"
-          paddingInline="4 0"
+          paddingBlock="space-8 space-16"
+          paddingInline="space-16 space-0"
           borderWidth="1"
-          borderRadius="medium"
-          borderColor="border-subtle"
-          background="surface-subtle"
+          borderRadius="4"
+          borderColor="neutral-subtle"
+          background="neutral-soft"
         >
-          <VStack gap="4">
-            <HStack gap="4">
+          <VStack gap="space-16">
+            <HStack gap="space-16">
               {options?.showCountry &&
                 <Box width="30%">
                   <CountryDropdown
@@ -70,7 +70,7 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
               }
               {options?.showPeriod &&
                 <HStack
-                  gap="4"
+                  gap="space-16"
                   align="start"
                 >
                   <TextField
@@ -116,6 +116,6 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
         </Box>
       }
     </VStack>
-  )
+  );
 }
 

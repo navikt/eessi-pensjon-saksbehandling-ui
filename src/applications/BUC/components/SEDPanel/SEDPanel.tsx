@@ -38,7 +38,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
   }
 
   return (
-    <Box className={styles.sedPanelContainer} borderWidth="1" borderColor="border-default" background="surface-default">
+    <Box className={styles.sedPanelContainer} borderWidth="1" borderColor="neutral" background="default">
       {!sedCanHaveAttachments(sed)
         ? (
           <div className={classNames(styles.sedHeaderContainer, className, { [styles.new]: newSed })}>
@@ -82,7 +82,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
           </>
           )}
     </Box>
-  )
+  );
 }
 
 export default SEDPanel

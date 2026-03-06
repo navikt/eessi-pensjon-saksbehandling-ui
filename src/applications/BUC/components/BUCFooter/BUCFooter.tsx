@@ -40,7 +40,7 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
             href={rinaUrl}
             target='rinaWindow'
           >
-            <HStack gap="4">
+            <HStack gap="space-16">
               {t('ui:goToRina')}
               <ExternalLinkIcon fontSize="1.5rem" />
             </HStack>
@@ -53,7 +53,7 @@ const BUCFooter: React.FC<BUCFooterProps> = ({
           />
           )}
     </div>
-  )
+  );
 }
 
 export default BUCFooter

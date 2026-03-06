@@ -81,8 +81,8 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
                     data-testid='a_buc_c_institutionlist--div-id'
                     align="center"
                     wrap={false}
-                    gap="2"
-                    paddingInline="0 2"
+                    gap="space-8"
+                    paddingInline="space-0 space-8"
 
                   >
                     {flag && (
@@ -106,8 +106,8 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
                     data-testid='a_buc_c_institutionlist--div-id'
                     align="center"
                     wrap={false}
-                    gap="2"
-                    paddingInline="0 2"
+                    gap="space-8"
+                    paddingInline="space-0 space-8"
                   >
                     {flag && (
                       <Flag
@@ -125,10 +125,10 @@ const InstitutionList: React.FC<InstitutionListProps> = ({
                   </HStack>
                 ))}
               </VStack>
-            )
+            );
           })}
       </>
-      )
+      );
 }
 
 export default InstitutionList

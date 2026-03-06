@@ -75,8 +75,8 @@ const Ektefelle: React.FC<MainFormProps> = ({
   }, [ektefelle])
 
   return (
-    <Box padding="4">
-      <VStack gap="4">
+    <Box padding="space-16">
+      <VStack gap="space-16">
         <Heading size='medium'>
           {label}
         </Heading>
@@ -110,7 +110,7 @@ const Ektefelle: React.FC<MainFormProps> = ({
         </Box>
       </VStack>
     </Box>
-  )
+  );
 }
 
 export default Ektefelle

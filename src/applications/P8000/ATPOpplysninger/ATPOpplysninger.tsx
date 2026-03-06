@@ -223,21 +223,21 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
     action, response, actionInitial, actionActive, actionSuccess, actionFailure
   }: ATPStepProps): JSX.Element => {
     return (
-      <HStack paddingInline="1" gap="2" align="center">
+      <HStack paddingInline="space-4" gap="space-8" align="center">
         {!action && response === undefined && <><MenuElipsisHorizontalCircleIcon color="grey" fontSize="1.2em"/> {actionInitial}</>}
         {action && <><Loader fontSize="1.2"/> {actionActive}</>}
         {response && <><CheckmarkCircleFillIcon color="green" fontSize="1.2em"/> {actionSuccess}</>}
         {response === null && <><XMarkOctagonFillIcon color="var(--a-icon-danger)" fontSize="1.2em"/> {actionFailure}</>}
       </HStack>
-    )
+    );
   }
 
-  return(
-    <VStack gap="4">
+  return (
+    <VStack gap="space-16">
       <Heading size='medium'>
         {t('p8000:atp-label-bestill-atp-opplysninger')}
       </Heading>
-      <HStack gap="4">
+      <HStack gap="space-16">
         <Button
           variant='primary'
           onClick={() => {
@@ -301,7 +301,7 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
       {currentPSED &&
         <VStack>
           <Box
-            paddingBlock="0 4"
+            paddingBlock="space-0 space-16"
           >
             <Textarea
               label={t('p8000:atp-label-fritekst')}
@@ -309,7 +309,7 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
               onChange={(e) => setYtterligereInformasjon(e.target.value)}
             />
           </Box>
-          <HStack gap="4" align="end">
+          <HStack gap="space-16" align="end">
             <TextField
               id='identifikator'
               label={t('buc:form-utenlandske-pin-dansk-pin')}
@@ -319,7 +319,7 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
           </HStack>
           { !_ytterligereInformasjon &&
             <Box
-              paddingBlock="8 2"
+              paddingBlock="space-32 space-8"
             >
               <Alert variant="warning" size="small">
                 {t('p8000:atp-warning-missing-fritekst')}
@@ -327,8 +327,8 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
             </Box>
           }
           <HStack
-            paddingBlock="8 0"
-            gap="4"
+            paddingBlock="space-32 space-0"
+            gap="space-16"
             align="end"
           >
             <Button
@@ -348,7 +348,7 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
         </VStack>
       }
     </VStack>
-  )
+  );
 }
 
 export default ATPOpplysninger

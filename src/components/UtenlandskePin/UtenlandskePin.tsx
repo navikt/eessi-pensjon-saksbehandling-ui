@@ -215,12 +215,12 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
           [styles.new]: index < 0,
           [styles.error]: hasNamespaceWithErrors(_v, _namespace)
         })}
-        paddingBlock={inEditMode ? "4 4" : "1 1"}
-        paddingInline="4 4"
+        paddingBlock={inEditMode ? "space-16 space-16" : "space-4 space-4"}
+        paddingInline="space-16 space-16"
       >
         <HGrid
           columns={3}
-          gap="4"
+          gap="space-16"
           align="start"
         >
           {inEditMode
@@ -244,7 +244,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
                   error={_v[_namespace + '-land']?.feilmelding}
                   id={_namespace + '-land'}
                   label={index === 0 ? t('buc:form-utenlandske-pin-land') : ""}
-                  padding={0}
+                  padding="space-0"
                 >
 
                   <FlagPanel land={_pin?.land}/>
@@ -267,7 +267,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
                   id={_namespace + '-identifikator'}
                   error={_v[_namespace + '-identifikator']?.feilmelding}
                   label={index === 0 ? t('buc:form-utenlandske-pin-pin') : ""}
-                  padding={0}
+                  padding="space-0"
                 >
                   <BodyLong>{_pin?.identifikator}</BodyLong>
                 </FormTextBox>
@@ -292,7 +292,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
           }
         </HGrid>
       </Box>
-    )
+    );
   }
 
   return (
@@ -300,7 +300,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
       <Heading size="small">{t('buc:form-utenlandske-pin')}</Heading>
       {_.isEmpty(utenlandskePINs)
         ? (
-          <Box paddingBlock="2">
+          <Box paddingBlock="space-8">
             <BodyLong>
               <em>{t('message:warning-no-utenlandskepin')}</em>
             </BodyLong>
@@ -325,7 +325,7 @@ const UtenlandskePin: React.FC<UtenlandskPinProps> = ({
           )
       }
     </>
-  )
+  );
 }
 
 export default UtenlandskePin

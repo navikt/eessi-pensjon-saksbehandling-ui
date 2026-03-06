@@ -142,7 +142,7 @@ const Epost: React.FC<EpostProps> = ({
     const _v: Validation = index < 0 ? _validation : validation
     const inEditMode = index < 0 || _editEpostIndex === index
     const _epost = index < 0 ? _newEpost : (inEditMode ? _editEpost : epost)
-    return(
+    return (
       <Box
         key={_namespace}
         id={'repeatablerow-' + _namespace}
@@ -150,10 +150,10 @@ const Epost: React.FC<EpostProps> = ({
           [styles.new]: index < 0,
           [styles.error]: hasNamespaceWithErrors(_v, _namespace)
         })}
-        paddingBlock={inEditMode ? "4 4" : "1 1"}
-        paddingInline="4 4"
+        paddingBlock={inEditMode ? "space-16 space-16" : "space-4 space-4"}
+        paddingInline="space-16 space-16"
       >
-        <HGrid columns={2} gap="4">
+        <HGrid columns={2} gap="space-16">
           {inEditMode
             ? (
                 <Input
@@ -192,7 +192,7 @@ const Epost: React.FC<EpostProps> = ({
           </HStack>
         </HGrid>
       </Box>
-    )
+    );
   }
 
   return (
@@ -200,7 +200,7 @@ const Epost: React.FC<EpostProps> = ({
       <Heading size="small">{t('p2000:form-epost')}</Heading>
       {_.isEmpty(epostAdresser)
         ? (
-          <Box paddingBlock="2">
+          <Box paddingBlock="space-8">
             <BodyLong>
               <em>{t('p2000:ingen-x-registrert', {x: 'epost'})}</em >
             </BodyLong>
@@ -221,7 +221,7 @@ const Epost: React.FC<EpostProps> = ({
           )
       }
     </>
-  )
+  );
 }
 
 export default Epost

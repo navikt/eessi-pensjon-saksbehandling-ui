@@ -414,7 +414,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                 <VStack
                   align="center"
                 >
-                  <Box paddingBlock="12 4">
+                  <Box paddingBlock="space-48 space-16">
                     <Alert variant='warning'>
                       {t('p5000:warning-failedP5000Sending')}
                     </Alert>
@@ -438,7 +438,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
               <VStack
                 align="center"
               >
-                  <Box paddingBlock="0 4">
+                  <Box paddingBlock="space-0 space-16">
                     <Alert variant='info'>
                       {t('p5000:warning-okP5000Sending', { caseId })}
                     </Alert>
@@ -468,7 +468,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         onClose={() => _setShowHelpModal(false)}
       />
       <HStack
-        paddingBlock="0 4"
+        paddingBlock="space-0 space-16"
       >
         <Spacer />
         <Alert
@@ -476,7 +476,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
           style={{ width: '50%' }}
         >
           <HStack
-            gap="2"
+            gap="space-8"
             align="center"
           >
             {t('p5000:warning-P5000Edit-instructions-li1')}
@@ -488,7 +488,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         <Spacer />
       </HStack>
       <HGrid
-        paddingBlock="0 4"
+        paddingBlock="space-0 space-16"
         columns={3}
         style={{ width: '100%' }}
       >
@@ -505,7 +505,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
           value={_.find(ytelseOptions, y => y.value === ytelseOption) ?? null}
         />
         <HStack
-          paddingInline="6 0"
+          paddingInline="space-24 space-0"
           align="start"
         >
           <RadioGroup
@@ -515,7 +515,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
             onChange={_setForsikringEllerBosetningsperioder}
             legend={(
               <HStack
-                gap="4"
+                gap="space-16"
                 align="center"
               >
                 <span className={styles.oneLine}>
@@ -528,7 +528,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
             )}
           >
             <HStack
-              gap="12"
+              gap="space-48"
               align="end"
             >
               <Radio value='1'>
@@ -541,7 +541,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
           </RadioGroup>
         </HStack>
         <HStack
-          gap="4"
+          gap="space-16"
           align="end"
           justify="end"
         >
@@ -578,8 +578,8 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         </HStack>
       </HGrid>
       <HStack
-        paddingBlock="0 4"
-        paddingInline="0 2"
+        paddingBlock="space-0 space-16"
+        paddingInline="space-0 space-8"
         align="end"
         justify="end"
       >
@@ -587,7 +587,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         <div style={{ textAlign: 'end' }}>
           {p5000changed && (
             <div style={{ whiteSpace: 'nowrap' }}>
-              <HStack gap="2"
+              <HStack gap="space-8"
               justify="end"
               >
                 <span>
@@ -605,7 +605,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         <div>
           {sakType === SakTypeMap.UFOREP && pesysContext === constants.VEDTAKSKONTEKST && (
              <HStack
-               gap="4"
+               gap="space-16"
                align="baseline"
              >
                <Button
@@ -626,9 +626,9 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
             pesysContext === GJENNY ||
             ((sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP) && pesysContext === VEDTAKSKONTEKST)) &&
             (
-            <VStack gap="2">
+            <VStack gap="space-8">
               <HStack
-                gap="4"
+                gap="space-16"
                 align="center"
               >
                 <Label>{t('p5000:trygdetid-for-dødsfallsmåneden')}</Label>
@@ -637,8 +637,8 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                 </HelpText>
               </HStack>
               <HStack
-                gap="4"
-                paddingBlock="0 4"
+                gap="space-16"
+                paddingBlock="space-0 space-16"
                 align="center"
               >
                 <Button
@@ -650,14 +650,14 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
                   {requestingGjpBp ? t('message:loading-gjpbp') : t('p5000:hent-gjpbp')}
                 </Button>
                 <RadioGroup legend="Type" hideLegend={true} value={_gjpBpType} onChange={setGjpBpType}>
-                  <HStack gap="4">
+                  <HStack gap="space-16">
                     <Radio value="30" checked={true}>{t('p5000:botid')}</Radio>
                     <Radio value="11">{t('p5000:arbeidsperioder')}</Radio>
                   </HStack>
                 </RadioGroup>
               </HStack>
               {!_.isNil(gjpbpwarning) && (
-                <Box paddingBlock="0 4">
+                <Box paddingBlock="space-0 space-16">
                   <Alert variant={gjpbpwarning.type}>{gjpbpwarning.message}</Alert>
                 </Box>
               )}
@@ -667,7 +667,7 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
         <Spacer />
       </HStack>
     </>
-  )
+  );
 }
 
 export default P5000EditControls

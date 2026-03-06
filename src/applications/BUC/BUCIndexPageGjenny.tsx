@@ -262,7 +262,7 @@ const BUCIndexPageGjenny = (): JSX.Element => {
       data-testid='a-buc-index'
       key='bucIndexDiv'
     >
-      <Box paddingBlock="4 0">
+      <Box paddingBlock="space-16 space-0">
         <div className={styles.container}>
           <div className={styles.window}>
             <div
@@ -287,7 +287,7 @@ const BUCIndexPageGjenny = (): JSX.Element => {
         </div>
       </Box>
     </div>
-  )
+  );
 }
 
 export default BUCIndexPageGjenny
