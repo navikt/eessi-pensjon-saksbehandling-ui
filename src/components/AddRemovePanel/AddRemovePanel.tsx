@@ -12,6 +12,7 @@ import {Button, BodyLong, Box, HStack} from '@navikt/ds-react'
 import _ from 'lodash'
 import {JSX, useState} from 'react'
 import { useTranslation } from 'react-i18next'
+import commonStyles from 'src/assets/css/common.module.css'
 
 export interface AddRemovePanelProps<T> {
   item: T | null
@@ -150,7 +151,7 @@ const AddRemovePanel = <T extends any>({
   }
 
   return (
-    <Box className={classNames(alwaysVisible ? '' : 'control-buttons', 'noMargin')}>
+    <Box className={classNames(alwaysVisible ? '' : commonStyles["control-buttons"], 'noMargin')}>
       <HStack gap="space-16">
         {allowEdit && (
           <Button
