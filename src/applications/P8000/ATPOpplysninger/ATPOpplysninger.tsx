@@ -226,8 +226,8 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
       <HStack paddingInline="space-4" gap="space-8" align="center">
         {!action && response === undefined && <><MenuElipsisHorizontalCircleIcon color="var(--ax-text-neutral-subtle)" fontSize="1.2em"/> {actionInitial}</>}
         {action && <><Loader fontSize="1.2"/> {actionActive}</>}
-        {response && <><CheckmarkCircleFillIcon color="var(--ax-text-success)" fontSize="1.2em"/> {actionSuccess}</>}
-        {response === null && <><XMarkOctagonFillIcon color="var(--ax-icon-danger)" fontSize="1.2em"/> {actionFailure}</>}
+        {response && <><CheckmarkCircleFillIcon color="var(--ax-text-success-decoration)" fontSize="1.2em"/> {actionSuccess}</>}
+        {response === null && <><XMarkOctagonFillIcon color="var(--ax-text-danger-decoration)" fontSize="1.2em"/> {actionFailure}</>}
       </HStack>
     );
   }

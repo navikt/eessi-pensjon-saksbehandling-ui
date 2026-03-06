@@ -164,7 +164,7 @@ const MainForm = <T extends PSED>({
               {!isValidated
                 ? menuVisited.indexOf(form.value) >= 0 && <CheckmarkCircleFillIcon color='var(--ax-text-neutral-subtle)'/>
                 : validationHasErrors
-                  ? <XMarkOctagonFillIcon color='var(--ax-text-danger)' />
+                  ? <XMarkOctagonFillIcon color='var(--ax-text-danger-decoration)' />
                   : menuVisited.indexOf(form.value) >= 0 && <CheckmarkCircleFillIcon color='var(--ax-text-neutral-subtle)'/>
               }
 
