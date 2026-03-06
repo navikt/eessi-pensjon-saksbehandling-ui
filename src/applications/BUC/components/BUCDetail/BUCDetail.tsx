@@ -57,10 +57,10 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
 
   return (
     <Box
-      padding="0"
+      padding="space-0"
       borderWidth="1"
-      borderRadius="small"
-      background= "bg-default"
+      borderRadius="2"
+      background= "default"
       data-testid='a_buc_c_BUCDetail'
       {...props}
     >
@@ -223,7 +223,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
               {t('buc:form-involvedInstitutions')}:
             </Heading>
             <Box
-              padding="2"
+              padding="space-8"
               data-testid='a_buc_c_BUCDetail--institutions_id'
             >
               <InstitutionList
@@ -237,7 +237,7 @@ const BUCDetail: React.FC<BUCDetailProps> = ({
         </Accordion.Item>
       </Accordion>
     </Box>
-  )
+  );
 }
 
 export default BUCDetail

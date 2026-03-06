@@ -79,13 +79,13 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
           )
         }}
       />
-      <VStack gap="4">
+      <VStack gap="space-16">
         {p6000s.map(p6000 => {
           const country: Country = countryData.findByValue(p6000.fraLand)
           return (
             <div className='a_buc_c_sedstart--p6000' key={p6000.documentID}>
-              <Box padding="4" borderWidth="1" borderColor="border-default" className={classNames({ 'skjemaelement--input--harFeil': !!feil })}>
-                <HStack gap="4">
+              <Box padding="space-16" borderWidth="1" borderColor="neutral" className={classNames({ 'skjemaelement--input--harFeil': !!feil })}>
+                <HStack gap="space-16">
                   <Flag animate={false} wave={false} type='circle' country={p6000.fraLand} label={country.label ?? p6000.fraLand} />
                   <VStack>
                     <span>{t('ui:type')}: {p6000.type}</span>
@@ -117,18 +117,17 @@ const SEDP6000: React.FC<SEDP6000Props> = ({
                 </HStack>
               </Box>
             </div>
-          )
+          );
         }
         )}
       </VStack>
-
       {feil && (
         <div role='alert' aria-live='assertive' className='navds-error-message navds-error-message--medium navds-label'>
           {feil.feilmelding}
         </div>
       )}
     </div>
-  )
+  );
 }
 
 export default SEDP6000

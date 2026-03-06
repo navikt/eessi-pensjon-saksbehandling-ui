@@ -395,7 +395,7 @@ const P8000: React.FC<P8000Props> = ({
 
   return (
     <>
-      <VStack gap="4">
+      <VStack gap="space-16">
         <div style={{ display: 'inline-block' }}>
           <Button
             variant='secondary'
@@ -408,10 +408,10 @@ const P8000: React.FC<P8000Props> = ({
           </Button>
         </div>
         <Box className={styles.boxWithBorderAndPadding} >
-          <VStack gap="4">
+          <VStack gap="space-16">
             <Heading level="1" size="medium">{t('p8000:form-heading-p8000')} ({buc.type?.toUpperCase()} - {t('buc:buc-' + buc.type?.toUpperCase())})</Heading>
             {currentPSED && currentPSED.options && currentPSED.options.type && !isATP() &&
-              <HStack gap="4">
+              <HStack gap="space-16">
                 <ToggleGroup
                   value={currentPSED?.options?.type?.spraak}
                   onChange={(v) => onToggle("spraak", v)}
@@ -440,7 +440,7 @@ const P8000: React.FC<P8000Props> = ({
                     <ToggleGroup.Item value="UTL" label={t('p8000:form-label-bosettingsstatus-utland')}/>
                   </ToggleGroup>
                 }
-                <HStack gap="4" align={"end"}>
+                <HStack gap="space-16" align={"end"}>
                   <ToggleGroup
                     value={currentPSED?.pensjon?.anmodning?.referanseTilPerson}
                     onChange={(v) => onToggle("referanseTilPerson", v)}
@@ -472,7 +472,7 @@ const P8000: React.FC<P8000Props> = ({
             }
             {P8000Variants[_type]?.ofteEtterspurtInformasjon?.length > 0 &&
               <Box className={styles.boxWithBorderAndPadding} >
-                <VStack gap="4">
+                <VStack gap="space-16">
                   <Heading level="2" size="small">{t('p8000:form-heading-ofte-etterspurt-informasjon')}</Heading>
                   <P8000Fields
                     fields={[
@@ -505,7 +505,7 @@ const P8000: React.FC<P8000Props> = ({
             }
             {P8000Variants[_type]?.informasjonSomKanLeggesInn?.length > 0 &&
               <Box className={styles.boxWithBorderAndPadding} >
-                <VStack gap="4">
+                <VStack gap="space-16">
                   <Heading level="2" size="small">{t('p8000:form-heading-informasjon-som-kan-legges-inn')}</Heading>
                   <P8000Fields
                     fields={[
@@ -545,7 +545,7 @@ const P8000: React.FC<P8000Props> = ({
               </Box>
             }
             <Box className={styles.boxWithBorderAndPadding} >
-              <VStack gap="4">
+              <VStack gap="space-16">
                 {!isATP() &&
                   <>
                     <Textarea label={t('p8000:form-legg-til-fritekst')} value={_fritekst ?? ""} onChange={(e) => setFritekst(e.target.value)}/>
@@ -572,7 +572,7 @@ const P8000: React.FC<P8000Props> = ({
         }
       </VStack>
     </>
-  )
+  );
 }
 
 export default P8000

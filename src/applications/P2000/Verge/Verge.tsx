@@ -67,15 +67,15 @@ const Verge: React.FC<MainFormProps> = ({
   }
 
   return (
-    <Box padding="4">
-      <VStack gap="4">
+    <Box padding="space-16">
+      <VStack gap="space-16">
         <Heading size='medium'>
           {label}
         </Heading>
         <Heading size='small'>
           Informasjon om representant/verge
         </Heading>
-        <HGrid gap="4" columns={2} align="start">
+        <HGrid gap="space-16" columns={2} align="start">
           <Input
             error={validation[namespace + '-person-etternavn']?.feilmelding}
             namespace={namespace}
@@ -108,7 +108,7 @@ const Verge: React.FC<MainFormProps> = ({
         <Box><Epost PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/></Box>
       </VStack>
     </Box>
-  )
+  );
 }
 
 export default Verge

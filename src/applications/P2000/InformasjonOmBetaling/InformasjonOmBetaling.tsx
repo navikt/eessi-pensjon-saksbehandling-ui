@@ -157,12 +157,12 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
   })
 
   return (
-    <Box padding="4">
-      <VStack gap="4">
+    <Box padding="space-16">
+      <VStack gap="space-16">
         <Heading size='medium'>
           {label}
         </Heading>
-        <HGrid gap="4" columns={2} align="start">
+        <HGrid gap="space-16" columns={2} align="start">
           <RadioGroup
             error={validation[namespace + '-konto-innehaver-rolle']?.feilmelding}
             id='bank-konto-innehaver-rolle'
@@ -175,7 +175,7 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
             <Radio value="representant_eller_verge">Representant/Verge</Radio>
           </RadioGroup>
         </HGrid>
-        <HGrid gap="4" columns={2} align="start">
+        <HGrid gap="space-16" columns={2} align="start">
           <Input
             error={validation[namespace + '-konto-innehaver-navn']?.feilmelding}
             namespace={namespace}
@@ -188,7 +188,7 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
         <Heading size='medium'>
           Bankinformasjon <Button size="small" variant="tertiary" onClick={resetBankInfo}>Nullstill</Button>
         </Heading>
-        <HGrid gap="4" columns={2} align="start">
+        <HGrid gap="space-16" columns={2} align="start">
           <RadioGroup
             error={validation[namespace + '-konto-sepa-ikkesepa']?.feilmelding}
             id='bank-konto-sepa-ikkesepa'
@@ -200,7 +200,7 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
             <Radio value="ikkesepa">Ikke SEPA-konto</Radio>
           </RadioGroup>
           {_sepaIkkeSepa === "sepa" &&
-            <VStack gap="4">
+            <VStack gap="space-16">
               <Input
                 error={validation[namespace + '-konto-sepa-iban']?.feilmelding}
                 namespace={namespace}
@@ -220,7 +220,7 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
             </VStack>
           }
           {_sepaIkkeSepa === "ikkesepa" &&
-            <VStack gap="4">
+            <VStack gap="space-16">
               <Input
                 error={validation[namespace + '-konto-kontonr']?.feilmelding}
                 namespace={namespace}
@@ -242,7 +242,7 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
         </HGrid>
         {_sepaIkkeSepa === "ikkesepa" &&
           <>
-            <HGrid gap="4" columns={2} align="start">
+            <HGrid gap="space-16" columns={2} align="start">
               <Input
                 error={validation[namespace + '-bank-navn']?.feilmelding}
                 namespace={namespace}
@@ -257,6 +257,6 @@ const InformasjonOmBetaling: React.FC<MainFormProps> = ({
         }
       </VStack>
     </Box>
-  )
+  );
 }
 export default InformasjonOmBetaling

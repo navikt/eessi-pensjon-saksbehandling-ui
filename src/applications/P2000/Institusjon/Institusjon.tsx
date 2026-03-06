@@ -135,15 +135,15 @@ const Institusjon: React.FC<InstitusjonProps> = ({
     const _v: Validation = index < 0 ? _validation : validation
     const inEditMode = index < 0 || _editInstitusjonIndex === index
     const _institusjon = index < 0 ? _newInstitusjon : (inEditMode ? _editInstitusjon : institusjon)
-    return(
+    return (
       <Box
         id={'repeatablerow-' + _namespace}
         className={classNames(styles.repeatableBox, {
           [styles.new]: index < 0,
           [styles.error]: hasNamespaceWithErrors(_v, _namespace)
         })}
-        paddingBlock={inEditMode ? "4 4" : "1 1"}
-        paddingInline="4 4"
+        paddingBlock={inEditMode ? "space-16 space-16" : "space-4 space-4"}
+        paddingInline="space-16 space-16"
       >
         <HGrid columns={2}>
           {inEditMode
@@ -177,7 +177,7 @@ const Institusjon: React.FC<InstitusjonProps> = ({
           </HStack>
         </HGrid>
       </Box>
-    )
+    );
   }
 
   return (

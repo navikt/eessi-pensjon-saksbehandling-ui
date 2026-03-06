@@ -36,7 +36,7 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
       <VStack
         align="center"
         justify="center"
-        gap="4"
+        gap="space-16"
         data-testid='p-error--top-container-id'
       >
         <EESSIPensjonVeileder
@@ -80,5 +80,5 @@ export const Error: React.FC<ErrorPageProps> = ({ error, type }: ErrorPageProps)
         )}
       </VStack>
     </TopContainer>
-  )
+  );
 }

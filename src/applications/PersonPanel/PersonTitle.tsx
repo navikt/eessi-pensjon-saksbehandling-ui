@@ -62,7 +62,7 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
   const pid : string | undefined = getFnr(person) ? getFnr(person) : getNPID(person)
 
   return (
-    <HStack gap="4" align="center">
+    <HStack gap="space-16" align="center">
       <img
         alt={kind}
         className={classNames({ [titleStyles.dead]: !_.isNil(deathDate) })}
@@ -88,7 +88,7 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
         </Link>
       </Heading>
     </HStack>
-  )
+  );
 }
 
 export default PersonTitle

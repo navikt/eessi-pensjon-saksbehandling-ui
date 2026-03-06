@@ -15,20 +15,20 @@
     background-color: rgba(255, 0, 0, 0.2);
   };
   &:hover:not(.new):not(.error) {
-    background-color: var(--a-gray-100);
+    background-color: var(--ax-neutral-200);
   }
   &:not(:hover) .control-buttons {
     display:none
   }
   &.withBorder {
-    border: 1px solid var(--a-border-default);
+    border: 1px solid var(--ax-border-neutral);
   }
 }
 
 :global .horizontalRadioGroup .navds-radio-buttons {
   display: flex;
-  gap: var(--a-spacing-4);
-  margin-bottom: var(--a-spacing-2)
+  gap: var(--ax-space-16);
+  margin-bottom: var(--ax-space-8)
 }
 
 .waitingPanel {
@@ -59,8 +59,8 @@
 }
 
 .boxWithBorderAndPadding {
-  border: 1px solid var(--a-border-default) ;
+  border: 1px solid var(--ax-border-neutral) ;
   border-radius: 4px;
-  background-color: var(--a-bg-default);
+  background-color: var(--ax-bg-default);
   padding: 12px 12px 12px 12px;
 }

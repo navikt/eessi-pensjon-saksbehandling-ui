@@ -40,7 +40,7 @@ export interface SaveAndSendSelector {
   selectedP8000Checkboxes?: any
 }
 
-const mapState = (state: State): SaveAndSendSelector => ({
+const mapState = (state: State): SaveAndSendSelector => (({
   PSEDChanged: state.buc.PSEDChanged,
   currentPSED: state.buc.PSED,
   savingSed: state.loading.savingSed,
@@ -49,8 +49,7 @@ const mapState = (state: State): SaveAndSendSelector => ({
   PSEDSavedResponse: state.buc.PSEDSavedResponse,
   editingItems: state.app.editingItems,
   selectedP8000Checkboxes: state.umami.selectedP8000Checkboxes
-
-}) as SaveAndSendSelector
+}) as SaveAndSendSelector)
 
 const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
   namespace, sakId, sedId, sedType, validateCurrentPSED, setMode, mottakere, variantType
@@ -163,14 +162,14 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
       <WarningModal open={_viewWarningModal} onModalClose={() => setViewWarningModal(false)} elementKeys={Object.keys(editingItems)}/>
       <Box
         borderWidth="1"
-        borderRadius="medium"
-        borderColor="border-default"
-        background="bg-default"
-        padding="4"
+        borderRadius="4"
+        borderColor="neutral"
+        background="default"
+        padding="space-16"
       >
-        <VStack gap="4">
+        <VStack gap="space-16">
           <HStack><PreviewSED PSED={currentPSED}/></HStack>
-          <HStack gap="4">
+          <HStack gap="space-16">
             <Button
               variant='primary'
               onClick={onSaveSed}
@@ -191,7 +190,7 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
         </VStack>
       </Box>
     </>
-  )
+  );
 }
 
 export default SaveAndSendSED

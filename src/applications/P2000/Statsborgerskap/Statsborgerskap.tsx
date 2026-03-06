@@ -192,8 +192,8 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
           [styles.new]: index < 0 && parentEditMode,
           [styles.error]: hasNamespaceWithErrors(_v, _namespace)
         })}
-        paddingBlock={inEditMode ? "4 4" : "1 1"}
-        paddingInline="4 4"
+        paddingBlock={inEditMode ? "space-16 space-16" : "space-4 space-4"}
+        paddingInline="space-16 space-16"
       >
         <HGrid columns={2}>
           {inEditMode
@@ -216,7 +216,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
                 error={_validation[_namespace + '-land']?.feilmelding}
                 id={_namespace + '-land'}
                 label={index === 0 ? t('p2000:form-person-statsborgerskap-land') : ""}
-                padding={0}
+                padding="space-0"
               >
                 <FlagPanel land={_statsborgerskap?.land}/>
               </FormTextBox>
@@ -241,7 +241,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
           }
         </HGrid>
       </Box>
-    )
+    );
   }
 
   return (
@@ -249,7 +249,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
       <Heading size="small">{t('p2000:form-person-statsborgerskap')}</Heading>
       {_.isEmpty(statsborgerskap)
         ? (
-          <Box paddingBlock="2">
+          <Box paddingBlock="space-8">
             <BodyLong>
               <em>{t('message:warning-no-statsborgerskap')}</em>
             </BodyLong>
@@ -274,7 +274,7 @@ const Statsborgerskap: React.FC<StatsborgerskapProps> = ({
           )
       }
     </>
-  )
+  );
 }
 
 export default Statsborgerskap

@@ -24,9 +24,9 @@ const P5000Controls = ({
 
   return (
     <>
-      <Box paddingBlock="0 12">
+      <Box paddingBlock="space-0 space-48">
         <HStack
-          gap="8"
+          gap="space-32"
           width="100%"
         >
           <div>
@@ -34,7 +34,7 @@ const P5000Controls = ({
               <BodyLong>
                 {t('p5000:active-seds')}:
               </BodyLong>
-              <Box paddingBlock="2 0">
+              <Box paddingBlock="space-8 space-0">
                 {seds?.map((sed: Sed) => (
                   <Checkbox
                     data-testid={'a_buc_c_P5000overview--checkbox-' + sed.id}
@@ -71,7 +71,7 @@ const P5000Controls = ({
         </Button>
       </div>
     </>
-  )
+  );
 }
 
 export default P5000Controls

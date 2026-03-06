@@ -54,9 +54,9 @@ const PersonPanel = (): JSX.Element => {
 
   return (
     <Box
-      padding="0"
+      padding="space-0"
       borderWidth="1"
-      borderRadius="small"
+      borderRadius="2"
       style={{ backgroundColor: 'white' }}
     >
       <Accordion style={{ borderRadius: '4px' }} data-testid='w-PersonPanel-id'>
@@ -84,7 +84,7 @@ const PersonPanel = (): JSX.Element => {
         </Accordion.Item>
       </Accordion>
     </Box>
-  )
+  );
 }
 
 export default PersonPanel

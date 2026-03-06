@@ -240,14 +240,14 @@ const P4000: React.FC<P4000Props> = ({
   }
 
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       {renderBackLink()}
-      <Box background="bg-default" padding="4">
+      <Box background="default" padding="space-16">
         <Heading size='small'>
           {t('p4000:title', {ORGANISATION_NAME: organisation?.name, ORGANISATION_COUNTRY: organisation?.country})}
         </Heading>
         <HStack
-          gap="4"
+          gap="space-16"
           align="end"
           style={{ flexDirection: 'row-reverse'}}
         >
@@ -314,7 +314,7 @@ const P4000: React.FC<P4000Props> = ({
         </div>
       </HiddenDiv>
     </VStack>
-  )
+  );
 }
 
 export default P4000

@@ -53,8 +53,8 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
   }
 
   return (
-    <Box padding="4">
-      <VStack gap="4">
+    <Box padding="space-16">
+      <VStack gap="space-16">
         <Heading size='medium'>
           {label}
         </Heading>
@@ -117,7 +117,7 @@ const ForsikretPerson: React.FC<MainFormProps> = ({
         <Box><Epost PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/></Box>
       </VStack>
     </Box>
-  )
+  );
 }
 
 export default ForsikretPerson

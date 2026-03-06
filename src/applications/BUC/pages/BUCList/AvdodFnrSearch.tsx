@@ -53,16 +53,16 @@ const AvdodFnrSearch: React.FC<any> = ({setNewBucPanelOpen}: AvdodFnrSearchProps
     }
   }
 
-  return(
+  return (
     <>
-      <Box paddingBlock="8 8">
+      <Box paddingBlock="space-32 space-32">
         <div className={styles.badBucDiv}>
           <>
             <Accordion id='a_buc_c_buclist--no-buc-id'>
               <Accordion.Item>
                 <Accordion.Header>
                   <HStack align="end">
-                    <HStack gap="4">
+                    <HStack gap="space-16">
                       <MagnifyingGlassIcon fontSize="1.5rem" />
                       <Heading size='small'>
                         {t('buc:form-searchOtherBUCs')}
@@ -77,7 +77,7 @@ const AvdodFnrSearch: React.FC<any> = ({setNewBucPanelOpen}: AvdodFnrSearchProps
                   )}>
                     <HStack
                       align="end"
-                      gap="4"
+                      gap="space-16"
                     >
                       <TextField
                         style={{ width: '200px' }}
@@ -111,7 +111,7 @@ const AvdodFnrSearch: React.FC<any> = ({setNewBucPanelOpen}: AvdodFnrSearchProps
         </div>
       </Box>
     </>
-  )
+  );
 }
 
 export default AvdodFnrSearch

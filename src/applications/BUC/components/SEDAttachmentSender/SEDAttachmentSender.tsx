@@ -125,7 +125,7 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
         </>
       </ProgressBar>
       {_status === 'inprogress' && _.isFunction(onCancel) && (
-        <Box paddingInline="4 0">
+        <Box paddingInline="space-16 space-0">
           <Button
             size='small'
             variant='secondary'
@@ -141,7 +141,7 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
         </Box>
       )}
     </VStack>
-  )
+  );
 }
 
 export default SEDAttachmentSender

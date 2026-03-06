@@ -148,17 +148,17 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
     const inEditMode = index < 0 || _editUtsettelseIndex === index
     const _utsettelse = index < 0 ? _newUtsettelse : (inEditMode ? _editUtsettelse : utsettelse)
 
-    return(
+    return (
       <Box
         id={'repeatablerow-' + _namespace}
         className={classNames(styles.repeatableBox, {
           [styles.new]: index < 0,
           [styles.error]: hasNamespaceWithErrors(_v, _namespace)
         })}
-        paddingBlock={inEditMode ? "4 4" : "1 1"}
-        paddingInline="4 4"
+        paddingBlock={inEditMode ? "space-16 space-16" : "space-4 space-4"}
+        paddingInline="space-16 space-16"
       >
-        <HGrid gap="4" columns={4} align="start">
+        <HGrid gap="space-16" columns={4} align="start">
           {inEditMode
             ? (
               <>
@@ -199,7 +199,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
                 <FormTextBox
                   error={validation[_namespace + '-land']?.feilmelding}
                   id={_namespace + '-land'}
-                  padding={0}
+                  padding="space-0"
                 >
                   <Label hidden={index>0}>
                     {t('p2000:form-diverse-utsettelse-land')}
@@ -209,7 +209,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
                 <FormTextBox
                   error={validation[_namespace + '-institusjonsnavn']?.feilmelding}
                   id={_namespace + '-institusjonsnavn'}
-                  padding={0}
+                  padding="space-0"
                 >
                   <Label hidden={index>0}>
                     {t('p2000:form-diverse-utsettelse-institusjonsnavn')}
@@ -219,7 +219,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
                 <FormTextBox
                   error={validation[_namespace + '-tildato']?.feilmelding}
                   id={_namespace + '-tildato'}
-                  padding={0}
+                  padding="space-0"
                 >
                   <Label hidden={index>0}>
                     {t('p2000:form-diverse-utsettelse-tildato')}
@@ -247,7 +247,7 @@ const Utsettelse: React.FC<UtsettelseProps> = ({
           </HStack>
         </HGrid>
       </Box>
-    )
+    );
   }
 
   return (

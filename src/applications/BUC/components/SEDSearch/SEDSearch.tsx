@@ -59,10 +59,10 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
     <Box
       data-testid='a_buc_c_sedsearch--panel-id'
       className={classNames(className, styles.SEDSearchPanel)}
-      padding="4"
+      padding="space-16"
       borderWidth="1"
-      borderColor="border-default"
-      borderRadius="small"
+      borderColor="neutral"
+      borderRadius="2"
     >
       <div className={styles.paddedDiv}>
         <TextField
@@ -88,7 +88,7 @@ const SEDSearch: React.FC<SEDSearchProps> = ({
         />
       </div>
     </Box>
-  )
+  );
 }
 
 export default SEDSearch

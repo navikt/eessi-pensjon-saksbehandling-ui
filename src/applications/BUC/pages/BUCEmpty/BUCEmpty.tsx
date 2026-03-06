@@ -63,9 +63,9 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
 
   return (
     <>
-      <Box padding="8" borderWidth="1" borderRadius="medium" background="surface-subtle">
+      <Box padding="space-32" borderWidth="1" borderRadius="4" background="neutral-soft">
         <VStack align="center" justify="center">
-          <VStack gap="4">
+          <VStack gap="space-16">
             <div className={styles.artwork}>
               <img alt='' className={styles.monitor} src={MonitorPNG} />
               <img alt='' className={styles.cup} src={CupPNG} />
@@ -74,7 +74,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
             </div>
             {!aktoerId && (
               <HStack align="end">
-                <Box paddingInline="0 4">
+                <Box paddingInline="space-0 space-16">
                   <TextField
                     data-testid='a-buc-p-bucempty--aktoerid-input-id'
                     error={validation || false}
@@ -96,7 +96,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
             )}
             {!sakId && (
               <HStack align="end">
-                <Box paddingInline="0 4">
+                <Box paddingInline="space-0 space-16">
                   <TextField
                     data-testid='a-buc-p-bucempty--sakid-input-id'
                     error={validation || false}
@@ -120,7 +120,7 @@ const BUCEmpty: React.FC<BUCEmptyProps> = ({
       </Box>
       {rinaUrl && (<BUCFooter />)}
     </>
-  )
+  );
 }
 
 export default BUCEmpty

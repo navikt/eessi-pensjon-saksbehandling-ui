@@ -635,9 +635,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const renderStatus = ({ value }: RenderOptions<P5000ListRow, P5000TableContext, string>) => (
     <div>
-      {(value === 'rina') && <Tag size='small' variant='info'>RINA</Tag>}
-      {(value === 'new') && <Tag size='small' variant='success'>Ny</Tag>}
-      {(value === 'edited') && <Tag size='small' variant='warning'>Endret</Tag>}
+      {(value === 'rina') && <Tag data-color="info" size='small' variant="outline">RINA</Tag>}
+      {(value === 'new') && <Tag data-color="success" size='small' variant="outline">Ny</Tag>}
+      {(value === 'edited') && <Tag data-color="warning" size='small' variant="outline">Endret</Tag>}
     </div>
   )
 
@@ -856,12 +856,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   return (
     <>
       <VStack
-        paddingBlock="0 12"
+        paddingBlock="space-0 space-48"
         align="center"
       >
         <Box
           width="100%"
-          paddingBlock="0 4"
+          paddingBlock="space-0 space-16"
         >
           <P5000EditControls
             items={_items}
@@ -1158,7 +1158,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             }
           ]}
         />
-        <Box paddingBlock="4 0">
+        <Box paddingBlock="space-16 space-0">
           {renderPrintTable && (
             <HiddenDiv>
               <div ref={componentRef} id='printJS-form'>
@@ -1203,7 +1203,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         </Box>
       </VStack>
     </>
-  )
+  );
 }
 
 export default P5000Edit

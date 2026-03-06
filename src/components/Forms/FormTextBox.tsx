@@ -1,7 +1,7 @@
 import React from "react";
 import ErrorLabel from 'src/components/Forms/ErrorLabel'
 import {Box, Label} from "@navikt/ds-react";
-import {ResponsiveProp} from "@navikt/ds-react/cjs/layout/utilities/types";
+import type {BoxProps} from "@navikt/ds-react";
 
 
 export interface FormTextProps {
@@ -9,7 +9,7 @@ export interface FormTextProps {
   id: string
   label?: string
   children: any
-  padding?: ResponsiveProp<any>
+  padding?: BoxProps['padding']
 }
 
 const FormTextBox: React.FC<FormTextProps> = ({
@@ -17,7 +17,7 @@ const FormTextBox: React.FC<FormTextProps> = ({
   error,
   id,
   label,
-  padding = "1"
+  padding = "space-4"
 }: FormTextProps) => (
   <Box tabIndex={0} id={id} padding={padding}>
     {label &&

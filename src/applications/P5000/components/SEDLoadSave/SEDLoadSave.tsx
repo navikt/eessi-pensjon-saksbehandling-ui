@@ -52,9 +52,9 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
       {entries?.map((entry: LocalStorageEntry<P5000SED>, index) => (
         <HStack key={entry.sedId} align="baseline">
           <Spacer/>
-          <Box padding="4" borderWidth="1" borderColor="border-default" borderRadius="small" background={"surface-subtle"}>
+          <Box padding="space-16" borderWidth="1" borderColor="neutral" borderRadius="2" background={"neutral-soft"}>
             <HStack
-              gap="4"
+              gap="space-16"
               align="center"
             >
               <VStack>
@@ -63,7 +63,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                 </BodyLong>
                 <HStack
                   align="center"
-                  gap="2"
+                  gap="space-8"
                 >
                   <BodyLong size='small'>
                     {t('p5000:4-1-title') + ': '}
@@ -76,7 +76,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                 </HStack>
                 <HStack
                   align="center"
-                  gap="2"
+                  gap="space-8"
                 >
                   <BodyLong size='small'>
                     {t('p5000:4-2-title') + ': '}
@@ -87,7 +87,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                 </HStack>
                 <HStack
                   align="center"
-                  gap="2"
+                  gap="space-8"
                 >
                   <BodyLong size='small'>
                     {t('ui:date') + ': '}
@@ -98,7 +98,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
                 </HStack>
                 <HStack
                   align="center"
-                  gap="2"
+                  gap="space-8"
                 >
                   <BodyLong size='small'>
                     {t('ui:rows') + ': '}
@@ -120,7 +120,7 @@ const SEDLoadSave: React.FC<SEDLoadSaveProps> = ({
       )
       )}
     </VStack>
-  )
+  );
 }
 
 export default SEDLoadSave

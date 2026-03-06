@@ -195,14 +195,14 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
             )}
           </HStack>
           <HStack
-            marginInline="12 0"
+            marginInline="space-48 space-0"
             align="center"
             justify="start"
           >
             {bucInfo?.tags?.map((tag: string) => (
               <div key={tag}>
-                <Box paddingInline="0 2">
-                  <Tag variant='info' size='small'>{t('buc:' + tag)}</Tag>
+                <Box paddingInline="space-0 space-8">
+                  <Tag data-color="info" variant="outline" size='small'>{t('buc:' + tag)}</Tag>
                 </Box>
               </div>
             ))}
@@ -210,7 +210,7 @@ const BUCHeader: React.FC<BUCHeaderProps> = ({
         </HGrid>
       </LinkPanel.Description>
     </>
-  )
+  );
 }
 
 export default BUCHeader

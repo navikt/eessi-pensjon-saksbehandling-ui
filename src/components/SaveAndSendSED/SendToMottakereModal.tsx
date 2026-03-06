@@ -56,8 +56,8 @@ const SendToDeltakereModal: React.FC<SendToDeltakereModalProps> = ({
       header={t('ui:send-til-valgte-mottakere')}
       modal={{
         modalContent: (
-          <VStack gap="4">
-            <Box borderWidth={_invalid ? "2" : "1"} borderColor={_invalid ? "border-danger" : "border-subtle"} padding="4">
+          <VStack gap="space-16">
+            <Box borderWidth={_invalid ? "2" : "1"} borderColor={_invalid ? "danger" : "neutral-subtle"} padding="space-16">
               {mottakere?.map((m) => {
                 return(
                   <Checkbox
@@ -73,7 +73,7 @@ const SendToDeltakereModal: React.FC<SendToDeltakereModalProps> = ({
             {_invalid &&
               <ErrorMessage showIcon={true}>{t('validation:missing-mottakere')}</ErrorMessage>
             }
-            <HStack gap="4">
+            <HStack gap="space-16">
               <Button
                 variant='primary'
                 onClick={sendSed}
@@ -93,7 +93,7 @@ const SendToDeltakereModal: React.FC<SendToDeltakereModalProps> = ({
       }}
       onModalClose={onClose}
     />
-  )
+  );
 }
 
 export default SendToDeltakereModal
