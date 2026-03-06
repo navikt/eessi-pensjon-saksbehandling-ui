@@ -9,10 +9,10 @@
 
 .repeatableBox {
   &.new {
-    background-color: rgba(236, 243, 153, 0.5);
+    background-color: var(--ax-warning-200);
   };
   &.error {
-    background-color: rgba(255, 0, 0, 0.2);
+    background-color: var(--ax-danger-200);
   };
   &:hover:not(.new):not(.error) {
     background-color: var(--ax-neutral-200);
@@ -25,7 +25,7 @@
   }
 }
 
-:global .horizontalRadioGroup .navds-radio-buttons {
+:global .horizontalRadioGroup .aksel-radio-group__radios {
   display: flex;
   gap: var(--ax-space-16);
   margin-bottom: var(--ax-space-8)
@@ -62,5 +62,5 @@
   border: 1px solid var(--ax-border-neutral) ;
   border-radius: 4px;
   background-color: var(--ax-bg-default);
-  padding: 12px 12px 12px 12px;
+  padding: var(--ax-space-12) var(--ax-space-12) var(--ax-space-12) var(--ax-space-12);
 }

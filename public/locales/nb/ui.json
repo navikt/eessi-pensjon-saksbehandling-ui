@@ -156,5 +156,8 @@
     "editingItem-institusjon": "Institusjon",
     "editingItem-sivilstand": "Familiestatus",
 
-    "placeholder-date-default": "DD.MM.YYYY"
+    "placeholder-date-default": "DD.MM.YYYY",
+
+    "darkMode": "Bytt til mørk modus",
+    "lightMode": "Bytt til lys modus"
 }

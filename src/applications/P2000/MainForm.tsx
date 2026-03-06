@@ -162,10 +162,10 @@ const MainForm = <T extends PSED>({
               gap="space-4"
             >
               {!isValidated
-                ? menuVisited.indexOf(form.value) >= 0 && <CheckmarkCircleFillIcon color='grey'/>
+                ? menuVisited.indexOf(form.value) >= 0 && <CheckmarkCircleFillIcon color='var(--ax-text-neutral-subtle)'/>
                 : validationHasErrors
-                  ? <XMarkOctagonFillIcon color='red' />
-                  : menuVisited.indexOf(form.value) >= 0 && <CheckmarkCircleFillIcon color='grey'/>
+                  ? <XMarkOctagonFillIcon color='var(--ax-text-danger)' />
+                  : menuVisited.indexOf(form.value) >= 0 && <CheckmarkCircleFillIcon color='var(--ax-text-neutral-subtle)'/>
               }
 
                 <BodyLong className={classNames({ selected }, styles.menuLabelText)}>

@@ -57,7 +57,7 @@ const PersonPanel = (): JSX.Element => {
       padding="space-0"
       borderWidth="1"
       borderRadius="2"
-      style={{ backgroundColor: 'white' }}
+      background="raised"
     >
       <Accordion style={{ borderRadius: '4px' }} data-testid='w-PersonPanel-id'>
         <Accordion.Item

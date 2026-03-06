@@ -3,7 +3,7 @@
 .imageDiv {
   min-width: 40px;
   min-height: 40px;
-  background-color: whitesmoke;
+  background-color: var(--ax-bg-neutral-soft);
   border-radius: 100px;
   transition: width 100s ease;
   animation: progressBarAnimation 100s linear infinite;

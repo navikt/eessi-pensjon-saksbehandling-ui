@@ -19,7 +19,7 @@
 .bucLenkePanel {
   background: var(--ax-bg-default);
   margin-bottom: 1rem;
-  .navds-link-panel__content {
+  .aksel-link-panel__content {
     width: 100%;
   }
   &.new {

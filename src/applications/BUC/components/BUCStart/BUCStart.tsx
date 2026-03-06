@@ -435,7 +435,7 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
         >
           <Box paddingBlock="space-32 space-0">
             <>
-              <label className='navds-text-field--label navds-label'>
+              <label className='aksel-form-field__label aksel-label'>
                 {t('buc:form-chooseSubjectArea')}
               </label>
               <Select
@@ -452,7 +452,7 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
           </Box>
           <Box paddingBlock="space-16 space-0">
             <>
-              <label className='navds-text-field--label navds-label'>
+              <label className='aksel-form-field__label aksel-label'>
                 {t(loading.gettingBucOptions ? 'message:loading-bucOptions' : 'buc:form-chooseBuc')}
               </label>
               <Select
@@ -471,7 +471,7 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
           {bucNeedsAvdod() && (
             <>
               <Box paddingBlock="space-16 space-0">
-                <label className='navds-text-field--label navds-label'>
+                <label className='aksel-form-field__label aksel-label'>
                   {t('buc:form-chooseAvdod')}
                 </label>
                 <Select
@@ -553,7 +553,7 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
               label={(
                 <>
                   <VStack gap="space-16">
-                    <label className='navds-text-field--label navds-label'>
+                    <label className='aksel-form-field__label aksel-label'>
                       {t(loading.gettingTagList ? 'message:loading-tagList' : 'buc:form-tagsForBUC')}
                     </label>
                     <BodyLong>

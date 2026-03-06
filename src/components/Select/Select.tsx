@@ -15,11 +15,11 @@ interface SelectProps extends Props {
 const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
   return (
     <div
-      className={classNames({ 'navds-select--error': !!props.error })}
+      className={classNames({ 'aksel-select--error': !!props.error })}
       data-testid={props['data-testid'] || props.id}
       style={props.style}
     >
-      {props.label && (<label className='navds-text-field--label navds-label'>{props.label ?? ''}</label>)}
+      {props.label && (<label className='aksel-form-field__label aksel-label'>{props.label ?? ''}</label>)}
       <ReactSelect
         inputId={props.id}
         isOptionDisabled={(option: any) => option.isDisabled}
@@ -35,14 +35,14 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
             minHeight: props.size === 'small' ? '35px' : '48px',
             borderWidth: '1px',
             borderStyle: 'solid',
-            borderColor: props.error ? 'var(--a-select-color-border-error)' : 'var(--a-select-color-border)',
+            borderColor: props.error ? 'var(--ax-border-danger)' : 'var(--ax-border-neutral)',
             borderRadius: '4px',
-            color: 'var(--a-color-text-primary)',
-            backgroundColor: isDisabled ? 'var(--a-surface-subtle)' : 'var(--a-select-color-background)'
+            color: 'var(--ax-text-neutral)',
+            backgroundColor: isDisabled ? 'var(--ax-bg-neutral-soft)' : 'var(--ax-bg-default)'
           }),
           indicatorSeparator: (styles: any) => ({
             ...styles,
-            backgroundColor: 'var(--a-select-color-border)'
+            backgroundColor: 'var(--ax-border-neutral)'
           }),
           menu: (styles: any) => ({
             ...styles,
@@ -54,33 +54,33 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
             ...styles,
             borderWidth: '1px',
             borderStyle: 'solid',
-            borderColor: 'var(--a-select-color-border)',
-            backgroundColor: 'var(--a-surface-subtle)'
+            borderColor: 'var(--ax-border-neutral)',
+            backgroundColor: 'var(--ax-bg-neutral-soft)'
           }),
           option: (styles: any, { isDisabled, isFocused, isSelected }) => ({
             ...styles,
             color: isFocused
-              ? 'var(--a-text-on-inverted)'
+              ? 'var(--ax-text-neutral-contrast)'
               : isSelected
-                ? 'var(--a-text-on-inverted)'
-                : 'var(--a-color-text-primary)',
+                ? 'var(--ax-text-neutral-contrast)'
+                : 'var(--ax-text-neutral)',
             backgroundColor: isFocused
-              ? 'var(--a-border-focus)'
+              ? 'var(--ax-bg-accent-strong)'
               : isSelected
-                ? 'var(--a-surface-action-selected)'
+                ? 'var(--ax-bg-accent-strong)'
                 : isDisabled
-                  ? 'var(--a-text-field-color-background)'
-                  : 'var(--a-surface-subtle)'
+                  ? 'var(--ax-bg-neutral-soft)'
+                  : 'var(--ax-bg-neutral-soft)'
           }),
           singleValue: (styles: any) => ({
             ...styles,
-            color: 'var(--a-color-text-primary)'
+            color: 'var(--ax-text-neutral)'
           })
         }}
         {...props}
       />
       {props.error && (
-        <div style={{ marginTop: '8px' }} role='alert' aria-live='assertive' className='navds-error-message navds-error-message--medium navds-label'>
+        <div style={{ marginTop: '8px' }} role='alert' aria-live='assertive' className='aksel-error-message'>
           {props.error}
         </div>
       )}

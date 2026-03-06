@@ -1121,7 +1121,7 @@ const SEDStart: React.FC<SEDStartProps> = ({
             >
               <HStack gap="space-16">
                 <PersonIcon fontSize="1.5rem" />
-                <label className='navds-text-field--label navds-label'>
+                <label className='aksel-form-field__label aksel-label'>
                   {t('buc:form-avdod')}:
                 </label>
                 <BodyLong>
@@ -1241,7 +1241,7 @@ const SEDStart: React.FC<SEDStartProps> = ({
                       />}
                 </Box>
               )}
-              <label className='navds-text-field--label navds-label'>
+              <label className='aksel-form-field__label aksel-label'>
                 {t('buc:form-chosenInstitutions')}
               </label>
               <InstitutionList
@@ -1296,7 +1296,7 @@ const SEDStart: React.FC<SEDStartProps> = ({
         <VStack gap="space-16">
           {sedCanHaveAttachments() && (
             <Box>
-              <label className='navds-text-field--label navds-label'>
+              <label className='aksel-form-field__label aksel-label'>
                 {t('ui:attachments')}
               </label>
               <Box paddingBlock="space-8">

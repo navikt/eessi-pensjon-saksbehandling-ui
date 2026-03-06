@@ -1,5 +1,5 @@
-import {JSX} from 'react'
-import {MenuGridIcon, ExternalLinkIcon, WrenchIcon} from '@navikt/aksel-icons'
+import {JSX, useState, useEffect} from 'react'
+import {MenuGridIcon, ExternalLinkIcon, WrenchIcon, SunIcon, MoonIcon} from '@navikt/aksel-icons'
 import { useTranslation } from 'react-i18next'
 import {ActionMenu, Spacer, InternalHeader} from '@navikt/ds-react'
 import {GJENNY} from "src/constants/constants";
@@ -7,7 +7,7 @@ import {FeatureToggles} from "src/declarations/app";
 import {State} from "src/declarations/reducers";
 import {useSelector} from "react-redux";
 import * as routes from 'src/constants/routes'
-import {NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom"
 
 export interface HeaderProps {
   children?: JSX.Element | Array<JSX.Element | null>
@@ -30,6 +30,22 @@ const Header: React.FC<HeaderProps> = ({
 }: HeaderProps): JSX.Element => {
   const { featureToggles }: HeaderSelector = useSelector<State, HeaderSelector>(mapState)
   const { t } = useTranslation()
+
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    return localStorage.getItem('darkMode') === 'true'
+  })
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', isDarkMode)
+  }, [isDarkMode])
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(prev => {
+      const next = !prev
+      localStorage.setItem('darkMode', String(next))
+      return next
+    })
+  }
 
   const isAdmin: boolean = featureToggles.EESSI_ADMIN === true
   const href= indexType !== GJENNY ? routes.ROOT : routes.GJENNY
@@ -79,6 +95,12 @@ const Header: React.FC<HeaderProps> = ({
               t('ui:unknown')
         }
       />
+      <InternalHeader.Button onClick={toggleDarkMode} aria-label={isDarkMode ? t('ui:lightMode') : t('ui:darkMode')}>
+        {isDarkMode
+          ? <SunIcon style={{fontSize: "1.5rem"}} title={t('ui:lightMode')} />
+          : <MoonIcon style={{fontSize: "1.5rem"}} title={t('ui:darkMode')} />
+        }
+      </InternalHeader.Button>
     </InternalHeader>
   )
 }
