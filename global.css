@@ -81,6 +81,11 @@ ol {
 .dark .c-countrySelect__select__single-value {
   color: var(--ax-text-neutral);
 }
+
+.dark .c-countrySelect__select__multi-value__label{
+  color: var(--ax-text-neutral);
+}
+
 .dark .c-countrySelect__select__input-container {
   color: var(--ax-text-neutral);
 }
@@ -94,4 +99,8 @@ ol {
 /* @navikt/tabell merge icon dark mode support */
 .dark .aksel-table svg#Layer_1 path {
   fill: var(--ax-text-neutral);
+}
+
+.dark .multipleSelect__multi-value__label{
+  color: var(--ax-text-neutral);
 }
