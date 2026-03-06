@@ -49,12 +49,17 @@ ol {
 }
 
 /* @navikt/landvelger V7 class name compatibility */
+/* @navikt/landvelger still uses old navds- class names internally */
 .navds-label {
-  font: var(--ax-font-heading-xsmall);
+  font-size: var(--ax-font-size-large);
+  font-weight: var(--ax-font-weight-bold);
+  line-height: var(--ax-font-line-height-large);
 }
-.navds-error-message {
+
+.navds-error-message,
+.navds-error-message--medium {
   color: var(--ax-text-danger);
-  font: var(--ax-font-body-short-small);
+  font-size: var(--ax-font-size-medium);
 }
 
 /* @navikt/landvelger dark mode overrides */
