@@ -176,7 +176,7 @@ export const SakTypeValueToKeyMap: {[value in SakTypeValue]: SakTypeKey} = {
   'Krigspensjon': 'KRIGSP',
   'Omsorgsopptjening': 'OMSORG',
   'Omstillingsstønad': 'OMSST',
-  'Uføretrygd': 'UFOREP',
+  'Uføretrygd': 'Uføretrygd',
   'Ukjent': 'Ukjent'
 }
 
