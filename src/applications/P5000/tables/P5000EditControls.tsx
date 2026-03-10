@@ -401,11 +401,6 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
     }
   }, [sentP5000info, _showModal])
 
-  console.log("gettingUft: " + gettingUft)
-  console.log("sakType: " + sakType)
-  console.log("pesysContext: " + pesysContext)
-  console.log(SakTypeMap.UFOREP)
-
   return (
     <>
       <Modal
