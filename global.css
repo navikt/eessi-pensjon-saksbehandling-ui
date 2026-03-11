@@ -39,7 +39,7 @@ ol {
 /* @navikt/landvelger V7 CSS variable compatibility */
 :root {
   --a-border-default: var(--ax-border-neutral);
-  --a-surface-default: var(--ax-bg-default);
+  --a-surface-default: var(--ax-bg-input);
   --a-surface-subtle: var(--ax-bg-neutral-soft);
   --a-surface-danger: var(--ax-bg-danger-soft);
   --a-surface-action-hover: var(--ax-bg-accent-strong-hover);
@@ -58,31 +58,40 @@ ol {
 
 .navds-error-message,
 .navds-error-message--medium {
-  color: var(--ax-text-danger);
-  font-size: var(--ax-font-size-medium);
+  color: var(--ax-text-danger-subtle);
 }
 
 /* @navikt/landvelger dark mode overrides */
-.dark .c-countrySelect__select__control {
-  background-color: var(--ax-bg-default);
-  border-color: var(--ax-border-neutral);
+.c-countrySelect__select__control{
+  background-color: var(--ax-bg-input);
+  border-radius: 8px !important;
+  --a-surface-danger: var(--ax-border-danger-strong);
 }
+
 .dark .c-countrySelect__select__menu {
-  background-color: var(--ax-bg-default);
-}
-.dark .c-countrySelect__select__option {
-  background-color: var(--ax-bg-default);
-  color: var(--ax-text-neutral);
-}
-.dark .c-countrySelect__select__option--is-focused {
-  background-color: var(--ax-bg-accent-strong);
-  color: var(--ax-text-neutral-contrast);
-}
-.dark .c-countrySelect__select__single-value {
+  background-color: var(--ax-bg-input);
   color: var(--ax-text-neutral);
 }
 
-.dark .c-countrySelect__select__multi-value__label{
+.dark .c-countrySelect__select__option {
+  background-color: var(--ax-bg-input);
+  color: var(--ax-text-neutral);
+}
+
+.dark .c-countrySelect__select__option:hover,
+.dark .c-countrySelect__select__option--is-focused {
+  background-color: var(--ax-bg-neutral-moderate-hover);
+  color: var(--ax-text-neutral);
+}
+
+.dark .c-countrySelect__select__option--is-selected {
+  background-color: var(--ax-bg-accent-moderate);
+  color: var(--ax-text-neutral);
+}
+
+.dark .c-countrySelect__select__single-value,
+.dark .c-countrySelect__select__input-container,
+.dark .c-countrySelect__select__placeholder {
   color: var(--ax-text-neutral);
 }
 
