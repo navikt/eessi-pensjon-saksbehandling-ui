@@ -5,7 +5,7 @@ import BUCIndexPage from "./BUCIndexPage";
 import BUCEmpty from "./pages/BUCEmpty/BUCEmpty";
 import {JSX, useEffect, useState} from "react";
 import {fetchBucsInfo, getRinaUrl, getSakType} from "../../actions/buc";
-import {BucsInfo, SakTypeKey} from "../../declarations/buc";
+import {BucsInfo, SakTypeValue} from "../../declarations/buc";
 import {loadAllEntries} from "../../actions/localStorage";
 import _ from "lodash";
 import * as storage from "../../constants/storage";
@@ -15,7 +15,7 @@ export interface BUCIndexSelector {
   aktoerId: string | null | undefined
   vedtakId: string | null | undefined
   sakId: string | null | undefined
-  sakType: SakTypeKey | null | undefined
+  sakType: SakTypeValue | null | undefined
   gettingSakType: boolean,
   rinaUrl: RinaUrl | undefined
   bucsInfo: BucsInfo | undefined
@@ -26,7 +26,7 @@ export interface BUCIndexSelector {
 const mapState = (state: State): BUCIndexSelector => ({
   pesysContext: state.app.pesysContext,
   sakId: state.app.params.sakId,
-  sakType: state.app.params.sakType as SakTypeKey,
+  sakType: state.app.params.sakType as SakTypeValue,
   vedtakId: state.app.params.vedtakId,
   aktoerId: state.app.params.aktoerId,
   gettingSakType: state.loading.gettingSakType,
