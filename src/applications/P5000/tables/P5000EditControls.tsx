@@ -20,7 +20,7 @@ import Modal from 'src/components/Modal/Modal'
 import Select from 'src/components/Select/Select'
 import * as constants from 'src/constants/constants'
 import { LocalStorageEntry, Option, Validation } from 'src/declarations/app'
-import {SakTypeKey, SakTypeMap} from 'src/declarations/buc.d'
+import { SakTypeMap, SakTypeValue } from 'src/declarations/buc.d'
 import { P5000sFromRinaMap } from 'src/declarations/p5000.d'
 import { P5000ListRow, P5000ListRows, P5000Period, P5000SED, P5000UpdatePayload } from 'src/declarations/p5000'
 import { State } from 'src/declarations/reducers'
@@ -42,7 +42,7 @@ export interface P5000EditControlsSelector {
   gjpbp: Date | null | undefined
   gjpbpwarning: any | undefined
   pesysContext: string
-  sakType: SakTypeKey
+  sakType: SakTypeValue
   sentP5000info: any
   sendingP5000info: boolean
   uforetidspunkt: Date | null | undefined
@@ -78,7 +78,7 @@ const mapState = (state: State): P5000EditControlsSelector => ({
   gjpbp: state.person.gjpbp,
   gjpbpwarning: state.p5000.gjpbpwarning,
   pesysContext: state.app.pesysContext,
-  sakType: state.app.params.sakType as SakTypeKey,
+  sakType: state.app.params.sakType as SakTypeValue,
   sentP5000info: state.p5000.sentP5000info,
   sendingP5000info: state.loading.sendingP5000info,
   uforetidspunkt: state.person.uforetidspunkt,
@@ -400,6 +400,10 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
       _setShowModal(true)
     }
   }, [sentP5000info, _showModal])
+
+  console.log("gettingUft: " + gettingUft)
+  console.log("sakType: " + sakType)
+  console.log("pesysContext: " + pesysContext)
 
   return (
     <>
