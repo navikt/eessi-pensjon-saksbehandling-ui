@@ -83,7 +83,7 @@ const MultipleSelect = <T extends Option> ({
             borderWidth: '1px',
             borderStyle: 'solid',
             borderColor: error ? 'var(--ax-border-danger)' : 'var(--ax-border-neutral)',
-            backgroundColor: isDisabled ? 'var(--ax-bg-neutral-soft)' : 'var(--ax-bg-default)',
+            backgroundColor: isDisabled ? 'var(--ax-bg-neutral-soft)' : 'var(--ax-bg-input)',
             borderRadius: '4px',
             color: 'var(--ax-text-neutral)'
           }),

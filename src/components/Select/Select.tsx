@@ -38,7 +38,7 @@ const Select: React.FC<SelectProps> = (props: SelectProps): JSX.Element => {
             borderColor: props.error ? 'var(--ax-border-danger)' : 'var(--ax-border-neutral)',
             borderRadius: '4px',
             color: 'var(--ax-text-neutral)',
-            backgroundColor: isDisabled ? 'var(--ax-bg-neutral-soft)' : 'var(--ax-bg-default)'
+            backgroundColor: isDisabled ? 'var(--ax-bg-neutral-soft)' : 'var(--ax-bg-input)'
           }),
           indicatorSeparator: (styles: any) => ({
             ...styles,
