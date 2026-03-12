@@ -5,5 +5,5 @@
 
 .flexDiv:hover{
   background-color: transparent !important;
-  color: var(--ax-danger-500);
+  color:var(--ax-text-danger-subtle);
 }

@@ -14,13 +14,13 @@
   background: var(--ax-bg-default);
 
   &.new {
-    background: var(--ax-success-100) !important;
+    background: var(--ax-bg-success-moderate) !important;
   }
 }
 
 .sedPanelAccordion {
   &.new {
-    background: var(--ax-success-100) !important;
+    background: var(--ax-bg-success-moderate) !important;
   }
 }
 

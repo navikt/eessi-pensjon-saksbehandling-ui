@@ -12,10 +12,10 @@
     background-color: var(--ax-bg-meta-lime-moderate);
   };
   &.error {
-    background-color: var(--ax-danger-200);
+    background-color: var(--ax-bg-danger-moderate);
   };
   &:hover:not(.new):not(.error) {
-    background-color: var(--ax-neutral-200);
+    background-color: var(--ax-bg-neutral-moderate);
   }
   &:not(:hover) .control-buttons {
     display:none
