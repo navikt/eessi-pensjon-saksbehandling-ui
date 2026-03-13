@@ -90,6 +90,7 @@ ol {
 }
 
 .dark .c-countrySelect__select__single-value,
+.dark .c-countrySelect__select__multi-value__label,
 .dark .c-countrySelect__select__input-container,
 .dark .c-countrySelect__select__placeholder {
   color: var(--ax-text-neutral);
