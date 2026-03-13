@@ -1,5 +1,5 @@
 import {JSX, useState, useEffect} from 'react'
-import {MenuGridIcon, ExternalLinkIcon, WrenchIcon, SunIcon, MoonIcon} from '@navikt/aksel-icons'
+import {MenuGridIcon, ExternalLinkIcon, WrenchIcon, ThemeIcon} from '@navikt/aksel-icons'
 import { useTranslation } from 'react-i18next'
 import {ActionMenu, Spacer, InternalHeader} from '@navikt/ds-react'
 import {GJENNY} from "src/constants/constants";
@@ -97,8 +97,8 @@ const Header: React.FC<HeaderProps> = ({
       />
       <InternalHeader.Button onClick={toggleDarkMode} aria-label={isDarkMode ? t('ui:lightMode') : t('ui:darkMode')}>
         {isDarkMode
-          ? <SunIcon style={{fontSize: "1.5rem"}} title={t('ui:lightMode')} />
-          : <MoonIcon style={{fontSize: "1.5rem"}} title={t('ui:darkMode')} />
+          ? <ThemeIcon style={{fontSize: "1.5rem"}} title={t('ui:lightMode')} />
+          : <ThemeIcon style={{fontSize: "1.5rem"}} title={t('ui:darkMode')} />
         }
       </InternalHeader.Button>
     </InternalHeader>

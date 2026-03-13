@@ -158,6 +158,6 @@
 
     "placeholder-date-default": "DD.MM.YYYY",
 
-    "darkMode": "Bytt til mørk modus",
-    "lightMode": "Bytt til lys modus"
+    "darkMode": "Endre til mørkt tema",
+    "lightMode": "Endre til lyst tema"
 }
