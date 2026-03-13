@@ -105,15 +105,15 @@ const P5000: React.FC<P5000Props> = ({
         <Heading size='small' style={{ display: 'flex' }}>
           {t('p5000:edit-title')}
         </Heading>
-{/*        <HorizontalSeparatorDiv />
-        -
-        <HorizontalSeparatorDiv />*/}
-        <Box paddingInline="4 4">
+        {/*        <HorizontalSeparatorDiv />
+                -
+                <HorizontalSeparatorDiv />*/}
+        <Box paddingInline="space-16 space-16">
           -
         </Box>
         <P5000SedLabel sed={mainSed} />
       </HStack>
-    )
+    );
   }
 
   const renderP5000EditContent = (p5000WorkingCopies: Array<LocalStorageEntry<P5000SED>>) => {
@@ -305,7 +305,7 @@ const P5000: React.FC<P5000Props> = ({
         changeActiveSeds={changeActiveSeds}
         onBackClick={onBackClick}
       />
-      <Box paddingBlock="8 0">
+      <Box paddingBlock="space-32 space-0">
         {_tables.map((table: any, index: number): JSX.Element => {
           if ((table.id === 'P5000Edit' && !_.isNil(mainSed)) ||
             ((table.id === 'P5000Sum') && !_.isNil(mainSed)) ||
@@ -313,23 +313,23 @@ const P5000: React.FC<P5000Props> = ({
           ) {
             return (
               <div key={table.id}>
-                <Box paddingBlock="0 8">
+                <Box paddingBlock="space-0 space-32">
                   <Panel border>
                     {renderTableHeader(table.id)}
-                    <Box paddingBlock="8 0">
+                    <Box paddingBlock="space-32 space-0">
                       {renderTableContent(table)}
                     </Box>
                   </Panel>
                 </Box>
               </div>
-            )
+            );
           } else {
             return <div key={"table-empty-" + index}/>
           }
         })}
       </Box>
     </div>
-  )
+  );
 }
 
 export default P5000

@@ -9,26 +9,26 @@
 
 .repeatableBox {
   &.new {
-    background-color: rgba(236, 243, 153, 0.5);
+    background-color: var(--ax-bg-meta-lime-moderate);
   };
   &.error {
-    background-color: rgba(255, 0, 0, 0.2);
+    background-color: var(--ax-bg-danger-moderate);
   };
   &:hover:not(.new):not(.error) {
-    background-color: var(--a-gray-100);
+    background-color: var(--ax-bg-neutral-moderate);
   }
   &:not(:hover) .control-buttons {
     display:none
   }
   &.withBorder {
-    border: 1px solid var(--a-border-default);
+    border: 1px solid var(--ax-border-neutral);
   }
 }
 
-:global .horizontalRadioGroup .navds-radio-buttons {
+:global .horizontalRadioGroup .aksel-radio-group__radios {
   display: flex;
-  gap: var(--a-spacing-4);
-  margin-bottom: var(--a-spacing-2)
+  gap: var(--ax-space-16);
+  margin-bottom: var(--ax-space-8)
 }
 
 .waitingPanel {
@@ -59,8 +59,8 @@
 }
 
 .boxWithBorderAndPadding {
-  border: 1px solid var(--a-border-default) ;
+  border: 1px solid var(--ax-border-neutral) ;
   border-radius: 4px;
-  background-color: var(--a-bg-default);
-  padding: 12px 12px 12px 12px;
+  background-color: var(--ax-bg-default);
+  padding: var(--ax-space-12) var(--ax-space-12) var(--ax-space-12) var(--ax-space-12);
 }

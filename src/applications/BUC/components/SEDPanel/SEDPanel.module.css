@@ -11,16 +11,16 @@
 .sedHeaderContainer {
   padding: 1rem;
   border-radius: 4px;
-  background: var(--a-surface-default);
+  background: var(--ax-bg-default);
 
   &.new {
-    background: var(--a-limegreen-100) !important;
+    background: var(--ax-bg-success-moderate) !important;
   }
 }
 
 .sedPanelAccordion {
   &.new {
-    background: var(--a-limegreen-100) !important;
+    background: var(--ax-bg-success-moderate) !important;
   }
 }
 

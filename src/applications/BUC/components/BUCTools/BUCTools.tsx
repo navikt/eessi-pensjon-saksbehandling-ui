@@ -155,12 +155,11 @@ const BUCTools: React.FC<BUCToolsProps> = ({
   }, [bucInfo, t, _tags])
 
   return (
-
     <Box
       borderWidth="1"
-      borderColor="border-default"
-      background="surface-default"
-      padding="4"
+      borderColor="neutral"
+      background="default"
+      padding="space-16"
       data-testid='a_buc_c_buctools--panel-id'
     >
       <Tabs
@@ -175,7 +174,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           })}
         </Tabs.List>
         <Tabs.Panel value='P5000'>
-          <VStack gap="4" padding="4">
+          <VStack gap="space-16" padding="space-16">
             <Heading size='small'>
               {t('buc:form-titleP5000')}
             </Heading>
@@ -193,7 +192,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           </VStack>
         </Tabs.Panel>
         <Tabs.Panel value='P4000'>
-          <VStack gap="4" padding="4">
+          <VStack gap="space-16" padding="space-16">
             {t('buc:form-descriptionP4000')}
             <HStack>
               <Button
@@ -209,7 +208,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
           </VStack>
         </Tabs.Panel>
         <Tabs.Panel value='tags'>
-          <VStack gap="2" padding="4">
+          <VStack gap="space-8" padding="space-16">
             <BodyLong>
               {t('buc:form-tagsForBUC-description')}
             </BodyLong>
@@ -242,7 +241,7 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         </Tabs.Panel>
       </Tabs>
     </Box>
-  )
+  );
 }
 
 export default BUCTools

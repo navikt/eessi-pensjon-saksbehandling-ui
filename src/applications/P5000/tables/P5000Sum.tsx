@@ -91,13 +91,13 @@ const P5000Sum: React.FC<P5000SumProps> = ({
 
   const renderStatus = ({ value } :RenderOptions<P5000SumRow> | RenderEditableOptions<P5000SumRow>) => {
     if (value === 'rina') {
-      return <Tag size='small' variant='info'>RINA</Tag>
+      return <Tag data-color="info" size='small' variant="outline">RINA</Tag>;
     }
     if (value === 'new') {
-      return <Tag size='small' variant='success'>Ny</Tag>
+      return <Tag data-color="success" size='small' variant="outline">Ny</Tag>;
     }
     if (value === 'edited') {
-      return <Tag size='small' variant='warning'>Endret</Tag>
+      return <Tag data-color="warning" size='small' variant="outline">Endret</Tag>;
     }
     return <div />
   }
@@ -173,10 +173,10 @@ const P5000Sum: React.FC<P5000SumProps> = ({
   const hasMoreWarnings = has40aar || has45 || has5152diffs
 
   return (
-    <VStack gap="4">
-      <HStack gap="4">
+    <VStack gap="space-16">
+      <HStack gap="space-16">
         <Spacer/>
-        <VStack gap="4">
+        <VStack gap="space-16">
         {sakType === SakTypeMap.GJENLEV && (
           <Alert variant='warning'>
             {t('p5000:warning-P5000SumGjenlevende')}
@@ -184,7 +184,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
         )}
         {!!sakType && (
           <Alert variant='warning'>
-            <VStack gap="4">
+            <VStack gap="space-16">
               <HStack wrap={false}>
                 {t('p5000:warning-P5000Sum-instructions-title')}
                 <HelpText>
@@ -225,7 +225,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
         </VStack>
         <Spacer/>
       </HStack>
-      <HStack gap="4">
+      <HStack gap="space-16">
         <Spacer/>
         <Button
           onClick={onClickPrint}
@@ -278,7 +278,7 @@ const P5000Sum: React.FC<P5000SumProps> = ({
         </HiddenDiv>
       )}
     </VStack>
-  )
+  );
 }
 
 export default P5000Sum

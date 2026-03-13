@@ -1,4 +1,4 @@
-import {VStack, Heading, Radio, RadioGroup, Box} from "@navikt/ds-react";
+import {VStack, Heading, Radio, RadioGroup, Box, HGrid} from "@navikt/ds-react";
 import React, {JSX, useEffect} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import _ from "lodash";
@@ -75,8 +75,8 @@ const Ektefelle: React.FC<MainFormProps> = ({
   }, [ektefelle])
 
   return (
-    <Box padding="4">
-      <VStack gap="4">
+    <Box padding="space-16">
+      <VStack gap="space-16">
         <Heading size='medium'>
           {label}
         </Heading>
@@ -87,9 +87,11 @@ const Ektefelle: React.FC<MainFormProps> = ({
           onChange={(e: any) => setType(e)}
           value={ektefelle?.type ?? ''}
         >
-          <Radio value="ektefelle">Ektefelle</Radio>
-          <Radio value="part_i_et_registrert_partnerskap">Partner i registrert partnerskap</Radio>
-          <Radio value="samboer">Samboer</Radio>
+          <HGrid columns={3} gap="space-16">
+            <Radio value="ektefelle">Ektefelle</Radio>
+            <Radio value="part_i_et_registrert_partnerskap">Partner i registrert partnerskap</Radio>
+            <Radio value="samboer">Samboer</Radio>
+          </HGrid>
         </RadioGroup>
         <Box>
           <PersonOpplysninger setPersonOpplysninger={setEktefellePersonalia} person={ektefelle?.person} parentNamespace={namespace}/>
@@ -110,7 +112,7 @@ const Ektefelle: React.FC<MainFormProps> = ({
         </Box>
       </VStack>
     </Box>
-  )
+  );
 }
 
 export default Ektefelle

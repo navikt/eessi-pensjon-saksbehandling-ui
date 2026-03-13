@@ -426,16 +426,16 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
   return (
     <div data-testid='a_buc_c_BUCStart'>
       <HGrid
-        gap="8"
+        gap="space-32"
         columns={2}
         width="100%"
       >
         <Box
-          paddingInline="0 2"
+          paddingInline="space-0 space-8"
         >
-          <Box paddingBlock="8 0">
+          <Box paddingBlock="space-32 space-0">
             <>
-              <label className='navds-text-field--label navds-label'>
+              <label className='aksel-form-field__label aksel-label'>
                 {t('buc:form-chooseSubjectArea')}
               </label>
               <Select
@@ -450,9 +450,9 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
               />
             </>
           </Box>
-          <Box paddingBlock="4 0">
+          <Box paddingBlock="space-16 space-0">
             <>
-              <label className='navds-text-field--label navds-label'>
+              <label className='aksel-form-field__label aksel-label'>
                 {t(loading.gettingBucOptions ? 'message:loading-bucOptions' : 'buc:form-chooseBuc')}
               </label>
               <Select
@@ -470,8 +470,8 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
           </Box>
           {bucNeedsAvdod() && (
             <>
-              <Box paddingBlock="4 0">
-                <label className='navds-text-field--label navds-label'>
+              <Box paddingBlock="space-16 space-0">
+                <label className='aksel-form-field__label aksel-label'>
                   {t('buc:form-chooseAvdod')}
                 </label>
                 <Select
@@ -489,10 +489,10 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
           )}
           {bucNeedsAvdodButWeHaveNone() && (
             <>
-              <Box paddingBlock="4 0">
+              <Box paddingBlock="space-16 space-0">
                 <div className={styles.flexDiv}>
                   <Box
-                    paddingInline="0 2"
+                    paddingInline="space-0 space-8"
                     width="100%"
                   >
                     <TextField
@@ -515,7 +515,7 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
           )}
           {bucNeedsKravDato(_buc) && (
             <>
-              <Box paddingBlock="4 0">
+              <Box paddingBlock="space-16 space-0">
                 <div className={styles.flexDiv}>
                   <TextField
                     data-testid='a_buc_c_BUCStart--kravDato-input-id'
@@ -528,7 +528,7 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
                   {loading.gettingKravDato
                     ? (
                       <>
-                        <Box paddingInline="4 0">
+                        <Box paddingInline="space-16 space-0">
                           <WaitingPanel size='xsmall' oneLine />
                         </Box>
                       </>
@@ -540,9 +540,9 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
           )}
         </Box>
         <Box
-          paddingInline="2 0"
+          paddingInline="space-8 space-0"
         >
-          <Box paddingBlock="8 0">
+          <Box paddingBlock="space-32 space-0">
             <MultipleSelect<Option>
               ariaLabel={t('buc:form-tagsForBUC')}
               aria-describedby='help-tags'
@@ -552,8 +552,8 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
               isLoading={loading.gettingTagList}
               label={(
                 <>
-                  <VStack gap="4">
-                    <label className='navds-text-field--label navds-label'>
+                  <VStack gap="space-16">
+                    <label className='aksel-form-field__label aksel-label'>
                       {t(loading.gettingTagList ? 'message:loading-tagList' : 'buc:form-tagsForBUC')}
                     </label>
                     <BodyLong>
@@ -572,10 +572,10 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
       </HGrid>
       {_showWarningBucDeceased && (
         <>
-          <Box paddingBlock="8 0">
+          <Box paddingBlock="space-32 space-0">
             <HGrid columns={2}>
               <Box
-                paddingInline="0 6"
+                paddingInline="space-0 space-24"
               >
                   <Alert
                     variant='warning'
@@ -594,10 +594,10 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
       )}
       {_showWarningBuc01 && (
         <>
-          <Box paddingBlock="8 0">
+          <Box paddingBlock="space-32 space-0">
             <HGrid columns={2}>
               <Box
-                paddingInline="0 6"
+                paddingInline="space-0 space-24"
               >
                 <Alert
                   variant='warning'
@@ -614,9 +614,9 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
           </Box>
         </>
       )}
-      <Box paddingBlock="8 4">
+      <Box paddingBlock="space-32 space-16">
         <div data-testid='a_buc_c_BUCStart--buttons-id'>
-          <HStack gap="4">
+          <HStack gap="space-16">
             <Button
               variant='primary'
               data-testid='a_buc_c_BUCStart--forward-button-id'
@@ -641,7 +641,7 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
       </Box>
       {!hasNoValidationErrors(_validation) && (
         <HGrid
-          paddingBlock="4 0"
+          paddingBlock="space-16 space-0"
           columns={2}
         >
           <ValidationBox heading={t('message:error-validationbox-bucstart')} validation={_validation} />
@@ -649,7 +649,7 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
 
       )}
     </div>
-  )
+  );
 }
 
 export default BUCStart

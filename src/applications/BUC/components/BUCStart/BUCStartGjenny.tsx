@@ -185,15 +185,15 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
   return (
     <div data-testid='a_buc_c_BUCStart'>
       <HGrid
-        gap="8"
+        gap="space-32"
         columns={2}
         width="100%"
       >
         <Box
-          paddingInline="0 2"
+          paddingInline="space-0 space-8"
         >
-          <Box paddingBlock="8 0">
-            <label className='navds-text-field--label navds-label'>
+          <Box paddingBlock="space-32 space-0">
+            <label className='aksel-form-field__label aksel-label'>
               {t('buc:form-chooseSubjectArea')}
             </label>
             <Select
@@ -207,8 +207,8 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
               options={renderOptions(subjectAreaList)}
             />
           </Box>
-          <Box paddingBlock="4 0">
-            <label className='navds-text-field--label navds-label'>
+          <Box paddingBlock="space-16 space-0">
+            <label className='aksel-form-field__label aksel-label'>
               {t(loading.gettingBucOptions ? 'message:loading-bucOptions' : 'buc:form-chooseBuc')}
             </label>
             <Select
@@ -225,15 +225,15 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
           </Box>
         </Box>
         <Box
-          paddingInline="2 0"
+          paddingInline="space-8 space-0"
         />
       </HGrid>
       {_showWarningBucDeceased && (
         <>
-          <Box paddingBlock="8 0">
+          <Box paddingBlock="space-32 space-0">
             <HGrid columns={2}>
               <Box
-                paddingInline="0 6"
+                paddingInline="space-0 space-24"
               >
                 <Alert
                   variant='warning'
@@ -250,9 +250,9 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
           </Box>
         </>
       )}
-      <Box paddingBlock="8 4">
+      <Box paddingBlock="space-32 space-16">
         <div data-testid='a_buc_c_BUCStart--buttons-id'>
-          <HStack gap="4">
+          <HStack gap="space-16">
             <Button
               variant='primary'
               data-testid='a_buc_c_BUCStart--forward-button-id'
@@ -275,14 +275,14 @@ const BUCStartGjenny: React.FC<BUCStartIndexProps> = ({
       </Box>
       {!hasNoValidationErrors(_validation) && (
         <HGrid
-          paddingBlock="4 0"
+          paddingBlock="space-16 space-0"
           columns={2}
         >
           <ValidationBox heading={t('message:error-validationbox-bucstart')} validation={_validation} />
         </HGrid>
       )}
     </div>
-  )
+  );
 }
 
 export default BUCStartGjenny

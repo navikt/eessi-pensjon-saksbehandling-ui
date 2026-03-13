@@ -181,7 +181,7 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
       }
       {!_.isEmpty(_items) && (
         <>
-          <Box paddingBlock="8 0">
+          <Box paddingBlock="space-32 space-0">
             <JoarkBrowser
               data-testid='a_buc_c_sedattachmentspanel--attachments-id'
               existingItems={_items}
@@ -196,7 +196,7 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
       )}
       <>
         {!_attachmentsSent && _.find(_items, (item) => item.type === 'joark') !== undefined && (
-          <Box paddingBlock="4 0">
+          <Box paddingBlock="space-16 space-0">
             <Button
               variant='primary'
               data-testid='a_buc_c_sedattachmentspanel--upload-button-id'
@@ -212,7 +212,7 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
       {canHaveAttachments && (
         (_sendingAttachments || _attachmentsSent)
           ? (
-              <Box marginBlock="4" width="100%">
+              <Box marginBlock="space-16" width="100%">
                 <>
                   <SEDAttachmentSender
                     attachmentsError={attachmentsError}
@@ -231,7 +231,7 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
             )
           : (
             <>
-              <Box paddingBlock="4 4">
+              <Box paddingBlock="space-16 space-16">
                 <Button
                   variant='secondary'
                   data-testid='a_buc_c_sedattachmentspanel--show-table-button-id'
@@ -251,7 +251,7 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
         tableId={'sedview' + sed.id + '-modal'}
       />
     </Box>
-  )
+  );
 }
 
 export default SEDAttachmentsPanel

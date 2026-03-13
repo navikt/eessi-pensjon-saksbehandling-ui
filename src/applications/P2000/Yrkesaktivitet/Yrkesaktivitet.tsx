@@ -204,9 +204,9 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
             [styles.error]: hasNamespaceWithErrors(_v, _namespace),
             [styles.withBorder]: true
           })}
-          padding="4"
+          padding="space-16"
         >
-          <VStack gap="4">
+          <VStack gap="space-16">
             <HStack>
               {inEditMode
                 ?
@@ -291,12 +291,12 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
           </VStack>
         </Box>
       </Fragment>
-    )
+    );
   }
 
   return (
-    <Box padding="4">
-      <VStack gap="4">
+    <Box padding="space-16">
+      <VStack gap="space-16">
         <Heading size='medium'>
           {label}
         </Heading>
@@ -328,7 +328,7 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
 
       </VStack>
     </Box>
-  )
+  );
 }
 
 export default Yrkesaktivitet

@@ -159,7 +159,7 @@ const Telefon: React.FC<TelefonProps> = ({
     const _v: Validation = index < 0 ? _validation : validation
     const inEditMode = index < 0 || _editTelefonIndex === index
     const _telefon = index < 0 ? _newTelefon : (inEditMode ? _editTelefon : telefon)
-    return(
+    return (
       <Box
         key={_namespace}
         id={'repeatablerow-' + _namespace}
@@ -167,10 +167,10 @@ const Telefon: React.FC<TelefonProps> = ({
           [styles.new]: index < 0,
           [styles.error]: hasNamespaceWithErrors(_v, _namespace)
         })}
-        paddingBlock={inEditMode ? "4 4" : "1 1"}
-        paddingInline="4 4"
+        paddingBlock={inEditMode ? "space-16 space-16" : "space-4 space-4"}
+        paddingInline="space-16 space-16"
       >
-        <HGrid columns={3} gap="4" align="start">
+        <HGrid columns={3} gap="space-16" align="start">
           {inEditMode
             ? (
               <>
@@ -229,23 +229,22 @@ const Telefon: React.FC<TelefonProps> = ({
           </HStack>
         </HGrid>
       </Box>
-    )
+    );
   }
 
   return (
     <>
       <Heading size="small">{t('p2000:form-telefon')}</Heading>
-
-        {_.isEmpty(telefonnumre)
-          ? (
-            <Box paddingBlock="2">
-              <BodyLong>
-                <em>{t('p2000:ingen-x-registrert', {x: 'telefon'})}</em>
-              </BodyLong>
-            </Box>
-          )
-          : (telefonnumre?.map(renderTelefon))
-        }
+      {_.isEmpty(telefonnumre)
+        ? (
+          <Box paddingBlock="space-8">
+            <BodyLong>
+              <em>{t('p2000:ingen-x-registrert', {x: 'telefon'})}</em>
+            </BodyLong>
+          </Box>
+        )
+        : (telefonnumre?.map(renderTelefon))
+      }
       {_newTelefonForm
         ? renderTelefon(null, -1)
         : (
@@ -259,7 +258,7 @@ const Telefon: React.FC<TelefonProps> = ({
           )
       }
     </>
-  )
+  );
 }
 
 export default Telefon

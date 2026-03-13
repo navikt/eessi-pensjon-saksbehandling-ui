@@ -78,7 +78,7 @@ const Adresse: React.FC<AdresseProps> = ({
   }
 
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       <HGrid columns={1} align="start">
         <Input
           error={validation[namespace + '-gate']?.feilmelding}
@@ -89,7 +89,7 @@ const Adresse: React.FC<AdresseProps> = ({
           value={(adresse?.gate)  ?? ''}
         />
       </HGrid>
-      <HGrid columns={2} gap="4" align="start">
+      <HGrid columns={2} gap="space-16" align="start">
         <Input
           error={validation[namespace + '-postnummer']?.feilmelding}
           namespace={namespace}
@@ -130,7 +130,7 @@ const Adresse: React.FC<AdresseProps> = ({
         />
       </HGrid>
     </VStack>
-  )
+  );
 }
 
 export default Adresse

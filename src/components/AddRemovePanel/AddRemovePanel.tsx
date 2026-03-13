@@ -12,6 +12,7 @@ import {Button, BodyLong, Box, HStack} from '@navikt/ds-react'
 import _ from 'lodash'
 import {JSX, useState} from 'react'
 import { useTranslation } from 'react-i18next'
+import commonStyles from 'src/assets/css/common.module.css'
 
 export interface AddRemovePanelProps<T> {
   item: T | null
@@ -61,7 +62,7 @@ const AddRemovePanel = <T extends any>({
   if (candidateForDeletion) {
     return (
       <Box className={classNames('slideInFromRight', { marginTop }, { noMargin })}>
-        <HStack gap="4" align="center">
+        <HStack gap="space-16" align="center">
           <BodyLong style={{ whiteSpace: 'nowrap' }}>
             {labels?.areYouSure ?? t('ui:are-you-sure')}
           </BodyLong>
@@ -82,13 +83,13 @@ const AddRemovePanel = <T extends any>({
           </Button>
         </HStack>
       </Box>
-    )
+    );
   }
 
   if (candidateForEdition) {
     return (
       <Box className={classNames({ marginTop }, { noMargin })}>
-        <HStack gap="4">
+        <HStack gap="space-16">
           <Button
             size='small'
             variant='tertiary'
@@ -113,13 +114,13 @@ const AddRemovePanel = <T extends any>({
           </Button>
         </HStack>
       </Box>
-    )
+    );
   }
 
   if (isNew) {
     return (
       <Box className={classNames({ marginTop }, { noMargin })}>
-        <HStack gap="4">
+        <HStack gap="space-16">
           <Button
             size='small'
             variant='tertiary'
@@ -146,12 +147,12 @@ const AddRemovePanel = <T extends any>({
           </Button>
         </HStack>
       </Box>
-    )
+    );
   }
 
   return (
-    <Box className={classNames(alwaysVisible ? '' : 'control-buttons', 'noMargin')}>
-      <HStack gap="4">
+    <Box className={classNames(alwaysVisible ? '' : commonStyles["control-buttons"], 'noMargin')}>
+      <HStack gap="space-16">
         {allowEdit && (
           <Button
             size='small'
@@ -190,7 +191,7 @@ const AddRemovePanel = <T extends any>({
         )}
       </HStack>
     </Box>
-  )
+  );
 }
 
 export default AddRemovePanel

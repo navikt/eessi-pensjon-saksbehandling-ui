@@ -169,7 +169,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
     <div
       data-testid='a-buc-p-bucedit'
     >
-      <VStack gap="4">
+      <VStack gap="space-16">
         <HStack
           align="center"
           justify="space-between"
@@ -208,12 +208,12 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           })}
           ref={componentRef}
         >
-          <Box paddingBlock="0 4">
+          <Box paddingBlock="space-0 space-16">
             <Box
-              padding="8"
+              padding="space-32"
               borderWidth="1"
-              borderRadius="small"
-              background= "bg-default"
+              borderRadius="2"
+              background= "default"
             >
               <SEDStart
                 aktoerId={aktoerId}
@@ -230,7 +230,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
       </VStack>
       <HStack>
         <Box
-          marginInline="0 2"
+          marginInline="space-0 space-8"
           flexGrow="3"
           flexShrink="1"
           flexBasis="0"
@@ -247,7 +247,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                   <div key={sed.id}>
                     {index === 0 && sed.status === 'new' && (
                       <>
-                        <Box paddingBlock="2 4">
+                        <Box paddingBlock="space-8 space-16">
                           <Label>
                             {t('buc:form-utkast-seds')}
                           </Label>
@@ -258,7 +258,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                     renderSeds?.[index - 1]?.status === 'new' &&
                       sed.status !== 'new' && (
                         <>
-                          <Box paddingBlock="4 4">
+                          <Box paddingBlock="space-16 space-16">
                             <Label>
                               {t('buc:form-andre-seder')}
                             </Label>
@@ -279,7 +279,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
                       onFollowUpSed={onFollowUpSed}
                     />
                   </div>
-                )
+                );
               })
             : (
               <div className={styles.noSedsDiv}>
@@ -290,7 +290,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
               )}
         </Box>
         <div className={styles.widgetDiv}>
-          <VStack gap="4">
+          <VStack gap="space-16">
             <BUCDetail
               buc={buc!}
               personAvdods={personAvdods}
@@ -305,7 +305,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
         </div>
       </HStack>
     </div>
-  )
+  );
 }
 
 export default BUCEdit

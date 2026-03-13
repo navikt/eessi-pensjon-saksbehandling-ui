@@ -159,13 +159,13 @@ const MainForm = <T extends PSED>({
           >
             <HStack
               className={classNames({ selected },styles.nameLabelHStack)}
-              gap="1"
+              gap="space-4"
             >
               {!isValidated
-                ? menuVisited.indexOf(form.value) >= 0 && <CheckmarkCircleFillIcon color='grey'/>
+                ? menuVisited.indexOf(form.value) >= 0 && <CheckmarkCircleFillIcon color='var(--ax-text-neutral-subtle)'/>
                 : validationHasErrors
-                  ? <XMarkOctagonFillIcon color='red' />
-                  : menuVisited.indexOf(form.value) >= 0 && <CheckmarkCircleFillIcon color='grey'/>
+                  ? <XMarkOctagonFillIcon color='var(--ax-text-danger-decoration)' />
+                  : menuVisited.indexOf(form.value) >= 0 && <CheckmarkCircleFillIcon color='var(--ax-text-neutral-subtle)'/>
               }
 
                 <BodyLong className={classNames({ selected }, styles.menuLabelText)}>
@@ -177,8 +177,8 @@ const MainForm = <T extends PSED>({
             </div>
           </div>
         </VStack>
-      )
-    })
+      );
+    });
   }
 
   useEffect(() => {

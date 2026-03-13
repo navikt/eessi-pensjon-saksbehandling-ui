@@ -29,15 +29,15 @@ const ContextBanner: React.FC = (): JSX.Element => {
   const { gettingSakType, pesysContext, sakType }: ContextBannerSelector = useSelector<State, ContextBannerSelector>(mapState)
 
   return (
-    <HStack data-testid="contextbanner-context" gap="3" paddingInline="8" paddingBlock="2" className={styles.content}>
+    <HStack data-testid="contextbanner-context" gap="space-12" paddingInline="space-32" paddingBlock="space-8" className={styles.content}>
       <ChevronRightIcon fontSize="1.5rem" />
       {pesysContext && (
-        <HStack data-testid="tag-pesyscontext" gap="1" align="center" className={styles.tag}>
+        <HStack data-testid="tag-pesyscontext" gap="space-4" align="center" className={styles.tag}>
           <span>{t('ui:youComeFrom')}</span>
           <strong>{(pesysContext as string).toUpperCase()}</strong>
         </HStack>
       )}
-      <HStack data-testid="tag-buc-case-type" gap="1" align="center" className={styles.tag}>
+      <HStack data-testid="tag-buc-case-type" gap="space-4" align="center" className={styles.tag}>
         {sakType && (
           <span>{t('buc:form-caseType')}: </span>
         )}
@@ -49,7 +49,7 @@ const ContextBanner: React.FC = (): JSX.Element => {
         )}
       </HStack>
     </HStack>
-  )
+  );
 }
 
 export default ContextBanner

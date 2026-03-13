@@ -6,7 +6,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   height: 100vh;
-  background-color: var(--a-bg-subtle);
+  background-color: var(--ax-bg-sunken);
 }
 pre {
   font-family: 'Source Sans Pro', Arial, sans-serif;
@@ -35,3 +35,110 @@ ol {
     }
   }
 }
+
+/* @navikt/landvelger V7 CSS variable compatibility */
+:root {
+  --a-border-default: var(--ax-border-neutral);
+  --a-surface-default: var(--ax-bg-input);
+  --a-surface-subtle: var(--ax-bg-neutral-soft);
+  --a-surface-danger: var(--ax-bg-danger-soft);
+  --a-surface-action-hover: var(--ax-bg-accent-strong-hover);
+  --a-text-default: var(--ax-text-neutral);
+  --a-text-on-inverted: var(--ax-text-neutral-contrast);
+  --a-surface-action-selected: var(--ax-bg-accent-strong);
+}
+
+/* @navikt/landvelger V7 class name compatibility */
+/* @navikt/landvelger still uses old navds- class names internally */
+.navds-label {
+  font-size: var(--ax-font-size-large);
+  font-weight: var(--ax-font-weight-bold);
+  line-height: var(--ax-font-line-height-large);
+}
+
+.navds-error-message,
+.navds-error-message--medium {
+  color: var(--ax-text-danger-subtle);
+}
+
+/* @navikt/landvelger dark mode overrides */
+.c-countrySelect__select__control{
+  background-color: var(--ax-bg-input);
+  border-radius: 8px !important;
+  --a-surface-danger: var(--ax-border-danger-strong);
+}
+
+.dark .c-countrySelect__select__menu {
+  background-color: var(--ax-bg-input);
+  color: var(--ax-text-neutral);
+}
+
+.dark .c-countrySelect__select__option {
+  background-color: var(--ax-bg-input);
+  color: var(--ax-text-neutral);
+}
+
+.dark .c-countrySelect__select__option:hover,
+.dark .c-countrySelect__select__option--is-focused {
+  background-color: var(--ax-bg-neutral-moderate-hover);
+  color: var(--ax-text-neutral);
+}
+
+.dark .c-countrySelect__select__option--is-selected {
+  background-color: var(--ax-bg-accent-moderate);
+  color: var(--ax-text-neutral);
+}
+
+.dark .c-countrySelect__select__single-value,
+.dark .c-countrySelect__select__multi-value__label,
+.dark .c-countrySelect__select__input-container,
+.dark .c-countrySelect__select__placeholder {
+  color: var(--ax-text-neutral);
+}
+
+.dark .c-countrySelect__select__input-container {
+  color: var(--ax-text-neutral);
+}
+.dark .c-countrySelect__select__indicator-separator {
+  background-color: var(--ax-border-neutral);
+}
+.dark .c-countrySelect__select__dropdown-indicator svg {
+  fill: var(--ax-text-neutral);
+}
+
+/* @navikt/tabell merge icon dark mode support */
+.dark .aksel-table svg#Layer_1 path {
+  fill: var(--ax-text-neutral);
+}
+
+.dark .multipleSelect__multi-value__label{
+  color: var(--ax-text-neutral);
+}
+
+.dark .multipleSelect__menu-portal .aksel-checkbox__input:hover:not(:disabled){
+  border-color: var(--ax-text-neutral);
+  background-color: var(--ax-bg-accent-strong-hover);
+}
+
+.dark .multipleSelect__menu-portal .aksel-checkbox__input{
+  border-color: var(--ax-text-neutral);
+  background-color: var(--ax-bg-neutral-moderate-hover);
+}
+
+.dark .multipleSelect__menu-portal .aksel-checkbox__icon{
+  color: var(--ax-text-neutral);
+}
+
+.multipleSelect__menu-portal .aksel-checkbox__input:hover:not(:disabled){
+  border-color: var(--ax-text-neutral);
+  background-color: var(--ax-bg-accent-strong-hover);
+}
+
+.multipleSelect__menu-portal .aksel-checkbox__input{
+  border-color: var(--ax-text-neutral);
+}
+
+.multipleSelect__menu-portal .aksel-checkbox__icon{
+  color: var(--ax-text-neutral);
+}
+

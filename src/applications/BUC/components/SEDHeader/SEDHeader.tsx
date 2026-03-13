@@ -112,7 +112,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
       style={style}
       className={classNames(styles.sedHeader, className)}
     >
-      <HGrid gap="4" paddingBlock="1" align="start" columns={4}>
+      <HGrid gap="space-16" paddingBlock="space-4" align="start" columns={4}>
         <VStack>
           <HStack align="center" >
             <Detail
@@ -128,7 +128,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               disabled={false}
             />
           </HStack>
-          <HStack gap="4">
+          <HStack gap="space-16">
             <PopoverCustomized
               label={(
                 <BodyLong>
@@ -327,7 +327,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
           </Alert>
         )}
     </Box>
-  )
+  );
 }
 
 export default SEDHeader

@@ -35,12 +35,12 @@ const IndexPage: React.FC<IndexPageProps> = ({indexType = "PESYS"}): JSX.Element
 
   return (
     <TopContainer indexType={indexType}>
-      <VStack gap="4">
+      <VStack gap="space-16">
         <ContextBanner />
         {featureToggles.RELEASE_CDM_4_4_BANNER &&
            RELEASE_CDM_4_4_WARNING
         }
-          <Box padding="4">
+          <Box padding="space-16">
             <VStack>
               <PersonPanel />
               {indexType === PESYS &&
@@ -53,7 +53,7 @@ const IndexPage: React.FC<IndexPageProps> = ({indexType = "PESYS"}): JSX.Element
           </Box>
     </VStack>
     </TopContainer>
-  )
+  );
 }
 
 export default IndexPage

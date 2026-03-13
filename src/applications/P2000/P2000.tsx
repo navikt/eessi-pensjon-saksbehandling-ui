@@ -116,7 +116,7 @@ const P2000: React.FC<P2000Props> = ({
 
   return (
     <>
-      <VStack gap="4">
+      <VStack gap="space-16">
         <div style={{ display: 'inline-block' }}>
           <Button
             variant='secondary'
@@ -147,10 +147,10 @@ const P2000: React.FC<P2000Props> = ({
         />
         <Box
           borderWidth="1"
-          borderRadius="medium"
-          borderColor="border-default"
-          background="bg-default"
-          padding="4"
+          borderRadius="4"
+          borderColor="neutral"
+          background="default"
+          padding="space-16"
         >
           <SEDAttachmentsPanel aktoerId={aktoerId} buc={buc} canHaveAttachments={sedCanHaveAttachments(currentPSED?.originalSed)} sed={sed!}/>
         </Box>
@@ -165,7 +165,7 @@ const P2000: React.FC<P2000Props> = ({
         />
       </VStack>
     </>
-  )
+  );
 }
 
 export default P2000

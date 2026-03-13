@@ -71,18 +71,18 @@ const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
 
   return (
     <TopContainer>
-      <VStack gap="4">
+      <VStack gap="space-16">
           <HStack>
             <Spacer/>
-            <VStack gap="4" padding="4">
-              <Box padding="4" width="1460px" borderWidth="1">
-                <HStack gap="4">
-                  <VStack gap="4">
+            <VStack gap="space-16" padding="space-16">
+              <Box padding="space-16" width="1460px" borderWidth="1">
+                <HStack gap="space-16">
+                  <VStack gap="space-16">
                     <div>
                       <Heading size={"small"}>Resend dokument</Heading>
                       <BodyLong size="small">Resending av SED for å journalføre.</BodyLong>
                     </div>
-                    <HStack gap="4" align="end">
+                    <HStack gap="space-16" align="end">
                       <TextField
                         style={{width: "7rem"}}
                         label="Sak ID (Rina)"
@@ -117,14 +117,14 @@ const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
                   </VStack>
                 </HStack>
               </Box>
-              <Box padding="4" width="1460px" borderWidth="1">
-                <HStack gap="4">
-                  <VStack gap="4">
+              <Box padding="space-16" width="1460px" borderWidth="1">
+                <HStack gap="space-16">
+                  <VStack gap="space-16">
                     <div>
                       <Heading size={"small"}>Resend dokumentliste</Heading>
                       <BodyLong size="small">Resending av liste med SED'er for å journalføre.</BodyLong>
                     </div>
-                    <HStack gap="4" align="end">
+                    <HStack gap="space-16" align="end">
                       <Textarea
                         label="Dokumentliste"
                         description= {<div style={{whiteSpace: 'pre-line'}}>{dokumentListe}</div>}
@@ -144,7 +144,7 @@ const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
                         Alle dokumenter ble funnet og sendt videre for ny registrering
                       </Alert>
                     }
-                    <HStack gap="4" align="end">
+                    <HStack gap="space-16" align="end">
                       <Button variant="primary" onClick={onResendDocumentList} loading={resendingDocumentList} disabled={_dokumentListe === ""}>Resend</Button>
                     </HStack>
                   </VStack>
@@ -156,7 +156,7 @@ const AdminPage: React.FC<AdminPageProps> = (): JSX.Element => {
 
       </VStack>
     </TopContainer>
-  )
+  );
 }
 
 export default AdminPage

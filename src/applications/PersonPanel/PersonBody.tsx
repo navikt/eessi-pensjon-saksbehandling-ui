@@ -45,7 +45,7 @@ const PersonBody: React.FC<PersonBodyProps> = ({
           {t(label)}:
         </Label>
         <Box>
-          <div className='navds-body-long'>
+          <div className='aksel-body-long'>
             {_value.map((val: any) => val)}
           </div>
         </Box>
@@ -170,27 +170,27 @@ const PersonBody: React.FC<PersonBodyProps> = ({
 
   return (
     <div data-testid="person-body-div">
-      <HGrid columns={3} gap="4" padding="8" align="start">
-        <HStack gap="4" align="start">
+      <HGrid columns={3} gap="space-16" padding="space-32" align="start">
+        <HStack gap="space-16" align="start">
           <HouseIcon title={t('ui:bostedsadresse')} fontSize="1.5rem" />
           {bostedsadresse ? renderEntity('ui:bostedsadresse', bostedsadresse) : null}
         </HStack>
-        <HStack gap="4" align="start">
+        <HStack gap="space-16" align="start">
           <CalendarIcon title={t('ui:birthdate')} fontSize="1.5rem" />
           {renderEntity('ui:birthdate', birthDateString)}
         </HStack>
-        <HStack gap="4" align="start">
+        <HStack gap="space-16" align="start">
           <PersonRectangleIcon title={t('ui:nationality')} fontSize="1.5rem"/>
           {renderEntity('ui:nationality', nationality)}
         </HStack>
       </HGrid>
       <HorizontalLineSeparator />
-      <HGrid columns={3} gap="4" padding="8" align="start">
-        <HStack gap="4">
+      <HGrid columns={3} gap="space-16" padding="space-32" align="start">
+        <HStack gap="space-16">
           <GlobeIcon title={t('ui:oppholdsadresse')} fontSize="1.5rem" />
           {renderEntity('ui:oppholdsadresse', oppholdsadresse)}
         </HStack>
-        <HStack gap="4">
+        <HStack gap="space-16">
           <HeartIcon title={t('ui:marital-status')} fontSize="1.5rem"/>
           {renderEntity('ui:marital-status', maritalStatus)}
         </HStack>
@@ -198,8 +198,8 @@ const PersonBody: React.FC<PersonBodyProps> = ({
       {((personAvdods && personAvdods.length > 0) || deathDateString) && (
         <>
           <HorizontalLineSeparator />
-          <HGrid columns={3} gap="4" padding="8" align="start">
-            <HStack gap="4">
+          <HGrid columns={3} gap="space-16" padding="space-32" align="start">
+            <HStack gap="space-16">
               <PersonIcon fontSize="1.5rem" />
               <VStack>
                 <Label>{t('ui:deceased')}:</Label>
@@ -227,7 +227,7 @@ const PersonBody: React.FC<PersonBodyProps> = ({
                         key='noAvdod'
                         id='w-overview-PersonBody--element-deceased'
                       >
-                        <Box paddingInline="4 0">
+                        <Box paddingInline="space-16 space-0">
                           <BodyLong>
                             {t('buc:form-noAvdod')}
                           </BodyLong>
@@ -240,7 +240,7 @@ const PersonBody: React.FC<PersonBodyProps> = ({
             {deathDateString
               ? (
 
-                  <HStack gap="4">
+                  <HStack gap="space-16">
                     <CalendarIcon fontSize="1.5rem" />
                     {renderEntity('ui:deathdate', deathDateString)}
                   </HStack>
@@ -252,7 +252,7 @@ const PersonBody: React.FC<PersonBodyProps> = ({
         </>
       )}
     </div>
-  )
+  );
 }
 
 export default PersonBody

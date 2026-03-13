@@ -69,12 +69,12 @@ const Diverse: React.FC<MainFormProps> = ({
   }
 
   return (
-    <Box padding="4">
-      <VStack gap="4">
+    <Box padding="space-16">
+      <VStack gap="space-16">
         <Heading size='medium'>
           {label}
         </Heading>
-        <HGrid columns={2} gap="4" align="start">
+        <HGrid columns={2} gap="space-16" align="start">
           <DateField
             id={namespace + '-kravDato'}
             index={0}
@@ -85,7 +85,7 @@ const Diverse: React.FC<MainFormProps> = ({
             dateValue={nav?.krav?.dato ?? ''}
           />
         </HGrid>
-        <HGrid columns={2} gap="4" align="start">
+        <HGrid columns={2} gap="space-16" align="start">
           <DateField
             id={namespace + '-forespurtstartdato'}
             description={t('p2000:form-diverse-pensjon-forespurtstartdato-description')}
@@ -109,7 +109,7 @@ const Diverse: React.FC<MainFormProps> = ({
           </RadioGroup>
         </HGrid>
         <Box><Utsettelse PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/></Box>
-        <HGrid columns={2} gap="4" align="start">
+        <HGrid columns={2} gap="space-16" align="start">
           <CheckboxGroup
             legend={t('p2000:form-diverse-pensjon-mottaker')}
             error={validation[namespace + '-mottaker']?.feilmelding}
@@ -176,7 +176,7 @@ const Diverse: React.FC<MainFormProps> = ({
         />
       </VStack>
     </Box>
-  )
+  );
 }
 
 export default Diverse

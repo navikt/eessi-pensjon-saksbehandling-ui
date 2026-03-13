@@ -74,12 +74,12 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
       />
       {checked &&
         <Box
-          paddingBlock="2 4"
-          paddingInline="4 0"
+          paddingBlock="space-8 space-16"
+          paddingInline="space-16 space-0"
           borderWidth="1"
-          borderRadius="medium"
-          borderColor="border-subtle"
-          background="surface-subtle"
+          borderRadius="4"
+          borderColor="neutral-subtle"
+          background="neutral-soft"
         >
           <RadioGroup
             legend={options.radioLabel}
@@ -89,7 +89,7 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
             name={namespace + '-' + value + '-begrunnelseForKravet'}
             onChange={setBegrunnelse}
           >
-            <HStack gap="4">
+            <HStack gap="space-16">
               <Radio value='sammenlegging'>
                 {t('p8000:form-label-sammenlegging')}
               </Radio>
@@ -102,5 +102,5 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
         </Box>
       }
     </VStack>
-  )
+  );
 }

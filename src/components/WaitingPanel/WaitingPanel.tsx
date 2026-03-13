@@ -23,7 +23,7 @@ const WaitingPanel: React.FC<WaitingPanelProps> = ({
     className={classNames(className, { [styles.rowDirection]: oneLine })}
     data-testid='c-WaitingPanel'
     {...props}
-    gap="4"
+    gap="space-16"
   >
     <Loader size={size} />
     {message && (

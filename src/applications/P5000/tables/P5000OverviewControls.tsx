@@ -136,7 +136,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
     <>
       {pesysWarning && currentTabKey === 'pesys' && (
         <HStack
-          paddingBlock="0 4"
+          paddingBlock="space-0 space-16"
         >
           <Spacer />
           <Alert
@@ -154,8 +154,8 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
         </HStack>
       )}
       <HStack
-        paddingBlock="0 4"
-        gap="4"
+        paddingBlock="space-0 space-16"
+        gap="space-16"
         style={{ width: '100%' }}
         align="end"
       >
@@ -169,7 +169,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
               setPagination(!pagination)
             }}
           >
-            <HStack gap="2">
+            <HStack gap="space-8">
               <span className={styles.oneLine}>
                 {t('p5000:merge-periods')}
               </span>
@@ -190,7 +190,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
             options={mergeTypeOptions}
             label={(
               <HStack
-                gap="2"
+                gap="space-8"
                 align="end"
               >
                 {t('p5000:merge-period-type')}
@@ -213,7 +213,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
             options={mergeBeregningOptions}
             label={(
               <HStack
-                gap="2"
+                gap="space-8"
                 align="end"
               >
                 {t('p5000:merge-period-beregning')}
@@ -227,7 +227,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
         )}
         <Spacer />
           <HStack
-            gap="4"
+            gap="space-16"
             align="end"
             style={{ flexDirection: 'row-reverse' }}
           >
@@ -269,8 +269,8 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
       </HStack>
       {hasGermanRows && mergePeriods && (
         <HStack
-          paddingBlock="0 4"
-          gap="2"
+          paddingBlock="space-0 space-16"
+          gap="space-8"
           align="center"
           style={{ width: '100%' }}
         >
@@ -288,7 +288,7 @@ const P5000OverviewControls: React.FC<P5000OverviewControlsProps> = ({
         </HStack>
       )}
     </>
-  )
+  );
 }
 
 export default P5000OverviewControls

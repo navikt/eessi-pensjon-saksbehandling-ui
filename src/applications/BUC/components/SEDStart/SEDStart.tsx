@@ -1053,7 +1053,7 @@ const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       <Heading size='medium'>
         {!currentSed && _.isEmpty(followUpSeds)
           ? t('buc:step-startSEDTitle', {
@@ -1068,7 +1068,7 @@ const SEDStart: React.FC<SEDStartProps> = ({
       <HorizontalLineSeparator />
       {!vedtakId && _sed === 'P6000' && pesysContext !== GJENNY && (
         <HStack
-          paddingBlock="6 6"
+          paddingBlock="space-24 space-24"
           justify="center"
           style={{ width: '100%' }}
         >
@@ -1079,7 +1079,7 @@ const SEDStart: React.FC<SEDStartProps> = ({
       )}
       {_buc?.type === 'P_BUC_06' && !vedtakId && _sed === 'P7000' && pesysContext !== GJENNY && (
         <HStack
-          paddingBlock="6 6"
+          paddingBlock="space-24 space-24"
           justify="center"
           style={{ width: '100%' }}
         >
@@ -1088,8 +1088,8 @@ const SEDStart: React.FC<SEDStartProps> = ({
           </Alert>
         </HStack>
       )}
-      <HGrid columns={2} gap="4">
-        <VStack gap="4">
+      <HGrid columns={2} gap="space-16">
+        <VStack gap="space-16">
             <Select
               label={t('buc:form-chooseSed')}
               data-testid='a_buc_c_sedstart--sed-select-id'
@@ -1119,9 +1119,9 @@ const SEDStart: React.FC<SEDStartProps> = ({
               align="end"
               data-testid='a_buc_c_sedstart--avdod-div-id'
             >
-              <HStack gap="4">
+              <HStack gap="space-16">
                 <PersonIcon fontSize="1.5rem" />
-                <label className='navds-text-field--label navds-label'>
+                <label className='aksel-form-field__label aksel-label'>
                   {t('buc:form-avdod')}:
                 </label>
                 <BodyLong>
@@ -1241,7 +1241,7 @@ const SEDStart: React.FC<SEDStartProps> = ({
                       />}
                 </Box>
               )}
-              <label className='navds-text-field--label navds-label'>
+              <label className='aksel-form-field__label aksel-label'>
                 {t('buc:form-chosenInstitutions')}
               </label>
               <InstitutionList
@@ -1260,7 +1260,7 @@ const SEDStart: React.FC<SEDStartProps> = ({
             </>
           )}
           <Box>
-            <HStack gap="4">
+            <HStack gap="space-16">
               <Button
                 variant={_sed === 'P7000' && _.isEmpty(_p6000s) ? 'secondary' : 'primary'}
                 data-testid='a_buc_c_sedstart--forward-button-id'
@@ -1293,13 +1293,13 @@ const SEDStart: React.FC<SEDStartProps> = ({
             </HStack>
           </Box>
         </VStack>
-        <VStack gap="4">
+        <VStack gap="space-16">
           {sedCanHaveAttachments() && (
             <Box>
-              <label className='navds-text-field--label navds-label'>
+              <label className='aksel-form-field__label aksel-label'>
                 {t('ui:attachments')}
               </label>
-              <Box paddingBlock="2">
+              <Box paddingBlock="space-8">
                 <Button
                   variant='secondary'
                   onClick={() => setAttachmentsTableVisible(!_attachmentsTableVisible)}
@@ -1350,7 +1350,7 @@ const SEDStart: React.FC<SEDStartProps> = ({
         </HGrid>
       )}
     </VStack>
-  )
+  );
 }
 
 export default SEDStart

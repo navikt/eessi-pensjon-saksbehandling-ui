@@ -178,17 +178,17 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
     const inEditMode = index < 0 || _editSivilstandIndex === index
     const _sivilstand = index < 0 ? _newSivilstand : (inEditMode ? _editSivilstand : sivilstand)
 
-    return(
+    return (
       <Box
         id={'repeatablerow-' + _namespace}
         className={classNames(styles.repeatableBox, {
           [styles.new]: index < 0,
           [styles.error]: hasNamespaceWithErrors(_v, _namespace)
         })}
-        paddingBlock={inEditMode ? "4 4" : "1 1"}
-        paddingInline="4 4"
+        paddingBlock={inEditMode ? "space-16 space-16" : "space-4 space-4"}
+        paddingInline="space-16 space-16"
       >
-        <HGrid columns={3} gap="4" align="start">
+        <HGrid columns={3} gap="space-16" align="start">
           {inEditMode
             ? (
               <>
@@ -221,7 +221,7 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
                   id={_namespace + '-status'}
                   error={_v[_namespace + '-status']?.feilmelding}
                   label={index === 0 ? t('p2000:form-familiestatus-status') : ""}
-                  padding={0}
+                  padding="space-0"
                 >
                   <BodyLong>
                     {sivilstandStatusOptions.filter((s) => {
@@ -234,7 +234,7 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
                   id={_namespace + '-fradato'}
                   error={_v[_namespace + '-fradato']?.feilmelding}
                   label={index === 0 ? t('p2000:form-familiestatus-fradato') : ""}
-                  padding={0}
+                  padding="space-0"
                 >
                   <BodyLong>
                     {formatDate(_sivilstand?.fradato)}
@@ -261,7 +261,7 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
           </HStack>
         </HGrid>
       </Box>
-    )
+    );
   }
 
   return (
@@ -269,7 +269,7 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
       <Heading size="small">{t('p2000:form-familiestatus')}</Heading>
       {_.isEmpty(sivilstandList)
         ? (
-          <Box paddingBlock="2">
+          <Box paddingBlock="space-8">
             <BodyLong>
               <em>{t('message:warning-no-familiestatus')}</em>
             </BodyLong>
@@ -294,7 +294,7 @@ const FamilieStatus: React.FC<FamilieStatusProps> = ({
         )
       }
     </>
-  )
+  );
 }
 
 export default FamilieStatus

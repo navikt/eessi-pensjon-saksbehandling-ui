@@ -1,9 +1,5 @@
-#root {
-  --ac-button-secondary-bg: white;
-}
-
-.navds-accordion__item--open>.navds-accordion__header {
-  background-color: var(--a-surface-action-subtle);
+.aksel-accordion__item[data-expanded="true"]>.aksel-accordion__header {
+  background-color: var(--ax-bg-accent-soft);
 }
 
 /* Fix P5000 tables breaking on smaller screensizes */
@@ -11,11 +7,11 @@
   display: block !important;
 }
 
-.navds-table__header .navds-table__header-cell{
+.aksel-table__header .aksel-table__header-cell{
   vertical-align: top;
 }
 
-.navds-table__sort-button {
+.aksel-table__sort-button {
   width: inherit !important;
 }
 

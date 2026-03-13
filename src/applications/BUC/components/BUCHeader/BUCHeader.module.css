@@ -1,7 +1,7 @@
 .numberOfSedsDivFlagSizeXL {
   border-width: 3px;
   border-style: solid;
-  border-color: var(--a-text-default);
+  border-color: var(--ax-text-neutral);
   border-radius: 50px;
   min-width: 50px;
   min-height: 50px;
@@ -17,7 +17,7 @@
 .numberOfSedsDivFlagSizeMd {
   border-width: 2px;
   border-style: solid;
-  border-color: var(--a-text-default);
+  border-color: var(--ax-text-neutral);
   border-radius: 50px;
   min-width: 32px;
   min-height: 32px;
@@ -33,7 +33,7 @@
 .rinaLink {
   padding: 0.25rem 0.5rem 0.25rem 0.5rem !important;
   margin-bottom: 0 !important;
-  color: var(--a-surface-action) !important;
+  color: var(--ax-bg-accent-strong) !important;
 }
 
 .rowText {

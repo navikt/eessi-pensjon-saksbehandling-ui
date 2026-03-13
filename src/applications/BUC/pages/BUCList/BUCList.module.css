@@ -17,18 +17,18 @@
 }
 
 .bucLenkePanel {
-  background: var(--a-surface-default);
+  background: var(--ax-bg-default);
   margin-bottom: 1rem;
-  .navds-link-panel__content {
+  .aksel-link-panel__content {
     width: 100%;
   }
   &.new {
-    background: var(--a-limegreen-100) !important;
+    background: var(--ax-bg-success-moderate) !important;
   }
 }
 
 .bucLenkePanel:hover {
-  background: var(--a-surface-action-subtle-hover);
+  background: var(--ax-bg-accent-moderate-hover);
 }
 
 .BUCStartDiv {

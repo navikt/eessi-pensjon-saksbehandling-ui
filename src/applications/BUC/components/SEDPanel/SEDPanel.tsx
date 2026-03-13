@@ -4,7 +4,7 @@ import { BUCMode } from 'src/declarations/app'
 import { Buc, Sed } from 'src/declarations/buc'
 import _ from 'lodash'
 import SEDAttachmentsPanel from 'src/applications/BUC/components/SEDAttachmentsPanel/SEDAttachmentsPanel'
-import { Accordion, Box } from '@navikt/ds-react'
+import {Accordion, Box, VStack} from '@navikt/ds-react'
 import {JSX, useState} from "react";
 import styles from './SEDPanel.module.css'
 
@@ -38,7 +38,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
   }
 
   return (
-    <Box className={styles.sedPanelContainer} borderWidth="1" borderColor="border-default" background="surface-default">
+    <Box className={styles.sedPanelContainer} borderWidth="1" borderColor="neutral" background="default">
       {!sedCanHaveAttachments(sed)
         ? (
           <div className={classNames(styles.sedHeaderContainer, className, { [styles.new]: newSed })}>
@@ -52,7 +52,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
           </div>
           )
         : (
-          <>
+          <VStack gap="space-0">
             <div className={classNames(styles.sedHeaderContainer, className, { [styles.new]: newSed })}>
               <SEDHeader
                 buc={buc}
@@ -79,10 +79,10 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
                 </Accordion.Content>
               </Accordion.Item>
             </Accordion>
-          </>
+          </VStack>
           )}
     </Box>
-  )
+  );
 }
 
 export default SEDPanel

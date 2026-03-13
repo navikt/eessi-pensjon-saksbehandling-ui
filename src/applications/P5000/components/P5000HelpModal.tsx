@@ -15,8 +15,8 @@ const P5000HelpModal = ({
         modalTitle: t('p5000:saved-working-copy') + ' ' + t('ui:hva-betyr-det'),
         modalContent: (
           <div style={{ maxWidth: '800px' }}>
-            <Box paddingBlock="8 0">
-              <VStack gap="4">
+            <Box paddingBlock="space-32 space-0">
+              <VStack gap="space-16">
                 <BodyLong>
                   {t('p5000:help-modal-1')}
                   <Button
@@ -74,7 +74,7 @@ const P5000HelpModal = ({
       }}
       onModalClose={onClose}
     />
-  )
+  );
 }
 
 export default P5000HelpModal
