@@ -99,23 +99,6 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
     }
 
     if (!hasErrors) {
-      let umamiData: any = {
-        tekst: t('ui:save-sed'),
-        sedType: sedType
-      }
-
-      if(sedType === "P8000"){
-        umamiData = {
-          ...umamiData,
-          variantType: variantType,
-          ...getVariantObject(variantType),
-          valg: {
-            ...selectedP8000Checkboxes
-          }
-        }
-      }
-
-      umamiButtonLogger(umamiData)
       setViewSaveSedModal(true)
       dispatch(saveSed(sakId, sedId, sedType, PSEDToSave))
     }
@@ -127,6 +110,25 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
 
       if (!hasErrors) {
         _setSendButtonClicked(true)
+
+        let umamiData: any = {
+          tekst: t('ui:send-sed'),
+          sedType: sedType
+        }
+
+        if(sedType === "P8000"){
+          umamiData = {
+            ...umamiData,
+            variantType: variantType,
+            ...getVariantObject(variantType),
+            valg: {
+              ...selectedP8000Checkboxes
+            }
+          }
+        }
+
+        umamiButtonLogger(umamiData)
+
         if(valgteMottakere){
           setViewSendToMottakereModal(false)
           dispatch(sendSedTo(sakId, sedId, valgteMottakere))
