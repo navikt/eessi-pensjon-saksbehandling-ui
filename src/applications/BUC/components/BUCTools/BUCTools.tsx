@@ -23,6 +23,7 @@ import {JSX, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { P5000sFromRinaMap } from 'src/declarations/p5000'
+import {umamiSelectLogger} from "src/metrics/umami";
 
 export interface BUCToolsProps {
   aktoerId: string
@@ -74,6 +75,11 @@ const BUCTools: React.FC<BUCToolsProps> = ({
         onTagChange(tagsList as Tags)
       }
       setTags(tagsList as Tags)
+
+      umamiSelectLogger({
+        tekst: "Merknader på BUC",
+      })
+
       dispatch(saveBucsInfo({
         bucsInfo: bucsInfo!,
         aktoerId,

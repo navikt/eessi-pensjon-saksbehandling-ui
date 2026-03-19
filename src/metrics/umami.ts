@@ -3,7 +3,8 @@ import {
   type TaxonomyEvent,
   AccordionApnetProperties,
   AvkrysningsboksEndretProperties,
-  KnappKlikketProperties
+  KnappKlikketProperties,
+  NedtrekkslisteValgEndretProperties
 } from '@navikt/analytics-types';
 const umamiLogger = (key: string, data: object) => {
   //@ts-ignore
@@ -38,6 +39,13 @@ export const umamiAccordionLogger = (data: AccordionApnetProperties & Record<str
 export const umamiCheckBoxLogger = (data: AvkrysningsboksEndretProperties & Record<string, unknown>) => {
   logToUmami({
     name: Events.AVKRYSNINGSBOKS_ENDRET,
+    properties: data
+  })
+}
+
+export const umamiSelectLogger = (data: NedtrekkslisteValgEndretProperties & Record<string, unknown>) => {
+  logToUmami({
+    name: Events.NEDTREKKSLISTE_VALG_ENDRET,
     properties: data
   })
 }
