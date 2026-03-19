@@ -334,9 +334,12 @@ const ATPOpplysninger: React.FC<ATPOpplysningerProps> = ({
             <Button
               variant='primary'
               onClick={() => {
+
                 umamiButtonLogger({
                   tekst: "Lagre og send SED (ATP Opplysninger)",
-                  bucType: "P_BUC_05"
+                  bucType: "P_BUC_05",
+                  ytterligereInformasjon: !!(_ytterligereInformasjon && _ytterligereInformasjon !== t('p8000:atp-fritekst-default-text')),
+                  danskPIN: !!(_danskPIN && _danskPIN !== "")
                 });
                 onUpdateAndSend();
               }}
