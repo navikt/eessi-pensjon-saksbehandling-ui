@@ -78,6 +78,8 @@ const BUCTools: React.FC<BUCToolsProps> = ({
 
       umamiSelectLogger({
         tekst: "Merknader på BUC",
+        bucType: buc.type,
+        tags: (tagsList as Tags)?.map((tag: Tag) => tag.label) ?? []
       })
 
       dispatch(saveBucsInfo({
