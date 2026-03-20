@@ -46,7 +46,7 @@ import {SendFolgendeSEDerWithBegrunnelse} from "src/applications/P8000/component
 import {ForenkletForespoersel} from "src/applications/P8000/components/ForenkletForespoersel";
 import {GJENNY} from "src/constants/constants";
 import styles from 'src/assets/css/common.module.css'
-import {resetSelectedP8000Checkboxes} from "src/actions/umami";
+import {resetSelectedP8000Checkboxes, setSelectedP8000Checkboxes} from "src/actions/umami";
 
 export interface P8000Props {
   buc: Buc
@@ -135,6 +135,15 @@ const P8000: React.FC<P8000Props> = ({
 
   const isATP = (): boolean => {
     return !!(currentPSED && currentPSED.options && currentPSED.options.ATP)
+  }
+
+  const addFritekst = (value: string) => {
+    setFritekst(value)
+    if(value){
+      dispatch(setSelectedP8000Checkboxes("fritekst", "Fritekst"))
+    } else {
+      dispatch(setSelectedP8000Checkboxes("fritekst", undefined))
+    }
   }
 
   useUnmount(() => {
@@ -544,7 +553,7 @@ const P8000: React.FC<P8000Props> = ({
               <VStack gap="space-16">
                 {!isATP() &&
                   <>
-                    <Textarea label={t('p8000:form-legg-til-fritekst')} value={_fritekst ?? ""} onChange={(e) => setFritekst(e.target.value)}/>
+                    <Textarea label={t('p8000:form-legg-til-fritekst')} value={_fritekst ?? ""} onChange={(e) => addFritekst(e.target.value)}/>
                     <Textarea label={t('p8000:form-forhaandsvisning-av-tekst')} value={_ytterligereInformasjon ?? ""} maxLength={2500}/>
                   </>
                 }
