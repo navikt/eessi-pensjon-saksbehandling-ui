@@ -4,25 +4,25 @@ import {ActionWithPayload} from "@navikt/fetch";
 
 
 export interface UmamiState {
-  selectedP8000Checkboxes: any | null | undefined
+  selectedP8000Properties: any | null | undefined
 }
 
 export const initialUmamiState: UmamiState = {
-  selectedP8000Checkboxes: undefined
+  selectedP8000Properties: undefined
 }
 
 const umamiReducer = (state: UmamiState = initialUmamiState, action: Action) => {
   switch (action.type) {
-    case types.UMAMI_RESET_SELECTED_P8000_CHECKBOXES: {
+    case types.UMAMI_RESET_SELECTED_P8000_PROPERTIES: {
       return initialUmamiState
     }
 
-    case types.UMAMI_SET_SELECTED_P8000_CHECKBOXES: {
+    case types.UMAMI_SET_SELECTED_P8000_PROPERTIES: {
       return {
         ...state,
-        selectedP8000Checkboxes: {
-          ...state.selectedP8000Checkboxes,
-          [(action as ActionWithPayload).payload.checkbox]: (action as ActionWithPayload).payload.data
+        selectedP8000Properties: {
+          ...state.selectedP8000Properties,
+          [(action as ActionWithPayload).payload.property]: (action as ActionWithPayload).payload.data
         }
       }
     }

@@ -37,7 +37,7 @@ export interface SaveAndSendSelector {
   PSEDSendResponse: any | null | undefined
   PSEDSavedResponse: any | null | undefined
   editingItems: any
-  selectedP8000Checkboxes?: any
+  selectedP8000Properties?: any
 }
 
 const mapState = (state: State): SaveAndSendSelector => (({
@@ -48,7 +48,7 @@ const mapState = (state: State): SaveAndSendSelector => (({
   PSEDSendResponse: state.buc.PSEDSendResponse,
   PSEDSavedResponse: state.buc.PSEDSavedResponse,
   editingItems: state.app.editingItems,
-  selectedP8000Checkboxes: state.umami.selectedP8000Checkboxes
+  selectedP8000Properties: state.umami.selectedP8000Properties
 }) as SaveAndSendSelector)
 
 const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
@@ -56,7 +56,7 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
 }: SaveAndSendSEDProps): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useDispatch()
-  const { PSEDChanged, currentPSED, savingSed, sendingSed, PSEDSendResponse, PSEDSavedResponse, editingItems = {}, selectedP8000Checkboxes }: SaveAndSendSelector = useSelector<State, SaveAndSendSelector>(mapState)
+  const { PSEDChanged, currentPSED, savingSed, sendingSed, PSEDSendResponse, PSEDSavedResponse, editingItems = {}, selectedP8000Properties }: SaveAndSendSelector = useSelector<State, SaveAndSendSelector>(mapState)
 
   const [_viewSaveSedModal, setViewSaveSedModal] = useState<boolean>(false)
   const [_viewWarningModal, setViewWarningModal] = useState<boolean>(false)
@@ -122,7 +122,7 @@ const SaveAndSendSED: React.FC<SaveAndSendSEDProps> = ({
             variantType: variantType,
             ...getVariantObject(variantType),
             valg: {
-              ...selectedP8000Checkboxes
+              ...selectedP8000Properties
             }
           }
         }

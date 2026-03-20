@@ -46,7 +46,7 @@ import {SendFolgendeSEDerWithBegrunnelse} from "src/applications/P8000/component
 import {ForenkletForespoersel} from "src/applications/P8000/components/ForenkletForespoersel";
 import {GJENNY} from "src/constants/constants";
 import styles from 'src/assets/css/common.module.css'
-import {resetSelectedP8000Checkboxes, setSelectedP8000Checkboxes} from "src/actions/umami";
+import {resetSelectedP8000Properties, setSelectedP8000Properties} from "src/actions/umami";
 
 export interface P8000Props {
   buc: Buc
@@ -140,15 +140,15 @@ const P8000: React.FC<P8000Props> = ({
   const addFritekst = (value: string) => {
     setFritekst(value)
     if(value){
-      dispatch(setSelectedP8000Checkboxes("fritekst", "Fritekst"))
+      dispatch(setSelectedP8000Properties("fritekst", "Fritekst"))
     } else {
-      dispatch(setSelectedP8000Checkboxes("fritekst", undefined))
+      dispatch(setSelectedP8000Properties("fritekst", undefined))
     }
   }
 
   useUnmount(() => {
     dispatch(resetPSED())
-    dispatch(resetSelectedP8000Checkboxes())
+    dispatch(resetSelectedP8000Properties())
   })
 
   useEffect(() => {
