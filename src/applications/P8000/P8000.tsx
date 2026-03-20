@@ -213,7 +213,6 @@ const P8000: React.FC<P8000Props> = ({
       i18n.changeLanguage(currentPSED?.options?.type?.spraak)
     }
 
-    let text = ""
     let textArray: Array<string> =  []
     if(currentPSED && currentPSED.options?.ofteEtterspurtInformasjon){
       P8000Variants[_type]?.ofteEtterspurtInformasjon?.map((field: string) => {
@@ -230,7 +229,6 @@ const P8000: React.FC<P8000Props> = ({
             antallMaaneder: ofteEtterspurtInformasjon[key]?.antallMaaneder
           }
 
-          text = text + t('p8000:' + field, extra) + "\n\n"
           textArray.push(t('p8000:' + field, extra))
         }
       })
@@ -249,12 +247,10 @@ const P8000: React.FC<P8000Props> = ({
             periodeTil: informasjonSomKanLeggesInn[key]?.periodeTil,
             antallMaaneder: informasjonSomKanLeggesInn[key]?.antallMaaneder
           }
-          text = text + t('p8000:' + field, extra) + "\n\n"
           textArray.push(t('p8000:' + field, extra))
         }
       })
     }
-    text = _fritekst ? text + "***********************\n" + _fritekst : text
     if(_fritekst){
       textArray.push("***********************")
       textArray.push(_fritekst)
