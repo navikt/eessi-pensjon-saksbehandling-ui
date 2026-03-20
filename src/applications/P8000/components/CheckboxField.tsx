@@ -2,9 +2,8 @@ import React, {JSX, useEffect} from "react";
 import {Checkbox} from "@navikt/ds-react";
 import {useDispatch} from "react-redux";
 import _ from "lodash";
-import {getVariantObject, P8000FieldComponentProps} from "src/applications/P8000/P8000";
+import {P8000FieldComponentProps} from "src/applications/P8000/P8000";
 import {resetValidation} from "src/actions/validation";
-import {umamiCheckBoxLogger} from "src/metrics/umami";
 import {setSelectedP8000Checkboxes} from "src/actions/umami";
 
 export const CheckBoxField: React.FC<P8000FieldComponentProps> = ({
@@ -37,13 +36,6 @@ export const CheckBoxField: React.FC<P8000FieldComponentProps> = ({
       onChange={
         (e: React.ChangeEvent<HTMLInputElement>) => {
           setCheckbox(value, e.target.checked)
-          umamiCheckBoxLogger({
-            tekst: label,
-            checked: e.target.checked,
-            sedType: PSED?.originalSed?.type,
-            variant: variantType,
-            ...getVariantObject(variantType)
-          })
         }
       }
     >
