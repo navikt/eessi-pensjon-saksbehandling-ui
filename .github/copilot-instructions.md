@@ -81,3 +81,52 @@ The app uses NAV's design system: `@navikt/ds-react` for components, `@navikt/ds
 ### Path aliases
 
 `src/*` is aliased to `./src/*` in both tsconfig and Vite config, so imports use `src/actions/buc` rather than relative paths.
+
+## Git Commit Messages — Arlo's Commit Notation
+
+All commits in this repository **must** use [Arlo's Commit Notation](https://github.com/RefactoringCombos/ArlosCommitNotation). Each commit message starts with a risk–intention prefix followed by a short summary.
+
+### Format
+
+```
+<risk><intention> <Short summary>
+```
+
+### Risk levels
+
+| Symbol | Meaning | Description |
+|--------|---------|-------------|
+| `.` | Proven safe | Addresses all known **and** unknown risks (e.g., automated refactoring) |
+| `^` | Validated | Addresses all known risks (e.g., tested manually or by CI) |
+| `!` | Risky | Some known risks remain unverified |
+| `@` | Probably broken | Incomplete or untested — may not work |
+
+### Intention prefixes
+
+| Prefix | Meaning | Description |
+|--------|---------|-------------|
+| `F` | Feature | Changes or extends one aspect of program behaviour |
+| `B` | Bugfix | Repairs undesirable behaviour without altering others |
+| `R` | Refactoring | Changes implementation without changing behaviour |
+| `D` | Documentation | Changes documentation or comments only |
+| `E` | Environment | Changes build, CI, dependencies, or tooling |
+| `T` | Test | Adds or modifies tests only |
+
+### Examples
+
+```
+.R Extract method calculatePension
+^F Add password reset feature
+!B Fix intermittent crash on login
+@F Start implementing new SED editor
+.D Update README with build instructions
+.E Upgrade React to v19
+.T Add missing unit tests for buc reducer
+```
+
+### Rules
+
+- The prefix is **mandatory** on every commit.
+- Use lowercase `r`, `d`, `e`, `t` for non-behaviour-changing work; uppercase `F`, `B`, `R` for behaviour-impacting work — follow the table above.
+- Keep the summary concise and descriptive.
+- When multiple intentions apply, use the **riskiest** one.
