@@ -446,7 +446,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer(initialBucState, {
         type: types.BUC_GET_COUNTRY_LIST_SUCCESS,
-        payload: 'something'
+        payload: { result: 'something' }
       })
     ).toEqual({
       ...initialBucState,
@@ -492,7 +492,7 @@ describe('reducers/buc', () => {
         institutionNames: {}
       }, {
         type: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
-        payload: mockPayload,
+        payload: { result: mockPayload },
         context: {
           buc: 'mockBucContext'
         }
@@ -644,7 +644,7 @@ describe('reducers/buc', () => {
       bucReducer(initialBucState, {
         type: types.BUC_RINA_GET_URL_SUCCESS,
         payload: {
-          rinaUrl: 'mockRinaUrl'
+          result: { rinaUrl: 'mockRinaUrl' }
         }
       })
     ).toEqual({

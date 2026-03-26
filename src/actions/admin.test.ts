@@ -24,7 +24,7 @@ describe('actions/admin', () => {
         success: types.ADMIN_RESEND_DOCUMENT_SUCCESS,
         failure: types.ADMIN_RESEND_DOCUMENT_FAILURE
       },
-      expectedPayload: { success: true },
+      expectedPayload: { result: { success: true } },
       cascadeFailureError: true,
       method: 'POST',
       url: sprintf(urls.ADMIN_RESEND_DOCUMENT_URL, { sakId: mockSakId, dokumentId: mockDokumentId })
@@ -39,7 +39,7 @@ describe('actions/admin', () => {
         success: types.ADMIN_RESEND_DOCUMENT_LIST_SUCCESS,
         failure: types.ADMIN_RESEND_DOCUMENT_LIST_FAILURE
       },
-      expectedPayload: { success: true },
+      expectedPayload: { result: { success: true } },
       cascadeFailureError: true,
       method: 'POST',
       url: sprintf(urls.ADMIN_RESEND_DOCUMENT_LISTE_URL)

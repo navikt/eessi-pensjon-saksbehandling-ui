@@ -11,7 +11,7 @@ export const resendDocument = (
   return call({
     url: sprintf(urls.ADMIN_RESEND_DOCUMENT_URL, { sakId: sakId, dokumentId: dokumentId }),
     cascadeFailureError: true,
-    expectedPayload: { success: true },
+    expectedPayload: { result: { success: true } },
     method: 'POST',
     type: {
       request: types.ADMIN_RESEND_DOCUMENT_REQUEST,
@@ -27,7 +27,7 @@ export const resendDocumentList = (
   return call({
     url: sprintf(urls.ADMIN_RESEND_DOCUMENT_LISTE_URL),
     cascadeFailureError: true,
-    expectedPayload: { success: true },
+    expectedPayload: { result: { success: true } },
     method: 'POST',
     body: documentList,
     type: {

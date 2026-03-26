@@ -569,7 +569,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
 
       return {
         ...state,
-        countryList: (action as ActionWithPayload).payload
+        countryList: (action as ActionWithPayload).payload.result
       }
 
     case types.BUC_GET_COUNTRY_LIST_REQUEST:
@@ -606,7 +606,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.BUC_GET_INSTITUTION_LIST_SUCCESS: {
       const institutionList: InstitutionListMap<Institution> = state.institutionList ? _.cloneDeep(state.institutionList!) : {}
       const institutionNames: InstitutionNames = _.clone(state.institutionNames);
-      (action as ActionWithPayload).payload.forEach((institution: Institution) => {
+      (action as ActionWithPayload).payload.result.forEach((institution: Institution) => {
         const existingInstitutions: Institutions = institutionList[institution.country] || []
         if (!_.find(existingInstitutions, { institution: institution.institution })) {
           existingInstitutions.push({
@@ -688,7 +688,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
 
       return {
         ...state,
-        rinaUrl: (action as ActionWithPayload).payload.rinaUrl
+        rinaUrl: (action as ActionWithPayload).payload.result.rinaUrl
       }
 
     case types.BUC_GET_P4000_REQUEST:
