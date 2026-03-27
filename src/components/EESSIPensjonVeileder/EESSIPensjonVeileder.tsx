@@ -1,7 +1,7 @@
 import React, {JSX} from 'react'
 
-const SmilendeOrangeVeileder = './components/EESSIPensjonVeileder/veileder/navPensjonSmilendeOrangeVeileder.png'
-const TristOrangeVeileder = './components/EESSIPensjonVeileder/veileder/navPensjonTristOrangeVeileder.png'
+const SmilendeOrangeVeileder = './veileder/navPensjonSmilendeOrangeVeileder.png'
+const TristOrangeVeileder = './veileder/navPensjonTristOrangeVeileder.png'
 
 export type Mood = 'smilende' |'trist'
 
