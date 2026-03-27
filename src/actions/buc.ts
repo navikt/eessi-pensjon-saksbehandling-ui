@@ -319,7 +319,7 @@ export const getCountryList = (
     context: {
       buc: bucType
     },
-    expectedPayload: CountryFilter.EESSI_READY({}),
+    expectedPayload: { result: CountryFilter.EESSI_READY({}) },
     type: {
       request: types.BUC_GET_COUNTRY_LIST_REQUEST,
       success: types.BUC_GET_COUNTRY_LIST_SUCCESS,
@@ -346,7 +346,7 @@ export const getInstitutionsListForBucAndCountry = (
       buc: bucType,
       country
     },
-    expectedPayload: mockInstitutions,
+    expectedPayload: { result: mockInstitutions },
     type: {
       request: types.BUC_GET_INSTITUTION_LIST_REQUEST,
       success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
@@ -428,7 +428,7 @@ export const sendSed = (
     method: 'POST',
     cascadeFailureError: true,
     expectedPayload: {
-      success: 'true'
+      result: { success: 'true' }
     },
     type: {
       request: types.BUC_SEND_SED_REQUEST,
@@ -447,7 +447,7 @@ export const sendSedTo = (
     body: mottakere,
     cascadeFailureError: true,
     expectedPayload: {
-      success: 'true'
+      result: { success: 'true' }
     },
     type: {
       request: types.BUC_SEND_SED_REQUEST,
@@ -572,7 +572,7 @@ export const getRinaUrl = (
 ): ActionWithPayload<RinaUrlPayload> => {
   return call({
     url: urls.EUX_RINA_URL,
-    expectedPayload: mockRinaUrl,
+    expectedPayload: { result: mockRinaUrl },
     type: {
       request: types.BUC_RINA_GET_URL_REQUEST,
       success: types.BUC_RINA_GET_URL_SUCCESS,
