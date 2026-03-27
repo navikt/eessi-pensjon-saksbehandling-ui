@@ -73,7 +73,7 @@ export const createBuc = (
       kravDato: params.kravDato
     },
     cascadeFailureError: true,
-    expectedPayload: mockCreateBuc(params.buc),
+    expectedPayload: { result: mockCreateBuc(params.buc) },
     type: {
       request: types.BUC_CREATE_BUC_REQUEST,
       success: types.BUC_CREATE_BUC_SUCCESS,
@@ -89,7 +89,7 @@ export const createATPBuc = (
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: params.buc }),
     method: 'POST',
     cascadeFailureError: true,
-    expectedPayload: mockCreateBuc(params.buc),
+    expectedPayload: { result: mockCreateBuc(params.buc) },
     type: {
       request: types.BUC_CREATE_ATP_BUC_REQUEST,
       success: types.BUC_CREATE_ATP_BUC_SUCCESS,
@@ -182,7 +182,7 @@ export const fetchBucsList = (
   return call({
     url: sprintf(urls.BUC_GET_BUCSLIST_URL, { aktoerId, sakId }),
     cascadeFailureError: true,
-    expectedPayload: mockBucs(aktoerId, sakId),
+    expectedPayload: { result: mockBucs(aktoerId, sakId) },
     context: {
       howManyBucLists
     },
@@ -228,7 +228,7 @@ export const  fetchBucsListWithAvdodFnr = (
   return call({
     url: sprintf(urls.BUC_GET_BUCSLIST_WITH_AVDODFNR_URL, { aktoerId, sakId, avdodFnr }),
     cascadeFailureError: true,
-    expectedPayload: mockBucs(aktoerId, sakId),
+    expectedPayload: { result: mockBucs(aktoerId, sakId) },
     type: {
       request: types.BUC_GET_BUCSLIST_REQUEST,
       success: types.BUC_GET_BUCSLIST_SUCCESS,
@@ -243,7 +243,7 @@ export const fetchBucsListWithVedtakId = (
   return call({
     url: sprintf(urls.BUC_GET_BUCSLIST_WITH_VEDTAKID_URL, { aktoerId, sakId, vedtakId }),
     cascadeFailureError: true,
-    expectedPayload: mockBucsWithVedtak(aktoerId, sakId),
+    expectedPayload: { result: mockBucsWithVedtak(aktoerId, sakId) },
     type: {
       request: types.BUC_GET_BUCSLIST_VEDTAK_REQUEST,
       success: types.BUC_GET_BUCSLIST_VEDTAK_SUCCESS,
@@ -277,7 +277,7 @@ export const fetchBuc = (
 
   return call({
     url,
-    expectedPayload: mockBuc(rinaCaseId),
+    expectedPayload: { result: mockBuc(rinaCaseId) },
     context: {
       rinaCaseId,
       aktoerId,
@@ -297,7 +297,7 @@ export const getBucOptions = (
 ): ActionWithPayload<BUCOptions> => {
   return call({
     url: sprintf(urls.BUC_GET_BUC_OPTIONS_URL),
-    expectedPayload: mockBucOptions,
+    expectedPayload: { result: mockBucOptions },
     context: {
       featureToggles,
       pesysContext,
