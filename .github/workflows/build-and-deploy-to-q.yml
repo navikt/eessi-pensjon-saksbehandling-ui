@@ -79,14 +79,6 @@ jobs:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           team: eessipensjon
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: '${{ steps.docker-push.outputs.image }}'
-          format: 'sarif'
-          output: 'trivy.sarif'
-          severity: 'HIGH,CRITICAL'
-          limit-severities-for-sarif: true
 
       - name: Upload results to GitHub Security
         uses: github/codeql-action/upload-sarif@v3
