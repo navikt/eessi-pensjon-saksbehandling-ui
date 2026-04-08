@@ -11,6 +11,7 @@ export default [
     tema: 'foo',
     title: 'blue.pdf',
     type: 'joark',
+    filstoerrelse: undefined,
     variant: {
       filnavn: 'blue-arkiv.pdf',
       variantformat: 'ARKIV'

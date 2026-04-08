@@ -88,7 +88,8 @@ export default {
           tittel: 'Arbeidsevnevurdering UT',
           dokumentvarianter: [{
             filnavn: null,
-            variantformat: 'ARKIV'
+            variantformat: 'ARKIV',
+            filstoerrelse: 4000
           }, {
             filnavn: null,
             variantformat: 'PRODUKSJON'
