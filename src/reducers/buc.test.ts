@@ -276,7 +276,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer(initialBucState, {
         type: types.BUC_GET_BUCSLIST_SUCCESS,
-        payload: null
+        payload: { result: null }
       })
     ).toEqual({
       ...initialBucState,
@@ -300,7 +300,7 @@ describe('reducers/buc', () => {
         institutionNames: {}
       }, {
         type: types.BUC_GET_BUCSLIST_SUCCESS,
-        payload: [mockBuc]
+        payload: { result: [mockBuc] }
       })
     ).toEqual({
       ...initialBucState,

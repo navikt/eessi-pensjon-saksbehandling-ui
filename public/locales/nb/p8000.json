@@ -69,7 +69,7 @@
   "atp-opprette-buc-or-sed": "Opprette {{BUC_SED}}",
   "atp-oppretter-buc-or-sed": "Oppretter {{BUC_SED}}",
   "atp-opprettet-buc-or-sed": "{{BUC_SED}} opprettet",
-  "atp-opprettelese-feilet-buc-or-sed": "Opprettelse av {{BUC_SED}} feilet",
+  "atp-opprettelse-feilet-buc-or-sed": "Opprettelse av {{BUC_SED}} feilet",
 
   "atp-hente-buc-or-sed": "Hente {{BUC_SED}}",
   "atp-henter-buc-or-sed": "Henter {{BUC_SED}}",
