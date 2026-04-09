@@ -89,7 +89,7 @@ export const createATPBuc = (
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: params.buc }),
     method: 'POST',
     cascadeFailureError: true,
-    expectedPayload: { result: mockCreateBuc(params.buc) },
+    expectedPayload: mockCreateBuc(params.buc),
     type: {
       request: types.BUC_CREATE_ATP_BUC_REQUEST,
       success: types.BUC_CREATE_ATP_BUC_SUCCESS,

@@ -268,7 +268,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.BUC_CREATE_ATP_BUC_SUCCESS: {
       const bucs = _.cloneDeep(state.bucs)
       const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
-      const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload.result)
+      const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload)
 
       // Cache seds allowing attachments
       if (newBuc.seds) {
@@ -277,7 +277,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         })
       }
 
-      bucs![(action as ActionWithPayload).payload.result.caseId] = newBuc
+      bucs![(action as ActionWithPayload).payload.caseId] = newBuc
 
       return {
         ...state,
