@@ -73,7 +73,7 @@ export const createBuc = (
       kravDato: params.kravDato
     },
     cascadeFailureError: true,
-    expectedPayload: { result: mockCreateBuc(params.buc) },
+    expectedPayload: mockCreateBuc(params.buc),
     type: {
       request: types.BUC_CREATE_BUC_REQUEST,
       success: types.BUC_CREATE_BUC_SUCCESS,

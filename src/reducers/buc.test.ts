@@ -50,7 +50,7 @@ describe('reducers/buc', () => {
         bucs: {}
       }, {
         type: types.BUC_CREATE_BUC_SUCCESS,
-        payload: { result: { caseId: '123', mockPayload: 'mockPayload' } },
+        payload: { caseId: '123', mockPayload: 'mockPayload' },
         context: {
           person: {
             aktoer: {

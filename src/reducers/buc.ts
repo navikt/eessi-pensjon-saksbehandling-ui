@@ -162,7 +162,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.BUC_CREATE_BUC_SUCCESS: {
       const bucs = _.cloneDeep(state.bucs)
       const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
-      const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload.result)
+      const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload)
 
       const person = (action as ActionWithPayload).context.person
       const avdod = (action as ActionWithPayload).context.avdod
