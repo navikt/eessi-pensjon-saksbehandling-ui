@@ -196,7 +196,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         })
       }
 
-      bucs![(action as ActionWithPayload).payload.result.caseId] = newBuc
+      bucs![(action as ActionWithPayload).payload.caseId] = newBuc
 
       return {
         ...state,
