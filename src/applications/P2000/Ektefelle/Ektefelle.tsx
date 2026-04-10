@@ -16,11 +16,15 @@ import FoedestedFC from "../Foedested/Foedested";
 import Statsborgerskap from "../Statsborgerskap/Statsborgerskap";
 import {deletePSEDProp} from "src/actions/buc";
 import {Ektefelle as P2000Ektefelle} from "src/declarations/sed";
+import {createSelector} from "@reduxjs/toolkit";
 
 
-const mapState = (state: State): MainFormSelector => ({
-  validation: state.validation.status,
-})
+const mapState = createSelector(
+  (state: State) => state.validation.status,
+  (validation): MainFormSelector => ({
+    validation,
+  })
+)
 
 const Ektefelle: React.FC<MainFormProps> = ({
   label,
@@ -65,14 +69,17 @@ const Ektefelle: React.FC<MainFormProps> = ({
     }
   }
 
+  const isFoedestedEmpty = !!ektefelle?.person?.foedested && _.isEmpty(ektefelle.person.foedested)
+  const isPinEmpty = !!ektefelle?.person?.pin && _.isEmpty(ektefelle.person.pin)
+
   useEffect(() => {
-    if(ektefelle?.person?.foedested && _.isEmpty(ektefelle?.person?.foedested)){
+    if(isFoedestedEmpty){
       dispatch(deletePSEDProp(`${target}.person.foedested`))
     }
-    if(ektefelle?.person?.pin && _.isEmpty(ektefelle?.person?.pin)){
+    if(isPinEmpty){
       dispatch(deletePSEDProp(`${target}.person.pin`))
     }
-  }, [ektefelle])
+  }, [isFoedestedEmpty, isPinEmpty])
 
   return (
     <Box padding="space-16">
