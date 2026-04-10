@@ -88,28 +88,28 @@ describe('reducers/loading', () => {
     simulateFailure(types.APP_USERINFO_FAILURE, 'gettingUserInfo')
   })
 
-  it('BUC_CREATE_BUC_REQUEST', () => {
-    simulateRequest(types.BUC_CREATE_BUC_REQUEST, 'creatingBUC')
+  it('PREFILL_CREATE_BUC_REQUEST', () => {
+    simulateRequest(types.PREFILL_CREATE_BUC_REQUEST, 'creatingBUC')
   })
 
-  it('BUC_CREATE_BUC_SUCCESS', () => {
-    simulateSuccess(types.BUC_CREATE_BUC_SUCCESS, 'creatingBUC')
+  it('PREFILL_CREATE_BUC_SUCCESS', () => {
+    simulateSuccess(types.PREFILL_CREATE_BUC_SUCCESS, 'creatingBUC')
   })
 
-  it('BUC_CREATE_BUC_FAILURE', () => {
-    simulateFailure(types.BUC_CREATE_BUC_FAILURE, 'creatingBUC')
+  it('PREFILL_CREATE_BUC_FAILURE', () => {
+    simulateFailure(types.PREFILL_CREATE_BUC_FAILURE, 'creatingBUC')
   })
 
-  it('BUC_CREATE_SED_REQUEST', () => {
-    simulateRequest(types.BUC_CREATE_SED_REQUEST, 'creatingSed')
+  it('PREFILL_CREATE_SED_REQUEST', () => {
+    simulateRequest(types.PREFILL_CREATE_SED_REQUEST, 'creatingSed')
   })
 
-  it('BUC_CREATE_SED_SUCCESS', () => {
-    simulateSuccess(types.BUC_CREATE_SED_SUCCESS, 'creatingSed')
+  it('PREFILL_CREATE_SED_SUCCESS', () => {
+    simulateSuccess(types.PREFILL_CREATE_SED_SUCCESS, 'creatingSed')
   })
 
-  it('BUC_CREATE_SED_FAILURE', () => {
-    simulateFailure(types.BUC_CREATE_SED_FAILURE, 'creatingSed')
+  it('PREFILL_CREATE_SED_FAILURE', () => {
+    simulateFailure(types.PREFILL_CREATE_SED_FAILURE, 'creatingSed')
   })
 
   it('BUC_GET_BUC_OPTIONS_REQUEST', () => {

@@ -43,13 +43,13 @@ describe('reducers/buc', () => {
     ).toEqual(initialBucState)
   })
 
-  it('BUC_CREATE_BUC_SUCCESS', () => {
+  it('PREFILL_CREATE_BUC_SUCCESS', () => {
     expect(
       bucReducer({
         ...initialBucState,
         bucs: {}
       }, {
-        type: types.BUC_CREATE_BUC_SUCCESS,
+        type: types.PREFILL_CREATE_BUC_SUCCESS,
         payload: { caseId: '123', mockPayload: 'mockPayload' },
         context: {
           person: {
@@ -80,29 +80,29 @@ describe('reducers/buc', () => {
     })
   })
 
-  it('BUC_CREATE_BUC_REQUEST', () => {
+  it('PREFILL_CREATE_BUC_REQUEST', () => {
     expect(
       bucReducer({
         ...initialBucState,
         rinaId: 'mockRinaId'
       }, {
-        type: types.BUC_CREATE_BUC_REQUEST
+        type: types.PREFILL_CREATE_BUC_REQUEST
       })
     ).toEqual(initialBucState)
   })
 
-  it('BUC_CREATE_BUC_FAILURE', () => {
+  it('PREFILL_CREATE_BUC_FAILURE', () => {
     expect(
       bucReducer({
         ...initialBucState,
         rinaId: 'mockRinaId'
       }, {
-        type: types.BUC_CREATE_BUC_FAILURE
+        type: types.PREFILL_CREATE_BUC_FAILURE
       })
     ).toEqual(initialBucState)
   })
 
-  it('BUC_CREATE_REPLY_SED_SUCCESS', () => {
+  it('PREFILL_CREATE_REPLY_SED_SUCCESS', () => {
     jest
       // @ts-ignore
       .spyOn(global.Date, 'now')
@@ -152,7 +152,7 @@ describe('reducers/buc', () => {
         },
         currentBuc: '1'
       }, {
-        type: types.BUC_CREATE_REPLY_SED_SUCCESS,
+        type: types.PREFILL_CREATE_REPLY_SED_SUCCESS,
         payload: {},
         context: {
           sed: {}
@@ -173,7 +173,7 @@ describe('reducers/buc', () => {
     })
   })
 
-  it('BUC_CREATE_SED_SUCCESS', () => {
+  it('PREFILL_CREATE_SED_SUCCESS', () => {
     jest
       // @ts-ignore
       .spyOn(global.Date, 'now')
@@ -223,7 +223,7 @@ describe('reducers/buc', () => {
         },
         currentBuc: '1'
       }, {
-        type: types.BUC_CREATE_SED_SUCCESS,
+        type: types.PREFILL_CREATE_SED_SUCCESS,
         payload: {},
         context: {
           sed: {}

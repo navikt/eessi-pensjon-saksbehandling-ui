@@ -64,14 +64,14 @@ describe('reducers/alert', () => {
     })
   })
 
-  it('BUC_CREATE_BUC_FAILURE', () => {
+  it('PREFILL_CREATE_BUC_FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {
-        type: types.BUC_CREATE_BUC_FAILURE
+        type: types.PREFILL_CREATE_BUC_FAILURE
       })
     ).toEqual({
       ...initialAlertState,
-      type: types.BUC_CREATE_BUC_FAILURE,
+      type: types.PREFILL_CREATE_BUC_FAILURE,
       stripeStatus : 'error',
       stripeMessage : i18n.t('message:alert-createBucFailure'),
       bannerStatus: 'error',
@@ -80,14 +80,14 @@ describe('reducers/alert', () => {
     })
   })
 
-  it('BUC_CREATE_SED_FAILURE', () => {
+  it('PREFILL_CREATE_SED_FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {
-        type: types.BUC_CREATE_SED_FAILURE
+        type: types.PREFILL_CREATE_SED_FAILURE
       })
     ).toEqual({
       ...initialAlertState,
-      type: types.BUC_CREATE_SED_FAILURE,
+      type: types.PREFILL_CREATE_SED_FAILURE,
       stripeStatus : 'error',
       stripeMessage : i18n.t('message:alert-createSedFailure'),
       bannerStatus: 'error',
@@ -304,49 +304,49 @@ describe('reducers/alert', () => {
     })
   })
 
-  it('BUC_CREATE_BUC_SUCCESS', () => {
+  it('PREFILL_CREATE_BUC_SUCCESS', () => {
     expect(
       alertReducer(initialAlertState, {
-        type: types.BUC_CREATE_BUC_SUCCESS,
+        type: types.PREFILL_CREATE_BUC_SUCCESS,
         payload: {
           type: 'mockType'
         }
       })
     ).toEqual({
       ...initialAlertState,
-      type: types.BUC_CREATE_BUC_SUCCESS,
+      type: types.PREFILL_CREATE_BUC_SUCCESS,
       bannerStatus: 'success',
       bannerMessage: i18n.t('message:alert-createdBuc'),
     })
   })
 
-  it('BUC_CREATE_SED_SUCCESS', () => {
+  it('PREFILL_CREATE_SED_SUCCESS', () => {
     expect(
       alertReducer(initialAlertState, {
-        type: types.BUC_CREATE_SED_SUCCESS,
+        type: types.PREFILL_CREATE_SED_SUCCESS,
         payload: {
           type: 'mockType'
         }
       })
     ).toEqual({
       ...initialAlertState,
-      type: types.BUC_CREATE_SED_SUCCESS,
+      type: types.PREFILL_CREATE_SED_SUCCESS,
       bannerStatus: 'success',
       bannerMessage: i18n.t('message:alert-createdSed')
     })
   })
 
-  it('BUC_CREATE_REPLY_SED_SUCCESS', () => {
+  it('PREFILL_CREATE_REPLY_SED_SUCCESS', () => {
     expect(
       alertReducer(initialAlertState, {
-        type: types.BUC_CREATE_REPLY_SED_SUCCESS,
+        type: types.PREFILL_CREATE_REPLY_SED_SUCCESS,
         payload: {
           type: 'mockType'
         }
       })
     ).toEqual({
       ...initialAlertState,
-      type: types.BUC_CREATE_REPLY_SED_SUCCESS,
+      type: types.PREFILL_CREATE_REPLY_SED_SUCCESS,
       bannerStatus: 'success',
       bannerMessage: i18n.t('message:alert-createdSed')
     })

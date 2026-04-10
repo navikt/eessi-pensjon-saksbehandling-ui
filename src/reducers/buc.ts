@@ -32,7 +32,7 @@ import { AnyAction } from 'redux'
 import { P5000sFromRinaMap } from 'src/declarations/p5000'
 import {P4000SED} from "../declarations/p4000"
 import {P8000SED} from "src/declarations/p8000";
-import {BUC_CREATE_ATP_SED_SUCCESS} from "src/constants/actionTypes";
+import {PREFILL_CREATE_ATP_SED_SUCCESS} from "src/constants/actionTypes";
 
 export interface BucState {
   attachmentsError: boolean
@@ -144,22 +144,22 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         PSEDSendResponse: undefined
       }
 
-    case types.BUC_CREATE_BUC_REQUEST:
-    case types.BUC_CREATE_ATP_BUC_REQUEST:
+    case types.PREFILL_CREATE_BUC_REQUEST:
+    case types.PREFILL_CREATE_ATP_BUC_REQUEST:
     case types.GJENNY_CREATE_BUC_REQUEST:
       return {
         ...state,
         rinaId: undefined
       }
 
-    case types.BUC_CREATE_BUC_FAILURE:
+    case types.PREFILL_CREATE_BUC_FAILURE:
     case types.GJENNY_CREATE_BUC_FAILURE:
       return {
         ...state,
         rinaId: undefined
       }
 
-    case types.BUC_CREATE_BUC_SUCCESS: {
+    case types.PREFILL_CREATE_BUC_SUCCESS: {
       const bucs = _.cloneDeep(state.bucs)
       const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
       const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload)
@@ -265,7 +265,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
     }
 
-    case types.BUC_CREATE_ATP_BUC_SUCCESS: {
+    case types.PREFILL_CREATE_ATP_BUC_SUCCESS: {
       const bucs = _.cloneDeep(state.bucs)
       const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
       const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload)
@@ -293,24 +293,24 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
     }
 
-    case types.BUC_CREATE_ATP_BUC_FAILURE:
+    case types.PREFILL_CREATE_ATP_BUC_FAILURE:
       return {
         ...state,
         newlyCreatedATPBuc: null
       }
 
-    case types.BUC_CREATE_ATP_SED_FAILURE:
+    case types.PREFILL_CREATE_ATP_SED_FAILURE:
       return {
         ...state,
         newlyCreatedATPSed: null
       }
 
-    case types.BUC_CREATE_SED_FAILURE:
+    case types.PREFILL_CREATE_SED_FAILURE:
     case types.GJENNY_CREATE_SED_FAILURE:
       return state
 
-    case types.BUC_CREATE_SED_SUCCESS:
-    case types.BUC_CREATE_REPLY_SED_SUCCESS:
+    case types.PREFILL_CREATE_SED_SUCCESS:
+    case types.PREFILL_CREATE_REPLY_SED_SUCCESS:
     case types.GJENNY_CREATE_SED_SUCCESS:
     case types.GJENNY_CREATE_REPLY_SED_SUCCESS: {
       const newSed: Sed = (action as ActionWithPayload).payload as Sed
@@ -360,7 +360,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
     }
 
-    case BUC_CREATE_ATP_SED_SUCCESS:{
+    case PREFILL_CREATE_ATP_SED_SUCCESS:{
       const newSed: Sed = (action as ActionWithPayload).payload as Sed
       const bucs = _.cloneDeep(state.bucs)
       const contextSed: NewSedPayload = (action as ActionWithPayload).context.sed

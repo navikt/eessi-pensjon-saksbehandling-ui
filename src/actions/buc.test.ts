@@ -52,13 +52,13 @@ describe('src/actions/buc', () => {
     bucActions.createBuc(mockBuc)
     expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
-        request: types.BUC_CREATE_BUC_REQUEST,
-        success: types.BUC_CREATE_BUC_SUCCESS,
-        failure: types.BUC_CREATE_BUC_FAILURE
+        request: types.PREFILL_CREATE_BUC_REQUEST,
+        success: types.PREFILL_CREATE_BUC_SUCCESS,
+        failure: types.PREFILL_CREATE_BUC_FAILURE
       },
       method: 'POST',
       context: _.omit(mockBuc, 'buc'),
-      url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: mockBuc.buc })
+      url: sprintf(urls.PREFILL_CREATE_BUC_URL, { buc: mockBuc.buc })
     }))
   })
 
@@ -76,9 +76,9 @@ describe('src/actions/buc', () => {
     bucActions.createReplySed(mockBuc, mockedPayload, mockParentId)
     expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
-        request: types.BUC_CREATE_REPLY_SED_REQUEST,
-        success: types.BUC_CREATE_REPLY_SED_SUCCESS,
-        failure: types.BUC_CREATE_REPLY_SED_FAILURE
+        request: types.PREFILL_CREATE_REPLY_SED_REQUEST,
+        success: types.PREFILL_CREATE_REPLY_SED_SUCCESS,
+        failure: types.PREFILL_CREATE_REPLY_SED_FAILURE
       },
       method: 'POST',
       payload: mockedPayload,
@@ -86,7 +86,7 @@ describe('src/actions/buc', () => {
         buc: mockBuc,
         sed: mockedPayload
       },
-      url: sprintf(urls.BUC_CREATE_REPLY_SED_URL, { parentId: mockParentId })
+      url: sprintf(urls.PREFILL_CREATE_REPLY_SED_URL, { parentId: mockParentId })
     }))
   })
 
@@ -103,9 +103,9 @@ describe('src/actions/buc', () => {
     bucActions.createSed(mockBuc, mockedPayload)
     expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
-        request: types.BUC_CREATE_SED_REQUEST,
-        success: types.BUC_CREATE_SED_SUCCESS,
-        failure: types.BUC_CREATE_SED_FAILURE
+        request: types.PREFILL_CREATE_SED_REQUEST,
+        success: types.PREFILL_CREATE_SED_SUCCESS,
+        failure: types.PREFILL_CREATE_SED_FAILURE
       },
       method: 'POST',
       payload: mockedPayload,
@@ -113,7 +113,7 @@ describe('src/actions/buc', () => {
         buc: mockBuc,
         sed: mockedPayload
       },
-      url: urls.BUC_CREATE_SED_URL
+      url: urls.PREFILL_CREATE_SED_URL
     }))
   })
 

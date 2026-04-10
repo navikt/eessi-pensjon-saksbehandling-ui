@@ -62,7 +62,7 @@ export const createBuc = (
   params: NewBucPayload
 ): Action => {
   return call({
-    url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: params.buc }),
+    url: sprintf(urls.PREFILL_CREATE_BUC_URL, { buc: params.buc }),
     method: 'POST',
     //  these are params collected on create BUC and have to be passed later so that
     // create SED either just displays them, or decides if should ask for them again
@@ -75,9 +75,9 @@ export const createBuc = (
     cascadeFailureError: true,
     expectedPayload: mockCreateBuc(params.buc),
     type: {
-      request: types.BUC_CREATE_BUC_REQUEST,
-      success: types.BUC_CREATE_BUC_SUCCESS,
-      failure: types.BUC_CREATE_BUC_FAILURE
+      request: types.PREFILL_CREATE_BUC_REQUEST,
+      success: types.PREFILL_CREATE_BUC_SUCCESS,
+      failure: types.PREFILL_CREATE_BUC_FAILURE
     }
   })
 }
@@ -86,14 +86,14 @@ export const createATPBuc = (
   params: NewBucPayload
 ): Action => {
   return call({
-    url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: params.buc }),
+    url: sprintf(urls.PREFILL_CREATE_BUC_URL, { buc: params.buc }),
     method: 'POST',
     cascadeFailureError: true,
     expectedPayload: mockCreateBuc(params.buc),
     type: {
-      request: types.BUC_CREATE_ATP_BUC_REQUEST,
-      success: types.BUC_CREATE_ATP_BUC_SUCCESS,
-      failure: types.BUC_CREATE_ATP_BUC_FAILURE
+      request: types.PREFILL_CREATE_ATP_BUC_REQUEST,
+      success: types.PREFILL_CREATE_ATP_BUC_SUCCESS,
+      failure: types.PREFILL_CREATE_ATP_BUC_FAILURE
     }
   })
 }
@@ -102,7 +102,7 @@ export const createReplySed = (
   buc: Buc, payload: NewSedPayload, parentId: string
 ): ActionWithPayload<Sed> => {
   return call({
-    url: sprintf(urls.BUC_CREATE_REPLY_SED_URL, { parentId }),
+    url: sprintf(urls.PREFILL_CREATE_REPLY_SED_URL, { parentId }),
     payload,
     context: {
       buc,
@@ -112,9 +112,9 @@ export const createReplySed = (
     cascadeFailureError: true,
     method: 'POST',
     type: {
-      request: types.BUC_CREATE_REPLY_SED_REQUEST,
-      success: types.BUC_CREATE_REPLY_SED_SUCCESS,
-      failure: types.BUC_CREATE_REPLY_SED_FAILURE
+      request: types.PREFILL_CREATE_REPLY_SED_REQUEST,
+      success: types.PREFILL_CREATE_REPLY_SED_SUCCESS,
+      failure: types.PREFILL_CREATE_REPLY_SED_FAILURE
     }
   })
 }
@@ -123,7 +123,7 @@ export const createSed = (
   buc: Buc, payload: NewSedPayload
 ): ActionWithPayload<Sed> => {
   return call({
-    url: urls.BUC_CREATE_SED_URL,
+    url: urls.PREFILL_CREATE_SED_URL,
     payload,
     context: {
       buc,
@@ -133,9 +133,9 @@ export const createSed = (
     cascadeFailureError: true,
     method: 'POST',
     type: {
-      request: types.BUC_CREATE_SED_REQUEST,
-      success: types.BUC_CREATE_SED_SUCCESS,
-      failure: types.BUC_CREATE_SED_FAILURE
+      request: types.PREFILL_CREATE_SED_REQUEST,
+      success: types.PREFILL_CREATE_SED_SUCCESS,
+      failure: types.PREFILL_CREATE_SED_FAILURE
     }
   })
 }
@@ -144,7 +144,7 @@ export const createATPSed = (
   buc: Buc, payload: NewSedPayload
 ): ActionWithPayload<Sed> => {
   return call({
-    url: urls.BUC_CREATE_SED_URL,
+    url: urls.PREFILL_CREATE_SED_URL,
     payload,
     context: {
       buc,
@@ -154,9 +154,9 @@ export const createATPSed = (
     cascadeFailureError: true,
     method: 'POST',
     type: {
-      request: types.BUC_CREATE_ATP_SED_REQUEST,
-      success: types.BUC_CREATE_ATP_SED_SUCCESS,
-      failure: types.BUC_CREATE_ATP_SED_FAILURE
+      request: types.PREFILL_CREATE_ATP_SED_REQUEST,
+      success: types.PREFILL_CREATE_ATP_SED_SUCCESS,
+      failure: types.PREFILL_CREATE_ATP_SED_FAILURE
     }
   })
 }
