@@ -276,7 +276,7 @@ const P8000: React.FC<P8000Props> = ({
       }
     })
     setYtterligereInformasjon(numberedTextArray.join(""))
-  }, [currentPSED, _fritekst])
+  }, [currentPSED, _fritekst, _type])
 
   useEffect(() => {
     dispatch(updatePSED(`pensjon.ytterligeinformasjon`, "\n" + _ytterligereInformasjon))

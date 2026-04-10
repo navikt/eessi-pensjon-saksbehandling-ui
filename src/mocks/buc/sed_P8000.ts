@@ -79,18 +79,43 @@ export default {
         {sendFolgendeSEDer: ["p5000"]}
       ]
     },
-    "ytterligeinformasjon": null,
+    "ytterligeinformasjon": "\n" +
+      "1) Brukers adresse\n" +
+      "\n" +
+      "2) Har søker prøvd eller er det planlagt noen form for arbeidsrelatert rehabilitering, omskolering eller opplæring for en ny type jobb. Send i så fall detaljert informasjon\n" +
+      "\n" +
+      "3) Vennligst send oss krav om uførepensjon (P2200, P3000 NO, P4000, P5000 og P6000).\n" +
+      "\n" +
+      "4) Saksbehandlingstiden er ikke utløpt.\n" +
+      "\n" +
+      "5) For å sende P5000 trenger vi deres P5000 først.\n" +
+      "\n",
     "vedlegg": ["utførlig_medisinsk_rapport"]
   },
   "options": {
-    "ATP": false,
     "type": {
-      spraak: ""
+      "bosettingsstatus": "UTL",
+      "spraak": "nb",
+      "ytelse": "UT"
     },
     "ofteEtterspurtInformasjon": {
+      "brukersAdresse": {
+        "value": true
+      },
       "tiltak": {
-        value: true
+        "value": true
+      },
+      "kravOmUfoereytelse": {
+        "value": true
       }
     },
+    "informasjonSomKanLeggesInn": {
+      "saksbehandlingstidIkkeUtloept": {
+        "value": true
+      },
+      "P5000ForP5000NO": {
+        "value": true
+      }
+    }
   }
 }
