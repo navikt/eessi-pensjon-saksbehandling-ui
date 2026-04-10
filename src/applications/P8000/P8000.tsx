@@ -25,7 +25,10 @@ import {
   P6000, PERSON_UTEN_PNR_DNR, SAKSBEHANDLINGSTID,
   TILTAK,
   YTELSESHISTORIKK,
-  P5000_MED_BEGRUNNELSE, FORENKLET_FORESPOERSEL, UTENLANDSK_PID, KRAV_OM_UFOEREYTELSE, SAKSBEHANDLINGSTID_IKKE_UTLOEPT
+  P5000_MED_BEGRUNNELSE,
+  FORENKLET_FORESPOERSEL,
+  KRAV_OM_UFOEREYTELSE,
+  SAKSBEHANDLINGSTID_IKKE_UTLOEPT
 } from "src/constants/p8000";
 import {CheckboxWithCountryAndPeriods} from "src/applications/P8000/components/CheckboxWithCountryAndPeriods";
 import {CheckBoxField} from "src/applications/P8000/components/CheckboxField";
@@ -395,7 +398,6 @@ const P8000: React.FC<P8000Props> = ({
         BRUKERS_SIVILSTAND,
         OPPLYSNINGER_OM_EPS,
         PERSON_UTEN_PNR_DNR,
-        UTENLANDSK_PID,
         KRAV_OM_UFOEREYTELSE
       ],
       informasjonSomKanLeggesInn: [
@@ -522,7 +524,6 @@ const P8000: React.FC<P8000Props> = ({
                       {label: t('p8000:form-label-brukers-sivilstand'), value: BRUKERS_SIVILSTAND, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
                       {label: t('p8000:form-label-opplysninger-om-eps'), value: OPPLYSNINGER_OM_EPS, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: false, showMonths: false, excludeNorway: true}},
                       {label: t('p8000:form-label-person-uten-pnr-dnr'), value: PERSON_UTEN_PNR_DNR, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                      {label: t('p8000:form-label-utenlandsk-pid'), value: UTENLANDSK_PID, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
                       {label: t('p8000:form-label-krav-om-ufoereytelse'), value: KRAV_OM_UFOEREYTELSE, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
                     ]}
                     variant={P8000Variants[_type]?.ofteEtterspurtInformasjon}
