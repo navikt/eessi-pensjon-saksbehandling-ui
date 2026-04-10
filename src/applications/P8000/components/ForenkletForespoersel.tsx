@@ -6,7 +6,6 @@ import {SendFolgendeSEDerEllerDokumenter} from "src/applications/P8000/component
 import {Box, Checkbox, HStack, TextField, VStack} from "@navikt/ds-react";
 import {P8000Field} from "src/declarations/p8000";
 import {useTranslation} from "react-i18next";
-import i18n from "i18next";
 import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "src/applications/P2000/MainForm";
 import {useAppSelector} from "src/store";
@@ -21,7 +20,7 @@ export const ForenkletForespoersel: React.FC<P8000FieldComponentProps> = ({
   label, PSED, updatePSED, options, value, namespace, variantType
 }: P8000FieldComponentProps): JSX.Element => {
   const dispatch = useDispatch()
-  const {t} = useTranslation()
+  const {t, i18n} = useTranslation()
   const target = "pensjon.anmodning.seder[0].sendFolgendeSEDer"
   const targetBegrunnelse = "pensjon.anmodning.seder[0].begrunnelse"
   const targetOptions = "options.ofteEtterspurtInformasjon"
@@ -42,6 +41,8 @@ export const ForenkletForespoersel: React.FC<P8000FieldComponentProps> = ({
     dispatch(updatePSED(`${targetOptions}.${value}.${property}`, propValue))
   }
 
+  const spraak = PSED?.options?.type?.spraak ?? i18n.language ?? 'nb'
+
   const setBegrunnelse = (hasPin?: boolean) => {
     if(forenkletForespoersel && forenkletForespoersel.periodeFra  && forenkletForespoersel.periodeTil){
       const fra = forenkletForespoersel.periodeFra
@@ -50,12 +51,12 @@ export const ForenkletForespoersel: React.FC<P8000FieldComponentProps> = ({
       const ytelse = PSED?.options?.type?.ytelse
 
       if(hasFourDigits(fra) && hasFourDigits(til)){
-        const txt = t('p8000:forenkletForespoersel-' + ytelse, {lng: i18n.language, periodeFra: fra, periodeTil: til})
+        const txt = t('p8000:forenkletForespoersel-' + ytelse, {lng: spraak, periodeFra: fra, periodeTil: til})
         let pinTxt = ""
         if(hasPin !== undefined){
-          pinTxt = hasPin ? t('p8000:forenkletForespoersel-nopin', {lng: i18n.language}) : ""
+          pinTxt = hasPin ? t('p8000:forenkletForespoersel-nopin', {lng: spraak}) : ""
         } else {
-          pinTxt = harIkkeUtenlandskPIN ? t('p8000:forenkletForespoersel-nopin', {lng: i18n.language}) : ""
+          pinTxt = harIkkeUtenlandskPIN ? t('p8000:forenkletForespoersel-nopin', {lng: spraak}) : ""
         }
 
         const begrunnelse = txt + " " + pinTxt
@@ -77,9 +78,6 @@ export const ForenkletForespoersel: React.FC<P8000FieldComponentProps> = ({
   }
 
   useEffect(() => {
-    if(i18n.language !== PSED?.options?.type?.spraak){
-      i18n.changeLanguage(PSED?.options?.type?.spraak)
-    }
     setBegrunnelse()
   }, [PSED?.options?.type?.spraak])
 

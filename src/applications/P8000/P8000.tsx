@@ -218,9 +218,8 @@ const P8000: React.FC<P8000Props> = ({
   useEffect(() => {
     if(isATP()) return //DO NOT GENERATE FRITEKST FOR ATP VARIANT
 
-    if(i18n.language !== currentPSED?.options?.type?.spraak){
-      i18n.changeLanguage(currentPSED?.options?.type?.spraak)
-    }
+    const spraak = currentPSED?.options?.type?.spraak ?? i18n.language ?? 'nb'
+    const countries = countryData[spraak as keyof typeof countryData] ?? countryData['nb']
 
     let textArray: Array<string> =  []
     if(currentPSED && currentPSED.options?.ofteEtterspurtInformasjon){
@@ -229,9 +228,9 @@ const P8000: React.FC<P8000Props> = ({
         const key: keyof OfteEtterspurtInformasjon = field as keyof OfteEtterspurtInformasjon
 
         if(ofteEtterspurtInformasjon && ofteEtterspurtInformasjon[key] && ofteEtterspurtInformasjon[key]?.value && !ofteEtterspurtInformasjon[key]?.doNotGenerateFritekst){
-          const country = countryData[i18n.language as keyof typeof countryData].findByValue(ofteEtterspurtInformasjon[key]?.landkode)
+          const country = countries.findByValue(ofteEtterspurtInformasjon[key]?.landkode)
           const extra = {
-            lng: i18n.language,
+            lng: spraak,
             land: country?.label,
             periodeFra: ofteEtterspurtInformasjon[key]?.periodeFra,
             periodeTil: ofteEtterspurtInformasjon[key]?.periodeTil,
@@ -248,9 +247,9 @@ const P8000: React.FC<P8000Props> = ({
         const key: keyof InformasjonSomKanLeggesInn = field as keyof InformasjonSomKanLeggesInn
 
         if(informasjonSomKanLeggesInn && informasjonSomKanLeggesInn[key] && informasjonSomKanLeggesInn[key]?.value && !informasjonSomKanLeggesInn[key]?.doNotGenerateFritekst){
-          const country = countryData[i18n.language as keyof typeof countryData].findByValue(informasjonSomKanLeggesInn[key]?.landkode)
+          const country = countries.findByValue(informasjonSomKanLeggesInn[key]?.landkode)
           const extra = {
-            lng: i18n.language,
+            lng: spraak,
             land: country?.label,
             periodeFra: informasjonSomKanLeggesInn[key]?.periodeFra,
             periodeTil: informasjonSomKanLeggesInn[key]?.periodeTil,
