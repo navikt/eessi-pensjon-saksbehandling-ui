@@ -25,7 +25,7 @@ import {
   P6000, PERSON_UTEN_PNR_DNR, SAKSBEHANDLINGSTID,
   TILTAK,
   YTELSESHISTORIKK,
-  P5000_MED_BEGRUNNELSE, FORENKLET_FORESPOERSEL
+  P5000_MED_BEGRUNNELSE, FORENKLET_FORESPOERSEL, UTENLANDSK_PID, KRAV_OM_UFOEREYTELSE, SAKSBEHANDLINGSTID_IKKE_UTLOEPT
 } from "src/constants/p8000";
 import {CheckboxWithCountryAndPeriods} from "src/applications/P8000/components/CheckboxWithCountryAndPeriods";
 import {CheckBoxField} from "src/applications/P8000/components/CheckboxField";
@@ -379,7 +379,32 @@ const P8000: React.FC<P8000Props> = ({
         FORENKLET_FORESPOERSEL
       ]
     },
-    UT_UTL_05: {},
+    UT_UTL_05: {
+      ofteEtterspurtInformasjon: [
+        P5000,
+        P4000,
+        P6000,
+        BRUKERS_ADRESSE,
+        MEDISINSK_INFORMASJON,
+        TILTAK,
+        NAAVAERENDE_ARBEID,
+        DOKUMENTASJON_PAA_ARBEID_I_NORGE,
+        YTELSESHISTORIKK,
+        INNTEKT_FOER_UFOERHET_I_UTLANDET,
+        IBAN_SWIFT,
+        FOLKBOKFOERING,
+        BRUKERS_SIVILSTAND,
+        OPPLYSNINGER_OM_EPS,
+        PERSON_UTEN_PNR_DNR,
+        UTENLANDSK_PID,
+        KRAV_OM_UFOEREYTELSE
+      ],
+      informasjonSomKanLeggesInn: [
+        SAKSBEHANDLINGSTID_IKKE_UTLOEPT,
+        SAKSBEHANDLINGSTID,
+        P5000_FOR_P5000NO
+      ]
+    },
     AP_UTL_01: [],
     AP_UTL_05: [],
     AP_NO_01: [],
@@ -498,6 +523,8 @@ const P8000: React.FC<P8000Props> = ({
                       {label: t('p8000:form-label-brukers-sivilstand'), value: BRUKERS_SIVILSTAND, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
                       {label: t('p8000:form-label-opplysninger-om-eps'), value: OPPLYSNINGER_OM_EPS, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: false, showMonths: false, excludeNorway: true}},
                       {label: t('p8000:form-label-person-uten-pnr-dnr'), value: PERSON_UTEN_PNR_DNR, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                      {label: t('p8000:form-label-utenlandsk-pid'), value: UTENLANDSK_PID, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                      {label: t('p8000:form-label-krav-om-ufoereytelse'), value: KRAV_OM_UFOEREYTELSE, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
                     ]}
                     variant={P8000Variants[_type]?.ofteEtterspurtInformasjon}
                     PSED={currentPSED}
@@ -514,6 +541,7 @@ const P8000: React.FC<P8000Props> = ({
                   <Heading level="2" size="small">{t('p8000:form-heading-informasjon-som-kan-legges-inn')}</Heading>
                   <P8000Fields
                     fields={[
+                      {label: t('p8000:form-label-sakbehandlingstiden-er-ikke-utloept'), value: SAKSBEHANDLINGSTID_IKKE_UTLOEPT, component: CheckBoxField, target: 'options.informasjonSomKanLeggesInn'},
                       {label: t('p8000:form-label-legg-til-saksbehandlingstid'), value: SAKSBEHANDLINGSTID, component: CheckboxWithCountryAndPeriods, target: 'options.informasjonSomKanLeggesInn', options: {showCountry: false, showPeriod: false, showMonths: true, excludeNorway: false}},
                       {label: t('p8000:form-label-p5000-trengs-for-p5000no'), value: P5000_FOR_P5000NO, component: CheckBoxField, target: 'options.informasjonSomKanLeggesInn'},
                     ]}

@@ -21,6 +21,9 @@
   "forenkletForespoersel-AP": "Vi behandler et krav om alderspensjon i Norge. Har personen som er nevnt i kapittel 2 opparbeidet seg noen perioder i din forsikringsordning? Personen informerer Nav om opphold i ditt land fra {{periodeFra}} til {{periodeTil}}. Vennligst si i fra dersom dere har behov for P2000.",
   "forenkletForespoersel-UT": "Vi behandler et krav om uføretrygd i Norge. Har personen som er nevnt i kapittel 2 opparbeidet seg noen perioder i din forsikringsordning? Personen informerer Nav om opphold i ditt land fra {{periodeFra}} til {{periodeTil}}. Vennligst si i fra dersom dere har behov for P2200.",
   "forenkletForespoersel-nopin": "Personen sier at PIN aldri ble mottatt fra ditt land.",
+  "saksbehandlingstidIkkeUtloept": "Saksbehandlingstiden er ikke utløpt.",
+  "utenlandskPid": "utenlandskPid",
+  "kravOmUfoereytelse": "kravOmUfoereytelse",
 
   "form-heading-p8000": "Bestill P8000 til Ad hoc anmodning om pensjonsopplysninger",
   "form-heading-anmodning-om-atp-opplysninger": "Anmodning om ATP-opplysninger",
@@ -64,6 +67,9 @@
   "form-label-velg-spraak": "Velg språk",
   "form-label-velg-ytelse": "Velg ytelse",
   "form-label-velg-anmodning-referanseTilPerson": "SED gjelder",
+  "form-label-utenlandsk-pid":  "Utenlandsk PID",
+  "form-label-krav-om-ufoereytelse":  "Krav om uføreytelse [P2200/P3000NO/P4000/P5000/P6000]",
+  "form-label-sakbehandlingstiden-er-ikke-utloept": "Saksbehandlingstiden er ikke utløpt",
   "form-message-andmodning-referanseTilPerson-annen": "Du må fylle ut personopplysninger om annen person manuelt i RINA.",
 
   "atp-opprette-buc-or-sed": "Opprette {{BUC_SED}}",
