@@ -13,7 +13,7 @@ const GJENNY_URL = FAGMODUL_API_URL + '/gjenny'
 const LANDKODER_URL = FAGMODUL_API_URL + '/landkoder'
 const PEN_URL = FAGMODUL_API_URL + '/pensjon'
 const PER_URL = FAGMODUL_API_URL + '/person'
-const PREFILL_URL = FRONTEND_API_URL + '/prefill'
+const PREFILL_URL = FAGMODUL_API_URL + '/prefill'
 const SAF_URL = FAGMODUL_API_URL + '/saf'
 const STG_URL = FRONTEND_API_URL + '/api/storage'
 
