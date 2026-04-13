@@ -159,7 +159,59 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         rinaId: undefined
       }
 
-    case types.BUC_CREATE_BUC_SUCCESS:
+    case types.BUC_CREATE_BUC_SUCCESS: {
+      const bucs = _.cloneDeep(state.bucs)
+      const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
+      const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload)
+
+      const person = (action as ActionWithPayload).context.person
+      const avdod = (action as ActionWithPayload).context.avdod
+      const avdodfnr = (action as ActionWithPayload).context.avdodfnr
+      const kravDato = (action as ActionWithPayload).context.kravDato
+
+      if (!newBuc.addedParams) {
+        newBuc.addedParams = {}
+      }
+
+      if (kravDato) {
+        newBuc.addedParams.kravDato = kravDato
+      }
+
+      if (bucsThatSupportAvdod(newBuc.type) && person) {
+        newBuc.addedParams.subject = {
+          gjenlevende: {
+            fnr: getFnr(person)
+          },
+          avdod: {
+            fnr: avdod ? avdod.fnr : avdodfnr
+          }
+        } as BUCSubject
+      }
+
+
+      // Cache seds allowing attachments
+      if (newBuc.seds) {
+        newBuc.seds.forEach((sed: Sed) => {
+          newSedsWithAttachments[sed.type] = sed.allowsAttachments
+        })
+      }
+
+      bucs![(action as ActionWithPayload).payload.caseId] = newBuc
+
+      return {
+        ...state,
+        currentBuc: newBuc.caseId,
+        sed: undefined,
+        countryList: undefined,
+        bucs,
+        kravDato: undefined,
+        newlyCreatedBuc: newBuc,
+        savingAttachmentsJob: undefined,
+        sedsWithAttachments: newSedsWithAttachments,
+        p6000s: undefined
+      }
+    }
+
     case types.GJENNY_CREATE_BUC_SUCCESS: {
       const bucs = _.cloneDeep(state.bucs)
       const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
@@ -389,7 +441,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.BUC_GET_BUCSLIST_VEDTAK_SUCCESS: {
       // merge only the new ones, do not have duplicates
       const newBucsList = _.isNil(state.bucsList) ? [] : _.cloneDeep(state.bucsList);
-      (action as ActionWithPayload).payload?.forEach((buc: BucListItem) => {
+      (action as ActionWithPayload).payload.result?.forEach((buc: BucListItem) => {
         const foundIndex = _.findIndex(newBucsList, (b: BucListItem) => b.euxCaseId === buc.euxCaseId)
         if (foundIndex < 0) {
           newBucsList.push(buc)
@@ -419,12 +471,12 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
 
     case types.BUC_GET_BUC_SUCCESS: {
       const bucs = _.cloneDeep(state.bucs)
-      const buc: Buc | undefined = (action as ActionWithPayload).payload
+      const buc: Buc | undefined = (action as ActionWithPayload).payload.result
 
       if (!buc?.caseId || !buc?.type) {
-        if((action as ActionWithPayload).payload) {
+        if((action as ActionWithPayload).payload.result) {
           // CAN BE UNDEFINED ON LOCALHOST
-          bucs![(action as ActionWithPayload).context.rinaCaseId] = (action as ActionWithPayload).payload
+          bucs![(action as ActionWithPayload).context.rinaCaseId] = (action as ActionWithPayload).payload.result
         }
 
         return {
@@ -471,8 +523,8 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
           (buc as ValidBuc).addedParams.subject = _.cloneDeep(buc.subject)
         }
 
-        bucs![(action as ActionWithPayload).payload.caseId] = (action as ActionWithPayload).payload
-        bucs![(action as ActionWithPayload).payload.caseId].deltakere = bucs![(action as ActionWithPayload).payload.caseId].institusjon
+        bucs![(action as ActionWithPayload).payload.result.caseId] = (action as ActionWithPayload).payload.result
+        bucs![(action as ActionWithPayload).payload.result.caseId].deltakere = bucs![(action as ActionWithPayload).payload.result.caseId].institusjon
 
         return {
           ...state,
@@ -515,7 +567,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
 
       return {
         ...state,
-        bucOptions: _.difference((action as ActionWithPayload).payload, excludedBucs)
+        bucOptions: _.difference((action as ActionWithPayload).payload.result, excludedBucs)
       }
     }
 

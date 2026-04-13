@@ -55,9 +55,10 @@ export const BUC_GET_BUCSLIST_WITH_VEDTAKID_URL = BUC_URL + '/rinasaker/%(aktoer
 export const BUC_GET_BUCSLIST_WITH_AVDODFNR_URL = BUC_URL + '/rinasaker/%(aktoerId)s/saknr/%(sakId)s/avdod/%(avdodFnr)s'
 export const BUC_GET_BUC_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s'
 export const BUC_GET_BUC_WITH_AVDOD_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/aktoerid/%(aktoerId)s/saknr/%(sakId)s/avdodfnr/%(avdodFnr)s/kilde/%(kilde)s'
-
 export const BUC_GET_BUC_OPTIONS_URL = BUC_URL + '/bucs'
-export const BUC_CREATE_BUC_URL = BUC_URL + '/%(buc)s'
+
+//PrefillController
+export const BUC_CREATE_BUC_URL = BUC_URL + '/%(buc)s' //PREFILL CONTROLLER
 
 // PensjonController
 export const BUC_GET_KRAVDATO_URL = PEN_URL + '/kravdato/saker/%(sakId)s/krav/%(kravId)s/aktor/%(aktoerId)s'
@@ -65,8 +66,9 @@ export const BUC_GET_SAKTYPE_URL = PEN_URL + '/saktype/%(sakId)s/%(aktoerId)s'
 export const PERSON_UFT_URL = PEN_URL + '/vedtak/%(vedtakId)s/uforetidspunkt'
 
 // SedController
-export const BUC_CREATE_SED_URL = SED_URL + '/add'
-export const BUC_CREATE_REPLY_SED_URL = SED_URL + '/replysed/%(parentId)s'
+export const BUC_CREATE_SED_URL = SED_URL + '/add' //PREFILL CONTROLLER
+export const BUC_CREATE_REPLY_SED_URL = SED_URL + '/replysed/%(parentId)s' //PREFILL CONTROLLER
+
 export const BUC_GET_SED_LIST_URL = SED_URL + '/seds/%(buc)s/%(rinaId)s'
 export const BUC_GET_SED_URL = SED_URL + '/get/%(caseId)s/%(sedId)s'
 export const BUC_PUT_SED_URL = SED_URL + '/put/%(caseId)s/%(sedId)s'

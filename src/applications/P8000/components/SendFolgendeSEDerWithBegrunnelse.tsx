@@ -6,7 +6,6 @@ import {SendFolgendeSEDerEllerDokumenter} from "src/applications/P8000/component
 import {Box, HStack, Radio, RadioGroup, VStack} from "@navikt/ds-react";
 import {P8000Field} from "src/declarations/p8000";
 import {useTranslation} from "react-i18next";
-import i18n from "i18next";
 import {State} from "src/declarations/reducers";
 import {MainFormSelector} from "src/applications/P2000/MainForm";
 import {useAppSelector} from "src/store";
@@ -20,7 +19,7 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
   label, PSED, updatePSED, options, value, namespace, variantType
 }: P8000FieldComponentProps): JSX.Element => {
   const dispatch = useDispatch()
-  const {t} = useTranslation()
+  const {t, i18n} = useTranslation()
   const target = "pensjon.anmodning.seder[0].sendFolgendeSEDer"
   const targetBegrunnelse = "pensjon.anmodning.seder[0].begrunnelse"
   const targetOptions = "options.ofteEtterspurtInformasjon"
@@ -31,12 +30,14 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
 
   let checked= !!_.find(sendFolgendeSEDer, (sed) => sed === options.sed.toLowerCase())
 
+  const spraak = PSED?.options?.type?.spraak ?? i18n.language ?? 'nb'
+
   const setBegrunnelse = (propValue: string) => {
     dispatch(updatePSED(`${targetOptions}.${value}.begrunnelseForKravet`, propValue))
     if(propValue === "sammenlegging"){
-      dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-sammenlegging')))
+      dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-sammenlegging', { lng: spraak })))
     } else if (propValue === "endelig_beregning"){
-      dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-endelig-beregning')))
+      dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-endelig-beregning', { lng: spraak })))
     }
   }
 
@@ -52,13 +53,10 @@ export const SendFolgendeSEDerWithBegrunnelse: React.FC<P8000FieldComponentProps
   }
 
   useEffect(() => {
-    if(i18n.language !== PSED?.options?.type?.spraak){
-      i18n.changeLanguage(PSED?.options?.type?.spraak)
-    }
     if(field && field.begrunnelseForKravet && field.begrunnelseForKravet === "sammenlegging"){
-      dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-sammenlegging', { lng: i18n.language })))
+      dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-sammenlegging', { lng: spraak })))
     } else if (field && field.begrunnelseForKravet && field.begrunnelseForKravet === "endelig_beregning"){
-      dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-endelig-beregning', { lng: i18n.language })))
+      dispatch(updatePSED(`${targetBegrunnelse}`, t('p8000:P5000-begrunnelse-endelig-beregning', { lng: spraak })))
     }
   }, [PSED?.options?.type?.spraak])
 
