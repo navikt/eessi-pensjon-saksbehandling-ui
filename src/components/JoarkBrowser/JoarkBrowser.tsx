@@ -290,6 +290,7 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
                 existingItem.journalpostId = jp.journalpostId
                 existingItem.variant = getVariantFromJoarkDoc(doc)
                 existingItem.tema = jp.tema
+                existingItem.filstoerrelseMB = existingItem.variant ? existingItem.variant.filstoerrelseMB : undefined
               }
               break
             }
