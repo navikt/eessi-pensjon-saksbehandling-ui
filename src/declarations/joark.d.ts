@@ -4,7 +4,7 @@ import { Context, Item } from '@navikt/tabell'
 export interface JoarkFileVariant {
   variantformat: string
   filnavn: string | null
-  filstoerrelse?: number | undefined
+  filstoerrelseMB?: number | undefined
 }
 
 export interface JoarkDoc {
@@ -62,7 +62,7 @@ export interface JoarkBrowserItem extends Item {
   title: string
   tema: string | undefined
   date: Date
-  filstoerrelse?: number | undefined
+  filstoerrelseMB?: number | undefined
 }
 
 export type JoarkBrowserItems = Array<JoarkBrowserItem>
