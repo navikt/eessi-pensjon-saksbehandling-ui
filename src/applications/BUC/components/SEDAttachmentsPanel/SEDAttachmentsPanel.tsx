@@ -219,9 +219,11 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
               {_sendingAttachments && <Loader />}
               {_sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
             </Button>
-            <Alert variant="warning" size="small">
-              {t('message:alert-tooLargeFilstoerrelseSum')}
-            </Alert>
+            {!isSmallerThanFilstoerrelseSumLimit(_items) &&
+              <Alert variant="warning" size="small">
+                {t('message:alert-tooLargeFilstoerrelseSum')}
+              </Alert>
+            }
           </HStack>
         )}
       </>
