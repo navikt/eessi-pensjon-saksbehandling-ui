@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useMemo} from "react";
 import CountrySelect, {CountrySelectProps} from "@navikt/landvelger";
 import {State} from "src/declarations/reducers";
 import {useAppSelector} from "src/store";
 import {CountryCodeLists, CountryCodes, SimpleCountry} from "src/declarations/app";
 import {Bucs} from "src/declarations/buc";
+import {createSelector} from "@reduxjs/toolkit";
 
 export interface CountryDropdownSelector {
   currentBuc: string | undefined
@@ -11,11 +12,16 @@ export interface CountryDropdownSelector {
   countryCodes: CountryCodes | null | undefined
 }
 
-const mapState = (state: State): CountryDropdownSelector => ({
-  currentBuc: state.buc.currentBuc,
-  bucs: state.buc.bucs,
-  countryCodes: state.app.countryCodes
-})
+const mapState = createSelector(
+  (state: State) => state.buc.currentBuc,
+  (state: State) => state.buc.bucs,
+  (state: State) => state.app.countryCodes,
+  (currentBuc, bucs, countryCodes): CountryDropdownSelector => ({
+    currentBuc,
+    bucs,
+    countryCodes
+  })
+)
 
 export interface CountryDropdownProps extends CountrySelectProps<any>{
   dataTestId?: string
@@ -35,13 +41,17 @@ const CountryDropdown : React.FC<CountryDropdownProps> = ({
 
   const countryCodesByVersion: CountryCodeLists | undefined = countryCodes ? countryCodes[cdmVersion as keyof CountryCodes] : undefined
 
-  let includeList = countryCodeListName && countryCodesByVersion ? countryCodesByVersion[countryCodeListName as keyof CountryCodeLists] : rest.includeList
+  const includeList = useMemo(() => {
+    let list = countryCodeListName && countryCodesByVersion ? countryCodesByVersion[countryCodeListName as keyof CountryCodeLists] : rest.includeList
 
-  if(countryCodeListName && excludeNorway){
-    includeList = includeList?.filter((country: SimpleCountry) => country.landkode !== 'NO')
-  } else {!countryCodeListName && excludeNorway} {
-    includeList = includeList?.filter((it: string) => it !== 'NO')
-  }
+    if(countryCodeListName && excludeNorway){
+      list = list?.filter((country: SimpleCountry) => country.landkode !== 'NO')
+    } else if(!countryCodeListName && excludeNorway) {
+      list = list?.filter((it: string) => it !== 'NO')
+    }
+
+    return list
+  }, [countryCodeListName, countryCodesByVersion, excludeNorway, rest.includeList])
 
   return(
     <CountrySelect

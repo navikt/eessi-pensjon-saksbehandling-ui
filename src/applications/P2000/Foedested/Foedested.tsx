@@ -11,10 +11,14 @@ import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import FormTextBox from "src/components/Forms/FormTextBox";
 import {Person} from "src/declarations/sed";
+import {createSelector} from "@reduxjs/toolkit";
 
-const mapState = (state: State): MainFormSelector => ({
-  validation: state.validation.status
-})
+const mapState = createSelector(
+  (state: State) => state.validation.status,
+  (validation): MainFormSelector => ({
+    validation
+  })
+)
 
 export interface FoedestedProps {
   parentNamespace: string
