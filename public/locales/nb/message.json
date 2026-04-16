@@ -22,6 +22,7 @@
   "alert-readOnlyBuc"             : "Det er kun lesetilgang til denne BUC-en, det kan ikke bestilles SED-er.",
   "alert-saveBucsInfoFailure"     : "Feil ved lagring av BUC informasjon",
   "alert-sentToPesys"             : "Sendt til PESYS",
+  "alert-tooLargeFilstoerrelseSum": "Summen av filstørrelsene til vedleggene er for stor. Maks tillatt størrelse er 100 MB",
   "alert-updatedPageNotification" : "EP side melding oppdatert",
   "alert-X100"                    : "Saken er videresendt korrekt institusjon. Det er ikke nødvendig å opprette X005 for å videresende saken til den nye tyske institusjonen",
   "alert-p5000sFromS3"            : "Fant {{x}} P5000-perioder",

@@ -20,7 +20,7 @@ import {
 import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { Heading, Loader, Button, Box } from '@navikt/ds-react'
+import {Heading, Loader, Button, Box, Alert, HStack} from '@navikt/ds-react'
 import React, {JSX, useCallback, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -105,6 +105,16 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
   const onAttachmentsPanelOpen = (): void => {
     setAttachmentsTableVisible(true)
     setAttachmentsSent(false)
+  }
+
+  const isSmallerThanFilstoerrelseSumLimit = (items: JoarkBrowserItems) : boolean => {
+    let filstoerrelseSum = 0
+
+    items.map(item => {
+      filstoerrelseSum += item.filstoerrelseMB ?? 0
+    })
+
+    return filstoerrelseSum < 100
   }
 
   const onAttachmentsSubmitted = (): void => {
@@ -196,17 +206,23 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
       )}
       <>
         {!_attachmentsSent && _.find(_items, (item) => item.type === 'joark') !== undefined && (
-          <Box paddingBlock="space-16 space-0">
+          <HStack
+            paddingBlock="space-16 space-0"
+            gap={"space-16"}
+          >
             <Button
               variant='primary'
               data-testid='a_buc_c_sedattachmentspanel--upload-button-id'
-              disabled={_sendingAttachments}
+              disabled={_sendingAttachments || !isSmallerThanFilstoerrelseSumLimit(_items)}
               onClick={onAttachmentsSubmitted}
             >
               {_sendingAttachments && <Loader />}
               {_sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
             </Button>
-          </Box>
+            <Alert variant="warning" size="small">
+              {t('message:alert-tooLargeFilstoerrelseSum')}
+            </Alert>
+          </HStack>
         )}
       </>
       {canHaveAttachments && (
