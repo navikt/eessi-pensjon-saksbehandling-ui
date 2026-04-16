@@ -309,7 +309,8 @@ describe('reducers/alert', () => {
       alertReducer(initialAlertState, {
         type: types.PREFILL_CREATE_BUC_SUCCESS,
         payload: {
-          type: 'mockType'
+          result: { type: 'mockType' },
+          status: 'OK'
         }
       })
     ).toEqual({
@@ -325,7 +326,8 @@ describe('reducers/alert', () => {
       alertReducer(initialAlertState, {
         type: types.PREFILL_CREATE_SED_SUCCESS,
         payload: {
-          type: 'mockType'
+          result: { type: 'mockType' },
+          status: 'OK'
         }
       })
     ).toEqual({
@@ -341,7 +343,8 @@ describe('reducers/alert', () => {
       alertReducer(initialAlertState, {
         type: types.PREFILL_CREATE_REPLY_SED_SUCCESS,
         payload: {
-          type: 'mockType'
+          result: { type: 'mockType' },
+          status: 'OK'
         }
       })
     ).toEqual({

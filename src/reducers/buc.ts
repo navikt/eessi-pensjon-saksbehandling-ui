@@ -162,7 +162,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.PREFILL_CREATE_BUC_SUCCESS: {
       const bucs = _.cloneDeep(state.bucs)
       const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
-      const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload)
+      const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload.result)
 
       const person = (action as ActionWithPayload).context.person
       const avdod = (action as ActionWithPayload).context.avdod
@@ -196,7 +196,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         })
       }
 
-      bucs![(action as ActionWithPayload).payload.caseId] = newBuc
+      bucs![(action as ActionWithPayload).payload.result.caseId] = newBuc
 
       return {
         ...state,
@@ -215,7 +215,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.GJENNY_CREATE_BUC_SUCCESS: {
       const bucs = _.cloneDeep(state.bucs)
       const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
-      const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload)
+      const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload.result)
 
       const person = (action as ActionWithPayload).context.person
       const avdod = (action as ActionWithPayload).context.avdod
@@ -249,7 +249,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         })
       }
 
-      bucs![(action as ActionWithPayload).payload.caseId] = newBuc
+      bucs![(action as ActionWithPayload).payload.result.caseId] = newBuc
 
       return {
         ...state,
@@ -268,7 +268,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.PREFILL_CREATE_ATP_BUC_SUCCESS: {
       const bucs = _.cloneDeep(state.bucs)
       const newSedsWithAttachments: SedsWithAttachmentsMap = _.cloneDeep(state.sedsWithAttachments)
-      const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload)
+      const newBuc: ValidBuc = _.cloneDeep((action as ActionWithPayload).payload.result)
 
       // Cache seds allowing attachments
       if (newBuc.seds) {
@@ -277,7 +277,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         })
       }
 
-      bucs![(action as ActionWithPayload).payload.caseId] = newBuc
+      bucs![(action as ActionWithPayload).payload.result.caseId] = newBuc
 
       return {
         ...state,
@@ -313,7 +313,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.PREFILL_CREATE_REPLY_SED_SUCCESS:
     case types.GJENNY_CREATE_SED_SUCCESS:
     case types.GJENNY_CREATE_REPLY_SED_SUCCESS: {
-      const newSed: Sed = (action as ActionWithPayload).payload as Sed
+      const newSed: Sed = (action as ActionWithPayload).payload.result as Sed
       const bucs = _.cloneDeep(state.bucs)
       const contextSed: NewSedPayload = (action as ActionWithPayload).context.sed
 
@@ -361,7 +361,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     }
 
     case PREFILL_CREATE_ATP_SED_SUCCESS:{
-      const newSed: Sed = (action as ActionWithPayload).payload as Sed
+      const newSed: Sed = (action as ActionWithPayload).payload.result as Sed
       const bucs = _.cloneDeep(state.bucs)
       const contextSed: NewSedPayload = (action as ActionWithPayload).context.sed
 

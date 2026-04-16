@@ -211,7 +211,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: AnyAction) 
   switch (action.type) {
     case types.PREFILL_CREATE_BUC_SUCCESS:
     case types.GJENNY_CREATE_BUC_SUCCESS:
-      bannerMessage = i18n.t('message:alert-createdBuc', { type: (action as ActionWithPayload).payload.type })
+      bannerMessage = i18n.t('message:alert-createdBuc', { type: (action as ActionWithPayload).payload.result.type })
       dealWithBanner = true
       break
 
@@ -219,9 +219,9 @@ const alertReducer = (state: AlertState = initialAlertState, action: AnyAction) 
     case types.PREFILL_CREATE_REPLY_SED_SUCCESS:
     case types.GJENNY_CREATE_SED_SUCCESS:
     case types.GJENNY_CREATE_REPLY_SED_SUCCESS: {
-      const message = ((action as ActionWithPayload).payload as Sed).message
+      const message = ((action as ActionWithPayload).payload.result as Sed).message
       bannerMessage = i18n.t('message:alert-createdSed', {
-        sed: (((action as ActionWithPayload).payload as Sed).type),
+        sed: (((action as ActionWithPayload).payload.result as Sed).type),
         message: message ? ' - ' + message : ''
       })
       dealWithBanner = true
