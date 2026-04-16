@@ -574,7 +574,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.GJENNY_GET_BUC_OPTIONS_SUCCESS:
       return {
         ...state,
-        bucOptions: (action as ActionWithPayload).payload
+        bucOptions: (action as ActionWithPayload).payload.result
       }
 
 
@@ -967,7 +967,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.GJENNY_GET_BUCSLIST_FOR_AVDOD_SUCCESS: {
       // merge only the new ones, do not have duplicates
       const newBucsList = _.isNil(state.bucsList) ? [] : _.cloneDeep(state.bucsList);
-      (action as ActionWithPayload).payload?.forEach((buc: BucListItem) => {
+      (action as ActionWithPayload).payload?.result?.forEach((buc: BucListItem) => {
         const foundIndex = _.findIndex(newBucsList, (b: BucListItem) => b.euxCaseId === buc.euxCaseId)
         if (foundIndex < 0) {
           newBucsList.push(buc)
