@@ -13,6 +13,7 @@ const GJENNY_URL = FAGMODUL_API_URL + '/gjenny'
 const LANDKODER_URL = FAGMODUL_API_URL + '/landkoder'
 const PEN_URL = FAGMODUL_API_URL + '/pensjon'
 const PER_URL = FAGMODUL_API_URL + '/person'
+const PREFILL_URL = FAGMODUL_API_URL + '/prefill'
 const SAF_URL = FAGMODUL_API_URL + '/saf'
 const STG_URL = FRONTEND_API_URL + '/api/storage'
 
@@ -57,18 +58,17 @@ export const BUC_GET_BUC_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s'
 export const BUC_GET_BUC_WITH_AVDOD_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/aktoerid/%(aktoerId)s/saknr/%(sakId)s/avdodfnr/%(avdodFnr)s/kilde/%(kilde)s'
 export const BUC_GET_BUC_OPTIONS_URL = BUC_URL + '/bucs'
 
-//PrefillController
-export const BUC_CREATE_BUC_URL = BUC_URL + '/%(buc)s' //PREFILL CONTROLLER
-
 // PensjonController
 export const BUC_GET_KRAVDATO_URL = PEN_URL + '/kravdato/saker/%(sakId)s/krav/%(kravId)s/aktor/%(aktoerId)s'
 export const BUC_GET_SAKTYPE_URL = PEN_URL + '/saktype/%(sakId)s/%(aktoerId)s'
 export const PERSON_UFT_URL = PEN_URL + '/vedtak/%(vedtakId)s/uforetidspunkt'
 
-// SedController
-export const BUC_CREATE_SED_URL = SED_URL + '/add' //PREFILL CONTROLLER
-export const BUC_CREATE_REPLY_SED_URL = SED_URL + '/replysed/%(parentId)s' //PREFILL CONTROLLER
+// PrefillController
+export const PREFILL_CREATE_BUC_URL = PREFILL_URL + '/buc/%(buc)s'
+export const PREFILL_CREATE_SED_URL = PREFILL_URL + '/sed/add'
+export const PREFILL_CREATE_REPLY_SED_URL = PREFILL_URL + '/sed/replysed/%(parentId)s'
 
+// SedController
 export const BUC_GET_SED_LIST_URL = SED_URL + '/seds/%(buc)s/%(rinaId)s'
 export const BUC_GET_SED_URL = SED_URL + '/get/%(caseId)s/%(sedId)s'
 export const BUC_PUT_SED_URL = SED_URL + '/put/%(caseId)s/%(sedId)s'
