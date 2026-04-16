@@ -49,7 +49,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
     <VStack gap="space-16">
       {parentEditMode &&
         <>
-          <HGrid gap="space-16" columns={3}>
+          <HGrid gap="space-16" columns={3} align="start">
             <Input
               error={v[namespace + '-etternavn']?.feilmelding}
               namespace={namespace}
@@ -93,7 +93,7 @@ const PersonOpplysninger: React.FC<PersonOpplysningerProps> = ({
       }
       {!parentEditMode &&
         <>
-          <HGrid gap="space-16" columns={3}>
+          <HGrid gap="space-16" columns={3} align="start">
             <FormTextBox padding="space-0"
               error={v[namespace + '-etternavn']?.feilmelding}
               id={namespace + '-etternavn'}
