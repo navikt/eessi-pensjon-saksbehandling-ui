@@ -50,7 +50,7 @@ describe('reducers/buc', () => {
         bucs: {}
       }, {
         type: types.PREFILL_CREATE_BUC_SUCCESS,
-        payload: { caseId: '123', mockPayload: 'mockPayload' },
+        payload: { result: { caseId: '123', mockPayload: 'mockPayload' }, status: 'OK' },
         context: {
           person: {
             aktoer: {
@@ -153,7 +153,7 @@ describe('reducers/buc', () => {
         currentBuc: '1'
       }, {
         type: types.PREFILL_CREATE_REPLY_SED_SUCCESS,
-        payload: {},
+        payload: { result: {}, status: 'OK' },
         context: {
           sed: {}
         }
@@ -224,7 +224,7 @@ describe('reducers/buc', () => {
         currentBuc: '1'
       }, {
         type: types.PREFILL_CREATE_SED_SUCCESS,
-        payload: {},
+        payload: { result: {}, status: 'OK' },
         context: {
           sed: {}
         }

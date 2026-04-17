@@ -20,7 +20,7 @@ export const fetchBucsListForGjenlevende = (
   return call({
     url: sprintf(urls.GJENNY_GET_BUCSLIST_GJENLEVENDE_URL, { aktoerId }),
     cascadeFailureError: true,
-    expectedPayload: mockBucsGjenlevende(aktoerId),
+    expectedPayload: { result: mockBucsGjenlevende(aktoerId), status: 'OK' },
     context: {
       howManyBucLists: howManyBucLists ? howManyBucLists : 2
     },
@@ -38,7 +38,7 @@ export const fetchBucsListForAvdod = (
   return call({
     url: sprintf(urls.GJENNY_GET_BUCSLIST_FOR_AVDOD_URL, { aktoerId, avdodFnr }),
     cascadeFailureError: true,
-    expectedPayload: mockBucsAvdod(aktoerId, avdodFnr),
+    expectedPayload: { result: mockBucsAvdod(aktoerId, avdodFnr), status: 'OK' },
     type: {
       request: types.GJENNY_GET_BUCSLIST_FOR_AVDOD_REQUEST,
       success: types.GJENNY_GET_BUCSLIST_FOR_AVDOD_SUCCESS,
@@ -50,7 +50,7 @@ export const fetchBucsListForAvdod = (
 export const getBucOptionsGjenny = (): ActionWithPayload<BUCOptions> => {
   return call({
     url: sprintf(urls.GJENNY_GET_BUC_OPTIONS_URL),
-    expectedPayload: mockBucOptionsGjenny,
+    expectedPayload: { result: mockBucOptionsGjenny, status: 'OK' },
     type: {
       request: types.GJENNY_GET_BUC_OPTIONS_REQUEST,
       success: types.GJENNY_GET_BUC_OPTIONS_SUCCESS,
@@ -78,7 +78,7 @@ export const createBucGjenny = (
       kravDato: params.kravDato
     },
     cascadeFailureError: true,
-    expectedPayload: mockCreateBuc(params.buc),
+    expectedPayload: { result: mockCreateBuc(params.buc), status: 'OK' },
     type: {
       request: types.GJENNY_CREATE_BUC_REQUEST,
       success: types.GJENNY_CREATE_BUC_SUCCESS,
@@ -98,7 +98,7 @@ export const createSedGjenny = (
       buc,
       sed: payload
     },
-    expectedPayload: mockCreateSed(payload),
+    expectedPayload: { result: mockCreateSed(payload), status: 'OK' },
     cascadeFailureError: true,
     method: 'POST',
     type: {
@@ -119,7 +119,7 @@ export const createReplySedGjenny = (
       buc,
       sed: payload
     },
-    expectedPayload: mockCreateSed(payload),
+    expectedPayload: { result: mockCreateSed(payload), status: 'OK' },
     cascadeFailureError: true,
     method: 'POST',
     type: {
@@ -138,16 +138,16 @@ export const sendP5000toRinaGjenny = (
     method: 'PUT',
     body: payload,
     cascadeFailureError: true,
-    expectedPayload: { success: true },
+    expectedPayload: { result: true, status: 'OK' },
     context: {
       caseId,
       sedId,
       payload
     },
     type: {
-      request: types.P5000_SEND_REQUEST,
-      success: types.P5000_SEND_SUCCESS,
-      failure: types.P5000_SEND_FAILURE
+      request: types.GJENNY_P5000_SEND_REQUEST,
+      success: types.GJENNY_P5000_SEND_SUCCESS,
+      failure: types.GJENNY_P5000_SEND_FAILURE
     }
   })
 }
