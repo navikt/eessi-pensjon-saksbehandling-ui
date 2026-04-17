@@ -6,5 +6,6 @@ export default {
   TEST_USER: true,
   P5000_MERGE_BUTTON: true,
   RELEASE_CDM_4_4: false,
-  RELEASE_CDM_4_4_BANNER: false
+  RELEASE_CDM_4_4_BANNER: false,
+  TRACK_TO_UMAMI: false
 } as FeatureToggles

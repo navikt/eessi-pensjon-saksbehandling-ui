@@ -6,11 +6,17 @@ import {
   KnappKlikketProperties,
   NedtrekkslisteValgEndretProperties
 } from '@navikt/analytics-types';
+import featureToggles from "src/mocks/app/featureToggles";
+
 const umamiLogger = (key: string, data: object) => {
-  //@ts-ignore
-  if (typeof window !== 'undefined' && window.umami) {
+  if(featureToggles.TRACK_TO_UMAMI){
     //@ts-ignore
-    window.umami.track(key, data)
+    if (typeof window !== 'undefined' && window.umami) {
+      //@ts-ignore
+      window.umami.track(key, data)
+    }
+  } else {
+    console.log("Umami event not tracked")
   }
 }
 
