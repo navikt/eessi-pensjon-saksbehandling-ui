@@ -145,9 +145,9 @@ export const sendP5000toRinaGjenny = (
       payload
     },
     type: {
-      request: types.P5000_SEND_REQUEST,
-      success: types.P5000_SEND_SUCCESS,
-      failure: types.P5000_SEND_FAILURE
+      request: types.GJENNY_P5000_SEND_REQUEST,
+      success: types.GJENNY_P5000_SEND_SUCCESS,
+      failure: types.GJENNY_P5000_SEND_FAILURE
     }
   })
 }
