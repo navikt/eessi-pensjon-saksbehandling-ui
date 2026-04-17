@@ -6,9 +6,10 @@ import {
   KnappKlikketProperties,
   NedtrekkslisteValgEndretProperties
 } from '@navikt/analytics-types';
-import featureToggles from "src/mocks/app/featureToggles";
+import store from 'src/store'
 
 const umamiLogger = (key: string, data: object) => {
+  const { featureToggles } = store.getState().app
   if(featureToggles.TRACK_TO_UMAMI){
     //@ts-ignore
     if (typeof window !== 'undefined' && window.umami) {
