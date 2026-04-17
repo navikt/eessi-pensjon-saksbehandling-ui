@@ -26,7 +26,8 @@ const initialFeatureToggles: FeatureToggles = {
   TEST_USER: false,
   P5000_MERGE_BUTTON: false,
   RELEASE_CDM_4_4: false,
-  RELEASE_CDM_4_4_BANNER: false
+  RELEASE_CDM_4_4_BANNER: false,
+  TRACK_TO_UMAMI: false
 }
 
 export const initialAppState: AppState = {
