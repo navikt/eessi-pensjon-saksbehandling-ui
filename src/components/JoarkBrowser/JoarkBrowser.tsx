@@ -300,6 +300,25 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           }
         }
       }
+
+      if (list && existingItem.dokumentInfoId && !existingItem.filstoerrelseMB) {
+        let journalpostDoc: JoarkDoc | undefined
+        for (const jp of list) {
+          for (const doc of jp.dokumenter) {
+            if (doc.dokumentInfoId === existingItem.dokumentInfoId) {
+              journalpostDoc = doc
+              existingItem.journalpostId = jp.journalpostId
+              existingItem.variant = getVariantFromJoarkDoc(doc)
+              existingItem.tema = jp.tema
+              existingItem.filstoerrelseMB = existingItem.variant ? existingItem.variant.filstoerrelseMB : undefined
+              break
+            }
+          }
+          if (journalpostDoc) {
+            break
+          }
+        }
+      }
       items.push({
         ...existingItem,
         key: existingItem.dokumentInfoId ? 'id-' + existingItem.dokumentInfoId : 'id-' + index,
