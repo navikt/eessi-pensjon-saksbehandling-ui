@@ -567,14 +567,14 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
 
       return {
         ...state,
-        bucOptions: _.difference((action as ActionWithPayload).payload.result, excludedBucs)
+        bucOptions: _.difference((action as ActionWithPayload).payload.result ?? [], excludedBucs)
       }
     }
 
     case types.GJENNY_GET_BUC_OPTIONS_SUCCESS:
       return {
         ...state,
-        bucOptions: (action as ActionWithPayload).payload.result
+        bucOptions: (action as ActionWithPayload).payload.result ?? []
       }
 
 
