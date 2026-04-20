@@ -24,9 +24,9 @@
   },
   "private": true,
   "dependencies": {
-    "@navikt/ds-css": "8.9.0",
-    "@navikt/ds-react": "8.9.0",
-    "@navikt/aksel-icons": "8.9.0",
+    "@navikt/ds-css": "8.9.1",
+    "@navikt/ds-react": "8.9.1",
+    "@navikt/aksel-icons": "8.9.1",
     "@navikt/analytics-types": "0.0.7",
     "@navikt/fetch": "7.2.7",
     "@navikt/flagg-ikoner": "13.0.7",
@@ -49,8 +49,8 @@
     "i18next-http-backend": "3.0.4",
     "lodash": "4.18.1",
     "md5": "2.3.0",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
     "react-error-boundary": "6.1.1",
     "react-i18next": "16.6.6",
     "react-pdf": "9.2.1",
@@ -73,7 +73,7 @@
     "@types/lodash": "4.17.24",
     "@types/md5": "2.3.6",
     "@types/mustache": "4.2.6",
-    "@types/node": "25.5.2",
+    "@types/node": "25.6.0",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@types/react-helmet": "6.1.11",
@@ -91,7 +91,7 @@
     "typescript": "5.9.3",
     "vite": "7.3.2",
     "vite-tsconfig-paths": "6.1.1",
-    "vitest": "4.1.2"
+    "vitest": "4.1.4"
   },
   "resolutions": {
     "babel-jest": "26.6.0"

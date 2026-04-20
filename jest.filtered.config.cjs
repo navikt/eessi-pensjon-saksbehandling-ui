@@ -33,6 +33,7 @@ module.exports = {
     'node_modules'
   ],
   moduleNameMapper: {
+    '(^src|\\.)/constants/environment$': '<rootDir>/src/mocks/app/environment.ts',
     '^.+\\.(jpg|jpeg|png|gif|svg|css|less)$': 'identity-obj-proxy'
   },
   setupFilesAfterEnv: [

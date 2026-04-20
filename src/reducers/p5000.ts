@@ -64,6 +64,8 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: AnyAction):
 
     case types.P5000_SEND_RESET:
     case types.P5000_SEND_REQUEST:
+    case types.GJENNY_P5000_SEND_RESET:
+    case types.GJENNY_P5000_SEND_REQUEST:
       return {
         ...state,
         sentP5000info: undefined
@@ -85,7 +87,24 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: AnyAction):
       }
     }
 
+    case types.GJENNY_P5000_SEND_SUCCESS: {
+      const sedId = (action as ActionWithPayload).context.sedId
+      const p5000saved = (action as ActionWithPayload).context.payload
+      const newP5000FromRinaMap = _.cloneDeep(state.p5000sFromRinaMap)
+
+      if (Object.prototype.hasOwnProperty.call(newP5000FromRinaMap, sedId)) {
+        fillWithKeys(p5000saved, sedId)
+        newP5000FromRinaMap[sedId] = p5000saved
+      }
+      return {
+        ...state,
+        p5000sFromRinaMap: newP5000FromRinaMap,
+        sentP5000info: (action as ActionWithPayload).payload.result
+      }
+    }
+
     case types.P5000_SEND_FAILURE:
+    case types.GJENNY_P5000_SEND_FAILURE:
       return {
         ...state,
         sentP5000info: null

@@ -73,7 +73,7 @@ export const createBuc = (
       kravDato: params.kravDato
     },
     cascadeFailureError: true,
-    expectedPayload: mockCreateBuc(params.buc),
+    expectedPayload: { result: mockCreateBuc(params.buc), status: 'OK' },
     type: {
       request: types.PREFILL_CREATE_BUC_REQUEST,
       success: types.PREFILL_CREATE_BUC_SUCCESS,
@@ -89,7 +89,7 @@ export const createATPBuc = (
     url: sprintf(urls.PREFILL_CREATE_BUC_URL, { buc: params.buc }),
     method: 'POST',
     cascadeFailureError: true,
-    expectedPayload: mockCreateBuc(params.buc),
+    expectedPayload: { result: mockCreateBuc(params.buc), status: 'OK' },
     type: {
       request: types.PREFILL_CREATE_ATP_BUC_REQUEST,
       success: types.PREFILL_CREATE_ATP_BUC_SUCCESS,
@@ -108,7 +108,7 @@ export const createReplySed = (
       buc,
       sed: payload
     },
-    expectedPayload: mockCreateSed(payload),
+    expectedPayload: { result: mockCreateSed(payload), status: 'OK' },
     cascadeFailureError: true,
     method: 'POST',
     type: {
@@ -129,7 +129,7 @@ export const createSed = (
       buc,
       sed: payload
     },
-    expectedPayload: mockCreateSed(payload),
+    expectedPayload: { result: mockCreateSed(payload), status: 'OK' },
     cascadeFailureError: true,
     method: 'POST',
     type: {
@@ -150,7 +150,7 @@ export const createATPSed = (
       buc,
       sed: payload
     },
-    expectedPayload: mockCreateSed(payload),
+    expectedPayload: { result: mockCreateSed(payload), status: 'OK' },
     cascadeFailureError: true,
     method: 'POST',
     type: {

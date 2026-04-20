@@ -144,6 +144,7 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
       }
 
     case types.P5000_SEND_REQUEST:
+    case types.GJENNY_P5000_SEND_REQUEST:
 
       return {
         ...state,
@@ -152,6 +153,8 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
 
     case types.P5000_SEND_SUCCESS:
     case types.P5000_SEND_FAILURE:
+    case types.GJENNY_P5000_SEND_SUCCESS:
+    case types.GJENNY_P5000_SEND_FAILURE:
 
       return {
         ...state,
