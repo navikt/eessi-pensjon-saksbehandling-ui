@@ -44,7 +44,7 @@ const App: React.FC = (): JSX.Element => {
     else {
       return undefined
     }
-  }, [])
+  }, [featureToggles.TRACK_TO_UMAMI])
 
   return (
     <Suspense fallback={<span>...</span>}>
