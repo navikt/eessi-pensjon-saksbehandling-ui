@@ -6,29 +6,45 @@ import {JSX, Suspense, useEffect} from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import {GJENNY, PESYS} from "./constants/constants";
 import {IS_Q} from "src/constants/environment";
+import {FeatureToggles} from "src/declarations/app";
+import {State} from "src/declarations/reducers";
+import {useSelector} from "react-redux";
 
+export interface AppSelector {
+  featureToggles : FeatureToggles
+}
 
 const App: React.FC = (): JSX.Element => {
 
+  const mapState = (state: State): AppSelector => ({
+    featureToggles: state.app.featureToggles
+  })
+
+  const { featureToggles }: AppSelector = useSelector<State, AppSelector>(mapState)
+
   useEffect(() => {
-    const websiteId = IS_Q ? '0237dde0-bca5-4cce-ad72-236e1365dd3f' : 'fbf07ede-921f-4553-8c13-2570df1b8957'
-    const sporingSrc = IS_Q ? 'https://cdn.nav.no/team-researchops/sporing/sporing-dev.js' : 'https://cdn.nav.no/team-researchops/sporing/sporing.js'
+    if(featureToggles.TRACK_TO_UMAMI){
+      const websiteId = IS_Q ? '0237dde0-bca5-4cce-ad72-236e1365dd3f' : 'fbf07ede-921f-4553-8c13-2570df1b8957'
+      const sporingSrc = IS_Q ? 'https://cdn.nav.no/team-researchops/sporing/sporing-dev.js' : 'https://cdn.nav.no/team-researchops/sporing/sporing.js'
 
-    const script = document.createElement('script')
-    script.src = sporingSrc
-    script.defer = true
-    script.setAttribute('data-website-id', websiteId)
+      const script = document.createElement('script')
+      script.src = sporingSrc
+      script.defer = true
+      script.setAttribute('data-website-id', websiteId)
 
-    document.body.appendChild(script)
+      document.body.appendChild(script)
 
-    return () => {
-      try {
-        document.body.removeChild(script)
-      } catch {
-        /* empty */
+      return () => {
+        try {
+          document.body.removeChild(script)
+        } catch {
+        }
       }
     }
-  }, [])
+    else {
+      return undefined
+    }
+  }, [featureToggles.TRACK_TO_UMAMI])
 
   return (
     <Suspense fallback={<span>...</span>}>
