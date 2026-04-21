@@ -95,6 +95,7 @@ import { GroupBase } from 'react-select'
 import {createReplySedGjenny, createSedGjenny} from "src/actions/gjenny";
 import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
 import dayjs from "dayjs";
+import {isSmallerThanFilstoerrelseSumLimit} from "src/utils/utils";
 
 export interface SEDStartProps {
   aktoerId: string | null | undefined
@@ -1261,35 +1262,46 @@ const SEDStart: React.FC<SEDStartProps> = ({
           )}
           <Box>
             <HStack gap="space-16">
-              <Button
-                variant={_sed === 'P7000' && _.isEmpty(_p6000s) ? 'secondary' : 'primary'}
-                data-testid='a_buc_c_sedstart--forward-button-id'
-                disabled={
-                (
-                  loading.creatingSed
-                  || _sendingAttachments
-                  || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
-                  || (_limitedInstitutions && _limitedInstitutions?.length > 0 && _institutions.length < 1)
-                )
-              }
-                onClick={onForwardButtonClick}
+              <HStack
+                paddingBlock="space-16 space-0"
+                gap={"space-16"}
               >
-                {(loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)) && <Loader />}
-                {loading.creatingSed
-                  ? t('message:loading-creatingSED')
-                  : _sendingAttachments
-                    ? t('message:loading-sendingSEDattachments')
-                    : (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
-                        ? t('ui:pleaseWaitXSeconds', { cooldown: _bucCooldown })
-                        : t('buc:form-orderSED')}
-              </Button>
-              <Button
-                variant='tertiary'
-                data-testid='a_buc_c_sedstart--cancel-button-id'
-                onClick={onCancelButtonClick}
-              >
-                {t('ui:cancel')}
-              </Button>
+                <Button
+                  variant={_sed === 'P7000' && _.isEmpty(_p6000s) ? 'secondary' : 'primary'}
+                  data-testid='a_buc_c_sedstart--forward-button-id'
+                  disabled={
+                  (
+                    loading.creatingSed
+                    || _sendingAttachments
+                    || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
+                    || (_limitedInstitutions && _limitedInstitutions?.length > 0 && _institutions.length < 1)
+                    || !isSmallerThanFilstoerrelseSumLimit(_sedAttachments)
+                  )
+                }
+                  onClick={onForwardButtonClick}
+                >
+                  {(loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)) && <Loader />}
+                  {loading.creatingSed
+                    ? t('message:loading-creatingSED')
+                    : _sendingAttachments
+                      ? t('message:loading-sendingSEDattachments')
+                      : (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
+                          ? t('ui:pleaseWaitXSeconds', { cooldown: _bucCooldown })
+                          : t('buc:form-orderSED')}
+                </Button>
+                {!isSmallerThanFilstoerrelseSumLimit(_sedAttachments) &&
+                  <Alert variant="warning" size="small">
+                    {t('message:alert-tooLargeFilstoerrelseSum')}
+                  </Alert>
+                }
+                <Button
+                  variant='tertiary'
+                  data-testid='a_buc_c_sedstart--cancel-button-id'
+                  onClick={onCancelButtonClick}
+                >
+                  {t('ui:cancel')}
+                </Button>
+              </HStack>
             </HStack>
           </Box>
         </VStack>

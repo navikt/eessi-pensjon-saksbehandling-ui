@@ -1,3 +1,16 @@
+import {JoarkBrowserItems} from "src/declarations/joark";
+
+export const isSmallerThanFilstoerrelseSumLimit = (items: JoarkBrowserItems) : boolean => {
+  const limit: number = 100
+  let filstoerrelseSum = 0
+
+  items.map(item => {
+    filstoerrelseSum += item.filstoerrelseMB ?? 0
+  })
+
+  return filstoerrelseSum < limit
+}
+
 export const formatDate = (dateString: String | undefined) => {
   if(dateString) {
     const dateParts = dateString.split("-")

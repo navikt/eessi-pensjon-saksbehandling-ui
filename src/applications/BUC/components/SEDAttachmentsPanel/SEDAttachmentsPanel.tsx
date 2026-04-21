@@ -25,6 +25,7 @@ import React, {JSX, useCallback, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { createSelector } from '@reduxjs/toolkit'
+import {isSmallerThanFilstoerrelseSumLimit} from "src/utils/utils";
 
 export interface SEDAttachmentsPanelProps {
   aktoerId: string | null | undefined
@@ -105,16 +106,6 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
   const onAttachmentsPanelOpen = (): void => {
     setAttachmentsTableVisible(true)
     setAttachmentsSent(false)
-  }
-
-  const isSmallerThanFilstoerrelseSumLimit = (items: JoarkBrowserItems) : boolean => {
-    let filstoerrelseSum = 0
-
-    items.map(item => {
-      filstoerrelseSum += item.filstoerrelseMB ?? 0
-    })
-
-    return filstoerrelseSum < 100
   }
 
   const onAttachmentsSubmitted = (): void => {
