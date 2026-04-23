@@ -278,6 +278,9 @@ export const fetchBuc = (
   return call({
     url,
     expectedPayload: { result: mockBuc(rinaCaseId) },
+    body: {
+      aktoerId
+    },
     context: {
       rinaCaseId,
       aktoerId,
