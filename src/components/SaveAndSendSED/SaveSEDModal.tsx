@@ -44,7 +44,7 @@ const SaveSEDModal: React.FC<SaveSEDModalProps> = ({
       modal={{
         modalContent: (
           <div className={styles.minimalModalDiv}>
-            {alertMessage && alertType && [types.BUC_PUT_SED_FAILURE].indexOf(alertType) >= 0 && (
+            {alertMessage && alertType && [types.SED_PUT_SED_FAILURE].indexOf(alertType) >= 0 && (
               <VStack gap="space-16">
                 <div className={styles.alertstripeDiv}>
                   <Alert variant='error'>{alertMessage}</Alert>

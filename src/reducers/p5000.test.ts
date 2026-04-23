@@ -4,7 +4,7 @@ import mockSed1 from 'src/mocks/buc/sed_P5000_small1'
 import mockSed2 from 'src/mocks/buc/sed_P5000_small2'
 
 describe('reducers/p5000', () => {
-  it('P5000_GET_SUCCESS', () => {
+  it('SED_P5000_GET_SUCCESS', () => {
     expect(
       p5000Reducer({
         ...initialP5000State,
@@ -12,7 +12,7 @@ describe('reducers/p5000', () => {
           1: mockSed1
         }
       }, {
-        type: types.P5000_GET_SUCCESS,
+        type: types.SED_P5000_GET_SUCCESS,
         payload: mockSed2,
         context: {
           id: 2
