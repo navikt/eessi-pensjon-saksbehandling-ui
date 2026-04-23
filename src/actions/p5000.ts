@@ -22,28 +22,28 @@ export const getSed = (
   caseId: string, sed: Sed
 ): ActionWithPayload<P5000SED> => {
   return call({
-    url: sprintf(urls.P5000_GET_URL, { caseId, sedId: sed.id }),
+    url: sprintf(urls.SED_P5000_GET_URL, { caseId, sedId: sed.id }),
     cascadeFailureError: true,
     context: sed,
     //expectedPayload: mockP5000(sed, 'small'),
     expectedPayload: mockSEDP5000_small,
     type: {
-      request: types.P5000_GET_REQUEST,
-      success: types.P5000_GET_SUCCESS,
-      failure: types.P5000_GET_FAILURE
+      request: types.SED_P5000_GET_REQUEST,
+      success: types.SED_P5000_GET_SUCCESS,
+      failure: types.SED_P5000_GET_FAILURE
     }
   })
 }
 
 export const resetSentP5000info : ActionCreator<Action> = (): Action => ({
-  type: types.P5000_SEND_RESET
+  type: types.SED_P5000_SEND_RESET
 })
 
 export const sendP5000toRina = (
   caseId: string, sedId: string, payload: P5000SED
 ): Action => {
   return call({
-    url: sprintf(urls.P5000_PUT_URL, { caseId, sedId }),
+    url: sprintf(urls.SED_P5000_PUT_URL, { caseId, sedId }),
     method: 'PUT',
     body: payload,
     cascadeFailureError: true,
@@ -54,9 +54,9 @@ export const sendP5000toRina = (
       payload
     },
     type: {
-      request: types.P5000_SEND_REQUEST,
-      success: types.P5000_SEND_SUCCESS,
-      failure: types.P5000_SEND_FAILURE
+      request: types.SED_P5000_SEND_REQUEST,
+      success: types.SED_P5000_SEND_SUCCESS,
+      failure: types.SED_P5000_SEND_FAILURE
     }
   })
 }

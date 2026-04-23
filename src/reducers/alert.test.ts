@@ -192,14 +192,14 @@ describe('reducers/alert', () => {
     })
   })
 
-  it('BUC_GET_SED_LIST_FAILURE', () => {
+  it('SED_GET_SED_LIST_FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {
-        type: types.BUC_GET_SED_LIST_FAILURE
+        type: types.SED_GET_SED_LIST_FAILURE
       })
     ).toEqual({
       ...initialAlertState,
-      type: types.BUC_GET_SED_LIST_FAILURE,
+      type: types.SED_GET_SED_LIST_FAILURE,
       stripeStatus : 'error',
       stripeMessage : i18n.t('message:alert-noSedList'),
       bannerStatus: 'error',

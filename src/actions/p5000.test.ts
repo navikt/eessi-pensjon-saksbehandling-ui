@@ -29,18 +29,18 @@ describe('actions/p5000', () => {
     p5000Actions.getSed(mockCaseId, mockSed)
     expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
-        request: types.P5000_GET_REQUEST,
-        success: types.P5000_GET_SUCCESS,
-        failure: types.P5000_GET_FAILURE
+        request: types.SED_P5000_GET_REQUEST,
+        success: types.SED_P5000_GET_SUCCESS,
+        failure: types.SED_P5000_GET_FAILURE
       },
-      url: sprintf(urls.P5000_GET_URL, { caseId: mockCaseId, sedId: mockSed.id })
+      url: sprintf(urls.SED_P5000_GET_URL, { caseId: mockCaseId, sedId: mockSed.id })
     }))
   })
 
   it('resetSentP5000info()', () => {
     const generatedResult = p5000Actions.resetSentP5000info()
     expect(generatedResult).toMatchObject({
-      type: types.P5000_SEND_RESET
+      type: types.SED_P5000_SEND_RESET
     })
   })
 
@@ -51,11 +51,11 @@ describe('actions/p5000', () => {
     p5000Actions.sendP5000toRina(mockCaseId, mockSedId, mockPayload)
     expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
-        request: types.P5000_SEND_REQUEST,
-        success: types.P5000_SEND_SUCCESS,
-        failure: types.P5000_SEND_FAILURE
+        request: types.SED_P5000_SEND_REQUEST,
+        success: types.SED_P5000_SEND_SUCCESS,
+        failure: types.SED_P5000_SEND_FAILURE
       },
-      url: sprintf(urls.P5000_PUT_URL, { caseId: mockCaseId, sedId: mockSedId })
+      url: sprintf(urls.SED_P5000_PUT_URL, { caseId: mockCaseId, sedId: mockSedId })
     }))
   })
 })

@@ -208,16 +208,16 @@ describe('reducers/loading', () => {
     simulateFailure(types.BUC_GET_SAKTYPE_FAILURE, 'gettingSakType')
   })
 
-  it('BUC_GET_SED_LIST_REQUEST', () => {
-    simulateRequest(types.BUC_GET_SED_LIST_REQUEST, 'gettingSedList')
+  it('SED_GET_SED_LIST_REQUEST', () => {
+    simulateRequest(types.SED_GET_SED_LIST_REQUEST, 'gettingSedList')
   })
 
-  it('BUC_GET_SED_LIST_SUCCESS', () => {
-    simulateSuccess(types.BUC_GET_SED_LIST_SUCCESS, 'gettingSedList')
+  it('SED_GET_SED_LIST_SUCCESS', () => {
+    simulateSuccess(types.SED_GET_SED_LIST_SUCCESS, 'gettingSedList')
   })
 
-  it('BUC_GET_SED_LIST_FAILURE', () => {
-    simulateFailure(types.BUC_GET_SED_LIST_FAILURE, 'gettingSedList')
+  it('SED_GET_SED_LIST_FAILURE', () => {
+    simulateFailure(types.SED_GET_SED_LIST_FAILURE, 'gettingSedList')
   })
 
   it('BUC_RINA_GET_URL_REQUEST', () => {
