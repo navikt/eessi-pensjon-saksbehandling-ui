@@ -83,7 +83,7 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: AnyAction):
       return {
         ...state,
         p5000sFromRinaMap: newP5000FromRinaMap,
-        sentP5000info: (action as ActionWithPayload).payload
+        sentP5000info: (action as ActionWithPayload).payload.result
       }
     }
 
@@ -139,7 +139,7 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: AnyAction):
 
     case types.SED_P5000_GET_SUCCESS: {
       const newp5000FromRina = _.cloneDeep(state.p5000sFromRinaMap)
-      const payload = (action as ActionWithPayload).payload
+      const payload = (action as ActionWithPayload).payload.result
       const sedId = (action as ActionWithPayload).context.id
       fillWithKeys(payload, sedId)
       newp5000FromRina[sedId] = _.cloneDeep(payload)

@@ -26,7 +26,7 @@ export const getSed = (
     cascadeFailureError: true,
     context: sed,
     //expectedPayload: mockP5000(sed, 'small'),
-    expectedPayload: mockSEDP5000_small,
+    expectedPayload: { result: mockSEDP5000_small, status: 'OK' },
     type: {
       request: types.SED_P5000_GET_REQUEST,
       success: types.SED_P5000_GET_SUCCESS,
@@ -47,7 +47,7 @@ export const sendP5000toRina = (
     method: 'PUT',
     body: payload,
     cascadeFailureError: true,
-    expectedPayload: { success: true },
+    expectedPayload: { result: { success: true }, status: 'OK' },
     context: {
       caseId,
       sedId,

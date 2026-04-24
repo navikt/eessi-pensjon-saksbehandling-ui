@@ -362,7 +362,7 @@ export const getSed = (
   return call({
     url: sprintf(urls.SED_GET_SED_URL, { caseId, sedId: sed.id }),
     cascadeFailureError: true,
-    expectedPayload: mockP2000,
+    expectedPayload: { result: mockP2000, status: 'OK' },
     context: {
       sed: sed
     },
@@ -381,7 +381,7 @@ export const getSedP8000 = (
   return call({
     url: sprintf(urls.SED_GET_SED_URL, { caseId, sedId: sed.id }),
     cascadeFailureError: true,
-    expectedPayload: mockP8000,
+    expectedPayload: { result: mockP8000, status: 'OK' },
     context: {
       sed: sed
     },
@@ -488,7 +488,7 @@ export const getSedP4000 = (
   return call({
     url: sprintf(urls.SED_GET_SED_URL, { caseId, sedId: sed.id }),
     cascadeFailureError: true,
-    expectedPayload: mockP4000,
+    expectedPayload: { result: mockP4000, status: 'OK' },
     context: {
       sedId: sed.id
     },
@@ -506,7 +506,7 @@ export const getSedP6000 = (
   return call({
     url: sprintf(urls.SED_GET_P6000_URL, { rinaCaseId }),
     cascadeFailureError: true,
-    expectedPayload: mockP6000,
+    expectedPayload: { result: mockP6000, status: 'OK' },
     type: {
       request: types.SED_GET_P6000_REQUEST,
       success: types.SED_GET_P6000_SUCCESS,
@@ -521,7 +521,7 @@ export const getSedP6000PDF = (
   return call({
     url: sprintf(urls.SED_GET_PDF_URL, { rinaCaseId, documentId }),
     cascadeFailureError: true,
-    expectedPayload: mockPreviewPdf,
+    expectedPayload: { result: mockPreviewPdf, status: 'OK' },
     type: {
       request: types.SED_GET_P6000PDF_REQUEST,
       success: types.SED_GET_P6000PDF_SUCCESS,
@@ -538,7 +538,7 @@ export const getPreviewFile = (PSED: PSED): ActionWithPayload => {
   return call({
     method: 'POST',
     url: sprintf(urls.SED_PREVIEW_PDF_URL),
-    expectedPayload: mockPreviewPdf,
+    expectedPayload: { result: mockPreviewPdf, status: 'OK' },
     type: {
       request: types.SED_GET_PREVIEWPDF_REQUEST,
       success: types.SED_GET_PREVIEWPDF_SUCCESS,
@@ -554,7 +554,7 @@ export const getSedPreviewPDF = (
   return call({
     url: sprintf(urls.SED_GET_PDF_URL, { rinaCaseId, documentId }),
     cascadeFailureError: true,
-    expectedPayload: mockPreviewPdf,
+    expectedPayload: { result: mockPreviewPdf, status: 'OK' },
     type: {
       request: types.SED_GET_PREVIEWPDF_REQUEST,
       success: types.SED_GET_PREVIEWPDF_SUCCESS,
@@ -602,7 +602,7 @@ export const getSedList = (
   const url: string = sprintf(urls.SED_GET_SED_LIST_URL, { buc: buc.type, rinaId: buc.caseId })
   return call({
     url,
-    expectedPayload: mockSedList,
+    expectedPayload: { result: mockSedList, status: 'OK' },
     type: {
       request: types.SED_GET_SED_LIST_REQUEST,
       success: types.SED_GET_SED_LIST_SUCCESS,

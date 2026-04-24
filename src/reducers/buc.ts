@@ -702,7 +702,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       const sedTypes = ['X', 'H', 'P']
       return {
         ...state,
-        sedList: (action as ActionWithPayload).payload.sort((a: string, b: string) => {
+        sedList: (action as ActionWithPayload).payload.result.sort((a: string, b: string) => {
           const mainCompare = parseInt(a.replace(/[^\d]/g, ''), 10) - parseInt(b.replace(/[^\d]/g, ''), 10)
           const sedTypeA = a.charAt(0)
           const sedTypeB = b.charAt(0)
@@ -759,7 +759,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       return {
         ...state,
         p4000: {
-          ...(action as ActionWithPayload).payload,
+          ...(action as ActionWithPayload).payload.result,
           sedId: (action as ActionWithPayload).context.sedId
         }
       }
@@ -779,7 +779,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.SED_GET_P6000_SUCCESS:
       return {
         ...state,
-        p6000s: (action as ActionWithPayload).payload
+        p6000s: (action as ActionWithPayload).payload.result
       }
 
     case types.SED_P6000PDF_RESET:
@@ -798,7 +798,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.SED_GET_P6000PDF_SUCCESS:
       return {
         ...state,
-        p6000PDF: (action as ActionWithPayload).payload
+        p6000PDF: (action as ActionWithPayload).payload.result
       }
 
 
@@ -818,7 +818,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.SED_GET_PREVIEWPDF_SUCCESS:
       return {
         ...state,
-        previewPDF: (action as ActionWithPayload).payload
+        previewPDF: (action as ActionWithPayload).payload.result
       }
 
 
@@ -1006,7 +1006,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     }
 
     case types.SED_GET_SED_SUCCESS: {
-      const payload = (action as ActionWithPayload).payload
+      const payload = (action as ActionWithPayload).payload.result
       const sed = (action as ActionWithPayload).context.sed
       return {
         ...state,
@@ -1019,7 +1019,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     }
 
     case types.SED_GET_P8000SED_SUCCESS: {
-      const payload = (action as ActionWithPayload).payload
+      const payload = (action as ActionWithPayload).payload.result
       const sed = (action as ActionWithPayload).context.sed
 
       const fritekstArray: string[] | undefined = (payload as P8000SED).pensjon?.ytterligeinformasjon?.split(/\*+/)
