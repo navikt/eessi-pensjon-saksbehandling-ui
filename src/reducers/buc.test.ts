@@ -546,7 +546,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer(initialBucState, {
         type: types.SED_GET_SED_LIST_SUCCESS,
-        payload: ['P4000', 'A3012', 'B1000', 'P10000', 'X800', 'H208', 'H207', 'P2000']
+        payload: { result: ['P4000', 'A3012', 'B1000', 'P10000', 'X800', 'H208', 'H207', 'P2000'], status: 'OK' }
       })
     ).toEqual({
       ...initialBucState,

@@ -13,7 +13,7 @@ describe('reducers/p5000', () => {
         }
       }, {
         type: types.SED_P5000_GET_SUCCESS,
-        payload: mockSed2,
+        payload: { result: mockSed2, status: 'OK' },
         context: {
           id: 2
         }
