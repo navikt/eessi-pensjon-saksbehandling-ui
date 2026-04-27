@@ -143,7 +143,7 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
         gettingUserInfo: false
       }
 
-    case types.P5000_SEND_REQUEST:
+    case types.SED_P5000_SEND_REQUEST:
     case types.GJENNY_P5000_SEND_REQUEST:
 
       return {
@@ -151,8 +151,8 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
         sendingP5000info: true
       }
 
-    case types.P5000_SEND_SUCCESS:
-    case types.P5000_SEND_FAILURE:
+    case types.SED_P5000_SEND_SUCCESS:
+    case types.SED_P5000_SEND_FAILURE:
     case types.GJENNY_P5000_SEND_SUCCESS:
     case types.GJENNY_P5000_SEND_FAILURE:
 
@@ -337,59 +337,59 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
         gettingInstitutionList: false
       }
 
-    case types.BUC_GET_P4000_REQUEST:
+    case types.SED_GET_P4000_REQUEST:
       return {
         ...state,
         gettingP4000: true
       }
 
-    case types.BUC_GET_P4000_SUCCESS:
-    case types.BUC_GET_P4000_FAILURE:
+    case types.SED_GET_P4000_SUCCESS:
+    case types.SED_GET_P4000_FAILURE:
       return {
         ...state,
         gettingP4000: false
       }
 
 
-    case types.BUC_GET_P6000_REQUEST:
+    case types.SED_GET_P6000_REQUEST:
 
       return {
         ...state,
         gettingP6000: true
       }
 
-    case types.BUC_GET_P6000_SUCCESS:
-    case types.BUC_GET_P6000_FAILURE:
+    case types.SED_GET_P6000_SUCCESS:
+    case types.SED_GET_P6000_FAILURE:
 
       return {
         ...state,
         gettingP6000: false
       }
 
-    case types.BUC_GET_P6000PDF_REQUEST:
+    case types.SED_GET_P6000PDF_REQUEST:
 
       return {
         ...state,
         gettingP6000PDF: true
       }
 
-    case types.BUC_GET_P6000PDF_SUCCESS:
-    case types.BUC_GET_P6000PDF_FAILURE:
+    case types.SED_GET_P6000PDF_SUCCESS:
+    case types.SED_GET_P6000PDF_FAILURE:
 
       return {
         ...state,
         gettingP6000PDF: false
       }
 
-    case types.BUC_GET_PREVIEWPDF_REQUEST:
+    case types.SED_GET_PREVIEWPDF_REQUEST:
 
       return {
         ...state,
         gettingPreviewPDF: true
       }
 
-    case types.BUC_GET_PREVIEWPDF_SUCCESS:
-    case types.BUC_GET_PREVIEWPDF_FAILURE:
+    case types.SED_GET_PREVIEWPDF_SUCCESS:
+    case types.SED_GET_PREVIEWPDF_FAILURE:
 
       return {
         ...state,
@@ -439,15 +439,15 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
         gettingSakType: false
       }
 
-    case types.BUC_GET_SED_LIST_REQUEST:
+    case types.SED_GET_SED_LIST_REQUEST:
 
       return {
         ...state,
         gettingSedList: true
       }
 
-    case types.BUC_GET_SED_LIST_SUCCESS:
-    case types.BUC_GET_SED_LIST_FAILURE:
+    case types.SED_GET_SED_LIST_SUCCESS:
+    case types.SED_GET_SED_LIST_FAILURE:
 
       return {
         ...state,
@@ -530,47 +530,47 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
         gettingGjpBp: false
       }
 
-    case types.BUC_GET_SED_REQUEST:
-    case types.BUC_GET_P8000SED_REQUEST:
+    case types.SED_GET_SED_REQUEST:
+    case types.SED_GET_P8000SED_REQUEST:
 
       return {
         ...state,
         gettingSed: true
       }
 
-    case types.BUC_GET_SED_SUCCESS:
-    case types.BUC_GET_P8000SED_SUCCESS:
-    case types.BUC_GET_P8000SED_FAILURE:
-    case types.BUC_GET_SED_FAILURE:
+    case types.SED_GET_SED_SUCCESS:
+    case types.SED_GET_P8000SED_SUCCESS:
+    case types.SED_GET_P8000SED_FAILURE:
+    case types.SED_GET_SED_FAILURE:
 
       return {
         ...state,
         gettingSed: false
       }
 
-    case types.BUC_PUT_SED_REQUEST:
+    case types.SED_PUT_SED_REQUEST:
 
       return {
         ...state,
         savingSed: true
       }
 
-    case types.BUC_PUT_SED_SUCCESS:
-    case types.BUC_PUT_SED_FAILURE:
+    case types.SED_PUT_SED_SUCCESS:
+    case types.SED_PUT_SED_FAILURE:
 
       return {
         ...state,
         savingSed: false
       }
 
-    case types.BUC_SEND_SED_REQUEST:
+    case types.SED_SEND_SED_REQUEST:
       return {
         ...state,
         sendingSed: true
       }
 
-    case types.BUC_SEND_SED_SUCCESS:
-    case types.BUC_SEND_SED_FAILURE:
+    case types.SED_SEND_SED_SUCCESS:
+    case types.SED_SEND_SED_FAILURE:
       return {
         ...state,
         sendingSed: false

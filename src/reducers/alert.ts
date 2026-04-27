@@ -151,7 +151,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: AnyAction) 
         bannerMessage = i18n.t('message:alert-noInstitutionList')
         break
 
-      case types.BUC_GET_SED_LIST_FAILURE:
+      case types.SED_GET_SED_LIST_FAILURE:
         stripeMessage = i18n.t('message:alert-noSedList')
         bannerMessage = i18n.t('message:alert-noSedList')
         break

@@ -698,11 +698,11 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
     }
 
-    case types.BUC_GET_SED_LIST_SUCCESS: {
+    case types.SED_GET_SED_LIST_SUCCESS: {
       const sedTypes = ['X', 'H', 'P']
       return {
         ...state,
-        sedList: (action as ActionWithPayload).payload.sort((a: string, b: string) => {
+        sedList: (action as ActionWithPayload).payload.result.sort((a: string, b: string) => {
           const mainCompare = parseInt(a.replace(/[^\d]/g, ''), 10) - parseInt(b.replace(/[^\d]/g, ''), 10)
           const sedTypeA = a.charAt(0)
           const sedTypeB = b.charAt(0)
@@ -713,8 +713,8 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
     }
 
-    case types.BUC_GET_SED_LIST_REQUEST:
-    case types.BUC_GET_SED_LIST_FAILURE:
+    case types.SED_GET_SED_LIST_REQUEST:
+    case types.SED_GET_SED_LIST_FAILURE:
 
       return {
         ...state,
@@ -743,82 +743,82 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         rinaUrl: (action as ActionWithPayload).payload.result.rinaUrl
       }
 
-    case types.BUC_GET_P4000_REQUEST:
+    case types.SED_GET_P4000_REQUEST:
       return {
         ...state,
         p4000: undefined
       }
 
-    case types.BUC_GET_P4000_FAILURE:
+    case types.SED_GET_P4000_FAILURE:
       return {
         ...state,
         p4000: null
       }
 
-    case types.BUC_GET_P4000_SUCCESS:
+    case types.SED_GET_P4000_SUCCESS:
       return {
         ...state,
         p4000: {
-          ...(action as ActionWithPayload).payload,
+          ...(action as ActionWithPayload).payload.result,
           sedId: (action as ActionWithPayload).context.sedId
         }
       }
 
-    case types.BUC_GET_P6000_REQUEST:
+    case types.SED_GET_P6000_REQUEST:
       return {
         ...state,
         p6000s: undefined
       }
 
-    case types.BUC_GET_P6000_FAILURE:
+    case types.SED_GET_P6000_FAILURE:
       return {
         ...state,
         p6000s: null
       }
 
-    case types.BUC_GET_P6000_SUCCESS:
+    case types.SED_GET_P6000_SUCCESS:
       return {
         ...state,
-        p6000s: (action as ActionWithPayload).payload
+        p6000s: (action as ActionWithPayload).payload.result
       }
 
-    case types.BUC_P6000PDF_RESET:
-    case types.BUC_GET_P6000PDF_REQUEST:
+    case types.SED_P6000PDF_RESET:
+    case types.SED_GET_P6000PDF_REQUEST:
       return {
         ...state,
         p6000PDF: undefined
       }
 
-    case types.BUC_GET_P6000PDF_FAILURE:
+    case types.SED_GET_P6000PDF_FAILURE:
       return {
         ...state,
         p6000PDF: null
       }
 
-    case types.BUC_GET_P6000PDF_SUCCESS:
+    case types.SED_GET_P6000PDF_SUCCESS:
       return {
         ...state,
-        p6000PDF: (action as ActionWithPayload).payload
+        p6000PDF: (action as ActionWithPayload).payload.result
       }
 
 
-    case types.BUC_PREVIEWPDF_RESET:
-    case types.BUC_GET_PREVIEWPDF_REQUEST:
+    case types.SED_PREVIEWPDF_RESET:
+    case types.SED_GET_PREVIEWPDF_REQUEST:
       return {
         ...state,
         previewPDF: undefined
       }
 
-    case types.BUC_GET_PREVIEWPDF_FAILURE:
+    case types.SED_GET_PREVIEWPDF_FAILURE:
       return {
         ...state,
         previewPDF: null
       }
 
-    case types.BUC_GET_PREVIEWPDF_SUCCESS:
+    case types.SED_GET_PREVIEWPDF_SUCCESS:
       return {
         ...state,
-        previewPDF: (action as ActionWithPayload).payload
+        previewPDF: (action as ActionWithPayload).payload.result
       }
 
 
@@ -996,8 +996,8 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
 
     case types.PSED_RESET:
-    case types.BUC_GET_SED_REQUEST:
-    case types.BUC_GET_P8000SED_REQUEST: {
+    case types.SED_GET_SED_REQUEST:
+    case types.SED_GET_P8000SED_REQUEST: {
       return {
         ...state,
         PSED: undefined,
@@ -1005,8 +1005,8 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
     }
 
-    case types.BUC_GET_SED_SUCCESS: {
-      const payload = (action as ActionWithPayload).payload
+    case types.SED_GET_SED_SUCCESS: {
+      const payload = (action as ActionWithPayload).payload.result
       const sed = (action as ActionWithPayload).context.sed
       return {
         ...state,
@@ -1018,8 +1018,8 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
     }
 
-    case types.BUC_GET_P8000SED_SUCCESS: {
-      const payload = (action as ActionWithPayload).payload
+    case types.SED_GET_P8000SED_SUCCESS: {
+      const payload = (action as ActionWithPayload).payload.result
       const sed = (action as ActionWithPayload).context.sed
 
       const fritekstArray: string[] | undefined = (payload as P8000SED).pensjon?.ytterligeinformasjon?.split(/\*+/)
@@ -1044,8 +1044,8 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         PSEDChanged: false
       }
     }
-    case types.BUC_GET_SED_FAILURE:
-    case types.BUC_GET_P8000SED_FAILURE: {
+    case types.SED_GET_SED_FAILURE:
+    case types.SED_GET_P8000SED_FAILURE: {
       return {
         ...state,
         PSED: null
@@ -1094,13 +1094,13 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       }
     }
 
-    case types.BUC_PUT_SED_REQUEST:
+    case types.SED_PUT_SED_REQUEST:
       return {
         ...state,
         PSEDSavedResponse: undefined
       }
 
-    case types.BUC_PUT_SED_SUCCESS:
+    case types.SED_PUT_SED_SUCCESS:
       const savedPSED: PSED = _.cloneDeep(state.PSED) as PSED
       if (_.isNil(savedPSED.originalSed)) {
         savedPSED.originalSed = {} as Sed
@@ -1121,25 +1121,25 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         PSEDChanged: false
       }
 
-    case types.BUC_PUT_SED_FAILURE:
+    case types.SED_PUT_SED_FAILURE:
       return {
         ...state,
         PSEDSavedResponse: null
       }
 
-    case types.BUC_SEND_SED_REQUEST:
+    case types.SED_SEND_SED_REQUEST:
       return {
         ...state,
         PSEDSendResponse: undefined
       }
 
-    case types.BUC_SEND_SED_FAILURE:
+    case types.SED_SEND_SED_FAILURE:
       return {
         ...state,
         PSEDSendResponse: null
       }
 
-    case types.BUC_SEND_SED_SUCCESS: {
+    case types.SED_SEND_SED_SUCCESS: {
       const newPSED: PSED = _.cloneDeep(state.PSED) as PSED
       if (_.isNil(newPSED.originalSed)) {
         newPSED.originalSed = {} as Sed

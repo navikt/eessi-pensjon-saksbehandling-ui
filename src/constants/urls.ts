@@ -69,14 +69,14 @@ export const PREFILL_CREATE_SED_URL = PREFILL_URL + '/sed/add'
 export const PREFILL_CREATE_REPLY_SED_URL = PREFILL_URL + '/sed/replysed/%(parentId)s'
 
 // SedController
-export const BUC_GET_SED_LIST_URL = SED_URL + '/seds/%(buc)s/%(rinaId)s'
-export const BUC_GET_SED_URL = SED_URL + '/get/%(caseId)s/%(sedId)s'
-export const BUC_PUT_SED_URL = SED_URL + '/put/%(caseId)s/%(sedId)s'
-export const P5000_GET_URL = SED_URL + '/get/%(caseId)s/%(sedId)s'
-export const P5000_PUT_URL = SED_URL + '/put/%(caseId)s/%(sedId)s'
-export const BUC_GET_P6000_URL = SED_URL + '/getP6000/%(rinaCaseId)s'
-export const BUC_GET_PDF_URL = SED_URL + '/get/%(rinaCaseId)s/%(documentId)s/pdf'
-export const BUC_PREVIEW_PDF_URL = SED_URL + '/pdf'
+export const SED_GET_SED_LIST_URL = SED_URL + '/seds/%(buc)s/%(rinaId)s'
+export const SED_GET_SED_URL = SED_URL + '/get/%(caseId)s/%(sedId)s'
+export const SED_PUT_SED_URL = SED_URL + '/put/%(caseId)s/%(sedId)s'
+export const SED_P5000_GET_URL = SED_URL + '/get/%(caseId)s/%(sedId)s'
+export const SED_P5000_PUT_URL = SED_URL + '/put/%(caseId)s/%(sedId)s'
+export const SED_GET_P6000_URL = SED_URL + '/getP6000/%(rinaCaseId)s'
+export const SED_GET_PDF_URL = SED_URL + '/get/%(rinaCaseId)s/%(documentId)s/pdf'
+export const SED_PREVIEW_PDF_URL = SED_URL + '/pdf'
 
 //GjennyController
 export const GJENNY_GET_BUCSLIST_GJENLEVENDE_URL = GJENNY_URL + '/rinasaker/%(aktoerId)s'

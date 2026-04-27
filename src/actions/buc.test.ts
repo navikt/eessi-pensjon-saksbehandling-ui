@@ -302,11 +302,11 @@ describe('src/actions/buc', () => {
     bucActions.getSedP6000(mockRinaCaseId)
     expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
-        request: types.BUC_GET_P6000_REQUEST,
-        success: types.BUC_GET_P6000_SUCCESS,
-        failure: types.BUC_GET_P6000_FAILURE
+        request: types.SED_GET_P6000_REQUEST,
+        success: types.SED_GET_P6000_SUCCESS,
+        failure: types.SED_GET_P6000_FAILURE
       },
-      url: sprintf(urls.BUC_GET_P6000_URL, { rinaCaseId: mockRinaCaseId })
+      url: sprintf(urls.SED_GET_P6000_URL, { rinaCaseId: mockRinaCaseId })
     }))
   })
 
@@ -316,11 +316,11 @@ describe('src/actions/buc', () => {
     bucActions.getSedP6000PDF(mockRinaCaseId, mockDocumentId)
     expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
-        request: types.BUC_GET_P6000PDF_REQUEST,
-        success: types.BUC_GET_P6000PDF_SUCCESS,
-        failure: types.BUC_GET_P6000PDF_FAILURE
+        request: types.SED_GET_P6000PDF_REQUEST,
+        success: types.SED_GET_P6000PDF_SUCCESS,
+        failure: types.SED_GET_P6000PDF_FAILURE
       },
-      url: sprintf(urls.BUC_GET_PDF_URL, { rinaCaseId: mockRinaCaseId, documentId: mockDocumentId })
+      url: sprintf(urls.SED_GET_PDF_URL, { rinaCaseId: mockRinaCaseId, documentId: mockDocumentId })
     }))
   })
 
@@ -356,11 +356,11 @@ describe('src/actions/buc', () => {
     bucActions.getSedList(mockBuc)
     expect(call).toHaveBeenCalledWith(expect.objectContaining({
       type: {
-        request: types.BUC_GET_SED_LIST_REQUEST,
-        success: types.BUC_GET_SED_LIST_SUCCESS,
-        failure: types.BUC_GET_SED_LIST_FAILURE
+        request: types.SED_GET_SED_LIST_REQUEST,
+        success: types.SED_GET_SED_LIST_SUCCESS,
+        failure: types.SED_GET_SED_LIST_FAILURE
       },
-      url: sprintf(urls.BUC_GET_SED_LIST_URL, { buc: mockBuc.type, rinaId: mockBuc.caseId })
+      url: sprintf(urls.SED_GET_SED_LIST_URL, { buc: mockBuc.type, rinaId: mockBuc.caseId })
     }))
   })
 

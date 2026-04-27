@@ -542,11 +542,11 @@ describe('reducers/buc', () => {
     ])
   })
 
-  it('BUC_GET_SED_LIST_SUCCESS', () => {
+  it('SED_GET_SED_LIST_SUCCESS', () => {
     expect(
       bucReducer(initialBucState, {
-        type: types.BUC_GET_SED_LIST_SUCCESS,
-        payload: ['P4000', 'A3012', 'B1000', 'P10000', 'X800', 'H208', 'H207', 'P2000']
+        type: types.SED_GET_SED_LIST_SUCCESS,
+        payload: { result: ['P4000', 'A3012', 'B1000', 'P10000', 'X800', 'H208', 'H207', 'P2000'], status: 'OK' }
       })
     ).toEqual({
       ...initialBucState,
@@ -554,24 +554,24 @@ describe('reducers/buc', () => {
     })
   })
 
-  it('BUC_GET_SED_LIST_REQUEST', () => {
+  it('SED_GET_SED_LIST_REQUEST', () => {
     expect(
       bucReducer({
         ...initialBucState,
         sedList: ['something']
       }, {
-        type: types.BUC_GET_SED_LIST_REQUEST
+        type: types.SED_GET_SED_LIST_REQUEST
       })
     ).toEqual(initialBucState)
   })
 
-  it('BUC_GET_SED_LIST_FAILURE', () => {
+  it('SED_GET_SED_LIST_FAILURE', () => {
     expect(
       bucReducer({
         ...initialBucState,
         sedList: ['something']
       }, {
-        type: types.BUC_GET_SED_LIST_FAILURE
+        type: types.SED_GET_SED_LIST_FAILURE
       })
     ).toEqual(initialBucState)
   })

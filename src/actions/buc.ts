@@ -360,16 +360,16 @@ export const getSed = (
 ): Action => {
 
   return call({
-    url: sprintf(urls.BUC_GET_SED_URL, { caseId, sedId: sed.id }),
+    url: sprintf(urls.SED_GET_SED_URL, { caseId, sedId: sed.id }),
     cascadeFailureError: true,
-    expectedPayload: mockP2000,
+    expectedPayload: { result: mockP2000, status: 'OK' },
     context: {
       sed: sed
     },
     type: {
-      request: types.BUC_GET_SED_REQUEST,
-      success: types.BUC_GET_SED_SUCCESS,
-      failure: types.BUC_GET_SED_FAILURE
+      request: types.SED_GET_SED_REQUEST,
+      success: types.SED_GET_SED_SUCCESS,
+      failure: types.SED_GET_SED_FAILURE
     }
   })
 }
@@ -379,16 +379,16 @@ export const getSedP8000 = (
 ): Action => {
 
   return call({
-    url: sprintf(urls.BUC_GET_SED_URL, { caseId, sedId: sed.id }),
+    url: sprintf(urls.SED_GET_SED_URL, { caseId, sedId: sed.id }),
     cascadeFailureError: true,
-    expectedPayload: mockP8000,
+    expectedPayload: { result: mockP8000, status: 'OK' },
     context: {
       sed: sed
     },
     type: {
-      request: types.BUC_GET_P8000SED_REQUEST,
-      success: types.BUC_GET_P8000SED_SUCCESS,
-      failure: types.BUC_GET_P8000SED_FAILURE
+      request: types.SED_GET_P8000SED_REQUEST,
+      success: types.SED_GET_P8000SED_SUCCESS,
+      failure: types.SED_GET_P8000SED_FAILURE
     }
   })
 }
@@ -402,7 +402,7 @@ export const saveSed = (
     delete copyPSED.fritekst
   }
   return call({
-    url: sprintf(urls.BUC_PUT_SED_URL, { caseId, sedId }),
+    url: sprintf(urls.SED_PUT_SED_URL, { caseId, sedId }),
     method: 'PUT',
     body: copyPSED,
     cascadeFailureError: true,
@@ -413,9 +413,9 @@ export const saveSed = (
       payload
     },
     type: {
-      request: types.BUC_PUT_SED_REQUEST,
-      success: types.BUC_PUT_SED_SUCCESS,
-      failure: types.BUC_PUT_SED_FAILURE
+      request: types.SED_PUT_SED_REQUEST,
+      success: types.SED_PUT_SED_SUCCESS,
+      failure: types.SED_PUT_SED_FAILURE
     }
   })
 }
@@ -431,9 +431,9 @@ export const sendSed = (
       result: { success: 'true' }
     },
     type: {
-      request: types.BUC_SEND_SED_REQUEST,
-      success: types.BUC_SEND_SED_SUCCESS,
-      failure: types.BUC_SEND_SED_FAILURE
+      request: types.SED_SEND_SED_REQUEST,
+      success: types.SED_SEND_SED_SUCCESS,
+      failure: types.SED_SEND_SED_FAILURE
     }
   })
 }
@@ -450,9 +450,9 @@ export const sendSedTo = (
       result: { success: 'true' }
     },
     type: {
-      request: types.BUC_SEND_SED_REQUEST,
-      success: types.BUC_SEND_SED_SUCCESS,
-      failure: types.BUC_SEND_SED_FAILURE
+      request: types.SED_SEND_SED_REQUEST,
+      success: types.SED_SEND_SED_SUCCESS,
+      failure: types.SED_SEND_SED_FAILURE
     }
   })
 }
@@ -486,16 +486,16 @@ export const getSedP4000 = (
   caseId: string, sed: Sed
 ): Action => {
   return call({
-    url: sprintf(urls.BUC_GET_SED_URL, { caseId, sedId: sed.id }),
+    url: sprintf(urls.SED_GET_SED_URL, { caseId, sedId: sed.id }),
     cascadeFailureError: true,
-    expectedPayload: mockP4000,
+    expectedPayload: { result: mockP4000, status: 'OK' },
     context: {
       sedId: sed.id
     },
     type: {
-      request: types.BUC_GET_P4000_REQUEST,
-      success: types.BUC_GET_P4000_SUCCESS,
-      failure: types.BUC_GET_P4000_FAILURE
+      request: types.SED_GET_P4000_REQUEST,
+      success: types.SED_GET_P4000_SUCCESS,
+      failure: types.SED_GET_P4000_FAILURE
     }
   })
 }
@@ -504,13 +504,13 @@ export const getSedP6000 = (
   rinaCaseId: string
 ): Action => {
   return call({
-    url: sprintf(urls.BUC_GET_P6000_URL, { rinaCaseId }),
+    url: sprintf(urls.SED_GET_P6000_URL, { rinaCaseId }),
     cascadeFailureError: true,
-    expectedPayload: mockP6000,
+    expectedPayload: { result: mockP6000, status: 'OK' },
     type: {
-      request: types.BUC_GET_P6000_REQUEST,
-      success: types.BUC_GET_P6000_SUCCESS,
-      failure: types.BUC_GET_P6000_FAILURE
+      request: types.SED_GET_P6000_REQUEST,
+      success: types.SED_GET_P6000_SUCCESS,
+      failure: types.SED_GET_P6000_FAILURE
     }
   })
 }
@@ -519,30 +519,30 @@ export const getSedP6000PDF = (
   rinaCaseId: string, documentId: string
 ): Action => {
   return call({
-    url: sprintf(urls.BUC_GET_PDF_URL, { rinaCaseId, documentId }),
+    url: sprintf(urls.SED_GET_PDF_URL, { rinaCaseId, documentId }),
     cascadeFailureError: true,
-    expectedPayload: mockPreviewPdf,
+    expectedPayload: { result: mockPreviewPdf, status: 'OK' },
     type: {
-      request: types.BUC_GET_P6000PDF_REQUEST,
-      success: types.BUC_GET_P6000PDF_SUCCESS,
-      failure: types.BUC_GET_P6000PDF_FAILURE
+      request: types.SED_GET_P6000PDF_REQUEST,
+      success: types.SED_GET_P6000PDF_SUCCESS,
+      failure: types.SED_GET_P6000PDF_FAILURE
     }
   })
 }
 
 export const resetSedP6000PDF: ActionCreator<Action> = (): Action => ({
-  type: types.BUC_P6000PDF_RESET
+  type: types.SED_P6000PDF_RESET
 })
 
 export const getPreviewFile = (PSED: PSED): ActionWithPayload => {
   return call({
     method: 'POST',
-    url: sprintf(urls.BUC_PREVIEW_PDF_URL),
-    expectedPayload: mockPreviewPdf,
+    url: sprintf(urls.SED_PREVIEW_PDF_URL),
+    expectedPayload: { result: mockPreviewPdf, status: 'OK' },
     type: {
-      request: types.BUC_GET_PREVIEWPDF_REQUEST,
-      success: types.BUC_GET_PREVIEWPDF_SUCCESS,
-      failure: types.BUC_GET_PREVIEWPDF_FAILURE
+      request: types.SED_GET_PREVIEWPDF_REQUEST,
+      success: types.SED_GET_PREVIEWPDF_SUCCESS,
+      failure: types.SED_GET_PREVIEWPDF_FAILURE
     },
     body: PSED
   })
@@ -552,19 +552,19 @@ export const getSedPreviewPDF = (
   rinaCaseId: string, documentId: string
 ): Action => {
   return call({
-    url: sprintf(urls.BUC_GET_PDF_URL, { rinaCaseId, documentId }),
+    url: sprintf(urls.SED_GET_PDF_URL, { rinaCaseId, documentId }),
     cascadeFailureError: true,
-    expectedPayload: mockPreviewPdf,
+    expectedPayload: { result: mockPreviewPdf, status: 'OK' },
     type: {
-      request: types.BUC_GET_PREVIEWPDF_REQUEST,
-      success: types.BUC_GET_PREVIEWPDF_SUCCESS,
-      failure: types.BUC_GET_PREVIEWPDF_FAILURE
+      request: types.SED_GET_PREVIEWPDF_REQUEST,
+      success: types.SED_GET_PREVIEWPDF_SUCCESS,
+      failure: types.SED_GET_PREVIEWPDF_FAILURE
     }
   })
 }
 
 export const resetSedPreviewPDF: ActionCreator<Action> = (): Action => ({
-  type: types.BUC_PREVIEWPDF_RESET
+  type: types.SED_PREVIEWPDF_RESET
 })
 
 export const getRinaUrl = (
@@ -599,14 +599,14 @@ export const getSakType = (
 export const getSedList = (
   buc: {type: string, caseId: string}
 ): ActionWithPayload<SEDRawList> => {
-  const url: string = sprintf(urls.BUC_GET_SED_LIST_URL, { buc: buc.type, rinaId: buc.caseId })
+  const url: string = sprintf(urls.SED_GET_SED_LIST_URL, { buc: buc.type, rinaId: buc.caseId })
   return call({
     url,
-    expectedPayload: mockSedList,
+    expectedPayload: { result: mockSedList, status: 'OK' },
     type: {
-      request: types.BUC_GET_SED_LIST_REQUEST,
-      success: types.BUC_GET_SED_LIST_SUCCESS,
-      failure: types.BUC_GET_SED_LIST_FAILURE
+      request: types.SED_GET_SED_LIST_REQUEST,
+      success: types.SED_GET_SED_LIST_SUCCESS,
+      failure: types.SED_GET_SED_LIST_FAILURE
     }
   })
 }
