@@ -257,7 +257,7 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           title: doc.tittel || '-',
           tema: post.tema,
           date: new Date(Date.parse(dateString)),
-          filstoerrelseMB: variant ? variant.filstoerrelseMB : undefined,
+          filstoerrelseMb: variant ? variant.filstoerrelseMb : undefined,
 
           selected,
           disabled,
@@ -290,7 +290,7 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
                 existingItem.journalpostId = jp.journalpostId
                 existingItem.variant = getVariantFromJoarkDoc(doc)
                 existingItem.tema = jp.tema
-                existingItem.filstoerrelseMB = existingItem.variant ? existingItem.variant.filstoerrelseMB : undefined
+                existingItem.filstoerrelseMb = existingItem.variant ? existingItem.variant.filstoerrelseMb : undefined
               }
               break
             }
@@ -301,7 +301,7 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         }
       }
 
-      if (list && existingItem.dokumentInfoId && !existingItem.filstoerrelseMB) {
+      if (list && existingItem.dokumentInfoId && !existingItem.filstoerrelseMb) {
         let journalpostDoc: JoarkDoc | undefined
         for (const jp of list) {
           for (const doc of jp.dokumenter) {
@@ -310,7 +310,7 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
               existingItem.journalpostId = jp.journalpostId
               existingItem.variant = getVariantFromJoarkDoc(doc)
               existingItem.tema = jp.tema
-              existingItem.filstoerrelseMB = existingItem.variant ? existingItem.variant.filstoerrelseMB : undefined
+              existingItem.filstoerrelseMb = existingItem.variant ? existingItem.variant.filstoerrelseMb : undefined
               break
             }
           }
@@ -449,8 +449,8 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             type: 'date',
             dateFormat: 'DD.MM.YYYY'
           }, {
-            id: 'filstoerrelseMB',
-            label: t('ui:filstoerrelseMB'),
+            id: 'filstoerrelseMb',
+            label: t('ui:filstoerrelseMb'),
             type: 'number',
           }, {
             id: 'buttons',

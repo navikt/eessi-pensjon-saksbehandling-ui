@@ -20,12 +20,13 @@ import {
 import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import {Heading, Loader, Button, Box, Alert, HStack} from '@navikt/ds-react'
+import { Heading, Loader, Button, Box, Alert, HStack } from '@navikt/ds-react'
 import React, {JSX, useCallback, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { createSelector } from '@reduxjs/toolkit'
-import {isSmallerThanFilstoerrelseSumLimit} from "src/utils/utils";
+import { sumFilstoerrelseMb } from "src/utils/utils";
+import { sumFilstoerrelseLimit } from "src/constants/sumFilstoerrelseLimit";
 
 export interface SEDAttachmentsPanelProps {
   aktoerId: string | null | undefined
@@ -204,15 +205,15 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
             <Button
               variant='primary'
               data-testid='a_buc_c_sedattachmentspanel--upload-button-id'
-              disabled={_sendingAttachments || !isSmallerThanFilstoerrelseSumLimit(_items)}
+              disabled={_sendingAttachments || !(sumFilstoerrelseMb(_items) < sumFilstoerrelseLimit)}
               onClick={onAttachmentsSubmitted}
             >
               {_sendingAttachments && <Loader />}
               {_sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
             </Button>
-            {!isSmallerThanFilstoerrelseSumLimit(_items) &&
+            {!(sumFilstoerrelseMb(_items) < sumFilstoerrelseLimit) &&
               <Alert variant="warning" size="small">
-                {t('message:alert-tooLargeFilstoerrelseSum')}
+                {t('message:alert-tooLargeFilstoerrelseSum', { sum: sumFilstoerrelseMb(_items) })}
               </Alert>
             }
           </HStack>
