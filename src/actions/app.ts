@@ -3,7 +3,7 @@ import * as urls from 'src/constants/urls'
 import {ContextPayload, ParamPayload} from 'src/declarations/app.d'
 import { ActionWithPayload, call } from '@navikt/fetch'
 import mockUser from 'src/mocks/app/user'
-import mockCountryCodes from 'src/mocks/app/countryCodes'
+import mockCountryAndCurrencyCodes from 'src/mocks/app/countryCodes'
 import { Action } from 'redux'
 import mockAktoerId from "../mocks/app/aktoerId";
 import mockAvdodAktoerId from "../mocks/app/avdodAktoerId";
@@ -49,12 +49,12 @@ export const getAktoerId = (fnr:string, context: string): ActionWithPayload<stri
   })
 }
 
-export const getCountryCodeLists = (): Action => {
+export const getCountryAndCurrencyCodeLists = (): Action => {
   return call({
     url: urls.COUNTRY_AND_CURRENCY_CODES_URL,
     cascadeFailureError: true,
     expectedPayload: {
-      result: mockCountryCodes
+      result: mockCountryAndCurrencyCodes
     },
     type: {
       request: types.GET_COUNTRY_AND_CURRENCY_CODES_REQUEST,

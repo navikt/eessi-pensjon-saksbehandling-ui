@@ -8,7 +8,7 @@ import mockFeatureToggles from "src/mocks/app/featureToggles";
 jest.mock('src/actions/app', () => ({
   getUserInfo: jest.fn(),
   setStatusParam: jest.fn(),
-  getCountryCodeLists: jest.fn
+  getCountryAndCurrencyCodeLists: jest.fn
 }))
 
 const defaultSelector: RequireAuthSelector = {

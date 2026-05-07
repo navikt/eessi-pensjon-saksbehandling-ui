@@ -145,7 +145,7 @@ describe('reducers/app', () => {
   })
 
   it('GET_COUNTRY_AND_CURRENCY_CODES_SUCCESS', () => {
-    const mockCountryCodes = {
+    const mockCountryAndCurrencyCodes = {
       "v4.2": {
         "euEftaLand": [
           { landkode: "NO", landnavn: "Norge" },
@@ -194,12 +194,12 @@ describe('reducers/app', () => {
       appReducer(initialAppState, {
         type: types.GET_COUNTRY_AND_CURRENCY_CODES_SUCCESS,
         payload: {
-          result: mockCountryCodes
+          result: mockCountryAndCurrencyCodes
         }
       })
     ).toEqual({
       ...initialAppState,
-      countryCodes: mockCountryCodes,
+      countryCodes: mockCountryAndCurrencyCodes,
       countryCodeMap: expectedCountryCodeMap
     })
   })

@@ -26,6 +26,12 @@ export default {
       {landkode: "DK", landnavn: "Danmark"},
       {landkode: "FI", landnavn: "Finland"},
       {landkode: "IN", landnavn: "India"}
+    ],
+    "valutakoder": [
+      {valutakode: "EUR", valutanavn: "Euro"},
+      {valutakode: "NOK", valutanavn: "Norske kroner"},
+      {valutakode: "SEK", valutanavn: "Svenske kroner"},
+      {valutakode: "DKK", valutanavn: "Danske kroner"}
     ]
   },
   "v4.3": {
@@ -55,6 +61,13 @@ export default {
       {landkode: "FI", landnavn: "Finland"},
       {landkode: "YUCS", landnavn: "Jugoslavia"},
       {landkode: "XK", landnavn: "Kosovo"}
+    ],
+    "valutakoder": [
+      {valutakode: "EUR", valutanavn: "Euro"},
+      {valutakode: "NOK", valutanavn: "Norske kroner"},
+      {valutakode: "SEK", valutanavn: "Svenske kroner"},
+      {valutakode: "DKK", valutanavn: "Danske kroner"},
+      {valutakode: "GBP", valutanavn: "Britiske pund"}
     ]
   }
 }
