@@ -29,6 +29,11 @@ export type Feature =
 
 export type FeatureToggles = {[key in Feature]: boolean | number}
 
+export type CountryAndCurrencyCodes = {
+  "v4.2": CountryCodeLists & CurrencyCodeLists,
+  "v4.3": CountryCodeLists & CurrencyCodeLists
+}
+
 export type CountryCodes = {
   "v4.2": CountryCodeLists,
   "v4.3": CountryCodeLists
@@ -41,9 +46,19 @@ export type CountryCodeLists = {
   "statsborgerskap": Array<SimpleCountry>
 }
 
+export type CurrencyCodeLists = {
+  "euEftaValuta": Array<SimpleCurrency>
+  "verdensValuta": Array<SimpleCurrency>
+}
+
 export type SimpleCountry = {
   landkode: string
   landnavn: string
+}
+
+export type SimpleCurrency = {
+  valutakode: string
+  valutanavn: string
 }
 
 export type Labels = {[k in string]? : string}

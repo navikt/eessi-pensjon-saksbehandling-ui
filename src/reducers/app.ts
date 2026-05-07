@@ -1,5 +1,5 @@
 import * as types from 'src/constants/actionTypes'
-import {CountryCodeLists, CountryCodes, Feature, FeatureToggles, Params, PesysContext} from 'src/declarations/app.d'
+import {CountryAndCurrencyCodes, CountryCodeLists, CurrencyCodeLists, Feature, FeatureToggles, Params, PesysContext} from 'src/declarations/app.d'
 import { SakTypeKey, SakTypeMap } from 'src/declarations/buc.d'
 import _ from 'lodash'
 import { AnyAction } from 'redux'
@@ -13,8 +13,9 @@ export interface AppState {
   pesysContext: PesysContext | undefined
   username: string | undefined
   userRole: string | undefined
-  countryCodes: CountryCodes | undefined
+  countryCodes: CountryAndCurrencyCodes | undefined
   countryCodeMap: {[key: string]: string} | undefined
+  currencyCodes: {[key: string]: string} | undefined
   editingItems: any
 }
 
@@ -39,6 +40,7 @@ export const initialAppState: AppState = {
   userRole: undefined,
   countryCodes: undefined,
   countryCodeMap: undefined,
+  currencyCodes: undefined,
   editingItems: {}
 }
 
@@ -136,20 +138,27 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
 
     case types.GET_COUNTRY_AND_CURRENCY_CODES_SUCCESS: {
       let countryCodeMap: {[key: string]: string} = {}
-      const countryCodes: CountryCodes = action.payload.result
+      let currencyCodes: {[key: string]: string} = {}
+      const countryCodes: CountryAndCurrencyCodes = action.payload.result
       Object.keys(countryCodes).forEach(versionKey => {
-        Object.keys(countryCodes[versionKey as keyof CountryCodes]).forEach(landKey => {
-          countryCodes[versionKey as keyof CountryCodes][landKey as keyof CountryCodeLists].forEach(land => {
-            // @ts-ignore
-            countryCodeMap[land.landkode] = land.landnavn;
-          });
-        });
+        const version = countryCodes[versionKey as keyof CountryAndCurrencyCodes]
+        Object.keys(version).forEach(key => {
+          const list = version[key as keyof (CountryCodeLists & CurrencyCodeLists)]
+          list.forEach((item: any) => {
+            if ('landkode' in item) {
+              countryCodeMap[item.landkode] = item.landnavn
+            } else if ('valutakode' in item) {
+              currencyCodes[item.valutakode] = item.valutanavn
+            }
+          })
+        })
       });
 
       return {
         ...state,
         countryCodes,
-        countryCodeMap
+        countryCodeMap,
+        currencyCodes
       }
     }
 

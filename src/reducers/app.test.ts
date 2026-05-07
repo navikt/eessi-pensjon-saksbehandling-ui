@@ -161,6 +161,14 @@ describe('reducers/app', () => {
         "statsborgerskap": [
           { landkode: "NO", landnavn: "Norge" },
           { landkode: "SE", landnavn: "Sverige" }
+        ],
+        "euEftaValuta": [
+          { valutakode: "EUR", valutanavn: "Euro" },
+          { valutakode: "NOK", valutanavn: "Norske kroner" }
+        ],
+        "verdensValuta": [
+          { valutakode: "EUR", valutanavn: "Euro" },
+          { valutakode: "USD", valutanavn: "Amerikanske dollar" }
         ]
       },
       "v4.3": {
@@ -178,6 +186,14 @@ describe('reducers/app', () => {
         "statsborgerskap": [
           { landkode: "NO", landnavn: "Norge" },
           { landkode: "DK", landnavn: "Danmark" }
+        ],
+        "euEftaValuta": [
+          { valutakode: "EUR", valutanavn: "Euro" },
+          { valutakode: "SEK", valutanavn: "Svenske kroner" }
+        ],
+        "verdensValuta": [
+          { valutakode: "EUR", valutanavn: "Euro" },
+          { valutakode: "GBP", valutanavn: "Britiske pund" }
         ]
       }
     }
@@ -190,6 +206,14 @@ describe('reducers/app', () => {
       "CA": "Canada"
     }
 
+    const expectedCurrencyCodes = {
+      "EUR": "Euro",
+      "NOK": "Norske kroner",
+      "USD": "Amerikanske dollar",
+      "SEK": "Svenske kroner",
+      "GBP": "Britiske pund"
+    }
+
     expect(
       appReducer(initialAppState, {
         type: types.GET_COUNTRY_AND_CURRENCY_CODES_SUCCESS,
@@ -200,7 +224,8 @@ describe('reducers/app', () => {
     ).toEqual({
       ...initialAppState,
       countryCodes: mockCountryAndCurrencyCodes,
-      countryCodeMap: expectedCountryCodeMap
+      countryCodeMap: expectedCountryCodeMap,
+      currencyCodes: expectedCurrencyCodes
     })
   })
 
