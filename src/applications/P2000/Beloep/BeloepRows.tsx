@@ -206,6 +206,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
                 onOptionSelected={(valuta: Currency) => setBeloepProperty("valuta", valuta.value, index)}
                 currencyCodeListName="verdensValuta"
                 values={_beloep?.valuta ?? ''}
+                includeHistoricCurrencies={true}
               />
             </Table.DataCell>
             <Table.DataCell

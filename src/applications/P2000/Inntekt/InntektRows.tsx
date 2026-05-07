@@ -202,6 +202,7 @@ const InntektRows: React.FC<InntektProps> = ({
                     onOptionSelected={(valuta: Currency) => setInntektProperty("valuta", valuta.value, index)}
                     currencyCodeListName="verdensValuta"
                     values={_inntekt?.valuta ?? ''}
+                    includeHistoricCurrencies={true}
                   />
                 </Table.DataCell>
                 <Table.DataCell
