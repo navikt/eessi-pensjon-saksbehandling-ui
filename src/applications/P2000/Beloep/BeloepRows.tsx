@@ -14,12 +14,12 @@ import {MainFormSelector} from "../MainForm";
 import useValidation from "../../../hooks/useValidation";
 import {validateBeloep, ValidationBeloepProps} from "./validation";
 import performValidation from "../../../utils/performValidation";
-import CountrySelect from "@navikt/landvelger";
 import {Currency} from "@navikt/land-verktoy";
 import {useTranslation} from "react-i18next";
 import DateField from "../DateField/DateField";
 import {formatDate, removeWhiteSpaceAndReplaceCommas, replacePeriodsWithCommas} from "src/utils/utils";
 import styles from './BeloepRows.module.css'
+import CurrencyDropdown from "src/components/CurrencyDropdown/CurrencyDropdown";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -196,18 +196,17 @@ const BeloepRows: React.FC<BeloepProps> = ({
               className={styles.topAlignedCell}
               width={"10%"}
             >
-              <CountrySelect
+              <CurrencyDropdown
                 error={_v[_namespace + '-valuta']?.feilmelding}
                 placeholder="Velg valuta"
-                namespace={_namespace}
-                id='beloep-valuta'
+                id={_namespace + '-valuta'}
                 label={t('p2000:form-ytelse-beloep-valuta')}
                 hideLabel={true}
-                type='currency'
                 sort="noeuFirst"
-                onChanged={(e:any) => setBeloepProperty("valuta", e.target.value, index)}
                 onOptionSelected={(valuta: Currency) => setBeloepProperty("valuta", valuta.value, index)}
+                currencyCodeListName="verdensValuta"
                 values={_beloep?.valuta ?? ''}
+                includeHistoricCurrencies={true}
               />
             </Table.DataCell>
             <Table.DataCell

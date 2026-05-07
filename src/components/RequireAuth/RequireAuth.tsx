@@ -1,4 +1,4 @@
-import {getCountryCodeLists, getUserInfo, setContext, setStatusParam} from 'src/actions/app'
+import {getCountryAndCurrencyCodeLists, getUserInfo, setContext, setStatusParam} from 'src/actions/app'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import * as constants from 'src/constants/constants'
 import * as routes from 'src/constants/routes'
@@ -85,7 +85,7 @@ const RequireAuth: React.FC<any> = (props) => {
       dispatch(getUserInfo())
     }
     if(countryCodes === undefined && !gettingCountryCodes){
-      dispatch(getCountryCodeLists())
+      dispatch(getCountryAndCurrencyCodeLists())
     }
   }, [])
 

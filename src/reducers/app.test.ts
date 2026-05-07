@@ -144,8 +144,69 @@ describe('reducers/app', () => {
     })
   })
 
-  it('GET_COUNTRYCODES_SUCCESS', () => {
-    const mockCountryCodes = {
+  it('GET_COUNTRY_AND_CURRENCY_CODES_SUCCESS', () => {
+    const mockCountryAndCurrencyCodes = {
+      "v4.2": {
+        "euEftaLand": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "SE", landnavn: "Sverige" }
+        ],
+        "verdensLand": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "US", landnavn: "United States" }
+        ],
+        "verdensLandHistorisk": [
+          { landkode: "NO", landnavn: "Norge" }
+        ],
+        "statsborgerskap": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "SE", landnavn: "Sverige" }
+        ],
+        "euEftaValuta": [
+          { valutakode: "EUR", valutanavn: "Euro" },
+          { valutakode: "NOK", valutanavn: "Norske kroner" }
+        ],
+        "verdensValuta": [
+          { valutakode: "EUR", valutanavn: "Euro" },
+          { valutakode: "USD", valutanavn: "Amerikanske dollar" }
+        ]
+      },
+      "v4.3": {
+        "euEftaLand": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "DK", landnavn: "Danmark" }
+        ],
+        "verdensLand": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "CA", landnavn: "Canada" }
+        ],
+        "verdensLandHistorisk": [
+          { landkode: "NO", landnavn: "Norge" }
+        ],
+        "statsborgerskap": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "DK", landnavn: "Danmark" }
+        ],
+        "euEftaValuta": [
+          { valutakode: "EUR", valutanavn: "Euro" },
+          { valutakode: "SEK", valutanavn: "Svenske kroner" }
+        ],
+        "verdensValuta": [
+          { valutakode: "EUR", valutanavn: "Euro" },
+          { valutakode: "GBP", valutanavn: "Britiske pund" }
+        ]
+      }
+    }
+
+    const expectedCountryCodeMap = {
+      "NO": "Norge",
+      "SE": "Sverige",
+      "US": "United States",
+      "DK": "Danmark",
+      "CA": "Canada"
+    }
+
+    const expectedCountryCodes = {
       "v4.2": {
         "euEftaLand": [
           { landkode: "NO", landnavn: "Norge" },
@@ -182,25 +243,41 @@ describe('reducers/app', () => {
       }
     }
 
-    const expectedCountryCodeMap = {
-      "NO": "Norge",
-      "SE": "Sverige",
-      "US": "United States",
-      "DK": "Danmark",
-      "CA": "Canada"
+    const expectedCurrencyCodes = {
+      "v4.2": {
+        "euEftaValuta": [
+          { valutakode: "EUR", valutanavn: "Euro" },
+          { valutakode: "NOK", valutanavn: "Norske kroner" }
+        ],
+        "verdensValuta": [
+          { valutakode: "EUR", valutanavn: "Euro" },
+          { valutakode: "USD", valutanavn: "Amerikanske dollar" }
+        ]
+      },
+      "v4.3": {
+        "euEftaValuta": [
+          { valutakode: "EUR", valutanavn: "Euro" },
+          { valutakode: "SEK", valutanavn: "Svenske kroner" }
+        ],
+        "verdensValuta": [
+          { valutakode: "EUR", valutanavn: "Euro" },
+          { valutakode: "GBP", valutanavn: "Britiske pund" }
+        ]
+      }
     }
 
     expect(
       appReducer(initialAppState, {
-        type: types.GET_COUNTRYCODES_SUCCESS,
+        type: types.GET_COUNTRY_AND_CURRENCY_CODES_SUCCESS,
         payload: {
-          result: mockCountryCodes
+          result: mockCountryAndCurrencyCodes
         }
       })
     ).toEqual({
       ...initialAppState,
-      countryCodes: mockCountryCodes,
-      countryCodeMap: expectedCountryCodeMap
+      countryCodes: expectedCountryCodes,
+      countryCodeMap: expectedCountryCodeMap,
+      currencyCodes: expectedCurrencyCodes
     })
   })
 
