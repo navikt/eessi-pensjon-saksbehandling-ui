@@ -1,7 +1,7 @@
-import React, {Fragment, JSX, useState} from "react";
+import React, {JSX, useState} from "react";
 import {Beloep, Inntekt} from "src/declarations/p2000";
 import _ from "lodash";
-import {Select, Table} from "@navikt/ds-react";
+import {BodyLong, HGrid, Label, Select, VStack} from "@navikt/ds-react";
 import {getIdx} from "src/utils/namespace";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {resetValidation, setValidation} from "src/actions/validation";
@@ -24,6 +24,8 @@ import CurrencyDropdown from "src/components/CurrencyDropdown/CurrencyDropdown";
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
 })
+
+const beloepColumns = "minmax(0, 2fr) minmax(0, 3fr) minmax(0, 3fr) minmax(0, 3fr) minmax(0, 2fr) 15rem"
 
 export interface BeloepProps {
   beloep: Array<Beloep> | null | undefined
@@ -172,80 +174,55 @@ const BeloepRows: React.FC<BeloepProps> = ({
     const inEditMode = index < 0 || _editIndex === index
     const _beloep = index < 0 ? _newBeloep : (inEditMode ? _editBeloep : beloep)
 
-    return (
-      <Fragment key={_namespace
-      }>
-      {inEditMode && parentEditMode
-        ? (
-          <Table.Row>
-            <Table.DataCell
-              className={styles.topAlignedCell}
-              width={"10%"}
+    if (inEditMode && parentEditMode) {
+      return (
+        <div key={_namespace} className={styles.beloepRow}>
+          <HGrid columns={beloepColumns} gap="space-16" align="start">
+            <Input
+              error={_v[_namespace + '-beloep']?.feilmelding}
+              namespace={_namespace}
+              id='beloep-beloep'
+              label={t('p2000:form-ytelse-beloep-beloep')}
+              hideLabel={true}
+              onChanged={(e) => setBelop(e, index)}
+              value={replacePeriodsWithCommas(_beloep?.beloep ?? '')}
+            />
+            <CurrencyDropdown
+              error={_v[_namespace + '-valuta']?.feilmelding}
+              placeholder="Velg valuta"
+              id={_namespace + '-valuta'}
+              label={t('p2000:form-ytelse-beloep-valuta')}
+              hideLabel={true}
+              sort="noeuFirst"
+              onOptionSelected={(valuta: Currency) => setBeloepProperty("valuta", valuta.value, index)}
+              currencyCodeListName="verdensValuta"
+              values={_beloep?.valuta ?? ''}
+              includeHistoricCurrencies={true}
+            />
+            <DateField
+              id='gjeldendesiden'
+              label={t('p2000:form-ytelse-beloep-beloep-siden')}
+              hideLabel={true}
+              index={index}
+              error={_v[_namespace + '-gjeldendesiden']?.feilmelding}
+              namespace={_namespace}
+              onChanged={(e) => setBeloepProperty("gjeldendesiden", e!, index)}
+              dateValue={_beloep?.gjeldendesiden ?? ''}
+            />
+            <Select
+              error={_v[_namespace + '-betalingshyppighetytelse']?.feilmelding}
+              id='beloep-betalingshyppighetytelse'
+              label={t('p2000:form-ytelse-beloep-betalingshyppighet')}
+              hideLabel={true}
+              onChange={(e) => setBeloepProperty("betalingshyppighetytelse", e.target.value, index)}
+              value={_beloep?.betalingshyppighetytelse ?? ''}
             >
-              <Input
-                error={_v[_namespace + '-beloep']?.feilmelding}
-                namespace={_namespace}
-                id='beloep-beloep'
-                label={t('p2000:form-ytelse-beloep-beloep')}
-                hideLabel={true}
-                onChanged={(e) => setBelop(e, index)}
-                value={replacePeriodsWithCommas(_beloep?.beloep ?? '')}
-              />
-            </Table.DataCell>
-            <Table.DataCell
-              className={styles.topAlignedCell}
-              width={"10%"}
-            >
-              <CurrencyDropdown
-                error={_v[_namespace + '-valuta']?.feilmelding}
-                placeholder="Velg valuta"
-                id={_namespace + '-valuta'}
-                label={t('p2000:form-ytelse-beloep-valuta')}
-                hideLabel={true}
-                sort="noeuFirst"
-                onOptionSelected={(valuta: Currency) => setBeloepProperty("valuta", valuta.value, index)}
-                currencyCodeListName="verdensValuta"
-                values={_beloep?.valuta ?? ''}
-                includeHistoricCurrencies={true}
-              />
-            </Table.DataCell>
-            <Table.DataCell
-              className={styles.topAlignedCell}
-              width={"20%"}
-            >
-              <DateField
-                id='gjeldendesiden'
-                label={t('p2000:form-ytelse-beloep-beloep-siden')}
-                hideLabel={true}
-                index={index}
-                error={_v[_namespace + '-gjeldendesiden']?.feilmelding}
-                namespace={_namespace}
-                onChanged={(e) => setBeloepProperty("gjeldendesiden", e!, index)}
-                dateValue={_beloep?.gjeldendesiden ?? ''}
-              />
-            </Table.DataCell>
-            <Table.DataCell
-              className={styles.topAlignedCell}
-              width={"20%"}
-            >
-              <Select
-                error={_v[_namespace + '-betalingshyppighetytelse']?.feilmelding}
-                id='beloep-betalingshyppighetytelse'
-                label={t('p2000:form-ytelse-beloep-betalingshyppighet')}
-                hideLabel={true}
-                onChange={(e) => setBeloepProperty("betalingshyppighetytelse", e.target.value, index)}
-                value={_beloep?.betalingshyppighetytelse ?? ''}
-              >
-                <option value=''>Velg</option>
-                {betalingshyppighetOptions.map((option) => {
-                  return(<option key={option.value} value={option.value}>{option.label}</option>)
-                })}
-              </Select>
-            </Table.DataCell>
-            <Table.DataCell
-              className={styles.topAlignedCell}
-              width={"20%"}
-            >
+              <option value=''>Velg</option>
+              {betalingshyppighetOptions.map((option) => {
+                return(<option key={option.value} value={option.value}>{option.label}</option>)
+              })}
+            </Select>
+            <div>
               {_beloep?.betalingshyppighetytelse === "99" &&
                 <Input
                   error={_v[_namespace + '-annenbetalingshyppighetytelse']?.feilmelding}
@@ -257,11 +234,8 @@ const BeloepRows: React.FC<BeloepProps> = ({
                   value={_beloep?.annenbetalingshyppighetytelse ?? ''}
                 />
               }
-            </Table.DataCell>
-            <Table.DataCell
-              className={styles.topAlignedCell}
-              width={"20%"}
-            >
+            </div>
+            <div className={styles.actionsCell}>
               <AddRemovePanel<Inntekt>
                 item={beloep}
                 noMargin={true}
@@ -274,61 +248,68 @@ const BeloepRows: React.FC<BeloepProps> = ({
                 onConfirmEdit={onSaveEdit}
                 onCancelEdit={() => onCloseEdit(_namespace)}
               />
-            </Table.DataCell>
-          </Table.Row>
-        )
-        : (
-          <Table.Row>
-            <Table.DataCell width={"10%"}>
-              {replacePeriodsWithCommas(beloep?.beloep)}
-            </Table.DataCell>
-            <Table.DataCell width={"10%"}>
-              {beloep?.valuta}
-            </Table.DataCell>
-            <Table.DataCell width={"20%"}>
-              {formatDate(beloep?.gjeldendesiden as string)}
-            </Table.DataCell>
-            <Table.DataCell width={"40%"} colSpan={2}>
-              {beloep?.betalingshyppighetytelse ?
-                beloep?.betalingshyppighetytelse === "99" ?
-                  beloep?.annenbetalingshyppighetytelse :
-                  betalingshyppighetMap[beloep?.betalingshyppighetytelse]
-                : ''
-              }
-            </Table.DataCell>
-            <Table.DataCell width={"20%"}>
-              {parentEditMode &&
-                <AddRemovePanel<Inntekt>
-                  noMargin={true}
-                  item={beloep}
-                  index={index}
-                  inEditMode={inEditMode}
-                  onRemove={onRemove}
-                  onAddNew={onAddNew}
-                  onCancelNew={onCloseNew}
-                  onStartEdit={onStartEdit}
-                  onConfirmEdit={onSaveEdit}
-                  onCancelEdit={() => onCloseEdit(_namespace)}
-                  alwaysVisible={true}
-                />
-              }
-            </Table.DataCell>
-          </Table.Row>
-        )
-      }
-      </Fragment>
+            </div>
+          </HGrid>
+        </div>
+      )
+    }
+
+    return (
+      <div key={_namespace} className={styles.beloepRow}>
+        <HGrid columns={beloepColumns} gap="space-16" align="center">
+          <BodyLong>
+            {replacePeriodsWithCommas(beloep?.beloep)}
+          </BodyLong>
+          <BodyLong>
+            {beloep?.valuta}
+          </BodyLong>
+          <BodyLong>
+            {formatDate(beloep?.gjeldendesiden as string)}
+          </BodyLong>
+          <BodyLong style={{gridColumn: "span 2"}}>
+            {beloep?.betalingshyppighetytelse ?
+              beloep?.betalingshyppighetytelse === "99" ?
+                beloep?.annenbetalingshyppighetytelse :
+                betalingshyppighetMap[beloep?.betalingshyppighetytelse]
+              : ''
+            }
+          </BodyLong>
+          <div className={styles.actionsCell}>
+            {parentEditMode &&
+              <AddRemovePanel<Inntekt>
+                noMargin={true}
+                item={beloep}
+                index={index}
+                inEditMode={inEditMode}
+                onRemove={onRemove}
+                onAddNew={onAddNew}
+                onCancelNew={onCloseNew}
+                onStartEdit={onStartEdit}
+                onConfirmEdit={onSaveEdit}
+                onCancelEdit={() => onCloseEdit(_namespace)}
+                alwaysVisible={true}
+              />
+            }
+          </div>
+        </HGrid>
+      </div>
     )
   }
 
   return (
-    <>
+    <VStack>
+      <HGrid columns={beloepColumns} gap="space-16" className={styles.headerRow}>
+        <Label>Beløp</Label>
+        <Label>Valuta</Label>
+        <Label>Beløp siden</Label>
+        <Label style={{gridColumn: "span 2"}}>Betalingshyppighet</Label>
+        <div />
+      </HGrid>
       {_.isEmpty(beloep) && !newBeloepForm
         ? (
-          <Table.Row>
-            <Table.DataCell colSpan={6}>
-              <em>Ingen beløp</em>
-            </Table.DataCell>
-          </Table.Row>
+          <BodyLong>
+            <em>Ingen beløp</em>
+          </BodyLong>
         )
         : (
           <>
@@ -337,7 +318,7 @@ const BeloepRows: React.FC<BeloepProps> = ({
         )
       }
       {parentEditMode && newBeloepForm && renderRow(null, -1)}
-    </>
+    </VStack>
   )
 }
 
