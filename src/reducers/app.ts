@@ -1,5 +1,5 @@
 import * as types from 'src/constants/actionTypes'
-import {CountryAndCurrencyCodes, CountryCodeLists, CurrencyCodeLists, Feature, FeatureToggles, Params, PesysContext} from 'src/declarations/app.d'
+import {CountryCodes, CountryCodeLists, CurrencyCodes, CurrencyCodeLists, Feature, FeatureToggles, LandOgValutakoder, Params, PesysContext} from 'src/declarations/app.d'
 import { SakTypeKey, SakTypeMap } from 'src/declarations/buc.d'
 import _ from 'lodash'
 import { AnyAction } from 'redux'
@@ -13,9 +13,9 @@ export interface AppState {
   pesysContext: PesysContext | undefined
   username: string | undefined
   userRole: string | undefined
-  countryCodes: CountryAndCurrencyCodes | undefined
+  countryCodes: CountryCodes | undefined
   countryCodeMap: {[key: string]: string} | undefined
-  currencyCodes: {[key: string]: string} | undefined
+  currencyCodes: CurrencyCodes | undefined
   editingItems: any
 }
 
@@ -137,22 +137,33 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
     }
 
     case types.GET_COUNTRY_AND_CURRENCY_CODES_SUCCESS: {
+      const landOgValutakoder: LandOgValutakoder = action.payload.result
+
+      const countryCodes: CountryCodes = {} as CountryCodes
+      const currencyCodes: CurrencyCodes = {} as CurrencyCodes
+
+      Object.keys(landOgValutakoder).forEach(versionKey => {
+        const version = landOgValutakoder[versionKey as keyof LandOgValutakoder]
+        countryCodes[versionKey as keyof CountryCodes] = {
+          euEftaLand: version.euEftaLand,
+          verdensLand: version.verdensLand,
+          verdensLandHistorisk: version.verdensLandHistorisk,
+          statsborgerskap: version.statsborgerskap
+        } as CountryCodeLists
+        currencyCodes[versionKey as keyof CurrencyCodes] = {
+          euEftaValuta: version.euEftaValuta,
+          verdensValuta: version.verdensValuta
+        } as CurrencyCodeLists
+      })
+
       let countryCodeMap: {[key: string]: string} = {}
-      let currencyCodes: {[key: string]: string} = {}
-      const countryCodes: CountryAndCurrencyCodes = action.payload.result
       Object.keys(countryCodes).forEach(versionKey => {
-        const version = countryCodes[versionKey as keyof CountryAndCurrencyCodes]
-        Object.keys(version).forEach(key => {
-          const list = version[key as keyof (CountryCodeLists & CurrencyCodeLists)]
-          list.forEach((item: any) => {
-            if ('landkode' in item) {
-              countryCodeMap[item.landkode] = item.landnavn
-            } else if ('valutakode' in item) {
-              currencyCodes[item.valutakode] = item.valutanavn
-            }
+        Object.keys(countryCodes[versionKey as keyof CountryCodes]).forEach(landKey => {
+          countryCodes[versionKey as keyof CountryCodes][landKey as keyof CountryCodeLists].forEach(land => {
+            countryCodeMap[land.landkode] = land.landnavn
           })
         })
-      });
+      })
 
       return {
         ...state,

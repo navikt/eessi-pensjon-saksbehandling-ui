@@ -206,12 +206,64 @@ describe('reducers/app', () => {
       "CA": "Canada"
     }
 
+    const expectedCountryCodes = {
+      "v4.2": {
+        "euEftaLand": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "SE", landnavn: "Sverige" }
+        ],
+        "verdensLand": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "US", landnavn: "United States" }
+        ],
+        "verdensLandHistorisk": [
+          { landkode: "NO", landnavn: "Norge" }
+        ],
+        "statsborgerskap": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "SE", landnavn: "Sverige" }
+        ]
+      },
+      "v4.3": {
+        "euEftaLand": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "DK", landnavn: "Danmark" }
+        ],
+        "verdensLand": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "CA", landnavn: "Canada" }
+        ],
+        "verdensLandHistorisk": [
+          { landkode: "NO", landnavn: "Norge" }
+        ],
+        "statsborgerskap": [
+          { landkode: "NO", landnavn: "Norge" },
+          { landkode: "DK", landnavn: "Danmark" }
+        ]
+      }
+    }
+
     const expectedCurrencyCodes = {
-      "EUR": "Euro",
-      "NOK": "Norske kroner",
-      "USD": "Amerikanske dollar",
-      "SEK": "Svenske kroner",
-      "GBP": "Britiske pund"
+      "v4.2": {
+        "euEftaValuta": [
+          { valutakode: "EUR", valutanavn: "Euro" },
+          { valutakode: "NOK", valutanavn: "Norske kroner" }
+        ],
+        "verdensValuta": [
+          { valutakode: "EUR", valutanavn: "Euro" },
+          { valutakode: "USD", valutanavn: "Amerikanske dollar" }
+        ]
+      },
+      "v4.3": {
+        "euEftaValuta": [
+          { valutakode: "EUR", valutanavn: "Euro" },
+          { valutakode: "SEK", valutanavn: "Svenske kroner" }
+        ],
+        "verdensValuta": [
+          { valutakode: "EUR", valutanavn: "Euro" },
+          { valutakode: "GBP", valutanavn: "Britiske pund" }
+        ]
+      }
     }
 
     expect(
@@ -223,7 +275,7 @@ describe('reducers/app', () => {
       })
     ).toEqual({
       ...initialAppState,
-      countryCodes: mockCountryAndCurrencyCodes,
+      countryCodes: expectedCountryCodes,
       countryCodeMap: expectedCountryCodeMap,
       currencyCodes: expectedCurrencyCodes
     })
