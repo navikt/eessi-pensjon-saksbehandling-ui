@@ -14,12 +14,12 @@ import {MainFormSelector} from "../MainForm";
 import useValidation from "../../../hooks/useValidation";
 import {validateInntekt, ValidationInntektProps} from "./validation";
 import performValidation from "../../../utils/performValidation";
-import CountrySelect from "@navikt/landvelger";
 import {Currency} from "@navikt/land-verktoy";
 import {useTranslation} from "react-i18next";
 import DateField from "../DateField/DateField";
 import {formatDate, removeWhiteSpaceAndReplaceCommas, replacePeriodsWithCommas} from "src/utils/utils";
 import styles from './InntektRows.module.css'
+import CurrencyDropdown from "src/components/CurrencyDropdown/CurrencyDropdown";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -192,17 +192,15 @@ const InntektRows: React.FC<InntektProps> = ({
                   className={styles.topAlignedCell}
                   width={"20%"}
                 >
-                  <CountrySelect
+                  <CurrencyDropdown
                     error={_v[_namespace + '-valuta']?.feilmelding}
                     placeholder="Velg valuta"
-                    namespace={_namespace}
-                    id='inntekt-valuta'
+                    id={_namespace + '-valuta'}
                     label={t('p2000:form-arbeidsforhold-inntekt-valuta')}
                     hideLabel={true}
-                    type='currency'
                     sort="noeuFirst"
-                    onChanged={(e:any) => setInntektProperty("valuta", e.target.value, index)}
                     onOptionSelected={(valuta: Currency) => setInntektProperty("valuta", valuta.value, index)}
+                    currencyCodeListName="verdensValuta"
                     values={_inntekt?.valuta ?? ''}
                   />
                 </Table.DataCell>
