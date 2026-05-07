@@ -3,7 +3,7 @@ import * as urls from 'src/constants/urls'
 import {ContextPayload, ParamPayload} from 'src/declarations/app.d'
 import { ActionWithPayload, call } from '@navikt/fetch'
 import mockUser from 'src/mocks/app/user'
-import mockCountryAndCurrencyCodes from 'src/mocks/app/countryCodes'
+import mockCountryAndCurrencyCodes from 'src/mocks/app/countryAndCurrencyCodes'
 import { Action } from 'redux'
 import mockAktoerId from "../mocks/app/aktoerId";
 import mockAvdodAktoerId from "../mocks/app/avdodAktoerId";
