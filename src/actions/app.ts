@@ -51,15 +51,15 @@ export const getAktoerId = (fnr:string, context: string): ActionWithPayload<stri
 
 export const getCountryCodeLists = (): Action => {
   return call({
-    url: urls.COUNTRYCODES_URL,
+    url: urls.COUNTRY_AND_CURRENCY_CODES_URL,
     cascadeFailureError: true,
     expectedPayload: {
       result: mockCountryCodes
     },
     type: {
-      request: types.GET_COUNTRYCODES_REQUEST,
-      success: types.GET_COUNTRYCODES_SUCCESS,
-      failure: types.GET_COUNTRYCODES_FAILURE,
+      request: types.GET_COUNTRY_AND_CURRENCY_CODES_REQUEST,
+      success: types.GET_COUNTRY_AND_CURRENCY_CODES_SUCCESS,
+      failure: types.GET_COUNTRY_AND_CURRENCY_CODES_FAILURE,
     }
   })
 }

@@ -144,7 +144,7 @@ describe('reducers/app', () => {
     })
   })
 
-  it('GET_COUNTRYCODES_SUCCESS', () => {
+  it('GET_COUNTRY_AND_CURRENCY_CODES_SUCCESS', () => {
     const mockCountryCodes = {
       "v4.2": {
         "euEftaLand": [
@@ -192,7 +192,7 @@ describe('reducers/app', () => {
 
     expect(
       appReducer(initialAppState, {
-        type: types.GET_COUNTRYCODES_SUCCESS,
+        type: types.GET_COUNTRY_AND_CURRENCY_CODES_SUCCESS,
         payload: {
           result: mockCountryCodes
         }

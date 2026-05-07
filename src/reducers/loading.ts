@@ -576,15 +576,15 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
         sendingSed: false
       }
 
-    case types.GET_COUNTRYCODES_REQUEST:
+    case types.GET_COUNTRY_AND_CURRENCY_CODES_REQUEST:
 
       return {
         ...state,
         gettingCountryCodes: true
       }
 
-    case types.GET_COUNTRYCODES_SUCCESS:
-    case types.GET_COUNTRYCODES_FAILURE:
+    case types.GET_COUNTRY_AND_CURRENCY_CODES_SUCCESS:
+    case types.GET_COUNTRY_AND_CURRENCY_CODES_FAILURE:
 
       return {
         ...state,
