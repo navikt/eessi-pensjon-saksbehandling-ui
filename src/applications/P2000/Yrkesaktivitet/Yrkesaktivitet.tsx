@@ -1,4 +1,4 @@
-import {BodyLong, Box, Button, Heading, HStack, Label, Select, Spacer, Table, VStack} from "@navikt/ds-react";
+import {BodyLong, Box, Button, Heading, HStack, Label, Select, Spacer, VStack} from "@navikt/ds-react";
 import React, {Fragment, JSX, useEffect, useState} from "react";
 import {MainFormProps, MainFormSelector} from "../MainForm";
 import _ from "lodash";
@@ -256,27 +256,14 @@ const Yrkesaktivitet: React.FC<MainFormProps> = ({
               </Box>
             </HStack>
 
-            <Table zebraStripes={true}>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell scope="col">Beløp</Table.HeaderCell>
-                  <Table.HeaderCell scope="col">Valuta</Table.HeaderCell>
-                  <Table.HeaderCell scope="col">Beløp siden</Table.HeaderCell>
-                  <Table.HeaderCell scope="col">Betalingshyppighet</Table.HeaderCell>
-                  <Table.HeaderCell scope="col"></Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                {inEditMode
-                  ? (
-                    <InntektRows parentEditMode={true} newInntektForm={_newInntektForm} setNewInntektForm={_setNewInntektForm} setInntekt={setInntekt} parentIndex={index} inntekt={_arbeidsforhold?.inntekt} parentNamespace={_namespace}/>
-                  )
-                  : (
-                    <InntektRows parentEditMode={false} newInntektForm={false} setNewInntektForm={_setNewInntektForm} setInntekt={setInntekt} parentIndex={index} inntekt={_arbeidsforhold?.inntekt} parentNamespace={_namespace}/>
-                  )
-                }
-              </Table.Body>
-            </Table>
+            {inEditMode
+              ? (
+                <InntektRows parentEditMode={true} newInntektForm={_newInntektForm} setNewInntektForm={_setNewInntektForm} setInntekt={setInntekt} parentIndex={index} inntekt={_arbeidsforhold?.inntekt} parentNamespace={_namespace}/>
+              )
+              : (
+                <InntektRows parentEditMode={false} newInntektForm={false} setNewInntektForm={_setNewInntektForm} setInntekt={setInntekt} parentIndex={index} inntekt={_arbeidsforhold?.inntekt} parentNamespace={_namespace}/>
+              )
+            }
             {inEditMode && !_newInntektForm &&
               <Box>
                 <Button

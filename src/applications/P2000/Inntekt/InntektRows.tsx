@@ -1,7 +1,7 @@
-import React, {Fragment, JSX, useState} from "react";
+import React, {JSX, useState} from "react";
 import {Inntekt} from "src/declarations/p2000";
 import _ from "lodash";
-import {Select, Table} from "@navikt/ds-react";
+import {BodyLong, HGrid, Label, Select, VStack} from "@navikt/ds-react";
 import {getIdx} from "src/utils/namespace";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import {resetValidation, setValidation} from "src/actions/validation";
@@ -24,6 +24,8 @@ import CurrencyDropdown from "src/components/CurrencyDropdown/CurrencyDropdown";
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
 })
+
+const inntektColumns = "minmax(0, 2fr) minmax(0, 3fr) minmax(0, 3fr) minmax(0, 3fr) 15rem"
 
 export interface InntektProps {
   inntekt: Array<Inntekt> | null | undefined
@@ -169,142 +171,128 @@ const InntektRows: React.FC<InntektProps> = ({
     const _v: Validation = index < 0 ? _validation : validation
     const inEditMode = index < 0 || _editIndex === index
     const _inntekt = index < 0 ? _newInntekt : (inEditMode ? _editInntekt : inntekt)
+
+    if (inEditMode && parentEditMode) {
+      return (
+        <div key={_namespace} className={styles.inntektRow}>
+          <HGrid columns={inntektColumns} gap="space-16" align="start">
+            <Input
+              error={_v[_namespace + '-beloep']?.feilmelding}
+              namespace={_namespace}
+              id='inntekt-beloep'
+              label={t('p2000:form-arbeidsforhold-inntekt-belop')}
+              hideLabel={true}
+              onChanged={(e) => setBelop(e, index)}
+              value={replacePeriodsWithCommas(_inntekt?.beloep ?? '')}
+            />
+            <CurrencyDropdown
+              error={_v[_namespace + '-valuta']?.feilmelding}
+              placeholder="Velg valuta"
+              id={_namespace + '-valuta'}
+              label={t('p2000:form-arbeidsforhold-inntekt-valuta')}
+              hideLabel={true}
+              sort="noeuFirst"
+              onOptionSelected={(valuta: Currency) => setInntektProperty("valuta", valuta.value, index)}
+              currencyCodeListName="verdensValuta"
+              values={_inntekt?.valuta ?? ''}
+              includeHistoricCurrencies={true}
+            />
+            <DateField
+              id='beloeputbetaltsiden'
+              label={t('p2000:form-arbeidsforhold-inntekt-belop-siden')}
+              hideLabel={true}
+              index={index}
+              error={_v[_namespace + '-beloeputbetaltsiden']?.feilmelding}
+              namespace={_namespace}
+              onChanged={(e) => setInntektProperty("beloeputbetaltsiden", e!, index)}
+              dateValue={_inntekt?.beloeputbetaltsiden ?? ''}
+            />
+            <Select
+              error={_v[_namespace + '-betalingshyppighetinntekt']?.feilmelding}
+              id='inntekt-betalingshyppighetinntekt'
+              label={t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet')}
+              hideLabel={true}
+              onChange={(e) => setInntektProperty("betalingshyppighetinntekt", e.target.value, index)}
+              value={_inntekt?.betalingshyppighetinntekt ?? ''}
+            >
+              <option value=''>Velg</option>
+              {betalingshyppighetOptions.map((option) => {
+                return(<option key={option.value} value={option.value}>{option.label}</option>)
+              })}
+            </Select>
+            <div className={styles.actionsCell}>
+              <AddRemovePanel<Inntekt>
+                noMargin={true}
+                item={inntekt}
+                index={index}
+                inEditMode={inEditMode}
+                onRemove={onRemove}
+                onAddNew={onAddNew}
+                onCancelNew={onCloseNew}
+                onStartEdit={onStartEdit}
+                onConfirmEdit={onSaveEdit}
+                onCancelEdit={() => onCloseEdit(_namespace)}
+                alwaysVisible={true}
+              />
+            </div>
+          </HGrid>
+        </div>
+      )
+    }
+
     return (
-      <Fragment key={_namespace}>
-        {inEditMode && parentEditMode
-          ? (
-              <Table.Row>
-                <Table.DataCell
-                  className={styles.topAlignedCell}
-                  width={"10%"}
-                >
-                  <Input
-                    error={_v[_namespace + '-beloep']?.feilmelding}
-                    namespace={_namespace}
-                    id='inntekt-beloep'
-                    label={t('p2000:form-arbeidsforhold-inntekt-belop')}
-                    hideLabel={true}
-                    onChanged={(e) => setBelop(e, index)}
-                    value={replacePeriodsWithCommas(_inntekt?.beloep ?? '')}
-                  />
-                </Table.DataCell>
-                <Table.DataCell
-                  className={styles.topAlignedCell}
-                  width={"20%"}
-                >
-                  <CurrencyDropdown
-                    error={_v[_namespace + '-valuta']?.feilmelding}
-                    placeholder="Velg valuta"
-                    id={_namespace + '-valuta'}
-                    label={t('p2000:form-arbeidsforhold-inntekt-valuta')}
-                    hideLabel={true}
-                    sort="noeuFirst"
-                    onOptionSelected={(valuta: Currency) => setInntektProperty("valuta", valuta.value, index)}
-                    currencyCodeListName="verdensValuta"
-                    values={_inntekt?.valuta ?? ''}
-                    includeHistoricCurrencies={true}
-                  />
-                </Table.DataCell>
-                <Table.DataCell
-                  className={styles.topAlignedCell}
-                  width={"20%"}
-                >
-                  <DateField
-                    id='beloeputbetaltsiden'
-                    label={t('p2000:form-arbeidsforhold-inntekt-belop-siden')}
-                    hideLabel={true}
-                    index={index}
-                    error={_v[_namespace + '-beloeputbetaltsiden']?.feilmelding}
-                    namespace={_namespace}
-                    onChanged={(e) => setInntektProperty("beloeputbetaltsiden", e!, index)}
-                    dateValue={_inntekt?.beloeputbetaltsiden ?? ''}
-                  />
-                </Table.DataCell>
-                <Table.DataCell
-                  className={styles.topAlignedCell}
-                  width={"20%"}
-                >
-                  <Select
-                    error={_v[_namespace + '-betalingshyppighetinntekt']?.feilmelding}
-                    id='inntekt-betalingshyppighetinntekt'
-                    label={t('p2000:form-arbeidsforhold-inntekt-betalingshyppighet')}
-                    hideLabel={true}
-                    onChange={(e) => setInntektProperty("betalingshyppighetinntekt", e.target.value, index)}
-                    value={_inntekt?.betalingshyppighetinntekt ?? ''}
-                  >
-                    <option  value=''>Velg</option>
-                    {betalingshyppighetOptions.map((option) => {
-                      return(<option key={option.value} value={option.value}>{option.label}</option>)
-                    })}
-                  </Select>
-                </Table.DataCell>
-                <Table.DataCell
-                  className={styles.topAlignedCell}
-                  width={"20%"}
-                >
-                  <AddRemovePanel<Inntekt>
-                    noMargin={true}
-                    item={inntekt}
-                    index={index}
-                    inEditMode={inEditMode}
-                    onRemove={onRemove}
-                    onAddNew={onAddNew}
-                    onCancelNew={onCloseNew}
-                    onStartEdit={onStartEdit}
-                    onConfirmEdit={onSaveEdit}
-                    onCancelEdit={() => onCloseEdit(_namespace)}
-                    alwaysVisible={true}
-                  />
-                </Table.DataCell>
-              </Table.Row>
-            )
-          : (
-            <Table.Row>
-              <Table.DataCell width={"10%"}>
-                {replacePeriodsWithCommas(inntekt?.beloep)}
-              </Table.DataCell>
-              <Table.DataCell width={"10%"}>
-                {inntekt?.valuta}
-              </Table.DataCell>
-              <Table.DataCell width={"20%"}>
-                {formatDate(inntekt?.beloeputbetaltsiden as string)}
-              </Table.DataCell>
-              <Table.DataCell width={"40%"}>
-                {inntekt?.betalingshyppighetinntekt ? betalingshyppighetMap[inntekt?.betalingshyppighetinntekt] : ''}
-              </Table.DataCell>
-              <Table.DataCell width={"20%"}>
-                {parentEditMode &&
-                  <AddRemovePanel<Inntekt>
-                    noMargin={true}
-                    item={inntekt}
-                    index={index}
-                    inEditMode={inEditMode}
-                    onRemove={onRemove}
-                    onAddNew={onAddNew}
-                    onCancelNew={onCloseNew}
-                    onStartEdit={onStartEdit}
-                    onConfirmEdit={onSaveEdit}
-                    onCancelEdit={() => onCloseEdit(_namespace)}
-                    alwaysVisible={true}
-                  />
-                }
-              </Table.DataCell>
-            </Table.Row>
-          )
-        }
-      </Fragment>
+      <div key={_namespace} className={styles.inntektRow}>
+        <HGrid columns={inntektColumns} gap="space-16" align="center">
+          <BodyLong>
+            {replacePeriodsWithCommas(inntekt?.beloep)}
+          </BodyLong>
+          <BodyLong>
+            {inntekt?.valuta}
+          </BodyLong>
+          <BodyLong>
+            {formatDate(inntekt?.beloeputbetaltsiden as string)}
+          </BodyLong>
+          <BodyLong>
+            {inntekt?.betalingshyppighetinntekt ? betalingshyppighetMap[inntekt?.betalingshyppighetinntekt] : ''}
+          </BodyLong>
+          <div className={styles.actionsCell}>
+            {parentEditMode &&
+              <AddRemovePanel<Inntekt>
+                noMargin={true}
+                item={inntekt}
+                index={index}
+                inEditMode={inEditMode}
+                onRemove={onRemove}
+                onAddNew={onAddNew}
+                onCancelNew={onCloseNew}
+                onStartEdit={onStartEdit}
+                onConfirmEdit={onSaveEdit}
+                onCancelEdit={() => onCloseEdit(_namespace)}
+                alwaysVisible={true}
+              />
+            }
+          </div>
+        </HGrid>
+      </div>
     )
   }
 
   return (
-    <>
+    <VStack>
+      <div className={styles.headerRow}>
+        <HGrid columns={inntektColumns} gap="space-16">
+          <Label>Beløp</Label>
+          <Label>Valuta</Label>
+          <Label>Beløp siden</Label>
+          <Label>Betalingshyppighet</Label>
+          <div />
+        </HGrid>
+      </div>
       {_.isEmpty(inntekt) && !newInntektForm
         ? (
-          <Table.Row>
-            <Table.DataCell colSpan={5}>
-              Ingen inntekter
-            </Table.DataCell>
-          </Table.Row>
+          <BodyLong>
+            <em>Ingen inntekter</em>
+          </BodyLong>
         )
         : (
           <>
@@ -313,7 +301,7 @@ const InntektRows: React.FC<InntektProps> = ({
         )
       }
       {parentEditMode && newInntektForm && renderRow(null, -1)}
-    </>
+    </VStack>
   )
 }
 

@@ -1,3 +1,22 @@
-.topAlignedCell {
-  vertical-align: top;
+.headerRow {
+  border-bottom: 1px solid var(--ax-border-neutral-subtle);
+  padding: var(--ax-space-8);
+  padding-top: 0;
+}
+
+.inntektRow {
+  padding: var(--ax-space-12) var(--ax-space-8);
+  border-bottom: 1px solid var(--ax-border-neutral-subtle);
+}
+
+.inntektRow:nth-child(even) {
+  background-color: var(--ax-bg-neutral-softA);
+}
+
+.inntektRow:hover {
+  background-color: var(--ax-bg-neutral-moderate-hoverA);
+}
+
+.actionsCell {
+  white-space: nowrap;
 }

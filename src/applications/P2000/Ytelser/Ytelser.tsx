@@ -14,7 +14,6 @@ import {
   Radio, RadioGroup,
   Select,
   Spacer,
-  Table,
   Tag,
   VStack
 } from "@navikt/ds-react";
@@ -326,20 +325,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                 />
                 <Spacer/>
               </HGrid>
-              <Table zebraStripes={true}>
-                <Table.Header>
-                  <Table.Row>
-                    <Table.HeaderCell scope="col">Beløp</Table.HeaderCell>
-                    <Table.HeaderCell scope="col">Valuta</Table.HeaderCell>
-                    <Table.HeaderCell scope="col">Beløp siden</Table.HeaderCell>
-                    <Table.HeaderCell scope="col" colSpan={2}>Betalingshyppighet</Table.HeaderCell>
-                    <Table.HeaderCell scope="col"></Table.HeaderCell>
-                  </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                  <BeloepRows beloep={_ytelse?.beloep} setBeloep={setBeloep} parentIndex={index} parentEditMode={true} newBeloepForm={_newBeloepForm} setNewBeloepForm={_setNewBeloepForm} parentNamespace={_namespace}/>
-                </Table.Body>
-              </Table>
+              <BeloepRows beloep={_ytelse?.beloep} setBeloep={setBeloep} parentIndex={index} parentEditMode={true} newBeloepForm={_newBeloepForm} setNewBeloepForm={_setNewBeloepForm} parentNamespace={_namespace}/>
               {inEditMode && !_newBeloepForm &&
                 <Box>
                   <Button
@@ -439,20 +425,7 @@ const Ytelser: React.FC<MainFormProps> = ({
                 <Spacer/>
               </HGrid>
 
-              <Table zebraStripes={true}>
-                <Table.Header>
-                  <Table.Row>
-                    <Table.HeaderCell scope="col">Beløp</Table.HeaderCell>
-                    <Table.HeaderCell scope="col">Valuta</Table.HeaderCell>
-                    <Table.HeaderCell scope="col">Beløp siden</Table.HeaderCell>
-                    <Table.HeaderCell scope="col" colSpan={2}>Betalingshyppighet</Table.HeaderCell>
-                    <Table.HeaderCell scope="col"></Table.HeaderCell>
-                  </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                  <BeloepRows parentEditMode={false} newBeloepForm={false} setNewBeloepForm={_setNewBeloepForm} setBeloep={setBeloep} parentIndex={index} beloep={_ytelse?.beloep} parentNamespace={_namespace}/>
-                </Table.Body>
-              </Table>
+              <BeloepRows parentEditMode={false} newBeloepForm={false} setNewBeloepForm={_setNewBeloepForm} setBeloep={setBeloep} parentIndex={index} beloep={_ytelse?.beloep} parentNamespace={_namespace}/>
               {_ytelse?.mottasbasertpaa &&
                 <VStack>
                   <Label>{t('p2000:form-ytelse-mottas-basert-paa')}</Label>
