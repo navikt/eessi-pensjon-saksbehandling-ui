@@ -279,13 +279,15 @@ const InntektRows: React.FC<InntektProps> = ({
 
   return (
     <VStack>
-      <HGrid columns={inntektColumns} gap="space-16" className={styles.headerRow}>
-        <Label>Beløp</Label>
-        <Label>Valuta</Label>
-        <Label>Beløp siden</Label>
-        <Label>Betalingshyppighet</Label>
-        <div />
-      </HGrid>
+      <div className={styles.headerRow}>
+        <HGrid columns={inntektColumns} gap="space-16">
+          <Label>Beløp</Label>
+          <Label>Valuta</Label>
+          <Label>Beløp siden</Label>
+          <Label>Betalingshyppighet</Label>
+          <div />
+        </HGrid>
+      </div>
       {_.isEmpty(inntekt) && !newInntektForm
         ? (
           <BodyLong>

@@ -1,6 +1,7 @@
 .headerRow {
   border-bottom: 1px solid var(--ax-border-neutral-subtle);
-  padding-bottom: var(--ax-space-8);
+  padding: var(--ax-space-8);
+  padding-top: 0;
 }
 
 .inntektRow {

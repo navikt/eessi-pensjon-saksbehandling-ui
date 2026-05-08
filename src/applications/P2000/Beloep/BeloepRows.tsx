@@ -298,13 +298,16 @@ const BeloepRows: React.FC<BeloepProps> = ({
 
   return (
     <VStack>
-      <HGrid columns={beloepColumns} gap="space-16" className={styles.headerRow}>
-        <Label>Beløp</Label>
-        <Label>Valuta</Label>
-        <Label>Beløp siden</Label>
-        <Label style={{gridColumn: "span 2"}}>Betalingshyppighet</Label>
-        <div />
-      </HGrid>
+      <div className={styles.headerRow}>
+        <HGrid columns={beloepColumns} gap="space-16">
+          <Label>Beløp</Label>
+          <Label>Valuta</Label>
+          <Label>Beløp siden</Label>
+          <Label>Betalingshyppighet</Label>
+          <div />
+          <div />
+        </HGrid>
+      </div>
       {_.isEmpty(beloep) && !newBeloepForm
         ? (
           <BodyLong>
