@@ -35,6 +35,7 @@ import {sendP5000toRinaGjenny} from "../../../actions/gjenny";
 import styles from "src/assets/css/common.module.css";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat"
+import {umamiButtonLogger} from "src/metrics/umami";
 dayjs.extend(customParseFormat)
 
 export interface P5000EditControlsSelector {
@@ -567,7 +568,12 @@ const P5000EditControls: React.FC<P5000EditControlsProps> = ({
             {sendingP5000info ? t('ui:sending') : t('buc:form-send-to-RINA')}
           </Button>
           <Button
-            onClick={onClickPrint}
+            onClick={() => {
+              umamiButtonLogger({
+                tekst: "Utskrift"
+              });
+              onClickPrint();
+            }}
             title="P5000Sum"
             loading={_printDialogOpen}
             disabled={_printDialogOpen}

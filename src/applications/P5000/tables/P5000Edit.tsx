@@ -1189,9 +1189,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                     { id: 'type', label: t('p5000:type-43113'), type: 'string', render: renderType },
                     { id: 'startdato', label: t('ui:startDate'), type: 'string', render: renderDateCell },
                     { id: 'sluttdato', label: t('ui:endDate'), type: 'string', render: renderDateCell },
-                    { id: 'dag', label: t('ui:day'), type: 'number', align: 'center' },
-                    { id: 'mnd', label: t('ui:month'), type: 'number', align: 'center' },
                     { id: 'aar', label: t('ui:year'), type: 'number', align: 'center' },
+                    { id: 'mnd', label: t('ui:month'), type: 'number', align: 'center' },
+                    { id: 'dag', label: t('ui:day'), type: 'number', align: 'center' },
                     { id: 'ytelse', label: t('p5000:ytelse'), type: 'string', align: 'center' },
                     { id: 'beregning', label: t('ui:calculationInformation'), type: 'string', align: 'center' },
                     { id: 'ordning', label: t('ui:scheme'), type: 'string', align: 'center' }
