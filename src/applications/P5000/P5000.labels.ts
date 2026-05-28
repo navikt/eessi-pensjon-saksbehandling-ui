@@ -29,7 +29,7 @@ export const typePeriode = {
   47: 'Likestilte perioder: perioder med svangerskaps- eller fødselspermisjon',
   48: 'Likeverdige perioder: perioder med førtidspensjon',
   49: 'Likestilte perioder: perioder med arbeidsledighet med dagpenger',
-  50: 'Likestilte perioder: periode hvor det er blitt iinnvilget uføretrygd',
+  50: 'Likestilte perioder: periode hvor det er blitt innvilget uføretrygd',
   51: 'Likestilte perioder: perioder med omsorg for pleietrengende',
   52: 'Likestilte perioder: fiktive perioder etter inntrådt uførhet, dødsdato eller start på pensjon'
 }
