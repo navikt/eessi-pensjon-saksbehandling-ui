@@ -31,7 +31,7 @@
   "to-see-p5000edit"        : "Dette er en oversiktsside for alle P5000-er. For å redigere en P5000, må du klikke 'rediger' på en P5000 SED-rad.",
   "trygdetid-for-dødsfallsmåneden" : "Trygdetid for dødsfallsmåneden",
   "type-43113"              : "Type (4.3.1.1.3)",
-  "uft-flagged"             : "Summeres bare på punkt 5.1 p.g.a. startdato > uføretrygds dato",
+  "uft-flagged"             : "Summeres bare på punkt 5.1 p.g.a. startdato >= uføretidspunkt",
   "updating"                : "Oppdater P5000",
   "ytelse"                  : "Gir rett til ytelse",
 
