@@ -26,7 +26,7 @@
   "dependencies": {
     "@navikt/ds-css": "8.11.0",
     "@navikt/ds-react": "8.11.0",
-    "@navikt/aksel-icons": "8.10.5",
+    "@navikt/aksel-icons": "8.11.0",
     "@navikt/analytics-types": "0.0.9",
     "@navikt/fetch": "7.2.14",
     "@navikt/flagg-ikoner": "14.0.1",
