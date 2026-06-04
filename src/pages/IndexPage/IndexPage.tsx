@@ -29,6 +29,12 @@ const RELEASE_CDM_4_4_WARNING =
     På grunn av oppgradering til ny datamodell i JINA kan det ikke opprettes nye BUC-er fra fredag 20. februar kl 00:01 til mandag 23. februar kl 06:00.
   </Alert>
 
+const EP_WARNING_BANNER =
+  <Alert fullWidth variant='warning'>
+    Italia oppgraderer sitt datasystem og har nedetid fra og med mandag 8. juni til og med fredag 12. juni. Vennligst ikke send SED til Italia i dette tidsrommet.
+  </Alert>
+
+
 const IndexPage: React.FC<IndexPageProps> = ({indexType = "PESYS"}): JSX.Element => {
 
   const { featureToggles }: IndexPageSelector = useSelector<State, IndexPageSelector>(mapState)
@@ -40,18 +46,21 @@ const IndexPage: React.FC<IndexPageProps> = ({indexType = "PESYS"}): JSX.Element
         {featureToggles.RELEASE_CDM_4_4_BANNER &&
            RELEASE_CDM_4_4_WARNING
         }
-          <Box padding="space-16">
-            <VStack>
-              <PersonPanel />
-              {indexType === PESYS &&
-                <BUCIndex/>
-              }
-              {indexType === GJENNY &&
-                <BUCIndexGjenny/>
-              }
-            </VStack>
-          </Box>
-    </VStack>
+        {featureToggles.EP_WARNING_BANNER &&
+          EP_WARNING_BANNER
+        }
+        <Box padding="space-16">
+          <VStack>
+            <PersonPanel />
+            {indexType === PESYS &&
+              <BUCIndex/>
+            }
+            {indexType === GJENNY &&
+              <BUCIndexGjenny/>
+            }
+          </VStack>
+        </Box>
+      </VStack>
     </TopContainer>
   );
 }
