@@ -280,6 +280,18 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     />
   )
 
+  const maybeReplaceWithCurrentDate = (dato: string, options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) : string | undefined => {
+    if (options.values && !_.isNil(options.values.type)) {
+      const type = `${options.values.type}`
+      const parsedDato = dayjs(dateTransform(dato), 'DD.MM.YYYY', true)
+      if ((type === '41' || type === '50') && parsedDato.isValid() && parsedDato.isAfter(dayjs(), 'day')) {
+        return dayjs().format('DD.MM.YYYY')
+      }
+      return dato
+    }
+    return undefined
+  }
+
   const renderSluttDatoEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => (
     <Input
       size='small'
@@ -292,11 +304,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       placeholder={t('buc:placeholder-date2')}
       onChanged={(newSluttdato: string) => {
         const otherDate: string | undefined = dateTransform(options.values.startdato)
-        const extra = maybeDoSomePrefill(otherDate, newSluttdato, options)
-        options.setValues({ ...extra, sluttdato: newSluttdato })
+        const effectiveSluttdato = maybeReplaceWithCurrentDate(newSluttdato, options)
+        const extra = maybeDoSomePrefill(otherDate, effectiveSluttdato, options)
+        options.setValues({ ...extra, sluttdato: effectiveSluttdato })
       }}
       onEnterPress={(e: string) => {
-        options.onEnter({ sluttdato: e })
+        options.onEnter({ sluttdato: maybeReplaceWithCurrentDate(e, options) })
       }}
       value={dateTransform(options.value) ?? ''}
     />
@@ -316,11 +329,12 @@ const P5000Edit: React.FC<P5000EditProps> = ({
       onChange={() => _setAddRowEditing(true)}
       onChanged={(newSluttdato: string) => {
         const otherDate: string | undefined = dateTransform(options.values.startdato)
-        const extra = maybeDoSomePrefill(otherDate, newSluttdato, options)
-        options.setValues({ ...extra, sluttdato: newSluttdato })
+        const effectiveSluttdato = maybeReplaceWithCurrentDate(newSluttdato, options)
+        const extra = maybeDoSomePrefill(otherDate, effectiveSluttdato, options)
+        options.setValues({ ...extra, sluttdato: effectiveSluttdato })
       }}
       onEnterPress={(e: string) => {
-        options.onEnter({ sluttdato: e })
+        options.onEnter({ sluttdato: maybeReplaceWithCurrentDate(e, options) })
       }}
       value={dateTransform(options.value) ?? ''}
     />
