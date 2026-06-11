@@ -36,6 +36,24 @@ export interface ConvertP5000SEDToP5000ListRowsProps {
   selectRowsContext: 'forCertainTypesOnly' | 'forAll'
 }
 
+export const shouldRenderP5000ListPeriod = (period: P5000Period): boolean => {
+  if (period.type !== '50') {
+    return true
+  }
+
+  const fom = period.periode?.fom
+  if (!fom) {
+    return true
+  }
+
+  const parsedFom = dayjs(fom, 'YYYY-MM-DD', true)
+  if (!parsedFom.isValid()) {
+    return true
+  }
+
+  return !parsedFom.isAfter(dayjs(), 'day')
+}
+
 export const sortItems = (items: P5000ListRows): P5000ListRows => {
   // sorting should bew only between parents or children, not among parent/children
   // so, remove children, sort them aside, then inject them
@@ -318,7 +336,9 @@ export const convertP5000SEDToP5000ListRows = ({
     const periods: Array<P5000Period> | undefined = sourceStatus === 'rina' ? rinaPeriods : storagePeriods
 
     rows = rows.concat(
-      periods?.map((p) => periodToListItem(p, sed, sender, mustCheckStatus, rinaPeriods, selectRowsContext)) ?? []
+      periods
+        ?.filter(shouldRenderP5000ListPeriod)
+        .map((p) => periodToListItem(p, sed, sender, mustCheckStatus, rinaPeriods, selectRowsContext)) ?? []
     )
   })
 

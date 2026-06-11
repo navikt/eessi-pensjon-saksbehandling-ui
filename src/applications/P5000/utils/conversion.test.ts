@@ -1,5 +1,6 @@
-import { sortItems, mergeP5000ListRows } from 'src/applications/P5000/utils/conversion'
+import { sortItems, mergeP5000ListRows, shouldRenderP5000ListPeriod } from 'src/applications/P5000/utils/conversion'
 import {P5000ListRows} from "src/declarations/p5000";
+import dayjs from 'dayjs'
 
 describe('applications/P5000/utils/conversion', () => {
 
@@ -46,6 +47,51 @@ describe('applications/P5000/utils/conversion', () => {
 
     const generatedItems = sortItems(unsortedItems)
     expect(generatedItems).toMatchObject(expectedItems)
+  })
+
+  it('should hide type 50 row when startdato is after today', () => {
+    const shouldRender = shouldRenderP5000ListPeriod({
+      type: '50',
+      periode: {
+        fom: dayjs().add(1, 'day').format('YYYY-MM-DD'),
+        tom: null
+      }
+    } as any)
+
+    expect(shouldRender).toBe(false)
+  })
+
+  it('should keep type 50 row when startdato is today or earlier', () => {
+    const shouldRenderToday = shouldRenderP5000ListPeriod({
+      type: '50',
+      periode: {
+        fom: dayjs().format('YYYY-MM-DD'),
+        tom: null
+      }
+    } as any)
+
+    const shouldRenderPast = shouldRenderP5000ListPeriod({
+      type: '50',
+      periode: {
+        fom: dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
+        tom: null
+      }
+    } as any)
+
+    expect(shouldRenderToday).toBe(true)
+    expect(shouldRenderPast).toBe(true)
+  })
+
+  it('should not filter non-type-50 rows', () => {
+    const shouldRender = shouldRenderP5000ListPeriod({
+      type: '41',
+      periode: {
+        fom: dayjs().add(30, 'day').format('YYYY-MM-DD'),
+        tom: null
+      }
+    } as any)
+
+    expect(shouldRender).toBe(true)
   })
 
   it('testing merging P5000ListRows when no rows exist', () => {
