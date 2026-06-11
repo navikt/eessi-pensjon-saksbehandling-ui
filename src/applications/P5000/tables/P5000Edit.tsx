@@ -292,53 +292,77 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return undefined
   }
 
-  const renderSluttDatoEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => (
-    <Input
-      size='small'
-      namespace='c-table--edit'
-      id='sluttdato-input-id'
-      className='c-table--edit-input'
-      label='sluttdato'
-      hideLabel
-      error={options.error}
-      placeholder={t('buc:placeholder-date2')}
-      onChanged={(newSluttdato: string) => {
+  const renderSluttDatoEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
+    if (options.values && !_.isNil(options.values.type)) {
+      const type = `${options.values.type}`
+      const parsedDato = dayjs(dateTransform(options.value), 'DD.MM.YYYY', true)
+      if ((type === '41') && parsedDato.isValid() && parsedDato.isAfter(dayjs(), 'day')) {
+        const today = dayjs().format('DD.MM.YYYY')
         const otherDate: string | undefined = dateTransform(options.values.startdato)
-        const effectiveSluttdato = maybeReplaceWithCurrentDate(newSluttdato, options)
-        const extra = maybeDoSomePrefill(otherDate, effectiveSluttdato, options)
-        options.setValues({ ...extra, sluttdato: effectiveSluttdato })
-      }}
-      onEnterPress={(e: string) => {
-        options.onEnter({ sluttdato: maybeReplaceWithCurrentDate(e, options) })
-      }}
-      value={dateTransform(options.value) ?? ''}
-    />
-  )
+        const extra = maybeDoSomePrefill(otherDate, today, options)
+        options.setValues({ ...extra, sluttdato: today })
+      }
+    }
+    return (
+      <Input
+        size='small'
+        namespace='c-table--edit'
+        id='sluttdato-input-id'
+        className='c-table--edit-input'
+        label='sluttdato'
+        hideLabel
+        error={options.error}
+        placeholder={t('buc:placeholder-date2')}
+        onChanged={(newSluttdato: string) => {
+          const otherDate: string | undefined = dateTransform(options.values.startdato)
+          const effectiveSluttdato = maybeReplaceWithCurrentDate(newSluttdato, options)
+          const extra = maybeDoSomePrefill(otherDate, effectiveSluttdato, options)
+          options.setValues({ ...extra, sluttdato: effectiveSluttdato })
+        }}
+        onEnterPress={(e: string) => {
+          options.onEnter({ sluttdato: maybeReplaceWithCurrentDate(e, options) })
+        }}
+        value={dateTransform(options.value) ?? ''}
+      />
+    )
+  }
 
-  const renderSluttDatoAdd = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => (
-    <Input
-      reference={sluttDatoRef}
-      size='small'
-      namespace='c-table--edit'
-      id='sluttdato-input-id'
-      className='c-table--edit-input'
-      label='sluttdato'
-      hideLabel
-      error={options.error}
-      placeholder={t('buc:placeholder-date2')}
-      onChange={() => _setAddRowEditing(true)}
-      onChanged={(newSluttdato: string) => {
+  const renderSluttDatoAdd = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
+    if (options.values && !_.isNil(options.values.type)) {
+      const type = `${options.values.type}`
+      const parsedDato = dayjs(dateTransform(options.value), 'DD.MM.YYYY', true)
+      if ((type === '41') && parsedDato.isValid() && parsedDato.isAfter(dayjs(), 'day')) {
+        const today = dayjs().format('DD.MM.YYYY')
         const otherDate: string | undefined = dateTransform(options.values.startdato)
-        const effectiveSluttdato = maybeReplaceWithCurrentDate(newSluttdato, options)
-        const extra = maybeDoSomePrefill(otherDate, effectiveSluttdato, options)
-        options.setValues({ ...extra, sluttdato: effectiveSluttdato })
-      }}
-      onEnterPress={(e: string) => {
-        options.onEnter({ sluttdato: maybeReplaceWithCurrentDate(e, options) })
-      }}
-      value={dateTransform(options.value) ?? ''}
-    />
-  )
+        const extra = maybeDoSomePrefill(otherDate, today, options)
+        options.setValues({ ...extra, sluttdato: today })
+      }
+    }
+    return (
+      <Input
+        reference={sluttDatoRef}
+        size='small'
+        namespace='c-table--edit'
+        id='sluttdato-input-id'
+        className='c-table--edit-input'
+        label='sluttdato'
+        hideLabel
+        error={options.error}
+        placeholder={t('buc:placeholder-date2')}
+        onChange={() => _setAddRowEditing(true)}
+        onChanged={(newSluttdato: string) => {
+          const otherDate: string | undefined = dateTransform(options.values.startdato)
+          const effectiveSluttdato = maybeReplaceWithCurrentDate(newSluttdato, options)
+          const extra = maybeDoSomePrefill(otherDate, effectiveSluttdato, options)
+          options.setValues({ ...extra, sluttdato: effectiveSluttdato })
+        }}
+        onEnterPress={(e: string) => {
+          options.onEnter({ sluttdato: maybeReplaceWithCurrentDate(e, options) })
+        }}
+        value={dateTransform(options.value) ?? ''}
+      />
+    )
+  }
 
   const checkForBosetningsperioder = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, any>, what: string, others: Array<string>) => {
     let _value: string | number
