@@ -197,7 +197,7 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               </div>
             </PopoverCustomized>
           )}
-          {(!_.isEmpty(followUpSeds) && sed.status === 'received') && (
+          {(!_.isEmpty(followUpSeds) && sed.status === 'received' && !(buc.type === 'M_BUC_03a' && sed.type === 'M050')) && (
             <Button
               variant='secondary'
               disabled={buc.readOnly === true}
