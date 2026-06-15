@@ -133,17 +133,11 @@ const apiAuth = function (scope) {
       res.redirect("/oauth2/login");
     } else {
       try {
-        logger.info("*** apiAuth: trying onBehalfOf with ***")
-        logger.info(req.headers.authorization)
-        logger.info("***")
         const response = await onBehalfOf(
           scope,
           req.headers.authorization.substring("Bearer ".length)
         );
         const body = await response.json();
-        logger.info("*** apiAuth: got ***")
-        logger.info(body.access_token)
-        logger.info("***")
         if (response.ok) {
           res.locals.on_behalf_of_authorization = "Bearer " + body.access_token;
           next();
@@ -152,7 +146,6 @@ const apiAuth = function (scope) {
             "Error fetching on behalf of token. Status code " + response.status
           );
           logger.error(body.error_description);
-          logger.error(body);
           res.redirect("/oauth2/login");
         }
       } catch (error) {

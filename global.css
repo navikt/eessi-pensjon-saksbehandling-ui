@@ -26,13 +26,15 @@ ol {
 .print-version {
   width: 100%;
   margin-top: 0.5rem;
-  @media print {
-    @page {
-      size: A4 landscape;
-    }
-    td {
-      padding: 0.5rem;
-    }
+}
+
+@page {
+  size: A4 landscape;
+}
+
+@media print {
+  .print-version td {
+    padding: 0.5rem;
   }
 }
 

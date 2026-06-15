@@ -31,7 +31,7 @@ const RELEASE_CDM_4_4_WARNING =
 
 const EP_WARNING_BANNER =
   <Alert fullWidth variant='warning'>
-    Italia oppgraderer sitt datasystem og har nedetid fra og med mandag 8. juni til og med fredag 12. juni. Vennligst ikke send SED til Italia i dette tidsrommet.
+    Italia oppgraderer sitt datasystem og har nedetid inntil videre. Vennligst ikke send SED til Italia inntil videre.
   </Alert>
 
 
