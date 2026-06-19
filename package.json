@@ -43,7 +43,7 @@
     "cross-fetch": "4.1.0",
     "dayjs": "1.11.21",
     "express": "5.2.1",
-    "http-proxy-middleware": "3.0.6",
+    "http-proxy-middleware": "3.0.7",
     "i18next": "25.10.10",
     "i18next-browser-languagedetector": "8.2.1",
     "i18next-http-backend": "3.0.6",
