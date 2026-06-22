@@ -28,7 +28,7 @@ import {
   P5000_MED_BEGRUNNELSE,
   FORENKLET_FORESPOERSEL,
   KRAV_OM_UFOEREYTELSE,
-  SAKSBEHANDLINGSTID_IKKE_UTLOEPT
+  SAKSBEHANDLINGSTID_IKKE_UTLOEPT, OPPLYSNINGER_OM_EPS_NORDIC
 } from "src/constants/p8000";
 import {CheckboxWithCountryAndPeriods} from "src/applications/P8000/components/CheckboxWithCountryAndPeriods";
 import {CheckBoxField} from "src/applications/P8000/components/CheckboxField";
@@ -238,6 +238,10 @@ const P8000: React.FC<P8000Props> = ({
             periodeFra: ofteEtterspurtInformasjon[key]?.periodeFra,
             periodeTil: ofteEtterspurtInformasjon[key]?.periodeTil,
             antallMaaneder: ofteEtterspurtInformasjon[key]?.antallMaaneder
+          }
+
+          if(field === OPPLYSNINGER_OM_EPS && ['SE','DK', 'FI', 'IS'].includes(country?.value)){
+            field = OPPLYSNINGER_OM_EPS_NORDIC
           }
 
           textArray.push(t('p8000:' + field, extra))
