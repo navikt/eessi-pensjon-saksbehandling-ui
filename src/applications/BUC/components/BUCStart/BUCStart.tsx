@@ -98,10 +98,13 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
   const bucNeedsAvdodButWeHaveNone = (): boolean => {
     return (
       !bucNeedsAvdod() &&
-      (_buc === 'P_BUC_10' && (
-        sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP ||
-          sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP
-      )
+      (
+        (_buc === 'P_BUC_10' && (
+          sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP ||
+            sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP
+        )
+        ) ||
+        (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST)
       )
     )
   }
