@@ -87,7 +87,6 @@ export interface NewBucPayload {
   person: any // Person
   avdod?: PersonAvdod
   avdodfnr?: string
-  avdodfnrManuelt?: boolean
   kravDato?: string
   sakType?: SakTypeKey
   sakId?: string | null

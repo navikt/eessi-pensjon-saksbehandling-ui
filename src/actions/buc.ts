@@ -69,7 +69,6 @@ export const createBuc = (
     context: {
       avdod: params.avdod,
       avdodfnr: params.avdodfnr,
-      avdodfnrManuelt : params.avdodfnrManuelt,
       person: params.person,
       kravDato: params.kravDato
     },
