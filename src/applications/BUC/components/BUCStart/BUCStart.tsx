@@ -233,6 +233,7 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
       }
       if (bucNeedsAvdodButWeHaveNone() && _avdodFnr) {
         payload.avdodfnr = _avdodFnr
+        payload.avdodfnrManuelt = true
       }
       if (bucNeedsKravDato(_buc) && _kravDato) {
         // change 15-12-2020 to 2020-12-15
