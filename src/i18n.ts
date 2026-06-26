@@ -13,7 +13,7 @@ i18n
       default: ['nb']
     },
     debug: false,
-    ns: ['buc', 'message', 'p2000', 'p4000', 'p5000', 'p8000', 'ui', 'validation'],
+    ns: ['buc', 'message', 'p2000', 'p4000', 'p5000', 'p8000', 'ui', 'validation', 'x009'],
     defaultNS: 'ui',
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json'
