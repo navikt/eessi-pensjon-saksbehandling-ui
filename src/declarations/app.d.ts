@@ -8,7 +8,7 @@ import {SimpleCountry} from "@navikt/landvelger";
 
 export type AllowedLocaleString = 'en' | 'nb'
 
-export type BUCMode = 'buclist' | 'bucedit' | 'bucnew' | 'sednew' | 'p4000' | 'p5000' | 'p2000' | 'p8000'
+export type BUCMode = 'buclist' | 'bucedit' | 'bucnew' | 'sednew' | 'p4000' | 'p5000' | 'p2000' | 'p8000' | 'x009'
 
 export type SedType = 'P4000' | 'P5000'
 
