@@ -1,8 +1,15 @@
 # .github/dependabot.yml
 version: 2
+registries:
+  nav-gpr:
+    type: npm-registry
+    url: https://npm.pkg.github.com
+
 updates:
   - package-ecosystem: "npm"
     directory: "/"
+    registries:
+      - nav-gpr
     schedule:
       interval: "weekly"
       day: "monday"
