@@ -4,6 +4,7 @@ registries:
   nav_github_packages:
     type: npm-registry
     url: https://npm.pkg.github.com
+    scope: "@navikt"
     token: ${{secrets.READER_TOKEN}}
 updates:
   - package-ecosystem: "npm"
