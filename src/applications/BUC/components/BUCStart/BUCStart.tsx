@@ -214,10 +214,10 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
   const onForwardButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     setShowWarningBucDeceased(false)
     dispatch(cleanNewlyCreatedBuc())
-/*    if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods && personAvdods.length === 0) {
+    if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods && personAvdods.length === 0) {
       setShowWarningBucDeceased(true)
       return
-    }*/
+    }
     const valid: boolean = performValidation()
     if (valid) {
       setIsCreatingBuc(true)
