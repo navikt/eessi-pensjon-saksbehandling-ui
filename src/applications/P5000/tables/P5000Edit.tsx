@@ -356,9 +356,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     let _value: string | number
     /*
       If forsikringEllerBosetningsperioder is true, render dag/mmd/aar as '' if they are nil or 0
-      BUT if we have non-0 values in the other fields, leave it as 0 if it was 0
+      BUT if we have non-0 values in the other fields, leave it as 0 if it was 0.
 
-      If forsikringEllerBosetningsperioder is false, render dag/mmd/aar as 0 if they are nil or ''
+      If forsikringEllerBosetningsperioder is false, render dag/mmd/aar as 0 if they are nil or ''.
      */
 
     if (options.context.forsikringEllerBosetningsperioder === '1') {
