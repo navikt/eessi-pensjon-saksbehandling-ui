@@ -26,7 +26,7 @@ import {
 import { State } from 'src/declarations/reducers'
 import useValidation from 'src/hooks/useValidation'
 import _ from 'lodash'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import Table, { NewRowValues, RenderEditableOptions, RenderOptions, ItemErrors } from '@navikt/tabell'
@@ -47,6 +47,41 @@ export interface P5000EditProps {
   p5000sFromRinaMap: P5000sFromRinaMap
   p5000WorkingCopy: LocalStorageEntry<P5000SED> | undefined
   updateWorkingCopy: (newSed: P5000SED | undefined, sedId: string) => void
+}
+
+export const dateTransform = (s: undefined | string | Date): string | undefined => {
+  if (s === undefined) {
+    return undefined
+  }
+  if (_.isDate(s)) {
+    return dayjs(s).format('DD.MM.YYYY')
+  }
+  const r = s.match('^(\\d{2})(\\d{2})(\\d{2})$')
+  if (r !== null) {
+    const matchedDay = r[1]
+    const matchedMonth = r[2]
+    const matchedYear = r[3]
+    const matchedYearInt = parseInt(matchedYear)
+    //  010139 => 01.01.2039. 010140 => 01.01.1940
+    const fullYear = matchedYearInt < 40 ? `20${matchedYear}` : `19${matchedYear}`
+    return `${matchedDay}.${matchedMonth}.${fullYear}`
+  }
+  return s
+}
+
+export const capSluttdatoAtToday = (dato: string | Date | undefined, type: unknown): string | Date | undefined => {
+  if (_.isNil(dato)) {
+    return dato
+  }
+  const typeAsString = `${type ?? ''}`
+  if (typeAsString !== '41') {
+    return dato
+  }
+  const parsedDato = dayjs(dateTransform(dato), 'DD.MM.YYYY', true)
+  if (parsedDato.isValid() && parsedDato.isAfter(dayjs(), 'day')) {
+    return _.isDate(dato) ? dayjs().toDate() : dayjs().format('DD.MM.YYYY')
+  }
+  return dato
 }
 
 export const rangesOverlap = (startDateRange1: Dayjs, endDateRange1: Dayjs,
@@ -155,25 +190,6 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
-  const dateTransform = (s: undefined | string | Date): string | undefined => {
-    if (s === undefined) {
-      return undefined
-    }
-    if (_.isDate(s)) {
-      return dayjs(s).format('DD.MM.YYYY')
-    }
-    const r = s.match('^(\\d{2})(\\d{2})(\\d{2})$')
-    if (r !== null) {
-      const matchedDay = r[1]
-      const matchedMonth = r[2]
-      const matchedYear = r[3]
-      const matchedYearInt = parseInt(matchedYear)
-      //  010139 => 01.01.2039. 010140 => 01.01.1940
-      const fullYear = matchedYearInt < 40 ? `20${matchedYear}` : `19${matchedYear}`
-      return `${matchedDay}.${matchedMonth}.${fullYear}`
-    }
-    return s
-  }
 
   const calculateDateDiff = (rawStartDato: string | undefined, rawSluttDato: string | undefined): DateDiff | null => {
     let validStartDato: string | undefined
@@ -282,12 +298,8 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const maybeReplaceWithCurrentDate = (dato: string, options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) : string | undefined => {
     if (options.values && !_.isNil(options.values.type)) {
-      const type = `${options.values.type}`
-      const parsedDato = dayjs(dateTransform(dato), 'DD.MM.YYYY', true)
-      if ((type === '41' || type === '50') && parsedDato.isValid() && parsedDato.isAfter(dayjs(), 'day')) {
-        return dayjs().format('DD.MM.YYYY')
-      }
-      return dato
+      const result = capSluttdatoAtToday(dato, options.values.type)
+      return _.isDate(result) ? dayjs(result).format('DD.MM.YYYY') : result
     }
     return undefined
   }
@@ -751,7 +763,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const onRowSelectChange = (items: P5000ListRows) => {
-    let newItems: P5000ListRows = _.cloneDeep(_items)
+    let newItems: P5000ListRows = _.cloneDeep(normalizedItems)
     newItems = newItems.map(item => {
       const newItem = _.cloneDeep(item)
       const found: boolean = _.find(items, (it: P5000ListRow) => it.key === newItem.key) !== undefined
@@ -776,8 +788,9 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const beforeRowEdited = (item: P5000ListRow, context: P5000TableContext | undefined): ItemErrors | undefined => {
     const errors: ItemErrors = {}
+    const effectiveSluttdato = capSluttdatoAtToday(item.sluttdato, item.type) as string | undefined
     const startdato = dayjs(dateTransform(item.startdato), 'DD.MM.YYYY')
-    const sluttdato = dayjs(dateTransform(item.sluttdato), 'DD.MM.YYYY')
+    const sluttdato = dayjs(dateTransform(effectiveSluttdato), 'DD.MM.YYYY')
 
     if (startdato.isValid() && sluttdato.isValid()) {
       if (startdato.isAfter(sluttdato)) {
@@ -813,6 +826,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
 
   const beforeRowAdded = (newRowValues: NewRowValues, context: P5000TableContext): ItemErrors | undefined => {
     const errors: ItemErrors = {}
+    const effectiveSluttdato = capSluttdatoAtToday(newRowValues.sluttdato, newRowValues.type)
+    if (effectiveSluttdato !== newRowValues.sluttdato) {
+      newRowValues.sluttdato = effectiveSluttdato
+    }
     const typeValue = newRowValues.type
     const startdatovalue: string | undefined = newRowValues.startdato
     const sluttdatovalue: string | undefined = newRowValues.sluttdato
@@ -867,6 +884,14 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     return <div />
   }
 
+  const normalizedItems = useMemo<P5000ListRows>(() => (
+    _items.map((item: P5000ListRow) => {
+      const effectiveSluttdato = capSluttdatoAtToday(item.sluttdato, item.type)
+      if (effectiveSluttdato === item.sluttdato) return item
+      return { ...item, sluttdato: effectiveSluttdato as any }
+    })
+  ), [_items])
+
   const tableId = 'P5000Edit-table'
 
   return (
@@ -880,7 +905,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           paddingBlock="space-0 space-16"
         >
           <P5000EditControls
-            items={_items}
+            items={normalizedItems}
             caseId={caseId}
             componentRef={componentRef}
             ytelseOption={_ytelseOption}
@@ -906,7 +931,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         <Table<P5000ListRow, P5000TableContext>
           id={tableId}
           animatable={false}
-          items={_items}
+          items={normalizedItems}
           error={_validation['P5000Edit-tabell']?.feilmelding}
           loading={!!sentP5000info}
           labels={{
@@ -915,7 +940,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
             flagged: t('p5000:uft-flagged')
           }}
           context={{
-            items: _items,
+            items: normalizedItems,
             forsikringEllerBosetningsperioder: _forsikringEllerBosetningsperioder
           }}
           editable
@@ -925,7 +950,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
           selectable
           showSelectAll={false}
           coloredSelectedRow={false}
-          flaggable={_.find(_items, 'flagIkon') !== undefined}
+          flaggable={_.find(normalizedItems, 'flagIkon') !== undefined}
           onRowSelectChange={onRowSelectChange}
           sortable
           onColumnSort={onColumnSort}
@@ -1182,7 +1207,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                   // important to it re-renders when sorting changes
                   className='print-version'
                   fullWidth
-                  items={_items}
+                  items={normalizedItems}
                   editable={false}
                   animatable={false}
                   searchable={false}
