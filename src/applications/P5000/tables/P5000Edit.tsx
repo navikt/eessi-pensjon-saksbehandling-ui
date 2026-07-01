@@ -355,10 +355,10 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   const checkForBosetningsperioder = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, any>, what: string, others: Array<string>) => {
     let _value: string | number
     /*
-      if forsikringEllerBosetningsperioder is true, render dag/mmd/aar as '' if they are nil or 0
+      If forsikringEllerBosetningsperioder is true, render dag/mmd/aar as '' if they are nil or 0
       BUT if we have non-0 values in the other fields, leave it as 0 if it was 0
 
-      if forsikringEllerBosetningsperioder is false, render dag/mmd/aar as 0 if they are nil or ''
+      If forsikringEllerBosetningsperioder is false, render dag/mmd/aar as 0 if they are nil or ''
      */
 
     if (options.context.forsikringEllerBosetningsperioder === '1') {
