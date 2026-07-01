@@ -14,7 +14,9 @@ import {hasNamespaceWithErrors} from 'src/utils/validation'
 import {validateSendeItem, ValidationSendeItemProps} from './validation'
 import {Validation} from "src/declarations/app"
 import {State} from "src/declarations/reducers"
-import {MainFormProps, MainFormSelector} from "src/applications/P2000/MainForm"
+import {MainFormSelector} from "src/applications/P2000/MainForm"
+import {ActionWithPayload} from '@navikt/fetch'
+import {UpdateSedPayload} from 'src/declarations/types'
 import {addEditingItem, deleteEditingItem} from "src/actions/app"
 import FormTextBox from "src/components/Forms/FormTextBox"
 import TextArea from "src/components/Forms/TextArea"
@@ -25,12 +27,19 @@ const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status
 })
 
-const Paaminnelse: React.FC<MainFormProps> = ({
+export interface PaaminnelseProps {
+  label?: string
+  parentNamespace: string
+  PSED: X009SED | null | undefined
+  updatePSED: (needle: string, value: any) => ActionWithPayload<UpdateSedPayload>
+}
+
+const Paaminnelse: React.FC<PaaminnelseProps> = ({
   label,
   parentNamespace,
   PSED,
   updatePSED
-}: MainFormProps): JSX.Element => {
+}: PaaminnelseProps): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useAppDispatch()
   const {validation} = useAppSelector(mapState)
@@ -245,9 +254,15 @@ const Paaminnelse: React.FC<MainFormProps> = ({
   }
 
   return (
-    <Box padding="space-16">
+    <Box
+      borderWidth="1"
+      borderRadius="4"
+      borderColor="neutral"
+      background="default"
+      padding="space-16"
+    >
       <VStack gap="space-16">
-        <Heading size="small">{label ?? t('x009:form-paaminnelse')}</Heading>
+        <Heading size="small">{label ?? t('x009:form-paaminnelser')}</Heading>
         <FormTextBox
           error={validation[namespace + '-sende']?.feilmelding}
           id={namespace + '-sende'}
