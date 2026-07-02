@@ -174,7 +174,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         newBuc.addedParams = {}
       }
 
-      if (kravDato) {
+      if (kravDato) {avdodfnr
         newBuc.addedParams.kravDato = kravDato
       }
 
@@ -186,6 +186,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
           avdod: {
             fnr: avdod ? avdod.fnr : avdodfnr
           },
+          avdodfnr: avdod ? avdod.fnr : avdodfnr,
           avdodfnrManuelt: avdodfnrManuelt
         } as BUCSubject
       }
