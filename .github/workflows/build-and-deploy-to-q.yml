@@ -14,6 +14,8 @@ on:
           - 'dev-gcp-q1'
           - 'dev-gcp-experimental'
           - 'dev-gcp-q1-experimental'
+          - 'dev-gcp-parallell'
+          - 'dev-gcp-q1-parallell'
 jobs:
   tag_build_and_deploy:
     name: 'Build'
