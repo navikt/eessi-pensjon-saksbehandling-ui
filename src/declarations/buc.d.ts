@@ -21,6 +21,7 @@ export interface Gjenlevende {
 export interface BUCSubject {
   gjenlevende: Gjenlevende
   avdod: Avdod
+  avdodfnrManuelt?: boolean
 }
 
 export interface BucListItem {
@@ -87,6 +88,7 @@ export interface NewBucPayload {
   person: any // Person
   avdod?: PersonAvdod
   avdodfnr?: string
+  avdodfnrManuelt?: boolean
   kravDato?: string
   sakType?: SakTypeKey
   sakId?: string | null
