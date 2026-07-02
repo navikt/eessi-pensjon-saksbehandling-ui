@@ -98,10 +98,13 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
   const bucNeedsAvdodButWeHaveNone = (): boolean => {
     return (
       !bucNeedsAvdod() &&
-      (_buc === 'P_BUC_10' && (
-        sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP ||
-          sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP
-      )
+      (
+        (_buc === 'P_BUC_10' && (
+            sakType === SakTypeMap.GJENLEV || sakType === SakTypeMap.BARNEP ||
+            sakType === SakTypeMap.ALDER || sakType === SakTypeMap.UFOREP
+          )
+        ) ||
+        (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST)
       )
     )
   }
@@ -214,10 +217,10 @@ const BUCStart: React.FC<BUCStartIndexProps> = ({
   const onForwardButtonClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     setShowWarningBucDeceased(false)
     dispatch(cleanNewlyCreatedBuc())
-    if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods && personAvdods.length === 0) {
+/*    if (_buc === 'P_BUC_02' && pesysContext === constants.VEDTAKSKONTEKST && personAvdods && personAvdods.length === 0) {
       setShowWarningBucDeceased(true)
       return
-    }
+    }*/
     const valid: boolean = performValidation()
     if (valid) {
       setIsCreatingBuc(true)
