@@ -19,7 +19,7 @@ export interface IdentifikatorItem {
   type?: string
 }
 
-export interface XArbeidsgiver {
+export interface Arbeidsgiver {
   identifikator?: Array<IdentifikatorItem>
   adresse?: Adresse
   navn?: string
@@ -28,19 +28,19 @@ export interface XArbeidsgiver {
 export interface Kontekst {
   bruker?: Bruker
   refusjonskrav?: Refusjonskrav
-  arbeidsgiver?: XArbeidsgiver
+  arbeidsgiver?: Arbeidsgiver
 }
 
-export interface Navsak {
+export interface Sak {
   kontekst?: Kontekst
   paaminnelse?: Paaminnelse
 }
 
-export interface XNav {
-  sak?: Navsak
+export interface Nav {
+  sak?: Sak
 }
 
 export interface X009SED extends BaseSED {
   sed: string
-  nav: XNav
+  nav: Nav
 }
