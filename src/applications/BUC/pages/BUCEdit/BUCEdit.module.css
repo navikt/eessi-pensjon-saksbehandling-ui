@@ -21,9 +21,3 @@
     animation: animationOpen 700ms ease;
   }
 }
-
-.widgetDiv {
-  flex: 1;
-  max-width: 400px;
-  margin-left: 0.5rem;
-}
