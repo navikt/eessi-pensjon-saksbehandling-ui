@@ -2,15 +2,14 @@ import React, {JSX, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {Buc, Sed} from "src/declarations/buc";
-import {BUCMode, Validation, AllowedLocaleString} from "src/declarations/app";
-import {BodyLong, Box, Button, Heading, HGrid, HStack, Label, VStack} from "@navikt/ds-react";
+import {BUCMode, Validation} from "src/declarations/app";
+import {Button, HGrid, HStack, VStack} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {fetchBuc, getSed, resetPSED, updatePSED} from "src/actions/buc";
 import {resetValidation, setValidation} from 'src/actions/validation'
 import {State} from "src/declarations/reducers";
 import {X009SED} from "src/declarations/x009";
 import _ from 'lodash'
-import classNames from "classnames";
 import {createSelector} from "@reduxjs/toolkit";
 
 import Paaminnelse from "./Paaminnelse/Paaminnelse";
@@ -20,10 +19,8 @@ import ValidationBox from "src/components/ValidationBox/ValidationBox";
 import {resetEditingItems} from "src/actions/app";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
 import SaveAndSendSED from "src/components/SaveAndSendSED/SaveAndSendSED";
-import SEDStatus from "src/applications/BUC/components/SEDStatus/SEDStatus";
-import {getBucTypeLabel} from "src/applications/BUC/components/BUCUtils/BUCUtils";
+import SEDDetails from "src/components/SEDDetails/SEDDetails";
 import useUnmount from "src/hooks/useUnmount";
-import detailStyles from "./X009.module.css";
 import styles from "src/assets/css/common.module.css";
 
 export interface X009Props {
@@ -36,19 +33,16 @@ export interface X009Selector {
   currentPSED: X009SED
   gettingSed: boolean
   validation: Validation
-  locale: AllowedLocaleString
 }
 
 const mapState = createSelector(
   (state: State) => state.buc.PSED as X009SED,
   (state: State) => state.loading.gettingSed,
   (state: State) => state.validation.status,
-  (state: State) => state.ui.locale,
-  (currentPSED, gettingSed, validation, locale): X009Selector => ({
+  (currentPSED, gettingSed, validation): X009Selector => ({
     currentPSED,
     gettingSed,
-    validation,
-    locale
+    validation
   })
 )
 
@@ -59,7 +53,7 @@ const X009: React.FC<X009Props> = ({
 }: X009Props): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useDispatch()
-  const {currentPSED, gettingSed, validation, locale}: X009Selector = useSelector<State, X009Selector>(mapState)
+  const {currentPSED, gettingSed, validation}: X009Selector = useSelector<State, X009Selector>(mapState)
   const namespace = "x009"
 
   useUnmount(() => {
@@ -101,8 +95,6 @@ const X009: React.FC<X009Props> = ({
     )
   }
 
-  const sedLabel: string = sed ? getBucTypeLabel({t, type: sed.type, locale}) : ''
-
   return (
     <VStack gap="space-16">
       <HStack>
@@ -133,46 +125,7 @@ const X009: React.FC<X009Props> = ({
           />
         </VStack>
         {sed && (
-          <Box
-            padding="space-16"
-            borderWidth="1"
-            borderRadius="4"
-            borderColor="neutral"
-            background="default"
-            data-testid='a_x009_c_SEDDetail'
-          >
-            <VStack gap="space-8">
-              <Heading size='medium'>
-                {sed.type + (sedLabel ? ' - ' + sedLabel : '')}
-              </Heading>
-              <dl className={classNames(detailStyles.properties, detailStyles.odd)}>
-                <dt className={classNames(detailStyles.odd, detailStyles.Dt)}>
-                  <Label>
-                    {t('ui:sed-type')}:
-                  </Label>
-                </dt>
-                <dd
-                  className={classNames(detailStyles.odd, detailStyles.Dd)}
-                  data-testid='a_x009_c_SEDDetail--type_id'
-                >
-                  <BodyLong>
-                    {sed.type}
-                  </BodyLong>
-                </dd>
-                <dt className={detailStyles.Dt}>
-                  <Label>
-                    {t('ui:status')}:
-                  </Label>
-                </dt>
-                <dd
-                  className={detailStyles.Dd}
-                  data-testid='a_x009_c_SEDDetail--status_id'
-                >
-                  <SEDStatus status={sed.status}/>
-                </dd>
-              </dl>
-            </VStack>
-          </Box>
+          <SEDDetails sed={sed}/>
         )}
       </HGrid>
     </VStack>

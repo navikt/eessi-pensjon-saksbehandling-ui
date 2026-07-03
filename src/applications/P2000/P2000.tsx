@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {Buc, Sed} from "src/declarations/buc";
 import {BUCMode, Validation} from "src/declarations/app";
-import {Box, Button, VStack} from "@navikt/ds-react";
+import {Box, Button, HGrid, HStack, VStack} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {fetchBuc, getSed, resetPSED, setPSED, updatePSED} from "src/actions/buc";
 import {resetValidation, setValidation} from 'src/actions/validation'
@@ -28,6 +28,7 @@ import {resetEditingItems} from "src/actions/app";
 import SEDAttachmentsPanel from "src/applications/BUC/components/SEDAttachmentsPanel/SEDAttachmentsPanel";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
 import SaveAndSendSED from "src/components/SaveAndSendSED/SaveAndSendSED";
+import SEDDetails from "src/components/SEDDetails/SEDDetails";
 import useUnmount from "src/hooks/useUnmount";
 import styles from "src/assets/css/common.module.css";
 import {createSelector} from "@reduxjs/toolkit";
@@ -115,56 +116,59 @@ const P2000: React.FC<P2000Props> = ({
   }
 
   return (
-    <>
-      <VStack gap="space-16">
-        <div style={{ display: 'inline-block' }}>
-          <Button
-            variant='secondary'
-            onClick={onBackClick}
-            iconPosition="left" icon={<ChevronLeftIcon aria-hidden />}
-          >
-            <span>
-              {t('ui:back')}
-            </span>
-          </Button>
-        </div>
-        <SakInfo PSED={currentPSED}/>
-        <MainForm
-          forms={[
-            { label: "Forsikret person", value: 'forsikretperson', component: ForsikretPerson},
-            { label: "Yrkesaktivitet", value: 'yrkesaktivitet', component: Yrkesaktivitet},
-            { label: "Ytelser", value: 'ytelser', component: Ytelser},
-            { label: "Ektefelle", value: 'ektefelle', component: Ektefelle},
-            { label: "Barn", value: 'barn', component: Barn},
-            { label: "Verge", value: 'verge', component: Verge},
-            { label: "Informasjon om betaling", value: 'informasjonombetaling', component: InformasjonOmBetaling},
-            { label: "Diverse", value: 'diverse', component: Diverse}
-          ]}
-          PSED={currentPSED}
-          setPSED={setPSED}
-          updatePSED={updatePSED}
-          namespace={namespace}
-        />
-        <Box
-          borderWidth="1"
-          borderRadius="4"
-          borderColor="neutral"
-          background="default"
-          padding="space-16"
+    <VStack gap="space-16">
+      <HStack>
+        <Button
+          variant='secondary'
+          onClick={onBackClick}
+          iconPosition="left" icon={<ChevronLeftIcon aria-hidden />}
         >
-          <SEDAttachmentsPanel aktoerId={aktoerId} buc={buc} canHaveAttachments={sedCanHaveAttachments(currentPSED?.originalSed)} sed={sed!}/>
-        </Box>
-        <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
-        <SaveAndSendSED
-          namespace={namespace}
-          sakId={buc!.caseId!}
-          sedId={sed!.id}
-          sedType={sed!.type}
-          setMode={setMode}
-          validateCurrentPSED={validateP2000Sed}
-        />
-      </VStack>
-    </>
+          {t('ui:back')}
+        </Button>
+      </HStack>
+      <HGrid columns="1fr 400px" gap="space-8" align="start">
+        <VStack gap="space-16">
+          <SakInfo PSED={currentPSED}/>
+          <MainForm
+            forms={[
+              { label: "Forsikret person", value: 'forsikretperson', component: ForsikretPerson},
+              { label: "Yrkesaktivitet", value: 'yrkesaktivitet', component: Yrkesaktivitet},
+              { label: "Ytelser", value: 'ytelser', component: Ytelser},
+              { label: "Ektefelle", value: 'ektefelle', component: Ektefelle},
+              { label: "Barn", value: 'barn', component: Barn},
+              { label: "Verge", value: 'verge', component: Verge},
+              { label: "Informasjon om betaling", value: 'informasjonombetaling', component: InformasjonOmBetaling},
+              { label: "Diverse", value: 'diverse', component: Diverse}
+            ]}
+            PSED={currentPSED}
+            setPSED={setPSED}
+            updatePSED={updatePSED}
+            namespace={namespace}
+          />
+          <Box
+            borderWidth="1"
+            borderRadius="4"
+            borderColor="neutral"
+            background="default"
+            padding="space-16"
+          >
+            <SEDAttachmentsPanel aktoerId={aktoerId} buc={buc} canHaveAttachments={sedCanHaveAttachments(currentPSED?.originalSed)} sed={sed!}/>
+          </Box>
+          <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
+          <SaveAndSendSED
+            namespace={namespace}
+            sakId={buc!.caseId!}
+            sedId={sed!.id}
+            sedType={sed!.type}
+            setMode={setMode}
+            validateCurrentPSED={validateP2000Sed}
+          />
+        </VStack>
+        {sed && (
+          <SEDDetails sed={sed}/>
+        )}
+      </HGrid>
+    </VStack>
   );
 }
 
