@@ -21,6 +21,7 @@ export interface Gjenlevende {
 export interface BUCSubject {
   gjenlevende: Gjenlevende
   avdod: Avdod
+  avdodfnr?: string
   avdodfnrManuelt?: boolean
 }
 
