@@ -21,8 +21,6 @@ export interface Gjenlevende {
 export interface BUCSubject {
   gjenlevende: Gjenlevende
   avdod: Avdod
-  avdodfnr?: string
-  avdodfnrManuelt?: boolean
 }
 
 export interface BucListItem {
@@ -98,6 +96,7 @@ export interface NewBucPayload {
 export interface NewSedPayload {
   aktoerId: string
   avdodfnr?: string
+  avdodfnrManuelt?: boolean
   buc: string
   euxCaseId: string
   institutions: Institutions
@@ -290,6 +289,8 @@ export interface ValidBuc {
   addedParams?: {
     subject?: BUCSubject
     kravDato?: string
+    avdodfnr?: string
+    avdodfnrManuelt?: boolean
   }
   type: string
   cdm: string

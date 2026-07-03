@@ -185,12 +185,16 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
           },
           avdod: {
             fnr: avdod ? avdod.fnr : avdodfnr
-          },
-          avdodfnr: avdod ? avdod.fnr : avdodfnr,
-          avdodfnrManuelt: avdodfnrManuelt
+          }
         } as BUCSubject
       }
 
+      if (avdod) {
+        newBuc.addedParams.avdodfnr = avdod.fnr
+      } else if (avdodfnr) {
+        newBuc.addedParams.avdodfnr = avdodfnr
+        newBuc.addedParams.avdodfnrManuelt = avdodfnrManuelt
+      }
 
       // Cache seds allowing attachments
       if (newBuc.seds) {
