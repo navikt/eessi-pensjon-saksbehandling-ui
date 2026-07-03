@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {Buc, Sed} from "src/declarations/buc";
 import {BUCMode, Validation, AllowedLocaleString} from "src/declarations/app";
-import {BodyLong, Box, Button, Heading, HStack, Label, VStack} from "@navikt/ds-react";
+import {BodyLong, Box, Button, Heading, HGrid, HStack, Label, VStack} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {fetchBuc, getSed, resetPSED, updatePSED} from "src/actions/buc";
 import {resetValidation, setValidation} from 'src/actions/validation'
@@ -104,93 +104,78 @@ const X009: React.FC<X009Props> = ({
   const sedLabel: string = sed ? getBucTypeLabel({t, type: sed.type, locale}) : ''
 
   return (
-    <>
-      <VStack gap="space-16">
-        <div style={{display: 'inline-block'}}>
-          <Button
-            variant='secondary'
-            onClick={onBackClick}
-            iconPosition="left" icon={<ChevronLeftIcon aria-hidden/>}
-          >
-            <span>
-              {t('ui:back')}
-            </span>
-          </Button>
-        </div>
-        <HStack>
+    <VStack gap="space-16">
+      <HStack>
+        <Button
+          variant='secondary'
+          onClick={onBackClick}
+          iconPosition="left" icon={<ChevronLeftIcon aria-hidden/>}
+        >
+          {t('ui:back')}
+        </Button>
+      </HStack>
+      <HGrid columns="1fr 400px" gap="space-8" align="start">
+        <VStack gap="space-16">
+          <Paaminnelse
+            label={t('x009:form-paaminnelser')}
+            parentNamespace={namespace}
+            PSED={currentPSED}
+            updatePSED={updatePSED}
+          />
+          <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation}/>
+          <SaveAndSendSED
+            namespace={namespace}
+            sakId={buc!.caseId!}
+            sedId={sed!.id}
+            sedType={sed!.type}
+            setMode={setMode}
+            validateCurrentPSED={validateX009Sed}
+          />
+        </VStack>
+        {sed && (
           <Box
-            marginInline="space-0 space-8"
-            flexGrow="3"
-            flexShrink="1"
-            flexBasis="0"
+            padding="space-16"
+            borderWidth="1"
+            borderRadius="4"
+            borderColor="neutral"
+            background="default"
+            data-testid='a_x009_c_SEDDetail'
           >
-            <VStack gap="space-16">
-              <Paaminnelse
-                label={t('x009:form-paaminnelser')}
-                parentNamespace={namespace}
-                PSED={currentPSED}
-                updatePSED={updatePSED}
-              />
-              <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation}/>
-              <SaveAndSendSED
-                namespace={namespace}
-                sakId={buc!.caseId!}
-                sedId={sed!.id}
-                sedType={sed!.type}
-                setMode={setMode}
-                validateCurrentPSED={validateX009Sed}
-              />
+            <VStack gap="space-8">
+              <Heading size='medium'>
+                {sed.type + (sedLabel ? ' - ' + sedLabel : '')}
+              </Heading>
+              <dl className={classNames(detailStyles.properties, detailStyles.odd)}>
+                <dt className={classNames(detailStyles.odd, detailStyles.Dt)}>
+                  <Label>
+                    {t('ui:sed-type')}:
+                  </Label>
+                </dt>
+                <dd
+                  className={classNames(detailStyles.odd, detailStyles.Dd)}
+                  data-testid='a_x009_c_SEDDetail--type_id'
+                >
+                  <BodyLong>
+                    {sed.type}
+                  </BodyLong>
+                </dd>
+                <dt className={detailStyles.Dt}>
+                  <Label>
+                    {t('ui:status')}:
+                  </Label>
+                </dt>
+                <dd
+                  className={detailStyles.Dd}
+                  data-testid='a_x009_c_SEDDetail--status_id'
+                >
+                  <SEDStatus status={sed.status}/>
+                </dd>
+              </dl>
             </VStack>
           </Box>
-          <div className={detailStyles.widgetDiv}>
-            <VStack gap="space-16">
-              {sed && (
-                <Box
-                  padding="space-16"
-                  borderWidth="1"
-                  borderRadius="4"
-                  borderColor="neutral"
-                  background="default"
-                  data-testid='a_x009_c_SEDDetail'
-                >
-                  <VStack gap="space-8">
-                    <Heading size='medium'>
-                      {sed.type + (sedLabel ? ' - ' + sedLabel : '')}
-                    </Heading>
-                    <dl className={classNames(detailStyles.properties, detailStyles.odd)}>
-                      <dt className={classNames(detailStyles.odd, detailStyles.Dt)}>
-                        <Label>
-                          {t('ui:sed-type')}:
-                        </Label>
-                      </dt>
-                      <dd
-                        className={classNames(detailStyles.odd, detailStyles.Dd)}
-                        data-testid='a_x009_c_SEDDetail--type_id'
-                      >
-                        <BodyLong>
-                          {sed.type}
-                        </BodyLong>
-                      </dd>
-                      <dt className={detailStyles.Dt}>
-                        <Label>
-                          {t('ui:status')}:
-                        </Label>
-                      </dt>
-                      <dd
-                        className={detailStyles.Dd}
-                        data-testid='a_x009_c_SEDDetail--status_id'
-                      >
-                        <SEDStatus status={sed.status}/>
-                      </dd>
-                    </dl>
-                  </VStack>
-                </Box>
-              )}
-            </VStack>
-          </div>
-        </HStack>
-      </VStack>
-    </>
+        )}
+      </HGrid>
+    </VStack>
   );
 }
 
