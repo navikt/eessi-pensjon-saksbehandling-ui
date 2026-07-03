@@ -126,7 +126,7 @@ const P2000: React.FC<P2000Props> = ({
           {t('ui:back')}
         </Button>
       </HStack>
-      <HGrid columns="1fr 400px" gap="space-8" align="start">
+      <HGrid columns="1fr 400px" gap="space-16" align="start">
         <VStack gap="space-16">
           <SakInfo PSED={currentPSED}/>
           <MainForm

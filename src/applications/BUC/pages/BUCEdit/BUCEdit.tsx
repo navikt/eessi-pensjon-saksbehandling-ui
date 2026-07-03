@@ -228,7 +228,7 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           </Box>
         </div>
       </VStack>
-      <HGrid columns="1fr 400px" gap="space-8" align="start">
+      <HGrid columns="1fr 400px" gap="space-16" align="start">
         <Box>
           <SEDSearch
             onSearch={onSearch}
