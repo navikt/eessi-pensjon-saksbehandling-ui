@@ -1,6 +1,7 @@
 {
   "duplicate-p2000-ytelse-beloep": "Duplikat beløp",
   "duplicate-p2000-statsborgerskap-land": "Land allerede lagt til",
+  "duplicate-x009-paaminnelse-type": "Type allerede lagt til",
   "duplicate-utenlandskepin-land": "Land allerede lagt til",
   "duplicate-utenlandskesaksnr-land": "Land allerede lagt til",
 
@@ -69,6 +70,9 @@
   "missing-utenlandskepin-land": "Mangler land",
   "missing-utenlandskesaksnr-saksnr": "Mangler saksnr",
   "missing-utenlandskesaksnr-land": "Mangler land",
+  "missing-x009-paaminnelse": "Du må legge til minst én påminnelse",
+  "missing-x009-paaminnelse-type": "Mangler type",
+  "missing-x009-paaminnelse-detaljer": "Mangler opplysninger",
 
   "notanumber-p8000-periodeFra": "Periode fra er ikke et heltall",
   "notanumber-p8000-periodeTil": "Periode til er ikke et heltall",

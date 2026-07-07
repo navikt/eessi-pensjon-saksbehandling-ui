@@ -21,6 +21,7 @@ import {umamiButtonLogger} from "src/metrics/umami";
 import styles from './SEDHeader.module.css'
 import classNames from "classnames";
 import dayjs from "dayjs";
+import X009 from "src/applications/X009/X009";
 
 export interface SEDHeaderProps {
   buc: Buc
@@ -296,6 +297,35 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
               >
                 Oppdater P8000
+              </Button>
+            </>
+          }
+          {sed.type === 'X009' && (sed.status !== 'received' && sed.status !== 'cancelled' && sed.status !== 'sent') &&
+            <>
+              <Button
+                variant='secondary'
+                data-testid='a_buc_c_sedheader--x009-button-id'
+                onClick={() => {
+                  umamiButtonLogger({
+                    tekst: "Oppdater X009",
+                    bucType: buc.type
+                  });
+                  setMode('x009', 'forward', undefined, (
+                    <X009
+                      buc={buc}
+                      setMode={setMode}
+                      sed={sed}
+                    />
+                  ))
+                  window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                  })
+                }}
+                iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
+              >
+                Oppdater X009
               </Button>
             </>
           }

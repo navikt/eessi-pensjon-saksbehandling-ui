@@ -1,5 +1,5 @@
 import { ChevronLeftIcon } from '@navikt/aksel-icons'
-import {BodyLong, Box, Button, HStack, Label, Loader, VStack} from '@navikt/ds-react'
+import {BodyLong, Box, Button, HGrid, HStack, Label, Loader, VStack} from '@navikt/ds-react'
 import { alertFailure } from 'src/actions/alert'
 import {getSedList, resetNewSed, setCurrentBuc, setFollowUpSeds, setSedList} from 'src/actions/buc'
 import BUCDetail from 'src/applications/BUC/components/BUCDetail/BUCDetail'
@@ -228,13 +228,8 @@ const BUCEdit: React.FC<BUCEditProps> = ({
           </Box>
         </div>
       </VStack>
-      <HStack>
-        <Box
-          marginInline="space-0 space-8"
-          flexGrow="3"
-          flexShrink="1"
-          flexBasis="0"
-        >
+      <HGrid columns="1fr 400px" gap="space-16" align="start">
+        <Box>
           <SEDSearch
             onSearch={onSearch}
             onStatusSearch={onStatusSearch}
@@ -289,21 +284,19 @@ const BUCEdit: React.FC<BUCEditProps> = ({
               </div>
               )}
         </Box>
-        <div className={styles.widgetDiv}>
-          <VStack gap="space-16">
-            <BUCDetail
-              buc={buc!}
-              personAvdods={personAvdods}
-            />
-            <BUCTools
-              aktoerId={aktoerId!}
-              buc={buc!}
-              bucInfo={bucInfo}
-              setMode={setMode}
-            />
-          </VStack>
-        </div>
-      </HStack>
+        <VStack gap="space-16">
+          <BUCDetail
+            buc={buc!}
+            personAvdods={personAvdods}
+          />
+          <BUCTools
+            aktoerId={aktoerId!}
+            buc={buc!}
+            bucInfo={bucInfo}
+            setMode={setMode}
+          />
+        </VStack>
+      </HGrid>
     </div>
   );
 }
