@@ -74,11 +74,11 @@ export const pbuc02filter = (pesysContext: PesysContext, personAvdods: PersonAvd
       return false
     }
 
-    if (buc.type === 'P_BUC_02' &&
+/*    if (buc.type === 'P_BUC_02' &&
       (pesysContext === constants.VEDTAKSKONTEKST || pesysContext === constants.GJENNY) &&
       personAvdods?.length === 0 && buc?.creator?.country === 'NO') {
       return false
-    }
+    }*/
     return true
   }
 
