@@ -300,12 +300,11 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
               </Button>
             </>
           }
-          {sed.type === 'X009' && (sed.status !== 'received' && sed.status !== 'cancelled') &&
+          {sed.type === 'X009' && (sed.status !== 'received' && sed.status !== 'cancelled' && sed.status !== 'sent') &&
             <>
               <Button
                 variant='secondary'
                 data-testid='a_buc_c_sedheader--x009-button-id'
-                disabled={sed.status !== 'sent'}
                 onClick={() => {
                   umamiButtonLogger({
                     tekst: "Oppdater X009",
