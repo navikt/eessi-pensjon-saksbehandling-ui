@@ -167,6 +167,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       const person = (action as ActionWithPayload).context.person
       const avdod = (action as ActionWithPayload).context.avdod
       const avdodfnr = (action as ActionWithPayload).context.avdodfnr
+      const avdodfnrManuelt = (action as ActionWithPayload).context.avdodfnrManuelt
       const kravDato = (action as ActionWithPayload).context.kravDato
 
       if (!newBuc.addedParams) {
@@ -188,6 +189,12 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         } as BUCSubject
       }
 
+      if (avdod) {
+        newBuc.addedParams.avdodfnr = avdod.fnr
+      } else if (avdodfnr) {
+        newBuc.addedParams.avdodfnr = avdodfnr
+        newBuc.addedParams.avdodfnrManuelt = avdodfnrManuelt
+      }
 
       // Cache seds allowing attachments
       if (newBuc.seds) {

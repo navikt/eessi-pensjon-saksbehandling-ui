@@ -868,6 +868,12 @@ const SEDStart: React.FC<SEDStartProps> = ({
       if ((_buc as ValidBuc)?.addedParams?.subject) {
         payload.subject = (_buc as ValidBuc)?.addedParams?.subject
       }
+      if (!payload.avdodfnr && (_buc as ValidBuc)?.addedParams?.avdodfnr) {
+        payload.avdodfnr = (_buc as ValidBuc)?.addedParams?.avdodfnr
+      }
+      if (!payload.avdodfnrManuelt && (_buc as ValidBuc)?.addedParams?.avdodfnrManuelt) {
+        payload.avdodfnrManuelt = (_buc as ValidBuc)?.addedParams?.avdodfnrManuelt
+      }
       if (_sed === 'P7000') {
         payload.payload = JSON.stringify(_p6000s)
       }

@@ -87,6 +87,7 @@ export interface NewBucPayload {
   person: any // Person
   avdod?: PersonAvdod
   avdodfnr?: string
+  avdodfnrManuelt?: boolean
   kravDato?: string
   sakType?: SakTypeKey
   sakId?: string | null
@@ -95,6 +96,7 @@ export interface NewBucPayload {
 export interface NewSedPayload {
   aktoerId: string
   avdodfnr?: string
+  avdodfnrManuelt?: boolean
   buc: string
   euxCaseId: string
   institutions: Institutions
@@ -287,6 +289,8 @@ export interface ValidBuc {
   addedParams?: {
     subject?: BUCSubject
     kravDato?: string
+    avdodfnr?: string
+    avdodfnrManuelt?: boolean
   }
   type: string
   cdm: string

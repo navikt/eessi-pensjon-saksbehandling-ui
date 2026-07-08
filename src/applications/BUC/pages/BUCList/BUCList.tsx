@@ -125,7 +125,7 @@ const BUCList: React.FC<BUCListProps> = ({
       })
       kravBucsWithDenmark.length > 0 ? setShowBestillP5000FraATPButton(true) : setShowBestillP5000FraATPButton(false)
     }
-  }, [bucs])
+  }, [bucs, pesysContext, personAvdods])
 
   const status = !_.isEmpty(bucsList) && Object.keys(bucs!).length === bucsList?.length ? 'done' : 'inprogress'
   const now = _.isEmpty(bucsList) ? 20 : 20 + Math.floor(Object.keys(bucs!).length / (bucsList?.length ?? 1) * 80)
