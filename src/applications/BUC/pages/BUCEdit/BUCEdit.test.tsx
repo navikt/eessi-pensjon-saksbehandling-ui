@@ -6,7 +6,7 @@ import SEDPanel from 'src/applications/BUC/components/SEDPanel/SEDPanel'
 import SEDPanelHeader from 'src/applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
 import SEDSearch from 'src/applications/BUC/components/SEDSearch/SEDSearch'
 import { BucsInfo, Tags } from 'src/declarations/buc'
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import _ from 'lodash'
 import personAvdod from 'src/mocks/person/personAvdod'
 import mockBucs from 'src/mocks/buc/bucs'
@@ -79,6 +79,30 @@ describe('src/applications/BUC/components/BUCEdit/BUCEdit', () => {
     expect(wrapper.exists(SEDPanelHeader)).toBeTruthy()
     expect(wrapper.exists(BUCDetail)).toBeTruthy()
     expect(wrapper.exists(BUCTools)).toBeTruthy()
+  })
+
+  it('Render: «Bestill ny SED» button is disabled when a blocking draft SED exists', () => {
+    const draftP2100 = { ...buc.seds![0], id: 'draft-p2100', type: 'P2100', status: 'new' }
+    const bucWithDraft = {
+      ...buc,
+      type: 'P_BUC_02',
+      seds: [...buc.seds!, draftP2100]
+    } as typeof buc
+    stageSelector(defaultSelector, { bucs: { ...bucs, [currentBuc]: bucWithDraft } })
+    const { container } = render(<BUCEdit {...initialMockProps} />)
+    expect(within(container).getByTestId('a-buc-p-bucedit--new-sed-button-id')).toBeDisabled()
+  })
+
+  it('Render: «Bestill ny SED» button is enabled when no blocking draft SED exists', () => {
+    const bucWithoutDraft = {
+      ...buc,
+      type: 'P_BUC_02',
+      readOnly: false,
+      seds: buc.seds!.filter((s) => s.type !== 'P2100')
+    } as typeof buc
+    stageSelector(defaultSelector, { bucs: { ...bucs, [currentBuc]: bucWithoutDraft } })
+    const { container } = render(<BUCEdit {...initialMockProps} />)
+    expect(within(container).getByTestId('a-buc-p-bucedit--new-sed-button-id')).not.toBeDisabled()
   })
 
   it('Handling: moves to mode newsed when button pressed', () => {
