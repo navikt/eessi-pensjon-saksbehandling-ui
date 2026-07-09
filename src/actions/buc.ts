@@ -260,7 +260,7 @@ export const fetchKravDato = ({
 }: any): ActionWithPayload<any> => {
   return call({
     url: sprintf(urls.BUC_GET_KRAVDATO_URL, { sakId, kravId, aktoerId }),
-    expectedPayload: mockKravDato,
+    expectedPayload: { result: mockKravDato, status: 'OK' },
     type: {
       request: types.BUC_GET_KRAVDATO_REQUEST,
       success: types.BUC_GET_KRAVDATO_SUCCESS,
@@ -587,7 +587,7 @@ export const getSakType = (
 ): ActionWithPayload<any> => {
   return call({
     url: sprintf(urls.BUC_GET_SAKTYPE_URL, { sakId, aktoerId }),
-    expectedPayload: mockSakType,
+    expectedPayload: { result: mockSakType, status: 'OK' },
     cascadeFailureError: true,
     type: {
       request: types.BUC_GET_SAKTYPE_REQUEST,
