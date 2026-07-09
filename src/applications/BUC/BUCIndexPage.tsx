@@ -185,7 +185,7 @@ const BUCIndexPage = (): JSX.Element => {
         }, timeout)
       }
     }
-    if (newMode === 'p4000' || newMode === 'p5000' || newMode === 'p2000' || newMode === 'p8000') {
+    if (newMode === 'p4000' || newMode === 'p5000' || newMode === 'p2000' || newMode === 'p8000' || newMode === 'x009') {
       setContentC(content)
       if (from === 'forward') {
         setPositionA(Slide.A_GOING_TO_LEFT)

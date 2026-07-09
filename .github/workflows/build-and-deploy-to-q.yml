@@ -14,6 +14,8 @@ on:
           - 'dev-gcp-q1'
           - 'dev-gcp-experimental'
           - 'dev-gcp-q1-experimental'
+          - 'dev-gcp-parallell'
+          - 'dev-gcp-q1-parallell'
 jobs:
   tag_build_and_deploy:
     name: 'Build'
@@ -98,5 +100,5 @@ jobs:
           curl -v -s -X POST https://api.github.com/repos/${{ github.repository }}/git/refs -H "Authorization: token  ${{ secrets.GITHUB_TOKEN }}" -d '{ "ref": "refs/tags/${{ env.DATE }}---${{ env.COMMIT_HASH }}",  "sha": "${{ env.COMMIT_HASH }}" }'
 
       - name: 'Echo Image Name'
-        run: echo "### Image Hash $(echo ${{ steps.docker-push.outputs.image }} | cut -d':' -f2)" >> $GITHUB_STEP_SUMMARY
+        run: echo "### Image Hash $(echo ${{ steps.docker-push.outputs.image }} | cut -d':' -f2 | cut -d'@' -f1)" >> "$GITHUB_STEP_SUMMARY"
 

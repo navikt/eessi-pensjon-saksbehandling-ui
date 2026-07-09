@@ -8,7 +8,7 @@ import {fetchBuc, updatePSED, getSedP8000, resetPSED} from "src/actions/buc";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
 import {InformasjonSomKanLeggesInn, OfteEtterspurtInformasjon, P8000SED, P8000Type} from "src/declarations/p8000";
 import {State} from "src/declarations/reducers";
-import {Alert, Box, Button, Heading, HStack, Textarea, ToggleGroup, VStack} from "@navikt/ds-react";
+import {Alert, Box, Button, Heading, HGrid, HStack, Textarea, ToggleGroup, VStack} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import {
@@ -40,6 +40,7 @@ import {UpdateSedPayload} from "src/declarations/types";
 import UtenlandskePin from "src/components/UtenlandskePin/UtenlandskePin";
 import UtenlandskeSaksnr from "src/components/UtenlandskeSaksnr/UtenlandskeSaksnr";
 import SaveAndSendSED from "src/components/SaveAndSendSED/SaveAndSendSED";
+import SEDDetails from "src/components/SEDDetails/SEDDetails";
 import useUnmount from "src/hooks/useUnmount";
 import {validateP8000, ValidationP8000Props} from "src/applications/P8000/validateP8000";
 import _ from "lodash";
@@ -429,186 +430,189 @@ const P8000: React.FC<P8000Props> = ({
   }
 
   return (
-    <>
-      <VStack gap="space-16">
-        <div style={{ display: 'inline-block' }}>
-          <Button
-            variant='secondary'
-            onClick={onBackClick}
-            iconPosition="left" icon={<ChevronLeftIcon aria-hidden />}
-          >
-            <span>
-              {t('ui:back')}
-            </span>
-          </Button>
-        </div>
-        <Box className={styles.boxWithBorderAndPadding} >
-          <VStack gap="space-16">
-            <Heading level="1" size="medium">{t('p8000:form-heading-p8000')} ({buc.type?.toUpperCase()} - {t('buc:buc-' + buc.type?.toUpperCase())})</Heading>
-            {currentPSED && currentPSED.options && currentPSED.options.type && !isATP() &&
-              <HStack gap="space-16">
-                <ToggleGroup
-                  value={currentPSED?.options?.type?.spraak}
-                  onChange={(v) => onToggle("spraak", v)}
-                  label={t('p8000:form-label-velg-spraak')}
-                >
-                  <ToggleGroup.Item value="nb" label={t('p8000:form-label-spraak-norsk')}/>
-                  <ToggleGroup.Item value="en" label={t('p8000:form-label-spraak-engelsk')}/>
-                </ToggleGroup>
-                {bucType !== "03" && bucType !== "01" && context !== GJENNY &&
+    <VStack gap="space-16">
+      <HStack>
+        <Button
+          variant='secondary'
+          onClick={onBackClick}
+          iconPosition="left" icon={<ChevronLeftIcon aria-hidden />}
+        >
+          {t('ui:back')}
+        </Button>
+      </HStack>
+      <HGrid columns="1fr 400px" gap="space-16" align="start">
+        <VStack gap="space-16">
+          <Box className={styles.boxWithBorderAndPadding} >
+            <VStack gap="space-16">
+              <Heading level="1" size="medium">{t('p8000:form-heading-p8000')} ({buc.type?.toUpperCase()} - {t('buc:buc-' + buc.type?.toUpperCase())})</Heading>
+              {currentPSED && currentPSED.options && currentPSED.options.type && !isATP() &&
+                <HStack gap="space-16">
                   <ToggleGroup
-                    value={currentPSED?.options?.type?.ytelse}
-                    onChange={(v) => onToggle("ytelse", v)}
-                    label={t('p8000:form-label-velg-ytelse')}
+                    value={currentPSED?.options?.type?.spraak}
+                    onChange={(v) => onToggle("spraak", v)}
+                    label={t('p8000:form-label-velg-spraak')}
                   >
-                    <ToggleGroup.Item value="AP" label={t('p8000:form-label-ytelse-alderspensjon')}/>
-                    <ToggleGroup.Item value="UT" label={t('p8000:form-label-ytelse-ufoere')}/>
+                    <ToggleGroup.Item value="nb" label={t('p8000:form-label-spraak-norsk')}/>
+                    <ToggleGroup.Item value="en" label={t('p8000:form-label-spraak-engelsk')}/>
                   </ToggleGroup>
-                }
-                {!_hideBosettingsStatus &&
-                  <ToggleGroup
-                    value={currentPSED?.options?.type?.bosettingsstatus}
-                    onChange={(v) => onToggle("bosettingsstatus", v)}
-                    label={t('p8000:form-label-velg-bosettingsstatus')}
-                  >
-                    <ToggleGroup.Item value="NO" label={t('p8000:form-label-bosettingsstatus-norge')}/>
-                    <ToggleGroup.Item value="UTL" label={t('p8000:form-label-bosettingsstatus-utland')}/>
-                  </ToggleGroup>
-                }
-                <HStack gap="space-16" align={"end"}>
-                  <ToggleGroup
-                    value={currentPSED?.pensjon?.anmodning?.referanseTilPerson}
-                    onChange={(v) => onToggle("referanseTilPerson", v)}
-                    label={t('p8000:form-label-velg-anmodning-referanseTilPerson')}
-                  >
-                    <ToggleGroup.Item value="01" label={t('p8000:form-label-anmodning-referanseTilPerson-forsikret')}/>
-                    <ToggleGroup.Item value="02" label={t('p8000:form-label-andmodning-referanseTilPerson-annen')}/>
-                  </ToggleGroup>
-                  {currentPSED?.pensjon?.anmodning?.referanseTilPerson === "02" &&
-                    <Alert variant="info" size="small">
-                      {t('p8000:form-message-andmodning-referanseTilPerson-annen')}
-                    </Alert>
+                  {bucType !== "03" && bucType !== "01" && context !== GJENNY &&
+                    <ToggleGroup
+                      value={currentPSED?.options?.type?.ytelse}
+                      onChange={(v) => onToggle("ytelse", v)}
+                      label={t('p8000:form-label-velg-ytelse')}
+                    >
+                      <ToggleGroup.Item value="AP" label={t('p8000:form-label-ytelse-alderspensjon')}/>
+                      <ToggleGroup.Item value="UT" label={t('p8000:form-label-ytelse-ufoere')}/>
+                    </ToggleGroup>
                   }
+                  {!_hideBosettingsStatus &&
+                    <ToggleGroup
+                      value={currentPSED?.options?.type?.bosettingsstatus}
+                      onChange={(v) => onToggle("bosettingsstatus", v)}
+                      label={t('p8000:form-label-velg-bosettingsstatus')}
+                    >
+                      <ToggleGroup.Item value="NO" label={t('p8000:form-label-bosettingsstatus-norge')}/>
+                      <ToggleGroup.Item value="UTL" label={t('p8000:form-label-bosettingsstatus-utland')}/>
+                    </ToggleGroup>
+                  }
+                  <HStack gap="space-16" align={"end"}>
+                    <ToggleGroup
+                      value={currentPSED?.pensjon?.anmodning?.referanseTilPerson}
+                      onChange={(v) => onToggle("referanseTilPerson", v)}
+                      label={t('p8000:form-label-velg-anmodning-referanseTilPerson')}
+                    >
+                      <ToggleGroup.Item value="01" label={t('p8000:form-label-anmodning-referanseTilPerson-forsikret')}/>
+                      <ToggleGroup.Item value="02" label={t('p8000:form-label-andmodning-referanseTilPerson-annen')}/>
+                    </ToggleGroup>
+                    {currentPSED?.pensjon?.anmodning?.referanseTilPerson === "02" &&
+                      <Alert variant="info" size="small">
+                        {t('p8000:form-message-andmodning-referanseTilPerson-annen')}
+                      </Alert>
+                    }
+                  </HStack>
                 </HStack>
-              </HStack>
-            }
-          </VStack>
-        </Box>
-        {!isImplemented() && _type.indexOf("DUMMY") === -1  &&
-          <Alert variant="warning">{t('message:alert-notImplemented')}: {getTypeDescription(_type)}</Alert>
-        }
-        {isImplemented() &&
-          <>
-            {(_type === "UT_NO_05" || _type === "AP_NO_05") &&
-              <Alert variant="info">
-                <Heading size={"small"}>{t('message:alert-forenkletForespoersel')}</Heading>
-                {t('message:alert-forenkletForespoersel-txt')}
-              </Alert>
-            }
-            {P8000Variants[_type]?.ofteEtterspurtInformasjon?.length > 0 &&
+              }
+            </VStack>
+          </Box>
+          {!isImplemented() && _type.indexOf("DUMMY") === -1  &&
+            <Alert variant="warning">{t('message:alert-notImplemented')}: {getTypeDescription(_type)}</Alert>
+          }
+          {isImplemented() &&
+            <>
+              {(_type === "UT_NO_05" || _type === "AP_NO_05") &&
+                <Alert variant="info">
+                  <Heading size={"small"}>{t('message:alert-forenkletForespoersel')}</Heading>
+                  {t('message:alert-forenkletForespoersel-txt')}
+                </Alert>
+              }
+              {P8000Variants[_type]?.ofteEtterspurtInformasjon?.length > 0 &&
+                <Box className={styles.boxWithBorderAndPadding} >
+                  <VStack gap="space-16">
+                    <Heading level="2" size="small">{t('p8000:form-heading-ofte-etterspurt-informasjon')}</Heading>
+                    <P8000Fields
+                      fields={[
+                        {label: P5000, value: P5000, component: SendFolgendeSEDerEllerDokumenter, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'},
+                        {label: P5000, value: P5000_MED_BEGRUNNELSE, component: SendFolgendeSEDerWithBegrunnelse, options: {sed: P5000, radioLabel: "P5000 trengs for"}},
+                        {label: t('p8000:form-label-forenklet-forespoersel'), value: FORENKLET_FORESPOERSEL, component: ForenkletForespoersel, options: {sed: P5000}},
+                        {label: P4000, value: P4000, component: SendFolgendeSEDerEllerDokumenter, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'} ,
+                        {label: P6000, value: P6000, component: SendFolgendeSEDerEllerDokumenter, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'} ,
+                        {label: t('p8000:form-label-brukers-adresse'), value: BRUKERS_ADRESSE, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                        {label: t('p8000:form-label-medisinsk-informasjon'), value: MEDISINSK_INFORMASJON, component: SendFolgendeSEDerEllerDokumenter, target: 'pensjon.vedlegg'},
+                        {label: t('p8000:form-label-opplysninger-om-tiltak'), value: TILTAK, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                        {label: t('p8000:form-label-naavaerende-arbeid'), value: NAAVAERENDE_ARBEID, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                        {label: t('p8000:form-label-dokumentasjon-paa-arbeid-i-norge'), value: DOKUMENTASJON_PAA_ARBEID_I_NORGE, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: false, showPeriod: true, showMonths: false, excludeNorway: false}},
+                        {label: t('p8000:form-label-ytelseshistorikk'), value: YTELSESHISTORIKK, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                        {label: t('p8000:form-label-inntekt-foer-ufoerhet-i-utlandet'), value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: true, showMonths: false, excludeNorway: true}},
+                        {label: t('p8000:form-label-iban-og-swift'), value: IBAN_SWIFT, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                        {label: t('p8000:form-label-folkbokfoering'), value: FOLKBOKFOERING, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                        {label: t('p8000:form-label-brukers-sivilstand'), value: BRUKERS_SIVILSTAND, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                        {label: t('p8000:form-label-opplysninger-om-eps'), value: OPPLYSNINGER_OM_EPS, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: false, showMonths: false, excludeNorway: true}},
+                        {label: t('p8000:form-label-person-uten-pnr-dnr'), value: PERSON_UTEN_PNR_DNR, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                        {label: t('p8000:form-label-krav-om-ufoereytelse'), value: KRAV_OM_UFOEREYTELSE, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
+                      ]}
+                      variant={P8000Variants[_type]?.ofteEtterspurtInformasjon}
+                      PSED={currentPSED}
+                      updatePSED={updatePSED}
+                      namespace={namespace + '-ofteEtterspurtInformasjon'}
+                      variantType={_type}
+                    />
+                  </VStack>
+                </Box>
+              }
+              {P8000Variants[_type]?.informasjonSomKanLeggesInn?.length > 0 &&
+                <Box className={styles.boxWithBorderAndPadding} >
+                  <VStack gap="space-16">
+                    <Heading level="2" size="small">{t('p8000:form-heading-informasjon-som-kan-legges-inn')}</Heading>
+                    <P8000Fields
+                      fields={[
+                        {label: t('p8000:form-label-sakbehandlingstiden-er-ikke-utloept'), value: SAKSBEHANDLINGSTID_IKKE_UTLOEPT, component: CheckBoxField, target: 'options.informasjonSomKanLeggesInn'},
+                        {label: t('p8000:form-label-legg-til-saksbehandlingstid'), value: SAKSBEHANDLINGSTID, component: CheckboxWithCountryAndPeriods, target: 'options.informasjonSomKanLeggesInn', options: {showCountry: false, showPeriod: false, showMonths: true, excludeNorway: false}},
+                        {label: t('p8000:form-label-p5000-trengs-for-p5000no'), value: P5000_FOR_P5000NO, component: CheckBoxField, target: 'options.informasjonSomKanLeggesInn'},
+                      ]}
+                      variant={P8000Variants[_type]?.informasjonSomKanLeggesInn}
+                      PSED={currentPSED}
+                      updatePSED={updatePSED}
+                      namespace={namespace + '-informasjonSomKanLeggesInn'}
+                      variantType={_type}
+                    />
+                  </VStack>
+                </Box>
+              }
+              {isATP() &&
+                <Box className={styles.boxWithBorderAndPadding} >
+                  <Heading size={"small"}>{t('p8000:form-heading-anmodning-om-atp-opplysninger')}</Heading>
+                </Box>
+              }
               <Box className={styles.boxWithBorderAndPadding} >
-                <VStack gap="space-16">
-                  <Heading level="2" size="small">{t('p8000:form-heading-ofte-etterspurt-informasjon')}</Heading>
-                  <P8000Fields
-                    fields={[
-                      {label: P5000, value: P5000, component: SendFolgendeSEDerEllerDokumenter, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'},
-                      {label: P5000, value: P5000_MED_BEGRUNNELSE, component: SendFolgendeSEDerWithBegrunnelse, options: {sed: P5000, radioLabel: "P5000 trengs for"}},
-                      {label: t('p8000:form-label-forenklet-forespoersel'), value: FORENKLET_FORESPOERSEL, component: ForenkletForespoersel, options: {sed: P5000}},
-                      {label: P4000, value: P4000, component: SendFolgendeSEDerEllerDokumenter, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'} ,
-                      {label: P6000, value: P6000, component: SendFolgendeSEDerEllerDokumenter, target: 'pensjon.anmodning.seder[0].sendFolgendeSEDer'} ,
-                      {label: t('p8000:form-label-brukers-adresse'), value: BRUKERS_ADRESSE, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                      {label: t('p8000:form-label-medisinsk-informasjon'), value: MEDISINSK_INFORMASJON, component: SendFolgendeSEDerEllerDokumenter, target: 'pensjon.vedlegg'},
-                      {label: t('p8000:form-label-opplysninger-om-tiltak'), value: TILTAK, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                      {label: t('p8000:form-label-naavaerende-arbeid'), value: NAAVAERENDE_ARBEID, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                      {label: t('p8000:form-label-dokumentasjon-paa-arbeid-i-norge'), value: DOKUMENTASJON_PAA_ARBEID_I_NORGE, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: false, showPeriod: true, showMonths: false, excludeNorway: false}},
-                      {label: t('p8000:form-label-ytelseshistorikk'), value: YTELSESHISTORIKK, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                      {label: t('p8000:form-label-inntekt-foer-ufoerhet-i-utlandet'), value: INNTEKT_FOER_UFOERHET_I_UTLANDET, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: true, showMonths: false, excludeNorway: true}},
-                      {label: t('p8000:form-label-iban-og-swift'), value: IBAN_SWIFT, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                      {label: t('p8000:form-label-folkbokfoering'), value: FOLKBOKFOERING, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                      {label: t('p8000:form-label-brukers-sivilstand'), value: BRUKERS_SIVILSTAND, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                      {label: t('p8000:form-label-opplysninger-om-eps'), value: OPPLYSNINGER_OM_EPS, component: CheckboxWithCountryAndPeriods, target: 'options.ofteEtterspurtInformasjon', options: {showCountry: true, showPeriod: false, showMonths: false, excludeNorway: true}},
-                      {label: t('p8000:form-label-person-uten-pnr-dnr'), value: PERSON_UTEN_PNR_DNR, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                      {label: t('p8000:form-label-krav-om-ufoereytelse'), value: KRAV_OM_UFOEREYTELSE, component: CheckBoxField, target: 'options.ofteEtterspurtInformasjon'},
-                    ]}
-                    variant={P8000Variants[_type]?.ofteEtterspurtInformasjon}
-                    PSED={currentPSED}
-                    updatePSED={updatePSED}
-                    namespace={namespace + '-ofteEtterspurtInformasjon'}
-                    variantType={_type}
-                  />
-                </VStack>
-              </Box>
-            }
-            {P8000Variants[_type]?.informasjonSomKanLeggesInn?.length > 0 &&
-              <Box className={styles.boxWithBorderAndPadding} >
-                <VStack gap="space-16">
-                  <Heading level="2" size="small">{t('p8000:form-heading-informasjon-som-kan-legges-inn')}</Heading>
-                  <P8000Fields
-                    fields={[
-                      {label: t('p8000:form-label-sakbehandlingstiden-er-ikke-utloept'), value: SAKSBEHANDLINGSTID_IKKE_UTLOEPT, component: CheckBoxField, target: 'options.informasjonSomKanLeggesInn'},
-                      {label: t('p8000:form-label-legg-til-saksbehandlingstid'), value: SAKSBEHANDLINGSTID, component: CheckboxWithCountryAndPeriods, target: 'options.informasjonSomKanLeggesInn', options: {showCountry: false, showPeriod: false, showMonths: true, excludeNorway: false}},
-                      {label: t('p8000:form-label-p5000-trengs-for-p5000no'), value: P5000_FOR_P5000NO, component: CheckBoxField, target: 'options.informasjonSomKanLeggesInn'},
-                    ]}
-                    variant={P8000Variants[_type]?.informasjonSomKanLeggesInn}
-                    PSED={currentPSED}
-                    updatePSED={updatePSED}
-                    namespace={namespace + '-informasjonSomKanLeggesInn'}
-                    variantType={_type}
-                  />
-                </VStack>
-              </Box>
-            }
-            {isATP() &&
-              <Box className={styles.boxWithBorderAndPadding} >
-                <Heading size={"small"}>{t('p8000:form-heading-anmodning-om-atp-opplysninger')}</Heading>
-              </Box>
-            }
-            <Box className={styles.boxWithBorderAndPadding} >
-              <UtenlandskePin
-                PSED={currentPSED}
-                parentNamespace={namespace}
-                parentTarget="nav.bruker"
-                updatePSED={updatePSED}
-              />
-            </Box>
-            {!isATP() &&
-              <Box className={styles.boxWithBorderAndPadding} >
-                <UtenlandskeSaksnr
+                <UtenlandskePin
                   PSED={currentPSED}
                   parentNamespace={namespace}
-                  parentTarget="nav"
+                  parentTarget="nav.bruker"
                   updatePSED={updatePSED}
                 />
               </Box>
-            }
-            <Box className={styles.boxWithBorderAndPadding} >
-              <VStack gap="space-16">
-                {!isATP() &&
-                  <>
-                    <Textarea label={t('p8000:form-legg-til-fritekst')} value={_fritekst ?? ""} onChange={(e) => addFritekst(e.target.value)}/>
-                    <Textarea label={t('p8000:form-forhaandsvisning-av-tekst')} value={_ytterligereInformasjon ?? ""} maxLength={2500}/>
-                  </>
-                }
-                {isATP() &&
-                  <Textarea label={t('p8000:form-legg-til-fritekst-atp')} value={_ytterligereInformasjon ?? ""} maxLength={2500} onChange={(e) => setYtterligereInformasjon(e.target.value)}/>
-                }
-              </VStack>
-            </Box>
-            <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
-            <SaveAndSendSED
-              namespace={namespace}
-              sakId={buc!.caseId!}
-              sedId={sed!.id}
-              sedType={sed!.type}
-              setMode={setMode}
-              validateCurrentPSED={validateP8000Sed}
-              mottakere={currentPSED?.originalSed?.status === 'new' && buc?.type !== 'P_BUC_05' ? bucDeltakere! : undefined}
-              variantType={_type}
-            />
-          </>
-        }
-      </VStack>
-    </>
+              {!isATP() &&
+                <Box className={styles.boxWithBorderAndPadding} >
+                  <UtenlandskeSaksnr
+                    PSED={currentPSED}
+                    parentNamespace={namespace}
+                    parentTarget="nav"
+                    updatePSED={updatePSED}
+                  />
+                </Box>
+              }
+              <Box className={styles.boxWithBorderAndPadding} >
+                <VStack gap="space-16">
+                  {!isATP() &&
+                    <>
+                      <Textarea label={t('p8000:form-legg-til-fritekst')} value={_fritekst ?? ""} onChange={(e) => addFritekst(e.target.value)}/>
+                      <Textarea label={t('p8000:form-forhaandsvisning-av-tekst')} value={_ytterligereInformasjon ?? ""} maxLength={2500}/>
+                    </>
+                  }
+                  {isATP() &&
+                    <Textarea label={t('p8000:form-legg-til-fritekst-atp')} value={_ytterligereInformasjon ?? ""} maxLength={2500} onChange={(e) => setYtterligereInformasjon(e.target.value)}/>
+                  }
+                </VStack>
+              </Box>
+              <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation} />
+              <SaveAndSendSED
+                namespace={namespace}
+                sakId={buc!.caseId!}
+                sedId={sed!.id}
+                sedType={sed!.type}
+                setMode={setMode}
+                validateCurrentPSED={validateP8000Sed}
+                mottakere={currentPSED?.originalSed?.status === 'new' && buc?.type !== 'P_BUC_05' ? bucDeltakere! : undefined}
+                variantType={_type}
+              />
+            </>
+          }
+        </VStack>
+        {sed && (
+          <SEDDetails sed={sed}/>
+        )}
+      </HGrid>
+    </VStack>
   );
 }
 
