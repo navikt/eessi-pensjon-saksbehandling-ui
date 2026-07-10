@@ -192,4 +192,72 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
       { ...mockSed, lastUpdate: new Date(2010, 1, 1).getTime(), type: 'H1000' }
     )).toEqual(WRONG_ORDER_WILL_SWAP)
   })
+
+  describe('hasBlockingDraftSed', () => {
+    it('returns true for each mapped BUC type when its primary SED is a draft (status: new)', () => {
+      Object.entries(BUCUtils.DRAFT_BLOCKING_SED_BY_BUC).forEach(([bucType, sedType]) => {
+        const buc: Buc = {
+          ...mockBuc,
+          type: bucType,
+          seds: [{ ...mockSed, type: sedType, status: 'new' }]
+        }
+        expect(BUCUtils.hasBlockingDraftSed(buc)).toBe(true)
+      })
+    })
+
+    it('returns false when the primary SED exists but is not a draft', () => {
+      ['received', 'sent', 'active', 'empty'].forEach((status) => {
+        const buc: Buc = {
+          ...mockBuc,
+          type: 'P_BUC_02',
+          seds: [{ ...mockSed, type: 'P2100', status }]
+        }
+        expect(BUCUtils.hasBlockingDraftSed(buc)).toBe(false)
+      })
+    })
+
+    it('returns false when the draft SED is not the primary SED for the BUC type', () => {
+      const buc: Buc = {
+        ...mockBuc,
+        type: 'P_BUC_02',
+        seds: [{ ...mockSed, type: 'P6000', status: 'new' }]
+      }
+      expect(BUCUtils.hasBlockingDraftSed(buc)).toBe(false)
+    })
+
+    it('returns false for unmapped BUC types even with a draft SED', () => {
+      const buc: Buc = {
+        ...mockBuc,
+        type: 'P_BUC_06',
+        seds: [{ ...mockSed, type: 'P5000', status: 'new' }]
+      }
+      expect(BUCUtils.hasBlockingDraftSed(buc)).toBe(false)
+    })
+
+    it('returns true for P_BUC_05 when the P8000 is a draft', () => {
+      const buc: Buc = {
+        ...mockBuc,
+        type: 'P_BUC_05',
+        seds: [{ ...mockSed, type: 'P8000', status: 'new' }]
+      }
+      expect(BUCUtils.hasBlockingDraftSed(buc)).toBe(true)
+    })
+
+    it('returns false for P_BUC_05 when only other SEDs are drafts', () => {
+      const buc: Buc = {
+        ...mockBuc,
+        type: 'P_BUC_05',
+        seds: [
+          { ...mockSed, type: 'P8000', status: 'received' },
+          { ...mockSed, type: 'P9000', status: 'new' }
+        ]
+      }
+      expect(BUCUtils.hasBlockingDraftSed(buc)).toBe(false)
+    })
+
+    it('returns false when the BUC has no SEDs', () => {
+      const buc: Buc = { ...mockBuc, type: 'P_BUC_01', seds: [] }
+      expect(BUCUtils.hasBlockingDraftSed(buc)).toBe(false)
+    })
+  })
 })

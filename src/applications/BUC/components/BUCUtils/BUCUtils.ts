@@ -120,3 +120,24 @@ export const valueSorter = (a: Option, b: Option) => a.value.localeCompare(b.val
 export const dateSorter = (a: Sed, b: Sed): number => {
   return dayjs(a.lastUpdate).isSameOrAfter(dayjs(b.lastUpdate)) ? -1 : 1
 }
+
+// Maps a BUC type to the primary SED type that, when in draft (status 'new'),
+// must disable the «Bestill ny SED» button for that BUC.
+export const DRAFT_BLOCKING_SED_BY_BUC: Record<string, string> = {
+  P_BUC_01: 'P2000',
+  P_BUC_02: 'P2100',
+  P_BUC_03: 'P2200',
+  P_BUC_04: 'P1000',
+  P_BUC_05: 'P8000',
+  P_BUC_07: 'P11000',
+  P_BUC_08: 'P12000',
+  P_BUC_09: 'P14000',
+  P_BUC_10: 'P15000'
+}
+
+export const hasBlockingDraftSed = (buc: Buc): boolean => {
+  if (!buc.type) return false
+  const sedType = DRAFT_BLOCKING_SED_BY_BUC[buc.type]
+  if (!sedType) return false
+  return !!buc.seds?.some((s: Sed) => s.type === sedType && s.status === 'new')
+}

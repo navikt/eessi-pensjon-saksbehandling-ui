@@ -4,7 +4,7 @@ import { alertFailure } from 'src/actions/alert'
 import {getSedList, resetNewSed, setCurrentBuc, setFollowUpSeds, setSedList} from 'src/actions/buc'
 import BUCDetail from 'src/applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'src/applications/BUC/components/BUCTools/BUCTools'
-import { getBucTypeLabel, sedFilter, sedSorter } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
+import { getBucTypeLabel, hasBlockingDraftSed, sedFilter, sedSorter } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
 import SEDPanel from 'src/applications/BUC/components/SEDPanel/SEDPanel'
 import SEDPanelHeader from 'src/applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
 import SEDSearch from 'src/applications/BUC/components/SEDSearch/SEDSearch'
@@ -191,7 +191,8 @@ const BUCEdit: React.FC<BUCEditProps> = ({
               variant='secondary'
               disabled={
                 buc!.readOnly === true ||
-                (buc!.type === 'P_BUC_06' && parseFloat(buc!.cdm!) <= 4.3 && hasSeds(buc!))
+                (buc!.type === 'P_BUC_06' && parseFloat(buc!.cdm!) <= 4.3 && hasSeds(buc!)) ||
+                hasBlockingDraftSed(buc!)
               }
               data-testid='a-buc-p-bucedit--new-sed-button-id'
               onClick={onNewSedButtonClick}
