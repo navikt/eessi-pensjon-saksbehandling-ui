@@ -66,7 +66,7 @@ export const getUFT = (vedtakId: string) => {
   return call({
     url: sprintf(urls.PERSON_UFT_URL, { vedtakId }),
     cascadeFailureError: true,
-    expectedPayload: mockUFT,
+    expectedPayload: { result: mockUFT, status: 'OK' },
     type: {
       request: types.PERSON_UFT_REQUEST,
       success: types.PERSON_UFT_SUCCESS,

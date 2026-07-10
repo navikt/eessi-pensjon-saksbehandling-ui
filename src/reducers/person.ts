@@ -147,13 +147,13 @@ const personReducer = (state: PersonState = initialPersonState, action: AnyActio
     case types.PERSON_UFT_SUCCESS: {
       let uforetidspunkt, virkningstidspunkt
       try {
-        uforetidspunkt = dayjs((action as ActionWithPayload).payload.uforetidspunkt, 'YYYY-MM-DD').toDate()
+        uforetidspunkt = dayjs((action as ActionWithPayload).payload.result.uforetidspunkt, 'YYYY-MM-DD').toDate()
       } catch (e) {
         uforetidspunkt = null
       }
 
       try {
-        virkningstidspunkt = dayjs((action as ActionWithPayload).payload.virkningstidspunkt, 'YYYY-MM-DD').toDate()
+        virkningstidspunkt = dayjs((action as ActionWithPayload).payload.result.virkningstidspunkt, 'YYYY-MM-DD').toDate()
       } catch (e) {
         virkningstidspunkt = null
       }
