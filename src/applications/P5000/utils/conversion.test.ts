@@ -1,4 +1,5 @@
 import { sortItems, mergeP5000ListRows, shouldRenderP5000ListPeriod } from 'src/applications/P5000/utils/conversion'
+import { periodToListItem } from 'src/applications/P5000/utils/conversionUtils'
 import {P5000ListRows} from "src/declarations/p5000";
 import dayjs from 'dayjs'
 
@@ -92,6 +93,71 @@ describe('applications/P5000/utils/conversion', () => {
     } as any)
 
     expect(shouldRender).toBe(true)
+  })
+
+  it('should recalculate aar/mnd/dag from dates even when stored sums exist', () => {
+    const sender = { acronym: 'NO:NAV', country: 'NO' } as any
+    const sed = { id: 'sed-1' } as any
+
+    const rowFromStaleStoredSums = periodToListItem({
+      type: '41',
+      land: 'NO',
+      beregning: '100',
+      ordning: '00',
+      relevans: '111',
+      periode: { fom: '2024-01-01', tom: '2024-03-15' },
+      sum: {
+        aar: '99',
+        maaneder: '88',
+        dager: { nr: '77', type: '7' },
+        kvartal: null,
+        uker: null
+      },
+      options: { key: 'p1' }
+    } as any, sed, sender, false, undefined, 'forCertainTypesOnly')
+
+    const rowFromNeutralStoredSums = periodToListItem({
+      type: '41',
+      land: 'NO',
+      beregning: '100',
+      ordning: '00',
+      relevans: '111',
+      periode: { fom: '2024-01-01', tom: '2024-03-15' },
+      sum: {
+        aar: '00',
+        maaneder: '00',
+        dager: { nr: '00', type: '7' },
+        kvartal: null,
+        uker: null
+      },
+      options: { key: 'p2' }
+    } as any, sed, sender, false, undefined, 'forCertainTypesOnly')
+
+    expect(rowFromStaleStoredSums.aar).toBe(rowFromNeutralStoredSums.aar)
+    expect(rowFromStaleStoredSums.mnd).toBe(rowFromNeutralStoredSums.mnd)
+    expect(rowFromStaleStoredSums.dag).toBe(rowFromNeutralStoredSums.dag)
+    expect(rowFromStaleStoredSums.aar).not.toBe(99)
+    expect(rowFromStaleStoredSums.mnd).not.toBe(88)
+    expect(rowFromStaleStoredSums.dag).not.toBe(77)
+  })
+
+  it('should use stored aar/mnd/dag when dates are missing', () => {
+    const row = periodToListItem({
+      type: '41',
+      sum: {
+        aar: '02',
+        maaneder: '03',
+        dager: { nr: '04', type: '7' },
+        kvartal: null,
+        uker: null
+      },
+      periode: { fom: null, tom: null },
+      options: { key: 'p3' }
+    } as any, { id: 'sed-2' } as any, { acronym: 'NO:NAV', country: 'NO' } as any, false, undefined, 'forCertainTypesOnly')
+
+    expect(row.aar).toBe(2)
+    expect(row.mnd).toBe(3)
+    expect(row.dag).toBe(4)
   })
 
   it('testing merging P5000ListRows when no rows exist', () => {

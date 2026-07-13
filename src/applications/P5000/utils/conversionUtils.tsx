@@ -88,30 +88,22 @@ export const periodToListItem = (
     }
   }
 
-  // If period has stored sum values (aar, maaneder, dager), use them directly.
-  // This preserves pre-calculated sums (e.g., from hentUFT).
-  // Otherwise, calculate sums from dates.
-  const hasStoredSum = !_.isNil(period.sum?.aar) || !_.isNil(period.sum?.maaneder) || !_.isNil(period.sum?.dager?.nr)
-
+  const hasValidPeriodDates = !_.isNil(period.periode?.fom) && !_.isNil(period.periode?.tom)
   let convertedDate
-  if (hasStoredSum) {
-    // Use stored sum values directly, converting string values to numbers
+
+  if (hasValidPeriodDates) {
+    // Date edits must always drive period-sum recalculation.
+    convertedDate = dateDecimal({
+      dateFom: period.periode?.fom,
+      dateTom: period.periode?.tom
+    }, true)
+  } else {
+    // Fallback for rows without complete date range.
     convertedDate = {
       years: _.isNil(period.sum?.aar) ? 0 : (_.isNumber(period.sum.aar) ? period.sum.aar : parseInt(String(period.sum.aar), 10)),
       months: _.isNil(period.sum?.maaneder) ? 0 : (_.isNumber(period.sum.maaneder) ? period.sum.maaneder : parseInt(String(period.sum.maaneder), 10)),
       days: _.isNil(period.sum?.dager?.nr) ? 0 : (_.isNumber(period.sum.dager.nr) ? period.sum.dager.nr : parseInt(String(period.sum.dager.nr), 10))
     }
-  } else {
-    // Calculate sums from dates when no stored sum exists
-    convertedDate = dateDecimal({
-      dateFom: period.periode?.fom,
-      dateTom: period.periode?.tom,
-      days: period.sum?.dager?.nr,
-      quarter: period.sum?.kvartal,
-      months: period.sum?.maaneder,
-      weeks: period.sum?.uker,
-      years: period.sum?.aar
-    }, true)
   }
 
   return {
