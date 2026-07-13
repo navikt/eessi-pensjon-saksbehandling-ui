@@ -5,6 +5,7 @@ import i18n from 'src/i18n'
 import _ from 'lodash'
 import md5 from 'md5'
 import dateDecimal, { sumDates, writeFloat } from 'src/utils/dateDecimal'
+import dateDiff from 'src/utils/dateDiff'
 import dayjs from 'dayjs'
 
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
@@ -92,13 +93,20 @@ export const periodToListItem = (
   let convertedDate
 
   if (hasValidPeriodDates) {
-    // Date edits must always drive period-sum recalculation.
-    convertedDate = dateDecimal({
-      dateFom: period.periode?.fom,
-      dateTom: period.periode?.tom
-    }, true)
+    // Always recalculate from the actual dates so end-date edits are reflected immediately.
+    // dateDiff does a real calendar diff (fom → tom) and is the same function used when
+    // the user edits startdato/sluttdato in the table row editor.
+    const diff = dateDiff(
+      dayjs(period.periode!.fom!, 'YYYY-MM-DD').toDate(),
+      dayjs(period.periode!.tom!, 'YYYY-MM-DD').toDate()
+    )
+    convertedDate = {
+      years: diff.years === 0 ? '' : String(diff.years),
+      months: diff.months === 0 ? '' : String(diff.months),
+      days: diff.days === 0 ? '' : String(diff.days)
+    }
   } else {
-    // Fallback for rows without complete date range.
+    // Fallback for rows without a complete date range — use stored sum values as-is.
     convertedDate = {
       years: _.isNil(period.sum?.aar) ? 0 : (_.isNumber(period.sum.aar) ? period.sum.aar : parseInt(String(period.sum.aar), 10)),
       months: _.isNil(period.sum?.maaneder) ? 0 : (_.isNumber(period.sum.maaneder) ? period.sum.maaneder : parseInt(String(period.sum.maaneder), 10)),

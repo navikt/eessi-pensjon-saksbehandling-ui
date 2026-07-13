@@ -99,13 +99,14 @@ describe('applications/P5000/utils/conversion', () => {
     const sender = { acronym: 'NO:NAV', country: 'NO' } as any
     const sed = { id: 'sed-1' } as any
 
+    // Period from 2024-01-01 to 2024-06-30 — stored sums are intentionally wrong (99/88/77)
     const rowFromStaleStoredSums = periodToListItem({
       type: '41',
       land: 'NO',
       beregning: '100',
       ordning: '00',
       relevans: '111',
-      periode: { fom: '2024-01-01', tom: '2024-03-15' },
+      periode: { fom: '2024-01-01', tom: '2024-06-30' },
       sum: {
         aar: '99',
         maaneder: '88',
@@ -116,13 +117,14 @@ describe('applications/P5000/utils/conversion', () => {
       options: { key: 'p1' }
     } as any, sed, sender, false, undefined, 'forCertainTypesOnly')
 
-    const rowFromNeutralStoredSums = periodToListItem({
+    // Same dates, but stored sums are zeroed out — result should be identical
+    const rowWithZeroStoredSums = periodToListItem({
       type: '41',
       land: 'NO',
       beregning: '100',
       ordning: '00',
       relevans: '111',
-      periode: { fom: '2024-01-01', tom: '2024-03-15' },
+      periode: { fom: '2024-01-01', tom: '2024-06-30' },
       sum: {
         aar: '00',
         maaneder: '00',
@@ -133,9 +135,11 @@ describe('applications/P5000/utils/conversion', () => {
       options: { key: 'p2' }
     } as any, sed, sender, false, undefined, 'forCertainTypesOnly')
 
-    expect(rowFromStaleStoredSums.aar).toBe(rowFromNeutralStoredSums.aar)
-    expect(rowFromStaleStoredSums.mnd).toBe(rowFromNeutralStoredSums.mnd)
-    expect(rowFromStaleStoredSums.dag).toBe(rowFromNeutralStoredSums.dag)
+    // Both should produce identical sums because both are calculated from the same dates
+    expect(rowFromStaleStoredSums.aar).toBe(rowWithZeroStoredSums.aar)
+    expect(rowFromStaleStoredSums.mnd).toBe(rowWithZeroStoredSums.mnd)
+    expect(rowFromStaleStoredSums.dag).toBe(rowWithZeroStoredSums.dag)
+    // And neither should carry the stale stored values
     expect(rowFromStaleStoredSums.aar).not.toBe(99)
     expect(rowFromStaleStoredSums.mnd).not.toBe(88)
     expect(rowFromStaleStoredSums.dag).not.toBe(77)
