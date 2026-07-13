@@ -90,12 +90,11 @@ export const periodToListItem = (
   }
 
   const hasValidPeriodDates = !_.isNil(period.periode?.fom) && !_.isNil(period.periode?.tom)
+  const shouldRecalculateFromDates = hasValidPeriodDates && period.options?.flagIkon === 'UFT'
   let convertedDate
 
-  if (hasValidPeriodDates) {
-    // Always recalculate from the actual dates so end-date edits are reflected immediately.
-    // dateDiff does a real calendar diff (fom → tom) and is the same function used when
-    // the user edits startdato/sluttdato in the table row editor.
+  if (shouldRecalculateFromDates) {
+    // UFT periods are auto-generated and should always follow real date span.
     const diff = dateDiff(
       dayjs(period.periode!.fom!, 'YYYY-MM-DD').toDate(),
       dayjs(period.periode!.tom!, 'YYYY-MM-DD').toDate()
@@ -106,11 +105,24 @@ export const periodToListItem = (
       days: diff.days === 0 ? '' : String(diff.days)
     }
   } else {
-    // Fallback for rows without a complete date range — use stored sum values as-is.
-    convertedDate = {
-      years: _.isNil(period.sum?.aar) ? 0 : (_.isNumber(period.sum.aar) ? period.sum.aar : parseInt(String(period.sum.aar), 10)),
-      months: _.isNil(period.sum?.maaneder) ? 0 : (_.isNumber(period.sum.maaneder) ? period.sum.maaneder : parseInt(String(period.sum.maaneder), 10)),
-      days: _.isNil(period.sum?.dager?.nr) ? 0 : (_.isNumber(period.sum.dager.nr) ? period.sum.dager.nr : parseInt(String(period.sum.dager.nr), 10))
+    // Keep legacy behavior for non-UFT rows to avoid changing normal period handling.
+    const hasStoredSum = !_.isNil(period.sum?.aar) || !_.isNil(period.sum?.maaneder) || !_.isNil(period.sum?.dager?.nr)
+    if (hasStoredSum) {
+      convertedDate = {
+        years: _.isNil(period.sum?.aar) ? 0 : (_.isNumber(period.sum.aar) ? period.sum.aar : parseInt(String(period.sum.aar), 10)),
+        months: _.isNil(period.sum?.maaneder) ? 0 : (_.isNumber(period.sum.maaneder) ? period.sum.maaneder : parseInt(String(period.sum.maaneder), 10)),
+        days: _.isNil(period.sum?.dager?.nr) ? 0 : (_.isNumber(period.sum.dager.nr) ? period.sum.dager.nr : parseInt(String(period.sum.dager.nr), 10))
+      }
+    } else {
+      convertedDate = dateDecimal({
+        dateFom: period.periode?.fom,
+        dateTom: period.periode?.tom,
+        days: period.sum?.dager?.nr,
+        quarter: period.sum?.kvartal,
+        months: period.sum?.maaneder,
+        weeks: period.sum?.uker,
+        years: period.sum?.aar
+      }, true)
     }
   }
 

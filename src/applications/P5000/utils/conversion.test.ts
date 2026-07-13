@@ -95,7 +95,7 @@ describe('applications/P5000/utils/conversion', () => {
     expect(shouldRender).toBe(true)
   })
 
-  it('should recalculate aar/mnd/dag from dates even when stored sums exist', () => {
+  it('should recalculate aar/mnd/dag from dates for UFT-flagged periods', () => {
     const sender = { acronym: 'NO:NAV', country: 'NO' } as any
     const sed = { id: 'sed-1' } as any
 
@@ -114,7 +114,7 @@ describe('applications/P5000/utils/conversion', () => {
         kvartal: null,
         uker: null
       },
-      options: { key: 'p1' }
+      options: { key: 'p1', flagIkon: 'UFT' }
     } as any, sed, sender, false, undefined, 'forCertainTypesOnly')
 
     // Same dates, but stored sums are zeroed out — result should be identical
@@ -132,7 +132,7 @@ describe('applications/P5000/utils/conversion', () => {
         kvartal: null,
         uker: null
       },
-      options: { key: 'p2' }
+      options: { key: 'p2', flagIkon: 'UFT' }
     } as any, sed, sender, false, undefined, 'forCertainTypesOnly')
 
     // Both should produce identical sums because both are calculated from the same dates
@@ -143,6 +143,29 @@ describe('applications/P5000/utils/conversion', () => {
     expect(rowFromStaleStoredSums.aar).not.toBe(99)
     expect(rowFromStaleStoredSums.mnd).not.toBe(88)
     expect(rowFromStaleStoredSums.dag).not.toBe(77)
+  })
+
+  it('should preserve stored aar/mnd/dag for non-UFT periods', () => {
+    const row = periodToListItem({
+      type: '41',
+      land: 'NO',
+      beregning: '100',
+      ordning: '00',
+      relevans: '111',
+      periode: { fom: '2024-01-01', tom: '2024-06-30' },
+      sum: {
+        aar: '09',
+        maaneder: '08',
+        dager: { nr: '07', type: '7' },
+        kvartal: null,
+        uker: null
+      },
+      options: { key: 'p-non-uft' }
+    } as any, { id: 'sed-non-uft' } as any, { acronym: 'NO:NAV', country: 'NO' } as any, false, undefined, 'forCertainTypesOnly')
+
+    expect(row.aar).toBe(9)
+    expect(row.mnd).toBe(8)
+    expect(row.dag).toBe(7)
   })
 
   it('should use stored aar/mnd/dag when dates are missing', () => {
