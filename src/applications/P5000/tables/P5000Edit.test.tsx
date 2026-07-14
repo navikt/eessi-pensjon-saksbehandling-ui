@@ -1,5 +1,6 @@
-import { rangesOverlap, capSluttdatoAtToday } from "src/applications/P5000/tables/P5000Edit";
+import { rangesOverlap, capSluttdatoAtToday, normalizeP5000ItemForDisplay } from "src/applications/P5000/tables/P5000Edit";
 import dayjs from "dayjs";
+import dateDiff from "src/utils/dateDiff";
 
 describe('applications/P5000/tables/P5000Edit', () => {
 
@@ -104,6 +105,45 @@ describe('capSluttdatoAtToday', () => {
 
   it('should return undefined when dato is undefined', () => {
     expect(capSluttdatoAtToday(undefined, '41')).toBeUndefined()
+  })
+})
+
+describe('normalizeP5000ItemForDisplay', () => {
+  it('should recalculate aar/mnd/dag when type 41 sluttdato is capped to today', () => {
+    const today = dayjs().startOf('day')
+    const startdato = today.subtract(2, 'month').subtract(5, 'day').toDate()
+    const staleFutureSluttdato = today.add(4, 'month').toDate()
+    const expectedDiff = dateDiff(startdato, today.toDate())
+
+    const normalizedItem = normalizeP5000ItemForDisplay({
+      key: 'uft-1',
+      type: '41',
+      startdato,
+      sluttdato: staleFutureSluttdato,
+      aar: 9,
+      mnd: 9,
+      dag: 9
+    } as any)
+
+    expect(dayjs(normalizedItem.sluttdato).isSame(today, 'day')).toBe(true)
+    expect(normalizedItem.aar).toBe(`${expectedDiff.years}`)
+    expect(normalizedItem.mnd).toBe(`${expectedDiff.months}`)
+    expect(normalizedItem.dag).toBe(`${expectedDiff.days}`)
+  })
+
+  it('should keep non-type-41 rows unchanged even with future sluttdato', () => {
+    const futureSluttdato = dayjs().add(4, 'month').toDate()
+    const item = {
+      key: 'non-41',
+      type: '50',
+      startdato: dayjs().subtract(1, 'month').toDate(),
+      sluttdato: futureSluttdato,
+      aar: 1,
+      mnd: 2,
+      dag: 3
+    } as any
+
+    expect(normalizeP5000ItemForDisplay(item)).toBe(item)
   })
 })
 

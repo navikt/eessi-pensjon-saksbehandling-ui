@@ -84,6 +84,42 @@ export const capSluttdatoAtToday = (dato: string | Date | undefined, type: unkno
   return dato
 }
 
+export const normalizeP5000ItemForDisplay = (item: P5000ListRow): P5000ListRow => {
+  const effectiveSluttdato = capSluttdatoAtToday(item.sluttdato, item.type)
+
+  if (effectiveSluttdato === item.sluttdato) {
+    return item
+  }
+
+  const normalizedItem: P5000ListRow = {
+    ...item,
+    sluttdato: effectiveSluttdato as any
+  }
+
+  const normalizedStartdato = dateTransform(item.startdato)
+  const normalizedSluttdato = dateTransform(effectiveSluttdato)
+
+  if (_.isNil(normalizedStartdato) || _.isNil(normalizedSluttdato)) {
+    return normalizedItem
+  }
+
+  const startdato = dayjs(normalizedStartdato, 'DD.MM.YYYY', true)
+  const sluttdato = dayjs(normalizedSluttdato, 'DD.MM.YYYY', true)
+
+  if (!startdato.isValid() || !sluttdato.isValid() || startdato.isAfter(sluttdato)) {
+    return normalizedItem
+  }
+
+  const diff = dateDiff(normalizedStartdato, normalizedSluttdato)
+
+  return {
+    ...normalizedItem,
+    aar: `${diff.years}`,
+    mnd: `${diff.months}`,
+    dag: `${diff.days}`
+  }
+}
+
 export const rangesOverlap = (startDateRange1: Dayjs, endDateRange1: Dayjs,
                               startDateRange2: Dayjs, endDateRange2: Dayjs) => {
   return (startDateRange1.isSame(endDateRange2, 'day') || startDateRange1.isBefore(endDateRange2, 'day')) &&
@@ -885,11 +921,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const normalizedItems = useMemo<P5000ListRows>(() => (
-    _items.map((item: P5000ListRow) => {
-      const effectiveSluttdato = capSluttdatoAtToday(item.sluttdato, item.type)
-      if (effectiveSluttdato === item.sluttdato) return item
-      return { ...item, sluttdato: effectiveSluttdato as any }
-    })
+    _items.map((item: P5000ListRow) => normalizeP5000ItemForDisplay(item))
   ), [_items])
 
   const tableId = 'P5000Edit-table'
