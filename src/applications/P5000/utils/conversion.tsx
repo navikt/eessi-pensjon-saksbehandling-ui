@@ -36,7 +36,7 @@ export interface ConvertP5000SEDToP5000ListRowsProps {
   selectRowsContext: 'forCertainTypesOnly' | 'forAll'
 }
 
-export const shouldRenderP5000ListPeriod = (period: P5000Period): boolean => {
+export const filterP5000ListPeriodForRendering = (period: P5000Period): boolean => {
   if (period.type !== '50') {
     return true
   }
@@ -337,7 +337,7 @@ export const convertP5000SEDToP5000ListRows = ({
 
     rows = rows.concat(
       periods
-        ?.filter(shouldRenderP5000ListPeriod)
+        ?.filter(filterP5000ListPeriodForRendering)
         .map((p) => periodToListItem(p, sed, sender, mustCheckStatus, rinaPeriods, selectRowsContext)) ?? []
     )
   })

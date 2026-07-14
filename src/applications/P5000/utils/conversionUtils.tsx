@@ -90,10 +90,10 @@ export const periodToListItem = (
   }
 
   const hasValidPeriodDates = !_.isNil(period.periode?.fom) && !_.isNil(period.periode?.tom)
-  const shouldRecalculateFromDates = hasValidPeriodDates && period.options?.flagIkon === 'UFT'
+  const isUFTPeriod = hasValidPeriodDates && period.options?.flagIkon === 'UFT'
   let convertedDate
 
-  if (shouldRecalculateFromDates) {
+  if (isUFTPeriod) {
     // UFT periods are auto-generated and should always follow real date span.
     const diff = dateDiff(
       dayjs(period.periode!.fom!, 'YYYY-MM-DD').toDate(),

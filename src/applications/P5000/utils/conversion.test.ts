@@ -1,4 +1,4 @@
-import { sortItems, mergeP5000ListRows, shouldRenderP5000ListPeriod } from 'src/applications/P5000/utils/conversion'
+import { sortItems, mergeP5000ListRows, filterP5000ListPeriodForRendering } from 'src/applications/P5000/utils/conversion'
 import { periodToListItem } from 'src/applications/P5000/utils/conversionUtils'
 import {P5000ListRows} from "src/declarations/p5000";
 import dayjs from 'dayjs'
@@ -51,7 +51,7 @@ describe('applications/P5000/utils/conversion', () => {
   })
 
   it('should hide type 50 row when startdato is after today', () => {
-    const shouldRender = shouldRenderP5000ListPeriod({
+    const shouldRender = filterP5000ListPeriodForRendering({
       type: '50',
       periode: {
         fom: dayjs().add(1, 'day').format('YYYY-MM-DD'),
@@ -63,7 +63,7 @@ describe('applications/P5000/utils/conversion', () => {
   })
 
   it('should keep type 50 row when startdato is today or earlier', () => {
-    const shouldRenderToday = shouldRenderP5000ListPeriod({
+    const shouldRenderToday = filterP5000ListPeriodForRendering({
       type: '50',
       periode: {
         fom: dayjs().format('YYYY-MM-DD'),
@@ -71,7 +71,7 @@ describe('applications/P5000/utils/conversion', () => {
       }
     } as any)
 
-    const shouldRenderPast = shouldRenderP5000ListPeriod({
+    const shouldRenderPast = filterP5000ListPeriodForRendering({
       type: '50',
       periode: {
         fom: dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
@@ -84,7 +84,7 @@ describe('applications/P5000/utils/conversion', () => {
   })
 
   it('should not filter non-type-50 rows', () => {
-    const shouldRender = shouldRenderP5000ListPeriod({
+    const shouldRender = filterP5000ListPeriodForRendering({
       type: '41',
       periode: {
         fom: dayjs().add(30, 'day').format('YYYY-MM-DD'),
