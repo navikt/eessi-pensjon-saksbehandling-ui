@@ -32,6 +32,11 @@ import { useSelector } from 'react-redux'
 import Table, { NewRowValues, RenderEditableOptions, RenderOptions, ItemErrors } from '@navikt/tabell'
 import dateDiff, { DateDiff } from 'src/utils/dateDiff'
 import { convertFromP5000ListRowsIntoP5000SED, convertP5000SEDToP5000ListRows, sortItems } from 'src/applications/P5000/utils/conversion'
+import {
+  capSluttdatoAtToday,
+  dateTransform,
+  normalizeP5000ItemForDisplay
+} from 'src/applications/P5000/utils/conversionUtils'
 import { P5000EditValidate, P5000EditValidationProps } from './validation'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 import dayjs, {Dayjs} from "dayjs";
@@ -39,6 +44,9 @@ import customParseFormat from "dayjs/plugin/customParseFormat"
 import HiddenDiv from "src/components/HiddenDiv/HiddenDiv";
 import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
 dayjs.extend(customParseFormat)
+
+// Re-export shared display-normalisation helpers so existing imports (e.g. tests) continue to work.
+export { dateTransform, capSluttdatoAtToday, normalizeP5000ItemForDisplay }
 
 export interface P5000EditProps {
   caseId: string
@@ -49,76 +57,6 @@ export interface P5000EditProps {
   updateWorkingCopy: (newSed: P5000SED | undefined, sedId: string) => void
 }
 
-export const dateTransform = (s: undefined | string | Date): string | undefined => {
-  if (s === undefined) {
-    return undefined
-  }
-  if (_.isDate(s)) {
-    return dayjs(s).format('DD.MM.YYYY')
-  }
-  const r = s.match('^(\\d{2})(\\d{2})(\\d{2})$')
-  if (r !== null) {
-    const matchedDay = r[1]
-    const matchedMonth = r[2]
-    const matchedYear = r[3]
-    const matchedYearInt = parseInt(matchedYear)
-    //  010139 => 01.01.2039. 010140 => 01.01.1940
-    const fullYear = matchedYearInt < 40 ? `20${matchedYear}` : `19${matchedYear}`
-    return `${matchedDay}.${matchedMonth}.${fullYear}`
-  }
-  return s
-}
-
-export const capSluttdatoAtToday = (dato: string | Date | undefined, type: unknown): string | Date | undefined => {
-  if (_.isNil(dato)) {
-    return dato
-  }
-  const typeAsString = `${type ?? ''}`
-  if (typeAsString !== '41') {
-    return dato
-  }
-  const parsedDato = dayjs(dateTransform(dato), 'DD.MM.YYYY', true)
-  if (parsedDato.isValid() && parsedDato.isAfter(dayjs(), 'day')) {
-    return _.isDate(dato) ? dayjs().toDate() : dayjs().format('DD.MM.YYYY')
-  }
-  return dato
-}
-
-export const normalizeP5000ItemForDisplay = (item: P5000ListRow): P5000ListRow => {
-  const effectiveSluttdato = capSluttdatoAtToday(item.sluttdato, item.type)
-
-  if (effectiveSluttdato === item.sluttdato) {
-    return item
-  }
-
-  const normalizedItem: P5000ListRow = {
-    ...item,
-    sluttdato: effectiveSluttdato as any
-  }
-
-  const normalizedStartdato = dateTransform(item.startdato)
-  const normalizedSluttdato = dateTransform(effectiveSluttdato)
-
-  if (_.isNil(normalizedStartdato) || _.isNil(normalizedSluttdato)) {
-    return normalizedItem
-  }
-
-  const startdato = dayjs(normalizedStartdato, 'DD.MM.YYYY', true)
-  const sluttdato = dayjs(normalizedSluttdato, 'DD.MM.YYYY', true)
-
-  if (!startdato.isValid() || !sluttdato.isValid() || startdato.isAfter(sluttdato)) {
-    return normalizedItem
-  }
-
-  const diff = dateDiff(normalizedStartdato, normalizedSluttdato)
-
-  return {
-    ...normalizedItem,
-    aar: `${diff.years}`,
-    mnd: `${diff.months}`,
-    dag: `${diff.days}`
-  }
-}
 
 export const rangesOverlap = (startDateRange1: Dayjs, endDateRange1: Dayjs,
                               startDateRange2: Dayjs, endDateRange2: Dayjs) => {

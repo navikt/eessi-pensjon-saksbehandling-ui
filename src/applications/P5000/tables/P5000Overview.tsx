@@ -21,10 +21,11 @@ import {
 } from 'src/declarations/p5000'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { convertP5000SEDToP5000ListRows } from 'src/applications/P5000/utils/conversion'
+import { normalizeP5000ItemForDisplay } from 'src/applications/P5000/utils/conversionUtils'
 import P5000OverviewControls from './P5000OverviewControls'
 import PopoverCustomized from "src/components/Tooltip/PopoverCustomized";
 import HiddenDiv from "src/components/HiddenDiv/HiddenDiv";
@@ -83,6 +84,13 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
       selectRowsContext: 'forAll'
     }),
     [seds, p5000sFromRinaMap, p5000WorkingCopies, mergePeriods, mergePeriodTypes, mergePeriodBeregnings, useGermanRules]
+  )
+
+  // Cap type-41 sluttdato at today and recalculate aar/mnd/dag for display purposes only.
+  // Raw `items` is kept for S3-matching in getViewItems and for P5000OverviewControls.
+  const normalizedItems = useMemo<P5000ListRows>(
+    () => items.map(normalizeP5000ItemForDisplay),
+    [items]
   )
 
   useEffect(() => {
@@ -374,7 +382,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
           <Box paddingBlock="space-16 space-16">
             <Table<P5000ListRow, P5000TableContext>
               animatable={false}
-              items={items}
+              items={normalizedItems}
               id='P5000Overview'
               labels={{
                 filter: t('p5000:filter-label'),
@@ -382,7 +390,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
                 flagAll: t('message:warning-periodsDoNotMatch'),
                 merged: t('p5000:merged-periods')
               }}
-              flaggable={_.find(items, 'flag') !== undefined}
+              flaggable={_.find(normalizedItems, 'flag') !== undefined}
               searchable={false}
               selectable={false}
               sortable={true}
@@ -455,7 +463,7 @@ const P5000Overview: React.FC<P5000OverviewProps> = ({
               // important to it re-renders when sorting changes
               key={JSON.stringify(_tableSort)}
               className='print-version'
-              items={items}
+              items={normalizedItems}
               id='P5000Overview-print'
               animatable={false}
               searchable={false}

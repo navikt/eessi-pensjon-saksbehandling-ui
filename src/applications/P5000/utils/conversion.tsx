@@ -358,6 +358,38 @@ export const convertP5000SEDToP5000SumRows = (
   const res: P5000SumRows = []
   const data: any = {}
 
+  /**
+   * For a type-41 period whose tom is in the future, cap tom at today and
+   * recalculate the stored sum (aar/maaneder/dager) from fom→today.
+   * dateDecimal ignores dateTom and uses the stored sum values, so we must
+   * update the stored values directly.
+   */
+  const capAndRecalculateType41Period = (periode: P5000Period): P5000Period => {
+    if (periode.type !== '41') return periode
+
+    const tom = periode.periode?.tom
+    if (!tom) return periode
+    const parsedTom = dayjs(tom, 'YYYY-MM-DD', true)
+    if (!parsedTom.isValid() || !parsedTom.isAfter(dayjs(), 'day')) return periode
+
+    const fom = periode.periode?.fom
+    if (!fom) return periode
+    const parsedFom = dayjs(fom, 'YYYY-MM-DD', true)
+    if (!parsedFom.isValid() || parsedFom.isAfter(dayjs(), 'day')) return periode
+
+    const diff = dateDiff(parsedFom.toDate(), dayjs().toDate())
+    return {
+      ...periode,
+      periode: { ...periode.periode, fom: fom ?? null, tom: dayjs().format('YYYY-MM-DD') },
+      sum: {
+        ...periode.sum,
+        aar: String(diff.years).padStart(2, '0'),
+        maaneder: String(diff.months).padStart(2, '0'),
+        dager: { ...(periode.sum?.dager ?? {}), nr: String(diff.days).padStart(2, '0') }
+      }
+    }
+  }
+
   seds?.forEach(sed => {
     let sourceStatus: P5000SourceStatus
     const sender = getSedSender(sed)
@@ -371,8 +403,14 @@ export const convertP5000SEDToP5000SumRows = (
     const rinaPeriods2: Array<P5000Period> | undefined = p5000sFromRinaMap[sed.id]?.pensjon?.trygdetid
     const storagePeriods1: Array<P5000Period> | undefined = p5000WorkingCopy?.content.pensjon?.medlemskapTotal
     const storagePeriods2: Array<P5000Period> | undefined = p5000WorkingCopy?.content.pensjon?.trygdetid
-    const periods1: Array<P5000Period> | undefined = sourceStatus === 'rina' ? rinaPeriods1 : storagePeriods1
-    const periods2: Array<P5000Period> | undefined = sourceStatus === 'rina' ? rinaPeriods2 : storagePeriods2
+    // Filter out type-50 periods whose fom is in the future (same rule as the Edit/Overview tables),
+    // and cap type-41 periods at today before aggregating.
+    const periods1: Array<P5000Period> | undefined = (sourceStatus === 'rina' ? rinaPeriods1 : storagePeriods1)
+      ?.filter(filterP5000ListPeriodForRendering)
+      .map(capAndRecalculateType41Period)
+    const periods2: Array<P5000Period> | undefined = (sourceStatus === 'rina' ? rinaPeriods2 : storagePeriods2)
+      ?.filter(filterP5000ListPeriodForRendering)
+      .map(capAndRecalculateType41Period)
     periods1?.forEach((periode: P5000Period) => {
       if (!_.isNil(periode) && periode.type) {
         if (_.isNil(data[periode.type])) {
