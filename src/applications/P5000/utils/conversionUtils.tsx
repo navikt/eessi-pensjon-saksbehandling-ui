@@ -5,11 +5,84 @@ import i18n from 'src/i18n'
 import _ from 'lodash'
 import md5 from 'md5'
 import dateDecimal, { sumDates, writeFloat } from 'src/utils/dateDecimal'
+import dateDiff from 'src/utils/dateDiff'
 import dayjs from 'dayjs'
 
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 
-dayjs.extend(isSameOrBefore);
+dayjs.extend(isSameOrBefore)
+dayjs.extend(customParseFormat)
+
+export const dateTransform = (s: undefined | string | Date): string | undefined => {
+  if (s === undefined) {
+    return undefined
+  }
+  if (_.isDate(s)) {
+    return dayjs(s).format('DD.MM.YYYY')
+  }
+  const r = s.match('^(\\d{2})(\\d{2})(\\d{2})$')
+  if (r !== null) {
+    const matchedDay = r[1]
+    const matchedMonth = r[2]
+    const matchedYear = r[3]
+    const matchedYearInt = parseInt(matchedYear)
+    const fullYear = matchedYearInt < 40 ? `20${matchedYear}` : `19${matchedYear}`
+    return `${matchedDay}.${matchedMonth}.${fullYear}`
+  }
+  return s
+}
+
+export const capSluttdatoAtToday = (dato: string | Date | undefined, type: unknown): string | Date | undefined => {
+  if (_.isNil(dato)) {
+    return dato
+  }
+  const typeAsString = `${type ?? ''}`
+  if (typeAsString !== '41') {
+    return dato
+  }
+  const parsedDato = dayjs(dateTransform(dato), 'DD.MM.YYYY', true)
+  if (parsedDato.isValid() && parsedDato.isAfter(dayjs(), 'day')) {
+    return _.isDate(dato) ? dayjs().toDate() : dayjs().format('DD.MM.YYYY')
+  }
+  return dato
+}
+
+export const normalizeP5000ItemForDisplay = (item: P5000ListRow): P5000ListRow => {
+  const effectiveSluttdato = capSluttdatoAtToday(item.sluttdato, item.type)
+
+  if (effectiveSluttdato === item.sluttdato) {
+    return item
+  }
+
+  const normalizedItem: P5000ListRow = {
+    ...item,
+    sluttdato: effectiveSluttdato as any
+  }
+
+  const normalizedStartdato = dateTransform(item.startdato)
+  const normalizedSluttdato = dateTransform(effectiveSluttdato)
+
+  if (_.isNil(normalizedStartdato) || _.isNil(normalizedSluttdato)) {
+    return normalizedItem
+  }
+
+  const startdato = dayjs(normalizedStartdato, 'DD.MM.YYYY', true)
+  const sluttdato = dayjs(normalizedSluttdato, 'DD.MM.YYYY', true)
+
+  if (!startdato.isValid() || !sluttdato.isValid() || startdato.isAfter(sluttdato)) {
+    return normalizedItem
+  }
+
+  const diff = dateDiff(normalizedStartdato, normalizedSluttdato)
+
+  return {
+    ...normalizedItem,
+    aar: `${diff.years}`,
+    mnd: `${diff.months}`,
+    dag: `${diff.days}`
+  }
+}
 
 export const getNewLand = (period: P5000Period, sender: SedSender | undefined): string | undefined => {
   if (!_.isNil(period.land) && !_.isEmpty(period.land)) {
@@ -88,15 +161,42 @@ export const periodToListItem = (
     }
   }
 
-  const convertedDate = dateDecimal({
-    dateFom: period.periode?.fom,
-    dateTom: period.periode?.tom,
-    days: period.sum?.dager?.nr,
-    quarter: period.sum?.kvartal,
-    months: period.sum?.maaneder,
-    weeks: period.sum?.uker,
-    years: period.sum?.aar
-  }, true)
+  const hasValidPeriodDates = !_.isNil(period.periode?.fom) && !_.isNil(period.periode?.tom)
+  const isUFTPeriod = hasValidPeriodDates && period.options?.flagIkon === 'UFT'
+  let convertedDate
+
+  if (isUFTPeriod) {
+    // UFT periods are auto-generated and should always follow real date span.
+    const diff = dateDiff(
+      dayjs(period.periode!.fom!, 'YYYY-MM-DD').toDate(),
+      dayjs(period.periode!.tom!, 'YYYY-MM-DD').toDate()
+    )
+    convertedDate = {
+      years: diff.years === 0 ? '' : String(diff.years),
+      months: diff.months === 0 ? '' : String(diff.months),
+      days: diff.days === 0 ? '' : String(diff.days)
+    }
+  } else {
+    // Keep legacy behavior for non-UFT rows to avoid changing normal period handling.
+    const hasStoredSum = !_.isNil(period.sum?.aar) || !_.isNil(period.sum?.maaneder) || !_.isNil(period.sum?.dager?.nr)
+    if (hasStoredSum) {
+      convertedDate = {
+        years: _.isNil(period.sum?.aar) ? 0 : (_.isNumber(period.sum.aar) ? period.sum.aar : parseInt(String(period.sum.aar), 10)),
+        months: _.isNil(period.sum?.maaneder) ? 0 : (_.isNumber(period.sum.maaneder) ? period.sum.maaneder : parseInt(String(period.sum.maaneder), 10)),
+        days: _.isNil(period.sum?.dager?.nr) ? 0 : (_.isNumber(period.sum.dager.nr) ? period.sum.dager.nr : parseInt(String(period.sum.dager.nr), 10))
+      }
+    } else {
+      convertedDate = dateDecimal({
+        dateFom: period.periode?.fom,
+        dateTom: period.periode?.tom,
+        days: period.sum?.dager?.nr,
+        quarter: period.sum?.kvartal,
+        months: period.sum?.maaneder,
+        weeks: period.sum?.uker,
+        years: period.sum?.aar
+      }, true)
+    }
+  }
 
   return {
     key: period.options?.key ?? generateKeyForListRow(sed.id, period),

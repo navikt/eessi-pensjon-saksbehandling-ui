@@ -1,5 +1,7 @@
-import { sortItems, mergeP5000ListRows } from 'src/applications/P5000/utils/conversion'
+import { sortItems, mergeP5000ListRows, filterP5000ListPeriodForRendering } from 'src/applications/P5000/utils/conversion'
+import { periodToListItem } from 'src/applications/P5000/utils/conversionUtils'
 import {P5000ListRows} from "src/declarations/p5000";
+import dayjs from 'dayjs'
 
 describe('applications/P5000/utils/conversion', () => {
 
@@ -46,6 +48,143 @@ describe('applications/P5000/utils/conversion', () => {
 
     const generatedItems = sortItems(unsortedItems)
     expect(generatedItems).toMatchObject(expectedItems)
+  })
+
+  it('should hide type 50 row when startdato is after today', () => {
+    const shouldRender = filterP5000ListPeriodForRendering({
+      type: '50',
+      periode: {
+        fom: dayjs().add(1, 'day').format('YYYY-MM-DD'),
+        tom: null
+      }
+    } as any)
+
+    expect(shouldRender).toBe(false)
+  })
+
+  it('should keep type 50 row when startdato is today or earlier', () => {
+    const shouldRenderToday = filterP5000ListPeriodForRendering({
+      type: '50',
+      periode: {
+        fom: dayjs().format('YYYY-MM-DD'),
+        tom: null
+      }
+    } as any)
+
+    const shouldRenderPast = filterP5000ListPeriodForRendering({
+      type: '50',
+      periode: {
+        fom: dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
+        tom: null
+      }
+    } as any)
+
+    expect(shouldRenderToday).toBe(true)
+    expect(shouldRenderPast).toBe(true)
+  })
+
+  it('should not filter non-type-50 rows', () => {
+    const shouldRender = filterP5000ListPeriodForRendering({
+      type: '41',
+      periode: {
+        fom: dayjs().add(30, 'day').format('YYYY-MM-DD'),
+        tom: null
+      }
+    } as any)
+
+    expect(shouldRender).toBe(true)
+  })
+
+  it('should recalculate aar/mnd/dag from dates for UFT-flagged periods', () => {
+    const sender = { acronym: 'NO:NAV', country: 'NO' } as any
+    const sed = { id: 'sed-1' } as any
+
+    // Period from 2024-01-01 to 2024-06-30 — stored sums are intentionally wrong (99/88/77)
+    const rowFromStaleStoredSums = periodToListItem({
+      type: '41',
+      land: 'NO',
+      beregning: '100',
+      ordning: '00',
+      relevans: '111',
+      periode: { fom: '2024-01-01', tom: '2024-06-30' },
+      sum: {
+        aar: '99',
+        maaneder: '88',
+        dager: { nr: '77', type: '7' },
+        kvartal: null,
+        uker: null
+      },
+      options: { key: 'p1', flagIkon: 'UFT' }
+    } as any, sed, sender, false, undefined, 'forCertainTypesOnly')
+
+    // Same dates, but stored sums are zeroed out — result should be identical
+    const rowWithZeroStoredSums = periodToListItem({
+      type: '41',
+      land: 'NO',
+      beregning: '100',
+      ordning: '00',
+      relevans: '111',
+      periode: { fom: '2024-01-01', tom: '2024-06-30' },
+      sum: {
+        aar: '00',
+        maaneder: '00',
+        dager: { nr: '00', type: '7' },
+        kvartal: null,
+        uker: null
+      },
+      options: { key: 'p2', flagIkon: 'UFT' }
+    } as any, sed, sender, false, undefined, 'forCertainTypesOnly')
+
+    // Both should produce identical sums because both are calculated from the same dates
+    expect(rowFromStaleStoredSums.aar).toBe(rowWithZeroStoredSums.aar)
+    expect(rowFromStaleStoredSums.mnd).toBe(rowWithZeroStoredSums.mnd)
+    expect(rowFromStaleStoredSums.dag).toBe(rowWithZeroStoredSums.dag)
+    // And neither should carry the stale stored values
+    expect(rowFromStaleStoredSums.aar).not.toBe(99)
+    expect(rowFromStaleStoredSums.mnd).not.toBe(88)
+    expect(rowFromStaleStoredSums.dag).not.toBe(77)
+  })
+
+  it('should preserve stored aar/mnd/dag for non-UFT periods', () => {
+    const row = periodToListItem({
+      type: '41',
+      land: 'NO',
+      beregning: '100',
+      ordning: '00',
+      relevans: '111',
+      periode: { fom: '2024-01-01', tom: '2024-06-30' },
+      sum: {
+        aar: '09',
+        maaneder: '08',
+        dager: { nr: '07', type: '7' },
+        kvartal: null,
+        uker: null
+      },
+      options: { key: 'p-non-uft' }
+    } as any, { id: 'sed-non-uft' } as any, { acronym: 'NO:NAV', country: 'NO' } as any, false, undefined, 'forCertainTypesOnly')
+
+    expect(row.aar).toBe(9)
+    expect(row.mnd).toBe(8)
+    expect(row.dag).toBe(7)
+  })
+
+  it('should use stored aar/mnd/dag when dates are missing', () => {
+    const row = periodToListItem({
+      type: '41',
+      sum: {
+        aar: '02',
+        maaneder: '03',
+        dager: { nr: '04', type: '7' },
+        kvartal: null,
+        uker: null
+      },
+      periode: { fom: null, tom: null },
+      options: { key: 'p3' }
+    } as any, { id: 'sed-2' } as any, { acronym: 'NO:NAV', country: 'NO' } as any, false, undefined, 'forCertainTypesOnly')
+
+    expect(row.aar).toBe(2)
+    expect(row.mnd).toBe(3)
+    expect(row.dag).toBe(4)
   })
 
   it('testing merging P5000ListRows when no rows exist', () => {
