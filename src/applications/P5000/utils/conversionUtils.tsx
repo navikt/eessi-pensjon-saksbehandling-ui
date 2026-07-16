@@ -14,14 +14,6 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 dayjs.extend(isSameOrBefore)
 dayjs.extend(customParseFormat)
 
-// ---------------------------------------------------------------------------
-// Display-normalisation helpers (shared between P5000Edit and P5000Overview)
-// ---------------------------------------------------------------------------
-
-/**
- * Converts a date value to DD.MM.YYYY string representation.
- * Handles Date objects, 6-digit legacy strings and DD.MM.YYYY strings.
- */
 export const dateTransform = (s: undefined | string | Date): string | undefined => {
   if (s === undefined) {
     return undefined
@@ -41,10 +33,6 @@ export const dateTransform = (s: undefined | string | Date): string | undefined 
   return s
 }
 
-/**
- * Returns today's date (string or Date) when dato is in the future and type is '41'.
- * Leaves all other types untouched.
- */
 export const capSluttdatoAtToday = (dato: string | Date | undefined, type: unknown): string | Date | undefined => {
   if (_.isNil(dato)) {
     return dato
@@ -60,11 +48,6 @@ export const capSluttdatoAtToday = (dato: string | Date | undefined, type: unkno
   return dato
 }
 
-/**
- * Caps the sluttdato of a type-41 list row at today and recalculates
- * aar/mnd/dag from the normalised date range.
- * Returns the item unchanged when no capping is needed.
- */
 export const normalizeP5000ItemForDisplay = (item: P5000ListRow): P5000ListRow => {
   const effectiveSluttdato = capSluttdatoAtToday(item.sluttdato, item.type)
 

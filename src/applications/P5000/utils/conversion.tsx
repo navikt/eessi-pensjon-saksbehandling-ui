@@ -403,8 +403,7 @@ export const convertP5000SEDToP5000SumRows = (
     const rinaPeriods2: Array<P5000Period> | undefined = p5000sFromRinaMap[sed.id]?.pensjon?.trygdetid
     const storagePeriods1: Array<P5000Period> | undefined = p5000WorkingCopy?.content.pensjon?.medlemskapTotal
     const storagePeriods2: Array<P5000Period> | undefined = p5000WorkingCopy?.content.pensjon?.trygdetid
-    // Filter out type-50 periods whose fom is in the future (same rule as the Edit/Overview tables),
-    // and cap type-41 periods at today before aggregating.
+
     const periods1: Array<P5000Period> | undefined = (sourceStatus === 'rina' ? rinaPeriods1 : storagePeriods1)
       ?.filter(filterP5000ListPeriodForRendering)
       .map(capAndRecalculateType41Period)
