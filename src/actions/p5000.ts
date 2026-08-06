@@ -70,7 +70,7 @@ export const getP5000FromS3 = (
     method: 'GET',
     cascadeFailureError: true,
     expectedErrorRate: { 200: 1 },
-    expectedPayload: mockP5000FromS3,
+    expectedPayload: { result: mockP5000FromS3, status: 'OK' },
     type: {
       request: types.P5000_PESYS_GET_REQUEST,
       success: types.P5000_PESYS_GET_SUCCESS,

@@ -363,7 +363,7 @@ describe('reducers/buc', () => {
     expect(
       bucReducer(initialBucState, {
         type: types.BUC_GET_BUCSINFO_SUCCESS,
-        payload: '{"foo": "bar"}'
+        payload: { result: '{"foo": "bar"}', status: 'OK' }
       })
     ).toEqual({
       ...initialBucState,
@@ -406,11 +406,12 @@ describe('reducers/buc', () => {
   it('BUC_GET_BUCSINFO_LIST_SUCCESS', () => {
     expect(
       bucReducer(initialBucState, {
-        type: types.BUC_GET_BUCSINFO_LIST_SUCCESS
+        type: types.BUC_GET_BUCSINFO_LIST_SUCCESS,
+        payload: { result: ['mockBucsInfoList'], status: 'OK' }
       })
     ).toEqual({
       ...initialBucState,
-      bucsInfoList: undefined
+      bucsInfoList: ['mockBucsInfoList']
     })
   })
 

@@ -594,12 +594,13 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         bucOptions: []
       }
 
-    case types.BUC_GET_BUCSINFO_SUCCESS:
-
+    case types.BUC_GET_BUCSINFO_SUCCESS: {
+      const payload = (action as ActionWithPayload).payload.result
       return {
         ...state,
-        bucsInfo: typeof (action as ActionWithPayload).payload === 'object' ? (action as ActionWithPayload).payload : JSON.parse((action as ActionWithPayload).payload)
+        bucsInfo: typeof payload === 'object' ? payload : JSON.parse(payload)
       }
+    }
 
     case types.BUC_GET_BUCSINFO_REQUEST:
     case types.BUC_GET_BUCSINFO_FAILURE:
@@ -613,7 +614,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
 
       return {
         ...state,
-        bucsInfoList: (action as ActionWithPayload).payload
+        bucsInfoList: (action as ActionWithPayload).payload.result
       }
 
     case types.BUC_GET_BUCSINFO_LIST_REQUEST:

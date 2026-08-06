@@ -9,6 +9,8 @@ import { Buc, NewBucPayload, NewSedPayload, SakTypeValue, Sed, SEDAttachmentPayl
 import { JoarkBrowserItem } from 'src/declarations/joark'
 import { call as originalCall } from '@navikt/fetch'
 import _ from 'lodash'
+import mockBucsInfo from 'src/mocks/buc/bucsInfo'
+import mockBucsInfoList from 'src/mocks/buc/bucsInfoList'
 import mockItems from 'src/mocks/joark/items'
 
 jest.mock('@navikt/fetch', () => ({
@@ -155,6 +157,7 @@ describe('src/actions/buc', () => {
         success: types.BUC_GET_BUCSINFO_SUCCESS,
         failure: types.BUC_GET_BUCSINFO_FAILURE
       },
+      expectedPayload: { result: mockBucsInfo, status: 'OK' },
       url: sprintf(urls.API_STORAGE_GET_URL, { userId: mockUserId, namespace: mockNamespace, file: mockFilename })
     }))
   })
@@ -168,6 +171,7 @@ describe('src/actions/buc', () => {
         success: types.BUC_GET_BUCSINFO_LIST_SUCCESS,
         failure: types.BUC_GET_BUCSINFO_LIST_FAILURE
       },
+      expectedPayload: { result: mockBucsInfoList(mockUserId), status: 'OK' },
       url: sprintf(urls.API_STORAGE_LIST_URL, { userId: mockUserId, namespace: storage.NAMESPACE_BUC })
     }))
   })
