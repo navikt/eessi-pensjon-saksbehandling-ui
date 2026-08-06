@@ -191,11 +191,11 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
     case types.BUC_GET_SAKTYPE_SUCCESS:
 
       newParams = _.cloneDeep(state.params)
-      if (!_.isNil(action.payload.sakType)) {
-        if (action.payload.sakType.length === 0) {
+      if (!_.isNil(action.payload.result) && !_.isNil(action.payload.result.sakType)) {
+        if (action.payload.result.sakType.length === 0) {
           newParams.sakType = SakTypeMap.UKJENT
         } else {
-          newParams.sakType = SakTypeMap[action.payload.sakType as SakTypeKey]
+          newParams.sakType = SakTypeMap[action.payload.result.sakType as SakTypeKey]
         }
       }
 

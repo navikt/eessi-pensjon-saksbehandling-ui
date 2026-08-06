@@ -302,7 +302,7 @@ describe('reducers/person', () => {
   it('PERSON_UFT_SUCCESS with valid dates', () => {
     const result = personReducer(initialPersonState, {
       type: types.PERSON_UFT_SUCCESS,
-      payload: mockUFT
+      payload: { result: mockUFT, status: 'OK' }
     })
 
     expect(result).toEqual({
@@ -323,8 +323,11 @@ describe('reducers/person', () => {
     const result = personReducer(initialPersonState, {
       type: types.PERSON_UFT_SUCCESS,
       payload: {
-        uforetidspunkt: null,
-        virkningstidspunkt: null
+        result: {
+          uforetidspunkt: null,
+          virkningstidspunkt: null
+        },
+        status: 'OK'
       }
     })
 

@@ -659,7 +659,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.BUC_GET_KRAVDATO_SUCCESS:
       return {
         ...state,
-        kravDato: (action as ActionWithPayload).payload.kravDato
+        kravDato: (action as ActionWithPayload).payload.result.kravDato
       }
 
     case types.BUC_GET_INSTITUTION_LIST_SUCCESS: {
