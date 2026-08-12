@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import { PersonPDL } from 'src/declarations/person'
 import _ from 'lodash'
 import dayjs from 'dayjs'
-import {Heading, HStack, Link} from '@navikt/ds-react'
+import {Heading, HStack, Link, Tag} from '@navikt/ds-react'
 import {getFnr, getNPID} from 'src/applications/BUC/components/BUCUtils/BUCUtils'
 import LoadingImage from "src/components/Loading/LoadingImage";
 import {copyToClipboard} from "src/actions/app";
@@ -48,6 +48,12 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
     age = dayjs(endDate).diff(dayjs(birthDate), 'year')
   }
 
+  let adressebeskyttelse: Array<string> | undefined
+
+  if (_.get(person, 'adressebeskyttelse')) {
+    adressebeskyttelse = person.adressebeskyttelse
+  }
+
   let kind: string = 'nav-unknown-icon'
   let src = "/static/icons/icon-ukjent.png"
 
@@ -87,6 +93,19 @@ const PersonTitle: React.FC<PersonTitleProps> = ({
           }
         </Link>
       </Heading>
+      {adressebeskyttelse && adressebeskyttelse.length > 0 &&
+        (adressebeskyttelse.includes('FORTROLIG') ||
+          adressebeskyttelse.includes('STRENGT_FORTROLIG') ||
+          adressebeskyttelse.includes('STRENGT_FORTROLIG_UTLAND')
+        ) && (
+        <Tag
+          variant="strong"
+          data-color="danger"
+        >
+          Diskresjon
+        </Tag>
+        )
+      }
     </HStack>
   );
 }
