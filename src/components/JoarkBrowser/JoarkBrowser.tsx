@@ -257,6 +257,7 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           title: doc.tittel || '-',
           tema: post.tema,
           date: new Date(Date.parse(dateString)),
+          filstoerrelseMB: variant ? variant.filstoerrelseMB : undefined,
 
           selected,
           disabled,
@@ -427,6 +428,10 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             label: t('ui:date'),
             type: 'date',
             dateFormat: 'DD.MM.YYYY'
+          }, {
+            id: 'filstoerrelseMB',
+            label: t('ui:filstoerrelseMB'),
+            type: 'number',
           }, {
             id: 'buttons',
             label: '',
