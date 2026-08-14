@@ -17,7 +17,7 @@ const joarkReducer = (state: JoarkState = initialJoarkState, action: AnyAction) 
     case types.JOARK_LIST_SUCCESS:
       return {
         ...state,
-        list: action.payload.data.dokumentoversiktBruker.journalposter
+        list: action.payload.result.data.dokumentoversiktBruker.journalposter
       }
 
     case types.JOARK_PREVIEW_SET:
@@ -31,11 +31,11 @@ const joarkReducer = (state: JoarkState = initialJoarkState, action: AnyAction) 
         ...state,
         previewFile: {
           ...action.context,
-          name: action.payload.fileName,
-          size: action.payload.filInnhold.length,
-          mimetype: action.payload.contentType,
+          name: action.payload.result.fileName,
+          size: action.payload.result.filInnhold.length,
+          mimetype: action.payload.result.contentType,
           content: {
-            base64: action.payload.filInnhold
+            base64: action.payload.result.filInnhold
           }
         } as JoarkBrowserItemWithContent
       }
