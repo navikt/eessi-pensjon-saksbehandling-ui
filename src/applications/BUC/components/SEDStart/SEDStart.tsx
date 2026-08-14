@@ -1283,7 +1283,7 @@ const SEDStart: React.FC<SEDStartProps> = ({
                       || _sendingAttachments
                       || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
                       || (_limitedInstitutions && _limitedInstitutions?.length > 0 && _institutions.length < 1)
-                      || !(sumfilstoerrelseMb(_sedAttachments) < sumFilstoerrelseLimit)
+                      || !(sumfilstoerrelseMb(_sedAttachments, sed?.attachmentsSize) < sumFilstoerrelseLimit)
                     )
                   }
                   onClick={onForwardButtonClick}
@@ -1297,9 +1297,9 @@ const SEDStart: React.FC<SEDStartProps> = ({
                         ? t('ui:pleaseWaitXSeconds', { cooldown: _bucCooldown })
                         : t('buc:form-orderSED')}
                 </Button>
-                {!(sumfilstoerrelseMb(_sedAttachments) < sumFilstoerrelseLimit) &&
+                {!(sumfilstoerrelseMb(_sedAttachments, sed?.attachmentsSize) < sumFilstoerrelseLimit) &&
                   <Alert variant="warning" size="small">
-                    {t('message:alert-tooLargeFilstoerrelseSum', { sum: sumfilstoerrelseMb(_sedAttachments) })}
+                    {t('message:alert-tooLargeFilstoerrelseSum', { sum: sumfilstoerrelseMb(_sedAttachments, sed?.attachmentsSize) })}
                   </Alert>
                 }
                 <Button

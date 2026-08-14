@@ -41,6 +41,7 @@ export default (payload:any) => {
       id: '1'
     },
     allowsAttachments: true,
+    attachmentsSize: null,
     message: 'additional message'
   }
 }

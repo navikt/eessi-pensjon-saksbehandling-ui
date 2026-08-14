@@ -13,6 +13,7 @@ export default (buc: string) => {
     sakType: null,
     seds: [{
       allowsAttachments: true,
+      attachmentsSize: null,
       attachments: [],
       creationDate: new Date().getTime(),
       displayName: 'Old age pension claim',

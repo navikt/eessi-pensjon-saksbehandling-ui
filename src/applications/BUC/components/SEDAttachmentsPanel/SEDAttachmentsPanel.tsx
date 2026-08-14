@@ -205,14 +205,14 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
             <Button
               variant='primary'
               data-testid='a_buc_c_sedattachmentspanel--upload-button-id'
-              disabled={_sendingAttachments || !(sumfilstoerrelseMb(_items) < sumFilstoerrelseLimit)}              onClick={onAttachmentsSubmitted}
+              disabled={_sendingAttachments || !(sumfilstoerrelseMb(_items, sed.attachmentsSize) < sumFilstoerrelseLimit)}              onClick={onAttachmentsSubmitted}
             >
               {_sendingAttachments && <Loader />}
               {_sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
             </Button>
-            {!(sumfilstoerrelseMb(_items) < sumFilstoerrelseLimit) &&
+            {!(sumfilstoerrelseMb(_items, sed.attachmentsSize) < sumFilstoerrelseLimit) &&
               <Alert variant="warning" size="small">
-                {t('message:alert-tooLargeFilstoerrelseSum', { sum: sumfilstoerrelseMb(_items) })}
+                {t('message:alert-tooLargeFilstoerrelseSum', { sum: sumfilstoerrelseMb(_items, sed.attachmentsSize) })}
               </Alert>
             }
           </HStack>
