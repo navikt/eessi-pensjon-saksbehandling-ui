@@ -14,7 +14,7 @@ export const listJoarkItems = (
 ): ActionWithPayload<JoarkList> => {
   return call({
     url: sprintf(urls.API_JOARK_LIST_URL, { userId }),
-    expectedPayload: mockJoark,
+    expectedPayload: { result: mockJoark, status: 'OK' },
     type: {
       request: types.JOARK_LIST_REQUEST,
       success: types.JOARK_LIST_SUCCESS,
@@ -32,7 +32,7 @@ export const getJoarkItemPreview = (
       journalpostId: item.journalpostId,
       variantformat: item.variant?.variantformat
     }),
-    expectedPayload: mockPreview(),
+    expectedPayload: { result: mockPreview(), status: 'OK' },
     context: item,
     type: {
       request: types.JOARK_PREVIEW_REQUEST,

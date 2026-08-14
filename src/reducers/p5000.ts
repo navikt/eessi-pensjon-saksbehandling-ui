@@ -133,7 +133,7 @@ const p5000Reducer = (state: P5000State = initialP5000State, action: AnyAction):
     case types.P5000_PESYS_GET_SUCCESS: {
       return {
         ...state,
-        p5000sFromS3: (action as ActionWithPayload).payload
+        p5000sFromS3: (action as ActionWithPayload).payload.result
       }
     }
 

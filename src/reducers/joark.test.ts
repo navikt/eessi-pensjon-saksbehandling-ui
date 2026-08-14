@@ -7,7 +7,7 @@ describe('reducers/joark', () => {
     expect(
       joarkReducer(initialJoarkState, {
         type: types.JOARK_LIST_SUCCESS,
-        payload: mockJoarkRaw
+        payload: { result: mockJoarkRaw, status: 'OK' }
       })
     ).toEqual({
       ...initialJoarkState,
@@ -41,9 +41,12 @@ describe('reducers/joark', () => {
           variant: 'mockVariant'
         },
         payload: {
-          fileName: 'mockName',
-          filInnhold: 'mockContent',
-          contentType: 'mockContentType'
+          result: {
+            fileName: 'mockName',
+            filInnhold: 'mockContent',
+            contentType: 'mockContentType'
+          },
+          status: 'OK'
         }
       })
     ).toEqual({

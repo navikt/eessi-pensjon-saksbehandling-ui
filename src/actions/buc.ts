@@ -200,7 +200,7 @@ export const fetchBucsInfo = (
 ): ActionWithPayload<BucsInfoRawList> => {
   return call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId, namespace, file }),
-    expectedPayload: mockBucsInfo,
+    expectedPayload: { result: mockBucsInfo, status: 'OK' },
     type: {
       request: types.BUC_GET_BUCSINFO_REQUEST,
       success: types.BUC_GET_BUCSINFO_SUCCESS,
@@ -214,7 +214,7 @@ export const fetchBucsInfoList = (
 ): ActionWithPayload<BucsInfoRawList> => {
   return call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_BUC }),
-    expectedPayload: mockBucsInfoList(aktoerId),
+    expectedPayload: { result: mockBucsInfoList(aktoerId), status: 'OK' },
     type: {
       request: types.BUC_GET_BUCSINFO_LIST_REQUEST,
       success: types.BUC_GET_BUCSINFO_LIST_SUCCESS,
@@ -689,7 +689,7 @@ export const sendAttachmentToSed = (
     url: sprintf(urls.API_JOARK_ATTACHMENT_URL, params),
     method: 'PUT',
     cascadeFailureError: true,
-    expectedPayload: joarkBrowserItem,
+    expectedPayload: { result: joarkBrowserItem, status: 'OK' },
     context: {
       params,
       joarkBrowserItem
