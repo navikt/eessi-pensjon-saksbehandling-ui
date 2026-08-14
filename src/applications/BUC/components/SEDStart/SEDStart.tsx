@@ -96,7 +96,7 @@ import {createReplySedGjenny, createSedGjenny} from "src/actions/gjenny";
 import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
 import dayjs from "dayjs";
 
-import { sumfilstoerrelseMb } from "src/utils/utils";
+import { sumfilstoerrelseMB } from "src/utils/utils";
 import { sumFilstoerrelseLimit } from "src/constants/sumFilstoerrelseLimit";
 
 export interface SEDStartProps {
@@ -1283,7 +1283,7 @@ const SEDStart: React.FC<SEDStartProps> = ({
                       || _sendingAttachments
                       || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
                       || (_limitedInstitutions && _limitedInstitutions?.length > 0 && _institutions.length < 1)
-                      || !(sumfilstoerrelseMb(_sedAttachments, sed?.attachmentsSize) < sumFilstoerrelseLimit)
+                      || !(sumfilstoerrelseMB(_sedAttachments, sed?.attachmentsSize) < sumFilstoerrelseLimit)
                     )
                   }
                   onClick={onForwardButtonClick}
@@ -1297,9 +1297,9 @@ const SEDStart: React.FC<SEDStartProps> = ({
                         ? t('ui:pleaseWaitXSeconds', { cooldown: _bucCooldown })
                         : t('buc:form-orderSED')}
                 </Button>
-                {!(sumfilstoerrelseMb(_sedAttachments, sed?.attachmentsSize) < sumFilstoerrelseLimit) &&
+                {!(sumfilstoerrelseMB(_sedAttachments, sed?.attachmentsSize) < sumFilstoerrelseLimit) &&
                   <Alert variant="warning" size="small">
-                    {t('message:alert-tooLargeFilstoerrelseSum', { sum: sumfilstoerrelseMb(_sedAttachments, sed?.attachmentsSize) })}
+                    {t('message:alert-tooLargeFilstoerrelseSum', { sum: sumfilstoerrelseMB(_sedAttachments, sed?.attachmentsSize) })}
                   </Alert>
                 }
                 <Button

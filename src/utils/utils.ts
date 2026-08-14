@@ -1,6 +1,6 @@
 import {JoarkBrowserItems} from "src/declarations/joark";
 
-export const sumfilstoerrelseMb = (items: JoarkBrowserItems, extra: string | null | undefined) : number => {
+export const sumfilstoerrelseMB = (items: JoarkBrowserItems, extra: string | null | undefined) : number => {
   let filstoerrelseSum = 0
 
   if (extra) {
@@ -8,7 +8,7 @@ export const sumfilstoerrelseMb = (items: JoarkBrowserItems, extra: string | nul
   }
 
   items.map(item => {
-    filstoerrelseSum += item.filstoerrelseMb ?? 0
+    filstoerrelseSum += item.filstoerrelseMB ?? 0
   })
 
   return filstoerrelseSum

@@ -25,7 +25,7 @@ import React, {JSX, useCallback, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { createSelector } from '@reduxjs/toolkit'
-import { sumfilstoerrelseMb } from "src/utils/utils";
+import { sumfilstoerrelseMB } from "src/utils/utils";
 import { sumFilstoerrelseLimit } from "src/constants/sumFilstoerrelseLimit";
 
 export interface SEDAttachmentsPanelProps {
@@ -205,14 +205,14 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
             <Button
               variant='primary'
               data-testid='a_buc_c_sedattachmentspanel--upload-button-id'
-              disabled={_sendingAttachments || !(sumfilstoerrelseMb(_items, sed.attachmentsSize) < sumFilstoerrelseLimit)}              onClick={onAttachmentsSubmitted}
+              disabled={_sendingAttachments || !(sumfilstoerrelseMB(_items, sed.attachmentsSize) < sumFilstoerrelseLimit)}              onClick={onAttachmentsSubmitted}
             >
               {_sendingAttachments && <Loader />}
               {_sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
             </Button>
-            {!(sumfilstoerrelseMb(_items, sed.attachmentsSize) < sumFilstoerrelseLimit) &&
+            {!(sumfilstoerrelseMB(_items, sed.attachmentsSize) < sumFilstoerrelseLimit) &&
               <Alert variant="warning" size="small">
-                {t('message:alert-tooLargeFilstoerrelseSum', { sum: sumfilstoerrelseMb(_items, sed.attachmentsSize) })}
+                {t('message:alert-tooLargeFilstoerrelseSum', { sum: sumfilstoerrelseMB(_items, sed.attachmentsSize) })}
               </Alert>
             }
           </HStack>
