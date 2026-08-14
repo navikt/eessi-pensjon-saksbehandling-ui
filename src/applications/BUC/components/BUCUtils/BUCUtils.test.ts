@@ -43,7 +43,8 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
       id: '1',
       date: 1
     },
-    allowsAttachments: true
+    allowsAttachments: true,
+    attachmentsSize: null
   }
 
   const mockBuc: Buc = {
