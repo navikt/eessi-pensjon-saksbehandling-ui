@@ -1,3 +1,15 @@
+import {JoarkBrowserItems} from "src/declarations/joark";
+
+export const sumfilstoerrelseMb = (items: JoarkBrowserItems) : number => {
+  let filstoerrelseSum = 0
+
+  items.map(item => {
+    filstoerrelseSum += item.filstoerrelseMb ?? 0
+  })
+
+  return filstoerrelseSum
+}
+
 export const formatDate = (dateString: String | undefined) => {
   if(dateString) {
     const dateParts = dateString.split("-")

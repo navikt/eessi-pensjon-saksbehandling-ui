@@ -90,7 +90,7 @@ export default {
             filnavn: null,
             variantformat: 'ARKIV',
             filstoerrelse: 4000,
-            filstoerrelseMB: 4
+            filstoerrelseMb: 91
           }, {
             filnavn: null,
             variantformat: 'PRODUKSJON'

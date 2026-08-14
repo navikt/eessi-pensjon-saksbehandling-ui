@@ -221,6 +221,7 @@ export type Direction = 'IN' | 'OUT'
 export interface Sed {
   allowsAttachments: boolean
   attachments: Array<SEDAttachment>
+  attachmentsSize: string | null
   conversations?: any
   creationDate: number
   direction: Direction

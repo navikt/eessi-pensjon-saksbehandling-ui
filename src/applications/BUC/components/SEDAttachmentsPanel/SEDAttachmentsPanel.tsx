@@ -20,11 +20,13 @@ import {
 import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { Heading, Loader, Button, Box } from '@navikt/ds-react'
+import { Heading, Loader, Button, Box, Alert, HStack } from '@navikt/ds-react'
 import React, {JSX, useCallback, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { createSelector } from '@reduxjs/toolkit'
+import { sumfilstoerrelseMb } from "src/utils/utils";
+import { sumFilstoerrelseLimit } from "src/constants/sumFilstoerrelseLimit";
 
 export interface SEDAttachmentsPanelProps {
   aktoerId: string | null | undefined
@@ -196,17 +198,24 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
       )}
       <>
         {!_attachmentsSent && _.find(_items, (item) => item.type === 'joark') !== undefined && (
-          <Box paddingBlock="space-16 space-0">
+          <HStack
+            paddingBlock="space-16 space-0"
+            gap={"space-16"}
+          >
             <Button
               variant='primary'
               data-testid='a_buc_c_sedattachmentspanel--upload-button-id'
-              disabled={_sendingAttachments}
-              onClick={onAttachmentsSubmitted}
+              disabled={_sendingAttachments || !(sumfilstoerrelseMb(_items) < sumFilstoerrelseLimit)}              onClick={onAttachmentsSubmitted}
             >
               {_sendingAttachments && <Loader />}
               {_sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
             </Button>
-          </Box>
+            {!(sumfilstoerrelseMb(_items) < sumFilstoerrelseLimit) &&
+              <Alert variant="warning" size="small">
+                {t('message:alert-tooLargeFilstoerrelseSum', { sum: sumfilstoerrelseMb(_items) })}
+              </Alert>
+            }
+          </HStack>
         )}
       </>
       {canHaveAttachments && (
