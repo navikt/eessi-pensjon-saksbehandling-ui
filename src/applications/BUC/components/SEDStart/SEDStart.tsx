@@ -96,8 +96,9 @@ import {createReplySedGjenny, createSedGjenny} from "src/actions/gjenny";
 import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
 import dayjs from "dayjs";
 
-import { sumfilstoerrelseMB } from "src/utils/utils";
+import {checkSingleFilstoerrelseMB, checkSumFilstoerrelseMB, sumFilstoerrelseMB} from "src/utils/utils";
 import { sumFilstoerrelseLimit } from "src/constants/sumFilstoerrelseLimit";
+import {singleFilstoerrelseLimit} from "src/constants/singleFilstoerrelseLimit";
 
 export interface SEDStartProps {
   aktoerId: string | null | undefined
@@ -1283,7 +1284,7 @@ const SEDStart: React.FC<SEDStartProps> = ({
                       || _sendingAttachments
                       || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
                       || (_limitedInstitutions && _limitedInstitutions?.length > 0 && _institutions.length < 1)
-                      || !(sumfilstoerrelseMB(_sedAttachments, sed?.attachmentsSize) < sumFilstoerrelseLimit)
+                      || !(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_sedAttachments), sed?.attachmentsSize, sumFilstoerrelseLimit))
                     )
                   }
                   onClick={onForwardButtonClick}
@@ -1297,11 +1298,24 @@ const SEDStart: React.FC<SEDStartProps> = ({
                         ? t('ui:pleaseWaitXSeconds', { cooldown: _bucCooldown })
                         : t('buc:form-orderSED')}
                 </Button>
-                {!(sumfilstoerrelseMB(_sedAttachments, sed?.attachmentsSize) < sumFilstoerrelseLimit) &&
-                  <Alert variant="warning" size="small">
-                    {t('message:alert-tooLargeFilstoerrelseSum', { sum: sumfilstoerrelseMB(_sedAttachments, sed?.attachmentsSize) })}
-                  </Alert>
-                }
+                <VStack gap="space-16">
+                  {!(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_sedAttachments), sed?.attachmentsSize, sumFilstoerrelseLimit)) &&
+                    <Alert variant="warning" size="small">
+                      {
+                        t('message:alert-tooLargeFilstoerrelseSum',
+                          { newSum: sumFilstoerrelseMB(_sedAttachments), oldSum: sed?.attachmentsSize, max: sumFilstoerrelseLimit })
+                      }
+                    </Alert>
+                  }
+                  {!(checkSingleFilstoerrelseMB(_sedAttachments, singleFilstoerrelseLimit)) &&
+                    <Alert variant="warning" size="small">
+                      {
+                        t('message:alert-tooLargeSingleFilstoerrelse',
+                          { max: singleFilstoerrelseLimit })
+                      }
+                    </Alert>
+                  }
+                </VStack>
                 <Button
                   variant='tertiary'
                   data-testid='a_buc_c_sedstart--cancel-button-id'

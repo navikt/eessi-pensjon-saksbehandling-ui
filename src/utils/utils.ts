@@ -1,17 +1,26 @@
 import {JoarkBrowserItems} from "src/declarations/joark";
 
-export const sumfilstoerrelseMB = (items: JoarkBrowserItems, extra: string | null | undefined) : number => {
+export const sumFilstoerrelseMB = (items: JoarkBrowserItems) : number => {
   let filstoerrelseSum = 0
-
-  if (extra) {
-    filstoerrelseSum += parseFloat(extra)
-  }
 
   items.map(item => {
     filstoerrelseSum += item.filstoerrelseMB ?? 0
   })
 
   return filstoerrelseSum
+}
+
+export const checkSumFilstoerrelseMB = (sumFilstoerrelseMB: number, attachmentsSize: string | null | undefined, sumFilstoerrelseLimit: number) : boolean => {
+  return ( Number(attachmentsSize) + sumFilstoerrelseMB) < sumFilstoerrelseLimit;
+}
+
+export const checkSingleFilstoerrelseMB = (items: JoarkBrowserItems, singleFilstoerrelseLimit: number) : boolean => {
+  for (const item of items) {
+    if (item.filstoerrelseMB && item.filstoerrelseMB >= singleFilstoerrelseLimit) {
+      return false;
+    }
+  }
+  return true;
 }
 
 export const formatDate = (dateString: String | undefined) => {

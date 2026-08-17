@@ -25,8 +25,9 @@ import React, {JSX, useCallback, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { createSelector } from '@reduxjs/toolkit'
-import { sumfilstoerrelseMB } from "src/utils/utils";
+import {checkSingleFilstoerrelseMB, checkSumFilstoerrelseMB, sumFilstoerrelseMB} from "src/utils/utils";
 import { sumFilstoerrelseLimit } from "src/constants/sumFilstoerrelseLimit";
+import {singleFilstoerrelseLimit} from "src/constants/singleFilstoerrelseLimit";
 
 export interface SEDAttachmentsPanelProps {
   aktoerId: string | null | undefined
@@ -206,15 +207,27 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
               <Button
                 variant='primary'
                 data-testid='a_buc_c_sedattachmentspanel--upload-button-id'
-                disabled={_sendingAttachments || !(sumfilstoerrelseMB(_items, sed.attachmentsSize) < sumFilstoerrelseLimit)}              onClick={onAttachmentsSubmitted}
+                disabled={_sendingAttachments || !(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_items), sed.attachmentsSize, sumFilstoerrelseLimit))}
+                onClick={onAttachmentsSubmitted}
               >
                 {_sendingAttachments && <Loader />}
                 {_sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
               </Button>
            </Box>
-            {!(sumfilstoerrelseMB(_items, sed.attachmentsSize) < sumFilstoerrelseLimit) &&
+            {!(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_items), sed.attachmentsSize, sumFilstoerrelseLimit)) &&
               <Alert variant="warning" size="small">
-                {t('message:alert-tooLargeFilstoerrelseSum', { sum: sumfilstoerrelseMB(_items, sed.attachmentsSize) })}
+                {
+                  t('message:alert-tooLargeFilstoerrelseSum',
+                  { newSum: sumFilstoerrelseMB(_items), oldSum: sed.attachmentsSize, max: sumFilstoerrelseLimit })
+                }
+              </Alert>
+            }
+            {!(checkSingleFilstoerrelseMB(_items, singleFilstoerrelseLimit)) &&
+              <Alert variant="warning" size="small">
+                {
+                  t('message:alert-tooLargeSingleFilstoerrelse',
+                    { max: singleFilstoerrelseLimit })
+                }
               </Alert>
             }
           </HStack>

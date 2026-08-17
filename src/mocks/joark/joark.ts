@@ -89,7 +89,7 @@ export default {
           dokumentvarianter: [{
             filnavn: null,
             variantformat: 'ARKIV',
-            filstoerrelse: 4000,
+            filstoerrelse: 3100,
             filstoerrelseMB: 31
           }, {
             filnavn: null,
@@ -111,7 +111,9 @@ export default {
           tittel: 'Vedtak om arbeidsavklaringspenger',
           dokumentvarianter: [{
             filnavn: null,
-            variantformat: 'ARKIV'
+            variantformat: 'ARKIV',
+            filstoerrelse: 4100,
+            filstoerrelseMB: 41
           }, {
             filnavn: null,
             variantformat: 'PRODUKSJON'
