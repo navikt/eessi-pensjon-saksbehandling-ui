@@ -202,14 +202,16 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
             paddingBlock="space-16 space-0"
             gap={"space-16"}
           >
-            <Button
-              variant='primary'
-              data-testid='a_buc_c_sedattachmentspanel--upload-button-id'
-              disabled={_sendingAttachments || !(sumfilstoerrelseMB(_items, sed.attachmentsSize) < sumFilstoerrelseLimit)}              onClick={onAttachmentsSubmitted}
-            >
-              {_sendingAttachments && <Loader />}
-              {_sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
-            </Button>
+           <Box>
+              <Button
+                variant='primary'
+                data-testid='a_buc_c_sedattachmentspanel--upload-button-id'
+                disabled={_sendingAttachments || !(sumfilstoerrelseMB(_items, sed.attachmentsSize) < sumFilstoerrelseLimit)}              onClick={onAttachmentsSubmitted}
+              >
+                {_sendingAttachments && <Loader />}
+                {_sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
+              </Button>
+           </Box>
             {!(sumfilstoerrelseMB(_items, sed.attachmentsSize) < sumFilstoerrelseLimit) &&
               <Alert variant="warning" size="small">
                 {t('message:alert-tooLargeFilstoerrelseSum', { sum: sumfilstoerrelseMB(_items, sed.attachmentsSize) })}
