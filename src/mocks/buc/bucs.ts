@@ -2365,7 +2365,7 @@ const mockBuc = [
           date: 1571818294896
         },
         allowsAttachments: true,
-        attachmentsSize: null
+        attachmentsSize: 60
       },
     ],
     "error": null,
