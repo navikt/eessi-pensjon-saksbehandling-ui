@@ -20,7 +20,7 @@ import {
 import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { Heading, Loader, Button, Box, Alert, HStack } from '@navikt/ds-react'
+import {Heading, Loader, Button, Box, Alert, HStack, VStack} from '@navikt/ds-react'
 import React, {JSX, useCallback, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -214,22 +214,24 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
                 {_sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
               </Button>
            </Box>
-            {!(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_items), sed.attachmentsSize, sumFilstoerrelseLimit)) &&
-              <Alert variant="warning" size="small">
-                {
-                  t('message:alert-tooLargeFilstoerrelseSum',
-                  { newSum: sumFilstoerrelseMB(_items), oldSum: sed.attachmentsSize, max: sumFilstoerrelseLimit })
-                }
-              </Alert>
-            }
-            {!(checkSingleFilstoerrelseMB(_items, singleFilstoerrelseLimit)) &&
-              <Alert variant="warning" size="small">
-                {
-                  t('message:alert-tooLargeSingleFilstoerrelse',
-                    { max: singleFilstoerrelseLimit })
-                }
-              </Alert>
-            }
+            <VStack gap={"space-16"}>
+              {!(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_items), sed.attachmentsSize, sumFilstoerrelseLimit)) &&
+                <Alert variant="warning" size="small">
+                  {
+                    t('message:alert-tooLargeFilstoerrelseSum',
+                    { newSum: sumFilstoerrelseMB(_items), oldSum: sed.attachmentsSize, max: sumFilstoerrelseLimit })
+                  }
+                </Alert>
+              }
+              {!(checkSingleFilstoerrelseMB(_items, singleFilstoerrelseLimit)) &&
+                <Alert variant="warning" size="small">
+                  {
+                    t('message:alert-tooLargeSingleFilstoerrelse',
+                      { max: singleFilstoerrelseLimit })
+                  }
+                </Alert>
+              }
+            </VStack>
           </HStack>
         )}
       </>

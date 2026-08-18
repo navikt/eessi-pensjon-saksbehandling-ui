@@ -1269,63 +1269,59 @@ const SEDStart: React.FC<SEDStartProps> = ({
               />
             </>
           )}
-          <Box>
-            <HStack gap="space-16">
-              <HStack
-                paddingBlock="space-16 space-0"
-                gap={"space-16"}
+            <HStack
+              paddingBlock="space-16 space-0"
+              gap="space-16"
+            >
+              <Button
+                variant={_sed === 'P7000' && _.isEmpty(_p6000s) ? 'secondary' : 'primary'}
+                data-testid='a_buc_c_sedstart--forward-button-id'
+                disabled={
+                  (
+                    loading.creatingSed
+                    || _sendingAttachments
+                    || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
+                    || (_limitedInstitutions && _limitedInstitutions?.length > 0 && _institutions.length < 1)
+                    || !(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_sedAttachments), sed?.attachmentsSize, sumFilstoerrelseLimit))
+                  )
+                }
+                onClick={onForwardButtonClick}
               >
-                <Button
-                  variant={_sed === 'P7000' && _.isEmpty(_p6000s) ? 'secondary' : 'primary'}
-                  data-testid='a_buc_c_sedstart--forward-button-id'
-                  disabled={
-                    (
-                      loading.creatingSed
-                      || _sendingAttachments
-                      || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
-                      || (_limitedInstitutions && _limitedInstitutions?.length > 0 && _institutions.length < 1)
-                      || !(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_sedAttachments), sed?.attachmentsSize, sumFilstoerrelseLimit))
-                    )
-                  }
-                  onClick={onForwardButtonClick}
-                >
-                  {(loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)) && <Loader />}
-                  {loading.creatingSed
-                    ? t('message:loading-creatingSED')
-                    : _sendingAttachments
-                      ? t('message:loading-sendingSEDattachments')
-                      : (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
-                        ? t('ui:pleaseWaitXSeconds', { cooldown: _bucCooldown })
-                        : t('buc:form-orderSED')}
-                </Button>
-                <VStack gap="space-16">
-                  {!(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_sedAttachments), sed?.attachmentsSize, sumFilstoerrelseLimit)) &&
-                    <Alert variant="warning" size="small">
-                      {
-                        t('message:alert-tooLargeFilstoerrelseSum',
-                          { newSum: sumFilstoerrelseMB(_sedAttachments), oldSum: sed?.attachmentsSize, max: sumFilstoerrelseLimit })
-                      }
-                    </Alert>
-                  }
-                  {!(checkSingleFilstoerrelseMB(_sedAttachments, singleFilstoerrelseLimit)) &&
-                    <Alert variant="warning" size="small">
-                      {
-                        t('message:alert-tooLargeSingleFilstoerrelse',
-                          { max: singleFilstoerrelseLimit })
-                      }
-                    </Alert>
-                  }
-                </VStack>
-                <Button
-                  variant='tertiary'
-                  data-testid='a_buc_c_sedstart--cancel-button-id'
-                  onClick={onCancelButtonClick}
-                >
-                  {t('ui:cancel')}
-                </Button>
-              </HStack>
+                {(loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)) && <Loader />}
+                {loading.creatingSed
+                  ? t('message:loading-creatingSED')
+                  : _sendingAttachments
+                    ? t('message:loading-sendingSEDattachments')
+                    : (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
+                      ? t('ui:pleaseWaitXSeconds', { cooldown: _bucCooldown })
+                      : t('buc:form-orderSED')}
+              </Button>
+              <Button
+                variant='tertiary'
+                data-testid='a_buc_c_sedstart--cancel-button-id'
+                onClick={onCancelButtonClick}
+              >
+                {t('ui:cancel')}
+              </Button>
+              <VStack gap="space-16">
+                {!(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_sedAttachments), sed?.attachmentsSize, sumFilstoerrelseLimit)) &&
+                  <Alert variant="warning" size="small">
+                    {
+                      t('message:alert-tooLargeFilstoerrelseSum',
+                        { newSum: sumFilstoerrelseMB(_sedAttachments), oldSum: sed?.attachmentsSize, max: sumFilstoerrelseLimit })
+                    }
+                  </Alert>
+                }
+                {!(checkSingleFilstoerrelseMB(_sedAttachments, singleFilstoerrelseLimit)) &&
+                  <Alert variant="warning" size="small">
+                    {
+                      t('message:alert-tooLargeSingleFilstoerrelse',
+                        { max: singleFilstoerrelseLimit })
+                    }
+                  </Alert>
+                }
+              </VStack>
             </HStack>
-          </Box>
         </VStack>
         <VStack gap="space-16">
           {sedCanHaveAttachments() && (
