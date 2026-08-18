@@ -207,7 +207,9 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
               <Button
                 variant='primary'
                 data-testid='a_buc_c_sedattachmentspanel--upload-button-id'
-                disabled={_sendingAttachments || !(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_items), sed.attachmentsSize, sumFilstoerrelseLimit))}
+                disabled={_sendingAttachments ||
+                  !(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_items), sed.attachmentsSize, sumFilstoerrelseLimit)) ||
+                  !(checkSingleFilstoerrelseMB(_items, singleFilstoerrelseLimit))}
                 onClick={onAttachmentsSubmitted}
               >
                 {_sendingAttachments && <Loader />}

@@ -1283,6 +1283,7 @@ const SEDStart: React.FC<SEDStartProps> = ({
                     || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
                     || (_limitedInstitutions && _limitedInstitutions?.length > 0 && _institutions.length < 1)
                     || !(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_sedAttachments), sed?.attachmentsSize, sumFilstoerrelseLimit))
+                    || !(checkSingleFilstoerrelseMB(_sedAttachments, singleFilstoerrelseLimit))
                   )
                 }
                 onClick={onForwardButtonClick}
