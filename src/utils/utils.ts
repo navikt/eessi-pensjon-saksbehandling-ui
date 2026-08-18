@@ -11,7 +11,7 @@ export const sumFilstoerrelseMB = (items: JoarkBrowserItems) : number => {
 }
 
 export const checkSumFilstoerrelseMB = (sumFilstoerrelseMB: number, attachmentsSize: string | null | undefined, sumFilstoerrelseLimit: number) : boolean => {
-  return ( Number(attachmentsSize) + sumFilstoerrelseMB) < sumFilstoerrelseLimit;
+  return (Number(attachmentsSize ?? 0) + sumFilstoerrelseMB) < sumFilstoerrelseLimit;
 }
 
 export const checkSingleFilstoerrelseMB = (items: JoarkBrowserItems, singleFilstoerrelseLimit: number) : boolean => {
