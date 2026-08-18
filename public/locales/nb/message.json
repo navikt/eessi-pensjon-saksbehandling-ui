@@ -23,7 +23,7 @@
   "alert-saveBucsInfoFailure"        : "Feil ved lagring av BUC informasjon",
   "alert-sentToPesys"                : "Sendt til PESYS",
   "alert-tooLargeFilstoerrelseSum"   : "Du er i ferd med å legge til vedlegg som til sammen er {{newSum}} MB. Størrelsen på vedleggene som allerede er sendt til RINA er {{oldSum}} MB. Maksimal størrelse for SED er {{max}} MB.",
-  "alert-tooLargeSingleFilstoerrelse": "Du prøver å legge til et vedlegg som er større enn {{max}} Mb",
+  "alert-tooLargeSingleFilstoerrelse": "Du prøver å legge til et vedlegg som er større enn {{max}} MB",
   "alert-updatedPageNotification"    : "EP side melding oppdatert",
   "alert-X100"                       : "Saken er videresendt korrekt institusjon. Det er ikke nødvendig å opprette X005 for å videresende saken til den nye tyske institusjonen",
   "alert-p5000sFromS3"               : "Fant {{x}} P5000-perioder",
