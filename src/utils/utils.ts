@@ -5,12 +5,12 @@ export const sumFilstoerrelseMB = (items: JoarkBrowserItems) : number => {
 
   items.map(item => {
     console.log("item.filstoerrelseMB", item.filstoerrelseMB)
-    filstoerrelseSum += parseFloat((item.filstoerrelseMB)?.toFixed(2) ?? '0')
+    filstoerrelseSum += (item.filstoerrelseMB) ?? 0
   })
 
   console.log("filstoerrelseSum", filstoerrelseSum)
 
-  return filstoerrelseSum
+  return parseFloat(filstoerrelseSum.toFixed(2)) as number
 }
 
 export const checkSumFilstoerrelseMB = (sumFilstoerrelseMB: number, attachmentsSize: string | null | undefined, sumFilstoerrelseLimit: number) : boolean => {
