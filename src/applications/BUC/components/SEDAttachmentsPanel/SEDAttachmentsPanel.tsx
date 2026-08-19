@@ -217,14 +217,14 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
               </Button>
            </Box>
             <VStack gap={"space-16"}>
-              {!(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_items), sed.attachmentsSize, sumFilstoerrelseLimit)) &&
+              {/*{!(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_items), sed.attachmentsSize, sumFilstoerrelseLimit)) &&*/}
                 <Alert variant="warning" size="small">
                   {
                     t('message:alert-tooLargeFilstoerrelseSum',
                     { newSum: sumFilstoerrelseMB(_items), oldSum: sed.attachmentsSize, max: sumFilstoerrelseLimit })
                   }
                 </Alert>
-              }
+              {/*}*/}
               {!(checkSingleFilstoerrelseMB(_items, singleFilstoerrelseLimit)) &&
                 <Alert variant="warning" size="small">
                   {
