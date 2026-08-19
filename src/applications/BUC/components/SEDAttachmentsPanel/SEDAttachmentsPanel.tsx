@@ -20,14 +20,14 @@ import {
 import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import {Heading, Loader, Button, Box, Alert, HStack, VStack} from '@navikt/ds-react'
-import React, {JSX, useCallback, useEffect, useState} from 'react'
+import { Heading, Loader, Button, Box, Alert, HStack, VStack } from '@navikt/ds-react'
+import React, { JSX, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { createSelector } from '@reduxjs/toolkit'
-import {checkSingleFilstoerrelseMB, checkSumFilstoerrelseMB, sumFilstoerrelseMB} from "src/utils/utils";
+import { checkSingleFilstoerrelseMB, checkSumFilstoerrelseMB, sumFilstoerrelseMB } from "src/utils/utils";
 import { sumFilstoerrelseLimit } from "src/constants/sumFilstoerrelseLimit";
-import {singleFilstoerrelseLimit} from "src/constants/singleFilstoerrelseLimit";
+import { singleFilstoerrelseLimit } from "src/constants/singleFilstoerrelseLimit";
 
 export interface SEDAttachmentsPanelProps {
   aktoerId: string | null | undefined

@@ -46,7 +46,7 @@ import Select from 'src/components/Select/Select'
 import ValidationBox from 'src/components/ValidationBox/ValidationBox'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import * as constants from 'src/constants/constants'
-import {GJENNY, VEDTAKSKONTEKST} from 'src/constants/constants'
+import { GJENNY, VEDTAKSKONTEKST } from 'src/constants/constants'
 import { IS_TEST } from 'src/constants/environment'
 import {
   AllowedLocaleString,
@@ -57,7 +57,7 @@ import {
   PesysContext,
   Validation
 } from 'src/declarations/app.d'
-import {KravOmValue, P6000, SakTypeKey} from 'src/declarations/buc'
+import { KravOmValue, P6000, SakTypeKey } from 'src/declarations/buc'
 import {
   AvdodOrSokerValue,
   Buc,
@@ -92,13 +92,13 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { GroupBase } from 'react-select'
-import {createReplySedGjenny, createSedGjenny} from "src/actions/gjenny";
+import { createReplySedGjenny, createSedGjenny } from "src/actions/gjenny";
 import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
 import dayjs from "dayjs";
 
-import {checkSingleFilstoerrelseMB, checkSumFilstoerrelseMB, sumFilstoerrelseMB} from "src/utils/utils";
+import { checkSingleFilstoerrelseMB, checkSumFilstoerrelseMB, sumFilstoerrelseMB}  from "src/utils/utils";
 import { sumFilstoerrelseLimit } from "src/constants/sumFilstoerrelseLimit";
-import {singleFilstoerrelseLimit} from "src/constants/singleFilstoerrelseLimit";
+import { singleFilstoerrelseLimit } from "src/constants/singleFilstoerrelseLimit";
 
 export interface SEDStartProps {
   aktoerId: string | null | undefined
