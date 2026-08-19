@@ -221,7 +221,7 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
                 <Alert variant="warning" size="small">
                   {
                     t('message:alert-tooLargeFilstoerrelseSum',
-                    { newSum: sumFilstoerrelseMB(_items), oldSum: sed.attachmentsSize, max: sumFilstoerrelseLimit })
+                    { newSum: sumFilstoerrelseMB(_items), oldSum: sed.attachmentsSize ?? 0, max: sumFilstoerrelseLimit })
                   }
                 </Alert>
               {/*}*/}

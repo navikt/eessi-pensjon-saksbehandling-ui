@@ -1309,7 +1309,7 @@ const SEDStart: React.FC<SEDStartProps> = ({
                   <Alert variant="warning" size="small">
                     {
                       t('message:alert-tooLargeFilstoerrelseSum',
-                        { newSum: sumFilstoerrelseMB(_sedAttachments), oldSum: sed?.attachmentsSize, max: sumFilstoerrelseLimit })
+                        { newSum: sumFilstoerrelseMB(_sedAttachments), oldSum: sed?.attachmentsSize ?? 0, max: sumFilstoerrelseLimit })
                     }
                   </Alert>
                 {/*}*/}
