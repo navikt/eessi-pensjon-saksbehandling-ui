@@ -55,6 +55,7 @@ export const BUC_GET_BUCSLIST_URL = BUC_URL + '/rinasaker/%(aktoerId)s/saknr/%(s
 export const BUC_GET_BUCSLIST_WITH_VEDTAKID_URL = BUC_URL + '/rinasaker/%(aktoerId)s/saknr/%(sakId)s/vedtak/%(vedtakId)s'
 export const BUC_GET_BUCSLIST_WITH_AVDODFNR_URL = BUC_URL + '/rinasaker/%(aktoerId)s/saknr/%(sakId)s/avdod/%(avdodFnr)s'
 export const BUC_GET_BUC_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s'
+export const BUC_GET_BUC_WITH_AKTOERID_URL = BUC_URL + '/%(rinaCaseId)s/metadata/%(aktoerId)s'
 export const BUC_GET_BUC_WITH_AVDOD_URL = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/aktoerid/%(aktoerId)s/saknr/%(sakId)s/avdodfnr/%(avdodFnr)s/kilde/%(kilde)s'
 export const BUC_GET_BUC_OPTIONS_URL = BUC_URL + '/bucs'
 

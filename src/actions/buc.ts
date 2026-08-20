@@ -274,7 +274,7 @@ export const fetchBuc = (
 ): ActionWithPayload<ValidBuc> => {
   const url = !_.isEmpty(avdodFnr)
     ? sprintf(urls.BUC_GET_BUC_WITH_AVDOD_URL, { rinaCaseId, aktoerId, sakId, avdodFnr, kilde })
-    : sprintf(urls.BUC_GET_BUC_URL, { rinaCaseId })
+    : sprintf(urls.BUC_GET_BUC_WITH_AKTOERID_URL, { rinaCaseId, aktoerId })
 
   return call({
     url,
