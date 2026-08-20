@@ -10,12 +10,14 @@ export const sumFilstoerrelseMB = (items: JoarkBrowserItems) : number => {
   return parseFloat(filstoerrelseSum.toFixed(2)) as number
 }
 
-export const checkSumFilstoerrelseMB = (sumFilstoerrelseMB: number, attachmentsSize: string | null | undefined, sumFilstoerrelseLimit: number) : boolean => {
+export const checkSumFilstoerrelseMB = (sumFilstoerrelseMB: number,
+                                        attachmentsSize: string | null | undefined, sumFilstoerrelseLimit: number) : boolean => {
   const existingSize = parseFloat(attachmentsSize ?? '0') || 0
   return (existingSize + sumFilstoerrelseMB) < sumFilstoerrelseLimit;
 }
 
-export const checkSingleFilstoerrelseMB = (items: JoarkBrowserItems, singleFilstoerrelseLimit: number) : boolean => {
+export const checkSingleFilstoerrelseMB = (items: JoarkBrowserItems,
+                                           singleFilstoerrelseLimit: number) : boolean => {
   for (const item of items) {
     if (item.filstoerrelseMB && item.filstoerrelseMB >= singleFilstoerrelseLimit) {
       return false;

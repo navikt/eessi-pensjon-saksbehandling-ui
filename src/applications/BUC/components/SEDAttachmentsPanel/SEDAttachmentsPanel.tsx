@@ -228,8 +228,7 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
               {!(checkSingleFilstoerrelseMB(_items, singleFilstoerrelseLimit)) &&
                 <Alert variant="warning" size="small">
                   {
-                    t('message:alert-tooLargeSingleFilstoerrelse',
-                      { max: singleFilstoerrelseLimit })
+                    t('message:alert-tooLargeSingleFilstoerrelse', { max: singleFilstoerrelseLimit })
                   }
                 </Alert>
               }
