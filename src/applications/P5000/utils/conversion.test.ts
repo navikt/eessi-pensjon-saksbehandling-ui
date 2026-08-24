@@ -163,9 +163,32 @@ describe('applications/P5000/utils/conversion', () => {
       options: { key: 'p-non-uft' }
     } as any, { id: 'sed-non-uft' } as any, { acronym: 'NO:NAV', country: 'NO' } as any, false, undefined, 'forCertainTypesOnly')
 
-    expect(row.aar).toBe(9)
-    expect(row.mnd).toBe(8)
-    expect(row.dag).toBe(7)
+    expect(row.aar).toBe('9')
+    expect(row.mnd).toBe('8')
+    expect(row.dag).toBe('7')
+  })
+
+  it('should not truncate decimal sums for non-UFT periods', () => {
+    const row = periodToListItem({
+      type: '41',
+      land: 'NO',
+      beregning: '100',
+      ordning: '00',
+      relevans: '111',
+      periode: { fom: '1988-09-16', tom: '1991-05-31' },
+      sum: {
+        aar: '2.75',
+        maaneder: '0.00',
+        dager: { nr: '0.00', type: '7' },
+        kvartal: null,
+        uker: null
+      },
+      options: { key: 'p-non-uft-decimal' }
+    } as any, { id: 'sed-non-uft-decimal' } as any, { acronym: 'NO:NAV', country: 'NO' } as any, false, undefined, 'forCertainTypesOnly')
+
+    expect(row.aar).toBe('2')
+    expect(row.mnd).toBe('9')
+    expect(row.dag).toBe('')
   })
 
   it('should use stored aar/mnd/dag when dates are missing', () => {
