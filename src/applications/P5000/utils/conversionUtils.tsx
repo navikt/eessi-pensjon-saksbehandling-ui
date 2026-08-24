@@ -178,24 +178,15 @@ export const periodToListItem = (
     }
   } else {
     // Keep legacy behavior for non-UFT rows to avoid changing normal period handling.
-    const hasStoredSum = !_.isNil(period.sum?.aar) || !_.isNil(period.sum?.maaneder) || !_.isNil(period.sum?.dager?.nr)
-    if (hasStoredSum) {
-      convertedDate = {
-        years: _.isNil(period.sum?.aar) ? 0 : (_.isNumber(period.sum.aar) ? period.sum.aar : parseInt(String(period.sum.aar), 10)),
-        months: _.isNil(period.sum?.maaneder) ? 0 : (_.isNumber(period.sum.maaneder) ? period.sum.maaneder : parseInt(String(period.sum.maaneder), 10)),
-        days: _.isNil(period.sum?.dager?.nr) ? 0 : (_.isNumber(period.sum.dager.nr) ? period.sum.dager.nr : parseInt(String(period.sum.dager.nr), 10))
-      }
-    } else {
-      convertedDate = dateDecimal({
-        dateFom: period.periode?.fom,
-        dateTom: period.periode?.tom,
-        days: period.sum?.dager?.nr,
-        quarter: period.sum?.kvartal,
-        months: period.sum?.maaneder,
-        weeks: period.sum?.uker,
-        years: period.sum?.aar
-      }, true)
-    }
+    convertedDate = dateDecimal({
+      dateFom: period.periode?.fom,
+      dateTom: period.periode?.tom,
+      days: period.sum?.dager?.nr,
+      quarter: period.sum?.kvartal,
+      months: period.sum?.maaneder,
+      weeks: period.sum?.uker,
+      years: period.sum?.aar
+    }, true)
   }
 
   return {
