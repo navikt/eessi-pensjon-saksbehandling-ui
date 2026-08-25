@@ -1,6 +1,6 @@
 import express from 'express'
 import path from 'path'
-import { legacyCreateProxyMiddleware } from 'http-proxy-middleware'
+import { createProxyMiddleware } from 'http-proxy-middleware'
 import winston from 'winston'
 import fetch from 'cross-fetch'
 import { URLSearchParams } from 'url'
@@ -158,19 +158,11 @@ const apiAuth = function (scope) {
 
 const apiProxy = function (target, pathRewrite) {
   //logger.debug('On apiProxy, with target ' + target)
-  return legacyCreateProxyMiddleware( {
+  return createProxyMiddleware( {
     target: target,
-    logLevel: 'silent',
     changeOrigin: true,
     xfwd: true,
     pathRewrite: pathRewrite,
-    onProxyReq: function onProxyReq(proxyReq, req, res) {
-      //logger.debug('proxy frontend: adding header auth ' + res.locals.on_behalf_of_authorization)
-      proxyReq.setHeader(
-        "Authorization",
-        res.locals.on_behalf_of_authorization
-      )
-    }
   })
 }
 
