@@ -895,6 +895,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
             medical: false
           } as SEDAttachment
           sed.attachments.push(newSedAttachment)
+          sed.attachmentsSize = (action as ActionWithPayload).payload.result.attachmentsSize
         }
       })
       newBucs![(action as ActionWithPayload).context.params.rinaId].seds = newSeds

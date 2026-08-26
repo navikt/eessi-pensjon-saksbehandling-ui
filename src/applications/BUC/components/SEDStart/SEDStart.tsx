@@ -46,7 +46,7 @@ import Select from 'src/components/Select/Select'
 import ValidationBox from 'src/components/ValidationBox/ValidationBox'
 import WaitingPanel from 'src/components/WaitingPanel/WaitingPanel'
 import * as constants from 'src/constants/constants'
-import {GJENNY, VEDTAKSKONTEKST} from 'src/constants/constants'
+import { GJENNY, VEDTAKSKONTEKST } from 'src/constants/constants'
 import { IS_TEST } from 'src/constants/environment'
 import {
   AllowedLocaleString,
@@ -57,7 +57,7 @@ import {
   PesysContext,
   Validation
 } from 'src/declarations/app.d'
-import {KravOmValue, P6000, SakTypeKey} from 'src/declarations/buc'
+import { KravOmValue, P6000, SakTypeKey } from 'src/declarations/buc'
 import {
   AvdodOrSokerValue,
   Buc,
@@ -92,9 +92,13 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { GroupBase } from 'react-select'
-import {createReplySedGjenny, createSedGjenny} from "src/actions/gjenny";
+import { createReplySedGjenny, createSedGjenny } from "src/actions/gjenny";
 import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
 import dayjs from "dayjs";
+
+import { checkSingleFilstoerrelseMB, checkSumFilstoerrelseMB, sumFilstoerrelseMB}  from "src/utils/utils";
+import { sumFilstoerrelseLimit } from "src/constants/sumFilstoerrelseLimit";
+import { singleFilstoerrelseLimit } from "src/constants/singleFilstoerrelseLimit";
 
 export interface SEDStartProps {
   aktoerId: string | null | undefined
@@ -1265,19 +1269,23 @@ const SEDStart: React.FC<SEDStartProps> = ({
               />
             </>
           )}
-          <Box>
-            <HStack gap="space-16">
+            <HStack
+              paddingBlock="space-16 space-0"
+              gap="space-16"
+            >
               <Button
                 variant={_sed === 'P7000' && _.isEmpty(_p6000s) ? 'secondary' : 'primary'}
                 data-testid='a_buc_c_sedstart--forward-button-id'
                 disabled={
-                (
-                  loading.creatingSed
-                  || _sendingAttachments
-                  || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
-                  || (_limitedInstitutions && _limitedInstitutions?.length > 0 && _institutions.length < 1)
-                )
-              }
+                  (
+                    loading.creatingSed
+                    || _sendingAttachments
+                    || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
+                    || (_limitedInstitutions && _limitedInstitutions?.length > 0 && _institutions.length < 1)
+                    || !(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_sedAttachments), sed?.attachmentsSize, sumFilstoerrelseLimit))
+                    || !(checkSingleFilstoerrelseMB(_sedAttachments, singleFilstoerrelseLimit))
+                  )
+                }
                 onClick={onForwardButtonClick}
               >
                 {(loading.creatingSed || _sendingAttachments || (_.isNumber(_bucCooldown) && _bucCooldown >= 0)) && <Loader />}
@@ -1286,8 +1294,8 @@ const SEDStart: React.FC<SEDStartProps> = ({
                   : _sendingAttachments
                     ? t('message:loading-sendingSEDattachments')
                     : (_.isNumber(_bucCooldown) && _bucCooldown >= 0)
-                        ? t('ui:pleaseWaitXSeconds', { cooldown: _bucCooldown })
-                        : t('buc:form-orderSED')}
+                      ? t('ui:pleaseWaitXSeconds', { cooldown: _bucCooldown })
+                      : t('buc:form-orderSED')}
               </Button>
               <Button
                 variant='tertiary'
@@ -1296,8 +1304,25 @@ const SEDStart: React.FC<SEDStartProps> = ({
               >
                 {t('ui:cancel')}
               </Button>
+              <VStack gap="space-16">
+                {!(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_sedAttachments), sed?.attachmentsSize, sumFilstoerrelseLimit)) &&
+                  <Alert variant="warning" size="small">
+                    {
+                      t('message:alert-tooLargeFilstoerrelseSum',
+                        { newSum: sumFilstoerrelseMB(_sedAttachments), oldSum: sed?.attachmentsSize ?? 0, max: sumFilstoerrelseLimit })
+                    }
+                  </Alert>
+                }
+                {!(checkSingleFilstoerrelseMB(_sedAttachments, singleFilstoerrelseLimit)) &&
+                  <Alert variant="warning" size="small">
+                    {
+                      t('message:alert-tooLargeSingleFilstoerrelse',
+                        { max: singleFilstoerrelseLimit })
+                    }
+                  </Alert>
+                }
+              </VStack>
             </HStack>
-          </Box>
         </VStack>
         <VStack gap="space-16">
           {sedCanHaveAttachments() && (

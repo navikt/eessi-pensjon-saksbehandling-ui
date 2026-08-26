@@ -845,6 +845,11 @@ describe('reducers/buc', () => {
             rinaId: mockBuc.caseId,
             rinaDokumentId: '1'
           }
+        },
+        payload: {
+          result: {
+            attachmentsSize: 4
+          }
         }
       })
     ).toEqual({
@@ -862,7 +867,8 @@ describe('reducers/buc', () => {
               mimeType: 'application/pdf',
               lastUpdate: new Date(1970, 1, 1).getTime(), // Hack to prevent test to fail due to latecy issuses
               medical: false
-            }]
+            }],
+            attachmentsSize: 4
           }]
         }
       },

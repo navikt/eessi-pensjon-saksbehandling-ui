@@ -123,7 +123,8 @@ const mockBuc = [
           id: '2',
           date: 1558362934400
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         "attachments": [],
@@ -137,6 +138,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": true,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1743751963626,
         "parentDocumentId": null,
@@ -232,6 +234,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": false,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1743751963611,
         "parentDocumentId": "0b988b1c20b34ecfb6b91d9aa304aaaf",
@@ -360,6 +363,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": true,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1743751963700,
         "parentDocumentId": null,
@@ -488,6 +492,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": true,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1743751963736,
         "parentDocumentId": null,
@@ -616,6 +621,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": false,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1743751963765,
         "parentDocumentId": null,
@@ -744,6 +750,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": true,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1743751963792,
         "parentDocumentId": null,
@@ -872,6 +879,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": false,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1743751963822,
         "parentDocumentId": null,
@@ -1000,6 +1008,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": true,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1743751963848,
         "parentDocumentId": null,
@@ -1128,6 +1137,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": true,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1743751963881,
         "parentDocumentId": null,
@@ -1256,6 +1266,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": false,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1743751963905,
         "parentDocumentId": null,
@@ -1384,6 +1395,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": false,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1743751963930,
         "parentDocumentId": null,
@@ -1512,6 +1524,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": false,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1743751963953,
         "parentDocumentId": null,
@@ -1640,6 +1653,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": false,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1743751963980,
         "parentDocumentId": null,
@@ -1768,6 +1782,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": true,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1743751964004,
         "parentDocumentId": null,
@@ -1896,6 +1911,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": true,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1743751964033,
         "parentDocumentId": null,
@@ -2024,6 +2040,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": true,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1743751964067,
         "parentDocumentId": null,
@@ -2152,6 +2169,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": true,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1743751964096,
         "parentDocumentId": null,
@@ -2346,7 +2364,8 @@ const mockBuc = [
           id: '3',
           date: 1571818294896
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: 60
       },
     ],
     "error": null,
@@ -2439,7 +2458,8 @@ const mockBuc = [
           id: '1',
           date: 1571818175000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '10678159cd4142f890d56264bfdefd13',
@@ -2510,7 +2530,8 @@ const mockBuc = [
           id: '3',
           date: 1571818294896
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '4bff8e2fdbeb4f8fa5ba76e0d9f66f6d',
@@ -2553,7 +2574,8 @@ const mockBuc = [
           id: '1',
           date: 1571818175000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: 'ef2905700e6f410b9edd04023856d49b',
@@ -2596,7 +2618,8 @@ const mockBuc = [
           id: '1',
           date: 1571818201591
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '8c582ae21c8744aa8e697c8a5c84d84f',
@@ -2639,7 +2662,8 @@ const mockBuc = [
           id: '1',
           date: 1571818175000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '7c52d3b4006b489d89ee1af37caef6f6',
@@ -2682,7 +2706,8 @@ const mockBuc = [
           id: '1',
           date: 1571818176000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: 'dc4670bbd59d4c8ab3b41974a72bf11d',
@@ -2741,7 +2766,8 @@ const mockBuc = [
           id: '1',
           date: 1571818181793
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: 'dc4670bbd59d4c8ab3b41974a72bf11e',
@@ -2800,7 +2826,8 @@ const mockBuc = [
           id: '1',
           date: 1571818181793
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '34b286dc45ff4f6fa8c91a8aa698345d',
@@ -2843,7 +2870,8 @@ const mockBuc = [
           id: '1',
           date: 1571818176000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '6b626b56303e4bca9fd8e40d758a4044',
@@ -2886,7 +2914,8 @@ const mockBuc = [
           id: '1',
           date: 1571818175000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '619f742acee74769bcd449b13eb9cf54',
@@ -2929,7 +2958,8 @@ const mockBuc = [
           id: '1',
           date: 1571818216066
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '5d549c96e0ce40788a2eea2992c1f65f',
@@ -2972,7 +3002,8 @@ const mockBuc = [
           id: '1',
           date: 1571818170586
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: 'd1f436ac1402462e827ad70b616d9594',
@@ -3015,7 +3046,8 @@ const mockBuc = [
           id: '1',
           date: 1571818175000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '60578cf8bf9f45a7819a39987c6c8fd4',
@@ -3058,7 +3090,8 @@ const mockBuc = [
           id: '1',
           date: 1571818188033
         },
-        allowsAttachments: false
+        allowsAttachments: false,
+        attachmentsSize: null
       },
       {
         id: '50578cf8bf9f45a7819a39987c6c8fd4',
@@ -3101,7 +3134,8 @@ const mockBuc = [
           id: '1',
           date: 1571547188033
         },
-        allowsAttachments: false
+        allowsAttachments: false,
+        attachmentsSize: null
       },
       {
         id: '40578cf8bf9f45a7819a39987c6c8fd4',
@@ -3144,7 +3178,8 @@ const mockBuc = [
           id: '1',
           date: 1571547188033
         },
-        allowsAttachments: false
+        allowsAttachments: false,
+        attachmentsSize: null
       },
       {
         id: '51d9d9277ab847008bc88c1b31b34865',
@@ -3187,7 +3222,8 @@ const mockBuc = [
           id: '1',
           date: 1571818208620
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '00d9d9277ab847008bc88c1b31b34865',
@@ -3230,7 +3266,8 @@ const mockBuc = [
           id: '1',
           date: 1571818208620
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: 'fd55d46e6ab741838d3a8e1735d33f1b',
@@ -3273,7 +3310,8 @@ const mockBuc = [
           id: '1',
           date: 1571818174000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: 'fd55d46e6ab741838d3a8e1735d33f1c',
@@ -3295,7 +3333,8 @@ const mockBuc = [
           id: '1',
           date: 1571818174000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: 'fd55d46e6ab741838d3a8e1735d33f1c',
@@ -3338,7 +3377,8 @@ const mockBuc = [
           id: '1',
           date: 1571818174000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       }
     ],
     error: null
@@ -3456,7 +3496,8 @@ const mockBuc = [
           id: 'r',
           date: 1559080800000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: 'ff98ea9256244b908e19d4439db5bad3',
@@ -3506,7 +3547,8 @@ const mockBuc = [
           id: '4',
           date: 1559080800000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '549bab7141c54cfcb14902e7e3b107b4',
@@ -3547,7 +3589,8 @@ const mockBuc = [
           id: '4',
           date: 1559080800000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '1911923c542746ada10f7c922b46a271',
@@ -3588,7 +3631,8 @@ const mockBuc = [
           id: '3',
           date: 1559080800000
         },
-        allowsAttachments: false
+        allowsAttachments: false,
+        attachmentsSize: null
       },
       {
         id: '9ebb27b848c644ba8a8ba95772403618',
@@ -3629,7 +3673,8 @@ const mockBuc = [
           id: '4',
           date: 1559080800000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '4ae14845e31d4d0db52acb692d9abe8e',
@@ -3670,7 +3715,8 @@ const mockBuc = [
           id: '2',
           date: 1559080800000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '5ef5fdea78e94911a873322d98589664',
@@ -3711,7 +3757,8 @@ const mockBuc = [
           id: '2',
           date: 1559080800000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '2cfa8cc7af2647c4ad89315a6d1b0ad7',
@@ -3752,7 +3799,8 @@ const mockBuc = [
           id: '2',
           date: 1559080800000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: 'af7f8476e55f4c53b501c41fd03a25be',
@@ -3793,7 +3841,8 @@ const mockBuc = [
           id: '2',
           date: 1559080800000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '4c10c2288a23442f85b511ecfaecb0f7',
@@ -3834,7 +3883,8 @@ const mockBuc = [
           id: '2',
           date: 1559080800000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '147065531dca429a90d47b5aa3b7cf2c',
@@ -3875,7 +3925,8 @@ const mockBuc = [
           id: '2',
           date: 1559080800000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '07cce7d3b2514676ba342caab580c573',
@@ -3916,7 +3967,8 @@ const mockBuc = [
           id: '2',
           date: 1559080800000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '7e2b28e4bc3b47e992fc06e5024bec3a',
@@ -3957,7 +4009,8 @@ const mockBuc = [
           id: '2',
           date: 1559080800000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '7c60826b53cc431f9059d8b30e4a1f7d',
@@ -3998,7 +4051,8 @@ const mockBuc = [
           id: '2',
           date: 1559080800000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: 'c1069862321c419e8e3ca418f7372d64',
@@ -4039,7 +4093,8 @@ const mockBuc = [
           id: '2',
           date: 1559080800000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       }
     ]
   },
@@ -4147,7 +4202,8 @@ const mockBuc = [
           id: 'r',
           date: 1559080800000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       }
     ]
   },
@@ -4216,7 +4272,8 @@ const mockBuc = [
         id: '1',
         date: 1557393035000
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }, {
       id: '0bb1ad15987741f1bbf45eba4f955e80',
       parentDocumentId: null,
@@ -4255,7 +4312,8 @@ const mockBuc = [
         id: '1',
         date: 1557393035000
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }, {
       id: '06f698fa890b4046b736e2efe3b25074',
       parentDocumentId: null,
@@ -4294,7 +4352,8 @@ const mockBuc = [
         id: '1',
         date: 1557393062757
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }, {
       id: '3b82e3d56f304ca0ac05c1ce626d9472',
       parentDocumentId: null,
@@ -4333,7 +4392,8 @@ const mockBuc = [
         id: '1',
         date: 1557393101000
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }, {
       id: '52c08e4129da4120b9b982142c272a61',
       parentDocumentId: null,
@@ -4372,7 +4432,8 @@ const mockBuc = [
         id: '2',
         date: 1558360875571
       },
-      allowsAttachments: false
+      allowsAttachments: false,
+      attachmentsSize: null
     }, {
       id: 'cac9db2726d54f2c9b51d1562b7b0a79',
       parentDocumentId: null,
@@ -4427,7 +4488,8 @@ const mockBuc = [
         id: '2',
         date: 1558362934400
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }, {
       id: '3fe845d1142742a5a7a28f339e5d5b30',
       parentDocumentId: null,
@@ -4466,7 +4528,8 @@ const mockBuc = [
         id: '1',
         date: 1557392992767
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }, {
       id: '3fe845d1142742a5a7a28f339e5d5b31',
       parentDocumentId: null,
@@ -4505,7 +4568,8 @@ const mockBuc = [
         id: '1',
         date: 1557392992767
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }, {
       id: '268b8ed450bf4e8a99e6c0057d5ed857',
       parentDocumentId: null,
@@ -4544,7 +4608,8 @@ const mockBuc = [
         id: '1',
         date: 1557393034000
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }, {
       id: 'a8160dcb66c840a88ef331eed4b193be',
       parentDocumentId: '3fe845d1142742a5a7a28f339e5d5b30',
@@ -4583,7 +4648,8 @@ const mockBuc = [
         id: '1',
         date: 1557393034000
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }, {
       id: '5d4e5b878a60433a919c833c146401cb',
       parentDocumentId: null,
@@ -4622,7 +4688,8 @@ const mockBuc = [
         id: '1',
         date: 1557393034000
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }, {
       id: '836de1a761514b1eab50c88e507e9a1c',
       parentDocumentId: null,
@@ -4661,7 +4728,8 @@ const mockBuc = [
         id: '1',
         date: 1557393035000
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }, {
       id: '2d305e9ac51f43cf9a4012679ea3036e',
       parentDocumentId: null,
@@ -4700,7 +4768,8 @@ const mockBuc = [
         id: '1',
         date: 1557393034000
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }, {
       id: 'ef5811b43d564539997c9e1e8539a0a5',
       parentDocumentId: '891a8c61651049d6b2e0c0bd32215203',
@@ -4739,7 +4808,8 @@ const mockBuc = [
         id: '1',
         date: 1557393031000
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }, {
       id: '74cfcccbdb764b768365090152c84892',
       parentDocumentId: '06f698fa890b4046b736e2efe3b25074',
@@ -4778,7 +4848,8 @@ const mockBuc = [
         id: '1',
         date: 1557393078000
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }, {
       id: '3e29fb69d44f440a81e01aa2199d4b2f',
       parentDocumentId: null,
@@ -4817,7 +4888,8 @@ const mockBuc = [
         id: '1',
         date: 1557393035000
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }, {
       id: '4ef97838c25c46fba04dcd57a511338d',
       parentDocumentId: null,
@@ -4856,7 +4928,8 @@ const mockBuc = [
         id: '1',
         date: 1557393033000
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }, {
       id: '6808b56f66b64a24ae94ddad3aeb9290',
       parentDocumentId: null,
@@ -4895,7 +4968,8 @@ const mockBuc = [
         id: '1',
         date: 1557393034000
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }, {
       id: '891a8c61651049d6b2e0c0bd32215203',
       parentDocumentId: null,
@@ -4934,7 +5008,8 @@ const mockBuc = [
         id: '1',
         date: 1557393087051
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }]
   },
   {
@@ -4978,6 +5053,7 @@ const mockBuc = [
         "receiveDate": null,
         "typeVersion": null,
         "allowsAttachments": true,
+        "attachmentsSize": null,
         "versions": null,
         "lastUpdate": 1740666174652,
         "parentDocumentId": null,
@@ -5090,7 +5166,8 @@ const mockBuc = [
         id: '1',
         date: 1557393035000
       },
-      allowsAttachments: true
+      allowsAttachments: true,
+      attachmentsSize: null
     }]
   },
   {
@@ -5195,7 +5272,8 @@ const mockBuc = [
           id: '1',
           date: 1557393035000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
     ],
     error: null
@@ -5268,7 +5346,8 @@ const mockBuc = [
           id: '1',
           date: 1557393035000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       }
     ],
     "error": null,
@@ -5353,7 +5432,8 @@ const mockBuc = [
           id: '1',
           date: 1571818175000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '10678159cd4142f890d56264bfdefd13',
@@ -5424,7 +5504,8 @@ const mockBuc = [
           id: '3',
           date: 1571818294896
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '4bff8e2fdbeb4f8fa5ba76e0d9f66f6d',
@@ -5467,7 +5548,8 @@ const mockBuc = [
           id: '1',
           date: 1571818175000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: 'ef2905700e6f410b9edd04023856d49b',
@@ -5510,7 +5592,8 @@ const mockBuc = [
           id: '1',
           date: 1571818201591
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '8c582ae21c8744aa8e697c8a5c84d84f',
@@ -5553,7 +5636,8 @@ const mockBuc = [
           id: '1',
           date: 1571818175000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: 'dc4670bbd59d4c8ab3b41974a72bf11d',
@@ -5612,7 +5696,8 @@ const mockBuc = [
           id: '1',
           date: 1571818181793
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
     ],
     "error": null,
@@ -5697,7 +5782,8 @@ const mockBuc = [
           id: '1',
           date: 1571818175000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '10678159cd4142f890d56264bfdefd13',
@@ -5768,7 +5854,8 @@ const mockBuc = [
           id: '3',
           date: 1571818294896
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '4bff8e2fdbeb4f8fa5ba76e0d9f66f6d',
@@ -5811,7 +5898,8 @@ const mockBuc = [
           id: '1',
           date: 1571818175000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: 'ef2905700e6f410b9edd04023856d49b',
@@ -5854,7 +5942,8 @@ const mockBuc = [
           id: '1',
           date: 1571818201591
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       },
       {
         id: '8c582ae21c8744aa8e697c8a5c84d84f',
@@ -5897,7 +5986,8 @@ const mockBuc = [
           id: '1',
           date: 1571818175000
         },
-        allowsAttachments: true
+        allowsAttachments: true,
+        attachmentsSize: null
       }
     ],
     "error": null,

@@ -257,6 +257,7 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           title: doc.tittel || '-',
           tema: post.tema,
           date: new Date(Date.parse(dateString)),
+          filstoerrelseMB: variant ? variant.filstoerrelseMB : undefined,
 
           selected,
           disabled,
@@ -392,53 +393,109 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           </Select>
         </div>
       }
-      <Table
-        <JoarkBrowserItem, JoarkBrowserContext>
-        id={'joarkbrowser-' + tableId}
-        items={_items}
-        key={_tableKey}
-        context={context}
-        labels={{
-          type: t('ui:attachments').toLowerCase(),
-          selectAllTitle: (""),
-          selectAll: t('ui:selectAll'),
-        }}
-        initialPage={currentPage}
-        itemsPerPage={itemsPerPage}
-        animatable={false}
-        searchable={mode === 'select'}
-        selectable={mode === 'select'}
-        sortable={mode === 'select'}
-        showSelectAll={false}
-        summary
-        loading={loadingJoarkList}
-        columns={[
-          {
-            id: 'tema',
-            label: t('ui:tema'),
-            type: 'string',
-            render: ({ value }: RenderOptions<JoarkBrowserItem, JoarkBrowserContext, string>) => <Label>{value}</Label>
-          }, {
-            id: 'title',
-            label: t('ui:title'),
-            type: 'string'
-          }, {
-            id: 'date',
-            label: t('ui:date'),
-            type: 'date',
-            dateFormat: 'DD.MM.YYYY'
-          }, {
-            id: 'buttons',
-            label: '',
-            type: 'object',
-            render: renderButtonsCell
-          }
-        ]}
-        onRowSelectChange={onRowSelectChange}
-        size={'small'}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      {mode === "select" &&
+        <Table
+          <JoarkBrowserItem, JoarkBrowserContext>
+          id={'joarkbrowser-' + tableId}
+          items={_items}
+          key={_tableKey}
+          context={context}
+          labels={{
+            type: t('ui:attachments').toLowerCase(),
+            selectAllTitle: (""),
+            selectAll: t('ui:selectAll'),
+          }}
+          initialPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          animatable={false}
+          searchable={mode === 'select'}
+          selectable={mode === 'select'}
+          sortable={mode === 'select'}
+          showSelectAll={false}
+          summary
+          loading={loadingJoarkList}
+          columns={[
+            {
+              id: 'tema',
+              label: t('ui:tema'),
+              type: 'string',
+              render: ({ value }: RenderOptions<JoarkBrowserItem, JoarkBrowserContext, string>) => <Label>{value}</Label>
+            }, {
+              id: 'title',
+              label: t('ui:title'),
+              type: 'string'
+            }, {
+              id: 'date',
+              label: t('ui:date'),
+              type: 'date',
+              dateFormat: 'DD.MM.YYYY'
+            }, {
+              id: 'filstoerrelseMB',
+              label: t('ui:filstoerrelseMB'),
+              type: 'number',
+            }, {
+              id: 'buttons',
+              label: '',
+              type: 'object',
+              render: renderButtonsCell
+            }
+          ]}
+          onRowSelectChange={onRowSelectChange}
+          size={'small'}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      }
+      {mode === "view" &&
+        <Table
+          <JoarkBrowserItem, JoarkBrowserContext>
+          id={'joarkbrowser-' + tableId}
+          items={_items}
+          key={_tableKey}
+          context={context}
+          labels={{
+            type: t('ui:attachments').toLowerCase(),
+            selectAllTitle: (""),
+            selectAll: t('ui:selectAll'),
+          }}
+          initialPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          animatable={false}
+          searchable={mode === 'view'}
+          selectable={mode === 'view'}
+          sortable={mode === 'view'}
+          showSelectAll={false}
+          summary
+          loading={loadingJoarkList}
+          columns={[
+            {
+              id: 'tema',
+              label: t('ui:tema'),
+              type: 'string',
+              render: ({ value }: RenderOptions<JoarkBrowserItem, JoarkBrowserContext, string>) => <Label>{value}</Label>
+            }, {
+              id: 'title',
+              label: t('ui:title'),
+              type: 'string'
+            }, {
+              id: 'date',
+              label: t('ui:date'),
+              type: 'date',
+              dateFormat: 'DD.MM.YYYY'
+            }, {
+              id: 'buttons',
+              label: '',
+              type: 'object',
+              render: renderButtonsCell
+            }
+          ]}
+          onRowSelectChange={onRowSelectChange}
+          size={'small'}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      }
+
     </div>
   )
 }

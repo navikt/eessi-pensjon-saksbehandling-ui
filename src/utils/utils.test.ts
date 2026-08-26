@@ -1,9 +1,106 @@
 import {
+  checkSingleFilstoerrelseMB,
+  checkSumFilstoerrelseMB,
   removeWhiteSpace,
   replaceCommasWithPeriods,
+  sumFilstoerrelseMB,
   removeWhiteSpaceAndReplaceCommas,
   replacePeriodsWithCommas
 } from 'src/utils/utils'
+import { JoarkBrowserItem } from 'src/declarations/joark'
+
+describe('utils/utils/sumFilstoerrelseMB', () => {
+  const buildJoarkItem = (filstoerrelseMB?: number): JoarkBrowserItem => ({
+    hasSubrows: false,
+    key: '1',
+    type: 'joark',
+    journalpostId: '123',
+    title: 'title',
+    tema: 'tema',
+    date: new Date(2020, 1, 1),
+    dokumentInfoId: '456',
+    variant: undefined,
+    filstoerrelseMB
+  })
+
+  it('Should return 0 when all file sizes are undefined', () => {
+    expect(sumFilstoerrelseMB([buildJoarkItem(), buildJoarkItem(undefined)])).toEqual(0)
+  })
+
+  it('Should sum file sizes and round to two decimals', () => {
+    expect(sumFilstoerrelseMB([buildJoarkItem(1.234), buildJoarkItem(2.345)])).toEqual(3.58)
+  })
+})
+
+describe('utils/utils/checkSumFilstoerrelseMB', () => {
+  it('Should return true when total size is within the limit', () => {
+    expect(checkSumFilstoerrelseMB(2.5, '3.4', 10)).toEqual(true)
+  })
+
+  it('Should return false when total size is equal to the limit', () => {
+    expect(checkSumFilstoerrelseMB(4, '6', 10)).toEqual(false)
+  })
+
+  it('Should return false when total size is above the limit', () => {
+    expect(checkSumFilstoerrelseMB(4.1, '6', 10)).toEqual(false)
+  })
+
+  it('Should treat null attachment size as 0', () => {
+    expect(checkSumFilstoerrelseMB(2.5, null, 10)).toEqual(true)
+  })
+
+  it('Should treat undefined attachment size as 0', () => {
+    expect(checkSumFilstoerrelseMB(2.5, undefined, 10)).toEqual(true)
+  })
+
+  it('Should treat invalid attachment size as 0', () => {
+    expect(checkSumFilstoerrelseMB(2.5, 'invalid-number', 10)).toEqual(true)
+  })
+})
+
+describe('utils/utils/checkSingleFilstoerrelseMB', () => {
+  const buildJoarkItem = (filstoerrelseMB?: number): JoarkBrowserItem => ({
+    hasSubrows: false,
+    key: '1',
+    type: 'joark',
+    journalpostId: '123',
+    title: 'title',
+    tema: 'tema',
+    date: new Date(2020, 1, 1),
+    dokumentInfoId: '456',
+    variant: undefined,
+    filstoerrelseMB
+  })
+
+  it('Should return true when file size is undefined', () => {
+    expect(checkSingleFilstoerrelseMB([buildJoarkItem(undefined)], 10)).toEqual(true)
+  })
+
+  it('Should return true when all file sizes are within the limit', () => {
+    expect(checkSingleFilstoerrelseMB([buildJoarkItem(1), buildJoarkItem(9.99)], 10)).toEqual(true)
+  })
+
+  it('Should return true when item list is empty', () => {
+    expect(checkSingleFilstoerrelseMB([], 10)).toEqual(true)
+  })
+
+  it('Should return true when file size is null', () => {
+    const itemWithNullFileSize = {
+      ...buildJoarkItem(undefined),
+      filstoerrelseMB: null
+    } as unknown as JoarkBrowserItem
+
+    expect(checkSingleFilstoerrelseMB([itemWithNullFileSize], 10)).toEqual(true)
+  })
+
+  it('Should return false when one file is equal to the limit', () => {
+    expect(checkSingleFilstoerrelseMB([buildJoarkItem(9.9), buildJoarkItem(10)], 10)).toEqual(false)
+  })
+
+  it('Should return false when one file is greater than the limit', () => {
+    expect(checkSingleFilstoerrelseMB([buildJoarkItem(12)], 10)).toEqual(false)
+  })
+})
 
 describe('utils/utils/removeWhiteSpace', () => {
   it('Should remove white spaces', () => {
@@ -259,7 +356,5 @@ describe('utils/utils/removeWhiteSpaceAndReplaceComma', () => {
     )
   })
 })
-
-
 
 

@@ -88,7 +88,9 @@ export default {
           tittel: 'Arbeidsevnevurdering UT',
           dokumentvarianter: [{
             filnavn: null,
-            variantformat: 'ARKIV'
+            variantformat: 'ARKIV',
+            filstoerrelse: 3100,
+            filstoerrelseMB: 31
           }, {
             filnavn: null,
             variantformat: 'PRODUKSJON'
@@ -109,7 +111,9 @@ export default {
           tittel: 'Vedtak om arbeidsavklaringspenger',
           dokumentvarianter: [{
             filnavn: null,
-            variantformat: 'ARKIV'
+            variantformat: 'ARKIV',
+            filstoerrelse: 4100,
+            filstoerrelseMB: 41
           }, {
             filnavn: null,
             variantformat: 'PRODUKSJON'
