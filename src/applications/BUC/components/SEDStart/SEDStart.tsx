@@ -1305,14 +1305,14 @@ const SEDStart: React.FC<SEDStartProps> = ({
                 {t('ui:cancel')}
               </Button>
               <VStack gap="space-16">
-                {/*{!(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_sedAttachments), sed?.attachmentsSize, sumFilstoerrelseLimit)) &&*/}
+                {!(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_sedAttachments), sed?.attachmentsSize, sumFilstoerrelseLimit)) &&
                   <Alert variant="warning" size="small">
                     {
                       t('message:alert-tooLargeFilstoerrelseSum',
                         { newSum: sumFilstoerrelseMB(_sedAttachments), oldSum: sed?.attachmentsSize ?? 0, max: sumFilstoerrelseLimit })
                     }
                   </Alert>
-                {/*}*/}
+                }
                 {!(checkSingleFilstoerrelseMB(_sedAttachments, singleFilstoerrelseLimit)) &&
                   <Alert variant="warning" size="small">
                     {
