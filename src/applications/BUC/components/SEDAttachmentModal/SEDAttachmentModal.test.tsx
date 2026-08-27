@@ -11,7 +11,7 @@ jest.mock('src/constants/environment.ts', () => {
 })
 
 jest.mock('src/components/JoarkBrowser/JoarkBrowser', () => {
-  return () => <div data-testid='mock-joarkbrowser' />
+  return ({ existingItems }: any) => <div data-testid='mock-joarkbrowser'>{existingItems.length}</div>
 })
 
 jest.mock('@navikt/ds-react', () => ({
@@ -50,6 +50,14 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
   it('Render: Has proper HTML structure', () => {
     render(<SEDAttachmentModal {...initialMockProps} />)
     expect(screen.getByTestId('mock-joarkbrowser')).toBeTruthy()
+  })
+
+  it('resets selections when reopened', () => {
+    const { rerender } = render(<SEDAttachmentModal {...initialMockProps} />)
+
+    rerender(<SEDAttachmentModal {...initialMockProps} open sedAttachments={[]} />)
+
+    expect(screen.getByTestId('mock-joarkbrowser')).toHaveTextContent('0')
   })
 
 /*  it('Render: show alert inside modal if there is an error', () => {

@@ -17,22 +17,21 @@ import {
   SakTypeValue,
   SavingAttachmentsJob,
   Sed,
-  SEDAttachment,
   SedsWithAttachmentsMap,
   ValidBuc,
   P6000,
-  BucListItem,
+  BucListItem, SEDAttachment,
 } from 'src/declarations/buc'
 import {PSED} from "src/declarations/app.d";
 import { JoarkBrowserItem, JoarkBrowserItems, JoarkPreview } from 'src/declarations/joark'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
-import md5 from 'md5'
 import { AnyAction } from 'redux'
 import { P5000sFromRinaMap } from 'src/declarations/p5000'
 import {P4000SED} from "../declarations/p4000"
 import {P8000SED} from "src/declarations/p8000";
 import {PREFILL_CREATE_ATP_SED_SUCCESS} from "src/constants/actionTypes";
+import md5 from "md5";
 
 export interface BucState {
   attachmentsError: boolean
@@ -874,10 +873,9 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
           item.journalpostId === newlySavedJoarkBrowserItem.journalpostId &&
           item.variant === newlySavedJoarkBrowserItem.variant
       })
-      newlySavedJoarkBrowserItem.type = 'sednew'
       const newSaved: JoarkBrowserItems = _.cloneDeep(state.savingAttachmentsJob?.saved!)
       if (_.isArray(newSaved)) {
-        newSaved.push(newlySavedJoarkBrowserItem)
+        newSaved.push(_.cloneDeep(newlySavedJoarkBrowserItem))
       }
 
       newSeds!.forEach(sed => {
