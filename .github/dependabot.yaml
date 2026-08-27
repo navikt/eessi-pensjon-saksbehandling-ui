@@ -26,5 +26,6 @@ updates:
       prefix: "dependabot-bump"
       include: "scope"
     ignore:
-      dependency-name: "*"
-      update-types: "version-update:semver-major"
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
