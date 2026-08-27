@@ -73,6 +73,12 @@ describe('src/components/JoarkBrowser/JoarkBrowser', () => {
     expect(initialMockProps.onRowSelectChange).toHaveBeenCalledWith(mockJoarkProcessed)
   })
 
+  it('Render: hides selection checkboxes in view mode', () => {
+    const { container } = render(<JoarkBrowser {...initialMockProps} />)
+
+    expect(container.querySelectorAll('input[type="checkbox"]')).toHaveLength(0)
+  })
+
   it('Handling: calls onPreviewItem when clicking preview button', () => {
     (getJoarkItemPreview as jest.Mock).mockReset()
     render(<JoarkBrowser {...initialMockProps} mode='select' />)
