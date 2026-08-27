@@ -158,18 +158,19 @@ const apiAuth = function (scope) {
 
 const apiProxy = function (target, pathRewrite) {
   //logger.debug('On apiProxy, with target ' + target)
-  return createProxyMiddleware( {
+  return createProxyMiddleware({
     target: target,
-    logLevel: 'silent',
     changeOrigin: true,
     xfwd: true,
     pathRewrite: pathRewrite,
-    onProxyReq: function onProxyReq(proxyReq, req, res) {
-      //logger.debug('proxy frontend: adding header auth ' + res.locals.on_behalf_of_authorization)
-      proxyReq.setHeader(
-        "Authorization",
-        res.locals.on_behalf_of_authorization
-      )
+    on: {
+      proxyReq: function(proxyReq, req, res) {
+        //logger.debug('proxy frontend: adding header auth ' + res.locals.on_behalf_of_authorization)
+        proxyReq.setHeader(
+          "Authorization",
+          res.locals.on_behalf_of_authorization
+        )
+      }
     }
   })
 }
