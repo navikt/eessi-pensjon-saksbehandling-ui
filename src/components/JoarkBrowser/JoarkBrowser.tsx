@@ -275,7 +275,8 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   const getItemsForViewMode = (list: Array<JoarkPoster> | undefined, existingItems: JoarkBrowserItems): JoarkBrowserItems => {
     const items: JoarkBrowserItems = []
     existingItems.forEach((existingItem: JoarkBrowserItem, index: number) => {
-      const match = existingItem.title.match(/^(\d+)_ARKIV\.pdf$/)
+      let item = {...existingItem}
+      const match = item.title.match(/^(\d+)_ARKIV\.pdf$/)
       if (list && match) {
         const id = match[1]
         let journalpostDoc: JoarkDoc | undefined
@@ -284,11 +285,14 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             if (doc.dokumentInfoId === id) {
               journalpostDoc = doc
               if (doc.tittel) {
-                existingItem.title = doc.tittel
-                existingItem.dokumentInfoId = doc.dokumentInfoId
-                existingItem.journalpostId = jp.journalpostId
-                existingItem.variant = getVariantFromJoarkDoc(doc)
-                existingItem.tema = jp.tema
+                item = {
+                  ...item,
+                  title: doc.tittel,
+                  dokumentInfoId: doc.dokumentInfoId,
+                  journalpostId: jp.journalpostId,
+                  variant: getVariantFromJoarkDoc(doc),
+                  tema: jp.tema
+                }
               }
               break
             }
@@ -299,10 +303,10 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         }
       }
       items.push({
-        ...existingItem,
-        key: existingItem.dokumentInfoId ? 'id-' + existingItem.dokumentInfoId : 'id-' + index,
-        type: existingItem.type,
-        title: existingItem.title,
+        ...item,
+        key: item.key || 'id-' + index,
+        type: item.type,
+        title: item.title,
         visible: true,
         disabled: false,
         hasSubrows: false

@@ -17,9 +17,20 @@ jest.mock('src/actions/buc', () => ({
 jest.mock('src/applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal', () => {
   return function SEDAttachmentModal({ onFinishedSelection, open }: any) {
     return open ? (
-      <button onClick={() => onFinishedSelection(joarkBrowserItems)} data-testid="add-pending-attachment">
-        Add pending attachment
-      </button>
+      <>
+        <button onClick={() => onFinishedSelection(joarkBrowserItems)} data-testid="add-pending-attachment">
+          Add pending attachment
+        </button>
+        <button
+          onClick={() => onFinishedSelection(Array.from({ length: 11 }, (_, index) => ({
+            ...joarkBrowserItems[0],
+            key: 'pending-attachment-' + index
+          })))}
+          data-testid="add-many-pending-attachments"
+        >
+          Add pending attachments
+        </button>
+      </>
     ) : null
   }
 })
@@ -37,8 +48,23 @@ jest.mock('src/applications/BUC/components/SEDAttachmentSender/SEDAttachmentSend
 })
 
 jest.mock('src/components/JoarkBrowser/JoarkBrowser', () => {
-  return function JoarkBrowser({ existingItems, tableId }: any) {
-    return <div data-testid={'joark-browser-' + tableId}>{existingItems.map((item: any) => item.type).join(',')}</div>
+  return function JoarkBrowser({ existingItems, tableId, currentPage, setCurrentPage, onRowViewDelete }: any) {
+    return (
+      <div data-testid={'joark-browser-' + tableId} data-current-page={currentPage}>
+        {existingItems.map((item: any) => item.type).join(',')}
+        {onRowViewDelete && (
+          <>
+            <button onClick={() => setCurrentPage(2)} data-testid={'go-to-page-two-' + tableId}>Go to page two</button>
+            <button
+              onClick={() => onRowViewDelete(existingItems.slice(0, 10))}
+              data-testid={'delete-last-page-' + tableId}
+            >
+              Delete last page
+            </button>
+          </>
+        )}
+      </div>
+    )
   }
 })
 
@@ -161,5 +187,17 @@ describe('SEDAttachmentsPanel', () => {
     fireEvent.click(screen.getByTestId('save-attachment'))
 
     expect(screen.queryByTestId('joark-browser-pending-sed-' + sed.id)).not.toBeInTheDocument()
+  })
+
+  it('returns to the previous pending-attachments page after deleting its last item', () => {
+    const tableId = 'pending-sed-' + sed.id
+    render(<SEDAttachmentsPanel {...defaultProps} />)
+
+    fireEvent.click(screen.getByTestId('a_buc_c_sedattachmentspanel--show-table-button-id'))
+    fireEvent.click(screen.getByTestId('add-many-pending-attachments'))
+    fireEvent.click(screen.getByTestId('go-to-page-two-' + tableId))
+    fireEvent.click(screen.getByTestId('delete-last-page-' + tableId))
+
+    expect(screen.getByTestId('joark-browser-' + tableId)).toHaveAttribute('data-current-page', '1')
   })
 })

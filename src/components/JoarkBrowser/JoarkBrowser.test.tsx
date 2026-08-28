@@ -1,5 +1,5 @@
 import { getJoarkItemPreview, listJoarkItems } from 'src/actions/joark'
-import { JoarkPoster } from 'src/declarations/joark'
+import { JoarkBrowserItems, JoarkPoster } from 'src/declarations/joark'
 import {fireEvent, render, screen} from '@testing-library/react'
 import mockJoark from 'src/mocks/joark/joark'
 import mockJoarkProcessed from 'src/mocks/joark/joarkAsItems'
@@ -77,6 +77,41 @@ describe('src/components/JoarkBrowser/JoarkBrowser', () => {
     const { container } = render(<JoarkBrowser {...initialMockProps} />)
 
     expect(container.querySelectorAll('input[type="checkbox"]')).toHaveLength(0)
+  })
+
+  it('Render: retains unique attachment keys when document IDs are duplicated', () => {
+    const savedAttachments: JoarkBrowserItems = [{
+      key: 'attachment-one',
+      type: 'sed',
+      title: 'First attachment',
+      date: new Date(),
+      hasSubrows: false,
+      journalpostId: '',
+      dokumentInfoId: 'shared-document-id',
+      variant: undefined,
+      tema: undefined
+    }, {
+      key: 'attachment-two',
+      type: 'sed',
+      title: 'Second attachment',
+      date: new Date(),
+      hasSubrows: false,
+      journalpostId: '',
+      dokumentInfoId: 'shared-document-id',
+      variant: undefined,
+      tema: undefined
+    }]
+
+    const { container } = render(
+      <JoarkBrowser
+        {...initialMockProps}
+        existingItems={savedAttachments}
+        tableId='duplicate-attachment-keys'
+      />
+    )
+
+    expect(container.querySelectorAll('#joarkbrowser-duplicate-attachment-keys-Row-attachment-one')).toHaveLength(1)
+    expect(container.querySelectorAll('#joarkbrowser-duplicate-attachment-keys-Row-attachment-two')).toHaveLength(1)
   })
 
   it('Handling: calls onPreviewItem when clicking preview button', () => {

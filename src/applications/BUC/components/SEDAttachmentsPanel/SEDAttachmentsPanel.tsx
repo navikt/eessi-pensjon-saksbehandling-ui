@@ -91,7 +91,9 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
   const [_sendingAttachments, setSendingAttachments] = useState<boolean>(initialSendingAttachments)
   const [_attachmentsSent, setAttachmentsSent] = useState<boolean>(initialAttachmentsSent)
   const [_attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(initialSeeAttachmentPanel)
-  const [_currentPage, setCurrentPage] = useState<number>(1)
+  const [_pendingCurrentPage, setPendingCurrentPage] = useState<number>(1)
+  const [_savedCurrentPage, setSavedCurrentPage] = useState<number>(1)
+  const attachmentsPerPage = 10
 
   const _sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, unsentAttachment: JoarkBrowserItem): void => {
     dispatch(sendAttachmentToSed(params, unsentAttachment))
@@ -131,6 +133,10 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
 
   const onRowViewDelete = (newItems: JoarkBrowserItems): void => {
     setPendingAttachments(newItems)
+    setPendingCurrentPage((currentPage) => Math.min(
+      currentPage,
+      Math.max(1, Math.ceil(newItems.length / attachmentsPerPage))
+    ))
   }
 
   const onSaved = (savingAttachmentsJob: SavingAttachmentsJob): void => {
@@ -174,8 +180,9 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
               mode='view'
               onRowViewDelete={onRowViewDelete}
               tableId={'pending-sed-' + sed.id}
-              currentPage={_currentPage}
-              setCurrentPage={setCurrentPage}
+              itemsPerPage={attachmentsPerPage}
+              currentPage={_pendingCurrentPage}
+              setCurrentPage={setPendingCurrentPage}
             />
           </Box>
         </>
@@ -280,8 +287,9 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
               existingItems={savedAttachments}
               mode='view'
               tableId={'saved-sed-' + sed.id}
-              currentPage={_currentPage}
-              setCurrentPage={setCurrentPage}
+              itemsPerPage={attachmentsPerPage}
+              currentPage={_savedCurrentPage}
+              setCurrentPage={setSavedCurrentPage}
             />
           </Box>
         </>
