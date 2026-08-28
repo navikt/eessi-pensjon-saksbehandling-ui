@@ -396,11 +396,6 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
 
   const viewColumns = [
     {
-      id: 'tema',
-      label: t('ui:tema'),
-      type: 'string',
-      render: ({ value }: RenderOptions<JoarkBrowserItem, JoarkBrowserContext, string>) => <Label>{value}</Label>
-    }, {
       id: 'title',
       label: t('ui:title'),
       type: 'string'

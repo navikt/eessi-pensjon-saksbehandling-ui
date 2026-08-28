@@ -79,6 +79,12 @@ describe('src/components/JoarkBrowser/JoarkBrowser', () => {
     expect(container.querySelectorAll('input[type="checkbox"]')).toHaveLength(0)
   })
 
+  it('Render: hides the tema column in view mode', () => {
+    render(<JoarkBrowser {...initialMockProps} />)
+
+    expect(screen.queryByRole('columnheader', { name: 'Tema' })).not.toBeInTheDocument()
+  })
+
   it('Render: retains unique attachment keys when document IDs are duplicated', () => {
     const savedAttachments: JoarkBrowserItems = [{
       key: 'attachment-one',
