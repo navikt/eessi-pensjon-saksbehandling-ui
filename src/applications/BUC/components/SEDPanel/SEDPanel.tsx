@@ -67,6 +67,7 @@ const SEDPanel: React.FC<SEDPanelProps> = ({
             <Accordion
               className={classNames(styles.sedPanelAccordion, className, { [styles.new]: newSed })}
               style={style}
+              indent={false}
             >
               <Accordion.Item open={_open}>
                 <Accordion.Content>

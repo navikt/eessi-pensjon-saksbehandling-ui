@@ -302,7 +302,7 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         ...existingItem,
         key: existingItem.dokumentInfoId ? 'id-' + existingItem.dokumentInfoId : 'id-' + index,
         type: existingItem.type,
-        title: (existingItem.type === 'sed' ? '✓ ' : ' ') + existingItem.title,
+        title: existingItem.title,
         visible: true,
         disabled: false,
         hasSubrows: false
