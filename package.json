@@ -68,7 +68,7 @@
     "@testing-library/dom": "10.4.1",
     "@testing-library/jest-dom": "7.0.1",
     "@testing-library/react": "16.3.2",
-    "@types/bytes": "3.1.5",
+    "@types/bytes": "3.1.6",
     "@types/jest": "30.0.0",
     "@types/lodash": "4.17.25",
     "@types/md5": "2.3.6",
