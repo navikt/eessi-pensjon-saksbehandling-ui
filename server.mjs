@@ -203,6 +203,8 @@ app.use('/locales', express.static(path.join(__dirname, "build", "locales")));
 
 app.use('/favicon', express.static(path.join(__dirname, "build", "favicon")));
 
+app.use('/manifest.json', express.static(path.join(__dirname, "build", "manifest.json")));
+
 app.get(["/oauth2/login"], async (req, res) => {
   logger.error("Wonderwall must handle /oauth2/login")
   res.status(502).send({
