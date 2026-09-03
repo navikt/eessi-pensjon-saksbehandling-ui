@@ -48,6 +48,7 @@ export interface BucState {
   PSEDSendResponse: any | null | undefined
   PSEDSavedResponse: any | null | undefined
   previewPDF: JoarkPreview | null | undefined
+  savedAttachmentPreview: JoarkPreview | undefined
   followUpSeds: Array<Sed> | undefined
   howManyBucLists: number
   kravDato: string | null | undefined
@@ -88,6 +89,7 @@ export const initialBucState: BucState = {
   PSEDSendResponse: undefined,
   PSEDSavedResponse: undefined,
   previewPDF: undefined,
+  savedAttachmentPreview: undefined,
   followUpSeds: undefined,
   institutionList: undefined,
   institutionNames: {},
@@ -127,6 +129,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         followUpSeds: undefined,
         sed: undefined,
         savingAttachmentsJob: undefined,
+        savedAttachmentPreview: undefined,
         p6000s: undefined,
         p6000PDF: undefined,
         p5000sFromRinaMap: {}
@@ -909,6 +912,25 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         } as SavingAttachmentsJob
       }
     }
+
+    case types.BUC_SAVED_ATTACHMENT_PREVIEW_REQUEST:
+    case types.BUC_SAVED_ATTACHMENT_PREVIEW_FAILURE:
+      return {
+        ...state,
+        savedAttachmentPreview: undefined
+      }
+
+    case types.BUC_SAVED_ATTACHMENT_PREVIEW_SUCCESS:
+      return {
+        ...state,
+        savedAttachmentPreview: (action as ActionWithPayload).payload.result
+      }
+
+    case types.BUC_SAVED_ATTACHMENT_PREVIEW_SET:
+      return {
+        ...state,
+        savedAttachmentPreview: (action as ActionWithPayload).payload
+      }
 
     case types.BUC_SEND_ATTACHMENT_REQUEST:
       return {

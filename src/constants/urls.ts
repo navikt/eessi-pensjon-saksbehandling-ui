@@ -43,6 +43,7 @@ export const API_STORAGE_POST_URL = STG_URL + '/%(userId)s___%(namespace)s___%(f
 export const API_JOARK_LIST_URL = SAF_URL + '/metadata/%(userId)s'
 export const API_JOARK_GET_URL = SAF_URL + '/hentdokument/%(journalpostId)s/%(dokumentInfoId)s/%(variantformat)s'
 export const API_JOARK_ATTACHMENT_URL = SAF_URL + '/vedlegg/%(aktoerId)s/%(rinaId)s/%(rinaDokumentId)s/%(journalpostId)s/%(dokumentInfoId)s/%(variantformat)s'
+export const API_SAVED_ATTACHMENT_GET_URL = SAF_URL + '/buc/%(rinaSakId)s/sed/%(dokumentId)s/vedlegg/%(vedleggId)s'
 
 // PersonController
 export const PERSON_PDL_URL = PER_URL + '/pdl/%(aktoerId)s'

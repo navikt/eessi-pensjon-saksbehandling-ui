@@ -536,6 +536,23 @@ describe('src/actions/buc', () => {
     }))
   })
 
+  it('getSavedAttachmentPreview()', () => {
+    const rinaSakId = 'rina-case-id'
+    const dokumentId = 'sed-document-id'
+    const vedleggId = 'attachment-id'
+
+    bucActions.getSavedAttachmentPreview(rinaSakId, dokumentId, vedleggId)
+
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_SAVED_ATTACHMENT_PREVIEW_REQUEST,
+        success: types.BUC_SAVED_ATTACHMENT_PREVIEW_SUCCESS,
+        failure: types.BUC_SAVED_ATTACHMENT_PREVIEW_FAILURE
+      },
+      url: sprintf(urls.API_SAVED_ATTACHMENT_GET_URL, { rinaSakId, dokumentId, vedleggId })
+    }))
+  })
+
   it('setMode()', () => {
     const mockedMode = 'mode' as BUCMode
     const generatedResult = bucActions.setMode(mockedMode)

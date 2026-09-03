@@ -262,6 +262,8 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
           <Box paddingBlock="space-0 space-32">
             <SavedAttachmentsTable
               attachments={savedAttachments}
+              rinaSakId={buc.caseId}
+              dokumentId={sed.id}
               tableId={'saved-sed-' + sed.id}
             />
           </Box>

@@ -15,6 +15,24 @@ describe('reducers/buc', () => {
     ).toEqual(initialBucState)
   })
 
+  it('stores and clears a saved attachment preview', () => {
+    const preview = {
+      fileName: 'attachment.pdf',
+      contentType: 'application/pdf',
+      filInnhold: 'base64-content'
+    }
+    const previewedState = bucReducer(initialBucState, {
+      type: types.BUC_SAVED_ATTACHMENT_PREVIEW_SUCCESS,
+      payload: { result: preview }
+    })
+
+    expect(previewedState.savedAttachmentPreview).toEqual(preview)
+    expect(bucReducer(previewedState, {
+      type: types.BUC_SAVED_ATTACHMENT_PREVIEW_SET,
+      payload: undefined
+    }).savedAttachmentPreview).toBeUndefined()
+  })
+
   it('BUC_BUC_RESET', () => {
     expect(
       bucReducer({
