@@ -416,6 +416,11 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       label: '',
       type: 'object',
       render: renderDeleteCell
+    }, {
+      id: 'spacer',
+      label: '',
+      type: 'object',
+      render: () => <div />
     }
   ]
 

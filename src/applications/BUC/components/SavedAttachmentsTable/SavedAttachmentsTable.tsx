@@ -130,6 +130,11 @@ const SavedAttachmentsTable: React.FC<SavedAttachmentsTableProps> = ({
           label: '',
           type: 'object',
           render: () => <div />
+        }, {
+          id: 'spacer',
+          label: '',
+          type: 'object',
+          render: () => <div />
         }]}
         itemsPerPage={10}
         currentPage={currentPage}

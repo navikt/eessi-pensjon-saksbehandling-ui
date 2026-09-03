@@ -35,7 +35,7 @@ describe('SavedAttachmentsTable', () => {
 
     expect(screen.getByText('Saved attachment')).toBeInTheDocument()
     expect(screen.getByTestId('saved-attachment-preview-attachment-one')).toBeInTheDocument()
-    expect(screen.getAllByRole('columnheader')).toHaveLength(5)
+    expect(screen.getAllByRole('columnheader')).toHaveLength(6)
     expect(screen.queryByRole('columnheader', { name: 'Tema' })).not.toBeInTheDocument()
   })
 

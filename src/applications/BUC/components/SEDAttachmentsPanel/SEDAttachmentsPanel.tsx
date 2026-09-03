@@ -268,7 +268,7 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
             />
           </Box>
         </>
-        )}
+      )}
       </>
       <SEDAttachmentModal
         open={_attachmentsTableVisible}

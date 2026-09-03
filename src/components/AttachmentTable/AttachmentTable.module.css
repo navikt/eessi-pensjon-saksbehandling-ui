@@ -14,3 +14,8 @@
 .table :global(td:nth-child(5)) {
   width: 3.5rem;
 }
+
+.table :global(th:nth-child(6)),
+.table :global(td:nth-child(6)) {
+  width: 1.5rem;
+}

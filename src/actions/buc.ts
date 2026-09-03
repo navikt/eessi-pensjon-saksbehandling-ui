@@ -689,7 +689,14 @@ export const sendAttachmentToSed = (
     url: sprintf(urls.API_JOARK_ATTACHMENT_URL, params),
     method: 'PUT',
     cascadeFailureError: true,
-    expectedPayload: { result: {attachmentsSize:4}, status: 'OK' },
+    expectedPayload: {
+      result: {
+        attachmentsSize: 4,
+        fileName: 'attachment.pdf',
+        id: 'attachment-id'
+      },
+      status: 'OK'
+    },
     context: {
       params,
       joarkBrowserItem

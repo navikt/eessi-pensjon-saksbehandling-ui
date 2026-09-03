@@ -31,7 +31,6 @@ import { P5000sFromRinaMap } from 'src/declarations/p5000'
 import {P4000SED} from "../declarations/p4000"
 import {P8000SED} from "src/declarations/p8000";
 import {PREFILL_CREATE_ATP_SED_SUCCESS} from "src/constants/actionTypes";
-import md5 from "md5";
 
 export interface BucState {
   attachmentsError: boolean
@@ -869,6 +868,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
 
     case types.BUC_SEND_ATTACHMENT_SUCCESS: {
       const newlySavedJoarkBrowserItem: JoarkBrowserItem = (action as ActionWithPayload).context.joarkBrowserItem
+      const uploadResult = (action as ActionWithPayload).payload.result
       const newBucs = _.cloneDeep(state.bucs)
       const newSeds = _.cloneDeep(state.bucs![(action as ActionWithPayload).context.params.rinaId].seds)
       const newRemaining = _.reject(state.savingAttachmentsJob!.remaining, (item: JoarkBrowserItem) => {
@@ -883,20 +883,17 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
 
       newSeds!.forEach(sed => {
         if (sed.id === (action as ActionWithPayload).context.params.rinaDokumentId) {
-          const name = (action as ActionWithPayload).context.joarkBrowserItem.dokumentInfoId + '_' +
-            (action as ActionWithPayload).context.joarkBrowserItem.variant.variantformat + '.pdf'
-          const date: number = Date.now()
           const newSedAttachment: SEDAttachment = {
-            id: md5('id' + date),
-            name,
-            fileName: name,
+            id: uploadResult.id,
+            name: uploadResult.fileName,
+            fileName: uploadResult.fileName,
             mimeType: 'application/pdf',
-            documentId: md5('documentId' + date),
+            documentId: (action as ActionWithPayload).context.params.rinaDokumentId,
             lastUpdate: (action as ActionWithPayload).context.joarkBrowserItem.date.getTime(),
             medical: false
           } as SEDAttachment
           sed.attachments.push(newSedAttachment)
-          sed.attachmentsSize = (action as ActionWithPayload).payload.result.attachmentsSize
+          sed.attachmentsSize = uploadResult.attachmentsSize
         }
       })
       newBucs![(action as ActionWithPayload).context.params.rinaId].seds = newSeds

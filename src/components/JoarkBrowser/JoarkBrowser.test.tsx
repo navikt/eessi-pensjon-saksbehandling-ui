@@ -64,7 +64,7 @@ describe('src/components/JoarkBrowser/JoarkBrowser', () => {
   it('Render: hides the tema column in view mode', () => {
     const { container } = render(<JoarkBrowser {...initialMockProps} />)
 
-    expect(container.querySelectorAll('[role="columnheader"], th')).toHaveLength(5)
+    expect(container.querySelectorAll('[role="columnheader"], th')).toHaveLength(6)
     expect(screen.queryByRole('columnheader', { name: 'Tema' })).not.toBeInTheDocument()
   })
 
