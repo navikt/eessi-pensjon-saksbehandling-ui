@@ -48,7 +48,6 @@ const mapState = /* istanbul ignore next */ (state: State): JoarkBrowserSelector
 export interface JoarkBrowserProps {
   existingItems: JoarkBrowserItems
   onRowSelectChange?: (f: JoarkBrowserItems) => void
-  onPreviewFile?: (f: JoarkBrowserItemWithContent) => void
   onRowViewDelete?: (f: JoarkBrowserItems) => void
   itemsPerPage?: number
   setItemsPerPage?: (f: number) => void
@@ -63,7 +62,6 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   mode,
   onRowSelectChange = () => {},
   onRowViewDelete = () => {},
-  onPreviewFile,
   itemsPerPage,
   setItemsPerPage = () => {},
   currentPage,
@@ -86,7 +84,6 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   const context: JoarkBrowserContext = {
     existingItems,
     loadingJoarkPreviewFile,
-    previewFile: _previewFile,
     clickedPreviewItem: _clickedPreviewItem,
     mode
   }
@@ -128,44 +125,51 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     }
   }
 
-  const renderButtonsCell = ({ item, context }: RenderOptions<JoarkBrowserItem, JoarkBrowserContext>): JSX.Element => {
+  const renderPreviewButton = (item: JoarkBrowserItem, context: JoarkBrowserContext | undefined): JSX.Element => {
+    const previewing = context?.loadingJoarkPreviewFile
+    const spinner = previewing && _.isEqual(item, context?.clickedPreviewItem)
+
+    return (
+      <Button
+        variant='secondary'
+        size='small'
+        data-tip={t('ui:preview')}
+        disabled={previewing}
+        id={'c-tablesorter--preview-button-' + item.journalpostId + '-' + item.dokumentInfoId}
+        data-testid={'c-tablesorter--preview-button-' + item.journalpostId + '-' + item.dokumentInfoId}
+        className='c-tablesorter--preview-button'
+        onClick={() => onPreviewItem(item)}
+      >
+        {spinner ? <Loader /> : <EyeWithPupilFillIcon fontSize="1.5rem" />}
+      </Button>
+    )
+  }
+
+  const renderPreviewCell = ({ item, context }: RenderOptions<JoarkBrowserItem, JoarkBrowserContext>): JSX.Element => {
     if (item.hasSubrows) {
       return <div />
     }
-    const previewing = context?.loadingJoarkPreviewFile
-    const spinner = previewing && _.isEqual(item as JoarkBrowserItem, context?.clickedPreviewItem)
+    return item.journalpostId && item.dokumentInfoId
+      ? renderPreviewButton(item as JoarkBrowserItem, context)
+      : <div />
+  }
+
+  const renderDeleteCell = ({ item, context }: RenderOptions<JoarkBrowserItem, JoarkBrowserContext>): JSX.Element => {
+    if (item.hasSubrows || mode !== 'view' || item.type !== 'joark') {
+      return <div />
+    }
     return (
-      <div
-        className={styles.buttonsDiv}
+      <Button
+        variant='secondary'
+        size='small'
+        onClick={(e: any) => {
+          e.preventDefault()
+          e.stopPropagation()
+          handleDelete(item as JoarkBrowserItem, context?.existingItems)
+        }}
       >
-        {item.journalpostId && item.dokumentInfoId && (
-          <Button
-            variant='secondary'
-            size='small'
-            data-tip={t('ui:preview')}
-            disabled={previewing}
-            id={'c-tablesorter--preview-button-' + item.journalpostId + '-' + item.dokumentInfoId}
-            data-testid={'c-tablesorter--preview-button-' + item.journalpostId + '-' + item.dokumentInfoId}
-            className='c-tablesorter--preview-button'
-            onClick={() => onPreviewItem(item as JoarkBrowserItem)}
-          >
-            {spinner ? <Loader /> : <EyeWithPupilFillIcon fontSize="1.5rem" />}
-          </Button>
-        )}
-        {mode === 'view' && item.type === 'joark' && (
-          <Button
-            variant='secondary'
-            size='small'
-            onClick={(e: any) => {
-              e.preventDefault()
-              e.stopPropagation()
-              handleDelete(item as JoarkBrowserItem, context?.existingItems)
-            }}
-          >
-            <TrashIcon fontSize="1.5rem" />
-          </Button>
-        )}
-      </div>
+        <TrashIcon fontSize="1.5rem" />
+      </Button>
     )
   }
 
@@ -360,12 +364,9 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             </div>
           )
         })
-        if (_.isFunction(onPreviewFile)) {
-          onPreviewFile(previewFile)
-        }
       }
     }
-  }, [mode, _modalInViewMode, handleModalClose, onPreviewFile, previewFile, _previewFile])
+  }, [mode, _modalInViewMode, handleModalClose, previewFile, _previewFile])
 
   const selectColumns = [
     {
@@ -390,7 +391,7 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       id: 'buttons',
       label: '',
       type: 'object',
-      render: renderButtonsCell
+      render: renderPreviewCell
     }
   ]
 
@@ -405,10 +406,15 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       type: 'date',
       dateFormat: 'DD.MM.YYYY'
     }, {
-      id: 'buttons',
+      id: 'preview',
       label: '',
       type: 'object',
-      render: renderButtonsCell
+      render: renderPreviewCell
+    }, {
+      id: 'delete',
+      label: '',
+      type: 'object',
+      render: renderDeleteCell
     }
   ]
 

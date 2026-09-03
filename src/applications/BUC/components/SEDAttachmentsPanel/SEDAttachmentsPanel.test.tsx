@@ -68,6 +68,12 @@ jest.mock('src/components/JoarkBrowser/JoarkBrowser', () => {
   }
 })
 
+jest.mock('src/applications/BUC/components/SavedAttachmentsTable/SavedAttachmentsTable', () => {
+  return function SavedAttachmentsTable({ attachments, tableId }: any) {
+    return <div data-testid={'saved-attachments-table-' + tableId}>{attachments.map((item: any) => item.id).join(',')}</div>
+  }
+})
+
 describe('SEDAttachmentsPanel', () => {
   const bucs = _.keyBy(mockBucs(), 'caseId')
   const currentBuc = '999999'
@@ -145,7 +151,7 @@ describe('SEDAttachmentsPanel', () => {
 
     render(<SEDAttachmentsPanel {...defaultProps} sed={sedWithSavedAttachment} />)
 
-    expect(screen.getByTestId('joark-browser-saved-sed-' + sed.id)).toHaveTextContent('sed')
+    expect(screen.getByTestId('saved-attachments-table-saved-sed-' + sed.id)).toHaveTextContent('saved-attachment')
     fireEvent.click(screen.getByTestId('a_buc_c_sedattachmentspanel--show-table-button-id'))
     fireEvent.click(screen.getByTestId('add-pending-attachment'))
     expect(screen.getByTestId('joark-browser-pending-sed-' + sed.id)).toHaveTextContent('joark')

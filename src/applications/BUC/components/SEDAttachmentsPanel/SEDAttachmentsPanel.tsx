@@ -6,6 +6,7 @@ import {
 import { sedAttachmentSorter } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
 import SEDAttachmentModal from 'src/applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
 import SEDAttachmentSender from 'src/applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
+import SavedAttachmentsTable from 'src/applications/BUC/components/SavedAttachmentsTable/SavedAttachmentsTable'
 import JoarkBrowser from 'src/components/JoarkBrowser/JoarkBrowser'
 import {
   Buc,
@@ -13,7 +14,7 @@ import {
   Sed,
   SEDAttachmentPayload,
   SEDAttachmentPayloadWithFile,
-  SEDAttachments
+  SEDAttachments,
 } from 'src/declarations/buc'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark'
 import { State } from 'src/declarations/reducers'
@@ -64,35 +65,12 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
-  const convertSedAttachmentsToJoarkBrowserItems = (sedAttachments: SEDAttachments): JoarkBrowserItems | undefined => {
-    if (!sedAttachments) {
-      return undefined
-    }
-    return sedAttachments.map((att) => {
-      return {
-        key: att.id,
-        type: 'sed',
-        title: att.name,
-        date: new Date(att.lastUpdate),
-        hasSubrows: false,
-        disabled: false,
-        dokumentInfoId: att.documentId,
-        journalpostId: '',
-        openSubrows: false,
-        tema: undefined,
-        variant: undefined,
-        visible: true,
-        selected: false
-      } as JoarkBrowserItem
-    })
-  }
-  const savedAttachments = convertSedAttachmentsToJoarkBrowserItems(sed.attachments) || []
+  const savedAttachments: SEDAttachments = sed.attachments || []
   const [_pendingAttachments, setPendingAttachments] = useState<JoarkBrowserItems>([])
   const [_sendingAttachments, setSendingAttachments] = useState<boolean>(initialSendingAttachments)
   const [_attachmentsSent, setAttachmentsSent] = useState<boolean>(initialAttachmentsSent)
   const [_attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(initialSeeAttachmentPanel)
   const [_pendingCurrentPage, setPendingCurrentPage] = useState<number>(1)
-  const [_savedCurrentPage, setSavedCurrentPage] = useState<number>(1)
   const attachmentsPerPage = 10
 
   const _sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, unsentAttachment: JoarkBrowserItem): void => {
@@ -282,14 +260,9 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
             <BodyShort size='small'>{t('ui:savedAttachmentsDescription')}</BodyShort>
           </Box>
           <Box paddingBlock="space-0 space-32">
-            <JoarkBrowser
-              data-testid='a_buc_c_sedattachmentspanel--attachments-id'
-              existingItems={savedAttachments}
-              mode='view'
+            <SavedAttachmentsTable
+              attachments={savedAttachments}
               tableId={'saved-sed-' + sed.id}
-              itemsPerPage={attachmentsPerPage}
-              currentPage={_savedCurrentPage}
-              setCurrentPage={setSavedCurrentPage}
             />
           </Box>
         </>

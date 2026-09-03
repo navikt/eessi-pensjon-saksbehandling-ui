@@ -28,7 +28,6 @@ describe('src/components/JoarkBrowser/JoarkBrowser', () => {
   const initialMockProps: JoarkBrowserProps = {
     existingItems: [],
     onRowSelectChange: jest.fn(),
-    onPreviewFile: jest.fn(),
     onRowViewDelete: jest.fn(),
     mode: 'view',
     tableId: 'test-table-id'
@@ -49,23 +48,6 @@ describe('src/components/JoarkBrowser/JoarkBrowser', () => {
     expect(listJoarkItems).toHaveBeenCalledWith(defaultSelector.aktoerId)
   })
 
-// Greyed out since this test will only pass if you remove or mock: if(mode !== "select" && _modalInViewMode)
-/*  it('UseEffect: when new preview file is available, trigger it', () => {
-    const mockFile = {
-      name: 'file.txt',
-      dokumentInfoId: '123',
-      journalpostId: '123',
-      variant: 'foo',
-      content: {
-        base64: '1232341234234'
-      }
-    }
-    stageSelector(defaultSelector, { previewFile: mockFile })
-    render(<JoarkBrowser {...initialMockProps} />)
-    expect(initialMockProps.onPreviewFile).toHaveBeenCalledWith(mockFile)
-    stageSelector(defaultSelector, {})
-  })*/
-
   it('Handling: calls onRowSelectChange when selecting a row', () => {
     render(<JoarkBrowser {...initialMockProps} mode='select' />)
     const cb = screen.getAllByRole('checkbox')
@@ -80,8 +62,9 @@ describe('src/components/JoarkBrowser/JoarkBrowser', () => {
   })
 
   it('Render: hides the tema column in view mode', () => {
-    render(<JoarkBrowser {...initialMockProps} />)
+    const { container } = render(<JoarkBrowser {...initialMockProps} />)
 
+    expect(container.querySelectorAll('[role="columnheader"], th')).toHaveLength(5)
     expect(screen.queryByRole('columnheader', { name: 'Tema' })).not.toBeInTheDocument()
   })
 
