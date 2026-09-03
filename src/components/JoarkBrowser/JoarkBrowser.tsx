@@ -24,6 +24,7 @@ import Table, { RenderOptions } from '@navikt/tabell'
 import md5 from 'md5'
 import { TrashIcon, EyeWithPupilFillIcon } from '@navikt/aksel-icons'
 import PDFViewer from "src/components/PDFViewer/PDFViewer";
+import attachmentTableStyles from 'src/components/AttachmentTable/AttachmentTable.module.css'
 import styles from './JoarkBrowser.module.css'
 
 export interface JoarkBrowserSelector {
@@ -451,6 +452,7 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       <Table
         <JoarkBrowserItem, JoarkBrowserContext>
         id={'joarkbrowser-' + tableId}
+        className={mode === 'view' ? attachmentTableStyles.table : undefined}
         items={_items}
         key={_tableKey}
         context={context}

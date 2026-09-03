@@ -1,4 +1,5 @@
 import { getSavedAttachmentPreview, setSavedAttachmentPreview } from 'src/actions/buc'
+import attachmentTableStyles from 'src/components/AttachmentTable/AttachmentTable.module.css'
 import Modal from 'src/components/Modal/Modal'
 import PDFViewer from 'src/components/PDFViewer/PDFViewer'
 import { JoarkPreview } from 'src/declarations/joark'
@@ -108,6 +109,7 @@ const SavedAttachmentsTable: React.FC<SavedAttachmentsTableProps> = ({
       />
       <Table<SavedAttachmentTableItem>
         id={'saved-attachments-table-' + tableId}
+        className={attachmentTableStyles.table}
         items={items}
         columns={[{
           id: 'title',
