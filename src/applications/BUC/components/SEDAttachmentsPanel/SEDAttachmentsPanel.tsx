@@ -1,27 +1,26 @@
 import {
   createSavingAttachmentJob,
   resetSavingAttachmentJob,
-  resetSedAttachments,
   sendAttachmentToSed
 } from 'src/actions/buc'
 import { sedAttachmentSorter } from 'src/applications/BUC/components/BUCUtils/BUCUtils'
 import SEDAttachmentModal from 'src/applications/BUC/components/SEDAttachmentModal/SEDAttachmentModal'
 import SEDAttachmentSender from 'src/applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
+import SavedAttachmentsTable from 'src/applications/BUC/components/SavedAttachmentsTable/SavedAttachmentsTable'
 import JoarkBrowser from 'src/components/JoarkBrowser/JoarkBrowser'
 import {
   Buc,
   SavingAttachmentsJob,
   Sed,
-  SEDAttachment,
   SEDAttachmentPayload,
   SEDAttachmentPayloadWithFile,
-  SEDAttachments
+  SEDAttachments,
 } from 'src/declarations/buc'
 import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark'
 import { State } from 'src/declarations/reducers'
 import _ from 'lodash'
-import { Heading, Loader, Button, Box, Alert, HStack, VStack } from '@navikt/ds-react'
-import React, { JSX, useCallback, useEffect, useState } from 'react'
+import { Heading, Loader, Button, Box, Alert, BodyShort, HStack, VStack } from '@navikt/ds-react'
+import React, { JSX, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { createSelector } from '@reduxjs/toolkit'
@@ -66,36 +65,13 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
-  const convertSedAttachmentsToJoarkBrowserItems = (sedAttachments: SEDAttachments): JoarkBrowserItems | undefined => {
-    if (!sedAttachments) {
-      return undefined
-    }
-    return sedAttachments.map((att: SEDAttachment) => {
-      return {
-        key: att.id,
-        type: 'sed',
-        title: att.name,
-        date: new Date(att.lastUpdate),
-        hasSubrows: false,
-        disabled: false,
-        dokumentInfoId: att.documentId,
-        journalpostId: '',
-        openSubrows: false,
-        tema: undefined,
-        variant: undefined,
-        visible: true,
-        selected: false
-      } as JoarkBrowserItem
-    })
-  }
-  // initially, joark is empty
-  const [_items, setItems] = useState<JoarkBrowserItems>(
-    convertSedAttachmentsToJoarkBrowserItems(sed.attachments) || []
-  )
+  const savedAttachments: SEDAttachments = sed.attachments || []
+  const [_pendingAttachments, setPendingAttachments] = useState<JoarkBrowserItems>([])
   const [_sendingAttachments, setSendingAttachments] = useState<boolean>(initialSendingAttachments)
   const [_attachmentsSent, setAttachmentsSent] = useState<boolean>(initialAttachmentsSent)
   const [_attachmentsTableVisible, setAttachmentsTableVisible] = useState<boolean>(initialSeeAttachmentPanel)
-  const [_currentPage, setCurrentPage] = useState<number>(1)
+  const [_pendingCurrentPage, setPendingCurrentPage] = useState<number>(1)
+  const attachmentsPerPage = 10
 
   const _sendAttachmentToSed = (params: SEDAttachmentPayloadWithFile, unsentAttachment: JoarkBrowserItem): void => {
     dispatch(sendAttachmentToSed(params, unsentAttachment))
@@ -113,10 +89,9 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
   const onAttachmentsSubmitted = (): void => {
     setSendingAttachments(true)
     setAttachmentsTableVisible(false)
-    const joarkItemsToUpload: JoarkBrowserItems = _.filter(_items, f => f.type === 'joark')
-    dispatch(createSavingAttachmentJob(joarkItemsToUpload))
+    dispatch(createSavingAttachmentJob(_pendingAttachments))
     if (_.isFunction(onAttachmentsSubmit)) {
-      onAttachmentsSubmit(joarkItemsToUpload)
+      onAttachmentsSubmit(_pendingAttachments)
     }
   }
 
@@ -126,106 +101,86 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
   }
 
   const _onFinished = (): void => {
-    setItems(_items.map(item => {
-      item.type = 'sed'
-      return item
-    }))
+    setPendingAttachments([])
     setAttachmentsSent(true)
   }
 
   const onJoarkAttachmentsChanged = (jbi: JoarkBrowserItems): void => {
-    const sedOriginalAttachments: JoarkBrowserItems = _.filter(_items, (att) => att.type !== 'joark')
-    const newAttachments = sedOriginalAttachments.concat(jbi).sort(sedAttachmentSorter)
-    setItems(newAttachments)
+    setPendingAttachments([...jbi].sort(sedAttachmentSorter))
   }
 
   const onRowViewDelete = (newItems: JoarkBrowserItems): void => {
-    setItems(newItems)
+    setPendingAttachments(newItems)
+    setPendingCurrentPage((currentPage) => Math.min(
+      currentPage,
+      Math.max(1, Math.ceil(newItems.length / attachmentsPerPage))
+    ))
   }
 
-  const _onSaved = (savingAttachmentsJob: SavingAttachmentsJob): void => {
-    const sedOriginalAttachments: JoarkBrowserItems = _.filter(_items, (att) => att.type === 'sed')
-    const newAttachments: JoarkBrowserItems = sedOriginalAttachments
-      .concat(savingAttachmentsJob.saved)
-      .concat(savingAttachmentsJob.remaining)
-      .sort(sedAttachmentSorter)
-    setItems(newAttachments)
+  const onSaved = (savingAttachmentsJob: SavingAttachmentsJob): void => {
+    setPendingAttachments(_.cloneDeep(savingAttachmentsJob.remaining))
   }
-
-  const onSedAttachmentsChanged = useCallback((sedAttachments: SEDAttachments) => {
-    setItems(convertSedAttachmentsToJoarkBrowserItems(sedAttachments) || [])
-  }, [setItems])
 
   useEffect(() => {
-    // cleanup after attachments sent
-    if (_sendingAttachments && _attachmentsSent) {
+    if (_attachmentsSent) {
       setSendingAttachments(false)
       setAttachmentsTableVisible(false)
-      dispatch(resetSedAttachments())
-    }
-    if (!_sendingAttachments && _attachmentsSent) {
       setAttachmentsSent(false)
       dispatch(resetSavingAttachmentJob())
     }
-  }, [_attachmentsSent, dispatch, _sendingAttachments])
-
-  useEffect(() => {
-    onSedAttachmentsChanged(sed.attachments)
-  }, [onSedAttachmentsChanged, sed])
+  }, [_attachmentsSent, dispatch])
 
   return (
     <Box>
-      <Heading size='small'>
-        {t('ui:attachments')}
-      </Heading>
-      {_.isEmpty(_items) && (
+      <>
+        <Box
+          borderWidth="1 0 0 0"
+          borderColor="neutral-subtle"
+          marginBlock="space-24 space-0"
+          paddingBlock="space-16 space-0"
+        >
+          <Heading size='xsmall'>{t('ui:pendingAttachments')}</Heading>
+        </Box>
+        {_.isEmpty(_pendingAttachments) && (
           <em>{t('ui:no-attachments')}</em>
-        )
-      }
-      {!_.isEmpty(_items) && (
+        )}
+        {!_.isEmpty(_pendingAttachments) && (
         <>
-          <Box paddingBlock="space-32 space-0">
+          <Box paddingBlock="space-8 space-32">
+            <BodyShort size='small'>
+              {t('ui:pendingAttachmentsDescription', { count: _pendingAttachments.length })}
+            </BodyShort>
+          </Box>
+          <Box paddingBlock="space-0 space-8">
             <JoarkBrowser
-              data-testid='a_buc_c_sedattachmentspanel--attachments-id'
-              existingItems={_items}
+              data-testid='a_buc_c_sedattachmentspanel--pending-attachments-id'
+              existingItems={_pendingAttachments}
               mode='view'
               onRowViewDelete={onRowViewDelete}
-              tableId={'viewsed-' + sed.id}
-              currentPage={_currentPage}
-              setCurrentPage={setCurrentPage}
+              tableId={'pending-sed-' + sed.id}
+              itemsPerPage={attachmentsPerPage}
+              currentPage={_pendingCurrentPage}
+              setCurrentPage={setPendingCurrentPage}
             />
           </Box>
         </>
-      )}
+        )}
+      </>
       <>
-        {!_attachmentsSent && _.find(_items, (item) => item.type === 'joark') !== undefined && (
-          <HStack
-            paddingBlock="space-16 space-0"
+        {!_attachmentsSent && !_.isEmpty(_pendingAttachments) && (
+          <VStack
             gap={"space-16"}
           >
-           <Box>
-              <Button
-                variant='primary'
-                data-testid='a_buc_c_sedattachmentspanel--upload-button-id'
-                disabled={_sendingAttachments ||
-                  !(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_items), sed.attachmentsSize, sumFilstoerrelseLimit)) ||
-                  !(checkSingleFilstoerrelseMB(_items, singleFilstoerrelseLimit))}
-                onClick={onAttachmentsSubmitted}
-              >
-                {_sendingAttachments && <Loader />}
-                {_sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
-              </Button>
-           </Box>
             <VStack gap={"space-16"}>
-              {!(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_items), sed.attachmentsSize, sumFilstoerrelseLimit)) &&
+              {!(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_pendingAttachments), sed.attachmentsSize, sumFilstoerrelseLimit)) &&
                 <Alert variant="warning" size="small">
                   {
                     t('message:alert-tooLargeFilstoerrelseSum',
-                    { newSum: sumFilstoerrelseMB(_items), oldSum: sed.attachmentsSize ?? 0, max: sumFilstoerrelseLimit })
+                    { newSum: sumFilstoerrelseMB(_pendingAttachments), oldSum: sed.attachmentsSize ?? 0, max: sumFilstoerrelseLimit })
                   }
                 </Alert>
               }
-              {!(checkSingleFilstoerrelseMB(_items, singleFilstoerrelseLimit)) &&
+              {!(checkSingleFilstoerrelseMB(_pendingAttachments, singleFilstoerrelseLimit)) &&
                 <Alert variant="warning" size="small">
                   {
                     t('message:alert-tooLargeSingleFilstoerrelse', { max: singleFilstoerrelseLimit })
@@ -233,7 +188,29 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
                 </Alert>
               }
             </VStack>
-          </HStack>
+            <HStack gap="space-8">
+              <Button
+                variant='primary'
+                data-testid='a_buc_c_sedattachmentspanel--upload-button-id'
+                disabled={_sendingAttachments ||
+                  !(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_pendingAttachments), sed.attachmentsSize, sumFilstoerrelseLimit)) ||
+                  !(checkSingleFilstoerrelseMB(_pendingAttachments, singleFilstoerrelseLimit))}
+                onClick={onAttachmentsSubmitted}
+              >
+                {_sendingAttachments && <Loader />}
+                {_sendingAttachments ? t('ui:uploading') : t('buc:form-submitSelectedAttachments')}
+              </Button>
+              {!_sendingAttachments && canHaveAttachments && (
+                <Button
+                  variant='secondary'
+                  data-testid='a_buc_c_sedattachmentspanel--show-table-button-id'
+                  onClick={() => !_attachmentsTableVisible ? onAttachmentsPanelOpen() : onAttachmentsPanelClose()}
+                >
+                  {t(_attachmentsTableVisible ? 'ui:cancelAttachmentSelection' : 'ui:selectMoreAttachments')}
+                </Button>
+              )}
+            </HStack>
+          </VStack>
         )}
       </>
       {canHaveAttachments && (
@@ -251,30 +228,53 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
                     } as SEDAttachmentPayload}
                     onCancel={_onCancel}
                     onFinished={_onFinished}
-                    onSaved={_onSaved}
+                    onSaved={onSaved}
                   />
                 </>
               </Box>
             )
           : (
-            <>
+            _.isEmpty(_pendingAttachments) && (
               <Box paddingBlock="space-16 space-16">
                 <Button
                   variant='secondary'
                   data-testid='a_buc_c_sedattachmentspanel--show-table-button-id'
                   onClick={() => !_attachmentsTableVisible ? onAttachmentsPanelOpen() : onAttachmentsPanelClose()}
                 >
-                  {t(_attachmentsTableVisible ? 'ui:hideAttachments' : 'ui:showAttachments')}
+                  {t(_attachmentsTableVisible ? 'ui:cancelAttachmentSelection' : 'ui:selectAttachments')}
                 </Button>
               </Box>
-            </>
+            )
             )
       )}
+      <>
+        <Box marginBlock="space-48 space-0">
+          <Heading size='xsmall'>{t('ui:savedAttachments')}</Heading>
+        </Box>
+        {_.isEmpty(savedAttachments) && (
+          <em>{t('ui:no-attachments')}</em>
+        )}
+        {!_.isEmpty(savedAttachments) && (
+        <>
+          <Box paddingBlock="space-8 space-0">
+            <BodyShort size='small'>{t('ui:savedAttachmentsDescription')}</BodyShort>
+          </Box>
+          <Box paddingBlock="space-0 space-32">
+            <SavedAttachmentsTable
+              attachments={savedAttachments}
+              rinaSakId={buc.caseId}
+              dokumentId={sed.id}
+              tableId={'saved-sed-' + sed.id}
+            />
+          </Box>
+        </>
+      )}
+      </>
       <SEDAttachmentModal
         open={_attachmentsTableVisible}
         onModalClose={onAttachmentsPanelClose}
         onFinishedSelection={onJoarkAttachmentsChanged}
-        sedAttachments={_items}
+        sedAttachments={_pendingAttachments}
         tableId={'sedview' + sed.id + '-modal'}
       />
     </Box>

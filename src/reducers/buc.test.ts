@@ -15,6 +15,24 @@ describe('reducers/buc', () => {
     ).toEqual(initialBucState)
   })
 
+  it('stores and clears a saved attachment preview', () => {
+    const preview = {
+      fileName: 'attachment.pdf',
+      contentType: 'application/pdf',
+      filInnhold: 'base64-content'
+    }
+    const previewedState = bucReducer(initialBucState, {
+      type: types.BUC_SAVED_ATTACHMENT_PREVIEW_SUCCESS,
+      payload: { result: preview }
+    })
+
+    expect(previewedState.savedAttachmentPreview).toEqual(preview)
+    expect(bucReducer(previewedState, {
+      type: types.BUC_SAVED_ATTACHMENT_PREVIEW_SET,
+      payload: undefined
+    }).savedAttachmentPreview).toBeUndefined()
+  })
+
   it('BUC_BUC_RESET', () => {
     expect(
       bucReducer({
@@ -811,11 +829,6 @@ describe('reducers/buc', () => {
   })
 
   it('BUC_SEND_ATTACHMENT_SUCCESS', () => {
-    jest
-      // @ts-ignore
-      .spyOn(global.Date, 'now')
-      .mockImplementation(() => new Date('2020-01-01T00:00:00.000Z').getTime())
-
     const key: string = mockBuc.caseId!
 
     expect(
@@ -848,7 +861,9 @@ describe('reducers/buc', () => {
         },
         payload: {
           result: {
-            attachmentsSize: 4
+            attachmentsSize: 4,
+            fileName: 'attachment.pdf',
+            id: 'attachment-id'
           }
         }
       })
@@ -860,12 +875,12 @@ describe('reducers/buc', () => {
           seds: [{
             id: '1',
             attachments: [{
-              documentId: '8ec00b4affe418be4a6b937a7ce70f2b',
-              id: '105ddbacc1259bd9d2baf1a0462df5a1',
-              name: '4_mockVariant.pdf',
-              fileName: '4_mockVariant.pdf',
+              documentId: '1',
+              id: 'attachment-id',
+              name: 'attachment.pdf',
+              fileName: 'attachment.pdf',
               mimeType: 'application/pdf',
-              lastUpdate: new Date(1970, 1, 1).getTime(), // Hack to prevent test to fail due to latecy issuses
+              lastUpdate: new Date(1970, 1, 1).getTime(),
               medical: false
             }],
             attachmentsSize: 4

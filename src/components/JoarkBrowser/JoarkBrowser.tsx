@@ -24,6 +24,7 @@ import Table, { RenderOptions } from '@navikt/tabell'
 import md5 from 'md5'
 import { TrashIcon, EyeWithPupilFillIcon } from '@navikt/aksel-icons'
 import PDFViewer from "src/components/PDFViewer/PDFViewer";
+import attachmentTableStyles from 'src/components/AttachmentTable/AttachmentTable.module.css'
 import styles from './JoarkBrowser.module.css'
 
 export interface JoarkBrowserSelector {
@@ -48,7 +49,6 @@ const mapState = /* istanbul ignore next */ (state: State): JoarkBrowserSelector
 export interface JoarkBrowserProps {
   existingItems: JoarkBrowserItems
   onRowSelectChange?: (f: JoarkBrowserItems) => void
-  onPreviewFile?: (f: JoarkBrowserItemWithContent) => void
   onRowViewDelete?: (f: JoarkBrowserItems) => void
   itemsPerPage?: number
   setItemsPerPage?: (f: number) => void
@@ -63,7 +63,6 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   mode,
   onRowSelectChange = () => {},
   onRowViewDelete = () => {},
-  onPreviewFile,
   itemsPerPage,
   setItemsPerPage = () => {},
   currentPage,
@@ -86,7 +85,6 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   const context: JoarkBrowserContext = {
     existingItems,
     loadingJoarkPreviewFile,
-    previewFile: _previewFile,
     clickedPreviewItem: _clickedPreviewItem,
     mode
   }
@@ -128,45 +126,51 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
     }
   }
 
-  const renderButtonsCell = ({ item, context }: RenderOptions<JoarkBrowserItem, JoarkBrowserContext>): JSX.Element => {
+  const renderPreviewButton = (item: JoarkBrowserItem, context: JoarkBrowserContext | undefined): JSX.Element => {
+    const previewing = context?.loadingJoarkPreviewFile
+    const spinner = previewing && _.isEqual(item, context?.clickedPreviewItem)
+
+    return (
+      <Button
+        variant='secondary'
+        size='small'
+        data-tip={t('ui:preview')}
+        disabled={previewing}
+        id={'c-tablesorter--preview-button-' + item.journalpostId + '-' + item.dokumentInfoId}
+        data-testid={'c-tablesorter--preview-button-' + item.journalpostId + '-' + item.dokumentInfoId}
+        className='c-tablesorter--preview-button'
+        onClick={() => onPreviewItem(item)}
+      >
+        {spinner ? <Loader /> : <EyeWithPupilFillIcon fontSize="1.5rem" />}
+      </Button>
+    )
+  }
+
+  const renderPreviewCell = ({ item, context }: RenderOptions<JoarkBrowserItem, JoarkBrowserContext>): JSX.Element => {
     if (item.hasSubrows) {
       return <div />
     }
-    const previewing = context?.loadingJoarkPreviewFile
-    const spinner = previewing && _.isEqual(item as JoarkBrowserItem, context?.clickedPreviewItem)
-    return (
-      <div
-        className={styles.buttonsDiv}
-      >
-        {item.journalpostId && item.dokumentInfoId && (
-          <Button
-            variant='secondary'
-            size='small'
-            data-tip={t('ui:preview')}
-            disabled={previewing}
-            id={'c-tablesorter--preview-button-' + item.journalpostId + '-' + item.dokumentInfoId}
-            data-testid={'c-tablesorter--preview-button-' + item.journalpostId + '-' + item.dokumentInfoId}
-            className='c-tablesorter--preview-button'
-            onClick={() => onPreviewItem(item as JoarkBrowserItem)}
-          >
-            {spinner ? <Loader /> : <EyeWithPupilFillIcon fontSize="1.5rem" />}
-          </Button>
-        )}
+    return item.journalpostId && item.dokumentInfoId
+      ? renderPreviewButton(item as JoarkBrowserItem, context)
+      : <div />
+  }
 
-        {mode === 'view' && item.type === 'joark' && (
-          <Button
-            variant='secondary'
-            size='small'
-            onClick={(e: any) => {
-              e.preventDefault()
-              e.stopPropagation()
-              handleDelete(item as JoarkBrowserItem, context?.existingItems)
-            }}
-          >
-            <TrashIcon fontSize="1.5rem" />
-          </Button>
-        )}
-      </div>
+  const renderDeleteCell = ({ item, context }: RenderOptions<JoarkBrowserItem, JoarkBrowserContext>): JSX.Element => {
+    if (item.hasSubrows || mode !== 'view' || item.type !== 'joark') {
+      return <div />
+    }
+    return (
+      <Button
+        variant='secondary'
+        size='small'
+        onClick={(e: any) => {
+          e.preventDefault()
+          e.stopPropagation()
+          handleDelete(item as JoarkBrowserItem, context?.existingItems)
+        }}
+      >
+        <TrashIcon fontSize="1.5rem" />
+      </Button>
     )
   }
 
@@ -276,7 +280,8 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
   const getItemsForViewMode = (list: Array<JoarkPoster> | undefined, existingItems: JoarkBrowserItems): JoarkBrowserItems => {
     const items: JoarkBrowserItems = []
     existingItems.forEach((existingItem: JoarkBrowserItem, index: number) => {
-      const match = existingItem.title.match(/^(\d+)_ARKIV\.pdf$/)
+      let item = {...existingItem}
+      const match = item.title.match(/^(\d+)_ARKIV\.pdf$/)
       if (list && match) {
         const id = match[1]
         let journalpostDoc: JoarkDoc | undefined
@@ -285,11 +290,14 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             if (doc.dokumentInfoId === id) {
               journalpostDoc = doc
               if (doc.tittel) {
-                existingItem.title = doc.tittel
-                existingItem.dokumentInfoId = doc.dokumentInfoId
-                existingItem.journalpostId = jp.journalpostId
-                existingItem.variant = getVariantFromJoarkDoc(doc)
-                existingItem.tema = jp.tema
+                item = {
+                  ...item,
+                  title: doc.tittel,
+                  dokumentInfoId: doc.dokumentInfoId,
+                  journalpostId: jp.journalpostId,
+                  variant: getVariantFromJoarkDoc(doc),
+                  tema: jp.tema
+                }
               }
               break
             }
@@ -300,10 +308,10 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
         }
       }
       items.push({
-        ...existingItem,
-        key: existingItem.dokumentInfoId ? 'id-' + existingItem.dokumentInfoId : 'id-' + index,
-        type: existingItem.type,
-        title: (existingItem.type === 'sed' ? '✓ ' : ' ') + existingItem.title,
+        ...item,
+        key: item.key || 'id-' + index,
+        type: item.type,
+        title: item.title,
         visible: true,
         disabled: false,
         hasSubrows: false
@@ -357,12 +365,65 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
             </div>
           )
         })
-        if (_.isFunction(onPreviewFile)) {
-          onPreviewFile(previewFile)
-        }
       }
     }
-  }, [mode, _modalInViewMode, handleModalClose, onPreviewFile, previewFile, _previewFile])
+  }, [mode, _modalInViewMode, handleModalClose, previewFile, _previewFile])
+
+  const selectColumns = [
+    {
+      id: 'tema',
+      label: t('ui:tema'),
+      type: 'string',
+      render: ({ value }: RenderOptions<JoarkBrowserItem, JoarkBrowserContext, string>) => <Label>{value}</Label>
+    }, {
+      id: 'title',
+      label: t('ui:title'),
+      type: 'string'
+    }, {
+      id: 'date',
+      label: t('ui:date'),
+      type: 'date',
+      dateFormat: 'DD.MM.YYYY'
+    }, {
+      id: 'filstoerrelseMB',
+      label: t('ui:filstoerrelseMB'),
+      type: 'number',
+    }, {
+      id: 'buttons',
+      label: '',
+      type: 'object',
+      render: renderPreviewCell
+    }
+  ]
+
+  const viewColumns = [
+    {
+      id: 'title',
+      label: t('ui:title'),
+      type: 'string'
+    }, {
+      id: 'date',
+      label: t('ui:date'),
+      type: 'date',
+      dateFormat: 'DD.MM.YYYY'
+    }, {
+      id: 'preview',
+      label: '',
+      type: 'object',
+      render: renderPreviewCell
+    }, {
+      id: 'delete',
+      label: '',
+      type: 'object',
+      render: renderDeleteCell
+    }, {
+      id: 'spacer',
+      label: '',
+      type: 'object',
+      render: () => <div />
+    }
+  ]
+
 
   return (
     <div data-testid='c-joarkBrowser'>
@@ -393,109 +454,33 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
           </Select>
         </div>
       }
-      {mode === "select" &&
-        <Table
-          <JoarkBrowserItem, JoarkBrowserContext>
-          id={'joarkbrowser-' + tableId}
-          items={_items}
-          key={_tableKey}
-          context={context}
-          labels={{
-            type: t('ui:attachments').toLowerCase(),
-            selectAllTitle: (""),
-            selectAll: t('ui:selectAll'),
-          }}
-          initialPage={currentPage}
-          itemsPerPage={itemsPerPage}
-          animatable={false}
-          searchable={mode === 'select'}
-          selectable={mode === 'select'}
-          sortable={mode === 'select'}
-          showSelectAll={false}
-          summary
-          loading={loadingJoarkList}
-          columns={[
-            {
-              id: 'tema',
-              label: t('ui:tema'),
-              type: 'string',
-              render: ({ value }: RenderOptions<JoarkBrowserItem, JoarkBrowserContext, string>) => <Label>{value}</Label>
-            }, {
-              id: 'title',
-              label: t('ui:title'),
-              type: 'string'
-            }, {
-              id: 'date',
-              label: t('ui:date'),
-              type: 'date',
-              dateFormat: 'DD.MM.YYYY'
-            }, {
-              id: 'filstoerrelseMB',
-              label: t('ui:filstoerrelseMB'),
-              type: 'number',
-            }, {
-              id: 'buttons',
-              label: '',
-              type: 'object',
-              render: renderButtonsCell
-            }
-          ]}
-          onRowSelectChange={onRowSelectChange}
-          size={'small'}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
-      }
-      {mode === "view" &&
-        <Table
-          <JoarkBrowserItem, JoarkBrowserContext>
-          id={'joarkbrowser-' + tableId}
-          items={_items}
-          key={_tableKey}
-          context={context}
-          labels={{
-            type: t('ui:attachments').toLowerCase(),
-            selectAllTitle: (""),
-            selectAll: t('ui:selectAll'),
-          }}
-          initialPage={currentPage}
-          itemsPerPage={itemsPerPage}
-          animatable={false}
-          searchable={mode === 'view'}
-          selectable={mode === 'view'}
-          sortable={mode === 'view'}
-          showSelectAll={false}
-          summary
-          loading={loadingJoarkList}
-          columns={[
-            {
-              id: 'tema',
-              label: t('ui:tema'),
-              type: 'string',
-              render: ({ value }: RenderOptions<JoarkBrowserItem, JoarkBrowserContext, string>) => <Label>{value}</Label>
-            }, {
-              id: 'title',
-              label: t('ui:title'),
-              type: 'string'
-            }, {
-              id: 'date',
-              label: t('ui:date'),
-              type: 'date',
-              dateFormat: 'DD.MM.YYYY'
-            }, {
-              id: 'buttons',
-              label: '',
-              type: 'object',
-              render: renderButtonsCell
-            }
-          ]}
-          onRowSelectChange={onRowSelectChange}
-          size={'small'}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
-      }
-
+      <Table
+        <JoarkBrowserItem, JoarkBrowserContext>
+        id={'joarkbrowser-' + tableId}
+        className={mode === 'view' ? attachmentTableStyles.table : undefined}
+        items={_items}
+        key={_tableKey}
+        context={context}
+        labels={{
+          type: t('ui:attachments').toLowerCase(),
+          selectAllTitle: (""),
+          selectAll: t('ui:selectAll'),
+        }}
+        initialPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        animatable={false}
+        searchable={mode === 'select'}
+        selectable={mode === 'select'}
+        sortable={mode === 'select'}
+        showSelectAll={false}
+        summary
+        loading={loadingJoarkList}
+        columns={mode === 'select' ? selectColumns : viewColumns}
+        onRowSelectChange={onRowSelectChange}
+        size={'small'}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   )
 }

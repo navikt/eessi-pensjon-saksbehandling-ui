@@ -17,17 +17,15 @@ import {
   SakTypeValue,
   SavingAttachmentsJob,
   Sed,
-  SEDAttachment,
   SedsWithAttachmentsMap,
   ValidBuc,
   P6000,
-  BucListItem,
+  BucListItem, SEDAttachment,
 } from 'src/declarations/buc'
 import {PSED} from "src/declarations/app.d";
 import { JoarkBrowserItem, JoarkBrowserItems, JoarkPreview } from 'src/declarations/joark'
 import { ActionWithPayload } from '@navikt/fetch'
 import _ from 'lodash'
-import md5 from 'md5'
 import { AnyAction } from 'redux'
 import { P5000sFromRinaMap } from 'src/declarations/p5000'
 import {P4000SED} from "../declarations/p4000"
@@ -49,6 +47,7 @@ export interface BucState {
   PSEDSendResponse: any | null | undefined
   PSEDSavedResponse: any | null | undefined
   previewPDF: JoarkPreview | null | undefined
+  savedAttachmentPreview: JoarkPreview | undefined
   followUpSeds: Array<Sed> | undefined
   howManyBucLists: number
   kravDato: string | null | undefined
@@ -89,6 +88,7 @@ export const initialBucState: BucState = {
   PSEDSendResponse: undefined,
   PSEDSavedResponse: undefined,
   previewPDF: undefined,
+  savedAttachmentPreview: undefined,
   followUpSeds: undefined,
   institutionList: undefined,
   institutionNames: {},
@@ -128,6 +128,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         followUpSeds: undefined,
         sed: undefined,
         savingAttachmentsJob: undefined,
+        savedAttachmentPreview: undefined,
         p6000s: undefined,
         p6000PDF: undefined,
         p5000sFromRinaMap: {}
@@ -867,6 +868,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
 
     case types.BUC_SEND_ATTACHMENT_SUCCESS: {
       const newlySavedJoarkBrowserItem: JoarkBrowserItem = (action as ActionWithPayload).context.joarkBrowserItem
+      const uploadResult = (action as ActionWithPayload).payload.result
       const newBucs = _.cloneDeep(state.bucs)
       const newSeds = _.cloneDeep(state.bucs![(action as ActionWithPayload).context.params.rinaId].seds)
       const newRemaining = _.reject(state.savingAttachmentsJob!.remaining, (item: JoarkBrowserItem) => {
@@ -874,28 +876,24 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
           item.journalpostId === newlySavedJoarkBrowserItem.journalpostId &&
           item.variant === newlySavedJoarkBrowserItem.variant
       })
-      newlySavedJoarkBrowserItem.type = 'sednew'
       const newSaved: JoarkBrowserItems = _.cloneDeep(state.savingAttachmentsJob?.saved!)
       if (_.isArray(newSaved)) {
-        newSaved.push(newlySavedJoarkBrowserItem)
+        newSaved.push(_.cloneDeep(newlySavedJoarkBrowserItem))
       }
 
       newSeds!.forEach(sed => {
         if (sed.id === (action as ActionWithPayload).context.params.rinaDokumentId) {
-          const name = (action as ActionWithPayload).context.joarkBrowserItem.dokumentInfoId + '_' +
-            (action as ActionWithPayload).context.joarkBrowserItem.variant.variantformat + '.pdf'
-          const date: number = Date.now()
           const newSedAttachment: SEDAttachment = {
-            id: md5('id' + date),
-            name,
-            fileName: name,
+            id: uploadResult.id,
+            name: uploadResult.fileName,
+            fileName: uploadResult.fileName,
             mimeType: 'application/pdf',
-            documentId: md5('documentId' + date),
+            documentId: (action as ActionWithPayload).context.params.rinaDokumentId,
             lastUpdate: (action as ActionWithPayload).context.joarkBrowserItem.date.getTime(),
             medical: false
           } as SEDAttachment
           sed.attachments.push(newSedAttachment)
-          sed.attachmentsSize = (action as ActionWithPayload).payload.result.attachmentsSize
+          sed.attachmentsSize = uploadResult.attachmentsSize
         }
       })
       newBucs![(action as ActionWithPayload).context.params.rinaId].seds = newSeds
@@ -911,6 +909,25 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         } as SavingAttachmentsJob
       }
     }
+
+    case types.BUC_SAVED_ATTACHMENT_PREVIEW_REQUEST:
+    case types.BUC_SAVED_ATTACHMENT_PREVIEW_FAILURE:
+      return {
+        ...state,
+        savedAttachmentPreview: undefined
+      }
+
+    case types.BUC_SAVED_ATTACHMENT_PREVIEW_SUCCESS:
+      return {
+        ...state,
+        savedAttachmentPreview: (action as ActionWithPayload).payload.result
+      }
+
+    case types.BUC_SAVED_ATTACHMENT_PREVIEW_SET:
+      return {
+        ...state,
+        savedAttachmentPreview: (action as ActionWithPayload).payload
+      }
 
     case types.BUC_SEND_ATTACHMENT_REQUEST:
       return {
