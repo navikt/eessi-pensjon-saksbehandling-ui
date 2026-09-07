@@ -83,7 +83,7 @@
     "@types/react-router-dom": "5.3.3",
     "@vitejs/plugin-react": "6.1.0",
     "identity-obj-proxy": "3.0.0",
-    "jest": "30.4.2",
+    "jest": "30.5.0",
     "jest-environment-jsdom": "30.4.1",
     "knip": "6.33.0",
     "mustache": "4.2.0",
