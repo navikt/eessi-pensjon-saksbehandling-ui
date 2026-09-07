@@ -99,6 +99,7 @@ import dayjs from "dayjs";
 import { checkSingleFilstoerrelseMB, checkSumFilstoerrelseMB, sumFilstoerrelseMB}  from "src/utils/utils";
 import { sumFilstoerrelseLimit } from "src/constants/sumFilstoerrelseLimit";
 import { singleFilstoerrelseLimit } from "src/constants/singleFilstoerrelseLimit";
+import {numberOfAttachmentsLimit} from "src/constants/numberOfAttachmentsLimit";
 
 export interface SEDStartProps {
   aktoerId: string | null | undefined
@@ -1318,6 +1319,14 @@ const SEDStart: React.FC<SEDStartProps> = ({
                     {
                       t('message:alert-tooLargeSingleFilstoerrelse',
                         { max: singleFilstoerrelseLimit })
+                    }
+                  </Alert>
+                }
+                {!(((_sedAttachments.length) + (sed?.attachments?.length ?? 0)) <= numberOfAttachmentsLimit) &&
+                  <Alert variant="warning" size="small">
+                    {
+                      t('message:alert-tooManyAttachments',
+                        { newSum: _sedAttachments.length, oldSum: sed?.attachments?.length ?? 0, max: numberOfAttachmentsLimit })
                     }
                   </Alert>
                 }
