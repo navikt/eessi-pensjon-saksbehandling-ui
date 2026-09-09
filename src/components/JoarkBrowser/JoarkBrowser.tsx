@@ -402,11 +402,6 @@ const JoarkBrowser: React.FC<JoarkBrowserProps> = ({
       label: t('ui:title'),
       type: 'string'
     }, {
-      id: 'date',
-      label: t('ui:date'),
-      type: 'date',
-      dateFormat: 'DD.MM.YYYY'
-    }, {
       id: 'preview',
       label: '',
       type: 'object',
