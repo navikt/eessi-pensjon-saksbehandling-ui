@@ -125,7 +125,7 @@ const SEDAttachmentSender: React.FC<SEDAttachmentSenderProps> = ({
         </>
       </ProgressBar>
       {_status === 'inprogress' && _.isFunction(onCancel) && (
-        <Box paddingInline="space-16 space-0">
+        <Box marginBlock="space-16 space-0" paddingInline="space-16 space-0">
           <Button
             size='small'
             variant='secondary'
