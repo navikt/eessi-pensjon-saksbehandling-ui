@@ -24,7 +24,12 @@ import React, { JSX, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { createSelector } from '@reduxjs/toolkit'
-import { checkSingleFilstoerrelseMB, checkSumFilstoerrelseMB, sumFilstoerrelseMB } from "src/utils/utils";
+import {
+  checkNumberOfAttachments,
+  checkSingleFilstoerrelseMB,
+  checkSumFilstoerrelseMB,
+  sumFilstoerrelseMB
+} from "src/utils/utils";
 import { sumFilstoerrelseLimit } from "src/constants/sumFilstoerrelseLimit";
 import { singleFilstoerrelseLimit } from "src/constants/singleFilstoerrelseLimit";
 import {numberOfAttachmentsLimit} from "src/constants/numberOfAttachmentsLimit";
@@ -188,7 +193,7 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
                   }
                 </Alert>
               }
-              {!(((_pendingAttachments.length) + (sed.attachments?.length ?? 0)) <= numberOfAttachmentsLimit) &&
+              {!checkNumberOfAttachments(_pendingAttachments.length, sed.attachments?.length ?? 0, numberOfAttachmentsLimit) &&
                 <Alert variant="warning" size="small">
                   {
                     t('message:alert-tooManyAttachments',
@@ -203,7 +208,8 @@ const SEDAttachmentsPanel: React.FC<SEDAttachmentsPanelProps> = ({
                 data-testid='a_buc_c_sedattachmentspanel--upload-button-id'
                 disabled={_sendingAttachments ||
                   !(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_pendingAttachments), sed.attachmentsSize, sumFilstoerrelseLimit)) ||
-                  !(checkSingleFilstoerrelseMB(_pendingAttachments, singleFilstoerrelseLimit))}
+                  !(checkSingleFilstoerrelseMB(_pendingAttachments, singleFilstoerrelseLimit)) ||
+                  !(checkNumberOfAttachments(_pendingAttachments.length, sed.attachments?.length ?? 0, numberOfAttachmentsLimit))}
                 onClick={onAttachmentsSubmitted}
               >
                 {_sendingAttachments && <Loader />}
