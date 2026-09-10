@@ -500,6 +500,32 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
         loadingJoarkList: false
       }
 
+    case types.JOARK_PREVIEW_REQUEST:
+      return {
+        ...state,
+        loadingJoarkPreviewFile: true
+      }
+
+    case types.JOARK_PREVIEW_SUCCESS:
+    case types.JOARK_PREVIEW_FAILURE:
+      return {
+        ...state,
+        loadingJoarkPreviewFile: false
+      }
+
+    case types.BUC_SAVED_ATTACHMENT_PREVIEW_REQUEST:
+      return {
+        ...state,
+        gettingSavedAttachmentPreview: true
+      }
+
+    case types.BUC_SAVED_ATTACHMENT_PREVIEW_SUCCESS:
+    case types.BUC_SAVED_ATTACHMENT_PREVIEW_FAILURE:
+      return {
+        ...state,
+        gettingSavedAttachmentPreview: false
+      }
+
     case types.PERSON_UFT_REQUEST:
 
       return {

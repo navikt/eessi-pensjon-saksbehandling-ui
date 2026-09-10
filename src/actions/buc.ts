@@ -23,7 +23,7 @@ import {
   TagRawList,
   ValidBuc
 } from 'src/declarations/buc'
-import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark'
+import { JoarkBrowserItem, JoarkBrowserItems, JoarkPreview } from 'src/declarations/joark'
 import _ from 'lodash'
 import { mockBuc } from 'src/mocks/buc/buc'
 import mockBucOptions from 'src/mocks/buc/bucOptions'
@@ -689,7 +689,14 @@ export const sendAttachmentToSed = (
     url: sprintf(urls.API_JOARK_ATTACHMENT_URL, params),
     method: 'PUT',
     cascadeFailureError: true,
-    expectedPayload: { result: joarkBrowserItem, status: 'OK' },
+    expectedPayload: {
+      result: {
+        attachmentsSize: 4,
+        fileName: 'attachment.pdf',
+        id: 'attachment-id'
+      },
+      status: 'OK'
+    },
     context: {
       params,
       joarkBrowserItem
@@ -701,6 +708,29 @@ export const sendAttachmentToSed = (
     }
   })
 }
+
+export const getSavedAttachmentPreview = (
+  rinaSakId: string,
+  dokumentId: string,
+  vedleggId: string
+): ActionWithPayload<JoarkPreview> => {
+  return call({
+    url: sprintf(urls.API_SAVED_ATTACHMENT_GET_URL, { rinaSakId, dokumentId, vedleggId }),
+    expectedPayload: { result: mockPreviewPdf, status: 'OK' },
+    type: {
+      request: types.BUC_SAVED_ATTACHMENT_PREVIEW_REQUEST,
+      success: types.BUC_SAVED_ATTACHMENT_PREVIEW_SUCCESS,
+      failure: types.BUC_SAVED_ATTACHMENT_PREVIEW_FAILURE
+    }
+  })
+}
+
+export const setSavedAttachmentPreview: ActionCreator<ActionWithPayload<JoarkPreview | undefined>> = (
+  preview: JoarkPreview | undefined
+): ActionWithPayload<JoarkPreview | undefined> => ({
+  type: types.BUC_SAVED_ATTACHMENT_PREVIEW_SET,
+  payload: preview
+})
 
 export const setMode: ActionCreator<ActionWithPayload<BUCMode>> = (
   mode: BUCMode
