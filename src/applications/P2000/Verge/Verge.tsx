@@ -3,7 +3,7 @@ import {useDispatch} from "react-redux";
 import Input from "../../../components/Forms/Input";
 import _ from "lodash";
 import {Box, Heading, HGrid, VStack} from "@navikt/ds-react";
-import {MainFormProps, MainFormSelector} from "../MainForm";
+import {MainFormProps, MainFormSelector} from 'src/applications/MainForm'
 import Telefon from "../Telefon/Telefon";
 import Epost from "../Epost/Epost";
 import {State} from "src/declarations/reducers";

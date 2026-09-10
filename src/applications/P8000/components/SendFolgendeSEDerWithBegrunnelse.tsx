@@ -7,7 +7,7 @@ import {Box, HStack, Radio, RadioGroup, VStack} from "@navikt/ds-react";
 import {P8000Field} from "src/declarations/p8000";
 import {useTranslation} from "react-i18next";
 import {State} from "src/declarations/reducers";
-import {MainFormSelector} from "src/applications/P2000/MainForm";
+import {MainFormSelector} from 'src/applications/MainForm'
 import {useAppSelector} from "src/store";
 import {resetValidation} from "src/actions/validation";
 

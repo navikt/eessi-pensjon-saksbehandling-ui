@@ -1,6 +1,6 @@
 import {VStack, Heading, Radio, RadioGroup, Box, HGrid} from "@navikt/ds-react";
 import React, {JSX, useEffect} from "react";
-import {MainFormProps, MainFormSelector} from "../MainForm";
+import {MainFormProps, MainFormSelector} from 'src/applications/MainForm'
 import _ from "lodash";
 import {State} from "src/declarations/reducers";
 import {useDispatch} from "react-redux";

@@ -12,7 +12,7 @@ import {P2000SED} from "src/declarations/p2000";
 import _ from 'lodash'
 
 import Verge from "./Verge/Verge";
-import MainForm from "./MainForm";
+import MainForm from 'src/applications/MainForm'
 import performValidation from "../../utils/performValidation";
 import {validateP2000, ValidationP2000Props} from "./validateP2000";
 import ValidationBox from "../../components/ValidationBox/ValidationBox";
