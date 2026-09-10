@@ -26,6 +26,11 @@ export const checkSingleFilstoerrelseMB = (items: JoarkBrowserItems,
   return true;
 }
 
+export const checkNumberOfAttachments =
+  (pendingAttachmentsLength: number, existingAttachmentsLength: number, numberOfAttachmentsLimit: number) : boolean => {
+  return (pendingAttachmentsLength + existingAttachmentsLength) <= numberOfAttachmentsLimit;
+}
+
 export const formatDate = (dateString: String | undefined) => {
   if(dateString) {
     const dateParts = dateString.split("-")

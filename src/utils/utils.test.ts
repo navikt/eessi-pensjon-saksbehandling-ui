@@ -1,4 +1,5 @@
 import {
+  checkNumberOfAttachments,
   checkSingleFilstoerrelseMB,
   checkSumFilstoerrelseMB,
   removeWhiteSpace,
@@ -99,6 +100,20 @@ describe('utils/utils/checkSingleFilstoerrelseMB', () => {
 
   it('Should return false when one file is greater than the limit', () => {
     expect(checkSingleFilstoerrelseMB([buildJoarkItem(12)], 10)).toEqual(false)
+  })
+})
+
+describe('utils/utils/checkNumberOfAttachments', () => {
+  it('Should return true when pending and existing attachments are within the limit', () => {
+    expect(checkNumberOfAttachments(2, 3, 6)).toEqual(true)
+  })
+
+  it('Should return true when total number of attachments is exactly at the limit', () => {
+    expect(checkNumberOfAttachments(2, 4, 6)).toEqual(true)
+  })
+
+  it('Should return false when total number of attachments is above the limit', () => {
+    expect(checkNumberOfAttachments(3, 4, 6)).toEqual(false)
   })
 })
 
