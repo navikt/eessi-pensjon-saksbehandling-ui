@@ -77,7 +77,6 @@ export interface JoarkBrowserItemWithContent extends JoarkBrowserItem {
 export interface JoarkBrowserContext extends Context {
   existingItems: JoarkBrowserItems
   loadingJoarkPreviewFile: boolean
-  previewFile: JoarkBrowserItemWithContent | undefined
   clickedPreviewItem: JoarkBrowserItem | undefined,
   mode: JoarkBrowserMode
 }

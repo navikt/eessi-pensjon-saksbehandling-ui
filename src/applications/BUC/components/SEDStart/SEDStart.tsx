@@ -96,9 +96,15 @@ import { createReplySedGjenny, createSedGjenny } from "src/actions/gjenny";
 import HorizontalLineSeparator from "src/components/HorizontalLineSeparator/HorizontalLineSeparator";
 import dayjs from "dayjs";
 
-import { checkSingleFilstoerrelseMB, checkSumFilstoerrelseMB, sumFilstoerrelseMB}  from "src/utils/utils";
+import {
+  checkNumberOfAttachments,
+  checkSingleFilstoerrelseMB,
+  checkSumFilstoerrelseMB,
+  sumFilstoerrelseMB
+} from "src/utils/utils";
 import { sumFilstoerrelseLimit } from "src/constants/sumFilstoerrelseLimit";
 import { singleFilstoerrelseLimit } from "src/constants/singleFilstoerrelseLimit";
+import {numberOfAttachmentsLimit} from "src/constants/numberOfAttachmentsLimit";
 
 export interface SEDStartProps {
   aktoerId: string | null | undefined
@@ -1284,6 +1290,7 @@ const SEDStart: React.FC<SEDStartProps> = ({
                     || (_limitedInstitutions && _limitedInstitutions?.length > 0 && _institutions.length < 1)
                     || !(checkSumFilstoerrelseMB(sumFilstoerrelseMB(_sedAttachments), sed?.attachmentsSize, sumFilstoerrelseLimit))
                     || !(checkSingleFilstoerrelseMB(_sedAttachments, singleFilstoerrelseLimit))
+                    || !(checkNumberOfAttachments(_sedAttachments.length, sed?.attachments?.length ?? 0, numberOfAttachmentsLimit))
                   )
                 }
                 onClick={onForwardButtonClick}
@@ -1318,6 +1325,14 @@ const SEDStart: React.FC<SEDStartProps> = ({
                     {
                       t('message:alert-tooLargeSingleFilstoerrelse',
                         { max: singleFilstoerrelseLimit })
+                    }
+                  </Alert>
+                }
+                {!(checkNumberOfAttachments(_sedAttachments.length, sed?.attachments?.length ?? 0, numberOfAttachmentsLimit)) &&
+                  <Alert variant="warning" size="small">
+                    {
+                      t('message:alert-tooManyAttachments',
+                        { newSum: _sedAttachments.length, oldSum: sed?.attachments?.length ?? 0, max: numberOfAttachmentsLimit })
                     }
                   </Alert>
                 }
