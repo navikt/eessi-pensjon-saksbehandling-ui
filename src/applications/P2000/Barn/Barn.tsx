@@ -2,7 +2,7 @@ import {BodyLong, Box, Button, Heading, HGrid, HStack, Select, Spacer, VStack} f
 import _ from "lodash";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {Fragment, JSX, useEffect, useState} from "react";
-import {MainFormProps, MainFormSelector} from "../MainForm";
+import {MainFormProps, MainFormSelector} from 'src/applications/MainForm'
 import {useTranslation} from "react-i18next";
 import {useAppSelector} from "src/store";
 import {getIdx} from "src/utils/namespace";

@@ -1,6 +1,6 @@
 import React, {Fragment, JSX, useEffect, useState} from "react";
 import {State} from "src/declarations/reducers";
-import {MainFormProps, MainFormSelector} from "../MainForm";
+import {MainFormProps, MainFormSelector} from 'src/applications/MainForm'
 import {useTranslation} from "react-i18next";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "src/store";
@@ -498,4 +498,3 @@ const Ytelser: React.FC<MainFormProps> = ({
 }
 
 export default Ytelser
-
