@@ -1,4 +1,4 @@
-import {BaseSED, Bruker, Nav, Pensjon} from "src/declarations/sed";
+import {Adresse, BaseSED, Nav, Pensjon, Person} from "src/declarations/sed";
 
 export interface Betalingsdetaljer {
   fradato?: string
@@ -14,20 +14,15 @@ export interface Betalingsdetaljer {
   betaldato?: string
 }
 
-export interface Pensjonsavslag {
-  grunnAvslag?: string
-  pensjonstype?: string
-}
-
-export interface Pensjonsopphoring {
-  grunnOpphoer?: string
+export interface PensjonsAvslagEllerOpphor {
+  begrunnelse?: string
   pensjonstype?: string
 }
 
 export interface Pensjoninfo {
   betalingsdetaljer?: Betalingsdetaljer
-  pensjonsavslag?: Pensjonsavslag
-  pensjonsopphoring?: Pensjonsopphoring
+  pensjonsavslag?: PensjonsAvslagEllerOpphor
+  pensjonsopphoring?: PensjonsAvslagEllerOpphor
 }
 
 export interface Merinformasjon {
@@ -40,9 +35,20 @@ export interface Foresporsel {
   referanseTilPerson?: string
 }
 
+export interface Gjenlevende {
+  mor?: {
+    person: Person
+  }
+  far?: {
+    person: Person
+  }
+  person?: Person
+  adresse?: Adresse
+}
+
 export interface P12000Pensjon extends Pensjon {
   pensjoninfo?: Array<Pensjoninfo>
-  gjenlevende?: Bruker
+  gjenlevende?: Gjenlevende
   merinformasjon?: Merinformasjon
   ytterligereInformasjon?: string
   foresporsel?: Foresporsel
