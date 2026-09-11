@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next'
 import {useAppSelector} from "src/store";
 import {State} from "src/declarations/reducers";
 import WarningModal from "src/components/SaveAndSendSED/WarningModal";
-import styles from "./MainForm.module.css";
+import styles from './MainForm.module.css'
 
 export interface MainFormFCProps<T> {
   forms: Array<Form>

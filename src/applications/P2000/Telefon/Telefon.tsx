@@ -14,7 +14,7 @@ import {validateTelefon, ValidationTelefonProps} from "./validation";
 import { resetValidation, setValidation } from 'src/actions/validation'
 import performValidation from 'src/utils/performValidation'
 import {State} from "src/declarations/reducers";
-import {MainFormSelector} from "../MainForm";
+import {MainFormSelector} from 'src/applications/MainForm'
 import {useAppSelector} from "src/store";
 import {useTranslation} from "react-i18next";
 import classNames from "classnames";
