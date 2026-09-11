@@ -1,5 +1,5 @@
 import React, {JSX, useEffect} from "react";
-import {Button, Heading, HStack, VStack} from "@navikt/ds-react";
+import {Button, HGrid, HStack, VStack} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
@@ -10,9 +10,11 @@ import {Buc, Sed} from "src/declarations/buc";
 import {BUCMode} from "src/declarations/app";
 import {P12000SED} from "src/declarations/p12000";
 import {State} from "src/declarations/reducers";
+import styles from "src/assets/css/common.module.css";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
 import useUnmount from "src/hooks/useUnmount";
-import styles from "src/assets/css/common.module.css";
+import SEDDetails from "src/components/SEDDetails/SEDDetails";
+import SakInfo from "src/components/SakInfo/SakInfo";
 
 export interface P12000Props {
   buc: Buc
@@ -33,7 +35,7 @@ const mapState = (state: State): P12000Selector => ({
 const P12000: React.FC<P12000Props> = ({buc, sed, setMode}: P12000Props): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useDispatch()
-  const {gettingSed}: P12000Selector = useSelector<State, P12000Selector>(mapState)
+  const {currentPSED, gettingSed}: P12000Selector = useSelector<State, P12000Selector>(mapState)
   const namespace = "p12000"
 
   useUnmount(() => {
@@ -74,7 +76,14 @@ const P12000: React.FC<P12000Props> = ({buc, sed, setMode}: P12000Props): JSX.El
           {t('ui:back')}
         </Button>
       </HStack>
-      <Heading level="1" size="medium">P12000</Heading>
+      <HGrid columns="1fr 400px" gap="space-16" align="start">
+        <VStack gap="space-16">
+          <SakInfo PSED={currentPSED} title="P12000"/>
+        </VStack>
+        {sed && (
+          <SEDDetails sed={sed}/>
+        )}
+      </HGrid>
     </VStack>
   )
 }
