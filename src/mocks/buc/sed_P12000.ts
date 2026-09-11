@@ -27,6 +27,14 @@ export default {
           basertpaa: "01",
           belop: "11111",
           valuta: "EUR"
+        },
+        pensjonsavslag: {
+          grunnAvslag: "Avslag fordi vilkarene ikke er oppfylt",
+          pensjonstype: "01"
+        },
+        pensjonsopphoring: {
+          grunnOpphoer: "Opphor fordi ytelsen er avsluttet",
+          pensjonstype: "01"
         }
       }
     ],
@@ -37,6 +45,18 @@ export default {
           fornavn: "Kari"
         }
       }
-    }
+    },
+    merinformasjon: {
+      ytelser: [
+        {
+          tilleggsytelserutbetalingitilleggtilpensjon: "Tilleggsytelse"
+        }
+      ]
+    },
+    ytterligereInformasjon: "Ytterligere informasjon",
+    foresporsel: {
+      referanseTilPerson: "01"
+    },
+    anmodning13000verdi: "1"
   }
 }

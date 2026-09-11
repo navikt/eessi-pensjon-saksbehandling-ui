@@ -310,7 +310,31 @@ describe('src/actions/buc', () => {
     expect(call).toHaveBeenCalledWith(expect.objectContaining({
       expectedPayload: expect.objectContaining({
         result: expect.objectContaining({
-          sed: 'P12000'
+          sed: 'P12000',
+          pensjon: expect.objectContaining({
+            anmodning13000verdi: '1',
+            foresporsel: expect.objectContaining({
+              referanseTilPerson: '01'
+            }),
+            merinformasjon: expect.objectContaining({
+              ytelser: expect.arrayContaining([
+                expect.objectContaining({
+                  tilleggsytelserutbetalingitilleggtilpensjon: 'Tilleggsytelse'
+                })
+              ])
+            }),
+            ytterligereInformasjon: 'Ytterligere informasjon',
+            pensjoninfo: expect.arrayContaining([
+              expect.objectContaining({
+                pensjonsavslag: expect.objectContaining({
+                  grunnAvslag: 'Avslag fordi vilkarene ikke er oppfylt'
+                }),
+                pensjonsopphoring: expect.objectContaining({
+                  grunnOpphoer: 'Opphor fordi ytelsen er avsluttet'
+                })
+              })
+            ])
+          })
         })
       }),
       url: sprintf(urls.SED_GET_SED_URL, { caseId: mockCaseId, sedId: mockSed.id })
