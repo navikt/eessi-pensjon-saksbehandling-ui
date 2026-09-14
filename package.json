@@ -85,7 +85,7 @@
     "identity-obj-proxy": "3.0.0",
     "jest": "30.5.0",
     "jest-environment-jsdom": "30.5.0",
-    "knip": "6.33.0",
+    "knip": "6.34.0",
     "mustache": "4.2.0",
     "ts-jest": "29.4.12",
     "typescript": "^6.0.3",
