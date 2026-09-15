@@ -1,6 +1,6 @@
 import {Box, Checkbox, CheckboxGroup, Heading, HGrid, Radio, RadioGroup, VStack} from "@navikt/ds-react";
 import React, {JSX} from "react";
-import {MainFormProps, MainFormSelector} from "../MainForm";
+import {MainFormProps, MainFormSelector} from 'src/applications/MainForm'
 import _ from "lodash";
 import {State} from "src/declarations/reducers";
 import {useDispatch} from "react-redux";

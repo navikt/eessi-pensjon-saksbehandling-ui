@@ -36,6 +36,7 @@ import mockCreateSed from 'src/mocks/buc/createSed'
 import mockInstitutions from 'src/mocks/buc/institutions'
 import mockKravDato from 'src/mocks/buc/kravDato'
 import mockP2000 from 'src/mocks/buc/sed_P2000'
+import mockP12000 from 'src/mocks/buc/sed_P12000'
 import mockP8000 from 'src/mocks/buc/sed_P8000'
 import mockP6000 from 'src/mocks/buc/p6000'
 import mockP4000 from 'src/mocks/buc/p4000'
@@ -47,6 +48,13 @@ import mockSedList from 'src/mocks/buc/sedList'
 import { Action, ActionCreator } from 'redux'
 import {UpdateSedPayload} from "../declarations/types";
 import {PSED} from "src/declarations/app.d";
+
+const sedMocks = {
+  mockP2000,
+  mockP12000
+}
+
+const isSedMockKey = (key: string): key is keyof typeof sedMocks => key in sedMocks
 // @ts-ignore
 import { sprintf } from 'sprintf-js';
 
@@ -359,11 +367,13 @@ export const getInstitutionsListForBucAndCountry = (
 export const getSed = (
   caseId: string, sed: Sed
 ): Action => {
+  const mockSedKey = `mock${sed.type}`
+  const mockSed = isSedMockKey(mockSedKey) ? sedMocks[mockSedKey] : mockP2000
 
   return call({
     url: sprintf(urls.SED_GET_SED_URL, { caseId, sedId: sed.id }),
     cascadeFailureError: true,
-    expectedPayload: { result: mockP2000, status: 'OK' },
+    expectedPayload: { result: mockSed, status: 'OK' },
     context: {
       sed: sed
     },

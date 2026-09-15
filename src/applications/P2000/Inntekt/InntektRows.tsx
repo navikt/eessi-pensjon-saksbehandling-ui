@@ -10,7 +10,7 @@ import Input from "../../../components/Forms/Input";
 import {Validation} from "src/declarations/app";
 import {useAppSelector} from "src/store";
 import {State} from "src/declarations/reducers";
-import {MainFormSelector} from "../MainForm";
+import {MainFormSelector} from 'src/applications/MainForm'
 import useValidation from "../../../hooks/useValidation";
 import {validateInntekt, ValidationInntektProps} from "./validation";
 import performValidation from "../../../utils/performValidation";

@@ -4,10 +4,12 @@ import _ from "lodash";
 
 export interface SakInfoProps<T> {
   PSED: T | null | undefined
+  title: string
 }
 
 const SakInfo: React.FC<SakInfoProps<any>> = ({
   PSED,
+  title
 }: SakInfoProps<any>): JSX.Element => {
   const target = 'nav.eessisak'
   const eessiSak:  Array<any> = _.get(PSED, target)
@@ -22,7 +24,7 @@ const SakInfo: React.FC<SakInfoProps<any>> = ({
     >
       <HStack gap="space-64" align="center">
         <VStack gap="space-8">
-          <Heading level="1" size="medium">P2000</Heading>
+          <Heading level="1" size="medium">{title}</Heading>
           {eessiSak?.map((s, index) => {
             return(
               <div key={s.sakId + "-" + index}>

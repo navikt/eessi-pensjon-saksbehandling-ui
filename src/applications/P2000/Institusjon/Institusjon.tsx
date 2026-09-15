@@ -15,7 +15,7 @@ import {resetValidation, setValidation} from "src/actions/validation";
 import performValidation from "../../../utils/performValidation";
 import {useAppSelector} from "src/store";
 import {State} from "src/declarations/reducers";
-import {MainFormSelector} from "../MainForm";
+import {MainFormSelector} from 'src/applications/MainForm'
 import {useTranslation} from "react-i18next";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";
