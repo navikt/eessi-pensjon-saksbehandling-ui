@@ -676,6 +676,15 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     )
   }
 
+  const renderDefaultBeregning = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
+    if (options.values && !_.isNil(options.values.type)) {
+      if ((options.values.type === '50' || (options.values.type === '41')) && options.value !== '000') {
+        return '000'
+      }
+    }
+    return options.value
+  }
+
   const renderBeregningAdd = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
     if (options.values && !_.isNil(options.values.type)) {
       const isUftFlagged = options.values.flagIkon === 'UFT'
@@ -1134,6 +1143,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
                 render: renderBeregningAdd
               },
               edit: {
+                defaultValue: renderDefaultBeregning,
                 validation: [{
                   mandatory: true,
                   test: '^.+$',
