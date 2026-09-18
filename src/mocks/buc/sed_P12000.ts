@@ -18,26 +18,31 @@ export default {
     }
   },
   pensjon: {
-    pensjoninfo: [
-      {
-        betalingsdetaljer: {
+    pensjoninfo: {
+      betalingsdetaljer: [
+        {
           pensjonstype: "01",
           effektueringsdato: "2024-01-01",
           utbetalingshyppighet: "maaned_12_per_aar",
           basertpaa: "01",
           belop: "11111",
           valuta: "EUR"
-        },
-        pensjonsavslag: {
-          grunnAvslag: "Avslag fordi vilkarene ikke er oppfylt",
-          pensjonstype: "01"
-        },
-        pensjonsopphoring: {
-          grunnOpphoer: "Opphor fordi ytelsen er avsluttet",
+        }
+      ],
+      pensjonsavslag: [
+        {
+          begrunnelse: "Avslag fordi vilkarene ikke er oppfylt",
           pensjonstype: "01"
         }
-      }
-    ],
+      ],
+      pensjonsopphoring: [
+        {
+          begrunnelse: "Opphor fordi ytelsen er avsluttet",
+          pensjonstype: "01"
+        }
+      ],
+      tilleggsytelserutbetalingitilleggtilpensjon: "Tilleggsytelse"
+    },
     gjenlevende: {
       mor: {
         person: {
@@ -45,13 +50,6 @@ export default {
           fornavn: "Kari"
         }
       }
-    },
-    merinformasjon: {
-      ytelser: [
-        {
-          tilleggsytelserutbetalingitilleggtilpensjon: "Tilleggsytelse"
-        }
-      ]
     },
     ytterligereInformasjon: "Ytterligere informasjon",
     foresporsel: {
