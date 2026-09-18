@@ -21,6 +21,7 @@ import ValidationBox from "src/components/ValidationBox/ValidationBox";
 import SaveAndSendSED from "src/components/SaveAndSendSED/SaveAndSendSED";
 import performValidation from "src/utils/performValidation";
 import {validateP12000, ValidationP12000Props} from "./validateP12000";
+import MottakerAvGjenlevendePensjon from "./MottakerAvGjenlevendePensjon/MottakerAvGjenlevendePensjon";
 import {createSelector} from "@reduxjs/toolkit";
 import _ from "lodash";
 
@@ -114,7 +115,9 @@ const P12000: React.FC<P12000Props> = ({buc, sed, setMode}: P12000Props): JSX.El
         <VStack gap="space-16">
           <SakInfo PSED={currentPSED} title="P12000"/>
           <MainForm
-            forms={[]}
+            forms={[
+              { label: "Mottaker av gjenlevendepensjon", value: 'mottakeravgjenlevendepensjon', component: MottakerAvGjenlevendePensjon}
+            ]}
             PSED={currentPSED}
             setPSED={setPSED}
             updatePSED={updatePSED}
