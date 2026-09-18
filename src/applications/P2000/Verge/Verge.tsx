@@ -80,7 +80,7 @@ const Verge: React.FC<MainFormProps> = ({
             error={validation[namespace + '-person-etternavn']?.feilmelding}
             namespace={namespace}
             id='person-etternavn'
-            label={t('p2000:form-person-etternavn')}
+            label={t('ui:form-person-etternavn')}
             onChanged={setEtternavn}
             value={(verge?.person?.etternavn) ?? ''}
           />
@@ -88,7 +88,7 @@ const Verge: React.FC<MainFormProps> = ({
             error={validation[namespace + '-person-fornavn']?.feilmelding}
             namespace={namespace}
             id='person-fornavn'
-            label={t('p2000:form-person-fornavn')}
+            label={t('ui:form-person-fornavn')}
             onChanged={setFornavn}
             value={(verge?.person?.fornavn)  ?? ''}
           />

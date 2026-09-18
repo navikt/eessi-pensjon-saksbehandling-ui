@@ -11,7 +11,7 @@ import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
 import {validateEktefelle, ValidationEktefelleProps} from "./validation";
 import {useTranslation} from "react-i18next";
-import PersonOpplysninger from "../PersonOpplysninger/PersonOpplysninger";
+import PersonOpplysninger from "src/components/PersonOpplysninger/PersonOpplysninger";
 import FoedestedFC from "../Foedested/Foedested";
 import Statsborgerskap from "../Statsborgerskap/Statsborgerskap";
 import {deletePSEDProp} from "src/actions/buc";
