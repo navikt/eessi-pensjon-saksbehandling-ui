@@ -22,6 +22,7 @@ import SaveAndSendSED from "src/components/SaveAndSendSED/SaveAndSendSED";
 import performValidation from "src/utils/performValidation";
 import {validateP12000, ValidationP12000Props} from "./validateP12000";
 import MottakerAvGjenlevendePensjon from "./MottakerAvGjenlevendePensjon/MottakerAvGjenlevendePensjon";
+import InformasjonOmPensjon from "./InformasjonOmPensjon/InformasjonOmPensjon";
 import {createSelector} from "@reduxjs/toolkit";
 import _ from "lodash";
 
@@ -116,7 +117,8 @@ const P12000: React.FC<P12000Props> = ({buc, sed, setMode}: P12000Props): JSX.El
           <SakInfo PSED={currentPSED} title="P12000"/>
           <MainForm
             forms={[
-              { label: "Mottaker av gjenlevendepensjon", value: 'mottakeravgjenlevendepensjon', component: MottakerAvGjenlevendePensjon}
+              { label: "Mottaker av gjenlevendepensjon", value: 'mottakeravgjenlevendepensjon', component: MottakerAvGjenlevendePensjon},
+              { label: "Informasjon om pensjon", value: 'informasjonompensjon', component: InformasjonOmPensjon}
             ]}
             PSED={currentPSED}
             setPSED={setPSED}
