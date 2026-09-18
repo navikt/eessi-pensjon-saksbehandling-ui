@@ -27,7 +27,7 @@ export interface Pensjoninfo {
 }
 
 export interface Foresporsel {
-  referanseTilPerson?: string
+  referanseTilPerson?: "01" | "02"
 }
 
 export interface Gjenlevende {

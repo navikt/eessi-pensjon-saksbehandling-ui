@@ -14,7 +14,7 @@ import {validatePerson, ValidationPersonProps} from "src/components/PersonOpplys
 import UtenlandskePin from "src/components/UtenlandskePin/UtenlandskePin";
 import {validateUtenlandskePINs, ValidationUtenlandskePINsProps} from "src/components/UtenlandskePin/validation";
 import {deletePSEDProp} from "src/actions/buc";
-import {Gjenlevende, P12000SED} from "src/declarations/p12000";
+import {Gjenlevende, Foresporsel, P12000SED} from "src/declarations/p12000";
 import {createSelector} from "@reduxjs/toolkit";
 
 const mapState = createSelector(
@@ -25,6 +25,8 @@ const mapState = createSelector(
 )
 
 const MANDATORY_IF_ANY_FILLED = ['etternavn', 'fornavn', 'foedselsdato', 'kjoenn']
+
+const REFERANSE_TIL_GJENLEVENDE: Foresporsel['referanseTilPerson'] = '02'
 
 const MottakerAvGjenlevendePensjon: React.FC<MainFormProps> = ({
   label,
@@ -41,7 +43,8 @@ const MottakerAvGjenlevendePensjon: React.FC<MainFormProps> = ({
   const referanseTilPersonTarget = 'pensjon.foresporsel.referanseTilPerson'
   const gjenlevende: Gjenlevende | undefined = _.get(PSED as P12000SED, target)
   const utenlandskePINs = _.filter(gjenlevende?.person?.pin, p => p.land !== 'NO')
-  const refererTilGjenlevende: boolean = _.get(PSED as P12000SED, referanseTilPersonTarget) === '02'
+  const foresporsel: Foresporsel | undefined = _.get(PSED as P12000SED, 'pensjon.foresporsel')
+  const refererTilGjenlevende: boolean = foresporsel?.referanseTilPerson === REFERANSE_TIL_GJENLEVENDE
 
   const isPinEmpty = !!gjenlevende?.person?.pin && _.isEmpty(gjenlevende.person.pin)
 
@@ -69,7 +72,7 @@ const MottakerAvGjenlevendePensjon: React.FC<MainFormProps> = ({
 
   const setRefererTilGjenlevende = (checked: boolean) => {
     if(checked){
-      dispatch(updatePSED(referanseTilPersonTarget, '02'))
+      dispatch(updatePSED(referanseTilPersonTarget, REFERANSE_TIL_GJENLEVENDE))
     } else {
       dispatch(deletePSEDProp(referanseTilPersonTarget))
     }
