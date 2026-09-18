@@ -316,24 +316,25 @@ describe('src/actions/buc', () => {
             foresporsel: expect.objectContaining({
               referanseTilPerson: '01'
             }),
-            merinformasjon: expect.objectContaining({
-              ytelser: expect.arrayContaining([
+            ytterligereInformasjon: 'Ytterligere informasjon',
+            pensjoninfo: expect.objectContaining({
+              tilleggsytelserutbetalingitilleggtilpensjon: 'Tilleggsytelse',
+              betalingsdetaljer: expect.arrayContaining([
                 expect.objectContaining({
-                  tilleggsytelserutbetalingitilleggtilpensjon: 'Tilleggsytelse'
+                  pensjonstype: '01'
+                })
+              ]),
+              pensjonsavslag: expect.arrayContaining([
+                expect.objectContaining({
+                  begrunnelse: 'Avslag fordi vilkarene ikke er oppfylt'
+                })
+              ]),
+              pensjonsopphoring: expect.arrayContaining([
+                expect.objectContaining({
+                  begrunnelse: 'Opphor fordi ytelsen er avsluttet'
                 })
               ])
-            }),
-            ytterligereInformasjon: 'Ytterligere informasjon',
-            pensjoninfo: expect.arrayContaining([
-              expect.objectContaining({
-                pensjonsavslag: expect.objectContaining({
-                  grunnAvslag: 'Avslag fordi vilkarene ikke er oppfylt'
-                }),
-                pensjonsopphoring: expect.objectContaining({
-                  grunnOpphoer: 'Opphor fordi ytelsen er avsluttet'
-                })
-              })
-            ])
+            })
           })
         })
       }),

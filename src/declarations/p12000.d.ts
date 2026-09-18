@@ -20,15 +20,10 @@ export interface PensjonsAvslagEllerOpphor {
 }
 
 export interface Pensjoninfo {
-  betalingsdetaljer?: Betalingsdetaljer
-  pensjonsavslag?: PensjonsAvslagEllerOpphor
-  pensjonsopphoring?: PensjonsAvslagEllerOpphor
-}
-
-export interface Merinformasjon {
-  ytelser?: Array<{
-    tilleggsytelserutbetalingitilleggtilpensjon?: string
-  }>
+  betalingsdetaljer?: Array<Betalingsdetaljer>
+  pensjonsavslag?: Array<PensjonsAvslagEllerOpphor>
+  pensjonsopphoring?: Array<PensjonsAvslagEllerOpphor>
+  tilleggsytelserutbetalingitilleggtilpensjon?: string
 }
 
 export interface Foresporsel {
@@ -47,9 +42,8 @@ export interface Gjenlevende {
 }
 
 export interface P12000Pensjon extends Pensjon {
-  pensjoninfo?: Array<Pensjoninfo>
+  pensjoninfo?: Pensjoninfo
   gjenlevende?: Gjenlevende
-  merinformasjon?: Merinformasjon
   ytterligereInformasjon?: string
   foresporsel?: Foresporsel
   anmodning13000verdi?: string
