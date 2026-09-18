@@ -10,13 +10,13 @@ import Input from "../../../components/Forms/Input";
 import {Validation} from "src/declarations/app";
 import {useAppSelector} from "src/store";
 import {State} from "src/declarations/reducers";
-import {MainFormSelector} from "../MainForm";
+import {MainFormSelector} from 'src/applications/MainForm'
 import useValidation from "../../../hooks/useValidation";
 import {validateInntekt, ValidationInntektProps} from "./validation";
 import performValidation from "../../../utils/performValidation";
 import {Currency} from "@navikt/land-verktoy";
 import {useTranslation} from "react-i18next";
-import DateField from "../DateField/DateField";
+import DateField from "src/components/Forms/DateField";
 import {formatDate, removeWhiteSpaceAndReplaceCommas, replacePeriodsWithCommas} from "src/utils/utils";
 import styles from './InntektRows.module.css'
 import CurrencyDropdown from "src/components/CurrencyDropdown/CurrencyDropdown";

@@ -14,7 +14,7 @@ import {hasNamespaceWithErrors} from 'src/utils/validation'
 import {validateSendeItem, ValidationSendeItemProps} from './validation'
 import {Validation} from "src/declarations/app"
 import {State} from "src/declarations/reducers"
-import {MainFormSelector} from "src/applications/P2000/MainForm"
+import {MainFormSelector} from 'src/applications/MainForm'
 import {ActionWithPayload} from '@navikt/fetch'
 import {UpdateSedPayload} from 'src/declarations/types'
 import {addEditingItem, deleteEditingItem} from "src/actions/app"

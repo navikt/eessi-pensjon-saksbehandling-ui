@@ -2,12 +2,12 @@ import {BodyLong, Box, Button, Heading, HGrid, HStack, Select, Spacer, VStack} f
 import _ from "lodash";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {Fragment, JSX, useEffect, useState} from "react";
-import {MainFormProps, MainFormSelector} from "../MainForm";
+import {MainFormProps, MainFormSelector} from 'src/applications/MainForm'
 import {useTranslation} from "react-i18next";
 import {useAppSelector} from "src/store";
 import {getIdx} from "src/utils/namespace";
 import {State} from "src/declarations/reducers";
-import PersonOpplysninger from "../PersonOpplysninger/PersonOpplysninger";
+import PersonOpplysninger from "src/components/PersonOpplysninger/PersonOpplysninger";
 import {resetValidation, setValidation} from "src/actions/validation";
 import {useDispatch} from "react-redux";
 import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
@@ -15,7 +15,7 @@ import classNames from "classnames";
 import UtenlandskePin from "src/components/UtenlandskePin/UtenlandskePin";
 import Foedested from "../Foedested/Foedested";
 import Statsborgerskap from "../Statsborgerskap/Statsborgerskap";
-import DateField from "../DateField/DateField";
+import DateField from "src/components/Forms/DateField";
 import {formatDate} from "src/utils/utils";
 import useValidation from "../../../hooks/useValidation";
 import {hasNamespaceWithErrors} from "src/utils/validation";

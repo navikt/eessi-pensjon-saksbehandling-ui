@@ -3,7 +3,7 @@ import {useDispatch} from "react-redux";
 import Input from "../../../components/Forms/Input";
 import _ from "lodash";
 import {Box, Heading, HGrid, VStack} from "@navikt/ds-react";
-import {MainFormProps, MainFormSelector} from "../MainForm";
+import {MainFormProps, MainFormSelector} from 'src/applications/MainForm'
 import Telefon from "../Telefon/Telefon";
 import Epost from "../Epost/Epost";
 import {State} from "src/declarations/reducers";
@@ -80,7 +80,7 @@ const Verge: React.FC<MainFormProps> = ({
             error={validation[namespace + '-person-etternavn']?.feilmelding}
             namespace={namespace}
             id='person-etternavn'
-            label={t('p2000:form-person-etternavn')}
+            label={t('ui:form-person-etternavn')}
             onChanged={setEtternavn}
             value={(verge?.person?.etternavn) ?? ''}
           />
@@ -88,7 +88,7 @@ const Verge: React.FC<MainFormProps> = ({
             error={validation[namespace + '-person-fornavn']?.feilmelding}
             namespace={namespace}
             id='person-fornavn'
-            label={t('p2000:form-person-fornavn')}
+            label={t('ui:form-person-fornavn')}
             onChanged={setFornavn}
             value={(verge?.person?.fornavn)  ?? ''}
           />

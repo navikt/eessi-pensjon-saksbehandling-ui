@@ -13,14 +13,14 @@ import useValidation from "src/hooks/useValidation";
 import { resetValidation, setValidation } from 'src/actions/validation'
 import performValidation from 'src/utils/performValidation'
 import {State} from "src/declarations/reducers";
-import {MainFormSelector} from "../MainForm";
+import {MainFormSelector} from 'src/applications/MainForm'
 import {useAppSelector} from "src/store";
 import {useTranslation} from "react-i18next";
 import {Utsettelse as P2000UUtsettelse} from "src/declarations/p2000";
 import {validateUtsettelse, ValidationUtsettelseProps} from "./validation";
 import {Country} from "@navikt/land-verktoy";
 import Input from "../../../components/Forms/Input";
-import DateField from "../DateField/DateField";
+import DateField from "src/components/Forms/DateField";
 import {formatDate} from "src/utils/utils";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import classNames from "classnames";
