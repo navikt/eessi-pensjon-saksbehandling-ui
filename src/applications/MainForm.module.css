@@ -63,6 +63,11 @@
 .nameLabelHStack {
   align-items: center;
   padding-left: 0.5rem;
+  min-width: 0;
+}
+
+.nameLabelHStack > svg {
+  flex-shrink: 0;
 }
 
 .lastDiv {
