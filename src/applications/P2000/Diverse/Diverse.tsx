@@ -9,7 +9,7 @@ import {setValidation} from "src/actions/validation";
 import useUnmount from "src/hooks/useUnmount";
 import performValidation from "src/utils/performValidation";
 import {validateDiverse, ValidationDiverseProps} from "./validation";
-import DateField from "../DateField/DateField";
+import DateField from "src/components/Forms/DateField";
 import {useTranslation} from "react-i18next";
 import {P2000SED, P2000Pensjon} from "src/declarations/p2000";
 import Utsettelse from "../Utsettelse/Utsettelse";

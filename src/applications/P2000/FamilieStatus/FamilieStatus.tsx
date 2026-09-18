@@ -16,7 +16,7 @@ import {MainFormSelector} from 'src/applications/MainForm'
 import {useAppSelector} from "src/store";
 import {useTranslation} from "react-i18next";
 import {validateFamilieStatus, ValidationFamilieStatusProps} from "./validation";
-import DateField from "../DateField/DateField";
+import DateField from "src/components/Forms/DateField";
 import {formatDate} from "src/utils/utils";
 import classNames from "classnames";
 import {hasNamespaceWithErrors} from "src/utils/validation";

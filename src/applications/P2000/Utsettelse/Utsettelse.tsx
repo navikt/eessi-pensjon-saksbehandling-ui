@@ -20,7 +20,7 @@ import {Utsettelse as P2000UUtsettelse} from "src/declarations/p2000";
 import {validateUtsettelse, ValidationUtsettelseProps} from "./validation";
 import {Country} from "@navikt/land-verktoy";
 import Input from "../../../components/Forms/Input";
-import DateField from "../DateField/DateField";
+import DateField from "src/components/Forms/DateField";
 import {formatDate} from "src/utils/utils";
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import classNames from "classnames";

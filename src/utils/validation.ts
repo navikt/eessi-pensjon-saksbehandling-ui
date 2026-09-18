@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { ErrorElement, Validation } from 'src/declarations/app'
 import i18n from "i18next";
-import {isDateValidFormat} from "src/applications/P2000/DateField/DateField";
+import {isDateValidFormat} from "src/components/Forms/DateField";
 
 export interface ValidateParams {
   id: string

@@ -33,7 +33,7 @@ import AddRemovePanel from "../../../components/AddRemovePanel/AddRemovePanel";
 import BeloepRows from "../Beloep/BeloepRows";
 import {formatDate, removeWhiteSpaceAndReplaceCommas, replacePeriodsWithCommas} from "src/utils/utils";
 import Input from "../../../components/Forms/Input";
-import DateField from "../DateField/DateField";
+import DateField from "src/components/Forms/DateField";
 import ErrorLabel from "src/components/Forms/ErrorLabel";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
 import styles from "src/assets/css/common.module.css";

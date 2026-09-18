@@ -16,7 +16,7 @@ import {validateBeloep, ValidationBeloepProps} from "./validation";
 import performValidation from "../../../utils/performValidation";
 import {Currency} from "@navikt/land-verktoy";
 import {useTranslation} from "react-i18next";
-import DateField from "../DateField/DateField";
+import DateField from "src/components/Forms/DateField";
 import {formatDate, removeWhiteSpaceAndReplaceCommas, replacePeriodsWithCommas} from "src/utils/utils";
 import styles from './BeloepRows.module.css'
 import CurrencyDropdown from "src/components/CurrencyDropdown/CurrencyDropdown";

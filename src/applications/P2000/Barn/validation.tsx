@@ -3,7 +3,7 @@ import {getIdx} from "src/utils/namespace";
 import _ from "lodash";
 import performValidation from "../../../utils/performValidation";
 import {validateFoedested, ValidationFoedestedProps} from "../Foedested/validation";
-import {validatePerson, ValidationPersonProps} from "../PersonOpplysninger/validation";
+import {validatePerson, ValidationPersonProps} from "src/components/PersonOpplysninger/validation";
 import {checkIfNotValidDateFormat} from "src/utils/validation";
 import {Barn} from "src/declarations/sed";
 
