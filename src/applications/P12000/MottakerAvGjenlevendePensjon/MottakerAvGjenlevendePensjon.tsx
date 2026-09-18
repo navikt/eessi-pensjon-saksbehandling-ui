@@ -1,4 +1,4 @@
-import {Box, Heading, VStack} from "@navikt/ds-react";
+import {Box, Checkbox, Heading, VStack} from "@navikt/ds-react";
 import React, {JSX, useEffect} from "react";
 import {MainFormProps, MainFormSelector} from 'src/applications/MainForm'
 import _ from "lodash";
@@ -6,6 +6,7 @@ import {State} from "src/declarations/reducers";
 import {useDispatch} from "react-redux";
 import {resetValidation, setValidation} from "src/actions/validation";
 import {useAppSelector} from "src/store";
+import {useTranslation} from "react-i18next";
 import useUnmount from "src/hooks/useUnmount";
 import performValidation from "src/utils/performValidation";
 import PersonOpplysninger from "src/components/PersonOpplysninger/PersonOpplysninger";
@@ -33,11 +34,14 @@ const MottakerAvGjenlevendePensjon: React.FC<MainFormProps> = ({
 }: MainFormProps): JSX.Element => {
 
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-mottakeravgjenlevendepensjon`
   const target = 'pensjon.gjenlevende'
+  const referanseTilPersonTarget = 'pensjon.foresporsel.referanseTilPerson'
   const gjenlevende: Gjenlevende | undefined = _.get(PSED as P12000SED, target)
   const utenlandskePINs = _.filter(gjenlevende?.person?.pin, p => p.land !== 'NO')
+  const refererTilGjenlevende: boolean = _.get(PSED as P12000SED, referanseTilPersonTarget) === '02'
 
   const isPinEmpty = !!gjenlevende?.person?.pin && _.isEmpty(gjenlevende.person.pin)
 
@@ -63,6 +67,14 @@ const MottakerAvGjenlevendePensjon: React.FC<MainFormProps> = ({
     dispatch(setValidation(clonedvalidation))
   })
 
+  const setRefererTilGjenlevende = (checked: boolean) => {
+    if(checked){
+      dispatch(updatePSED(referanseTilPersonTarget, '02'))
+    } else {
+      dispatch(deletePSEDProp(referanseTilPersonTarget))
+    }
+  }
+
   const setPersonOpplysninger = (property: string, value: string) => {
     dispatch(updatePSED(`${target}.person.${property}`, value))
     if(validation[namespace + '-person-' + property]){
@@ -86,6 +98,13 @@ const MottakerAvGjenlevendePensjon: React.FC<MainFormProps> = ({
         <Heading size='medium'>
           {label}
         </Heading>
+        <Checkbox
+          id={namespace + '-referansetilperson'}
+          checked={refererTilGjenlevende}
+          onChange={(e) => setRefererTilGjenlevende(e.target.checked)}
+        >
+          {t('p12000:form-referansetilgjenlevende')}
+        </Checkbox>
         <Box>
           <PersonOpplysninger
             setPersonOpplysninger={setPersonOpplysninger}
