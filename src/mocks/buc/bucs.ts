@@ -6035,25 +6035,36 @@ const mockBuc = [
         creationDate: 1757500000000,
         receiveDate: 1757500100000,
         lastUpdate: 1757500100000,
-        displayName: 'Request for pension information',
+        allowsAttachments: true,
+        attachmentsSize: null
+      },
+      {
+        id: 'p12000-empty-120007',
+        parentDocumentId: 'p11000-received-120007',
+        type: 'P12000',
+        status: 'empty',
+        direction: 'OUT' as Direction,
+        creationDate: 1757500100000,
+        lastUpdate: 1757500100000,
+        displayName: 'Pension information',
         participants: [
           {
             role: 'Sender',
             organisation: {
-              acronym: 'DEMO001',
-              countryCode: 'DE',
-              name: 'German institution 01',
-              id: 'DE:DEMO001'
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 07',
+              id: 'NO:NAVAT07'
             },
             selected: false
           },
           {
             role: 'Receiver',
             organisation: {
-              acronym: 'NAVAT07',
-              countryCode: 'NO',
-              name: 'NAV ACCEPTANCE TEST 07',
-              id: 'NO:NAVAT07'
+              acronym: 'DEMO001',
+              countryCode: 'DE',
+              name: 'German institution 01',
+              id: 'DE:DEMO001'
             },
             selected: false
           }
@@ -6062,7 +6073,7 @@ const mockBuc = [
         version: '1',
         firstVersion: {
           id: '1',
-          date: 1757500000000
+          date: 1757500100000
         },
         lastVersion: {
           id: '1',
