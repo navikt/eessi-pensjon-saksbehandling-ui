@@ -17,7 +17,7 @@ export default defineConfig({
     commonjsOptions: {
       transformMixedEsModules: true,
     },
-    sourcemap: true,
+    sourcemap: process.env.NODE_ENV !== "production",
     manifest: true
   },
   resolve: {
