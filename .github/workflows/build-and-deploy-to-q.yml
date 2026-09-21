@@ -104,7 +104,6 @@ jobs:
           RESOURCE: nais/${{ github.event.inputs.environment }}.yml
           IMAGE: ${{ steps.docker-push.outputs.image }}
           VARS: nais/${{ github.event.inputs.environment }}-nais-vars.yml
-          CDN_BASE_URL: https://cdn.nav.no/eessipensjon/dist/
 
       # OPPRETTER GIT TAG
       - name: 'Opprett git tag'
