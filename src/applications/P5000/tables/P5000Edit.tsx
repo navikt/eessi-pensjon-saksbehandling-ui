@@ -121,6 +121,20 @@ const P5000Edit: React.FC<P5000EditProps> = ({
     { label: '111 - ' + informasjonOmBeregningLabels['111'], value: '111' }
   ]
 
+  const handleTypeChange = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>, newType: string, shouldSetAddRowEditing = false) => {
+    const isUftFlagged = options.values?.flagIkon === 'UFT'
+    const shouldPrefillBeregning = (newType === '50' || (newType === '41' && isUftFlagged))
+
+    options.setValues({
+      type: newType,
+      ...(shouldPrefillBeregning ? { beregning: '000' } : {})
+    })
+
+    if (shouldSetAddRowEditing) {
+      _setAddRowEditing(true)
+    }
+  }
+
   const renderTypeAdd = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
     return (
       <Select
@@ -132,7 +146,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         error={options.error}
         options={typeOptions}
         menuPortalTarget={document.body}
-        onChange={(e: unknown) => {options.setValues({ type: (e as Option).value }); _setAddRowEditing(true)}}
+        onChange={(e: unknown) => handleTypeChange(options, (e as Option).value, true)}
         defaultValue={_.find(typeOptions, o => o.value === options.value) ?? null}
         value={_.find(typeOptions, o => o.value === options.value) ?? null}
       />
@@ -149,7 +163,7 @@ const P5000Edit: React.FC<P5000EditProps> = ({
         error={options.error}
         options={typeOptions}
         menuPortalTarget={document.body}
-        onChange={(e: unknown) => options.setValues({ type: (e as Option).value })}
+        onChange={(e: unknown) => handleTypeChange(options, (e as Option).value)}
         defaultValue={_.find(typeOptions, o => o.value === options.value) ?? null}
         value={_.find(typeOptions, o => o.value === options.value) ?? null}
       />
@@ -652,11 +666,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const renderBeregningEdit = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
-    if (options.values && !_.isNil(options.values.type)) {
-      const isUftFlagged = options.values.flagIkon === 'UFT'
-      if ((options.values.type === '50' || (options.values.type === '41' && isUftFlagged)) && options.value !== '000') {
-        options.setValues({ beregning: '000' })
-      }
+    const { type, flagIkon } = options.values ?? {}
+    const isUftFlagged = flagIkon === 'UFT'
+    const shouldPrefillBeregning = (type === '50' || (type === '41' && isUftFlagged)) &&
+      (_.isNil(options.value) || options.value === '')
+
+    if (shouldPrefillBeregning) {
+      options.setValues({ beregning: '000' })
     }
 
     return (
@@ -677,11 +693,13 @@ const P5000Edit: React.FC<P5000EditProps> = ({
   }
 
   const renderBeregningAdd = (options: RenderEditableOptions<P5000ListRow, P5000TableContext, string>) => {
-    if (options.values && !_.isNil(options.values.type)) {
-      const isUftFlagged = options.values.flagIkon === 'UFT'
-      if ((options.values.type === '50' || (options.values.type === '41' && isUftFlagged)) && options.value !== '000') {
-        options.setValues({ beregning: '000' })
-      }
+    const { type, flagIkon } = options.values ?? {}
+    const isUftFlagged = flagIkon === 'UFT'
+    const shouldPrefillBeregning = (type === '50' || (type === '41' && isUftFlagged)) &&
+      (_.isNil(options.value) || options.value === '')
+
+    if (shouldPrefillBeregning) {
+      options.setValues({ beregning: '000' })
     }
 
     return (
