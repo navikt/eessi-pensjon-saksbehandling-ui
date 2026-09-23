@@ -65,6 +65,15 @@ jobs:
         env:
           CDN_BASE_URL: https://cdn.nav.no/eessipensjon/build/
 
+      - name: 'Verify sourcemaps were generated'
+        run: |
+          echo "Checking build output for sourcemaps..."
+          find build -type f \( -name "*.map" -o -name "*.js.map" \) | head
+          if [ -z "$(find build -type f \( -name "*.map" -o -name "*.js.map" \) -print -quit)" ]; then
+            echo "No sourcemaps found in build output. Build likely did not emit sourcemaps."
+            exit 1
+          fi
+
       - name: Upload assets to CDN
         uses: nais/deploy/actions/cdn-upload/v2@027a91857992525139798892f2804b0ca21f4af6
         with:
