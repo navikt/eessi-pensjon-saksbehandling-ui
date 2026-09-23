@@ -8,7 +8,6 @@ import {useAppDispatch} from "src/store";
 import {PSED} from "src/declarations/app";
 import {UpdateSedPayload} from "src/declarations/types";
 import {PensjonsAvslagEllerOpphor} from "src/declarations/p12000";
-import {getIdx} from "src/utils/namespace";
 import AddRemovePanel from "src/components/AddRemovePanel/AddRemovePanel";
 import TextArea from "src/components/Forms/TextArea";
 import styles from "src/assets/css/common.module.css";
@@ -34,71 +33,60 @@ const PensjonsAvslagEllerOpphorPanel: React.FC<PensjonsAvslagEllerOpphorPanelPro
   const dispatch = useAppDispatch()
   const namespace = `${parentNamespace}-${id}`
   const items: Array<PensjonsAvslagEllerOpphor> = _.get(PSED, target) ?? []
+  const item: PensjonsAvslagEllerOpphor | undefined = _.head(items)
 
-  const setItems = (newItems: Array<PensjonsAvslagEllerOpphor>) => {
-    dispatch(updatePSED(target, _.isEmpty(newItems) ? undefined : newItems))
-  }
-
-  const setBegrunnelse = (begrunnelse: string, index: number) => {
-    const newItems: Array<PensjonsAvslagEllerOpphor> = _.cloneDeep(items)
-    newItems[index] = {...newItems[index], begrunnelse, pensjonstype}
-    setItems(newItems)
+  const setBegrunnelse = (begrunnelse: string) => {
+    dispatch(updatePSED(target, [{...item, begrunnelse, pensjonstype}]))
   }
 
   const onAddNew = () => {
-    setItems([...items, {pensjonstype}])
+    dispatch(updatePSED(target, [{pensjonstype}]))
   }
 
-  const onRemove = (index: number) => {
-    setItems(items.filter((_item, i: number) => i !== index))
-  }
-
-  const renderRow = (item: PensjonsAvslagEllerOpphor, index: number) => {
-    const _namespace = namespace + getIdx(index)
-
-    return (
-      <Box
-        key={'repeatablerow-' + _namespace}
-        id={'repeatablerow-' + _namespace}
-        className={styles.repeatableBox}
-        padding="space-16"
-      >
-        <HStack gap="space-16" align="start" wrap={false}>
-          <Box flexGrow="1">
-            <TextArea
-              namespace={_namespace}
-              error={undefined}
-              id='begrunnelse'
-              label={t('p12000:form-pensjonsavslagelleropphor-begrunnelse')}
-              onChanged={(v: string) => setBegrunnelse(v, index)}
-              value={item?.begrunnelse ?? ''}
-              maxLength={500}
-            />
-          </Box>
-          <Spacer/>
-          <AddRemovePanel<PensjonsAvslagEllerOpphor>
-            item={item}
-            index={index}
-            marginTop
-            allowEdit={false}
-            alwaysVisible
-            onRemove={() => onRemove(index)}
-          />
-        </HStack>
-      </Box>
-    )
+  const onRemove = () => {
+    dispatch(updatePSED(target, undefined))
   }
 
   return (
     <VStack gap="space-16">
-      {_.isEmpty(items)
-        ? (<em>{t('p12000:form-pensjonsavslagelleropphor-ingen-begrunnelser')}</em>)
-        : (<VStack gap="space-8">{items.map(renderRow)}</VStack>)
+      {item
+        ? (
+          <Box
+            id={'repeatablerow-' + namespace}
+            className={styles.repeatableBox}
+            padding="space-16"
+          >
+            <HStack gap="space-16" align="start" wrap={false}>
+              <Box flexGrow="1">
+                <TextArea
+                  namespace={namespace}
+                  error={undefined}
+                  id='begrunnelse'
+                  label={t('p12000:form-pensjonsavslagelleropphor-begrunnelse')}
+                  onChanged={setBegrunnelse}
+                  value={item?.begrunnelse ?? ''}
+                  maxLength={500}
+                />
+              </Box>
+              <Spacer/>
+              <AddRemovePanel<PensjonsAvslagEllerOpphor>
+                item={item}
+                index={0}
+                marginTop
+                allowEdit={false}
+                alwaysVisible
+                onRemove={onRemove}
+              />
+            </HStack>
+          </Box>
+        )
+        : (<em>{t('p12000:form-pensjonsavslagelleropphor-ingen-begrunnelser')}</em>)
       }
       <Box>
         <Button
           variant='tertiary'
           data-testid={namespace + '-add'}
+          disabled={!!item}
           onClick={onAddNew}
           iconPosition="left" icon={<PlusCircleIcon aria-hidden/>}
         >
