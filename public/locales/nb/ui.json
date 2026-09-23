@@ -14,7 +14,7 @@
     "arbeidstakerSelvstendig": "Arb.taker/Selvstendig",
     "all" : "Alle",
     "attachments" : "Vedlegg",
-    "pendingAttachments": "Vedlegg som skal lastes opp",
+    "pendingAttachments": "Vedlegg som skal lastes opp til SED",
     "pendingAttachmentsDescription": "{{count}} vedlegg er valgt og klare til opplasting.",
     "back" : "Tilbake",
     "birthdate" : "Fødselsdato",
