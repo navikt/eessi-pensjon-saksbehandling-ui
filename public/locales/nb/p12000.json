@@ -1,4 +1,10 @@
 {
+  "form-informasjonompensjon-pensjonstype": "Pensjonstype",
+  "form-pensjonsavslagelleropphor-begrunnelse": "Begrunnelse",
+  "form-pensjonsavslagelleropphor-ingen-begrunnelser": "Ingen begrunnelser lagt til",
   "form-referansetilgjenlevende": "P12000 refererer til den gjenlevende",
-  "form-ytterligereinformasjon": "Ytterligere informasjon"
+  "form-ytterligereinformasjon": "Ytterligere informasjon",
+  "pensjonstype-01": "Alder",
+  "pensjonstype-02": "Uføre",
+  "pensjonstype-03": "Gjenlevende"
 }
