@@ -60,8 +60,19 @@ jobs:
       - name: 'Run tests'
         run: npm run test:filtered
 
-      - name: 'Build'
+      - name: Build
         run: npm run build
+        env:
+          CDN_BASE_URL: https://cdn.nav.no/eessipensjon/build/
+
+      - name: Upload assets to CDN
+        uses: nais/deploy/actions/cdn-upload/v2@027a91857992525139798892f2804b0ca21f4af6
+        with:
+          team: eessipensjon
+          source: ./build
+          destination: /
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # required, but is defined as an organization variable
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # required, but is defined as an organization secret
 
       - name: 'Prune - omit dev dependencies'
         run: npm prune --omit=dev

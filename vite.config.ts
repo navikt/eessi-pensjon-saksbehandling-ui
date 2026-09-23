@@ -3,7 +3,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  base: "/",
+  base: process.env.CDN_BASE_URL || '/',
   plugins: [
     react()
   ],
@@ -17,6 +17,8 @@ export default defineConfig({
     commonjsOptions: {
       transformMixedEsModules: true,
     },
+    sourcemap: process.env.NODE_ENV !== "production",
+    manifest: true
   },
   resolve: {
     tsconfigPaths: true,
