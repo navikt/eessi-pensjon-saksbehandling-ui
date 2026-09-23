@@ -5,13 +5,13 @@ import {MainFormProps} from "src/applications/MainForm";
 const InformasjonOmPensjon: React.FC<MainFormProps> = ({label}: MainFormProps): JSX.Element => (
   <Box padding="space-16">
     <Heading size="medium">{label}</Heading>
-    <Tabs defaultValue="betalingsdetaljer">
+    <Tabs defaultValue="innvilgelseavpensjon">
       <Tabs.List>
-        <Tabs.Tab label="Betalingsdetaljer" value="betalingsdetaljer"/>
+        <Tabs.Tab label="Innvilgelse av pensjon (Betalingsdetaljer)" value="innvilgelseavpensjon"/>
         <Tabs.Tab label="Avslag på pensjon" value="avslagpensjon"/>
         <Tabs.Tab label="Opphør av pensjon" value="opphoravpensjon"/>
       </Tabs.List>
-      <Tabs.Panel value="betalingsdetaljer">{null}</Tabs.Panel>
+      <Tabs.Panel value="innvilgelseavpensjon">{null}</Tabs.Panel>
       <Tabs.Panel value="avslagpensjon">{null}</Tabs.Panel>
       <Tabs.Panel value="opphoravpensjon">{null}</Tabs.Panel>
     </Tabs>

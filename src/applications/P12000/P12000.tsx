@@ -117,8 +117,8 @@ const P12000: React.FC<P12000Props> = ({buc, sed, setMode}: P12000Props): JSX.El
           <SakInfo PSED={currentPSED} title="P12000"/>
           <MainForm
             forms={[
-              { label: "Mottaker av gjenlevendepensjon", value: 'mottakeravgjenlevendepensjon', component: MottakerAvGjenlevendePensjon},
-              { label: "Informasjon om pensjon", value: 'informasjonompensjon', component: InformasjonOmPensjon}
+              { label: "Informasjon om pensjon", value: 'informasjonompensjon', component: InformasjonOmPensjon},
+              { label: "Mottaker av gjenlevendepensjon", value: 'mottakeravgjenlevendepensjon', component: MottakerAvGjenlevendePensjon}
             ]}
             PSED={currentPSED}
             setPSED={setPSED}
