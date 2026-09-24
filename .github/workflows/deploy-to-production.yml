@@ -34,4 +34,5 @@ jobs:
           VAR: "image=${{ env.IMAGE }}:${{ github.event.inputs.version }}"
           VARS: nais/prod-gcp-nais-vars.yml
           PRINT_PAYLOAD: true
+          CDN_BASE_URL: https://cdn.nav.no/eessipensjon/prod/build/
           ENABLE_SOURCEMAPS: "false"
