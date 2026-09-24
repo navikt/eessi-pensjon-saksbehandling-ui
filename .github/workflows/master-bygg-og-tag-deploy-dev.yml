@@ -51,7 +51,7 @@ jobs:
       - name: 'Build'
         run: npm run build
         env:
-          CDN_BASE_URL: https://cdn.nav.no/eessipensjon/q/build/
+          CDN_BASE_URL: https://cdn.nav.no/eessipensjon/build/
           ENABLE_SOURCEMAPS: "true"
 
       - name: Upload assets to CDN
