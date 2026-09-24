@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 //@ts-ignore
 import react from '@vitejs/plugin-react'
 
-const enableSourceMaps = process.env.ENABLE_SOURCEMAPS === 'false'
+const enableSourceMaps = process.env.ENABLE_SOURCEMAPS === 'true'
 
 export default defineConfig({
   base: process.env.CDN_BASE_URL || '/',
