@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite'
 //@ts-ignore
 import react from '@vitejs/plugin-react'
-import {IS_Q} from "./src/constants/environment";
+
+const enableSourceMaps = process.env.ENABLE_SOURCEMAPS === 'true'
 
 export default defineConfig({
   base: process.env.CDN_BASE_URL || '/',
@@ -18,7 +19,7 @@ export default defineConfig({
     commonjsOptions: {
       transformMixedEsModules: true,
     },
-    sourcemap: IS_Q,
+    sourcemap: enableSourceMaps,
     manifest: true
   },
   resolve: {
