@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 //@ts-ignore
 import react from '@vitejs/plugin-react'
+import {IS_Q} from "./src/constants/environment";
 
 export default defineConfig({
   base: process.env.CDN_BASE_URL || '/',
@@ -17,7 +18,7 @@ export default defineConfig({
     commonjsOptions: {
       transformMixedEsModules: true,
     },
-    sourcemap: process.env.NODE_ENV !== "production",
+    sourcemap: IS_Q,
     manifest: true
   },
   resolve: {
