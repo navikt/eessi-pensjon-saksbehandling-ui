@@ -4,9 +4,11 @@ import _ from "lodash";
 import {useTranslation} from "react-i18next";
 import {useAppDispatch} from "src/store";
 import {MainFormProps} from "src/applications/MainForm";
-import {PensjonsAvslagEllerOpphor} from "src/declarations/p12000";
+import {Betalingsdetaljer, PensjonsAvslagEllerOpphor} from "src/declarations/p12000";
+import BetalingsdetaljerPanel from "./BetalingsdetaljerPanel";
 import PensjonsAvslagEllerOpphorPanel from "./PensjonsAvslagEllerOpphorPanel";
 
+export const BETALINGSDETALJER_TARGET = 'pensjon.pensjoninfo.betalingsdetaljer'
 export const PENSJONSAVSLAG_TARGET = 'pensjon.pensjoninfo.pensjonsavslag'
 export const PENSJONSOPPHORING_TARGET = 'pensjon.pensjoninfo.pensjonsopphoring'
 
@@ -22,12 +24,13 @@ const InformasjonOmPensjon: React.FC<MainFormProps> = ({
   const dispatch = useAppDispatch()
   const namespace = `${parentNamespace}-informasjonompensjon`
 
+  const betalingsdetaljer: Array<Betalingsdetaljer> = _.get(PSED, BETALINGSDETALJER_TARGET) ?? []
   const pensjonsavslag: Array<PensjonsAvslagEllerOpphor> = _.get(PSED, PENSJONSAVSLAG_TARGET) ?? []
   const pensjonsopphoring: Array<PensjonsAvslagEllerOpphor> = _.get(PSED, PENSJONSOPPHORING_TARGET) ?? []
 
   const storedPensjonstype: string | undefined = _.find(
-    [...pensjonsavslag, ...pensjonsopphoring],
-    (item: PensjonsAvslagEllerOpphor) => !_.isEmpty(item?.pensjonstype)
+    [...betalingsdetaljer, ...pensjonsavslag, ...pensjonsopphoring],
+    (item: Betalingsdetaljer | PensjonsAvslagEllerOpphor) => !_.isEmpty(item?.pensjonstype)
   )?.pensjonstype
 
   const [_pensjonstype, _setPensjonstype] = useState<string>(storedPensjonstype ?? '')
@@ -41,12 +44,13 @@ const InformasjonOmPensjon: React.FC<MainFormProps> = ({
   const setPensjonstype = (pensjonstype: string) => {
     _setPensjonstype(pensjonstype)
 
-    const applyPensjonstype = (target: string, items: Array<PensjonsAvslagEllerOpphor>) => {
+    const applyPensjonstype = (target: string, items: Array<Betalingsdetaljer | PensjonsAvslagEllerOpphor>) => {
       if (!_.isEmpty(items)) {
         dispatch(updatePSED(target, items.map((item) => ({...item, pensjonstype}))))
       }
     }
 
+    applyPensjonstype(BETALINGSDETALJER_TARGET, betalingsdetaljer)
     applyPensjonstype(PENSJONSAVSLAG_TARGET, pensjonsavslag)
     applyPensjonstype(PENSJONSOPPHORING_TARGET, pensjonsopphoring)
   }
@@ -76,7 +80,17 @@ const InformasjonOmPensjon: React.FC<MainFormProps> = ({
             <Tabs.Tab label="Avslag på pensjon" value="avslagpensjon"/>
             <Tabs.Tab label="Opphør av pensjon" value="opphoravpensjon"/>
           </Tabs.List>
-          <Tabs.Panel value="innvilgelseavpensjon">{null}</Tabs.Panel>
+          <Tabs.Panel value="innvilgelseavpensjon">
+            <Box paddingBlock="space-16 space-0">
+              <BetalingsdetaljerPanel
+                parentNamespace={namespace}
+                target={BETALINGSDETALJER_TARGET}
+                pensjonstype={_pensjonstype || undefined}
+                PSED={PSED}
+                updatePSED={updatePSED}
+              />
+            </Box>
+          </Tabs.Panel>
           <Tabs.Panel value="avslagpensjon">
             <Box paddingBlock="space-16 space-0">
               <PensjonsAvslagEllerOpphorPanel
