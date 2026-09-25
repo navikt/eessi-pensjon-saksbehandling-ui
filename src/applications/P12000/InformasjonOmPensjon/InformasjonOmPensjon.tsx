@@ -2,17 +2,33 @@ import {Box, Heading, HStack, Radio, RadioGroup, Tabs, VStack} from "@navikt/ds-
 import React, {JSX, useEffect, useState} from "react";
 import _ from "lodash";
 import {useTranslation} from "react-i18next";
-import {useAppDispatch} from "src/store";
-import {MainFormProps} from "src/applications/MainForm";
-import {Betalingsdetaljer, PensjonsAvslagEllerOpphor} from "src/declarations/p12000";
+import {createSelector} from "@reduxjs/toolkit";
+import {useAppDispatch, useAppSelector} from "src/store";
+import {State} from "src/declarations/reducers";
+import {resetValidation, setValidation} from "src/actions/validation";
+import useUnmount from "src/hooks/useUnmount";
+import performValidation from "src/utils/performValidation";
+import {MainFormProps, MainFormSelector} from "src/applications/MainForm";
+import {Betalingsdetaljer, Pensjoninfo, PensjonsAvslagEllerOpphor} from "src/declarations/p12000";
+import TextArea from "src/components/Forms/TextArea";
 import BetalingsdetaljerPanel from "./BetalingsdetaljerPanel";
 import PensjonsAvslagEllerOpphorPanel from "./PensjonsAvslagEllerOpphorPanel";
+import {TILLEGGSYTELSER_MAX_LENGTH, validateInformasjonOmPensjon, ValidationInformasjonOmPensjonProps} from "./validation";
 
+export const PENSJONINFO_TARGET = 'pensjon.pensjoninfo'
 export const BETALINGSDETALJER_TARGET = 'pensjon.pensjoninfo.betalingsdetaljer'
 export const PENSJONSAVSLAG_TARGET = 'pensjon.pensjoninfo.pensjonsavslag'
 export const PENSJONSOPPHORING_TARGET = 'pensjon.pensjoninfo.pensjonsopphoring'
+export const TILLEGGSYTELSER_TARGET = 'pensjon.pensjoninfo.tilleggsytelserutbetalingitilleggtilpensjon'
 
 const PENSJONSTYPER = ['01', '02', '03']
+
+const mapState = createSelector(
+  (state: State) => state.validation.status,
+  (validation): MainFormSelector => ({
+    validation
+  })
+)
 
 const InformasjonOmPensjon: React.FC<MainFormProps> = ({
   label,
@@ -22,7 +38,10 @@ const InformasjonOmPensjon: React.FC<MainFormProps> = ({
 }: MainFormProps): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useAppDispatch()
+  const {validation} = useAppSelector(mapState)
   const namespace = `${parentNamespace}-informasjonompensjon`
+
+  const pensjoninfo: Pensjoninfo | undefined = _.get(PSED, PENSJONINFO_TARGET)
 
   const betalingsdetaljer: Array<Betalingsdetaljer> = _.get(PSED, BETALINGSDETALJER_TARGET) ?? []
   const pensjonsavslag: Array<PensjonsAvslagEllerOpphor> = _.get(PSED, PENSJONSAVSLAG_TARGET) ?? []
@@ -40,6 +59,23 @@ const InformasjonOmPensjon: React.FC<MainFormProps> = ({
       _setPensjonstype(storedPensjonstype)
     }
   }, [storedPensjonstype])
+
+  useUnmount(() => {
+    const clonedValidation = _.cloneDeep(validation)
+    performValidation<ValidationInformasjonOmPensjonProps>(
+      clonedValidation, namespace, validateInformasjonOmPensjon, {
+        pensjoninfo
+      }, true
+    )
+    dispatch(setValidation(clonedValidation))
+  })
+
+  const setTilleggsytelser = (tilleggsytelser: string) => {
+    dispatch(updatePSED(TILLEGGSYTELSER_TARGET, tilleggsytelser))
+    if (validation[namespace + '-tilleggsytelserutbetalingitilleggtilpensjon']) {
+      dispatch(resetValidation(namespace + '-tilleggsytelserutbetalingitilleggtilpensjon'))
+    }
+  }
 
   const setPensjonstype = (pensjonstype: string) => {
     _setPensjonstype(pensjonstype)
@@ -82,13 +118,24 @@ const InformasjonOmPensjon: React.FC<MainFormProps> = ({
           </Tabs.List>
           <Tabs.Panel value="innvilgelseavpensjon">
             <Box paddingBlock="space-16 space-0">
-              <BetalingsdetaljerPanel
-                parentNamespace={namespace}
-                target={BETALINGSDETALJER_TARGET}
-                pensjonstype={_pensjonstype || undefined}
-                PSED={PSED}
-                updatePSED={updatePSED}
-              />
+              <VStack gap="space-16">
+                <BetalingsdetaljerPanel
+                  parentNamespace={namespace}
+                  target={BETALINGSDETALJER_TARGET}
+                  pensjonstype={_pensjonstype || undefined}
+                  PSED={PSED}
+                  updatePSED={updatePSED}
+                />
+                <TextArea
+                  namespace={namespace}
+                  error={validation[namespace + '-tilleggsytelserutbetalingitilleggtilpensjon']?.feilmelding}
+                  id='tilleggsytelserutbetalingitilleggtilpensjon'
+                  label={t('p12000:form-tilleggsytelserutbetalingitilleggtilpensjon')}
+                  onChanged={setTilleggsytelser}
+                  value={pensjoninfo?.tilleggsytelserutbetalingitilleggtilpensjon ?? ''}
+                  maxLength={TILLEGGSYTELSER_MAX_LENGTH}
+                />
+              </VStack>
             </Box>
           </Tabs.Panel>
           <Tabs.Panel value="avslagpensjon">

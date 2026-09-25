@@ -3,6 +3,7 @@ import {P12000SED} from "src/declarations/p12000";
 import performValidation from "src/utils/performValidation";
 import {validatePerson, ValidationPersonProps} from "src/components/PersonOpplysninger/validation";
 import {validateUtenlandskePINs, ValidationUtenlandskePINsProps} from "src/components/UtenlandskePin/validation";
+import {validateInformasjonOmPensjon, ValidationInformasjonOmPensjonProps} from "./InformasjonOmPensjon/validation";
 import _ from "lodash";
 
 export interface ValidationP12000Props {
@@ -17,7 +18,12 @@ export const validateP12000 = (
   }: ValidationP12000Props
 ): boolean => {
   const hasErrors: Array<boolean> = []
+  const informasjonOmPensjonNamespace = `${namespace}-informasjonompensjon`
   const gjenlevendeNamespace = `${namespace}-mottakeravgjenlevendepensjon`
+
+  hasErrors.push(performValidation<ValidationInformasjonOmPensjonProps>(v, informasjonOmPensjonNamespace, validateInformasjonOmPensjon, {
+    pensjoninfo: P12000SED?.pensjon?.pensjoninfo
+  }, true))
 
   hasErrors.push(performValidation<ValidationPersonProps>(v, gjenlevendeNamespace, validatePerson, {
     person: P12000SED?.pensjon?.gjenlevende?.person,
