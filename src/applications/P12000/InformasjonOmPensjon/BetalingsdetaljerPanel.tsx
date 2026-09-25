@@ -1,4 +1,4 @@
-import {BodyLong, Box, Button, Heading, HGrid, HStack, Label, Radio, RadioGroup, Select, Spacer, VStack} from "@navikt/ds-react";
+import {BodyLong, Box, Button, HGrid, HStack, Label, Radio, RadioGroup, Select, Spacer, VStack} from "@navikt/ds-react";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
 import React, {JSX, useEffect, useState} from "react";
 import _ from "lodash";
