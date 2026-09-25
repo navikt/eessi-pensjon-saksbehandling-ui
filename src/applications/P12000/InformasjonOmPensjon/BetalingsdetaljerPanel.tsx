@@ -305,8 +305,11 @@ const BetalingsdetaljerPanel: React.FC<BetalingsdetaljerPanelProps> = ({
         padding="space-16"
       >
         <VStack gap="space-16">
+          {inEditMode
+            ? renderEditMode(_betalingsdetaljer, index, _namespace)
+            : renderViewMode(_betalingsdetaljer, _namespace)
+          }
           <HStack gap="space-16" align="start" wrap={false}>
-            <Heading size="xsmall">{t('p12000:form-betalingsdetaljer')}</Heading>
             <Spacer/>
             <AddRemovePanel<Betalingsdetaljer>
               item={betalingsdetaljer}
@@ -321,10 +324,6 @@ const BetalingsdetaljerPanel: React.FC<BetalingsdetaljerPanelProps> = ({
               onCancelEdit={onCloseEdit}
             />
           </HStack>
-          {inEditMode
-            ? renderEditMode(_betalingsdetaljer, index, _namespace)
-            : renderViewMode(_betalingsdetaljer, _namespace)
-          }
         </VStack>
       </Box>
     )
