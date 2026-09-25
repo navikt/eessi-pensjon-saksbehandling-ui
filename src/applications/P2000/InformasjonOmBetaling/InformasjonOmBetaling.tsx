@@ -3,7 +3,7 @@ import {useDispatch} from "react-redux";
 import {useTranslation} from "react-i18next";
 import {Box, Button, Heading, HGrid, Radio, RadioGroup, VStack} from "@navikt/ds-react";
 import {State} from "src/declarations/reducers";
-import {MainFormProps, MainFormSelector} from "../MainForm";
+import {MainFormProps, MainFormSelector} from 'src/applications/MainForm'
 import {useAppSelector} from "src/store";
 import _ from "lodash";
 import Input from "../../../components/Forms/Input";
