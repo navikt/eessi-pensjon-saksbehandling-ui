@@ -19,6 +19,7 @@ import DateField from "src/components/Forms/DateField";
 import FormTextBox from "src/components/Forms/FormTextBox";
 import Input from "src/components/Forms/Input";
 import styles from "src/assets/css/common.module.css";
+import panelStyles from "./BetalingsdetaljerPanel.module.css";
 
 export const UTBETALINGSHYPPIGHETER = [
   'aarlig', 'kvartalsvis', 'maaned_12_per_aar', 'maaned_13_per_aar', 'maaned_14_per_aar', 'ukentlig', 'annet'
@@ -297,7 +298,10 @@ const BetalingsdetaljerPanel: React.FC<BetalingsdetaljerPanelProps> = ({
       <Box
         key={'repeatablerow-' + _namespace}
         id={'repeatablerow-' + _namespace}
-        className={classNames(styles.repeatableBox, {[styles.new]: index < 0})}
+        className={classNames(styles.repeatableBox, {
+          [styles.new]: index < 0,
+          [panelStyles.stripedRow]: index >= 0 && index % 2 === 0
+        })}
         padding="space-16"
       >
         <VStack gap="space-16">
