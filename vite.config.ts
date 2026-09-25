@@ -18,7 +18,6 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
     sourcemap: true,
-    manifest: true
   },
   resolve: {
     tsconfigPaths: true,
