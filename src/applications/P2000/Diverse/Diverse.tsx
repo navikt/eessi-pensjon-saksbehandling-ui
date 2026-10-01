@@ -1,6 +1,6 @@
 import {Box, Checkbox, CheckboxGroup, Heading, HGrid, Radio, RadioGroup, VStack} from "@navikt/ds-react";
 import React, {JSX} from "react";
-import {MainFormProps, MainFormSelector} from "../MainForm";
+import {MainFormProps, MainFormSelector} from 'src/applications/MainForm'
 import _ from "lodash";
 import {State} from "src/declarations/reducers";
 import {useDispatch} from "react-redux";
@@ -9,7 +9,7 @@ import {setValidation} from "src/actions/validation";
 import useUnmount from "src/hooks/useUnmount";
 import performValidation from "src/utils/performValidation";
 import {validateDiverse, ValidationDiverseProps} from "./validation";
-import DateField from "../DateField/DateField";
+import DateField from "src/components/Forms/DateField";
 import {useTranslation} from "react-i18next";
 import {P2000SED, P2000Pensjon} from "src/declarations/p2000";
 import Utsettelse from "../Utsettelse/Utsettelse";

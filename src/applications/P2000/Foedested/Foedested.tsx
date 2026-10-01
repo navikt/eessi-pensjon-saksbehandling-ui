@@ -1,5 +1,5 @@
 import {State} from "src/declarations/reducers";
-import {MainFormSelector} from "../MainForm";
+import {MainFormSelector} from 'src/applications/MainForm'
 import React, {JSX} from "react";
 import {useTranslation} from "react-i18next";
 import {useAppSelector} from "src/store";

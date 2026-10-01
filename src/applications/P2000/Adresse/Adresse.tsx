@@ -1,7 +1,7 @@
 import React, {JSX} from "react";
 import Input from "../../../components/Forms/Input";
 import {Country} from "@navikt/land-verktoy";
-import {MainFormSelector} from "../MainForm";
+import {MainFormSelector} from 'src/applications/MainForm'
 import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
 import {PSED} from "src/declarations/app";

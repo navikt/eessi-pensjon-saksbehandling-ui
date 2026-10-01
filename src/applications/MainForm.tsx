@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next'
 import {useAppSelector} from "src/store";
 import {State} from "src/declarations/reducers";
 import WarningModal from "src/components/SaveAndSendSED/WarningModal";
-import styles from "./MainForm.module.css";
+import styles from './MainForm.module.css'
 
 export interface MainFormFCProps<T> {
   forms: Array<Form>
@@ -160,6 +160,7 @@ const MainForm = <T extends PSED>({
             <HStack
               className={classNames({ selected },styles.nameLabelHStack)}
               gap="space-4"
+              wrap={false}
             >
               {!isValidated
                 ? menuVisited.indexOf(form.value) >= 0 && <CheckmarkCircleFillIcon color='var(--ax-text-neutral-subtle)'/>

@@ -12,7 +12,7 @@ import {P2000SED} from "src/declarations/p2000";
 import _ from 'lodash'
 
 import Verge from "./Verge/Verge";
-import MainForm from "./MainForm";
+import MainForm from 'src/applications/MainForm'
 import performValidation from "../../utils/performValidation";
 import {validateP2000, ValidationP2000Props} from "./validateP2000";
 import ValidationBox from "../../components/ValidationBox/ValidationBox";
@@ -22,7 +22,7 @@ import Ytelser from "./Ytelser/Ytelser";
 import Ektefelle from "./Ektefelle/Ektefelle";
 import Barn from "./Barn/Barn";
 import InformasjonOmBetaling from "./InformasjonOmBetaling/InformasjonOmBetaling";
-import SakInfo from "./SakInfo/SakInfo";
+import SakInfo from "src/components/SakInfo/SakInfo";
 import Diverse from "./Diverse/Diverse";
 import {resetEditingItems} from "src/actions/app";
 import SEDAttachmentsPanel from "src/applications/BUC/components/SEDAttachmentsPanel/SEDAttachmentsPanel";
@@ -128,7 +128,7 @@ const P2000: React.FC<P2000Props> = ({
       </HStack>
       <HGrid columns="1fr 400px" gap="space-16" align="start">
         <VStack gap="space-16">
-          <SakInfo PSED={currentPSED}/>
+          <SakInfo PSED={currentPSED} title="P2000"/>
           <MainForm
             forms={[
               { label: "Forsikret person", value: 'forsikretperson', component: ForsikretPerson},

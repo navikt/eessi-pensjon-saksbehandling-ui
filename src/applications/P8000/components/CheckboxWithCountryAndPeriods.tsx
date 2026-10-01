@@ -9,7 +9,7 @@ import _ from "lodash";
 import {P8000Field} from "src/declarations/p8000";
 import {useTranslation} from "react-i18next";
 import {State} from "src/declarations/reducers";
-import {MainFormSelector} from "src/applications/P2000/MainForm";
+import {MainFormSelector} from 'src/applications/MainForm'
 import {useAppSelector} from "src/store";
 
 const mapState = (state: State): MainFormSelector => ({
@@ -118,4 +118,3 @@ export const CheckboxWithCountryAndPeriods: React.FC<P8000FieldComponentProps> =
     </VStack>
   );
 }
-

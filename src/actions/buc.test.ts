@@ -301,6 +301,47 @@ describe('src/actions/buc', () => {
     }))
   })
 
+  it('getSed() uses the P12000 mock', () => {
+    const mockCaseId = '123'
+    const mockSed = { id: '456', type: 'P12000' } as Sed
+
+    bucActions.getSed(mockCaseId, mockSed)
+
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
+      expectedPayload: expect.objectContaining({
+        result: expect.objectContaining({
+          sed: 'P12000',
+          pensjon: expect.objectContaining({
+            anmodning13000verdi: '1',
+            foresporsel: expect.objectContaining({
+              referanseTilPerson: '01'
+            }),
+            ytterligereInformasjon: 'Ytterligere informasjon',
+            pensjoninfo: expect.objectContaining({
+              tilleggsytelserutbetalingitilleggtilpensjon: 'Tilleggsytelse',
+              betalingsdetaljer: expect.arrayContaining([
+                expect.objectContaining({
+                  pensjonstype: '01'
+                })
+              ]),
+              pensjonsavslag: expect.arrayContaining([
+                expect.objectContaining({
+                  begrunnelse: 'Avslag fordi vilkarene ikke er oppfylt'
+                })
+              ]),
+              pensjonsopphoring: expect.arrayContaining([
+                expect.objectContaining({
+                  begrunnelse: 'Opphor fordi ytelsen er avsluttet'
+                })
+              ])
+            })
+          })
+        })
+      }),
+      url: sprintf(urls.SED_GET_SED_URL, { caseId: mockCaseId, sedId: mockSed.id })
+    }))
+  })
+
   it('getSedP6000()', () => {
     const mockRinaCaseId = '123'
     bucActions.getSedP6000(mockRinaCaseId)

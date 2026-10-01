@@ -4095,7 +4095,7 @@ const mockBuc = [
         },
         allowsAttachments: true,
         attachmentsSize: null
-      }
+      },
     ]
   },
   {
@@ -5992,6 +5992,98 @@ const mockBuc = [
     ],
     "error": null,
     "readOnly": false,
+  },
+  {
+    cdm: '4.4',
+    type: 'P_BUC_07',
+    readOnly: false,
+    caseId: '120007',
+    internationalId: 'p-buc-07-p11000-received',
+    creator: {
+      country: 'DE',
+      institution: 'DE:DEMO001',
+      name: 'German institution 01',
+      acronym: 'DEMO001'
+    },
+    sakType: 'Generell' as SakTypeValue,
+    aktoerId: '001122334455',
+    status: 'open',
+    direction: 'IN' as Direction,
+    startDate: 1757500000000,
+    lastUpdate: 1757500100000,
+    institusjon: [
+      {
+        country: 'NO',
+        institution: 'NO:NAVAT07',
+        name: 'NAV ACCEPTANCE TEST 07',
+        acronym: 'NAVAT07'
+      },
+      {
+        country: 'DE',
+        institution: 'DE:DEMO001',
+        name: 'German institution 01',
+        acronym: 'DEMO001'
+      }
+    ],
+    seds: [
+      {
+        id: 'p11000-received-120007',
+        parentDocumentId: null,
+        type: 'P11000',
+        status: 'received',
+        direction: 'IN' as Direction,
+        creationDate: 1757500000000,
+        receiveDate: 1757500100000,
+        lastUpdate: 1757500100000,
+        allowsAttachments: true,
+        attachmentsSize: null
+      },
+      {
+        id: 'p12000-empty-120007',
+        parentDocumentId: 'p11000-received-120007',
+        type: 'P12000',
+        status: 'empty',
+        direction: 'OUT' as Direction,
+        creationDate: 1757500100000,
+        lastUpdate: 1757500100000,
+        displayName: 'Pension information',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 07',
+              id: 'NO:NAVAT07'
+            },
+            selected: false
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'DEMO001',
+              countryCode: 'DE',
+              name: 'German institution 01',
+              id: 'DE:DEMO001'
+            },
+            selected: false
+          }
+        ],
+        attachments: [],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1757500100000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1757500100000
+        },
+        allowsAttachments: true,
+        attachmentsSize: null
+      }
+    ],
+    error: null
   }
 ]
 

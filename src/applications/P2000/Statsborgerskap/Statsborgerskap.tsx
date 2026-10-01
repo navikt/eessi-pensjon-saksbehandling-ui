@@ -20,7 +20,7 @@ import {ActionWithPayload} from "@navikt/fetch";
 import {UpdateSedPayload} from "src/declarations/types";
 import {PSED, Validation} from "src/declarations/app";
 import {State} from "src/declarations/reducers";
-import {MainFormSelector} from "../MainForm";
+import {MainFormSelector} from 'src/applications/MainForm'
 import FlagPanel from "src/components/FlagPanel/FlagPanel";
 import CountryDropdown from "src/components/CountryDropdown/CountryDropdown";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";

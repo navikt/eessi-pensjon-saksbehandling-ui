@@ -58,6 +58,13 @@ export default (aktoerId: string, sakId: string) => ([
     avdodFnr: null,
     kilde: 'pdl'
   }, {
+    buctype: 'P_BUC_07',
+    euxCaseId: '120007',
+    aktoerId,
+    saknr: sakId,
+    avdodFnr: null,
+    kilde: 'pdl'
+  }, {
     buctype: 'X_BUC_XX',
     euxCaseId: '362453',
     aktoerId,
