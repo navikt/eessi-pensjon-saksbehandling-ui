@@ -6,13 +6,18 @@ import classNames from "classnames";
 import {useTranslation} from "react-i18next";
 import {Currency} from "@navikt/land-verktoy";
 import {ActionWithPayload} from "@navikt/fetch";
-import {useAppDispatch} from "src/store";
+import {useAppDispatch, useAppSelector} from "src/store";
 import {addEditingItem, deleteEditingItem} from "src/actions/app";
-import {PSED} from "src/declarations/app";
+import {resetValidation, setValidation} from "src/actions/validation";
+import {PSED, Validation} from "src/declarations/app";
+import {State} from "src/declarations/reducers";
 import {UpdateSedPayload} from "src/declarations/types";
 import {Betalingsdetaljer} from "src/declarations/p12000";
 import {getIdx} from "src/utils/namespace";
 import {formatDate} from "src/utils/utils";
+import {hasNamespaceWithErrors} from "src/utils/validation";
+import performValidation from "src/utils/performValidation";
+import useValidation from "src/hooks/useValidation";
 import AddRemovePanel from "src/components/AddRemovePanel/AddRemovePanel";
 import CurrencyDropdown from "src/components/CurrencyDropdown/CurrencyDropdown";
 import DateField from "src/components/Forms/DateField";
@@ -20,6 +25,10 @@ import FormTextBox from "src/components/Forms/FormTextBox";
 import Input from "src/components/Forms/Input";
 import styles from "src/assets/css/common.module.css";
 import panelStyles from "./BetalingsdetaljerPanel.module.css";
+import {
+  validateBetalingsdetaljer,
+  ValidationBetalingsdetaljerProps
+} from "./BetalingsdetaljerPanel.validation";
 
 export const UTBETALINGSHYPPIGHETER = [
   'aarlig', 'kvartalsvis', 'maaned_12_per_aar', 'maaned_13_per_aar', 'maaned_14_per_aar', 'ukentlig', 'annet'
@@ -47,6 +56,7 @@ const BetalingsdetaljerPanel: React.FC<BetalingsdetaljerPanelProps> = ({
 }: BetalingsdetaljerPanelProps): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useAppDispatch()
+  const validation = useAppSelector((state: State) => state.validation.status)
   const namespace = `${parentNamespace}-betalingsdetaljer`
   const items: Array<Betalingsdetaljer> = _.get(PSED, target) ?? []
 
@@ -54,6 +64,8 @@ const BetalingsdetaljerPanel: React.FC<BetalingsdetaljerPanelProps> = ({
   const [_editBetalingsdetaljer, _setEditBetalingsdetaljer] = useState<Betalingsdetaljer | undefined>(undefined)
   const [_editIndex, _setEditIndex] = useState<number | undefined>(undefined)
   const [_newForm, _setNewForm] = useState<boolean>(false)
+  const [_validation, _resetValidation, _performValidation] =
+    useValidation<ValidationBetalingsdetaljerProps>(validateBetalingsdetaljer, namespace)
 
   useEffect(() => {
     if (_newForm || _editBetalingsdetaljer) {
@@ -66,9 +78,11 @@ const BetalingsdetaljerPanel: React.FC<BetalingsdetaljerPanelProps> = ({
   const setProps = (props: Betalingsdetaljer, index: number) => {
     if (index < 0) {
       _setNewBetalingsdetaljer((prevState) => ({...prevState, ...props}))
+      Object.keys(props).forEach((property) => _resetValidation(namespace + '-' + property))
       return
     }
     _setEditBetalingsdetaljer((prevState) => ({...prevState, ...props}))
+    Object.keys(props).forEach((property) => dispatch(resetValidation(namespace + getIdx(index) + '-' + property)))
   }
 
   const setUtbetalingshyppighet = (utbetalingshyppighet: string, index: number) => {
@@ -93,149 +107,175 @@ const BetalingsdetaljerPanel: React.FC<BetalingsdetaljerPanelProps> = ({
   const onCloseNew = () => {
     _setNewBetalingsdetaljer(undefined)
     _setNewForm(false)
+    _resetValidation()
   }
 
   const onAddNew = () => {
-    if (_newBetalingsdetaljer) {
+    const valid = _performValidation({
+      betalingsdetaljer: _newBetalingsdetaljer
+    })
+    if (_newBetalingsdetaljer && valid) {
       setItems([...items, {..._newBetalingsdetaljer, pensjonstype}])
+      onCloseNew()
     }
-    onCloseNew()
   }
 
   const onStartEdit = (betalingsdetaljer: Betalingsdetaljer, index: number) => {
+    if (_editIndex !== undefined) {
+      dispatch(resetValidation(namespace + getIdx(_editIndex)))
+    }
     _setEditBetalingsdetaljer(betalingsdetaljer)
     _setEditIndex(index)
   }
 
   const onCloseEdit = () => {
+    if (_editIndex !== undefined) {
+      dispatch(resetValidation(namespace + getIdx(_editIndex)))
+    }
     _setEditBetalingsdetaljer(undefined)
     _setEditIndex(undefined)
   }
 
   const onSaveEdit = () => {
-    if (_editIndex !== undefined && _editBetalingsdetaljer) {
+    const clonedValidation = _.cloneDeep(validation)
+    const hasErrors = performValidation<ValidationBetalingsdetaljerProps>(
+      clonedValidation, namespace, validateBetalingsdetaljer, {
+        betalingsdetaljer: _editBetalingsdetaljer,
+        index: _editIndex
+      }
+    )
+    if (_editIndex !== undefined && _editBetalingsdetaljer && !hasErrors) {
       const newItems: Array<Betalingsdetaljer> = _.cloneDeep(items)
       newItems[_editIndex] = {..._editBetalingsdetaljer, pensjonstype}
       setItems(newItems)
+      onCloseEdit()
+    } else {
+      dispatch(setValidation(clonedValidation))
     }
-    onCloseEdit()
   }
 
   const onRemove = (index: number) => {
     setItems(items.filter((_item, i: number) => i !== index))
   }
 
-  const renderEditMode = (item: Betalingsdetaljer | undefined, index: number, _namespace: string) => (
-    <VStack gap="space-16">
-      <HGrid columns={2} gap="space-16" align="start">
-        <DateField
-          error={undefined}
-          namespace={_namespace}
-          id='fradato'
-          index={index}
-          label={t('p12000:form-betalingsdetaljer-fradato')}
-          onChanged={(v: string) => setProps({fradato: v}, index)}
-          dateValue={item?.fradato ?? ''}
-        />
-        <DateField
-          error={undefined}
-          namespace={_namespace}
-          id='betaldato'
-          index={index}
-          label={t('p12000:form-betalingsdetaljer-betaldato')}
-          onChanged={(v: string) => setProps({betaldato: v}, index)}
-          dateValue={item?.betaldato ?? ''}
-        />
-      </HGrid>
-      <HGrid columns={2} gap="space-16" align="start">
-        <Input
-          error={undefined}
-          namespace={_namespace}
-          id='belop'
-          label={t('p12000:form-betalingsdetaljer-belop')}
-          onChanged={(v: string) => setProps({belop: v}, index)}
-          value={item?.belop ?? ''}
-        />
-        <CurrencyDropdown
-          error={undefined}
-          id={_namespace + '-valuta'}
-          label={t('p12000:form-betalingsdetaljer-valuta')}
-          placeholder={t('p12000:form-betalingsdetaljer-valuta-placeholder')}
-          sort="noeuFirst"
-          currencyCodeListName="verdensValuta"
-          includeHistoricCurrencies
-          onOptionSelected={(valuta: Currency) => setProps({valuta: valuta.value}, index)}
-          values={item?.valuta ?? ''}
-        />
-        <DateField
-          error={undefined}
-          namespace={_namespace}
-          id='effektueringsdato'
-          index={index}
-          label={t('p12000:form-betalingsdetaljer-effektueringsdato')}
-          onChanged={(v: string) => setProps({effektueringsdato: v}, index)}
-          dateValue={item?.effektueringsdato ?? ''}
-        />
-        <Select
-          error={undefined}
-          data-testid={_namespace + '-utbetalingshyppighet'}
-          id={_namespace + '-utbetalingshyppighet'}
-          label={t('p12000:form-betalingsdetaljer-utbetalingshyppighet')}
-          onChange={(e) => setUtbetalingshyppighet(e.target.value, index)}
-          value={item?.utbetalingshyppighet ?? ''}
+  const renderEditMode = (item: Betalingsdetaljer | undefined, index: number, _namespace: string) => {
+    const currentValidation: Validation = index < 0 ? _validation : validation
+
+    return (
+      <VStack gap="space-16">
+        <HGrid columns={2} gap="space-16" align="start">
+          <DateField
+            error={undefined}
+            namespace={_namespace}
+            id='fradato'
+            index={index}
+            label={t('p12000:form-betalingsdetaljer-fradato')}
+            onChanged={(v: string) => setProps({fradato: v}, index)}
+            dateValue={item?.fradato ?? ''}
+          />
+          <DateField
+            error={undefined}
+            namespace={_namespace}
+            id='betaldato'
+            index={index}
+            label={t('p12000:form-betalingsdetaljer-betaldato')}
+            onChanged={(v: string) => setProps({betaldato: v}, index)}
+            dateValue={item?.betaldato ?? ''}
+          />
+        </HGrid>
+        <HGrid columns={2} gap="space-16" align="start">
+          <Input
+            error={currentValidation[_namespace + '-belop']?.feilmelding}
+            namespace={_namespace}
+            id='belop'
+            label={t('p12000:form-betalingsdetaljer-belop') + ' *'}
+            onChanged={(v: string) => setProps({belop: v}, index)}
+            required
+            value={item?.belop ?? ''}
+          />
+          <CurrencyDropdown
+            error={currentValidation[_namespace + '-valuta']?.feilmelding}
+            id={_namespace + '-valuta'}
+            label={t('p12000:form-betalingsdetaljer-valuta')}
+            placeholder={t('p12000:form-betalingsdetaljer-valuta-placeholder')}
+            sort="noeuFirst"
+            currencyCodeListName="verdensValuta"
+            includeHistoricCurrencies
+            onOptionSelected={(valuta: Currency) => setProps({valuta: valuta.value}, index)}
+            required
+            values={item?.valuta ?? ''}
+          />
+          <DateField
+            error={undefined}
+            namespace={_namespace}
+            id='effektueringsdato'
+            index={index}
+            label={t('p12000:form-betalingsdetaljer-effektueringsdato')}
+            onChanged={(v: string) => setProps({effektueringsdato: v}, index)}
+            dateValue={item?.effektueringsdato ?? ''}
+          />
+          <Select
+            error={currentValidation[_namespace + '-utbetalingshyppighet']?.feilmelding}
+            data-testid={_namespace + '-utbetalingshyppighet'}
+            id={_namespace + '-utbetalingshyppighet'}
+            label={t('p12000:form-betalingsdetaljer-utbetalingshyppighet') + ' *'}
+            onChange={(e) => setUtbetalingshyppighet(e.target.value, index)}
+            required
+            value={item?.utbetalingshyppighet ?? ''}
+          >
+            <option value=''>{t('ui:choose')}</option>
+            {UTBETALINGSHYPPIGHETER.map((hyppighet: string) => (
+              <option key={hyppighet} value={hyppighet}>
+                {t('p12000:utbetalingshyppighet-' + hyppighet)}
+              </option>
+            ))}
+          </Select>
+          {item?.utbetalingshyppighet === UTBETALINGSHYPPIGHET_ANNET && (
+            <Input
+              error={undefined}
+              namespace={_namespace}
+              id='annenutbetalingshyppighet'
+              label={t('p12000:form-betalingsdetaljer-annenutbetalingshyppighet')}
+              onChanged={(v: string) => setProps({annenutbetalingshyppighet: v}, index)}
+              value={item?.annenutbetalingshyppighet ?? ''}
+            />
+          )}
+        </HGrid>
+        <RadioGroup
+          value={item?.basertpaa ?? ''}
+          data-testid={_namespace + '-basertpaa'}
+          id={_namespace + '-basertpaa'}
+          legend={t('p12000:form-betalingsdetaljer-basertpaa')}
+          onChange={(v: string) => setBasertpaa(v, index)}
         >
-          <option value=''>{t('ui:choose')}</option>
-          {UTBETALINGSHYPPIGHETER.map((hyppighet: string) => (
-            <option key={hyppighet} value={hyppighet}>
-              {t('p12000:utbetalingshyppighet-' + hyppighet)}
-            </option>
-          ))}
-        </Select>
-        {item?.utbetalingshyppighet === UTBETALINGSHYPPIGHET_ANNET && (
+          <HStack gap="space-16">
+            <Radio value={BASERTPAA_BOTID}>{t('p12000:basertpaa-' + BASERTPAA_BOTID)}</Radio>
+            <Radio value={BASERTPAA_I_ARBEID}>{t('p12000:basertpaa-' + BASERTPAA_I_ARBEID)}</Radio>
+          </HStack>
+        </RadioGroup>
+        {item?.basertpaa === BASERTPAA_BOTID && (
           <Input
             error={undefined}
             namespace={_namespace}
-            id='annenutbetalingshyppighet'
-            label={t('p12000:form-betalingsdetaljer-annenutbetalingshyppighet')}
-            onChanged={(v: string) => setProps({annenutbetalingshyppighet: v}, index)}
-            value={item?.annenutbetalingshyppighet ?? ''}
+            id='bosattotal'
+            label={t('p12000:form-betalingsdetaljer-bosattotal')}
+            onChanged={(v: string) => setProps({bosattotal: v}, index)}
+            value={item?.bosattotal ?? ''}
           />
         )}
-      </HGrid>
-      <RadioGroup
-        value={item?.basertpaa ?? ''}
-        data-testid={_namespace + '-basertpaa'}
-        id={_namespace + '-basertpaa'}
-        legend={t('p12000:form-betalingsdetaljer-basertpaa')}
-        onChange={(v: string) => setBasertpaa(v, index)}
-      >
-        <HStack gap="space-16">
-          <Radio value={BASERTPAA_BOTID}>{t('p12000:basertpaa-' + BASERTPAA_BOTID)}</Radio>
-          <Radio value={BASERTPAA_I_ARBEID}>{t('p12000:basertpaa-' + BASERTPAA_I_ARBEID)}</Radio>
-        </HStack>
-      </RadioGroup>
-      {item?.basertpaa === BASERTPAA_BOTID && (
-        <Input
-          error={undefined}
-          namespace={_namespace}
-          id='bosattotal'
-          label={t('p12000:form-betalingsdetaljer-bosattotal')}
-          onChanged={(v: string) => setProps({bosattotal: v}, index)}
-          value={item?.bosattotal ?? ''}
-        />
-      )}
-      {item?.basertpaa === BASERTPAA_I_ARBEID && (
-        <Input
-          error={undefined}
-          namespace={_namespace}
-          id='arbeidstotal'
-          label={t('p12000:form-betalingsdetaljer-arbeidstotal')}
-          onChanged={(v: string) => setProps({arbeidstotal: v}, index)}
-          value={item?.arbeidstotal ?? ''}
-        />
-      )}
-    </VStack>
-  )
+        {item?.basertpaa === BASERTPAA_I_ARBEID && (
+          <Input
+            error={undefined}
+            namespace={_namespace}
+            id='arbeidstotal'
+            label={t('p12000:form-betalingsdetaljer-arbeidstotal')}
+            onChanged={(v: string) => setProps({arbeidstotal: v}, index)}
+            value={item?.arbeidstotal ?? ''}
+          />
+        )}
+      </VStack>
+    )
+  }
 
   const renderViewMode = (item: Betalingsdetaljer | undefined, _namespace: string) => (
     <HGrid columns={2} gap="space-16" align="start">
@@ -300,6 +340,7 @@ const BetalingsdetaljerPanel: React.FC<BetalingsdetaljerPanelProps> = ({
         id={'repeatablerow-' + _namespace}
         className={classNames(styles.repeatableBox, {
           [styles.new]: index < 0,
+          [styles.error]: hasNamespaceWithErrors(index < 0 ? _validation : validation, _namespace),
           [panelStyles.stripedRow]: index >= 0 && index % 2 === 0
         })}
         padding="space-16"
@@ -342,7 +383,13 @@ const BetalingsdetaljerPanel: React.FC<BetalingsdetaljerPanelProps> = ({
             <Button
               variant='tertiary'
               data-testid={namespace + '-add'}
-              onClick={() => _setNewForm(true)}
+              onClick={() => {
+                _setNewBetalingsdetaljer({
+                  valuta: 'NOK',
+                  utbetalingshyppighet: 'maaned_12_per_aar'
+                })
+                _setNewForm(true)
+              }}
               iconPosition="left" icon={<PlusCircleIcon aria-hidden/>}
             >
               {t('ui:add-new-x', {x: t('p12000:form-betalingsdetaljer')?.toLowerCase()})}
