@@ -37,6 +37,7 @@ import mockInstitutions from 'src/mocks/buc/institutions'
 import mockKravDato from 'src/mocks/buc/kravDato'
 import mockP2000 from 'src/mocks/buc/sed_P2000'
 import mockP12000 from 'src/mocks/buc/sed_P12000'
+import mockP2200 from 'src/mocks/buc/sed_P2200'
 import mockP8000 from 'src/mocks/buc/sed_P8000'
 import mockP6000 from 'src/mocks/buc/p6000'
 import mockP4000 from 'src/mocks/buc/p4000'
@@ -51,7 +52,8 @@ import {PSED} from "src/declarations/app.d";
 
 const sedMocks = {
   mockP2000,
-  mockP12000
+  mockP12000,
+  mockP2200
 }
 
 const isSedMockKey = (key: string): key is keyof typeof sedMocks => key in sedMocks

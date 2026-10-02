@@ -12,6 +12,7 @@ import _ from 'lodash'
 import mockBucsInfo from 'src/mocks/buc/bucsInfo'
 import mockBucsInfoList from 'src/mocks/buc/bucsInfoList'
 import mockItems from 'src/mocks/joark/items'
+import mockP2200 from 'src/mocks/buc/sed_P2200'
 
 jest.mock('@navikt/fetch', () => ({
   call: jest.fn()
@@ -338,6 +339,18 @@ describe('src/actions/buc', () => {
           })
         })
       }),
+      url: sprintf(urls.SED_GET_SED_URL, { caseId: mockCaseId, sedId: mockSed.id })
+    }))
+  })
+
+  it('getSed() uses the P2200 mock', () => {
+    const mockCaseId = '123'
+    const mockSed = { id: '456', type: 'P2200' } as Sed
+
+    bucActions.getSed(mockCaseId, mockSed)
+
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
+      expectedPayload: { result: mockP2200, status: 'OK' },
       url: sprintf(urls.SED_GET_SED_URL, { caseId: mockCaseId, sedId: mockSed.id })
     }))
   })
