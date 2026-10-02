@@ -1,4 +1,5 @@
 import { Adresse, BaseSED, Eessisak, Krav, Person, Pensjon, PIN } from "src/declarations/sed";
+import { Arbeidsforhold } from "src/declarations/p2000";
 
 export interface P2200Uforhet {
   arbeidsUlykke?: string
@@ -42,22 +43,6 @@ export interface P2200Person extends Omit<Person, "kontakt" | "sivilstand" | "re
   }
 }
 
-export interface P2200Arbeidsforhold {
-  inntekt?: Array<{
-    betalingshyppighetinntekt?: string
-    beloeputbetaltsiden?: string
-    valuta?: string
-    annenbetalingshyppighetinntekt?: string
-    beloep?: string
-  } | null>
-  planlagtstartdato?: string
-  arbeidstimerperuke?: string
-  planlagtpensjoneringsdato?: string
-  yrke?: string
-  type?: string
-  sluttdato?: string
-}
-
 export interface P2200Adresse extends Partial<Adresse> {
   type?: string
   annen?: string
@@ -80,7 +65,7 @@ export interface P2200Bruker {
   far?: { person: P2200Person }
   person?: P2200Person
   adresse?: P2200Adresse
-  arbeidsforhold?: Array<P2200Arbeidsforhold>
+  arbeidsforhold?: Array<Arbeidsforhold>
   bank?: P2200Bank
 }
 
