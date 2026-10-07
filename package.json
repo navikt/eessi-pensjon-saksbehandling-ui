@@ -34,7 +34,7 @@
     "@navikt/land-verktoy": "16.0.0",
     "@navikt/landvelger": "16.0.0",
     "@navikt/oasis": "4.2.2",
-    "@navikt/tabell": "20.0.1",
+    "@navikt/tabell": "20.0.2",
     "@reduxjs/toolkit": "2.12.0",
     "bytes": "3.1.2",
     "classnames": "2.5.1",
