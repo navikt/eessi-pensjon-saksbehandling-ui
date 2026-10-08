@@ -52,4 +52,37 @@ export interface P12000Pensjon extends Pensjon {
 export interface P12000SED extends BaseSED {
   nav: Nav,
   pensjon: P12000Pensjon
+  options?: P12000Options
+}
+
+export interface UtbetalingerPeriode {
+  fom?: string
+  tom?: string
+}
+
+export interface UtbetalingerItem {
+  type: string
+  belop: number
+  valuta: string
+  utbetalingshyppighet: string
+}
+
+export interface UtbetalingerResponse {
+  periode: UtbetalingerPeriode
+  info: Array<UtbetalingerItem>
+}
+
+// Stored by fagmodul next to the SED (like P8000 options), used to restore the Utbetalinger tab.
+// Items are raw search results; a string item is a line restored from Ytterligere informasjon (no options saved yet).
+export interface UtbetalingerPeriodeOption {
+  fom: string
+  tom?: string
+  items: Array<UtbetalingerItem | string>
+  selected: Array<number>
+}
+
+export interface P12000Options {
+  utbetalinger?: {
+    perioder: Array<UtbetalingerPeriodeOption>
+  }
 }
