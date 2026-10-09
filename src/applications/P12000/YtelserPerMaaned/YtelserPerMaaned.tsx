@@ -163,7 +163,7 @@ const YtelserPerMaaned: React.FC<MainFormProps> = ({
   const ytelseLinjer = (ytelse: Ytelse): Array<string> => {
     if (isGjenopprettet(ytelse)) return ytelse.linjer
     return [
-      ...ytelse.ytelseskomponenter.map((komponent, idx) => (idx + 1) + ') ' + t('p12000:ytelserpermaaned-tekst-komponent', {
+      ...ytelse.ytelseskomponenter.map((komponent) => '- ' + t('p12000:ytelserpermaaned-tekst-komponent', {
         type: YTELSES_KOMPONENT_TYPER[komponent.ytelsesKomponentType] ?? komponent.ytelsesKomponentType,
         belop: formatBelop(komponent.belopTilUtbetaling),
         interpolation: {escapeValue: false}

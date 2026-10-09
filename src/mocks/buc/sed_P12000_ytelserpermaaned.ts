@@ -51,7 +51,7 @@ export default {
         }
       }
     },
-    ytterligereInformasjon: "Ytelser per måned for perioden 01.01.2026 - 31.10.2026:\n1) Inntektspensjon: 5 593 NOK\n2) Garantipensjon: 73 NOK\n3) Grunnpensjon: 1 441 NOK\n4) Tilleggspensjon: 2 666 NOK\nSum: 9 773 NOK\n***********************\nYtterligere informasjon fra saksbehandler",
+    ytterligereInformasjon: "Ytelser per måned for perioden 01.01.2026 - 31.10.2026:\n- Inntektspensjon: 5 593 NOK\n- Garantipensjon: 73 NOK\n- Grunnpensjon: 1 441 NOK\n- Tilleggspensjon: 2 666 NOK\nSum: 9 773 NOK\n***********************\nYtterligere informasjon fra saksbehandler",
     foresporsel: {
       referanseTilPerson: "01"
     },
