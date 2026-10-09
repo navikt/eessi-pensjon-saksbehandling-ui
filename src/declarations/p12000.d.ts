@@ -52,4 +52,43 @@ export interface P12000Pensjon extends Pensjon {
 export interface P12000SED extends BaseSED {
   nav: Nav,
   pensjon: P12000Pensjon
+  options?: P12000Options
+}
+
+export interface Ytelseskomponent {
+  ytelsesKomponentType: string
+  belopTilUtbetaling: number
+}
+
+export interface YtelsePerMaaned {
+  fom: string
+  tom: string | null
+  mottarMinstePensjonsniva: boolean
+  vinnendeBeregningsmetode: string | null
+  belop: number
+  ytelseskomponenter: Array<Ytelseskomponent>
+}
+
+export type YtelserPerMaanedResponse = Array<YtelsePerMaaned>
+
+// A block restored from the generated text in Ytterligere informasjon (when no options are saved)
+export interface GjenopprettetYtelsePerMaaned {
+  fom: string
+  tom?: string
+  linjer: Array<string>
+}
+
+// Stored by fagmodul next to the SED (like P8000 options), used to restore Ytelser per måned.
+// selected holds the indexes of the checked ytelser
+export interface YtelserPerMaanedPeriodeOption {
+  fom: string
+  tom?: string
+  ytelser: Array<YtelsePerMaaned | GjenopprettetYtelsePerMaaned>
+  selected: Array<number>
+}
+
+export interface P12000Options {
+  ytelserPerMaaned?: {
+    perioder: Array<YtelserPerMaanedPeriodeOption>
+  }
 }

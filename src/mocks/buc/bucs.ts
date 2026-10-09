@@ -6081,6 +6081,50 @@ const mockBuc = [
         },
         allowsAttachments: true,
         attachmentsSize: null
+      },
+      {
+        id: 'p12000-ytelserpermaaned-120007',
+        parentDocumentId: 'p11000-received-120007',
+        type: 'P12000',
+        status: 'new',
+        direction: 'OUT' as Direction,
+        creationDate: 1757500200000,
+        lastUpdate: 1757500200000,
+        displayName: 'Pension information',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              acronym: 'NAVAT07',
+              countryCode: 'NO',
+              name: 'NAV ACCEPTANCE TEST 07',
+              id: 'NO:NAVAT07'
+            },
+            selected: false
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              acronym: 'DEMO001',
+              countryCode: 'DE',
+              name: 'German institution 01',
+              id: 'DE:DEMO001'
+            },
+            selected: false
+          }
+        ],
+        attachments: [],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1757500200000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1757500200000
+        },
+        allowsAttachments: true,
+        attachmentsSize: null
       }
     ],
     error: null
