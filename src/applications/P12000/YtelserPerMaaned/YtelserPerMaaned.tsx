@@ -7,8 +7,14 @@ import _ from "lodash";
 import {useAppDispatch, useAppSelector} from "src/store";
 import {State} from "src/declarations/reducers";
 import {MainFormProps} from "src/applications/MainForm";
-import {UtbetalingerItem, UtbetalingerPeriodeOption, UtbetalingerResponse} from "src/declarations/p12000";
-import {getUtbetalinger, removeUtbetalinger, resetUtbetalinger} from "src/actions/utbetalinger";
+import {
+  GjenopprettetYtelsePerMaaned,
+  YtelsePerMaaned,
+  YtelserPerMaanedPeriodeOption,
+  YtelserPerMaanedResponse
+} from "src/declarations/p12000";
+import {getYtelserPerMaaned, removeYtelserPerMaaned, resetYtelserPerMaaned} from "src/actions/ytelserPerMaaned";
+import {YTELSES_KOMPONENT_TYPER} from "src/constants/ytelsesKomponentTyper";
 import useUnmount from "src/hooks/useUnmount";
 import DateField from "src/components/Forms/DateField";
 import {formatDate} from "src/utils/utils";
@@ -16,23 +22,23 @@ import styles from "src/assets/css/common.module.css";
 
 export const YTTERLIGERE_INFORMASJON_TARGET = 'pensjon.ytterligereInformasjon'
 export const YTTERLIGERE_INFORMASJON_MAX_LENGTH = 2500
-export const UTBETALINGER_SEPARATOR = '***********************'
-export const UTBETALINGER_OPTIONS_TARGET = 'options.utbetalinger'
+export const YTELSER_PER_MAANED_SEPARATOR = '***********************'
+export const YTELSER_PER_MAANED_OPTIONS_TARGET = 'options.ytelserPerMaaned'
 
-interface UtbetalingerSelector {
-  aktoerId: string | null | undefined
+type Ytelse = YtelsePerMaaned | GjenopprettetYtelsePerMaaned
+
+interface YtelserPerMaanedSelector {
   sakId: string | null | undefined
-  utbetalinger: Record<string, UtbetalingerResponse | null | undefined>
-  gettingUtbetalinger: Record<string, boolean>
+  ytelserPerMaaned: Record<string, YtelserPerMaanedResponse | null | undefined>
+  gettingYtelserPerMaaned: Record<string, boolean>
 }
 
 const mapState = createSelector(
-  (state: State) => state.app.params.aktoerId,
   (state: State) => state.app.params.sakId,
-  (state: State) => state.utbetalinger.utbetalinger,
-  (state: State) => state.utbetalinger.gettingUtbetalinger,
-  (aktoerId, sakId, utbetalinger, gettingUtbetalinger): UtbetalingerSelector => ({
-    aktoerId, sakId, utbetalinger, gettingUtbetalinger
+  (state: State) => state.ytelserPerMaaned.ytelserPerMaaned,
+  (state: State) => state.ytelserPerMaaned.gettingYtelserPerMaaned,
+  (sakId, ytelserPerMaaned, gettingYtelserPerMaaned): YtelserPerMaanedSelector => ({
+    sakId, ytelserPerMaaned, gettingYtelserPerMaaned
   })
 )
 
@@ -42,47 +48,44 @@ interface Periode {
   tom: string
   error?: string
   // shown data: from a search result, from options or (fallback) restored from Ytterligere informasjon
-  resultat?: {
-    fom: string
-    tom?: string
-    items: Array<UtbetalingerItem | string>
-  }
+  ytelser?: Array<Ytelse>
   selected: Array<string>
 }
 
 const newPeriode = (values: Partial<Periode> = {}): Periode => ({
-  id: _.uniqueId('utbetalinger-periode-'),
+  id: _.uniqueId('ytelserpermaaned-periode-'),
   fom: '',
   tom: '',
   selected: [],
   ...values
 })
 
+const isGjenopprettet = (ytelse: Ytelse): ytelse is GjenopprettetYtelsePerMaaned => 'linjer' in ytelse
+
+const allIndexes = (list: Array<unknown>): Array<string> => list.map((_item, idx) => '' + idx)
+
+// Regular spaces as thousand separator, Intl uses non-breaking spaces
+const formatBelop = (belop: number): string => new Intl.NumberFormat('nb-NO').format(belop).replace(/\s/g, ' ')
+
 // Keeps saksbehandler's own text: anything after the separator is fritekst,
 // a text without separator is treated as fritekst entirely (same idea as P8000)
 export const extractFritekst = (ytterligereInformasjon: string | undefined): string => {
   if (!ytterligereInformasjon) return ''
-  const idx = ytterligereInformasjon.indexOf(UTBETALINGER_SEPARATOR)
+  const idx = ytterligereInformasjon.indexOf(YTELSER_PER_MAANED_SEPARATOR)
   if (idx < 0) return ytterligereInformasjon.trim()
-  return ytterligereInformasjon.substring(idx + UTBETALINGER_SEPARATOR.length).trim()
+  return ytterligereInformasjon.substring(idx + YTELSER_PER_MAANED_SEPARATOR.length).trim()
 }
 
 export const extractGenerated = (ytterligereInformasjon: string | undefined): string => {
   if (!ytterligereInformasjon) return ''
-  const idx = ytterligereInformasjon.indexOf(UTBETALINGER_SEPARATOR)
+  const idx = ytterligereInformasjon.indexOf(YTELSER_PER_MAANED_SEPARATOR)
   return idx < 0 ? '' : ytterligereInformasjon.substring(0, idx).trim()
 }
 
 export const composeYtterligereInformasjon = (generated: string, fritekst: string): string =>
   _.isEmpty(generated)
     ? fritekst
-    : generated + '\n' + UTBETALINGER_SEPARATOR + (fritekst ? '\n' + fritekst : '')
-
-export interface ParsedUtbetalingerBlock {
-  fom: string
-  tom?: string
-  items: Array<string>
-}
+    : generated + '\n' + YTELSER_PER_MAANED_SEPARATOR + (fritekst ? '\n' + fritekst : '')
 
 const toIsoDate = (date: string): string => {
   const [dd, mm, yyyy] = date.split('.')
@@ -96,34 +99,32 @@ const headerRegExp = (template: string): RegExp => {
   return new RegExp('^' + escaped + '$')
 }
 
-// Reverses the generated text: one block per period header, followed by its numbered item lines
+// Reverses the generated text: one block per ytelse header, followed by its lines (komponenter and sum)
 export const parseGeneratedText = (
   ytterligereInformasjon: string | undefined,
   periodeTemplate: string,
   apenPeriodeTemplate: string
-): Array<ParsedUtbetalingerBlock> => {
-  if (!ytterligereInformasjon) return []
-  const idx = ytterligereInformasjon.indexOf(UTBETALINGER_SEPARATOR)
-  if (idx < 0) return []
+): Array<GjenopprettetYtelsePerMaaned> => {
+  const generated = extractGenerated(ytterligereInformasjon)
+  if (!generated) return []
 
   const closedRegExp = headerRegExp(periodeTemplate)
   const openRegExp = headerRegExp(apenPeriodeTemplate)
-  const blocks: Array<ParsedUtbetalingerBlock> = []
+  const blocks: Array<GjenopprettetYtelsePerMaaned> = []
 
-  ytterligereInformasjon.substring(0, idx).split('\n').map((l) => l.trim()).filter(Boolean).forEach((line) => {
+  generated.split('\n').map((l) => l.trim()).filter(Boolean).forEach((line) => {
     const closed = line.match(closedRegExp)
     if (closed) {
-      blocks.push({fom: toIsoDate(closed[1]), tom: toIsoDate(closed[2]), items: []})
+      blocks.push({fom: toIsoDate(closed[1]), tom: toIsoDate(closed[2]), linjer: []})
       return
     }
     const open = line.match(openRegExp)
     if (open) {
-      blocks.push({fom: toIsoDate(open[1]), items: []})
+      blocks.push({fom: toIsoDate(open[1]), linjer: []})
       return
     }
-    const item = line.match(/^\d+\)\s*(.*)$/)?.[1]
-    if (item && blocks.length > 0) {
-      blocks[blocks.length - 1].items.push(item)
+    if (blocks.length > 0) {
+      blocks[blocks.length - 1].linjer.push(line)
     }
   })
   return blocks
@@ -139,7 +140,7 @@ const InputRow: React.FC<{children: React.ReactNode}> = ({children}) => (
   </VStack>
 )
 
-const Utbetalinger: React.FC<MainFormProps> = ({
+const YtelserPerMaaned: React.FC<MainFormProps> = ({
   label,
   parentNamespace,
   PSED,
@@ -147,23 +148,29 @@ const Utbetalinger: React.FC<MainFormProps> = ({
 }: MainFormProps): JSX.Element => {
   const {t} = useTranslation()
   const dispatch = useAppDispatch()
-  const {aktoerId, sakId, utbetalinger, gettingUtbetalinger} = useAppSelector(mapState)
-  const namespace = `${parentNamespace}-utbetalinger`
+  const {sakId, ytelserPerMaaned, gettingYtelserPerMaaned} = useAppSelector(mapState)
+  const namespace = `${parentNamespace}-ytelserpermaaned`
 
   const [_perioder, setPerioder] = useState<Array<Periode>>(() => [newPeriode()])
-  const handledResults = useRef<Record<string, UtbetalingerResponse>>({})
+  const handledResults = useRef<Record<string, YtelserPerMaanedResponse>>({})
   // set by changes that should be written to Ytterligere informasjon once _perioder is updated
   const syncRequested = useRef<boolean>(false)
 
-  const formatItem = (item: UtbetalingerItem): string => t('p12000:utbetalinger-tekst-item', {
-    type: t('p12000:utbetalinger-type-' + item.type, {defaultValue: item.type}),
-    belop: new Intl.NumberFormat('nb-NO').format(item.belop),
-    valuta: item.valuta,
-    utbetalingshyppighet: t('p12000:utbetalinger-utbetalingshyppighet-' + item.utbetalingshyppighet, {defaultValue: item.utbetalingshyppighet}),
-    interpolation: {escapeValue: false}
-  })
+  const ytelseHeader = (ytelse: Ytelse): string => ytelse.tom
+    ? t('p12000:ytelserpermaaned-tekst-periode', {fom: formatDate(ytelse.fom), tom: formatDate(ytelse.tom)})
+    : t('p12000:ytelserpermaaned-tekst-periode-apen', {fom: formatDate(ytelse.fom)})
 
-  const itemLabel = (item: UtbetalingerItem | string): string => _.isString(item) ? item : formatItem(item)
+  const ytelseLinjer = (ytelse: Ytelse): Array<string> => {
+    if (isGjenopprettet(ytelse)) return ytelse.linjer
+    return [
+      ...ytelse.ytelseskomponenter.map((komponent, idx) => (idx + 1) + ') ' + t('p12000:ytelserpermaaned-tekst-komponent', {
+        type: YTELSES_KOMPONENT_TYPER[komponent.ytelsesKomponentType] ?? komponent.ytelsesKomponentType,
+        belop: formatBelop(komponent.belopTilUtbetaling),
+        interpolation: {escapeValue: false}
+      })),
+      t('p12000:ytelserpermaaned-tekst-sum', {belop: formatBelop(ytelse.belop), interpolation: {escapeValue: false}})
+    ]
+  }
 
   const updatePeriode = (id: string, values: Partial<Periode>, sync: boolean = false) => {
     setPerioder((perioder) => perioder.map((p) => p.id === id ? {...p, ...values} : p))
@@ -171,17 +178,17 @@ const Utbetalinger: React.FC<MainFormProps> = ({
   }
 
   useUnmount(() => {
-    dispatch(resetUtbetalinger())
+    dispatch(resetYtelserPerMaaned())
   })
 
   // Restore periods and selections from options, fallback to the generated text in Ytterligere informasjon
   useEffect(() => {
-    const lagretPerioder: Array<UtbetalingerPeriodeOption> | undefined = _.get(PSED, UTBETALINGER_OPTIONS_TARGET + '.perioder')
+    const lagretPerioder: Array<YtelserPerMaanedPeriodeOption> | undefined = _.get(PSED, YTELSER_PER_MAANED_OPTIONS_TARGET + '.perioder')
     if (!_.isEmpty(lagretPerioder)) {
       setPerioder(lagretPerioder!.map((p) => newPeriode({
         fom: p.fom,
         tom: p.tom ?? '',
-        resultat: {fom: p.fom, tom: p.tom, items: p.items},
+        ytelser: p.ytelser,
         selected: p.selected.map((i) => '' + i)
       })))
       return
@@ -189,47 +196,39 @@ const Utbetalinger: React.FC<MainFormProps> = ({
 
     const blocks = parseGeneratedText(
       _.get(PSED, YTTERLIGERE_INFORMASJON_TARGET),
-      t('p12000:utbetalinger-tekst-periode', {fom: '__FOM__', tom: '__TOM__'}),
-      t('p12000:utbetalinger-tekst-periode-apen', {fom: '__FOM__'})
+      t('p12000:ytelserpermaaned-tekst-periode', {fom: '__FOM__', tom: '__TOM__'}),
+      t('p12000:ytelserpermaaned-tekst-periode-apen', {fom: '__FOM__'})
     )
     if (_.isEmpty(blocks)) return
-    setPerioder(blocks.map((b) => newPeriode({
-      fom: b.fom,
-      tom: b.tom ?? '',
-      resultat: b,
-      selected: b.items.map((_item, idx) => '' + idx)
-    })))
+    // the searched periods are unknown here, so all restored ytelser are put in one period covering them
+    setPerioder([newPeriode({
+      fom: _.min(blocks.map((b) => b.fom))!,
+      tom: blocks.some((b) => !b.tom) ? '' : _.max(blocks.map((b) => b.tom))!,
+      ytelser: blocks,
+      selected: allIndexes(blocks)
+    })])
   }, [])
 
   // Copy a new search result into the period, with everything selected
   useEffect(() => {
     let changed = false
     const next = _perioder.map((p) => {
-      const result = utbetalinger[p.id]
+      const result = ytelserPerMaaned[p.id]
       if (!result || handledResults.current[p.id] === result) return p
       handledResults.current[p.id] = result
       changed = true
-      return {
-        ...p,
-        resultat: {fom: result.periode?.fom ?? p.fom, tom: result.periode?.tom, items: result.info},
-        selected: result.info.map((_item, idx) => '' + idx)
-      }
+      return {...p, ytelser: result, selected: allIndexes(result)}
     })
     if (changed) {
       syncRequested.current = true
       setPerioder(next)
     }
-  }, [utbetalinger, _perioder])
+  }, [ytelserPerMaaned, _perioder])
 
-  const generateBlock = (periode: Periode): string | undefined => {
-    const resultat = periode.resultat
-    if (!resultat || _.isEmpty(periode.selected)) return undefined
-    const items = resultat.items.filter((_item, idx) => periode.selected.includes('' + idx))
-    const header = resultat.tom
-      ? t('p12000:utbetalinger-tekst-periode', {fom: formatDate(resultat.fom), tom: formatDate(resultat.tom)})
-      : t('p12000:utbetalinger-tekst-periode-apen', {fom: formatDate(resultat.fom)})
-    return [header, ...items.map((item, idx) => (idx + 1) + ') ' + itemLabel(item))].join('\n')
-  }
+  const generateBlocks = (periode: Periode): Array<string> =>
+    (periode.ytelser ?? [])
+      .filter((_ytelse, idx) => periode.selected.includes('' + idx))
+      .map((ytelse) => [ytelseHeader(ytelse), ...ytelseLinjer(ytelse)].join('\n'))
 
   const currentYtterligereInformasjon: string | undefined = _.get(PSED, YTTERLIGERE_INFORMASJON_TARGET)
   const tooLong = (currentYtterligereInformasjon?.length ?? 0) > YTTERLIGERE_INFORMASJON_MAX_LENGTH
@@ -239,17 +238,17 @@ const Utbetalinger: React.FC<MainFormProps> = ({
     if (!syncRequested.current) return
     syncRequested.current = false
 
-    const lagretPerioder: Array<UtbetalingerPeriodeOption> = _perioder
-      .filter((p) => !!p.resultat)
+    const lagretPerioder: Array<YtelserPerMaanedPeriodeOption> = _perioder
+      .filter((p) => !!p.ytelser)
       .map((p) => ({
-        fom: p.resultat!.fom,
-        ...(p.resultat!.tom ? {tom: p.resultat!.tom} : {}),
-        items: p.resultat!.items,
+        fom: p.fom,
+        ...(p.tom ? {tom: p.tom} : {}),
+        ytelser: p.ytelser!,
         selected: p.selected.map(Number).sort((a, b) => a - b)
       }))
-    dispatch(updatePSED(UTBETALINGER_OPTIONS_TARGET, _.isEmpty(lagretPerioder) ? undefined : {perioder: lagretPerioder}))
+    dispatch(updatePSED(YTELSER_PER_MAANED_OPTIONS_TARGET, _.isEmpty(lagretPerioder) ? undefined : {perioder: lagretPerioder}))
 
-    const generatedText = _.compact(_perioder.map(generateBlock)).join('\n\n')
+    const generatedText = _perioder.flatMap(generateBlocks).join('\n\n')
     const newYtterligereInformasjon = composeYtterligereInformasjon(generatedText, extractFritekst(currentYtterligereInformasjon))
     if (newYtterligereInformasjon !== (currentYtterligereInformasjon ?? '')) {
       dispatch(updatePSED(YTTERLIGERE_INFORMASJON_TARGET, newYtterligereInformasjon))
@@ -258,15 +257,15 @@ const Utbetalinger: React.FC<MainFormProps> = ({
 
   const onSearch = (periode: Periode) => {
     if (_.isEmpty(periode.fom)) {
-      updatePeriode(periode.id, {error: t('p12000:utbetalinger-mangler-fom')})
+      updatePeriode(periode.id, {error: t('p12000:ytelserpermaaned-mangler-fom')})
       return
     }
     if (!_.isEmpty(periode.tom) && periode.tom < periode.fom) {
-      updatePeriode(periode.id, {error: t('p12000:utbetalinger-tom-for-fom')})
+      updatePeriode(periode.id, {error: t('p12000:ytelserpermaaned-tom-for-fom')})
       return
     }
-    updatePeriode(periode.id, {error: undefined, resultat: undefined, selected: []}, true)
-    dispatch(getUtbetalinger(periode.id, aktoerId!, sakId!, periode.fom, _.isEmpty(periode.tom) ? undefined : periode.tom))
+    updatePeriode(periode.id, {error: undefined, ytelser: undefined, selected: []}, true)
+    dispatch(getYtelserPerMaaned(periode.id, sakId!, periode.fom, _.isEmpty(periode.tom) ? undefined : periode.tom))
   }
 
   const onAddPeriode = () => {
@@ -277,13 +276,12 @@ const Utbetalinger: React.FC<MainFormProps> = ({
     syncRequested.current = true
     setPerioder((perioder) => perioder.filter((p) => p.id !== id))
     delete handledResults.current[id]
-    dispatch(removeUtbetalinger(id))
+    dispatch(removeYtelserPerMaaned(id))
   }
 
   const renderPeriode = (periode: Periode, index: number) => {
     const _namespace = namespace + '[' + index + ']'
-    const result = utbetalinger[periode.id]
-    const items = periode.resultat?.items
+    const ytelser = periode.ytelser
     return (
       <Box key={periode.id} className={styles.boxWithBorderAndPadding}>
         <VStack gap="space-16">
@@ -292,7 +290,7 @@ const Utbetalinger: React.FC<MainFormProps> = ({
               error={undefined}
               namespace={_namespace}
               id='fom'
-              label={t('p12000:form-utbetalinger-fom')}
+              label={t('p12000:form-ytelserpermaaned-fom')}
               onChanged={(v: string) => updatePeriode(periode.id, {fom: v})}
               dateValue={periode.fom}
             />
@@ -300,7 +298,7 @@ const Utbetalinger: React.FC<MainFormProps> = ({
               error={undefined}
               namespace={_namespace}
               id='tom'
-              label={t('p12000:form-utbetalinger-tom')}
+              label={t('p12000:form-ytelserpermaaned-tom')}
               onChanged={(v: string) => updatePeriode(periode.id, {tom: v})}
               dateValue={periode.tom}
             />
@@ -311,7 +309,7 @@ const Utbetalinger: React.FC<MainFormProps> = ({
                     icon={<TrashIcon aria-hidden/>}
                     onClick={() => onRemovePeriode(periode.id)}
                   >
-                    {t('p12000:form-utbetalinger-fjernperiode')}
+                    {t('p12000:form-ytelserpermaaned-fjernperiode')}
                   </Button>
                 </InputRow>
               : <div/>
@@ -321,26 +319,29 @@ const Utbetalinger: React.FC<MainFormProps> = ({
             <Button
               variant="secondary"
               icon={<MagnifyingGlassIcon aria-hidden/>}
-              loading={!!gettingUtbetalinger[periode.id]}
+              loading={!!gettingYtelserPerMaaned[periode.id]}
               onClick={() => onSearch(periode)}
             >
-              {t('p12000:form-utbetalinger-sok')}
+              {t('p12000:form-ytelserpermaaned-sok')}
             </Button>
           </HStack>
           {periode.error && <Alert variant="error" size="small">{periode.error}</Alert>}
-          {result === null && <Alert variant="error" size="small">{t('p12000:utbetalinger-feil')}</Alert>}
-          {items && _.isEmpty(items) &&
-            <BodyShort>{t('p12000:utbetalinger-ingen-treff')}</BodyShort>
+          {ytelserPerMaaned[periode.id] === null && <Alert variant="error" size="small">{t('p12000:ytelserpermaaned-feil')}</Alert>}
+          {ytelser && _.isEmpty(ytelser) &&
+            <BodyShort>{t('p12000:ytelserpermaaned-ingen-treff')}</BodyShort>
           }
-          {items && !_.isEmpty(items) &&
+          {ytelser && !_.isEmpty(ytelser) &&
             <CheckboxGroup
-              legend={t('p12000:form-utbetalinger-velg')}
+              legend={t('p12000:form-ytelserpermaaned-velg')}
               value={periode.selected}
               onChange={(v: Array<string>) => updatePeriode(periode.id, {selected: v}, true)}
             >
-              {items.map((item: UtbetalingerItem | string, idx: number) => (
+              {ytelser.map((ytelse: Ytelse, idx: number) => (
                 <Checkbox key={idx} value={'' + idx}>
-                  {itemLabel(item)}
+                  <VStack as="span">
+                    <span>{ytelseHeader(ytelse)}</span>
+                    {ytelseLinjer(ytelse).map((linje, i) => <span key={i}>{linje}</span>)}
+                  </VStack>
                 </Checkbox>
               ))}
             </CheckboxGroup>
@@ -354,7 +355,7 @@ const Utbetalinger: React.FC<MainFormProps> = ({
     <Box padding="space-16">
       <VStack gap="space-16">
         <Heading size="medium">{label}</Heading>
-        <Heading size="small">{t('p12000:form-utbetalinger-perioder')}</Heading>
+        <Heading size="small">{t('p12000:form-ytelserpermaaned-perioder')}</Heading>
         {_perioder.map(renderPeriode)}
         <HStack>
           <Button
@@ -362,12 +363,12 @@ const Utbetalinger: React.FC<MainFormProps> = ({
             icon={<PlusCircleIcon aria-hidden/>}
             onClick={onAddPeriode}
           >
-            {t('p12000:form-utbetalinger-leggtilperiode')}
+            {t('p12000:form-ytelserpermaaned-leggtilperiode')}
           </Button>
         </HStack>
         {tooLong &&
           <Alert variant="warning" size="small">
-            {t('p12000:utbetalinger-for-lang', {length: currentYtterligereInformasjon?.length, max: YTTERLIGERE_INFORMASJON_MAX_LENGTH})}
+            {t('p12000:ytelserpermaaned-for-lang', {length: currentYtterligereInformasjon?.length, max: YTTERLIGERE_INFORMASJON_MAX_LENGTH})}
           </Alert>
         }
       </VStack>
@@ -375,4 +376,4 @@ const Utbetalinger: React.FC<MainFormProps> = ({
   )
 }
 
-export default Utbetalinger
+export default YtelserPerMaaned

@@ -6083,7 +6083,7 @@ const mockBuc = [
         attachmentsSize: null
       },
       {
-        id: 'p12000-utbetalinger-120007',
+        id: 'p12000-ytelserpermaaned-120007',
         parentDocumentId: 'p11000-received-120007',
         type: 'P12000',
         status: 'new',

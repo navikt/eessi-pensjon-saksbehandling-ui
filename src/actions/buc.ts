@@ -37,7 +37,7 @@ import mockInstitutions from 'src/mocks/buc/institutions'
 import mockKravDato from 'src/mocks/buc/kravDato'
 import mockP2000 from 'src/mocks/buc/sed_P2000'
 import mockP12000 from 'src/mocks/buc/sed_P12000'
-import mockP12000Utbetalinger from 'src/mocks/buc/sed_P12000_utbetalinger'
+import mockP12000YtelserPerMaaned from 'src/mocks/buc/sed_P12000_ytelserpermaaned'
 import mockP8000 from 'src/mocks/buc/sed_P8000'
 import mockP6000 from 'src/mocks/buc/p6000'
 import mockP4000 from 'src/mocks/buc/p4000'
@@ -59,7 +59,7 @@ const isSedMockKey = (key: string): key is keyof typeof sedMocks => key in sedMo
 
 // Mocks for specific SED ids, takes precedence over mocks per SED type
 const sedMocksById: Record<string, any> = {
-  'p12000-utbetalinger-120007': mockP12000Utbetalinger
+  'p12000-ytelserpermaaned-120007': mockP12000YtelserPerMaaned
 }
 // @ts-ignore
 import { sprintf } from 'sprintf-js';
@@ -413,6 +413,7 @@ export const getSedP8000 = (
 export const saveSed = (
   caseId: string, sedId: string, sedType: string, payload: any
 ): Action => {
+  console.log(payload)
   const copyPSED = _.cloneDeep(payload)
   delete copyPSED.originalSed
   if(copyPSED.fritekst){

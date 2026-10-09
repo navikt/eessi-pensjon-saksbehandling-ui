@@ -22,13 +22,13 @@ import performValidation from "src/utils/performValidation";
 import {validateP12000, ValidationP12000Props} from "./validateP12000";
 import MottakerAvGjenlevendePensjon from "./MottakerAvGjenlevendePensjon/MottakerAvGjenlevendePensjon";
 import InformasjonOmPensjon from "./InformasjonOmPensjon/InformasjonOmPensjon";
-import Utbetalinger, {
+import YtelserPerMaaned, {
   composeYtterligereInformasjon,
   extractFritekst,
   extractGenerated,
   YTTERLIGERE_INFORMASJON_MAX_LENGTH,
   YTTERLIGERE_INFORMASJON_TARGET
-} from "./Utbetalinger/Utbetalinger";
+} from "./YtelserPerMaaned/YtelserPerMaaned";
 import {createSelector} from "@reduxjs/toolkit";
 import _ from "lodash";
 
@@ -82,7 +82,7 @@ const P12000: React.FC<P12000Props> = ({buc, sed, setMode}: P12000Props): JSX.El
     }
   }, [currentPSED])
 
-  // Same as P8000: saksbehandler edits only the fritekst, the generated utbetalinger block is kept in front
+  // Same as P8000: saksbehandler edits only the fritekst, the generated ytelser per måned block is kept in front
   const setYtterligereInformasjon = (fritekst: string) => {
     setFritekst(fritekst)
     const generated = extractGenerated(currentPSED?.pensjon?.ytterligereInformasjon)
@@ -135,7 +135,7 @@ const P12000: React.FC<P12000Props> = ({buc, sed, setMode}: P12000Props): JSX.El
           <SakInfo PSED={currentPSED} title="P12000"/>
           <MainForm
             forms={[
-              { label: "Utbetalinger", value: 'utbetalinger', component: Utbetalinger},
+              { label: "Ytelser per måned", value: 'ytelserpermaaned', component: YtelserPerMaaned},
               { label: "Informasjon om pensjon", value: 'informasjonompensjon', component: InformasjonOmPensjon},
               { label: "Mottaker av gjenlevendepensjon", value: 'mottakeravgjenlevendepensjon', component: MottakerAvGjenlevendePensjon}
             ]}

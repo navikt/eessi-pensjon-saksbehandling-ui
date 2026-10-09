@@ -55,34 +55,40 @@ export interface P12000SED extends BaseSED {
   options?: P12000Options
 }
 
-export interface UtbetalingerPeriode {
-  fom?: string
-  tom?: string
+export interface Ytelseskomponent {
+  ytelsesKomponentType: string
+  belopTilUtbetaling: number
 }
 
-export interface UtbetalingerItem {
-  type: string
+export interface YtelsePerMaaned {
+  fom: string
+  tom: string | null
+  mottarMinstePensjonsniva: boolean
+  vinnendeBeregningsmetode: string | null
   belop: number
-  valuta: string
-  utbetalingshyppighet: string
+  ytelseskomponenter: Array<Ytelseskomponent>
 }
 
-export interface UtbetalingerResponse {
-  periode: UtbetalingerPeriode
-  info: Array<UtbetalingerItem>
-}
+export type YtelserPerMaanedResponse = Array<YtelsePerMaaned>
 
-// Stored by fagmodul next to the SED (like P8000 options), used to restore the Utbetalinger tab.
-// Items are raw search results; a string item is a line restored from Ytterligere informasjon (no options saved yet).
-export interface UtbetalingerPeriodeOption {
+// A block restored from the generated text in Ytterligere informasjon (when no options are saved)
+export interface GjenopprettetYtelsePerMaaned {
   fom: string
   tom?: string
-  items: Array<UtbetalingerItem | string>
+  linjer: Array<string>
+}
+
+// Stored by fagmodul next to the SED (like P8000 options), used to restore Ytelser per måned.
+// selected holds the indexes of the checked ytelser
+export interface YtelserPerMaanedPeriodeOption {
+  fom: string
+  tom?: string
+  ytelser: Array<YtelsePerMaaned | GjenopprettetYtelsePerMaaned>
   selected: Array<number>
 }
 
 export interface P12000Options {
-  utbetalinger?: {
-    perioder: Array<UtbetalingerPeriodeOption>
+  ytelserPerMaaned?: {
+    perioder: Array<YtelserPerMaanedPeriodeOption>
   }
 }
