@@ -23,6 +23,7 @@ const mockP2200: P2200SED = {
   },
   pensjon: {
     bruker: {
+      person: {},
       arbeidsforhold: [
         {
           yrke: "Kokk",
