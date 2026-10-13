@@ -1,4 +1,6 @@
-import {BaseSED, Krav, Nav, Pensjon} from "src/declarations/sed";
+import {Arbeidsforhold, BaseSED, Inntekt, Krav, Nav, Pensjon, Utsettelse} from "src/declarations/sed";
+
+export {Arbeidsforhold, Inntekt, Utsettelse} from "src/declarations/sed";
 
 export interface Beloep {
   annenbetalingshyppighetytelse?: string
@@ -30,31 +32,6 @@ export interface Ytelse {
   sluttdatoUtbetaling?: string
 }
 
-export interface Arbeidsforhold {
-  yrke?: string
-  planlagtpensjoneringsdato?: string
-  inntekt?: Array<Inntekt>
-  type?: string
-  arbeidstimerperuke?: string
-  sluttdato?: string
-  planlagtstartdato?: string
-}
-
-export interface Inntekt {
-  beloep?: string
-  valuta?: string
-  beloeputbetaltsiden?: string
-  betalingshyppighetinntekt?: string
-  annenbetalingshyppighetinntekt?: string
-}
-
-export interface Utsettelse {
-  land?: string
-  institusjonsid?: string
-  institusjonsnavn?: string
-  tildato?: string
-}
-
 export interface P2000Pensjon extends Pensjon {
   utsettelse?: Array<Utsettelse>
   ytelser?: Array<Ytelse>
@@ -77,4 +54,3 @@ export interface P2000SED extends BaseSED{
   nav: Nav,
   pensjon : P2000Pensjon
 }
-
