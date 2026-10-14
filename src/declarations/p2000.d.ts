@@ -1,14 +1,4 @@
-import {Arbeidsforhold, BaseSED, Inntekt, Krav, Nav, Pensjon, Utsettelse} from "src/declarations/sed";
-
-export {Arbeidsforhold, Inntekt, Utsettelse} from "src/declarations/sed";
-
-export interface Beloep {
-  annenbetalingshyppighetytelse?: string
-  gjeldendesiden?: string
-  beloep?: string
-  valuta?: string
-  betalingshyppighetytelse?: string
-}
+import {Arbeidsforhold, BaseSED, Beloep, Krav, Nav, Pensjon, Utsettelse} from "src/declarations/sed";
 
 export interface Ytelse {
   status?: string

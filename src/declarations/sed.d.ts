@@ -29,6 +29,14 @@ export interface Utsettelse {
   tildato?: string
 }
 
+export interface Beloep {
+  annenbetalingshyppighetytelse?: string
+  gjeldendesiden?: string
+  beloep?: string
+  valuta?: string
+  betalingshyppighetytelse?: string
+}
+
 export interface Arbeidsforhold {
   yrke?: string
   planlagtpensjoneringsdato?: string

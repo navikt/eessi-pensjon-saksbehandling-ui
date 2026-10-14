@@ -34,13 +34,7 @@ export interface P2200Nav {
 export interface P2200Ytelse {
   status?: string
   startdatoutbetaling?: string
-  beloep?: Array<{
-    annenbetalingshyppighetytelse?: string
-    betalingshyppighetytelse?: string
-    valuta?: string
-    beloep?: string
-    gjeldendesiden?: string
-  }>
+  beloep?: Array<Beloep>
   sluttdatoutbetaling?: string
   annenytelse?: string
   institusjon?: Institusjon
