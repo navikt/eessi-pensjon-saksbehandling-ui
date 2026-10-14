@@ -3,6 +3,17 @@ import { P2200SED } from "src/declarations/p2200";
 const mockP2200: P2200SED = {
   sed: "P2200",
   nav: {
+    verge: {
+      person: {}
+    },
+    krav: {
+      dato: ""
+    },
+    barn: [],
+    ektefelle: {
+      person: {},
+      type: ""
+    },
     eessisak: [
       {
         institusjonsid: "NO:NAVAT07",
