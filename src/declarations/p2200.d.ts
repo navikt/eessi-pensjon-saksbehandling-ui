@@ -33,22 +33,18 @@ export interface P2200Nav {
 
 export interface P2200Ytelse {
   status?: string
-  totalbruttobeloeparbeidsbasert?: string
   startdatoutbetaling?: string
   beloep?: Array<{
+    annenbetalingshyppighetytelse?: string
     betalingshyppighetytelse?: string
     valuta?: string
     beloep?: string
-    beloepBrutto?: string
     gjeldendesiden?: string
-    utbetalingshyppighetAnnen?: string
   }>
   sluttdatoutbetaling?: string
   annenytelse?: string
-  totalbruttobeloepbostedsbasert?: string
   institusjon?: Institusjon
   pin?: PIN
-  mottasbasertpaa?: string
   startdatoretttilytelse?: string
   ytelse?: string
   mottasbasertpaaitem?: Array<{
@@ -57,7 +53,6 @@ export interface P2200Ytelse {
     verdi?: string
   }>
   sluttdatoRettTilUtbetaling?: string
-  annenbetalingshyppighetytelse?: string
 }
 
 export interface P2200Pensjon {
