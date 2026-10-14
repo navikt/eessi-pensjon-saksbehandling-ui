@@ -39,6 +39,10 @@ export const UTBETALINGSHYPPIGHET_ANNET = 'annet'
 export const BASERTPAA_BOTID = '01'
 export const BASERTPAA_I_ARBEID = '02'
 
+// Holds only the pensjonstype, used when there are no betalingsdetaljer/avslag/opphør. Not shown as a row.
+export const isKunPensjonstype = (item: Betalingsdetaljer | undefined): boolean =>
+  !!item && _.every(_.omit(item, 'pensjonstype'), _.isEmpty)
+
 export interface BetalingsdetaljerPanelProps {
   parentNamespace: string
   target: string
@@ -58,7 +62,7 @@ const BetalingsdetaljerPanel: React.FC<BetalingsdetaljerPanelProps> = ({
   const dispatch = useAppDispatch()
   const validation = useAppSelector((state: State) => state.validation.status)
   const namespace = `${parentNamespace}-betalingsdetaljer`
-  const items: Array<Betalingsdetaljer> = _.get(PSED, target) ?? []
+  const items: Array<Betalingsdetaljer> = (_.get(PSED, target) ?? []).filter((item: Betalingsdetaljer) => !isKunPensjonstype(item))
 
   const [_newBetalingsdetaljer, _setNewBetalingsdetaljer] = useState<Betalingsdetaljer | undefined>(undefined)
   const [_editBetalingsdetaljer, _setEditBetalingsdetaljer] = useState<Betalingsdetaljer | undefined>(undefined)

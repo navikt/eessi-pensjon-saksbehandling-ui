@@ -11,7 +11,7 @@ import performValidation from "src/utils/performValidation";
 import {MainFormProps, MainFormSelector} from "src/applications/MainForm";
 import {Betalingsdetaljer, Pensjoninfo, PensjonsAvslagEllerOpphor} from "src/declarations/p12000";
 import TextArea from "src/components/Forms/TextArea";
-import BetalingsdetaljerPanel from "./BetalingsdetaljerPanel";
+import BetalingsdetaljerPanel, {isKunPensjonstype} from "./BetalingsdetaljerPanel";
 import PensjonsAvslagEllerOpphorPanel from "./PensjonsAvslagEllerOpphorPanel";
 import {TILLEGGSYTELSER_MAX_LENGTH, validateInformasjonOmPensjon, ValidationInformasjonOmPensjonProps} from "./validation";
 
@@ -59,6 +59,19 @@ const InformasjonOmPensjon: React.FC<MainFormProps> = ({
       _setPensjonstype(storedPensjonstype)
     }
   }, [storedPensjonstype])
+
+  // Pensjonstype can be chosen without any betalingsdetaljer/avslag/opphør; it is then saved as a
+  // betalingsdetaljer item with only pensjonstype, and removed again once real items exist
+  useEffect(() => {
+    const ekteBetalingsdetaljer = betalingsdetaljer.filter((item) => !isKunPensjonstype(item))
+    const harEkteItems = !_.isEmpty(ekteBetalingsdetaljer) || !_.isEmpty(pensjonsavslag) || !_.isEmpty(pensjonsopphoring)
+    const nyeBetalingsdetaljer: Array<Betalingsdetaljer> = harEkteItems
+      ? ekteBetalingsdetaljer
+      : (_pensjonstype ? [{pensjonstype: _pensjonstype}] : [])
+    if (!_.isEqual(nyeBetalingsdetaljer, betalingsdetaljer)) {
+      dispatch(updatePSED(BETALINGSDETALJER_TARGET, _.isEmpty(nyeBetalingsdetaljer) ? undefined : nyeBetalingsdetaljer))
+    }
+  }, [betalingsdetaljer, pensjonsavslag, pensjonsopphoring, _pensjonstype])
 
   useUnmount(() => {
     const clonedValidation = _.cloneDeep(validation)
