@@ -1,4 +1,13 @@
-import { Adresse, Barn, BaseSED, Bruker, Eessisak, Institusjon, Krav, PIN, Person, Utsettelse } from "src/declarations/sed";
+import {
+  Barn,
+  BaseSED,
+  Bruker,
+  Eessisak,
+  Institusjon,
+  Krav,
+  PIN,
+  Verge, Ektefelle
+} from "src/declarations/sed";
 
 export interface P2200Uforhet {
   arbeidsUlykke?: string
@@ -16,19 +25,10 @@ export interface P2200NavBruker extends Bruker {
 export interface P2200Nav {
   eessisak?: Array<Eessisak>
   bruker?: P2200NavBruker
-  verge?: {
-    person?: Person
-    vergemaal?: { mandat?: string }
-    adresse?: Adresse
-  }
-  krav?: Krav
-  barn?: Array<Barn>
-  ektefelle?: {
-    person?: Person
-    type?: string
-    far?: { person: Person }
-    mor?: { person: Person }
-  }
+  verge: Verge,
+  krav: Krav,
+  barn: Array<Barn>,
+  ektefelle: Ektefelle,
 }
 
 export interface P2200Ytelse {
@@ -56,23 +56,16 @@ export interface P2200Ytelse {
 }
 
 export interface P2200Pensjon {
-  utsettelse?: Array<Utsettelse>
   ytelser?: Array<P2200Ytelse>
   ytterligeinformasjon?: string
   bruker?: Bruker
-  gjenlevende?: Bruker
   vedtak?: Array<{
     mottaker?: Array<string>
     trekkgrunnlag?: Array<string>
   }>
   etterspurtedokumenter?: string
-  mottaker?: Array<string>
-  trekkgrunnlag?: Array<string>
   vedlegg?: Array<string>
-  institusjonennaaikkesoektompensjon?: Array<string>
   vedleggandre?: string
-  forespurtstartdato?: string
-  angitidligstdato?: string
   kravDato?: Krav
 }
 
