@@ -1,5 +1,7 @@
 import {Arbeidsforhold, BaseSED, Beloep, Krav, Nav, Pensjon, Utsettelse} from "src/declarations/sed";
 
+export {Arbeidsforhold, Inntekt, Utsettelse} from "src/declarations/sed";
+
 export interface Ytelse {
   status?: string
   totalbruttobeloeparbeidsbasert?: string
