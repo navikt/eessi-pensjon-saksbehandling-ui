@@ -19,7 +19,8 @@ import {
 } from "@navikt/ds-react";
 import _ from "lodash";
 import {PlusCircleIcon} from "@navikt/aksel-icons";
-import {Beloep, Ytelse} from "src/declarations/p2000";
+import {Beloep} from "src/declarations/sed";
+import {Ytelse} from "src/declarations/p2000";
 import {getIdx} from "src/utils/namespace";
 import {Validation} from "src/declarations/app";
 import classNames from "classnames";

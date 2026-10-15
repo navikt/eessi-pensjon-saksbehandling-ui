@@ -8,7 +8,7 @@ import {useAppSelector} from "src/store";
 import {resetValidation, setValidation} from "src/actions/validation";
 import useUnmount from "../../../hooks/useUnmount";
 import performValidation from "../../../utils/performValidation";
-import {Arbeidsforhold, Inntekt} from "src/declarations/p2000";
+import {Arbeidsforhold, Inntekt} from "src/declarations/sed";
 import {
   validateArbeidsforhold,
   validateYrkesaktivitet,

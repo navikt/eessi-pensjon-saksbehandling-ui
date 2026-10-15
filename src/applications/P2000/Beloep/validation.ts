@@ -1,6 +1,6 @@
 import {Validation} from "src/declarations/app";
 import {getIdx} from "../../../utils/namespace";
-import {Beloep} from "../../../declarations/p2000";
+import {Beloep} from "../../../declarations/sed";
 import {checkIfDuplicate, checkIfEmpty, checkIfNotValidBeloep, checkIfNotValidDateFormat} from "../../../utils/validation";
 
 export interface ValidationBeloepProps {

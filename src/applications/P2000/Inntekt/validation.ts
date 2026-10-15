@@ -1,6 +1,6 @@
 import {Validation} from "src/declarations/app";
 import {getIdx} from "../../../utils/namespace";
-import {Inntekt} from "../../../declarations/p2000";
+import {Inntekt} from "../../../declarations/sed";
 import {checkIfEmpty, checkIfNotValidBeloep, checkIfNotValidDateFormat} from "../../../utils/validation";
 
 export interface ValidationInntektProps {
