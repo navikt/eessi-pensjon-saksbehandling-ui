@@ -60,7 +60,6 @@ export interface P2200Pensjon {
   etterspurtedokumenter?: string
   vedlegg?: Array<string>
   vedleggandre?: string
-  kravDato?: Krav
 }
 
 export interface P2200SED extends BaseSED {
