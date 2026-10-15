@@ -1,4 +1,4 @@
-import {Adresse, BaseSED, Nav, Pensjon, Person} from "src/declarations/sed";
+import {BaseSED, Nav, Adresse, Person} from "src/declarations/sed";
 
 export interface Betalingsdetaljer {
   fradato?: string
@@ -41,18 +41,12 @@ export interface Gjenlevende {
   adresse?: Adresse
 }
 
-export interface P12000Pensjon extends Pensjon {
+export interface Pensjon {
   pensjoninfo?: Pensjoninfo
   gjenlevende?: Gjenlevende
   ytterligereInformasjon?: string
   foresporsel?: Foresporsel
   anmodning13000verdi?: string
-}
-
-export interface P12000SED extends BaseSED {
-  nav: Nav,
-  pensjon: P12000Pensjon
-  options?: P12000Options
 }
 
 export interface Ytelseskomponent {
@@ -87,8 +81,15 @@ export interface YtelserPerMaanedPeriodeOption {
   selected: Array<number>
 }
 
-export interface P12000Options {
+export interface Options {
   ytelserPerMaaned?: {
     perioder: Array<YtelserPerMaanedPeriodeOption>
   }
 }
+
+export interface P12000SED extends BaseSED {
+  nav: Nav,
+  pensjon: Pensjon
+  options?: Options
+}
+

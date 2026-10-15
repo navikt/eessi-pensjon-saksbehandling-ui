@@ -1,10 +1,10 @@
 import {Validation} from "src/declarations/app";
 import _ from "lodash";
 import {checkIfEmpty, checkIfTooLong, checkIfNotValidDateFormat} from "src/utils/validation";
-import {P2000Pensjon} from "src/declarations/p2000";
+import {Pensjon} from "src/declarations/p2000";
 
 export interface ValidationDiverseProps {
-  pensjon: P2000Pensjon
+  pensjon: Pensjon
 }
 
 export const validateDiverse = (
