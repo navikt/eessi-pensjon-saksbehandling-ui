@@ -9,7 +9,7 @@ import {
   Verge, Ektefelle
 } from "src/declarations/sed";
 
-export interface P2200Uforhet {
+export interface Uforhet {
   arbeidsUlykke?: string
   startDatoPensjon?: string
   startdatoLege?: string
@@ -18,20 +18,20 @@ export interface P2200Uforhet {
   bevisstforsaketSoker?: string
 }
 
-export interface P2200NavBruker extends Bruker {
-  uforhet?: P2200Uforhet
+export interface NavBruker extends Bruker {
+  uforhet?: Uforhet
 }
 
-export interface P2200Nav {
+export interface Nav {
   eessisak?: Array<Eessisak>
-  bruker?: P2200NavBruker
+  bruker?: NavBruker
   verge: Verge,
   krav: Krav,
   barn: Array<Barn>,
   ektefelle: Ektefelle,
 }
 
-export interface P2200Ytelse {
+export interface Ytelse {
   status?: string
   startdatoutbetaling?: string
   beloep?: Array<Beloep>
@@ -49,8 +49,8 @@ export interface P2200Ytelse {
   sluttdatoRettTilUtbetaling?: string
 }
 
-export interface P2200Pensjon {
-  ytelser?: Array<P2200Ytelse>
+export interface Pensjon {
+  ytelser?: Array<Ytelse>
   ytterligeinformasjon?: string
   bruker?: Bruker
   vedtak?: Array<{
@@ -63,6 +63,6 @@ export interface P2200Pensjon {
 }
 
 export interface P2200SED extends BaseSED {
-  nav: P2200Nav
-  pensjon: P2200Pensjon
+  nav: Nav
+  pensjon: Pensjon
 }
