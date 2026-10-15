@@ -3,7 +3,6 @@
     "noImplicitAny": true,
     "target": "ESNext",
     "types": ["node", "vite/client", "jest", "@types/node","@testing-library/jest-dom"],
-    "baseUrl": ".",
     "paths": {
       "src/*": ["./src/*"],
     },
