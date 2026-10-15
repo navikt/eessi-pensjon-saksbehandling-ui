@@ -13,7 +13,6 @@ const mockForPeriode = (fom: string, tom: string | undefined): YtelserPerMaanedR
     .filter((y) => (!tom || y.fom <= tom) && (!y.tom || y.tom >= fom))
 
 export const getYtelserPerMaaned = (
-  periodeId: string,
   sakId: string,
   fom: string,
   tom: string | undefined
@@ -24,9 +23,6 @@ export const getYtelserPerMaaned = (
     expectedPayload: /* istanbul ignore next */ {
       result: mockForPeriode(fom, tom)
     },
-    context: {
-      periodeId
-    },
     type: {
       request: types.YTELSER_PER_MAANED_REQUEST,
       success: types.YTELSER_PER_MAANED_SUCCESS,
@@ -34,11 +30,6 @@ export const getYtelserPerMaaned = (
     }
   })
 }
-
-export const removeYtelserPerMaaned = (periodeId: string): ActionWithPayload<string> => ({
-  type: types.YTELSER_PER_MAANED_REMOVE,
-  payload: periodeId
-})
 
 export const resetYtelserPerMaaned = () => ({
   type: types.YTELSER_PER_MAANED_RESET

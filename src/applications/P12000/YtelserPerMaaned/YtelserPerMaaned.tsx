@@ -1,6 +1,6 @@
 import React, {JSX, useEffect, useRef, useState} from "react";
-import {Alert, BodyShort, Box, Button, Checkbox, CheckboxGroup, HGrid, HStack, Heading, Label, VStack} from "@navikt/ds-react";
-import {MagnifyingGlassIcon, PlusCircleIcon, TrashIcon} from "@navikt/aksel-icons";
+import {Alert, BodyShort, Box, Button, Checkbox, CheckboxGroup, HGrid, HStack, Heading, VStack} from "@navikt/ds-react";
+import {MagnifyingGlassIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import {createSelector} from "@reduxjs/toolkit";
 import _ from "lodash";
@@ -10,10 +10,10 @@ import {MainFormProps} from "src/applications/MainForm";
 import {
   GjenopprettetYtelsePerMaaned,
   YtelsePerMaaned,
-  YtelserPerMaanedPeriodeOption,
+  YtelserPerMaanedOption,
   YtelserPerMaanedResponse
 } from "src/declarations/p12000";
-import {getYtelserPerMaaned, removeYtelserPerMaaned, resetYtelserPerMaaned} from "src/actions/ytelserPerMaaned";
+import {getYtelserPerMaaned, resetYtelserPerMaaned} from "src/actions/ytelserPerMaaned";
 import {YTELSES_KOMPONENT_TYPER} from "src/constants/ytelsesKomponentTyper";
 import useUnmount from "src/hooks/useUnmount";
 import DateField from "src/components/Forms/DateField";
@@ -29,8 +29,8 @@ type Ytelse = YtelsePerMaaned | GjenopprettetYtelsePerMaaned
 
 interface YtelserPerMaanedSelector {
   sakId: string | null | undefined
-  ytelserPerMaaned: Record<string, YtelserPerMaanedResponse | null | undefined>
-  gettingYtelserPerMaaned: Record<string, boolean>
+  ytelserPerMaaned: YtelserPerMaanedResponse | null | undefined
+  gettingYtelserPerMaaned: boolean
 }
 
 const mapState = createSelector(
@@ -43,7 +43,6 @@ const mapState = createSelector(
 )
 
 interface Periode {
-  id: string
   fom: string
   tom: string
   error?: string
@@ -52,13 +51,7 @@ interface Periode {
   selected: Array<string>
 }
 
-const newPeriode = (values: Partial<Periode> = {}): Periode => ({
-  id: _.uniqueId('ytelserpermaaned-periode-'),
-  fom: '',
-  tom: '',
-  selected: [],
-  ...values
-})
+const TOM_PERIODE: Periode = {fom: '', tom: '', selected: []}
 
 const isGjenopprettet = (ytelse: Ytelse): ytelse is GjenopprettetYtelsePerMaaned => 'linjer' in ytelse
 
@@ -130,16 +123,6 @@ export const parseGeneratedText = (
   return blocks
 }
 
-// Lines content up with the input of a labelled form field (label + 3rem input), regardless of text wrapping
-const InputRow: React.FC<{children: React.ReactNode}> = ({children}) => (
-  <VStack gap="space-8">
-    <Label aria-hidden style={{visibility: 'hidden'}}>&nbsp;</Label>
-    <HStack align="center" style={{minHeight: '3rem', whiteSpace: 'nowrap'}}>
-      {children}
-    </HStack>
-  </VStack>
-)
-
 const YtelserPerMaaned: React.FC<MainFormProps> = ({
   label,
   parentNamespace,
@@ -151,9 +134,9 @@ const YtelserPerMaaned: React.FC<MainFormProps> = ({
   const {sakId, ytelserPerMaaned, gettingYtelserPerMaaned} = useAppSelector(mapState)
   const namespace = `${parentNamespace}-ytelserpermaaned`
 
-  const [_perioder, setPerioder] = useState<Array<Periode>>(() => [newPeriode()])
-  const handledResults = useRef<Record<string, YtelserPerMaanedResponse>>({})
-  // set by changes that should be written to Ytterligere informasjon once _perioder is updated
+  const [_periode, setPeriode] = useState<Periode>(TOM_PERIODE)
+  const handledResult = useRef<YtelserPerMaanedResponse | null | undefined>(undefined)
+  // set by changes that should be written to Ytterligere informasjon once _periode is updated
   const syncRequested = useRef<boolean>(false)
 
   const ytelseHeader = (ytelse: Ytelse): string => ytelse.tom
@@ -172,8 +155,8 @@ const YtelserPerMaaned: React.FC<MainFormProps> = ({
     ]
   }
 
-  const updatePeriode = (id: string, values: Partial<Periode>, sync: boolean = false) => {
-    setPerioder((perioder) => perioder.map((p) => p.id === id ? {...p, ...values} : p))
+  const updatePeriode = (values: Partial<Periode>, sync: boolean = false) => {
+    setPeriode((periode) => ({...periode, ...values}))
     if (sync) syncRequested.current = true
   }
 
@@ -181,16 +164,16 @@ const YtelserPerMaaned: React.FC<MainFormProps> = ({
     dispatch(resetYtelserPerMaaned())
   })
 
-  // Restore periods and selections from options, fallback to the generated text in Ytterligere informasjon
+  // Restore period and selection from options, fallback to the generated text in Ytterligere informasjon
   useEffect(() => {
-    const lagretPerioder: Array<YtelserPerMaanedPeriodeOption> | undefined = _.get(PSED, YTELSER_PER_MAANED_OPTIONS_TARGET + '.perioder')
-    if (!_.isEmpty(lagretPerioder)) {
-      setPerioder(lagretPerioder!.map((p) => newPeriode({
-        fom: p.fom,
-        tom: p.tom ?? '',
-        ytelser: p.ytelser,
-        selected: p.selected.map((i) => '' + i)
-      })))
+    const lagret: YtelserPerMaanedOption | undefined = _.get(PSED, YTELSER_PER_MAANED_OPTIONS_TARGET)
+    if (lagret) {
+      setPeriode({
+        fom: lagret.fom,
+        tom: lagret.tom ?? '',
+        ytelser: lagret.ytelser,
+        selected: lagret.selected.map((i) => '' + i)
+      })
       return
     }
 
@@ -200,172 +183,123 @@ const YtelserPerMaaned: React.FC<MainFormProps> = ({
       t('p12000:ytelserpermaaned-tekst-periode-apen', {fom: '__FOM__'})
     )
     if (_.isEmpty(blocks)) return
-    // the searched periods are unknown here, so all restored ytelser are put in one period covering them
-    setPerioder([newPeriode({
+    // the searched period is unknown here, so it is set to cover the restored ytelser
+    setPeriode({
       fom: _.min(blocks.map((b) => b.fom))!,
       tom: blocks.some((b) => !b.tom) ? '' : _.max(blocks.map((b) => b.tom))!,
       ytelser: blocks,
       selected: allIndexes(blocks)
-    })])
+    })
   }, [])
 
   // Copy a new search result into the period, with everything selected
   useEffect(() => {
-    let changed = false
-    const next = _perioder.map((p) => {
-      const result = ytelserPerMaaned[p.id]
-      if (!result || handledResults.current[p.id] === result) return p
-      handledResults.current[p.id] = result
-      changed = true
-      return {...p, ytelser: result, selected: allIndexes(result)}
-    })
-    if (changed) {
-      syncRequested.current = true
-      setPerioder(next)
-    }
-  }, [ytelserPerMaaned, _perioder])
-
-  const generateBlocks = (periode: Periode): Array<string> =>
-    (periode.ytelser ?? [])
-      .filter((_ytelse, idx) => periode.selected.includes('' + idx))
-      .map((ytelse) => [ytelseHeader(ytelse), ...ytelseLinjer(ytelse)].join('\n'))
+    if (!ytelserPerMaaned || handledResult.current === ytelserPerMaaned) return
+    handledResult.current = ytelserPerMaaned
+    updatePeriode({ytelser: ytelserPerMaaned, selected: allIndexes(ytelserPerMaaned)}, true)
+  }, [ytelserPerMaaned])
 
   const currentYtterligereInformasjon: string | undefined = _.get(PSED, YTTERLIGERE_INFORMASJON_TARGET)
   const tooLong = (currentYtterligereInformasjon?.length ?? 0) > YTTERLIGERE_INFORMASJON_MAX_LENGTH
 
-  // Write periods to options and generated blocks (+ existing fritekst) to Ytterligere informasjon
+  // Write period to options and generated blocks (+ existing fritekst) to Ytterligere informasjon
   useEffect(() => {
     if (!syncRequested.current) return
     syncRequested.current = false
 
-    const lagretPerioder: Array<YtelserPerMaanedPeriodeOption> = _perioder
-      .filter((p) => !!p.ytelser)
-      .map((p) => ({
-        fom: p.fom,
-        ...(p.tom ? {tom: p.tom} : {}),
-        ytelser: p.ytelser!,
-        selected: p.selected.map(Number).sort((a, b) => a - b)
-      }))
-    dispatch(updatePSED(YTELSER_PER_MAANED_OPTIONS_TARGET, _.isEmpty(lagretPerioder) ? undefined : {perioder: lagretPerioder}))
+    const lagret: YtelserPerMaanedOption | undefined = _periode.ytelser
+      ? {
+          fom: _periode.fom,
+          ...(_periode.tom ? {tom: _periode.tom} : {}),
+          ytelser: _periode.ytelser,
+          selected: _periode.selected.map(Number).sort((a, b) => a - b)
+        }
+      : undefined
+    dispatch(updatePSED(YTELSER_PER_MAANED_OPTIONS_TARGET, lagret))
 
-    const generatedText = _perioder.flatMap(generateBlocks).join('\n\n')
+    const generatedText = (_periode.ytelser ?? [])
+      .filter((_ytelse, idx) => _periode.selected.includes('' + idx))
+      .map((ytelse) => [ytelseHeader(ytelse), ...ytelseLinjer(ytelse)].join('\n'))
+      .join('\n\n')
     const newYtterligereInformasjon = composeYtterligereInformasjon(generatedText, extractFritekst(currentYtterligereInformasjon))
     if (newYtterligereInformasjon !== (currentYtterligereInformasjon ?? '')) {
       dispatch(updatePSED(YTTERLIGERE_INFORMASJON_TARGET, newYtterligereInformasjon))
     }
-  }, [_perioder])
+  }, [_periode])
 
-  const onSearch = (periode: Periode) => {
-    if (_.isEmpty(periode.fom)) {
-      updatePeriode(periode.id, {error: t('p12000:ytelserpermaaned-mangler-fom')})
+  const onSearch = () => {
+    if (_.isEmpty(_periode.fom)) {
+      updatePeriode({error: t('p12000:ytelserpermaaned-mangler-fom')})
       return
     }
-    if (!_.isEmpty(periode.tom) && periode.tom < periode.fom) {
-      updatePeriode(periode.id, {error: t('p12000:ytelserpermaaned-tom-for-fom')})
+    if (!_.isEmpty(_periode.tom) && _periode.tom < _periode.fom) {
+      updatePeriode({error: t('p12000:ytelserpermaaned-tom-for-fom')})
       return
     }
-    updatePeriode(periode.id, {error: undefined, ytelser: undefined, selected: []}, true)
-    dispatch(getYtelserPerMaaned(periode.id, sakId!, periode.fom, _.isEmpty(periode.tom) ? undefined : periode.tom))
+    updatePeriode({error: undefined, ytelser: undefined, selected: []}, true)
+    dispatch(getYtelserPerMaaned(sakId!, _periode.fom, _.isEmpty(_periode.tom) ? undefined : _periode.tom))
   }
 
-  const onAddPeriode = () => {
-    setPerioder((perioder) => [...perioder, newPeriode()])
-  }
-
-  const onRemovePeriode = (id: string) => {
-    syncRequested.current = true
-    setPerioder((perioder) => perioder.filter((p) => p.id !== id))
-    delete handledResults.current[id]
-    dispatch(removeYtelserPerMaaned(id))
-  }
-
-  const renderPeriode = (periode: Periode, index: number) => {
-    const _namespace = namespace + '[' + index + ']'
-    const ytelser = periode.ytelser
-    return (
-      <Box key={periode.id} className={styles.boxWithBorderAndPadding}>
-        <VStack gap="space-16">
-          <HGrid columns="1fr 1fr auto" gap="space-16" align="start">
-            <DateField
-              error={undefined}
-              namespace={_namespace}
-              id='fom'
-              label={t('p12000:form-ytelserpermaaned-fom')}
-              onChanged={(v: string) => updatePeriode(periode.id, {fom: v})}
-              dateValue={periode.fom}
-            />
-            <DateField
-              error={undefined}
-              namespace={_namespace}
-              id='tom'
-              label={t('p12000:form-ytelserpermaaned-tom')}
-              onChanged={(v: string) => updatePeriode(periode.id, {tom: v})}
-              dateValue={periode.tom}
-            />
-            {_perioder.length > 1
-              ? <InputRow>
-                  <Button
-                    variant="tertiary"
-                    icon={<TrashIcon aria-hidden/>}
-                    onClick={() => onRemovePeriode(periode.id)}
-                  >
-                    {t('p12000:form-ytelserpermaaned-fjernperiode')}
-                  </Button>
-                </InputRow>
-              : <div/>
-            }
-          </HGrid>
-          <HStack>
-            <Button
-              variant="secondary"
-              icon={<MagnifyingGlassIcon aria-hidden/>}
-              loading={!!gettingYtelserPerMaaned[periode.id]}
-              onClick={() => onSearch(periode)}
-            >
-              {t('p12000:form-ytelserpermaaned-sok')}
-            </Button>
-          </HStack>
-          {periode.error && <Alert variant="error" size="small">{periode.error}</Alert>}
-          {ytelserPerMaaned[periode.id] === null && <Alert variant="error" size="small">{t('p12000:ytelserpermaaned-feil')}</Alert>}
-          {ytelser && _.isEmpty(ytelser) &&
-            <BodyShort>{t('p12000:ytelserpermaaned-ingen-treff')}</BodyShort>
-          }
-          {ytelser && !_.isEmpty(ytelser) &&
-            <CheckboxGroup
-              legend={t('p12000:form-ytelserpermaaned-velg')}
-              value={periode.selected}
-              onChange={(v: Array<string>) => updatePeriode(periode.id, {selected: v}, true)}
-            >
-              {ytelser.map((ytelse: Ytelse, idx: number) => (
-                <Checkbox key={idx} value={'' + idx}>
-                  <VStack as="span">
-                    <span>{ytelseHeader(ytelse)}</span>
-                    {ytelseLinjer(ytelse).map((linje, i) => <span key={i}>{linje}</span>)}
-                  </VStack>
-                </Checkbox>
-              ))}
-            </CheckboxGroup>
-          }
-        </VStack>
-      </Box>
-    )
-  }
+  const ytelser = _periode.ytelser
 
   return (
     <Box padding="space-16">
       <VStack gap="space-16">
         <Heading size="medium">{label}</Heading>
-        <Heading size="small">{t('p12000:form-ytelserpermaaned-perioder')}</Heading>
-        {_perioder.map(renderPeriode)}
-        <HStack>
-          <Button
-            variant="tertiary"
-            icon={<PlusCircleIcon aria-hidden/>}
-            onClick={onAddPeriode}
-          >
-            {t('p12000:form-ytelserpermaaned-leggtilperiode')}
-          </Button>
-        </HStack>
+        <Heading size="small">{t('p12000:form-ytelserpermaaned-periode')}</Heading>
+        <Box className={styles.boxWithBorderAndPadding}>
+          <VStack gap="space-16">
+            <HGrid columns={2} gap="space-16" align="start">
+              <DateField
+                error={undefined}
+                namespace={namespace}
+                id='fom'
+                label={t('p12000:form-ytelserpermaaned-fom')}
+                onChanged={(v: string) => updatePeriode({fom: v})}
+                dateValue={_periode.fom}
+              />
+              <DateField
+                error={undefined}
+                namespace={namespace}
+                id='tom'
+                label={t('p12000:form-ytelserpermaaned-tom')}
+                onChanged={(v: string) => updatePeriode({tom: v})}
+                dateValue={_periode.tom}
+              />
+            </HGrid>
+            <HStack>
+              <Button
+                variant="secondary"
+                icon={<MagnifyingGlassIcon aria-hidden/>}
+                loading={gettingYtelserPerMaaned}
+                onClick={onSearch}
+              >
+                {t('p12000:form-ytelserpermaaned-sok')}
+              </Button>
+            </HStack>
+            {_periode.error && <Alert variant="error" size="small">{_periode.error}</Alert>}
+            {ytelserPerMaaned === null && <Alert variant="error" size="small">{t('p12000:ytelserpermaaned-feil')}</Alert>}
+            {ytelser && _.isEmpty(ytelser) &&
+              <BodyShort>{t('p12000:ytelserpermaaned-ingen-treff')}</BodyShort>
+            }
+            {ytelser && !_.isEmpty(ytelser) &&
+              <CheckboxGroup
+                legend={t('p12000:form-ytelserpermaaned-velg')}
+                value={_periode.selected}
+                onChange={(v: Array<string>) => updatePeriode({selected: v}, true)}
+              >
+                {ytelser.map((ytelse: Ytelse, idx: number) => (
+                  <Checkbox key={idx} value={'' + idx}>
+                    <VStack as="span">
+                      <span>{ytelseHeader(ytelse)}</span>
+                      {ytelseLinjer(ytelse).map((linje, i) => <span key={i}>{linje}</span>)}
+                    </VStack>
+                  </Checkbox>
+                ))}
+              </CheckboxGroup>
+            }
+          </VStack>
+        </Box>
         {tooLong &&
           <Alert variant="warning" size="small">
             {t('p12000:ytelserpermaaned-for-lang', {length: currentYtterligereInformasjon?.length, max: YTTERLIGERE_INFORMASJON_MAX_LENGTH})}

@@ -73,8 +73,8 @@ export interface GjenopprettetYtelsePerMaaned {
 }
 
 // Stored by fagmodul next to the SED (like P8000 options), used to restore Ytelser per måned.
-// selected holds the indexes of the checked ytelser
-export interface YtelserPerMaanedPeriodeOption {
+// fom/tom is the searched period, selected holds the indexes of the checked ytelser
+export interface YtelserPerMaanedOption {
   fom: string
   tom?: string
   ytelser: Array<YtelsePerMaaned | GjenopprettetYtelsePerMaaned>
@@ -82,9 +82,7 @@ export interface YtelserPerMaanedPeriodeOption {
 }
 
 export interface Options {
-  ytelserPerMaaned?: {
-    perioder: Array<YtelserPerMaanedPeriodeOption>
-  }
+  ytelserPerMaaned?: YtelserPerMaanedOption
 }
 
 export interface P12000SED extends BaseSED {
@@ -92,4 +90,3 @@ export interface P12000SED extends BaseSED {
   pensjon: Pensjon
   options?: Options
 }
-
