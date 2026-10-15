@@ -18,6 +18,7 @@ This is the EESSI Pensjon web application for saksbehandlers, developed in [Reac
 
 ## SETUP
 
+
 Make sure you have installed: 
 
 * [Git](//git-scm.com)
