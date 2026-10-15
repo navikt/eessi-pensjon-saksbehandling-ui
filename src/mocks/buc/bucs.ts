@@ -2365,7 +2365,7 @@ const mockBuc = [
           date: 1571818294896
         },
         allowsAttachments: true,
-        attachmentsSize: 60
+        attachmentsSize: '60'
       },
     ],
     "error": null,
@@ -6036,6 +6036,17 @@ const mockBuc = [
         receiveDate: 1757500100000,
         lastUpdate: 1757500100000,
         allowsAttachments: true,
+        attachments: [],
+        participants: [],
+        version: '1',
+        firstVersion: {
+          id: '1',
+          date: 1757500000000
+        },
+        lastVersion: {
+          id: '1',
+          date: 1757500100000
+        },
         attachmentsSize: null
       },
       {
