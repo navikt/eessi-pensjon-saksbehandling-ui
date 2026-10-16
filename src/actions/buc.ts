@@ -413,7 +413,6 @@ export const getSedP8000 = (
 export const saveSed = (
   caseId: string, sedId: string, sedType: string, payload: any
 ): Action => {
-  console.log(payload)
   const copyPSED = _.cloneDeep(payload)
   delete copyPSED.originalSed
   if(copyPSED.fritekst){
