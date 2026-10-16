@@ -11,7 +11,7 @@ import performValidation from "src/utils/performValidation";
 import {validateDiverse, ValidationDiverseProps} from "./validation";
 import DateField from "src/components/Forms/DateField";
 import {useTranslation} from "react-i18next";
-import {P2000SED, P2000Pensjon} from "src/declarations/p2000";
+import {P2000SED, Pensjon} from "src/declarations/p2000";
 import Utsettelse from "../Utsettelse/Utsettelse";
 import Institusjon from "../Institusjon/Institusjon";
 import TextArea from "../../../components/Forms/TextArea";
@@ -33,7 +33,7 @@ const Diverse: React.FC<MainFormProps> = ({
   const { validation } = useAppSelector(mapState)
   const namespace = `${parentNamespace}-diverse-pensjon`
   const target = 'pensjon'
-  const pensjon: P2000Pensjon = _.get(PSED as P2000SED, target)
+  const pensjon: Pensjon = _.get(PSED as P2000SED, target)
   const nav: Nav = _.get(PSED as P2000SED, "nav")
 
 

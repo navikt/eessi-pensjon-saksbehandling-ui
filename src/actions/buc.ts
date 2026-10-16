@@ -55,6 +55,7 @@ const sedMocks = {
 }
 
 const isSedMockKey = (key: string): key is keyof typeof sedMocks => key in sedMocks
+
 // @ts-ignore
 import { sprintf } from 'sprintf-js';
 
