@@ -5,7 +5,6 @@ import {
   Eessisak,
   Institusjon,
   Krav,
-  PIN,
   Verge, Ektefelle
 } from "src/declarations/sed";
 
@@ -38,7 +37,6 @@ export interface Ytelse {
   sluttdatoutbetaling?: string
   annenytelse?: string
   institusjon?: Institusjon
-  pin?: PIN
   startdatoretttilytelse?: string
   ytelse?: string
   mottasbasertpaaitem?: Array<{
@@ -46,7 +44,7 @@ export interface Ytelse {
     totalbruttobeloeparbeidsbasert?: string
     mottasbasertpaa?: string
   }>
-  sluttdatoRettTilUtbetaling?: string
+  sluttdatorettilutbetaling?: string
 }
 
 export interface Pensjon {

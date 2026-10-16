@@ -19,7 +19,7 @@ export interface Ytelse {
   mottasbasertpaa?: string
   startdatoretttilytelse?: string
   ytelse?: string
-  sluttdatoUtbetaling?: string
+  sluttdatorettilutbetaling?: string
 }
 
 export interface P2000Pensjon extends Pensjon {
