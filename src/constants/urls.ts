@@ -63,7 +63,6 @@ export const BUC_GET_BUC_OPTIONS_URL = BUC_URL + '/bucs'
 export const BUC_GET_KRAVDATO_URL = PEN_URL + '/kravdato/saker/%(sakId)s/krav/%(kravId)s/aktor/%(aktoerId)s'
 export const BUC_GET_SAKTYPE_URL = PEN_URL + '/saktype/%(sakId)s/%(aktoerId)s'
 export const PERSON_UFT_URL = PEN_URL + '/vedtak/%(vedtakId)s/uforetidspunkt'
-// POC: endpoint not yet implemented in backend (mocked)
 export const YTELSER_PER_MAANED_URL = PEN_URL + '/ytelserpermaaned/%(sakId)s?fom=%(fom)s&tom=%(tom)s'
 
 // PrefillController
