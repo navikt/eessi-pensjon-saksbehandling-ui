@@ -1,5 +1,5 @@
 import {Validation} from "src/declarations/app";
-import {Utsettelse} from "src/declarations/p2000";
+import {Utsettelse} from "src/declarations/sed";
 import {getIdx} from "../../../utils/namespace";
 import {checkIfEmpty, checkIfTooLong, checkIfNotValidDateFormat} from "../../../utils/validation";
 

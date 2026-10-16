@@ -16,7 +16,7 @@ import {State} from "src/declarations/reducers";
 import {MainFormSelector} from 'src/applications/MainForm'
 import {useAppSelector} from "src/store";
 import {useTranslation} from "react-i18next";
-import {Utsettelse as P2000UUtsettelse} from "src/declarations/p2000";
+import {Utsettelse as P2000UUtsettelse} from "src/declarations/sed";
 import {validateUtsettelse, ValidationUtsettelseProps} from "./validation";
 import {Country} from "@navikt/land-verktoy";
 import Input from "../../../components/Forms/Input";

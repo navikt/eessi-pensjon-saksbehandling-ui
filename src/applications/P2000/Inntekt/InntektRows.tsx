@@ -1,5 +1,5 @@
 import React, {JSX, useState} from "react";
-import {Inntekt} from "src/declarations/p2000";
+import {Inntekt} from "src/declarations/sed";
 import _ from "lodash";
 import {BodyLong, HGrid, Label, Select, VStack} from "@navikt/ds-react";
 import {getIdx} from "src/utils/namespace";
