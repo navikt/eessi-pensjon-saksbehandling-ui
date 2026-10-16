@@ -44,7 +44,7 @@ export interface Ytelse {
   mottasbasertpaaitem?: Array<{
     totalbruttobeloepbostedsbasert?: string
     totalbruttobeloeparbeidsbasert?: string
-    verdi?: string
+    mottasbasertpaa?: string
   }>
   sluttdatoRettTilUtbetaling?: string
 }

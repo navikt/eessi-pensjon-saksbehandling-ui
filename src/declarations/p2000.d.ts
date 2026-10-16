@@ -2,12 +2,10 @@ import {Arbeidsforhold, BaseSED, Beloep, Krav, Nav, Pensjon, Utsettelse} from "s
 
 export interface Ytelse {
   status?: string
-  totalbruttobeloeparbeidsbasert?: string
   startdatoutbetaling?: string
   beloep?: Array<Beloep>
   sluttdatoutbetaling?: string
   annenytelse?: string
-  totalbruttobeloepbostedsbasert?: string
   institusjon?: {
     saksnummer?: string
     land?: string
@@ -16,6 +14,8 @@ export interface Ytelse {
     sektor?: string
     institusjonsid?: string
   },
+  totalbruttobeloeparbeidsbasert?: string
+  totalbruttobeloepbostedsbasert?: string
   mottasbasertpaa?: string
   startdatoretttilytelse?: string
   ytelse?: string
