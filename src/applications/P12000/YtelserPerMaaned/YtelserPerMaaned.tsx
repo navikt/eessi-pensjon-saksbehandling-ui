@@ -7,12 +7,7 @@ import _ from "lodash";
 import {useAppDispatch, useAppSelector} from "src/store";
 import {State} from "src/declarations/reducers";
 import {MainFormProps} from "src/applications/MainForm";
-import {
-  GjenopprettetYtelsePerMaaned,
-  YtelsePerMaaned,
-  YtelserPerMaanedOption,
-  YtelserPerMaanedResponse
-} from "src/declarations/p12000";
+import {YtelsePerMaaned, YtelserPerMaanedOption, YtelserPerMaanedResponse} from "src/declarations/p12000";
 import {getYtelserPerMaaned, resetYtelserPerMaaned} from "src/actions/ytelserPerMaaned";
 import {YTELSES_KOMPONENT_TYPER} from "src/constants/ytelsesKomponentTyper";
 import useUnmount from "src/hooks/useUnmount";
@@ -24,8 +19,6 @@ export const YTTERLIGERE_INFORMASJON_TARGET = 'pensjon.ytterligereInformasjon'
 export const YTTERLIGERE_INFORMASJON_MAX_LENGTH = 2500
 export const YTELSER_PER_MAANED_SEPARATOR = '***********************'
 export const YTELSER_PER_MAANED_OPTIONS_TARGET = 'options.ytelserPerMaaned'
-
-type Ytelse = YtelsePerMaaned | GjenopprettetYtelsePerMaaned
 
 interface YtelserPerMaanedSelector {
   sakId: string | null | undefined
@@ -46,14 +39,12 @@ interface Periode {
   fom: string
   tom: string
   error?: string
-  // shown data: from a search result, from options or (fallback) restored from Ytterligere informasjon
-  ytelser?: Array<Ytelse>
+  // shown data: from a search result or restored from options
+  ytelser?: Array<YtelsePerMaaned>
   selected: Array<string>
 }
 
 const TOM_PERIODE: Periode = {fom: '', tom: '', selected: []}
-
-const isGjenopprettet = (ytelse: Ytelse): ytelse is GjenopprettetYtelsePerMaaned => 'linjer' in ytelse
 
 const allIndexes = (list: Array<unknown>): Array<string> => list.map((_item, idx) => '' + idx)
 
@@ -80,49 +71,6 @@ export const composeYtterligereInformasjon = (generated: string, fritekst: strin
     ? fritekst
     : generated + '\n' + YTELSER_PER_MAANED_SEPARATOR + (fritekst ? '\n' + fritekst : '')
 
-const toIsoDate = (date: string): string => {
-  const [dd, mm, yyyy] = date.split('.')
-  return `${yyyy}-${mm}-${dd}`
-}
-
-const headerRegExp = (template: string): RegExp => {
-  const escaped = _.escapeRegExp(template)
-    .replace('__FOM__', '(\\d{2}\\.\\d{2}\\.\\d{4})')
-    .replace('__TOM__', '(\\d{2}\\.\\d{2}\\.\\d{4})')
-  return new RegExp('^' + escaped + '$')
-}
-
-// Reverses the generated text: one block per ytelse header, followed by its lines (komponenter and sum)
-export const parseGeneratedText = (
-  ytterligereInformasjon: string | undefined,
-  periodeTemplate: string,
-  apenPeriodeTemplate: string
-): Array<GjenopprettetYtelsePerMaaned> => {
-  const generated = extractGenerated(ytterligereInformasjon)
-  if (!generated) return []
-
-  const closedRegExp = headerRegExp(periodeTemplate)
-  const openRegExp = headerRegExp(apenPeriodeTemplate)
-  const blocks: Array<GjenopprettetYtelsePerMaaned> = []
-
-  generated.split('\n').map((l) => l.trim()).filter(Boolean).forEach((line) => {
-    const closed = line.match(closedRegExp)
-    if (closed) {
-      blocks.push({fom: toIsoDate(closed[1]), tom: toIsoDate(closed[2]), linjer: []})
-      return
-    }
-    const open = line.match(openRegExp)
-    if (open) {
-      blocks.push({fom: toIsoDate(open[1]), linjer: []})
-      return
-    }
-    if (blocks.length > 0) {
-      blocks[blocks.length - 1].linjer.push(line)
-    }
-  })
-  return blocks
-}
-
 const YtelserPerMaaned: React.FC<MainFormProps> = ({
   label,
   parentNamespace,
@@ -139,12 +87,11 @@ const YtelserPerMaaned: React.FC<MainFormProps> = ({
   // set by changes that should be written to Ytterligere informasjon once _periode is updated
   const syncRequested = useRef<boolean>(false)
 
-  const ytelseHeader = (ytelse: Ytelse): string => ytelse.tom
+  const ytelseHeader = (ytelse: YtelsePerMaaned): string => ytelse.tom
     ? t('p12000:ytelserpermaaned-tekst-periode', {fom: formatDate(ytelse.fom), tom: formatDate(ytelse.tom)})
     : t('p12000:ytelserpermaaned-tekst-periode-apen', {fom: formatDate(ytelse.fom)})
 
-  const ytelseLinjer = (ytelse: Ytelse): Array<string> => {
-    if (isGjenopprettet(ytelse)) return ytelse.linjer
+  const ytelseLinjer = (ytelse: YtelsePerMaaned): Array<string> => {
     return [
       ...ytelse.ytelseskomponenter.map((komponent) => '- ' + t('p12000:ytelserpermaaned-tekst-komponent', {
         type: YTELSES_KOMPONENT_TYPER[komponent.ytelsesKomponentType] ?? komponent.ytelsesKomponentType,
@@ -164,7 +111,7 @@ const YtelserPerMaaned: React.FC<MainFormProps> = ({
     dispatch(resetYtelserPerMaaned())
   })
 
-  // Restore period and selection from options, fallback to the generated text in Ytterligere informasjon
+  // Restore period and selection from options
   useEffect(() => {
     const lagret: YtelserPerMaanedOption | undefined = _.get(PSED, YTELSER_PER_MAANED_OPTIONS_TARGET)
     if (lagret) {
@@ -174,22 +121,7 @@ const YtelserPerMaaned: React.FC<MainFormProps> = ({
         ytelser: lagret.ytelser,
         selected: lagret.selected.map((i) => '' + i)
       })
-      return
     }
-
-    const blocks = parseGeneratedText(
-      _.get(PSED, YTTERLIGERE_INFORMASJON_TARGET),
-      t('p12000:ytelserpermaaned-tekst-periode', {fom: '__FOM__', tom: '__TOM__'}),
-      t('p12000:ytelserpermaaned-tekst-periode-apen', {fom: '__FOM__'})
-    )
-    if (_.isEmpty(blocks)) return
-    // the searched period is unknown here, so it is set to cover the restored ytelser
-    setPeriode({
-      fom: _.min(blocks.map((b) => b.fom))!,
-      tom: blocks.some((b) => !b.tom) ? '' : _.max(blocks.map((b) => b.tom))!,
-      ytelser: blocks,
-      selected: allIndexes(blocks)
-    })
   }, [])
 
   // Copy a new search result into the period, with everything selected
@@ -288,7 +220,7 @@ const YtelserPerMaaned: React.FC<MainFormProps> = ({
                 value={_periode.selected}
                 onChange={(v: Array<string>) => updatePeriode({selected: v}, true)}
               >
-                {ytelser.map((ytelse: Ytelse, idx: number) => (
+                {ytelser.map((ytelse: YtelsePerMaaned, idx: number) => (
                   <Checkbox key={idx} value={'' + idx}>
                     <VStack as="span">
                       <span>{ytelseHeader(ytelse)}</span>

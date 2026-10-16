@@ -65,19 +65,12 @@ export interface YtelsePerMaaned {
 
 export type YtelserPerMaanedResponse = Array<YtelsePerMaaned>
 
-// A block restored from the generated text in Ytterligere informasjon (when no options are saved)
-export interface GjenopprettetYtelsePerMaaned {
-  fom: string
-  tom?: string
-  linjer: Array<string>
-}
-
 // Stored by fagmodul next to the SED (like P8000 options), used to restore Ytelser per måned.
 // fom/tom is the searched period, selected holds the indexes of the checked ytelser
 export interface YtelserPerMaanedOption {
   fom: string
   tom?: string
-  ytelser: Array<YtelsePerMaaned | GjenopprettetYtelsePerMaaned>
+  ytelser: Array<YtelsePerMaaned>
   selected: Array<number>
 }
 
