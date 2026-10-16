@@ -1,4 +1,4 @@
-import {Arbeidsforhold, BaseSED, Beloep, Krav, Nav, Pensjon, Utsettelse} from "src/declarations/sed";
+import {Arbeidsforhold, BaseSED, Beloep, Institusjon, Krav, Nav, Pensjon, Utsettelse} from "src/declarations/sed";
 
 export interface Ytelse {
   status?: string
@@ -6,14 +6,7 @@ export interface Ytelse {
   beloep?: Array<Beloep>
   sluttdatoutbetaling?: string
   annenytelse?: string
-  institusjon?: {
-    saksnummer?: string
-    land?: string
-    pin?: string
-    institusjonsnavn?: string
-    sektor?: string
-    institusjonsid?: string
-  },
+  institusjon?: Institusjon,
   totalbruttobeloeparbeidsbasert?: string
   totalbruttobeloepbostedsbasert?: string
   mottasbasertpaa?: string

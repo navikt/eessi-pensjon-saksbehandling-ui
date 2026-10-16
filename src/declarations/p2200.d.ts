@@ -51,10 +51,8 @@ export interface Pensjon {
   ytelser?: Array<Ytelse>
   ytterligeinformasjon?: string
   bruker?: Bruker
-  vedtak?: Array<{
-    mottaker?: Array<string>
-    trekkgrunnlag?: Array<string>
-  }>
+  mottaker?: Array<string>
+  trekkgrunnlag?: Array<string>
   etterspurtedokumenter?: string
   vedlegg?: Array<string>
   vedleggandre?: string
