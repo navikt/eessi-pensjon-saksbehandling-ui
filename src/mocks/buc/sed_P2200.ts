@@ -63,12 +63,8 @@ const mockP2200: P2200SED = {
         ]
       }
     ],
-    vedtak: [
-      {
-        mottaker: ["forsikret_person"],
-        trekkgrunnlag: ["987_2009_Art_72_1"]
-      }
-    ],
+    mottaker: ["forsikret_person"],
+    trekkgrunnlag: ["987_2009_Art_72_1"],
     vedlegg: ["utførlig_medisinsk_rapport"],
     etterspurtedokumenter: "P5000",
     ytterligeinformasjon: "Ytterligere informasjon"
