@@ -1,5 +1,5 @@
 import {Validation} from "src/declarations/app";
-import {Arbeidsforhold} from "src/declarations/p2000";
+import {Arbeidsforhold} from "src/declarations/sed";
 import {getIdx} from "src/utils/namespace";
 import {checkIfEmpty} from "src/utils/validation";
 

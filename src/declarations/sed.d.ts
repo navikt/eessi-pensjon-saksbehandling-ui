@@ -13,6 +13,48 @@ export interface Eessisak {
   land?: string
 }
 
+export interface Institusjon {
+  institusjonsid?: string
+  institusjonsnavn?: string
+  saksnummer?: string
+  sektor?: string
+  land?: string
+}
+
+export interface Utsettelse {
+  land?: string
+  institusjonsid?: string
+  institusjonsnavn?: string
+  institusjon?: Institusjon
+  tildato?: string
+}
+
+export interface Beloep {
+  annenbetalingshyppighetytelse?: string
+  gjeldendesiden?: string
+  beloep?: string
+  valuta?: string
+  betalingshyppighetytelse?: string
+}
+
+export interface Arbeidsforhold {
+  yrke?: string
+  planlagtpensjoneringsdato?: string
+  inntekt?: Array<Inntekt>
+  type?: string
+  arbeidstimerperuke?: string
+  sluttdato?: string
+  planlagtstartdato?: string
+}
+
+export interface Inntekt {
+  beloep?: string
+  valuta?: string
+  beloeputbetaltsiden?: string
+  betalingshyppighetinntekt?: string
+  annenbetalingshyppighetinntekt?: string
+}
+
 export interface Nav {
   eessisak: Array<Eessisak>
   bruker: Bruker,
@@ -38,6 +80,9 @@ export interface Person {
   etternavn?: string
   etternavnvedfoedsel?: string
   fornavn?: string
+  fornavnvedfoedsel?: string
+  tidligerefornavn?: string
+  tidligereetternavn?: string
   kjoenn?: string
   foedested?: Foedested,
   foedselsdato?: string
@@ -61,6 +106,7 @@ export interface Bruker {
   person: Person
   adresse?: Adresse
   bank?: Bank
+  arbeidsforhold?: Array<Arbeidsforhold>
 }
 
 export interface Ektefelle {
@@ -83,6 +129,7 @@ export interface Barn {
     person: Person
   }
   relasjontilbruker?: string
+  relasjontilbruker43?: string
   opplysningeromannetbarn?: string
 }
 
@@ -109,12 +156,12 @@ export interface Adresse {
 }
 
 export interface Telefon {
-  nummer: string
-  type: string
+  nummer?: string
+  type?: string
 }
 
 export interface Email {
-  adresse: string
+  adresse?: string
 }
 
 export interface Statsborgerskap {
@@ -127,6 +174,7 @@ export interface PIN {
   sektor?: string
   identifikator?: string
   land?: string
+  institusjon?: Institusjon
 }
 
 export interface Sivilstand {
@@ -161,4 +209,3 @@ export interface Krav {
   dato: string
   type?: string
 }
-

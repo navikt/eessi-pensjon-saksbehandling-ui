@@ -18,6 +18,7 @@ import {JoarkPreview} from "src/declarations/joark";
 import PreviewSED from "src/components/PreviewSED/PreviewSED";
 import P8000 from "src/applications/P8000/P8000";
 import P12000 from "src/applications/P12000/P12000";
+import P2200 from "src/applications/P2200/P2200";
 import {umamiButtonLogger} from "src/metrics/umami";
 import styles from './SEDHeader.module.css'
 import classNames from "classnames";
@@ -327,6 +328,35 @@ const SEDHeader: React.FC<SEDHeaderProps> = ({
                 iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
               >
                 Oppdater P12000
+              </Button>
+            </>
+          }
+          {sed.type === 'P2200' && (sed.status !== 'received' && sed.status !== 'cancelled') &&
+            <>
+              <Button
+                variant='secondary'
+                data-testid='a_buc_c_sedheader--p2200-button-id'
+                onClick={() => {
+                  umamiButtonLogger({
+                    tekst: "Oppdater P2200",
+                    bucType: buc.type
+                  });
+                  setMode('p2200', 'forward', undefined, (
+                    <P2200
+                      buc={buc}
+                      setMode={setMode}
+                      sed={sed}
+                    />
+                  ))
+                  window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                  })
+                }}
+                iconPosition="right" icon={<ChevronRightIcon aria-hidden />}
+              >
+                Oppdater P2200
               </Button>
             </>
           }
