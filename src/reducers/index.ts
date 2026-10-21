@@ -6,11 +6,12 @@ import joark from './joark'
 import loading from './loading'
 import localStorage from './localStorage'
 import p5000 from './p5000'
+import ytelserPerMaaned from './ytelserPerMaaned'
 import person from './person'
 import ui from './ui'
 import validation from './validation'
 import umami from './umami'
 
 export default {
-  admin, alert, app, buc, joark, loading, localStorage, p5000, person, ui, validation, umami
+  admin, alert, app, buc, joark, loading, localStorage, p5000, person, ui, ytelserPerMaaned, validation, umami
 }

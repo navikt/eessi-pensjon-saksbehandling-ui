@@ -22,10 +22,6 @@ export interface Nav {
   ektefelle: Ektefelle,
 }
 
-export interface Pensjon {
-
-}
-
 export interface Foedested {
   by?: string
   land?: string

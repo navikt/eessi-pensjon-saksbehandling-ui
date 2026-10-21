@@ -1,4 +1,4 @@
-import {BaseSED, Nav, Pensjon} from "src/declarations/sed";
+import {BaseSED, Nav} from "src/declarations/sed";
 
 import {
   BRUKERS_ADRESSE,
@@ -21,7 +21,7 @@ export interface SendFolgendeSEDer {
   begrunnelse?: string
 }
 
-export interface P8000Pensjon extends Pensjon{
+export interface Pensjon {
   anmodning: {
     referanseTilPerson: "01" | "02"
     seder: Array<SendFolgendeSEDer>
@@ -73,7 +73,7 @@ export interface P8000Type {
 
 export interface P8000SED extends BaseSED{
   nav: Nav,
-  pensjon: P8000Pensjon
+  pensjon: Pensjon
   options?: {
     ofteEtterspurtInformasjon: OfteEtterspurtInformasjon
     informasjonSomKanLeggesInn: InformasjonSomKanLeggesInn
