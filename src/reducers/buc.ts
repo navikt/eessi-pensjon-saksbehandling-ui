@@ -641,8 +641,11 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
     case types.BUC_GET_INSTITUTION_LIST_SUCCESS: {
       const institutionList: InstitutionListMap<Institution> = state.institutionList ? _.cloneDeep(state.institutionList!) : {}
       const institutionNames: InstitutionNames = _.clone(state.institutionNames);
+      // Key by the requested country, since RINA answers GB/GR requests with UK/EL institutions
+      const requestedCountry: string | undefined = (action as ActionWithPayload).context?.country;
       (action as ActionWithPayload).payload.result.forEach((institution: Institution) => {
-        const existingInstitutions: Institutions = institutionList[institution.country] || []
+        const landkode: string = requestedCountry ?? institution.country
+        const existingInstitutions: Institutions = institutionList[landkode] || []
         if (!_.find(existingInstitutions, { institution: institution.institution })) {
           existingInstitutions.push({
             ...institution,
@@ -650,7 +653,7 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
           })
         }
         existingInstitutions.sort((a: Institution, b: Institution) => a.institution.localeCompare(b.institution))
-        institutionList[institution.country] = existingInstitutions
+        institutionList[landkode] = existingInstitutions
         institutionNames[institution.institution] = institution
       })
       return {

@@ -640,9 +640,11 @@ const SEDStart: React.FC<SEDStartProps> = ({
 
     addedCountries.forEach(country => dispatch(getInstitutionsListForBucAndCountry(_type!, country)))
     removedCountries.forEach(country => {
+      // RINA institution ids use UK/EL, while the selected country may be GB/GR
+      const rinaCountry: string = country === 'GB' ? 'UK' : country === 'GR' ? 'EL' : country
       const newInstitutions: InstitutionRawList = _institutions.filter(item => {
         const [_country] = item.split(':')
-        return country !== _country
+        return country !== _country && rinaCountry !== _country
       })
       setInstitutions(newInstitutions)
     })

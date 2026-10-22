@@ -270,7 +270,27 @@ describe('src/actions/buc', () => {
     }))
   })
 
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+  it('getCountryList()', () => {
+    const mockBucType = 'P_BUC_01'
+    bucActions.getCountryList(mockBucType)
+    expect(call).toHaveBeenCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_GET_COUNTRY_LIST_REQUEST,
+        success: types.BUC_GET_COUNTRY_LIST_SUCCESS,
+        failure: types.BUC_GET_COUNTRY_LIST_FAILURE
+      },
+      url: sprintf(urls.EUX_COUNTRIES_FOR_BUC_URL, { bucType: mockBucType })
+    }))
+  })
+
+>>>>>>> 0aa449cfd (R!! Do no convert GB-->UK and GR-->EL. Save institutions response by selected counry code - ins[GB]: [UK:UK1, UK:UK2] (epd))
   it('getInstitutionsListForBucAndCountry() - GB translated to UK', () => {
+=======
+  it('getInstitutionsListForBucAndCountry()', () => {
+>>>>>>> Stashed changes
     const mockBucType = 'P_BUC_01'
     const mockCountry = 'GB'
     bucActions.getInstitutionsListForBucAndCountry(mockBucType, mockCountry)
@@ -284,7 +304,7 @@ describe('src/actions/buc', () => {
         buc: mockBucType,
         country: mockCountry
       },
-      url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: mockBucType, country: 'UK' })
+      url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: mockBucType, country: mockCountry })
     }))
   })
 

@@ -499,6 +499,21 @@ describe('reducers/buc', () => {
     })
   })
 
+  it('BUC_GET_INSTITUTION_LIST_SUCCESS: stores RINA UK institutions under the requested GB', () => {
+    const ukInstitution = { institution: 'UK:UK030', name: 'DWP', country: 'UK' }
+    const newState = bucReducer({
+      ...initialBucState,
+      institutionList: {},
+      institutionNames: {}
+    }, {
+      type: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
+      payload: { result: [ukInstitution] },
+      context: { buc: 'P_BUC_02', country: 'GB' }
+    })
+    expect(newState.institutionList).toEqual({ GB: [{ ...ukInstitution, buc: 'P_BUC_02' }] })
+    expect(newState.institutionNames).toEqual({ 'UK:UK030': ukInstitution })
+  })
+
   it('BUC_GET_PARTICIPANTS_SUCCESS', () => {
     const mockCaseId = mockBucs()[0].caseId
     const newState = bucReducer({
