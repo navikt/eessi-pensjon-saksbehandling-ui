@@ -1,15 +1,15 @@
 import {
   // createSed,
-  getCountryList,
   getSedList,
   // resetSed,
   setSedList
 } from 'src/actions/buc'
 import { VEDTAKSKONTEKST } from 'src/constants/constants'
 import { Bucs, Sed } from 'src/declarations/buc'
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import _ from 'lodash'
 import mockFeatureToggles from 'src/mocks/app/featureToggles'
+import mockCountryCodes from 'src/mocks/app/countryAndCurrencyCodes'
 import personAvdod from 'src/mocks/person/personAvdod'
 import mockBucs from 'src/mocks/buc/bucs'
 import mockItems from 'src/mocks/joark/items'
@@ -27,7 +27,6 @@ jest.mock('src/actions/buc', () => ({
   createReplySed: jest.fn(),
   createSavingAttachmentJob: jest.fn(),
   createSed: jest.fn(),
-  getCountryList: jest.fn(),
   getInstitutionsListForBucAndCountry: jest.fn(),
   getSedList: jest.fn(),
   resetSavingAttachmentJob: jest.fn(),
@@ -39,7 +38,6 @@ jest.mock('src/actions/buc', () => ({
 
 const defaultSelector: SEDStartSelector = {
   attachmentsError: false,
-  countryList: [],
   gettingP6000: false,
   featureToggles: mockFeatureToggles,
   institutionList: {},
@@ -79,8 +77,11 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     followUpSeds: undefined
   }
 
+  // State read by CountryDropdown through the shared mocked useSelector
+  const countryDropdownState = { bucs: _mockBucs, currentBuc: mockCurrentBuc, countryCodes: mockCountryCodes }
+
   beforeEach(() => {
-    stageSelector(defaultSelector, {})
+    stageSelector(defaultSelector, countryDropdownState)
     wrapper = render(<SEDStart {...initialMockProps} />)
   })
 
@@ -92,11 +93,51 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     expect(screen.getByText("buc:form-chooseSed")).toBeTruthy()
   })
 
-  it('UseEffect: getCountryList', () => {
-    (getCountryList as jest.Mock).mockReset()
-    stageSelector(defaultSelector, { countryList: undefined })
-    wrapper = render(<SEDStart {...initialMockProps} />)
-    expect(getCountryList).toHaveBeenCalled()
+  const openCountrySelect = () => {
+    const input = wrapper.container.querySelector('input#a_buc_c_sedstart--country-select-id, #a_buc_c_sedstart--country-select-id input')
+    fireEvent.keyDown(input, { key: 'ArrowDown' })
+  }
+
+  it('Country list: Norway as case owner gets euEftaLand for the BUC CDM version', () => {
+    wrapper.unmount()
+    wrapper = render(<SEDStart {...initialMockProps} initialSed={undefined} />)
+    openCountrySelect()
+    // DK is in euEftaLand but not a BUC participant; PT is a participant but not in euEftaLand
+    expect(screen.getByText('Danmark')).toBeTruthy()
+    expect(screen.queryByText('Portugal')).toBeNull()
+  })
+
+  it('Country list: foreign case owner gets only foreign BUC participants', () => {
+    wrapper.unmount()
+    const foreignOwnedBucs: Bucs = _.cloneDeep(_mockBucs)
+    foreignOwnedBucs[mockCurrentBuc].creator = { country: 'SE', institution: 'SE:DEMOSE01', name: 'Swedish institution 01', acronym: 'DEMOSE01' }
+    wrapper = render(<SEDStart {...initialMockProps} bucs={foreignOwnedBucs} initialSed={undefined} />)
+    openCountrySelect()
+    expect(screen.getByText('Portugal')).toBeTruthy()
+    expect(screen.queryByText('Danmark')).toBeNull()
+  })
+
+  it('Country list: Norway as case owner with P8000 gets only the BUC receiver countries', () => {
+    wrapper.unmount()
+    const bucsWithDeltakere: Bucs = _.cloneDeep(_mockBucs)
+    ;(bucsWithDeltakere[mockCurrentBuc] as any).deltakere = []
+    stageSelector(defaultSelector, { ...countryDropdownState, institutionNames: undefined, sedList: ['P8000'] })
+    wrapper = render(<SEDStart {...initialMockProps} bucs={bucsWithDeltakere} initialSed={undefined} />)
+    openCountrySelect()
+    // Receiver countries are also preselected, so Portugal appears both as value and option
+    expect(screen.getAllByText('Portugal').length).toBeGreaterThan(0)
+    expect(screen.queryByText('Danmark')).toBeNull()
+  })
+
+  it('Country list: Norway as case owner falls back to BUC participants when the CDM version has no country codes', () => {
+    wrapper.unmount()
+    const cdm44Bucs: Bucs = _.cloneDeep(_mockBucs)
+    cdm44Bucs[mockCurrentBuc].cdm = '4.4'
+    stageSelector(defaultSelector, { ...countryDropdownState, bucs: cdm44Bucs })
+    wrapper = render(<SEDStart {...initialMockProps} bucs={cdm44Bucs} initialSed={undefined} />)
+    openCountrySelect()
+    expect(screen.getByText('Portugal')).toBeTruthy()
+    expect(screen.queryByText('Danmark')).toBeNull()
   })
 
   it('UseEffect: getSedList with no currentSed ', () => {
@@ -125,7 +166,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
       lastVersion: {id: '1', date: 1},
       allowsAttachments: true
     }
-    stageSelector(defaultSelector, { sed: mockSed })
+    stageSelector(defaultSelector, { ...countryDropdownState, sed: mockSed })
     wrapper = render(<SEDStart {...initialMockProps} initialSendingAttachments={true} initialAttachments={mockItems} />)
     expect(createSavingAttachmentJob).toHaveBeenCalled()
   }) */

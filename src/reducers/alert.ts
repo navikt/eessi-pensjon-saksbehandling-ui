@@ -141,7 +141,7 @@ const alertReducer = (state: AlertState = initialAlertState, action: AnyAction) 
         bannerMessage = i18n.t('message:alert-noBucsListInfo')
         break
 
-      case types.BUC_GET_COUNTRY_LIST_FAILURE:
+      case types.GET_COUNTRY_AND_CURRENCY_CODES_FAILURE:
         stripeMessage = i18n.t('message:alert-noCountryList')
         bannerMessage = i18n.t('message:alert-noCountryList')
         break

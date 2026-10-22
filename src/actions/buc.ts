@@ -1,5 +1,4 @@
 import { ActionWithPayload, call } from '@navikt/fetch'
-import { CountryFilter } from '@navikt/land-verktoy'
 import * as types from 'src/constants/actionTypes'
 import * as storage from 'src/constants/storage'
 import tagsList from 'src/constants/tagsList'
@@ -10,7 +9,6 @@ import {
   BUCOptions,
   Bucs,
   BucsInfoRawList,
-  CountryRawList,
   Institutions,
   NewBucPayload,
   NewSedPayload,
@@ -316,23 +314,6 @@ export const getBucOptions = (
       request: types.BUC_GET_BUC_OPTIONS_REQUEST,
       success: types.BUC_GET_BUC_OPTIONS_SUCCESS,
       failure: types.BUC_GET_BUC_OPTIONS_FAILURE
-    }
-  })
-}
-
-export const getCountryList = (
-  bucType: string
-): ActionWithPayload<CountryRawList> => {
-  return call({
-    url: sprintf(urls.EUX_COUNTRIES_FOR_BUC_URL, { bucType }),
-    context: {
-      buc: bucType
-    },
-    expectedPayload: { result: CountryFilter.EESSI_READY({}) },
-    type: {
-      request: types.BUC_GET_COUNTRY_LIST_REQUEST,
-      success: types.BUC_GET_COUNTRY_LIST_SUCCESS,
-      failure: types.BUC_GET_COUNTRY_LIST_FAILURE
     }
   })
 }

@@ -160,14 +160,14 @@ describe('reducers/alert', () => {
     })
   })
 
-  it('BUC_GET_COUNTRY_LIST_FAILURE', () => {
+  it('GET_COUNTRY_AND_CURRENCY_CODES_FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {
-        type: types.BUC_GET_COUNTRY_LIST_FAILURE
+        type: types.GET_COUNTRY_AND_CURRENCY_CODES_FAILURE
       })
     ).toEqual({
       ...initialAlertState,
-      type: types.BUC_GET_COUNTRY_LIST_FAILURE,
+      type: types.GET_COUNTRY_AND_CURRENCY_CODES_FAILURE,
       stripeStatus : 'error',
       stripeMessage : i18n.t('message:alert-noCountryList'),
       bannerStatus: 'error',
