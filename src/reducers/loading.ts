@@ -15,7 +15,6 @@ export const initialLoadingState: LoadingState = {
   gettingBucDeltakere: false,
   gettingBucOptions: false,
   gettingBucsInfo: false,
-  gettingCountryList: false,
   gettingCountryCodes: false,
   gettingKravDato: false,
   gettingInstitutionList: false,
@@ -305,21 +304,6 @@ const loadingReducer = (state: LoadingState = initialLoadingState, action: AnyAc
       return {
         ...state,
         gettingBucsInfo: false
-      }
-
-    case types.BUC_GET_COUNTRY_LIST_REQUEST:
-
-      return {
-        ...state,
-        gettingCountryList: true
-      }
-
-    case types.BUC_GET_COUNTRY_LIST_SUCCESS:
-    case types.BUC_GET_COUNTRY_LIST_FAILURE:
-
-      return {
-        ...state,
-        gettingCountryList: false
       }
 
     case types.BUC_GET_INSTITUTION_LIST_REQUEST:

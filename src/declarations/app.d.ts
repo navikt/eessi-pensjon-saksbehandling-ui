@@ -33,17 +33,23 @@ export type FeatureToggles = {[key in Feature]: boolean | number}
 
 export type LandOgValutakoder = {
   "v4.2": CountryCodeLists & CurrencyCodeLists,
-  "v4.3": CountryCodeLists & CurrencyCodeLists
+  "v4.3": CountryCodeLists & CurrencyCodeLists,
+  "v4.4": CountryCodeLists & CurrencyCodeLists,
+  "v4.5": CountryCodeLists & CurrencyCodeLists
 }
 
 export type CountryCodes = {
   "v4.2": CountryCodeLists,
-  "v4.3": CountryCodeLists
+  "v4.3": CountryCodeLists,
+  "v4.4": CountryCodeLists,
+  "v4.5": CountryCodeLists
 }
 
 export type CurrencyCodes = {
   "v4.2": CurrencyCodeLists,
   "v4.3": CurrencyCodeLists
+  "v4.4": CurrencyCodeLists,
+  "v4.5": CurrencyCodeLists
 }
 
 export type CountryCodeLists = {

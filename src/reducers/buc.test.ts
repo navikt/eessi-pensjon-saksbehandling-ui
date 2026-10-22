@@ -461,43 +461,6 @@ describe('reducers/buc', () => {
     })
   })
 
-  it('BUC_GET_COUNTRY_LIST_SUCCESS', () => {
-    expect(
-      bucReducer(initialBucState, {
-        type: types.BUC_GET_COUNTRY_LIST_SUCCESS,
-        payload: { result: 'something' }
-      })
-    ).toEqual({
-      ...initialBucState,
-      countryList: 'something'
-    })
-  })
-
-  it('BUC_GET_COUNTRY_LIST_REQUEST', () => {
-    expect(
-      bucReducer({
-        ...initialBucState,
-        countryList: ['something']
-      }, {
-        type: types.BUC_GET_COUNTRY_LIST_REQUEST
-      })
-    ).toEqual(initialBucState)
-  })
-
-  it('BUC_GET_COUNTRY_LIST_FAILURE', () => {
-    expect(
-      bucReducer({
-        ...initialBucState,
-        countryList: ['something']
-      }, {
-        type: types.BUC_GET_COUNTRY_LIST_FAILURE
-      })
-    ).toEqual({
-      ...initialBucState,
-      countryList: null
-    })
-  })
-
   it('BUC_GET_INSTITUTION_LIST_SUCCESS', () => {
     const mockPayload = [
       { institution: '1', name: 'a', country: 'AA' },

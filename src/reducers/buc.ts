@@ -39,7 +39,6 @@ export interface BucState {
   bucsInfoList: Array<string> | undefined
   bucsInfo: BucsInfo | undefined
   bucOptions: Array<string> | undefined
-  countryList: Array<string> | undefined
   currentBuc: string | undefined
   currentSed: Sed | undefined
   PSED: PSED | undefined | null
@@ -80,7 +79,6 @@ export const initialBucState: BucState = {
   bucsInfo: undefined,
   bucsList: undefined,
   bucOptions: undefined,
-  countryList: undefined,
   currentBuc: undefined,
   currentSed: undefined,
   PSED: undefined,
@@ -210,7 +208,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         ...state,
         currentBuc: newBuc.caseId,
         sed: undefined,
-        countryList: undefined,
         bucs,
         kravDato: undefined,
         newlyCreatedBuc: newBuc,
@@ -263,7 +260,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         ...state,
         currentBuc: newBuc.caseId,
         sed: undefined,
-        countryList: undefined,
         bucs,
         kravDato: undefined,
         newlyCreatedBuc: newBuc,
@@ -291,7 +287,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         ...state,
         currentBuc: newBuc.caseId,
         sed: undefined,
-        countryList: undefined,
         bucs,
         kravDato: undefined,
         newlyCreatedATPBuc: newBuc,
@@ -425,7 +420,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         newlyCreatedBuc: isNewlyCreatedBuc ? undefined : state.newlyCreatedBuc,
         newlyCreatedATPBuc: isNewlyCreatedATPBuc ? undefined : state.newlyCreatedATPBuc,
         currentBuc: (action as ActionWithPayload).payload,
-        countryList: undefined,
         p6000s: undefined
       }
     }
@@ -624,26 +618,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
       return {
         ...state,
         bucsInfoList: undefined
-      }
-
-    case types.BUC_GET_COUNTRY_LIST_SUCCESS:
-
-      return {
-        ...state,
-        countryList: (action as ActionWithPayload).payload.result
-      }
-
-    case types.BUC_GET_COUNTRY_LIST_REQUEST:
-      return {
-        ...state,
-        countryList: undefined
-      }
-
-    case types.BUC_GET_COUNTRY_LIST_FAILURE:
-
-      return {
-        ...state,
-        countryList: null
       }
 
     case types.BUC_GET_KRAVDATO_REQUEST:
@@ -847,7 +821,6 @@ const bucReducer = (state: BucState = initialBucState, action: AnyAction) => {
         ...state,
         sed: undefined,
         currentSed: undefined,
-        countryList: undefined,
         followUpSeds: undefined,
         institutionList: undefined,
         p5000sFromRinaMap: {}
