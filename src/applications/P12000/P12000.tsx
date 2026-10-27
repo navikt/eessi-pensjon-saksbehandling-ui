@@ -1,5 +1,5 @@
-import React, {JSX, useEffect} from "react";
-import {Button, HGrid, HStack, VStack} from "@navikt/ds-react";
+import React, {JSX, useEffect, useState} from "react";
+import {Box, Button, HGrid, HStack, Textarea, VStack} from "@navikt/ds-react";
 import {ChevronLeftIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
@@ -15,7 +15,6 @@ import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";
 import useUnmount from "src/hooks/useUnmount";
 import SEDDetails from "src/components/SEDDetails/SEDDetails";
 import SakInfo from "src/components/SakInfo/SakInfo";
-import TextArea from "src/components/Forms/TextArea";
 import MainForm from "src/applications/MainForm";
 import ValidationBox from "src/components/ValidationBox/ValidationBox";
 import SaveAndSendSED from "src/components/SaveAndSendSED/SaveAndSendSED";
@@ -23,6 +22,13 @@ import performValidation from "src/utils/performValidation";
 import {validateP12000, ValidationP12000Props} from "./validateP12000";
 import MottakerAvGjenlevendePensjon from "./MottakerAvGjenlevendePensjon/MottakerAvGjenlevendePensjon";
 import InformasjonOmPensjon from "./InformasjonOmPensjon/InformasjonOmPensjon";
+import YtelserPerMaaned, {
+  composeYtterligereInformasjon,
+  extractFritekst,
+  extractGenerated,
+  YTTERLIGERE_INFORMASJON_MAX_LENGTH,
+  YTTERLIGERE_INFORMASJON_TARGET
+} from "./YtelserPerMaaned/YtelserPerMaaned";
 import {createSelector} from "@reduxjs/toolkit";
 import _ from "lodash";
 
@@ -54,6 +60,8 @@ const P12000: React.FC<P12000Props> = ({buc, sed, setMode}: P12000Props): JSX.El
   const dispatch = useDispatch()
   const {currentPSED, gettingSed, validation}: P12000Selector = useSelector<State, P12000Selector>(mapState)
   const namespace = "p12000"
+  const [_fritekst, setFritekst] = useState<string>('')
+  const [_fritekstLoaded, setFritekstLoaded] = useState<boolean>(false)
 
   useUnmount(() => {
     dispatch(resetPSED())
@@ -67,8 +75,18 @@ const P12000: React.FC<P12000Props> = ({buc, sed, setMode}: P12000Props): JSX.El
     }
   }, [sed])
 
-  const setYtterligereInformasjon = (ytterligereInformasjon: string) => {
-    dispatch(updatePSED('pensjon.ytterligereInformasjon', ytterligereInformasjon))
+  useEffect(() => {
+    if (currentPSED && !_fritekstLoaded) {
+      setFritekst(extractFritekst(currentPSED.pensjon?.ytterligereInformasjon))
+      setFritekstLoaded(true)
+    }
+  }, [currentPSED])
+
+  // Same as P8000: saksbehandler edits only the fritekst, the generated ytelser per måned block is kept in front
+  const setYtterligereInformasjon = (fritekst: string) => {
+    setFritekst(fritekst)
+    const generated = extractGenerated(currentPSED?.pensjon?.ytterligereInformasjon)
+    dispatch(updatePSED(YTTERLIGERE_INFORMASJON_TARGET, composeYtterligereInformasjon(generated, fritekst)))
     if (validation[namespace + '-ytterligereInformasjon']) {
       dispatch(resetValidation(namespace + '-ytterligereInformasjon'))
     }
@@ -117,6 +135,7 @@ const P12000: React.FC<P12000Props> = ({buc, sed, setMode}: P12000Props): JSX.El
           <SakInfo PSED={currentPSED} title="P12000"/>
           <MainForm
             forms={[
+              { label: "Ytelser per måned", value: 'ytelserpermaaned', component: YtelserPerMaaned},
               { label: "Informasjon om pensjon", value: 'informasjonompensjon', component: InformasjonOmPensjon},
               { label: "Mottaker av gjenlevendepensjon", value: 'mottakeravgjenlevendepensjon', component: MottakerAvGjenlevendePensjon}
             ]}
@@ -125,15 +144,25 @@ const P12000: React.FC<P12000Props> = ({buc, sed, setMode}: P12000Props): JSX.El
             updatePSED={updatePSED}
             namespace={namespace}
           />
-          <TextArea
-            namespace={namespace}
-            error={validation[namespace + '-ytterligereInformasjon']?.feilmelding}
-            id='ytterligereInformasjon'
-            label={t('p12000:form-ytterligereinformasjon')}
-            onChanged={setYtterligereInformasjon}
-            value={currentPSED?.pensjon?.ytterligereInformasjon ?? ''}
-            maxLength={500}
-          />
+          <Box className={styles.boxWithBorderAndPadding}>
+            <VStack gap="space-16">
+              <Textarea
+                id={namespace + '-ytterligereInformasjon'}
+                data-testid={namespace + '-ytterligereInformasjon'}
+                error={validation[namespace + '-ytterligereInformasjon']?.feilmelding}
+                label={t('p12000:form-legg-til-fritekst')}
+                value={_fritekst}
+                onChange={(e) => setYtterligereInformasjon(e.target.value)}
+              />
+              <Textarea
+                id={namespace + '-ytterligereInformasjon-forhaandsvisning'}
+                label={t('p12000:form-forhaandsvisning-av-tekst')}
+                value={currentPSED?.pensjon?.ytterligereInformasjon ?? ''}
+                maxLength={YTTERLIGERE_INFORMASJON_MAX_LENGTH}
+                readOnly
+              />
+            </VStack>
+          </Box>
           <ValidationBox heading={t('message:error-validationbox-sedstart')} validation={validation}/>
           <SaveAndSendSED
             namespace={namespace}

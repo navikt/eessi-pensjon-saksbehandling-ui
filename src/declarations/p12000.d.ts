@@ -1,4 +1,4 @@
-import {Adresse, BaseSED, Nav, Pensjon, Person} from "src/declarations/sed";
+import {BaseSED, Nav, Adresse, Person} from "src/declarations/sed";
 
 export interface Betalingsdetaljer {
   fradato?: string
@@ -41,7 +41,7 @@ export interface Gjenlevende {
   adresse?: Adresse
 }
 
-export interface P12000Pensjon extends Pensjon {
+export interface Pensjon {
   pensjoninfo?: Pensjoninfo
   gjenlevende?: Gjenlevende
   ytterligereInformasjon?: string
@@ -49,7 +49,37 @@ export interface P12000Pensjon extends Pensjon {
   anmodning13000verdi?: string
 }
 
+export interface Ytelseskomponent {
+  ytelsesKomponentType: string
+  belopTilUtbetaling: number
+}
+
+export interface YtelsePerMaaned {
+  fom: string
+  tom: string | null
+  mottarMinstePensjonsniva: boolean
+  vinnendeBeregningsmetode: string | null
+  belop: number
+  ytelseskomponenter: Array<Ytelseskomponent>
+}
+
+export type YtelserPerMaanedResponse = Array<YtelsePerMaaned>
+
+// Stored by fagmodul next to the SED (like P8000 options), used to restore Ytelser per måned.
+// fom/tom is the searched period, selected holds the indexes of the checked ytelser
+export interface YtelserPerMaanedOption {
+  fom: string
+  tom?: string
+  ytelser: Array<YtelsePerMaaned>
+  selected: Array<number>
+}
+
+export interface Options {
+  ytelserPerMaaned?: YtelserPerMaanedOption
+}
+
 export interface P12000SED extends BaseSED {
   nav: Nav,
-  pensjon: P12000Pensjon
+  pensjon: Pensjon
+  options?: Options
 }

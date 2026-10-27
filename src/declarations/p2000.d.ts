@@ -1,4 +1,4 @@
-import {BaseSED, Krav, Nav, Pensjon} from "src/declarations/sed";
+import {BaseSED, Krav, Nav} from "src/declarations/sed";
 
 export interface Beloep {
   annenbetalingshyppighetytelse?: string
@@ -55,7 +55,7 @@ export interface Utsettelse {
   tildato?: string
 }
 
-export interface P2000Pensjon extends Pensjon {
+export interface Pensjon {
   utsettelse?: Array<Utsettelse>
   ytelser?: Array<Ytelse>
   ytterligeinformasjon?: string
@@ -75,6 +75,6 @@ export interface P2000Pensjon extends Pensjon {
 
 export interface P2000SED extends BaseSED{
   nav: Nav,
-  pensjon : P2000Pensjon
+  pensjon : Pensjon
 }
 
