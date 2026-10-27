@@ -281,6 +281,28 @@ describe('reducers/app', () => {
     })
   })
 
+  it('GET_COUNTRY_AND_CURRENCY_CODES_SUCCESS: skips null versions and null lists', () => {
+    const newState = appReducer(initialAppState, {
+      type: types.GET_COUNTRY_AND_CURRENCY_CODES_SUCCESS,
+      payload: {
+        result: {
+          "v4.2": {
+            "euEftaLand": [{ landkode: "SE", landnavn: "Sverige" }],
+            "verdensLand": null,
+            "verdensLandHistorisk": null,
+            "statsborgerskap": null,
+            "euEftaValuta": null,
+            "verdensValuta": null
+          },
+          "v4.5": null
+        }
+      }
+    })
+    expect(Object.keys(newState.countryCodes!)).toEqual(['v4.2'])
+    expect(Object.keys(newState.currencyCodes!)).toEqual(['v4.2'])
+    expect(newState.countryCodeMap).toEqual({ SE: 'Sverige' })
+  })
+
   it('UNKNOWN_ACTION', () => {
     expect(
       appReducer(initialAppState, {

@@ -145,6 +145,8 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
 
       Object.keys(landOgValutakoder).forEach(versionKey => {
         const version = landOgValutakoder[versionKey as keyof LandOgValutakoder]
+        // Backend returns null for CDM versions not available in the environment (e.g. v4.5 in prod)
+        if (!version) return
         countryCodes[versionKey as keyof CountryCodes] = {
           euEftaLand: version.euEftaLand,
           verdensLand: version.verdensLand,
@@ -160,7 +162,7 @@ const appReducer = (state: AppState = initialAppState, action: AnyAction) => {
       let countryCodeMap: {[key: string]: string} = {}
       Object.keys(countryCodes).forEach(versionKey => {
         Object.keys(countryCodes[versionKey as keyof CountryCodes]).forEach(landKey => {
-          countryCodes[versionKey as keyof CountryCodes][landKey as keyof CountryCodeLists].forEach(land => {
+          countryCodes[versionKey as keyof CountryCodes][landKey as keyof CountryCodeLists]?.forEach(land => {
             countryCodeMap[land.landkode] = land.landnavn
           })
         })

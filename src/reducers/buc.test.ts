@@ -461,43 +461,6 @@ describe('reducers/buc', () => {
     })
   })
 
-  it('BUC_GET_COUNTRY_LIST_SUCCESS', () => {
-    expect(
-      bucReducer(initialBucState, {
-        type: types.BUC_GET_COUNTRY_LIST_SUCCESS,
-        payload: { result: 'something' }
-      })
-    ).toEqual({
-      ...initialBucState,
-      countryList: 'something'
-    })
-  })
-
-  it('BUC_GET_COUNTRY_LIST_REQUEST', () => {
-    expect(
-      bucReducer({
-        ...initialBucState,
-        countryList: ['something']
-      }, {
-        type: types.BUC_GET_COUNTRY_LIST_REQUEST
-      })
-    ).toEqual(initialBucState)
-  })
-
-  it('BUC_GET_COUNTRY_LIST_FAILURE', () => {
-    expect(
-      bucReducer({
-        ...initialBucState,
-        countryList: ['something']
-      }, {
-        type: types.BUC_GET_COUNTRY_LIST_FAILURE
-      })
-    ).toEqual({
-      ...initialBucState,
-      countryList: null
-    })
-  })
-
   it('BUC_GET_INSTITUTION_LIST_SUCCESS', () => {
     const mockPayload = [
       { institution: '1', name: 'a', country: 'AA' },
@@ -534,6 +497,21 @@ describe('reducers/buc', () => {
         ]
       }
     })
+  })
+
+  it('BUC_GET_INSTITUTION_LIST_SUCCESS: stores RINA UK institutions under the requested GB', () => {
+    const ukInstitution = { institution: 'UK:UK030', name: 'DWP', country: 'UK' }
+    const newState = bucReducer({
+      ...initialBucState,
+      institutionList: {},
+      institutionNames: {}
+    }, {
+      type: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
+      payload: { result: [ukInstitution] },
+      context: { buc: 'P_BUC_02', country: 'GB' }
+    })
+    expect(newState.institutionList).toEqual({ GB: [{ ...ukInstitution, buc: 'P_BUC_02' }] })
+    expect(newState.institutionNames).toEqual({ 'UK:UK030': ukInstitution })
   })
 
   it('BUC_GET_PARTICIPANTS_SUCCESS', () => {

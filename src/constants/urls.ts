@@ -21,7 +21,6 @@ const STG_URL = FRONTEND_API_URL + '/api/storage'
 export const COUNTRY_AND_CURRENCY_CODES_URL = LAND_OG_VALUTAKODER_URL + '/rina?format=iso2'
 
 // EuxController
-export const EUX_COUNTRIES_FOR_BUC_URL = EUX_URL + '/countries/%(bucType)s'
 export const EUX_RINA_URL = EUX_URL + '/rinaurl'
 export const EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL = EUX_URL + '/institutions/%(buc)s/%(country)s'
 export const EUX_BUC_SED_SEND_URL = EUX_URL + '/buc/%(caseId)s/sed/%(sedId)s/send'

@@ -18,7 +18,6 @@ import {
   createSavingAttachmentJob,
   createSed,
   fetchKravDato,
-  getCountryList,
   getInstitutionsListForBucAndCountry,
   getSedList,
   getSedP6000,
@@ -86,7 +85,7 @@ import { JoarkBrowserItem, JoarkBrowserItems } from 'src/declarations/joark'
 import { PersonAvdod, PersonAvdods } from 'src/declarations/person.d'
 import { State } from 'src/declarations/reducers'
 import CountryData, { Country, CountryList } from '@navikt/land-verktoy'
-import CountrySelect from '@navikt/landvelger'
+import CountryDropdown from 'src/components/CountryDropdown/CountryDropdown'
 import _ from 'lodash'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -122,7 +121,6 @@ export interface SEDStartProps {
 
 export interface SEDStartSelector {
   attachmentsError: boolean
-  countryList: CountryRawList | undefined
   featureToggles: FeatureToggles
   gettingP6000: boolean
   institutionList: InstitutionListMap<Institution> | undefined
@@ -145,7 +143,6 @@ export interface SEDStartSelector {
 
 const mapState = /* istanbul ignore next */ (state: State): SEDStartSelector => ({
   attachmentsError: state.buc.attachmentsError,
-  countryList: state.buc.countryList,
   featureToggles: state.app.featureToggles,
   gettingP6000: state.loading.gettingP6000,
   institutionList: state.buc.institutionList,
@@ -187,7 +184,7 @@ const SEDStart: React.FC<SEDStartProps> = ({
   onSedCancelled
 } : SEDStartProps): JSX.Element => {
   const {
-    attachmentsError, countryList, featureToggles, gettingP6000, institutionList, institutionNames, kravId, kravDato,
+    attachmentsError, featureToggles, gettingP6000, institutionList, institutionNames, kravId, kravDato,
     loading, locale, p6000s, personAvdods, pesysContext, sakId, sakType, sed, sedList, sedsWithAttachments, vedtakId
   }: SEDStartSelector = useSelector<State, SEDStartSelector>(mapState)
   const { t } = useTranslation()
@@ -466,9 +463,9 @@ const SEDStart: React.FC<SEDStartProps> = ({
 
   const isDisabled = _sed ? (!isNorwayCaseOwner() && sedFreezesCountriesAndInstitutions.indexOf(_sed) >= 0) : false
 
-  const _countryIncludeList: CountryRawList = countryList
-    ? (isNorwayCaseOwner() ? countryList : getParticipantCountriesWithoutNorway())
-    : []
+  // Norway as case owner can pick any EU/EFTA country, unless the countries are limited by the SED type;
+  // otherwise only the BUC's foreign participants
+  const _countryCodeListName: string | undefined = isNorwayCaseOwner() && !_limitedCountries ? 'euEftaLand' : undefined
 
   const _countryValueList = _countries ? _countryData.filterByValueOnArray(_countries).sort(labelSorter) : []
   const _institutionObjectList: Array<GroupBase<Option>> = []
@@ -643,9 +640,11 @@ const SEDStart: React.FC<SEDStartProps> = ({
 
     addedCountries.forEach(country => dispatch(getInstitutionsListForBucAndCountry(_type!, country)))
     removedCountries.forEach(country => {
+      // RINA institution ids use UK/EL, while the selected country may be GB/GR
+      const rinaCountry: string = country === 'GB' ? 'UK' : country === 'GR' ? 'EL' : country
       const newInstitutions: InstitutionRawList = _institutions.filter(item => {
         const [_country] = item.split(':')
-        return country !== _country
+        return country !== _country && rinaCountry !== _country
       })
       setInstitutions(newInstitutions)
     })
@@ -928,12 +927,6 @@ const SEDStart: React.FC<SEDStartProps> = ({
   }
 
   useEffect(() => {
-    if (countryList === undefined && !_.isNil(_type) && !loading.gettingCountryList) {
-      dispatch(getCountryList(_type))
-    }
-  }, [countryList, loading.gettingCountryList, _type])
-
-  useEffect(() => {
     dispatch(_.isEmpty(followUpSeds) ? getSedList(_buc as ValidBuc) : setSedList(followUpSeds!.map(s => s.type)))
     if (!_.isEmpty(followUpSeds) && followUpSeds!.length === 1) {
       handleSedChange(followUpSeds![0].type)
@@ -1205,21 +1198,22 @@ const SEDStart: React.FC<SEDStartProps> = ({
           )}
           {!currentSed && (
             <>
-              <CountrySelect
+              <CountryDropdown
                 ariaLabel={t('ui:country')}
                 aria-describedby='help-country'
                 closeMenuOnSelect={false}
-                data-testid='a_buc_c_sedstart--country-select-id'
-                isDisabled={loading.gettingCountryList || isDisabled || _disableForPBUC05}
-                error={_validation.country ? t(_validation.country.feilmelding) : null}
+                dataTestId='a_buc_c_sedstart--country-select-id'
+                isDisabled={loading.gettingCountryCodes || isDisabled || _disableForPBUC05}
+                error={_validation.country ? t(_validation.country.feilmelding) : undefined}
                 flagType='circle'
                 hideSelectedOptions={false}
                 id='a_buc_c_sedstart--country-select-id'
-                includeList={_limitedCountries ? _limitedCountries : _countryIncludeList}
+                countryCodeListName={_countryCodeListName}
+                includeList={_limitedCountries ? _limitedCountries : getParticipantCountriesWithoutNorway()}
                 values={_countryValueList}
-                isLoading={loading.gettingCountryList}
+                isLoading={loading.gettingCountryCodes}
                 isMulti
-                label={loading.gettingCountryList ? getSpinner('message:loading-country') : t('buc:form-chooseCountry')}
+                label={loading.gettingCountryCodes ? getSpinner('message:loading-country') : t('buc:form-chooseCountry')}
                 onOptionSelected={onCountriesChange}
               />
               <MultipleSelect<Option>

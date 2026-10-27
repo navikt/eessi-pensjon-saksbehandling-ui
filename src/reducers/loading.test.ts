@@ -148,18 +148,6 @@ describe('reducers/loading', () => {
     simulateFailure(types.BUC_GET_BUCSINFO_FAILURE, 'gettingBucsInfo')
   })
 
-  it('BUC_GET_COUNTRY_LIST_REQUEST', () => {
-    simulateRequest(types.BUC_GET_COUNTRY_LIST_REQUEST, 'gettingCountryList')
-  })
-
-  it('BUC_GET_COUNTRY_LIST_SUCCESS', () => {
-    simulateSuccess(types.BUC_GET_COUNTRY_LIST_SUCCESS, 'gettingCountryList')
-  })
-
-  it('BUC_GET_COUNTRY_LIST_FAILURE', () => {
-    simulateFailure(types.BUC_GET_COUNTRY_LIST_FAILURE, 'gettingCountryList')
-  })
-
   it('BUC_GET_INSTITUTION_LIST_REQUEST', () => {
     simulateRequest(types.BUC_GET_INSTITUTION_LIST_REQUEST, 'gettingInstitutionList')
   })

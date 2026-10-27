@@ -10,7 +10,6 @@ jest.mock('actions/buc', () => ({
   createReplySed: jest.fn(),
   createSavingAttachmentJob: jest.fn(),
   createSed: jest.fn(),
-  getCountryList: jest.fn(),
   getInstitutionsListForBucAndCountry: jest.fn(),
   getSedList: jest.fn(),
   resetSavingAttachmentJob: jest.fn(),
@@ -22,7 +21,6 @@ jest.mock('actions/buc', () => ({
 
 const defaultSelector: SEDStartSelector = {
   attachmentsError: false,
-  countryList: [],
   featureToggles: mockFeatureToggles,
   gettingP6000: false,
   institutionNames: {},
