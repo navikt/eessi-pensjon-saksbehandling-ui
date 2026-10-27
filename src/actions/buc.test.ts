@@ -304,7 +304,7 @@ describe('src/actions/buc', () => {
             foresporsel: expect.objectContaining({
               referanseTilPerson: '01'
             }),
-            ytterligereInformasjon: 'Ytterligere informasjon',
+            ytterligereInformasjon: expect.stringContaining('Ytelser per måned'),
             pensjoninfo: expect.objectContaining({
               tilleggsytelserutbetalingitilleggtilpensjon: 'Tilleggsytelse',
               betalingsdetaljer: expect.arrayContaining([
@@ -322,6 +322,12 @@ describe('src/actions/buc', () => {
                   begrunnelse: 'Opphor fordi ytelsen er avsluttet'
                 })
               ])
+            })
+          }),
+          options: expect.objectContaining({
+            ytelserPerMaaned: expect.objectContaining({
+              fom: '2025-01-01',
+              selected: [0, 2, 4]
             })
           })
         })
