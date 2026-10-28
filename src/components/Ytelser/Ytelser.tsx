@@ -344,36 +344,38 @@ const Ytelser: React.FC<MainFormProps> = ({
                   </Button>
                 </Box>
               }
-              {PSED?.sed === "P2000" && <>
-              <RadioGroup className={"horizontalRadioGroup"}
-                error={_v[_namespace + '-mottasbasertpaa']?.feilmelding}
-                id={_namespace + "-mottasbasertpaa"}
-                legend={t('p2000:form-ytelse-mottas-basert-paa')}
-                onChange={(e: any) => setYtelseProperty("mottasbasertpaa", e, index)}
-                value={_p2000Ytelse?.mottasbasertpaa}
-              >
-                <Radio value="botid">{t('p2000:form-ytelse-mottas-basert-paa-botid')}</Radio>
-                <Radio value="i_arbeid">{t('p2000:form-ytelse-mottas-basert-paa-i_arbeid')}</Radio>
-              </RadioGroup>
-              <HGrid gap="space-16" columns={2}>
-                <Input
-                  error={_v[_namespace + '-totalbruttobeloepbostedsbasert']?.feilmelding}
-                  namespace={_namespace}
-                  id={_namespace + '-totalbruttobeloepbostedsbasert'}
-                  label={t('p2000:form-ytelse-bruttobeloep-bostedsbasert')}
-                  onChanged={(e) => setYtelseProperty("totalbruttobeloepbostedsbasert", removeWhiteSpaceAndReplaceCommas(e), index)}
-                  value={replacePeriodsWithCommas(_p2000Ytelse?.totalbruttobeloepbostedsbasert ?? '')}
-                />
-                <Input
-                  error={_v[_namespace + '-totalbruttobeloeparbeidsbasert']?.feilmelding}
-                  namespace={_namespace}
-                  id={_namespace + '-totalbruttobeloeparbeidsbasert'}
-                  label={t('p2000:form-ytelse-bruttobeloep-arbeidsrelatert')}
-                  onChanged={(e) => setYtelseProperty("totalbruttobeloeparbeidsbasert", removeWhiteSpaceAndReplaceCommas(e), index)}
-                  value={replacePeriodsWithCommas(_p2000Ytelse?.totalbruttobeloeparbeidsbasert ?? '')}
-                />
-              </HGrid>
-              </>}
+              {PSED?.sed === "P2000" &&
+                <>
+                  <RadioGroup className={"horizontalRadioGroup"}
+                    error={_v[_namespace + '-mottasbasertpaa']?.feilmelding}
+                    id={_namespace + "-mottasbasertpaa"}
+                    legend={t('p2000:form-ytelse-mottas-basert-paa')}
+                    onChange={(e: any) => setYtelseProperty("mottasbasertpaa", e, index)}
+                    value={_p2000Ytelse?.mottasbasertpaa}
+                  >
+                    <Radio value="botid">{t('p2000:form-ytelse-mottas-basert-paa-botid')}</Radio>
+                    <Radio value="i_arbeid">{t('p2000:form-ytelse-mottas-basert-paa-i_arbeid')}</Radio>
+                  </RadioGroup>
+                  <HGrid gap="space-16" columns={2}>
+                    <Input
+                      error={_v[_namespace + '-totalbruttobeloepbostedsbasert']?.feilmelding}
+                      namespace={_namespace}
+                      id={_namespace + '-totalbruttobeloepbostedsbasert'}
+                      label={t('p2000:form-ytelse-bruttobeloep-bostedsbasert')}
+                      onChanged={(e) => setYtelseProperty("totalbruttobeloepbostedsbasert", removeWhiteSpaceAndReplaceCommas(e), index)}
+                      value={replacePeriodsWithCommas(_p2000Ytelse?.totalbruttobeloepbostedsbasert ?? '')}
+                    />
+                    <Input
+                      error={_v[_namespace + '-totalbruttobeloeparbeidsbasert']?.feilmelding}
+                      namespace={_namespace}
+                      id={_namespace + '-totalbruttobeloeparbeidsbasert'}
+                      label={t('p2000:form-ytelse-bruttobeloep-arbeidsrelatert')}
+                      onChanged={(e) => setYtelseProperty("totalbruttobeloeparbeidsbasert", removeWhiteSpaceAndReplaceCommas(e), index)}
+                      value={replacePeriodsWithCommas(_p2000Ytelse?.totalbruttobeloeparbeidsbasert ?? '')}
+                    />
+                  </HGrid>
+                </>
+              }
               <HStack>
                 <Spacer/>
                 {addremovepanel}
