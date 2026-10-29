@@ -138,7 +138,9 @@ const Diverse: React.FC<MainFormProps> = ({
             <Checkbox value="987_2009_Art_72_3">987/2009: Art. 72 (3)</Checkbox>
           </CheckboxGroup>
         </HGrid>
-        <Box><Institusjon PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/></Box>
+        {PSED?.sed === "P2000" &&
+          <Box><Institusjon PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/></Box>
+        }
         <CheckboxGroup
           legend={t('p2000:form-diverse-pensjon-vedlegg')}
           error={validation[namespace + '-vedlegg']?.feilmelding}
