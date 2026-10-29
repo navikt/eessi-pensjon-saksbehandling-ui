@@ -113,32 +113,32 @@ const Diverse: React.FC<MainFormProps> = ({
               </RadioGroup>
             </HGrid>
             <Box><Utsettelse PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/></Box>
-            <HGrid columns={2} gap="space-16" align="start">
-              <CheckboxGroup
-                legend={t('p2000:form-diverse-pensjon-mottaker')}
-                error={validation[namespace + '-mottaker']?.feilmelding}
-                id={namespace + "-mottaker"}
-                value={pensjon?.mottaker ? pensjon?.mottaker : [""]}
-                onChange={(v) => setPensjonArrayProperty('mottaker', v)}
-              >
-                <Checkbox value="forsikret_person">Forsikret person</Checkbox>
-                <Checkbox value="representant_eller_verge">Representant/verge</Checkbox>
-              </CheckboxGroup>
-              <CheckboxGroup
-                error={validation[namespace + '-trekkgrunnlag']?.feilmelding}
-                id={namespace + "-trekkgrunnlag"}
-                legend={t('p2000:form-diverse-pensjon-trekkgrunnlag')}
-                value={pensjon?.trekkgrunnlag ? pensjon?.trekkgrunnlag : [""]}
-                onChange={(v) => setPensjonArrayProperty('trekkgrunnlag', v)}
-              >
-                <Checkbox value="987_2009_Art_72_1">987/2009: Art. 72 (1)</Checkbox>
-                <Checkbox value="987_2009_Art_72_2">987/2009: Art. 72 (2)</Checkbox>
-                <Checkbox value="987_2009_Art_72_3">987/2009: Art. 72 (3)</Checkbox>
-              </CheckboxGroup>
-            </HGrid>
-            <Box><Institusjon PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/></Box>
           </>
         }
+        <HGrid columns={2} gap="space-16" align="start">
+          <CheckboxGroup
+            legend={t('p2000:form-diverse-pensjon-mottaker')}
+            error={validation[namespace + '-mottaker']?.feilmelding}
+            id={namespace + "-mottaker"}
+            value={pensjon?.mottaker ? pensjon?.mottaker : [""]}
+            onChange={(v) => setPensjonArrayProperty('mottaker', v)}
+          >
+            <Checkbox value="forsikret_person">Forsikret person</Checkbox>
+            <Checkbox value="representant_eller_verge">Representant/verge</Checkbox>
+          </CheckboxGroup>
+          <CheckboxGroup
+            error={validation[namespace + '-trekkgrunnlag']?.feilmelding}
+            id={namespace + "-trekkgrunnlag"}
+            legend={t('p2000:form-diverse-pensjon-trekkgrunnlag')}
+            value={pensjon?.trekkgrunnlag ? pensjon?.trekkgrunnlag : [""]}
+            onChange={(v) => setPensjonArrayProperty('trekkgrunnlag', v)}
+          >
+            <Checkbox value="987_2009_Art_72_1">987/2009: Art. 72 (1)</Checkbox>
+            <Checkbox value="987_2009_Art_72_2">987/2009: Art. 72 (2)</Checkbox>
+            <Checkbox value="987_2009_Art_72_3">987/2009: Art. 72 (3)</Checkbox>
+          </CheckboxGroup>
+        </HGrid>
+        <Box><Institusjon PSED={PSED} parentNamespace={namespace} parentTarget={target} updatePSED={updatePSED}/></Box>
         <CheckboxGroup
           legend={t('p2000:form-diverse-pensjon-vedlegg')}
           error={validation[namespace + '-vedlegg']?.feilmelding}
