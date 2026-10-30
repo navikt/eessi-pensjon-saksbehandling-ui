@@ -11,19 +11,19 @@ import { State } from "src/declarations/reducers";
 import {P2000SED} from "src/declarations/p2000";
 import _ from 'lodash'
 
-import Verge from "./Verge/Verge";
+import Verge from "src/components/Verge/Verge";
 import MainForm from 'src/applications/MainForm'
 import performValidation from "../../utils/performValidation";
 import {validateP2000, ValidationP2000Props} from "./validateP2000";
 import ValidationBox from "../../components/ValidationBox/ValidationBox";
-import ForsikretPerson from "./ForsikretPerson/ForsikretPerson";
-import Yrkesaktivitet from "./Yrkesaktivitet/Yrkesaktivitet";
-import Ytelser from "./Ytelser/Ytelser";
-import Ektefelle from "./Ektefelle/Ektefelle";
-import Barn from "./Barn/Barn";
-import InformasjonOmBetaling from "./InformasjonOmBetaling/InformasjonOmBetaling";
+import ForsikretPerson from "src/components/ForsikretPerson/ForsikretPerson";
+import Yrkesaktivitet from "src/components/Yrkesaktivitet/Yrkesaktivitet";
+import Ytelser from "src/components/Ytelser/Ytelser";
+import Ektefelle from "src/components/Ektefelle/Ektefelle";
+import Barn from "src/components/Barn/Barn";
+import InformasjonOmBetaling from "src/components/InformasjonOmBetaling/InformasjonOmBetaling";
 import SakInfo from "src/components/SakInfo/SakInfo";
-import Diverse from "./Diverse/Diverse";
+import Diverse from "src/components/Diverse/Diverse";
 import {resetEditingItems} from "src/actions/app";
 import SEDAttachmentsPanel from "src/applications/BUC/components/SEDAttachmentsPanel/SEDAttachmentsPanel";
 import WaitingPanel from "src/components/WaitingPanel/WaitingPanel";

@@ -4,16 +4,17 @@ import { P5000SED } from 'src/declarations/p5000'
 import { P2000SED } from "src/declarations/p2000";
 import { P8000SED } from "src/declarations/p8000";
 import { P12000SED } from "src/declarations/p12000";
+import { P2200SED } from "src/declarations/p2200";
 import { Sort } from '@navikt/tabell'
 import {SimpleCountry} from "@navikt/landvelger";
 
 export type AllowedLocaleString = 'en' | 'nb'
 
-export type BUCMode = 'buclist' | 'bucedit' | 'bucnew' | 'sednew' | 'p4000' | 'p5000' | 'p2000' | 'p8000' | 'p12000' |'x009'
+export type BUCMode = 'buclist' | 'bucedit' | 'bucnew' | 'sednew' | 'p4000' | 'p5000' | 'p2000' | 'p8000' | 'p12000' | 'p2200' |'x009'
 
 export type SedType = 'P4000' | 'P5000'
 
-export type PSED = P2000SED | P4000SED | P5000SED | P8000SED | P12000SED
+export type PSED = P2000SED | P4000SED | P5000SED | P8000SED | P12000SED | P2200SED
 
 export type LocalStorageEntriesMap<T extends PSED = PSED> = { [caseId in string]: Array<LocalStorageEntry<T>> } | null | undefined
 

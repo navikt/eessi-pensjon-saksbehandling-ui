@@ -1,17 +1,17 @@
 import {Validation} from "src/declarations/app";
 import {P2000SED} from "src/declarations/p2000";
 import performValidation from "../../utils/performValidation";
-import {ValidationVergeProps, validateVerge} from "./Verge/validation";
-import {validateDiverse, ValidationDiverseProps} from "./Diverse/validation";
-import {validateEktefelle, ValidationEktefelleProps} from "./Ektefelle/validation";
-import {validateBank, ValidationBankProps} from "./InformasjonOmBetaling/validation";
-import {validateBarnArray, ValidationBarnArrayProps} from "src/applications/P2000/Barn/validation";
-import {validateYtelser, ValidationYtelserProps} from "src/applications/P2000/Ytelser/validation";
-import {validateYrkesaktivitet, ValidationYrkesaktivitetProps} from "src/applications/P2000/Yrkesaktivitet/validation";
+import {ValidationVergeProps, validateVerge} from "src/components/Verge/validation";
+import {validateDiverse, ValidationDiverseProps} from "src/components/Diverse/validation";
+import {validateEktefelle, ValidationEktefelleProps} from "src/components/Ektefelle/validation";
+import {validateBank, ValidationBankProps} from "src/components/InformasjonOmBetaling/validation";
+import {validateBarnArray, ValidationBarnArrayProps} from "src/components/Barn/validation";
+import {validateYtelser, ValidationYtelserProps} from "src/components/Ytelser/validation";
+import {validateYrkesaktivitet, ValidationYrkesaktivitetProps} from "src/components/Yrkesaktivitet/validation";
 import {
   validateForsikretPerson,
   ValidationForsikretPersonProps
-} from "src/applications/P2000/ForsikretPerson/validation";
+} from "src/components/ForsikretPerson/validation";
 
 
 export interface ValidationP2000Props {
