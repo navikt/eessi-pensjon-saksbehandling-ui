@@ -12,6 +12,7 @@ import {useTranslation} from "react-i18next";
 import {Uforhet} from "src/declarations/p2200";
 import Input from "src/components/Forms/Input";
 import {validateUforhet, ValidationUforhetProps} from "src/components/Uforhet/validation";
+import DateField from "src/components/Forms/DateField";
 
 const mapState = (state: State): MainFormSelector => ({
   validation: state.validation.status,
@@ -51,6 +52,28 @@ const Uforhet: React.FC<MainFormProps> = ({
         <Heading size='medium'>
           {label}
         </Heading>
+        <HGrid columns={3} gap="space-16" align="start">
+          <DateField
+            id={namespace + '-startDatoPensjon'}
+            index={0}
+            label={t('p2200:form-uforhet-startDatoPensjon')}
+            error={validation[namespace + '-startDatoPensjon']?.feilmelding}
+            namespace={namespace}
+            onChanged={(v) => setUforhetProperty("startDatoPensjon", v)}
+            dateValue={uforhet?.startDatoPensjon ?? ''}
+          />
+        </HGrid>
+        <HGrid columns={3} gap="space-16" align="start">
+          <DateField
+            id={namespace + '-startdatoLege'}
+            index={0}
+            label={t('p2200:form-uforhet-startdatoLege')}
+            error={validation[namespace + '-startdatoLege']?.feilmelding}
+            namespace={namespace}
+            onChanged={(v) => setUforhetProperty("startdatoLege", v)}
+            dateValue={uforhet?.startdatoLege ?? ''}
+          />
+        </HGrid>
         <HGrid columns={3}>
           <Input
             error={validation[namespace + '-arbeidsUlykke']?.feilmelding}

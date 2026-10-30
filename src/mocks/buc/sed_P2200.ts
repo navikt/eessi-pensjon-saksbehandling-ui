@@ -28,7 +28,7 @@ const mockP2200: P2200SED = {
         etternavn: "Bruker"
       },
       uforhet: {
-        arbeidsUlykke: "0"
+        arbeidsUlykke: ""
       }
     }
   },
