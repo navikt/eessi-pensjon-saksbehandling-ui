@@ -32,6 +32,7 @@ import SaveAndSendSED from "src/components/SaveAndSendSED/SaveAndSendSED";
 import SEDDetails from "src/components/SEDDetails/SEDDetails";
 import performValidation from "src/utils/performValidation";
 import { validateP2200, ValidationP2200Props } from "./validateP2200";
+import Uforhet from "src/components/Uforhet/Uforhet";
 
 export interface P2200Props {
   buc: Buc
@@ -115,6 +116,7 @@ const P2200: React.FC<P2200Props> = ({ buc, sed, setMode }: P2200Props): JSX.Ele
           <MainForm
             forms={[
               { label: "Forsikret person", value: "forsikretperson", component: ForsikretPerson },
+              { label: "Uførhet", value: "uforhet", component: Uforhet },
               { label: "Yrkesaktivitet", value: "yrkesaktivitet", component: Yrkesaktivitet },
               { label: "Ytelser", value: "ytelser", component: Ytelser },
               { label: "Ektefelle", value: "ektefelle", component: Ektefelle },
